@@ -17,7 +17,7 @@ namespace HR.Controllers
         {
             return View();
         }
-        public JsonResult GetCountryfromarea(int id,string flag)
+        public JsonResult GetCountryfromarea(int id, string flag)
         {
             if (flag == "1")
             {
@@ -26,11 +26,11 @@ namespace HR.Controllers
             }
             else
             {
-                 var record = dbcontext.Area.Where(m => m.Countryid == id.ToString());
+                var record = dbcontext.Area.Where(m => m.Countryid == id.ToString());
                 return Json(record);
             }
         }
-   
+
         //public JsonResult getCountry(int id)
         //{
         //    dbcontext.Configuration.ProxyCreationEnabled = false;
@@ -53,17 +53,17 @@ namespace HR.Controllers
             if (flag == "1")
             {
                 var area = dbcontext.Area.FirstOrDefault(m => m.Countryid == id.ToString());
-               
+
                 return Json(area);
             }
             else
             {
                 var area = dbcontext.Area.Where(m => m.Countryid == id.ToString()).ToList();
-                var t=area.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                var t = area.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 return Json(t);
             }
         }
-        public JsonResult getstatebycountry(int id,string flag)
+        public JsonResult getstatebycountry(int id, string flag)
         {
             if (flag == "1")
             {
@@ -74,7 +74,7 @@ namespace HR.Controllers
             else
             {
                 var area = dbcontext.the_states.Where(m => m.Areaid == id.ToString()).ToList();
-                var t=area.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                var t = area.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 return Json(t);
             }
         }
@@ -108,7 +108,7 @@ namespace HR.Controllers
         {
             var ID = int.Parse(id);
             var ter = dbcontext.Territories.Where(m => m.the_statesid == id).ToList();
-            var t=ter.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            var t = ter.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             return Json(t);
 
 
@@ -123,7 +123,7 @@ namespace HR.Controllers
         {
             var ID = int.Parse(id);
             var ter = dbcontext.cities.Where(m => m.Territoriesid == id).ToList();
-            var t=ter.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            var t = ter.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             return Json(t);
 
         }
@@ -218,7 +218,7 @@ namespace HR.Controllers
             var recors = dbcontext.Budget_class.FirstOrDefault(m => m.ID == ID);
             return Json(recors);
         }
-        public JsonResult testdate(string from,string to)
+        public JsonResult testdate(string from, string to)
         {
             DateTime fromdate = Convert.ToDateTime(from);
             DateTime todate = Convert.ToDateTime(to);
@@ -240,30 +240,30 @@ namespace HR.Controllers
             var recors = dbcontext.check_request_status.FirstOrDefault(m => m.ID == ID);
             return Json(recors);
         }
-        public JsonResult Getrequest(DateTime from,DateTime to)
+        public JsonResult Getrequest(DateTime from, DateTime to)
         {
             try
             {
                 dbcontext.Configuration.ProxyCreationEnabled = false;
                 var req = dbcontext.check_Request.Where(m => DateTime.Compare(m.Request_date, from) >= 0 && DateTime.Compare(m.Request_date, to) <= 0).ToList();
-                foreach(var item in req)
+                foreach (var item in req)
                 {
                     item.date = item.Request_date.ToShortDateString().ToString();
-                  
+
                 }
-                 foreach (var item in req)
+                foreach (var item in req)
                 {
                     var ID = int.Parse(item.ChecktypeID);
                     item.Checktype = dbcontext.Checktype.FirstOrDefault(m => m.ID == ID);
                     var ID_ = int.Parse(item.check_request_change_statusID);
                     item.check_request_change_status = dbcontext.check_request_change_status.FirstOrDefault(m => m.ID == ID_);
                     var hh = int.Parse(item.check_request_change_status.check_request_statusID);
-                    item.check_request_change_status.check_Request = dbcontext.check_request_status.FirstOrDefault(m => m.ID ==hh );
+                    item.check_request_change_status.check_Request = dbcontext.check_request_status.FirstOrDefault(m => m.ID == hh);
                 }
-                 
+
                 return Json(req);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(false);
             }
@@ -285,7 +285,7 @@ namespace HR.Controllers
             }
         }
         public JsonResult getjobclass(string id)
-         {
+        {
             var ID = int.Parse(id);
             var record = dbcontext.Job_level_class.FirstOrDefault(m => m.ID == ID);
             return Json(record);
@@ -328,29 +328,29 @@ namespace HR.Controllers
             try
             {
                 var slots = new List<Slots>();
-                for(var  item=0;item<number;item++)
+                for (var item = 0; item < number; item++)
                 {
                     slots.Add(new Slots());
                 }
-                var slot=dbcontext.Slots.AddRange(slots);
+                var slot = dbcontext.Slots.AddRange(slots);
                 dbcontext.SaveChanges();
                 return Json(slot);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(false);
             }
         }
-        public JsonResult quli(int name,int speci, int grade)
+        public JsonResult quli(int name, int speci, int grade)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
             var n = dbcontext.Name_of_educational_qualification.FirstOrDefault(m => m.ID == name);
             var s = dbcontext.Qualification_Major.FirstOrDefault(m => m.ID == speci);
             var g = dbcontext.GradeEducate.FirstOrDefault(m => m.ID == grade);
-            var model = new quliVM {name=n,Qualification_Major=s,GradeEducate=g };
+            var model = new quliVM { name = n, Qualification_Major = s, GradeEducate = g };
             return Json(model);
         }
-         public JsonResult Risks(string id)
+        public JsonResult Risks(string id)
         {
             var ID = int.Parse(id);
             var model = dbcontext.Risks.FirstOrDefault(m => m.ID == ID);
@@ -385,7 +385,7 @@ namespace HR.Controllers
         }
         public JsonResult ALL_job_level_setup()
         {
-            
+
             var model = dbcontext.job_level_setup.ToList();
             return Json(model);
         }
@@ -475,13 +475,13 @@ namespace HR.Controllers
             else
             {
                 var area = dbcontext.Medical_Service.Where(m => m.Medical_Service_ClassificationId == id.ToString()).ToList();
-                foreach(var item in area)
+                foreach (var item in area)
                 {
                     var ID = int.Parse(item.Medical_Service_ClassificationId);
                     item.Medical_Service_Classification = dbcontext.Medical_Service_Classification.FirstOrDefault(m => m.ID == ID);
                 }
                 dbcontext.SaveChanges();
-                var t = area.Select(m => new { my=m.Medical_Service_Classification,Code = m.Service_Code + "------[" + m.Name + ']', ID = m.ID });
+                var t = area.Select(m => new { my = m.Medical_Service_Classification, Code = m.Service_Code + "------[" + m.Name + ']', ID = m.ID });
                 return Json(t);
             }
         }
@@ -491,7 +491,7 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var model = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == ID);
             return Json(model);
-                 
+
         }
         public JsonResult Get_organization_unit_chart(string id)
         {
@@ -509,6 +509,7 @@ namespace HR.Controllers
         }
         public JsonResult GetEOSInterviewQuestionsGroups(string id)
         {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
             var ID = int.Parse(id);
             var modesl = dbcontext.EOS_Interview_Questions_Groups.FirstOrDefault(m => m.ID == ID);
             return Json(modesl);
@@ -589,7 +590,7 @@ namespace HR.Controllers
         }
         public JsonResult GetEmployee(string id)
         {
-            
+            dbcontext.Configuration.ProxyCreationEnabled = false;
             var ID = int.Parse(id);
             var Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(Employee);
@@ -719,8 +720,8 @@ namespace HR.Controllers
             return Json(Jobtitle);
         }
 
-     
-       
+
+
         public JsonResult Getjoblevel(string id)
         {
             var ID = int.Parse(id);
@@ -734,14 +735,23 @@ namespace HR.Controllers
             return Json(worklocation);
         }
 
-        public JsonResult GetJobSolts(string id)
+        public JsonResult GetJobSolts(string id, string did)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
-
+            var ii = int.Parse(did);
             var ID = int.Parse(id);
-            var Slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == ID);
+            var Slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == ID && ((m.Employee_Profile == null) || m.Employee_Profile.ID == ii));
             return Json(Slots);
         }
+        public JsonResult GetSolt(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            //       var ii = int.Parse(did);
+            var ID = int.Parse(id);
+            var Slots = dbcontext.Slots.FirstOrDefault(m => m.ID == ID);
+            return Json(Slots);
+        }
+
         public JsonResult GetOrganizationChart(string id)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;

@@ -20,7 +20,7 @@ namespace HR.Controllers
         }
         public ActionResult Create(string id)
         {
-            
+
             ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.the_states = dbcontext.the_states.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -29,10 +29,10 @@ namespace HR.Controllers
             ViewBag.Currency = dbcontext.Currency.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
             ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
-           if (id != null)
+            if (id != null)
             {
                 var ID = int.Parse(id);
-                
+
                 var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
                 var abil = emp.Ability;
                 var personnel = emp.Personnel_Information;
@@ -64,16 +64,16 @@ namespace HR.Controllers
 
                 return View(x);
             }
-         
+
 
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4)
         {
             try
             {
-                if(model.Employee_Profile.Countryid==null){model.Employee_Profile.Countryid = "0";}
+                if (model.Employee_Profile.Countryid == null) { model.Employee_Profile.Countryid = "0"; }
                 if (model.Employee_Profile.Areaid == null) { model.Employee_Profile.Areaid = "0"; }
                 if (model.Employee_Profile.the_statesid == null) { model.Employee_Profile.the_statesid = "0"; }
                 if (model.Employee_Profile.Territoriesid == null) { model.Employee_Profile.Territoriesid = "0"; }
@@ -214,17 +214,17 @@ namespace HR.Controllers
                     Service.Currency = dbcontext.Currency.FirstOrDefault(m => m.ID == CurrencyId);
 
                     //dbcontext.Employee_Profile.Add(record);
-                    var ab=dbcontext.Ability.Add(AbilityRecode);
-                    var per=dbcontext.Personnel_Information.Add(Personnel);
-                    var ser=dbcontext.Service_Information.Add(Service);
+                    var ab = dbcontext.Ability.Add(AbilityRecode);
+                    var per = dbcontext.Personnel_Information.Add(Personnel);
+                    var ser = dbcontext.Service_Information.Add(Service);
                     dbcontext.SaveChanges();
                     record.Ability = ab;
                     record.Personnel_Information = per;
                     record.Service_Information = ser;
-                    var emp= dbcontext.Employee_Profile.Add(record);
+                    var emp = dbcontext.Employee_Profile.Add(record);
                     dbcontext.SaveChanges();
-              
-                   ///////////////////////////////////////////////////////////////////////////
+
+                    ///////////////////////////////////////////////////////////////////////////
                     var addmodel = dbcontext.Employee_Address_Profile.ToList();
                     var couunt = 0;
                     if (addmodel.Count() == 0)
@@ -239,15 +239,15 @@ namespace HR.Controllers
                     var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
 
                     var adddd = new Employee_Address_Profile
-                    {Employee_ProfileId=emp.ID.ToString(),Code= stru.Structure_Code + couunt.ToString() };
-                    var address_emp=dbcontext.Employee_Address_Profile.Add(adddd);
+                    { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + couunt.ToString() };
+                    var address_emp = dbcontext.Employee_Address_Profile.Add(adddd);
                     dbcontext.SaveChanges();
                     emp.Employee_Address_Profile = address_emp;
-               dbcontext.SaveChanges();
+                    dbcontext.SaveChanges();
                     ///////////////////////////////////////////////
                     var addmodel1 = dbcontext.Employee_Qualification_Profile.ToList();
                     var tr = 0;
-                   
+
                     if (addmodel1.Count() == 0)
                     {
                         tr = 1;
@@ -260,7 +260,7 @@ namespace HR.Controllers
                     DateTime statis = Convert.ToDateTime("1/1/1900");
                     var strus = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
                     var text = new Employee_Qualification_Profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus.Structure_Code + tr.ToString(),Qualification_start_date=statis,Qualification_end_date=statis };
+                    { Employee_ProfileId = emp.ID.ToString(), Code = strus.Structure_Code + tr.ToString(), Qualification_start_date = statis, Qualification_end_date = statis };
                     var e = dbcontext.Employee_Qualification_Profile.Add(text);
                     dbcontext.SaveChanges();
 
@@ -282,7 +282,7 @@ namespace HR.Controllers
                     DateTime statis2 = Convert.ToDateTime("1/1/1900");
                     var strus2 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
                     var text2 = new Position_Information
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus2.Structure_Code + tr2.ToString(), From_date = statis2, To_date = statis2,End_of_service_date=statis2,Last_working_date=statis2 };
+                    { Employee_ProfileId = emp.ID.ToString(), Code = strus2.Structure_Code + tr2.ToString(), From_date = statis2, To_date = statis2, End_of_service_date = statis2, Last_working_date = statis2, SlotdescId = "0" };
                     var e2 = dbcontext.Position_Information.Add(text2);
                     dbcontext.SaveChanges();
 
@@ -291,14 +291,34 @@ namespace HR.Controllers
                     var e22 = dbcontext.Position_Transaction_Information.Add(text22);
                     dbcontext.SaveChanges();
 
-                    //var VMposition = new Employee_Positions_Profile_VM
-                    //{ Position_Information = text2, Position_Transaction_Information = text22 };
-                
-
-                    emp.Employee_Positions_Profile = e2 ;
+                    emp.Employee_Positions_Profile = e2;
                     dbcontext.SaveChanges();
                     emp.Position_Transaction_Information = e22;
                     dbcontext.SaveChanges();
+            
+                    ///////////////////////////////////////////////
+
+                    var employeefamily = dbcontext.Employee_family_profile.ToList();
+                    var famcount = 0;
+
+                    if (employeefamily.Count() == 0)
+                    {
+                        famcount = 1;
+                    }
+                    else
+                    {
+                        var te3 = employeefamily.LastOrDefault().ID;
+                        famcount = te3 + 1;
+                    }
+                    DateTime statis3 = Convert.ToDateTime("1/1/1900");
+                    var strus3 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    var text3 = new Employee_family_profile
+                    { Employee_ProfileId = emp.ID.ToString(), Code = strus3.Structure_Code + famcount.ToString(), Birth_date = statis3, Death_date = statis3, End_relation_date = statis3, Start_relation_date = statis3 };
+                    var e3 = dbcontext.Employee_family_profile.Add(text3);
+                    dbcontext.SaveChanges();
+                    emp.Employee_family_profile = e3;
+                    dbcontext.SaveChanges();
+
 
                     if (command == "Submit")
                     {
@@ -311,6 +331,10 @@ namespace HR.Controllers
                     if (command3 == "Submit")
                     {
                         return RedirectToAction("Create", "Employee_Positions_Profile", new { id = emp.ID });
+                    }
+                    if (command4 == "Submit")
+                    {
+                        return RedirectToAction("Create", "Employee_family_profile", new { id = emp.ID });
                     }
 
                     return RedirectToAction("Index");
@@ -335,16 +359,16 @@ namespace HR.Controllers
         {
             try
             {
-            ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.the_states = dbcontext.the_states.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.Currency = dbcontext.Currency.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
-            ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.the_states = dbcontext.the_states.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Currency = dbcontext.Currency.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
 
-            var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
+                var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
                 var vm = new Employee_Profile_VM { Employee_Profile = record, Ability = record.Ability, Service_Information = record.Service_Information, Personnel_Information = record.Personnel_Information };
                 if (vm != null)
                 { return View(vm); }
@@ -361,7 +385,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4)
         {
             try
             {
@@ -388,7 +412,7 @@ namespace HR.Controllers
 
 
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
-             
+
                 record.Code = model.Employee_Profile.Code;
                 record.Name = model.Employee_Profile.Name;
                 record.Full_Name = model.Employee_Profile.Full_Name;
@@ -501,6 +525,10 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("Edit", "Employee_Positions_Profile", new { id = record.Employee_Positions_Profile.ID });
                 }
+                if (command4 == "Submit")
+                {
+                    return RedirectToAction("Edit", "Employee_family_profile", new { id = record.Employee_family_profile.ID });
+                }
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -516,13 +544,14 @@ namespace HR.Controllers
             try
             {
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
-                var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
-                var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == id);
-                var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == id);
-                var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == id);
-                var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == id);
+                var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.Employee_Address_Profile.ID);
+                var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.Employee_Qualification_Profile.ID);
+                var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
+                var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
+                var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
                 var Position_Information = dbcontext.Position_Information.FirstOrDefault(m => m.ID == record.Employee_Positions_Profile.ID);
                 var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
+                var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
 
                 if (record != null)
                 { return View(record); }
@@ -544,28 +573,64 @@ namespace HR.Controllers
         {
             var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
             var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.Employee_Address_Profile.ID);
-            var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == id);
+            var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.Employee_Qualification_Profile.ID);
             var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
-            var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID ==record.Service_Information.ID);
+            var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
             var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
             var Position_Information = dbcontext.Position_Information.FirstOrDefault(m => m.ID == record.Employee_Positions_Profile.ID);
             var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
+            var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
+            var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
+
             try
             {
+
+                var old_slot = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
+                if (old_slot != null)
+                {
+                    old_slot.Employee_Profile = null;
+                    dbcontext.SaveChanges();
+                }
+
+
                 var emp = dbcontext.Employee_Profile.Remove(record);
                 dbcontext.SaveChanges();
-                dbcontext.Ability.Remove(Ability);
-                dbcontext.Service_Information.Remove(Service_Information);
-                dbcontext.Personnel_Information.Remove(Personnel_Information);
-                dbcontext.Employee_Address_Profile.Remove(Employee_Address_Profile);
-                dbcontext.Employee_Qualification_Profile.Remove(Employee_Qualification_Profile);
-                dbcontext.Position_Information.Remove(Position_Information);
-                dbcontext.Position_Transaction_Information.Remove(Position_Transaction_Information);
-
+                if (Ability != null)
+                {
+                    dbcontext.Ability.Remove(Ability);
+                }
+                if (Service_Information != null)
+                {
+                    dbcontext.Service_Information.Remove(Service_Information);
+                }
+                if (Personnel_Information != null)
+                {
+                    dbcontext.Personnel_Information.Remove(Personnel_Information);
+                }
+                if (Employee_Address_Profile != null)
+                {
+                    dbcontext.Employee_Address_Profile.Remove(Employee_Address_Profile);
+                }
+                if (Employee_Qualification_Profile != null)
+                {
+                    dbcontext.Employee_Qualification_Profile.Remove(Employee_Qualification_Profile);
+                }
+                if (Position_Information != null)
+                {
+                    dbcontext.Position_Information.Remove(Position_Information);
+                }
+                if (Position_Transaction_Information != null)
+                {
+                    dbcontext.Position_Transaction_Information.Remove(Position_Transaction_Information);
+                }
+                if (Employee_family_profile != null)
+                {
+                    dbcontext.Employee_family_profile.Remove(Employee_family_profile);
+                }
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
                 TempData["Message"] = "You can't delete beacause it have child";
                 return View(record);

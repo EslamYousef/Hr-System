@@ -15,14 +15,15 @@ namespace HR.Controllers
         // GET: Employee_Address_Profile
         public ActionResult Index()
         {
-           var address = dbcontext.Employee_Address_Profile.ToList();
+            var address = dbcontext.Employee_Address_Profile.ToList();
             var employeeprofile = dbcontext.Employee_Profile.ToList();
             var model = from a in employeeprofile
-                        join b in  address on a.Employee_Address_Profile.ID equals b.ID
+                        join b in address on a.Employee_Address_Profile.ID equals b.ID
                         select new addressemployee_VM
                         {
-                            fullname = a.Full_Name,code=a.Code,
-                            EmployeeId =a.ID,
+                            fullname = a.Full_Name,
+                            code = a.Code,
+                            EmployeeId = a.ID,
                             Employee_Address_Profile = b
                         };
             return View(model);
@@ -58,7 +59,7 @@ namespace HR.Controllers
                 return View(x);
             }
 
-            var EmployeeAddress = new Employee_Address_Profile ();
+            var EmployeeAddress = new Employee_Address_Profile();
             return View(EmployeeAddress);
 
         }
@@ -81,12 +82,12 @@ namespace HR.Controllers
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-       
+
                 if (ModelState.IsValid)
-                {     
+                {
                     var prof = int.Parse(model.Employee_ProfileId);
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
-                    var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m =>m.ID== emp.Employee_Address_Profile.ID);
+                    var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == emp.Employee_Address_Profile.ID);
                     record.Resident = model.Resident;
                     record.Streetname = model.Streetname;
                     record.Streetnumber = model.Streetnumber;
@@ -114,11 +115,11 @@ namespace HR.Controllers
                     record.postcodeId = model.postcodeId;
                     var postcodeId = int.Parse(model.postcodeId);
                     record.postcode = dbcontext.postcode.FirstOrDefault(m => m.ID == postcodeId);
-                   
+
                     dbcontext.SaveChanges();
                     if (command == "Submit")
                     {
-                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId)});
+                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
                     }
                     return RedirectToAction("Index");
                 }
@@ -184,7 +185,7 @@ namespace HR.Controllers
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == model.ID);
-                //record.Code = model.Code;
+                record.Code = model.Code;
                 record.Resident = model.Resident;
                 record.Streetname = model.Streetname;
                 record.Streetnumber = model.Streetnumber;

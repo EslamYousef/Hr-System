@@ -63,7 +63,7 @@
                                 </div>
                                 @Html.HiddenFor(model => model.Position_Information.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.HiddenFor(model => model.Position_Information.Position_Transaction_Information.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                             
+
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Position_Information.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-3">
@@ -122,7 +122,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.SlotdescId, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), "Select Unit desc", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                            @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), "Select slot", new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.SlotdescId, "", new { @class = "text-danger" })
                                             <input type="text" value=" " class="form-control" id="tername" disabled />
 
@@ -396,7 +396,7 @@
         function CountryName() {
             debugger
             var id = $("#country").val();
-       
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetJobtitle",
@@ -432,7 +432,8 @@
                     $("#ter").removeAttr("disabled");
                     $("#area").select2("val", result.ID);
                     $("#areaname1").val(result.Name);
-
+                    $("#area").attr("readonly", true);
+                    $("#area").prop("readonly", true);
                 },
                 error: function () {
                     debugger
@@ -440,30 +441,36 @@
                 }
             });
         }
-        areaname(did)
+        //areaname(did)
         function getter(did) {
             debugger
-            //var id = $("#ter").val();
+            var oo = $("#employeeId").val();
+            var id = $("#ter").val();
+
             //$("#citeid").empty();
             //$("#citeid").select2("val", "");
             //$("#cityname").val(" ");
             $.ajax({
                 type: "post",
                 url: "/Helper/GetJobSolts",
-                data: { "id": did },
+                data: { "id": did,"did":oo },
                 success: function (result) {
                     debugger
                     var finalresult="";
                     finalresult = "<option value='0' > Choose Slot desc </option>";
                     $.each(result, function (key, value) {
-                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                        if (value.ID == parseInt(@Model.Position_Information.SlotdescId)) {
+                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                        }
+                        else {
+                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                        }
                         //"--"+ value.slot_description +
                     });
                     $("#ter").html(finalresult);
                     //      $("#citeid").removeAttr("disabled");
-                    $("#ter").select2("val", result.ID);
-
-                    $("#tername").val(result.slot_code);
+                    //$("#ter").select2("val", result.ID);
+                    slot();
                 //    getallcite(result.ID);
                     $("#state").removeAttr("disabled");
 
@@ -474,7 +481,26 @@
                 }
             });
         }
-        getter(did)
+        slot();
+        function slot()
+        {
+            debugger
+            var id = $("#ter").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetSolt",
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+                    $("#tername").val(result.slot_code);
+                },
+                error: function () {
+                    debugger
+                    $("#tername").val(" ");
+                }
+            });
+        }
+        //getter(did)
         function getstate(did)
         {
             debugger
@@ -497,7 +523,8 @@
                     $("#statename").val(result.unit_Description);
                     getcite(result.worklocationid)
                     getcite2(result.worklocationid)
-
+                    $("#state").attr("readonly", true);
+                    $("#state").prop("readonly", true);
                 },
                 error: function () {
                     debugger
@@ -505,7 +532,7 @@
                 }
             });
         }
-        getstate(did)
+        //getstate(did)
 
         function getcite(did) {
             debugger
@@ -529,7 +556,7 @@
                 }
             });
         }
-        getcite(did)
+        //getcite(did)
         function getcite2(did) {
             debugger
             //    var id = $("#citeid").val();
@@ -550,7 +577,7 @@
                 }
             });
         }
-        getcite2(did)
+        //getcite2(did)
 </script>
 
 
@@ -567,6 +594,10 @@
                 debugger
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
+
+           //     $("#employeeId").prop("readonly", true);
+           //     $("#employeeId").attr("readonly", true);
+
             },
             error: function () {
                 debugger

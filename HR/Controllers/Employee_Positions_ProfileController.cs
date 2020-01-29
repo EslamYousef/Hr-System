@@ -17,7 +17,7 @@ namespace HR.Controllers
         public ActionResult Index()
         {
             var Employee_Profile = dbcontext.Employee_Profile.ToList();
-            var Position_Information =  dbcontext.Position_Information.ToList();
+            var Position_Information = dbcontext.Position_Information.ToList();
             var model = from a in Employee_Profile
                         join b in Position_Information on a.Employee_Positions_Profile.ID equals b.ID
                         select new PositionEmployee_VM
@@ -63,9 +63,9 @@ namespace HR.Controllers
                 return View(z);
             }
             DateTime statis = Convert.ToDateTime("1/1/1900");
-            var PositionInformation = new Position_Information { Code = stru.Structure_Code + count, End_of_service_date = statis, From_date = statis, Last_working_date = statis,To_date=statis };
-            var Position_Transaction_Information = new Position_Transaction_Information { Position_transaction = statis,Approved_date=statis,Memo_date=statis,Resolution_date=statis };
-            var vm = new Employee_Positions_Profile_VM { Position_Transaction_Information = Position_Transaction_Information, Position_Information = PositionInformation};
+            var PositionInformation = new Position_Information { Code = stru.Structure_Code + count, End_of_service_date = statis, From_date = statis, Last_working_date = statis, To_date = statis };
+            var Position_Transaction_Information = new Position_Transaction_Information { Position_transaction = statis, Approved_date = statis, Memo_date = statis, Resolution_date = statis };
+            var vm = new Employee_Positions_Profile_VM { Position_Transaction_Information = Position_Transaction_Information, Position_Information = PositionInformation };
 
             //    var PositionInformation = new Position_Information();
             return View(vm);
@@ -116,8 +116,14 @@ namespace HR.Controllers
                     var job_descId = int.Parse(model.Position_Information.job_descId);
                     record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == job_descId);
                     record.SlotdescId = model.Position_Information.SlotdescId;
-                    var SlotdescId = int.Parse(model.Position_Information.SlotdescId);
-                    record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == SlotdescId);
+                    if (model.Position_Information.SlotdescId != "0")
+                    {
+                        var SlotdescId = int.Parse(model.Position_Information.SlotdescId);
+                        var my_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == SlotdescId);
+                        my_slot.Employee_Profile = emp;
+                    }
+
+                    //    record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == SlotdescId);
                     record.Default_location_descId = model.Position_Information.Default_location_descId;
                     var Default_location_descId = int.Parse(model.Position_Information.Default_location_descId);
                     record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == Default_location_descId);
@@ -130,7 +136,7 @@ namespace HR.Controllers
                     record.Organization_ChartId = model.Position_Information.Organization_ChartId;
                     var Organization_ChartId = int.Parse(model.Position_Information.Organization_ChartId);
                     record.Organization_Chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == Organization_ChartId);
-                    dbcontext.SaveChanges();
+                    //        if (record.SlotdescId.Where(m => m.Employee_Profile != null).ToList().Select(m => m.Employee_Profile.ID).ToList())
 
                     Position_Transaction_Information information = new Position_Transaction_Information();
                     information.Position_transaction = model.Position_Transaction_Information.Position_transaction;
@@ -141,7 +147,7 @@ namespace HR.Controllers
                     information.Memo_number = model.Position_Transaction_Information.Memo_number;
                     information.Resolution_number = model.Position_Transaction_Information.Resolution_number;
                     information.Approved_by = model.Position_Transaction_Information.Approved_by;
-                    information.Recommended_by = model.Position_Transaction_Information.Recommended_by; 
+                    information.Recommended_by = model.Position_Transaction_Information.Recommended_by;
                     information.Approved_date = model.Position_Transaction_Information.Approved_date;
                     information.Memo_date = model.Position_Transaction_Information.Memo_date;
                     information.Resolution_date = model.Position_Transaction_Information.Resolution_date;
@@ -180,8 +186,8 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-         //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
-      
+                //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
+
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id);
                 var record2 = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == id);
 
@@ -223,7 +229,7 @@ namespace HR.Controllers
                 var prof = int.Parse(model.Position_Information.Employee_ProfileId);
                 var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == emp.Employee_Positions_Profile.ID);
-                 //record.Code = model.Code;
+                record.Code = model.Position_Information.Code;
                 record.Primary_Position = model.Position_Information.Primary_Position;
                 record.From_date = model.Position_Information.From_date;
                 record.To_date = model.Position_Information.To_date;
@@ -242,9 +248,54 @@ namespace HR.Controllers
                 record.job_descId = model.Position_Information.job_descId;
                 var job_descId = int.Parse(model.Position_Information.job_descId);
                 record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == job_descId);
+
+                // var SlotdescId = int.Parse(model.Position_Information.SlotdescId);
+                //   var t = dbcontext.Position_Information.Select(a => a.SlotdescId);
+                if (model.Position_Information.SlotdescId == "0")
+                {
+                    ////remove 
+                    if (record.SlotdescId != "0")
+                    {
+                        var IDslot = int.Parse(record.SlotdescId);
+                        var old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == IDslot);
+                        old_slot.Employee_Profile = null;
+                        dbcontext.SaveChanges();
+                    }
+                }
+                else
+                {
+                    var IDslot = int.Parse(model.Position_Information.SlotdescId);
+                    var new_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == IDslot);
+                    if (new_slot.Employee_Profile == null)
+                    {
+                        ///remove from old
+                        if (record.SlotdescId != "0")
+                        {
+                            var old_IDslot = int.Parse(record.SlotdescId);
+                            var old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == old_IDslot);
+                            old_slot.Employee_Profile = null;
+                            dbcontext.SaveChanges();
+                        }
+                        //else if(record.SlotdescId != "0")
+                        //{
+                        //    var old_IDslot = int.Parse(record.SlotdescId);
+                        //    var old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == old_IDslot);
+                        //    old_slot.Employee_Profile = null;
+                        //    dbcontext.SaveChanges();
+                        //}
+                        /////add to new
+                        new_slot.Employee_Profile = emp;
+                    }
+
+                }
                 record.SlotdescId = model.Position_Information.SlotdescId;
-                var SlotdescId = int.Parse(model.Position_Information.SlotdescId);
-                record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == SlotdescId);
+
+
+
+
+
+
+                //    record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == SlotdescId);
                 record.Default_location_descId = model.Position_Information.Default_location_descId;
                 var Default_location_descId = int.Parse(model.Position_Information.Default_location_descId);
                 record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == Default_location_descId);
@@ -259,8 +310,8 @@ namespace HR.Controllers
                 record.Organization_Chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == Organization_ChartId);
                 dbcontext.SaveChanges();
 
-           //    var prof = int.Parse(model.Position_Transaction_Information.Employee_ProfileId);
-       //       var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+                //    var prof = int.Parse(model.Position_Transaction_Information.Employee_ProfileId);
+                //       var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == emp.Position_Transaction_Information.ID);
 
                 information.Position_transaction = model.Position_Transaction_Information.Position_transaction;
