@@ -14,6 +14,18 @@ namespace HR.Controllers
     {
         // GET: personnel_transaction
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        public ActionResult index()
+        {
+            try
+            {
+                var model = dbcontext.Employee_records.ToList();
+                return View(model);
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
+        }
          public ActionResult create()
         {
             try
@@ -154,5 +166,174 @@ namespace HR.Controllers
             }
         }
 
+        public ActionResult edit()
+        {
+            try
+            {
+                return View();
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult edit(TRANS_VM model)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+        public ActionResult delete(string id)
+        {
+            try
+            {
+
+                return View();
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
+        }
+        [ActionName("delete")]
+        public ActionResult method_delete(string id)
+        {
+            try
+            {
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+
+
+
+        public ActionResult status(string id)
+        {
+            try
+            {
+                var ID = int.Parse(id);
+                var model = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == ID);
+                var st = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
+                ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
+                var my_model = new employeestate { status = st, empid = ID };
+                return View(my_model);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("index");
+            }
+        }
+        [HttpPost]
+        public ActionResult status(employeestate model)
+        {
+            var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
+            var record = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == model.empid);
+            if (model.check_status == check_status.Approved)
+            {
+                sta.approved_by = model.status.approved_by;
+                sta.approved_bydate = model.status.approved_bydate;
+                record.check_status = check_status.Approved;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == check_status.Canceled)
+            {
+
+                sta.cancaled_by = model.status.cancaled_by;
+                sta.cancaled_bydate = model.status.cancaled_bydate;
+                record.check_status = check_status.Canceled;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == check_status.created)
+            {
+                sta.created_by = model.status.created_by;
+                sta.created_bydate = model.status.created_bydate;
+                record.check_status = check_status.created;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == check_status.Rejected)
+            {
+                sta.Rejected_by = model.status.Rejected_by;
+                sta.Rejected_bydate = model.status.Rejected_bydate;
+                record.check_status = check_status.Rejected;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == check_status.Report_as_ready)
+            {
+                sta.report_as_ready_by = model.status.report_as_ready_by;
+                sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
+                record.check_status = check_status.Report_as_ready;
+                dbcontext.SaveChanges();
+            }
+
+            return RedirectToAction("index");
+        }
+        public JsonResult Getalll(List<string> c)
+        {
+            try
+            {
+                var model = dbcontext.personnel_transaction.ToList();
+                return Json(model);
+            }
+            catch (Exception e)
+            {
+                return Json(false);
+            }
+        }
+        public JsonResult Getone(DateTime from, DateTime to, List<string> status)
+        {
+            try
+            {
+                dbcontext.Configuration.ProxyCreationEnabled = false;
+                var nn = new List<check_status>();
+                List<personnel_transaction> re1 = new List<personnel_transaction>();
+                foreach (var item in status)
+                {
+                    if (item != "all")
+                    {
+                        nn.Add((check_status)Enum.Parse(typeof(check_status), item));
+                    }
+                }
+                if (status[0] == "all")
+                {
+                    var req = dbcontext.personnel_transaction.Where(m => DateTime.Compare(m.transaction_date, from) >= 0 && DateTime.Compare(m.transaction_date, to) <= 0).ToList();
+
+                }
+                else if (status[0] != "all")
+                {
+                    var req = dbcontext.personnel_transaction.Where(m => DateTime.Compare(m.transaction_date, from) >= 0 && DateTime.Compare(m.transaction_date, to) <= 0).ToList();
+
+                    foreach (var item in nn)
+                    {
+                        re1.AddRange(req.Where(m => m.check_status == item).ToList());
+                    }
+                }
+
+                return Json(re1);
+            }
+            catch (Exception e)
+            {
+                return Json(false);
+            }
+        }
+        public JsonResult getallstatues()
+        {
+            var list = new List<string>();
+            list.Add("created");
+            list.Add("Canceled");
+            list.Add("Rejected");
+            list.Add("Approved");
+            list.Add("Report_as_ready");
+            return Json(list);
+        }
     }
 }

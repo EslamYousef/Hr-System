@@ -13,21 +13,21 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <link rel="icon" href="~/Content/neon-rtl/assets/images/favicon.ico">
+    <link rel="icon" href="~/Content/neon/assets/images/favicon.ico">
 
     <title>تسجيل الدخول</title>
 
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/font-icons/entypo/css/entypo.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-core.css">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-theme.css">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-forms.css">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-rtl.css">
-    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/custom.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/neon-core.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/neon-theme.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/neon-forms.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/neon-rtl.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/css/custom.css">
 
-    <script src="~/Content/neon-rtl/assets/js/jquery-1.11.3.min.js"></script>
+    <script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
     <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -145,76 +145,22 @@ var baseurl = '';
     </div>
 
     <!-- Bottom scripts (common) -->
-    <script src="~/Content/neon-rtl/assets/js/gsap/TweenMax.min.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/bootstrap.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/joinable.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/resizeable.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/neon-api.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/jquery.validate.min.js"></script>
-    <script src="~/Content/neon-rtl/assets/js/neon-login.js"></script>
+    <script src="~/Content/neon/assets/js/gsap/TweenMax.min.js"></script>
+    <script src="~/Content/neon/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+    <script src="~/Content/neon/assets/js/bootstrap.js"></script>
+    <script src="~/Content/neon/assets/js/joinable.js"></script>
+    <script src="~/Content/neon/assets/js/resizeable.js"></script>
+    <script src="~/Content/neon/assets/js/neon-api.js"></script>
+    <script src="~/Content/neon/assets/js/jquery.validate.min.js"></script>
+    <script src="~/Content/neon/assets/js/neon-login.js"></script>
 
     <!-- JavaScripts initializations and stuff -->
-    <script src="~/Content/neon-rtl/assets/js/neon-custom.js"></script>
+    <script src="~/Content/neon/assets/js/neon-custom.js"></script>
 
     <!-- Demo Settings -->
-    <script src="~/Content/neon-rtl/assets/js/neon-demo.js"></script>
+    <script src="~/Content/neon/assets/js/neon-demo.js"></script>
 </body>
 </html>
-
-@*<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

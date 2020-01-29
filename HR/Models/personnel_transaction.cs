@@ -17,18 +17,20 @@ namespace HR.Models
         public transaction_type Transaction_type { get; set; }
         public virtual Employee_Profile Employee { get; set; }
         public virtual status status { get; set; }
-
+        public check_status check_status { get; set; }
+        public string date { get; set; }
+        public string ss { get; set; }
 
         /////////////////
         ////////////////
         ///////////////
-     
-     
+
+
         [Display(Name = "Position transaction no.")]
         public string Position_transaction_no { get; set; }
         [Display(Name = "Position transaction")]
         public DateTime Position_transaction { get; set; }
-        public Transaction_Type Transaction_Type { get; set; } = Transaction_Type.Re_Hire;
+        public Transaction_Type Transaction_Type_ { get; set; } = Transaction_Type.Re_Hire;
         public Fixed_basic_salary_by Fixed_basic_salary_by { get; set; } = Fixed_basic_salary_by.In_House;
         [Display(Name = "Resolution number")]
         public string Resolution_number { get; set; }
