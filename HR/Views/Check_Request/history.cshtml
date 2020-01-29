@@ -1,0 +1,110 @@
+﻿@model HR.Models.ViewModel.Check_Request_VM
+
+@{
+    ViewBag.Title = "history";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+         
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+               
+                <table id="categories" class="table table-bordered table-striped text-center">
+
+                    <thead>
+                        <tr>
+                            <th>Request number</th>
+                            <th>Request date</th>
+                            <th>Request Code</th>
+                            <th>Request Name</th>
+                            <th>sign by</th>
+                            <th>Directed to</th>
+                            <th>Comment</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                            <tr>
+                                <td>@Model.check_Request.Request_number</td>
+                                <td>@Model.check_Request.Request_date.ToShortDateString()</td>
+                                <td>@Model.check_request_change_status.check_Request.Code</td>
+                                <td>@Model.check_request_change_status.check_Request.Name</td>
+                                @if (Model.check_request_change_status.Sign_by != null)
+                                {
+                                <td>@Model.check_request_change_status.Sign_by.Full_Name</td>
+                                }else
+                                {
+                                    <td>empty</td>
+                                }
+                                @if (Model.check_request_change_status.Directed_to != null)
+                                {
+                                <td>@Model.check_request_change_status.Directed_to.Full_Name</td>
+                                }
+                                else
+                                {
+                                     <td>empty</td>
+                                }
+                                <td>@Model.check_request_change_status.Comment</td>
+                             
+                            </tr>
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Request number</th>
+                            <th>Request date</th>
+                            <th>Request Code</th>
+                            <th>Request Name</th>
+                            <th>sign by</th>
+                            <th>Directed to</th>
+                            <th>Comment</th>
+                          
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <a href="@Url.Action("index", "Check_Request", new {id = @Model.check_Request.ID})" class="btn btn-primary btn-danger" style="width:70px;margin-right:420px;width:100px"><i class="fa fa-edit"></i>Back</a>
+
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+
+
+@section scripts{}

@@ -1,0 +1,318 @@
+﻿@model HR.Models.TicketPrice
+@using HR.Models.Infra;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create Ticket Price
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Ticket_Prices", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Airport From </label>
+                            <div class="col-md-3">
+                                @Html.DropDownList("1", new SelectList(ViewBag.airport, "ID", "Code"), new { @class = "select2", @onchange = "CountryName()", @id = "Country"})
+                                @Html.ValidationMessageFor(model => model.From_air_port_Idd, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname" disabled />
+                            </div>
+                            <div class="col-md-1"></div>
+                                <label class="control-label col-md-2">Airport To </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("2", new SelectList(ViewBag.airport, "ID", "Code"), new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                                    @Html.ValidationMessageFor(model => model.From_air_port_Idd, "", new { @class = "text-danger" })
+                                    <input type="text" value=" " class="form-control" id="countryname1" disabled />
+                                </div>
+                            </div>
+
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.From_Date, htmlAttributes:
+                      new { @class = "control-label col-md-2" })
+                      
+
+                            <div class="col-md-4">
+                               
+                                <input class="form-control datepicker" autocomplete="off" id="datefrom"/>
+
+
+                            </div>
+                            @Html.LabelFor(model => model.TO_Date, htmlAttributes:
+                      new { @class = "control-label col-md-2" })
+                     
+                            <div class="col-md-4">
+
+                                <input class="form-control datepicker" autocomplete="off" id="dateto" />
+    
+                                  
+                               
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                           
+                                @Html.LabelFor(model => model.classtype, htmlAttributes:
+                      new { @class = "control-label col-md-2" })
+                               
+                                <div class="col-md-4">
+                                    @Html.DropDownList("Type", EnumHelper.GetSelectList(typeof(ClassType)), "Select My Type", new { @class = "form-control", id = "class" })
+
+                                </div>
+                                    @Html.LabelFor(model => model.Price, htmlAttributes:
+                      new { @class = "control-label col-md-2" })
+                              
+                                <div class="col-md-4">
+
+                                    <input class="form-control" id="price" type="number" min="1" step="1" />
+
+                                </div>
+                        </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4"> </div>
+                                <div class="col-md-8 ">
+                                    <input type="button" onclick="add()" value="Add Ticket Prices" class="btn btn-success "/>
+                                    <input type="submit" value="Create Ticket Prices" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Ticket_Prices")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back TO INDEX</a>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th hidden>
+                                            <label class="control-label col-md-2">Class.Type</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-2">Class.Type_</label>
+                                        </th>
+                                        <th style="width:10px" hidden>
+                                            <label class="control-label">FROM.code</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-2">FROM</label>
+                                        </th>
+                                        <th style="width:10px" hidden>
+                                            <label class="control-label">To.code</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-2">To</label>
+                                        </th>
+
+                                        <th>
+                                            <label class="control-label col-md-2">FROM.Date</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-2">To.Date</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label">Price</label>
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="add1"></tbody>
+                            </table>
+
+                        </div>
+                }
+            </div>
+
+        </div>
+      
+    </section>
+</div>
+@section scripts{}
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function CountryName()
+    {
+        debugger
+        var id= $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getairport",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function CountryName1() {
+        debugger
+        var id = $("#Country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getairport",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    CountryName();
+    CountryName1();
+</script>
+<script>
+    function add()
+    {
+
+        debugger
+        var class_type = $("#class").val();
+        var fromair = $("#countryname").val();
+        var toair = $("#countryname1").val();
+        var codefromair = $("#Country").val();
+        var codetoair = $("#Country1").val();
+        var fromdate = $("#datefrom").val();
+        var todate = $("#dateto").val();
+        var Price = $("#price").val();
+        if (fromair == " " || toair == " " || fromdate == "" || todate == "" || codefromair == "" || codetoair=="" || price == "" || class_type == "")
+        {
+          
+
+            warning();
+        }
+        else
+        {
+            var name = "";
+            if (class_type == "1") {
+                name="Economy";
+            }
+            else if (class_type == "2") {
+                name="Premium_economy";
+            }
+            else if (class_type == "3") {
+                name="Business";
+            }
+            else if (class_type == "4") {
+                name = "First";
+            }
+            $.ajax({
+                type:"post",
+                url:    "/Helper/testdate",
+                data: { "from": fromdate, "to": todate },
+                success: function (result) {
+                    if (result == true)
+                    {
+                        
+                        debugger
+                        var tr =
+                  "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='class_type' hidden value='" + class_type + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0'><input id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + name + "' readonly='readonly' /></td>"+
+                  "<td style='width:30px' hidden><input id='codefrom'  style='width:30px' name='codefrom'  value='" + codefromair + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0'><input id='from' style='margin-bottom: 1em;' name='from' value='" + fromair + "' readonly='readonly' /></td>" +
+                  "<td  style='width:30px' hidden ><input id='codeto'  style='width:30px' name='codeto'  value='" + codetoair + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='to' style='margin-bottom: 1em;' name='to' value='" + toair + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='fromdate' style='margin-bottom: 1em;' name='fromdate' value='" + fromdate + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='todate' style='margin-bottom: 1em;' name='todate' value='" + todate + "' readonly='readonly' /></td>" +
+                  "<td><input id='Price' name='Price' value='" + Price + "' readonly='readonly' /></td>"+
+                  "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                        $("#add1").append(tr);
+
+                        $("#countryname").val(" ");
+                        $("#countryname1").val(" ");
+                        
+                       $("#datefrom").val("");
+                       $("#dateto").val("");
+                       $("#price").val("");
+                       CountryName();
+                       CountryName1();
+                       
+                    }
+                    else
+                    {
+
+                    }
+
+
+                },
+                error: function()
+                {
+                    debugger
+                }
+
+            });
+
+
+        }
+
+    }
+    function remove(thi)
+    {
+        debugger
+        thi.parent().parent().remove();
+        //thi.parent().parent().parent().remove(removed);
+
+       
+    }
+</script>
+<script>
+    function get_name()
+    {
+        var class_type = $("#class").val();
+        if (class_type == "1") {
+
+        }
+        else if (class_type == "2") {
+
+        }
+        else if (class_type == "3") {
+
+        }
+        else if (class_type == "4") {
+
+        }
+    }
+</script>
+<script>
+    function warning()
+    {
+    $.toast({
+        heading: 'Warning',
+        text: 'Now you can seemlessly generate warnings using the icon property in the options',
+        icon: 'warning'
+    })
+    }
+</script>

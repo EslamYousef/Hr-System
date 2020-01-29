@@ -1,0 +1,172 @@
+﻿@model HR.Models.Medicine
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create Medicine
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Medicine", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                      <div class="form-group">
+            @Html.LabelFor(model => model.Medical_Medicine_ClassficationId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.Medical_Medicine_ClassficationId, new SelectList(ViewBag.Medical_Medicine_Classfication, "ID", "Code"), "Select MedicalMedicineClassfication", new { @class = "select2", @onchange = "MedicalMedicineClassficationName()", @id = "Medical_Medicine_Classfication" })
+                @Html.ValidationMessageFor(model => model.Medical_Medicine_ClassficationId, "", new { @class = "text-danger" })
+                <input type="text" value=" " class="form-control" id="medicalmedicineclassficationname" disabled />
+            </div>
+        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            
+                                <label class="control-label col-md-2" >TName</label>                  
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                            </div>
+                                @Html.LabelFor(model => model.Is_Foreign, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.Is_Foreign, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Is_Foreign, "", new { @class = "text-danger" })
+                                </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Indication, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Indication,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Indication, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.Usual_Dosage, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Usual_Dosage,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Usual_Dosage, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contraindication, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Contraindication, 4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contraindication, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.Precaution_Warnings, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Precaution_Warnings,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Precaution_Warnings, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.Note,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">CREATE</button>
+                                <a href="@Url.Action("index","Medicine")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function MedicalMedicineClassficationName()
+    {
+        debugger
+        var id = $("#Medical_Medicine_Classfication").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMedical_Medicine_Classfication",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#medicalmedicineclassficationname").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#medicalmedicineclassficationname").val(" ");
+            }
+        });
+    }
+    MedicalMedicineClassficationName();
+</script>

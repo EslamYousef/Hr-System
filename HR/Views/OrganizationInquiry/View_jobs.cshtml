@@ -1,0 +1,83 @@
+﻿@model IEnumerable<HR.Models.ViewModel.Job_viewVM>
+
+@{
+    ViewBag.Title = "View_jobs";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            
+
+            <!-- /.box-header -->
+            <div class="box-body">
+               
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Slots</th>
+                            <th>Vacant</th>
+                            <th>Hired</th>
+                            <th>Hired Id</th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.jobs.name</td>
+                                <td>@item.jobs.num_slots</td>
+                                <td>@item.jobs.number_vacant</td>
+                                <td>@item.jobs.number_hired</td>
+                                @if (item.jobs.number_hired > 0)
+                                {
+                                    <td>@Html.DropDownList("ID", new SelectList(item.ID), "ID", new { @class = "select2" })</td>
+                                }
+                                else
+                                {
+                                    <td><span>No Hire</span></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Slots</th>
+                            <th>Vacant</th>
+                            <th>Hired</th>
+                            <th>Hired Id</th>
+                          
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+@section scripts{}

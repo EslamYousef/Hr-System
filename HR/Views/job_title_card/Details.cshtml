@@ -1,0 +1,716 @@
+﻿@model HR.Models.job_title_cards
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary" data-collapsed="0">
+            <div class="panel-body">
+                   @using (Html.BeginForm("Details", "job_title_card", FormMethod.Post, new { id = ViewBag.id, enctype = "multipart/form-data" }))
+                   {
+                    <input value="" name="risk" hidden />
+                    <input value="" name="newskill" hidden/>
+                    <input value="" name="respon" hidden />
+                    <input value="" name="requirment" hidden/>
+                    <input value="" name="s1" hidden/>
+                    <input value="" name="s11" hidden />
+                    <input value="" name="s111" hidden />
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new {  @class = "form-control", id = "code", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" style="width:200px" id="btnSave" class="btn btn-success" name="Command" value="Save">Submit</button>
+                                <a href="@Url.Action("index","job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back to index</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8">
+
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#Qulifications" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">Qulifications</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Risks" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">Risks</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#skills" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">skills</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Responsiblities" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">Responsiblities</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Requirment" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">Special Requirment</span>
+                                    </a>
+                                </li>
+
+                                
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                         
+                                            <label class="control-label col-md-2">
+                                                Name of educational qualification
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("name", new SelectList(ViewBag.quliname, "ID", "Code"), "Select Name of educational qualification", new { @class = "select2", @id = "Country1" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                             <label class="control-label col-md-2">
+                                                Qualification Major
+                                            </label>
+                                             <div class="col-md-4">
+                                                @Html.DropDownList("qulispeci", new SelectList(ViewBag.qulispeci, "ID", "Code"), "Select Qualification Major", new { @class = "select2", @id = "Country2" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                Grade
+                                            </label>
+                                              <div class="col-md-4">
+                                                @Html.DropDownList("grade", new SelectList(ViewBag.qulidegree, "ID", "Code"), "Select Grade", new { @class = "select2", @id = "Country3" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="control-label col-md-2"><span>Required</span></label>
+                                            <div class="col-md-4">
+                                                <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Add Nother Row" id="add" class="btn btn-success" onclick="addquli1()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <label class="control-label col-md-3">Description Name </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">Specialty</label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">Degree</label>
+                                                </th>
+                                                @*<th>
+                                                        <label class="control-label">Required</label>
+                                                    </th>*@
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="add1">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                            if (Model.Job_Details.qulification_job != null)
+                                            {
+                                                foreach (var item in Model.Job_Details.qulification_job)
+                                                {
+                                                <tr>
+                                               <td hidden><input name="s1" class = "form-control" value=@item.Name_of_educational_qualification.ID /></td> 
+                                               <td  class="col-md-3"><input class = "form-control"  value=@item.Name_of_educational_qualification.Name /></td>        
+                                               <td hidden><input name="s11" class = "form-control" value=@item.Qualification_Major.ID /></td> 
+                                               <td class="col-md-3"><input class = "form-control" value=@item.Qualification_Major.Name /></td>  
+                                               <td hidden><input name="s111" class = "form-control" value=@item.GradeEducate.ID /></td>  
+                                               <td class="col-md-3"><input  class = "form-control"value=@item.GradeEducate.Name /></td>
+                                               <td class="col-md-3"><input value="cancel" type="button" class="remove btn btn-danger" onclick="remove($(this))"/> </td>    
+                                                </tr>
+                                                }
+                                            }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="Risks">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                           <label class="control-label col-md-2">
+                                                Risk
+                                            </label>
+                                               <div class="col-md-4">
+                                                @Html.DropDownList("o", new SelectList(ViewBag.risk, "ID", "Code"), "Select Risk", new { @class = "select2", @id = "Country5" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="control-label col-md-2"><span>Required</span></label>
+                                            <div class="col-md-4">
+                                                <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Add Nother Row" id="add3" class="btn btn-success" onclick="addquli2()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="control-label col-md-3">
+                                                    <label class="control-label col-md-3"> code </label>
+                                                </th>
+                                                <th class="control-label col-md-3">
+                                                    <label class="control-label col-md-3">name</label>
+                                                </th>
+                                                <th></th>
+                                                @*<th>
+                                                        <label class="control-label">Required</label>
+                                                    </th>*@
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ad1d3">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                
+
+
+                                                if (Model.Job_Details.Risks != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.Risks)
+                                                    {
+                                                        <tr>
+                                                            <td hidden><input name="risk" value=@item.ID /></td>
+                                                            <td><input class = "form-control" value=@item.Risks_Type.Code /></td>
+                                                            <td><input class = "form-control" value=@item.Risks_Type.Name /></td>
+                                                            <td><input  value="cancel" type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="skills">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                Skill
+                                            </label>
+                                                 <div class="col-md-4">
+                                                @Html.DropDownList("o", new SelectList(ViewBag.skill, "ID", "Code"), "Select Skill", new { @class = "select2", @id = "Country4" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="form-group">
+                <label class="control-label col-md-2"><span>Required</span></label>
+                <div class="col-md-4">
+                    <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
+                </div>
+            </div>*@
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Add Nother Row" id="add2" class="btn btn-success" onclick="addquli3()" />
+                                        </div>
+                                    </div>
+
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    <label class="control-label col-md-2">code </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-2">name</label>
+                                                </th>
+
+                                                @*<th>
+                            <label class="control-label">Required</label>
+                        </th>*@
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="add122">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                if (Model.Job_Details.skill != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.skill)
+                                                    {
+                                                        <tr>
+                                                            <td hidden><input class="control-label col-md-3" name="newskill" value=@item.skill.ID /></td>
+                                                            <td class="col-md-3"><input class = "form-control"value=@item.skill.Code /></td>
+                                                            <td class="col-md-3"><input class = "form-control"value=@item.skill.Name /></td>
+                                                            <td class="col-md-3"><input value="cancel" type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="Responsiblities">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                Responsiblity
+                                            </label>
+                                                <div class="col-md-4">
+                                                @Html.DropDownList("o", new SelectList(ViewBag.respon, "ID", "Code"), "Select Responsiblity", new { @class = "select2", @id = "Country6" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="control-label col-md-2"><span>Required</span></label>
+                                            <div class="col-md-4">
+                                                <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Add Nother Row" id="add4" class="btn btn-success" onclick="addquli4()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    <label class="control-label col-md-2">code </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-2">name</label>
+                                                </th>
+                                                <th></th>
+                                                @*<th>
+                                                        <label class="control-label">Required</label>
+                                                    </th>*@
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ad1d4">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                if (Model.Job_Details.Responsibilities != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.Responsibilities)
+                                                    {
+                                                <tr>
+                                                    <td hidden><input name="respon" value=@item.ID /></td>
+                                                    <td><input class = "form-control" value=@item.Code /></td>
+                                                    <td><input class = "form-control" value=@item.Name /></td>
+                                                    <td><input value="cancel" type="button"  class="remove btn btn-danger"  onclick="remove($(this))" /> </td>
+                                                </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="Requirment">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                Requirment
+                                            </label>
+                                                <div class="col-md-4">
+                                                @Html.DropDownList("o", new SelectList(ViewBag.requi, "ID", "Code"), "Select Requirment", new { @class = "select2", @id = "Country7" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="control-label col-md-2"><span>Required</span></label>
+                                            <div class="col-md-4">
+                                                <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Add Nother Row" id="add5" class="btn btn-success" onclick="addquli5()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    <label class="control-label col-md-2">code </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-2">name</label>
+                                                </th>
+                                                <th></th>
+                                                @*<th>
+                                                        <label class="control-label">Required</label>
+                                                    </th>*@
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ad1d5">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                if (Model.Job_Details.Requirments != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.Requirments)
+                                                    {
+                                                <tr>
+                                                    <td hidden><input name="requirment" value=@item.ID /></td>
+                                                    <td><input class = "form-control" value=@item.Code /></td>
+                                                    <td><input class = "form-control" value=@item.Name /></td>
+                                                    <td><input  value="cancel" type="button"  class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                   }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function addquli1()
+    {
+        var name = $("#Country1").val();
+        var speci = $("#Country2").val();
+        var grade = $("#Country3").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = ""; 
+        if ($("#minimal-checkbox-1").checked == true)
+        {
+             req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+             req = "false";
+        }
+        if (name != "" || speci != "" || grade != "" || req != "")
+        {
+            $.ajax({
+                type: "post",
+                url: "/Helper/quli",
+                data: { "name": name, "speci": speci, "grade": grade },
+                success: function (result) {
+                    debugger
+                    finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='s1' hidden value='" + result.name.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.name.Name + "' readonly='readonly' /></td>" +
+              "<td hidden ><input id='codefrom'  name='s11'  value='" + result.Qualification_Major.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='from' name='from' class = 'form-control' value='" + result.Qualification_Major.Name + "' readonly='readonly' /></td>" +
+              "<td  hidden ><input id='codeto'  style='width:30px' name='s111'  value='" + result.GradeEducate.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3' ><input id='to'  class = 'form-control' name='to' value='" + result.GradeEducate.Name + "active" + "' readonly='readonly' /></td>" +
+              //"<td class='col-md-0' >if("+req+"=='true'){<input id='fromdate' style='width:60px' name='fromdate' value='" + "true" + "' readonly='readonly' />}"+
+              //"if("+req+"=='false'){<input id='fromdate' style='width:60px' name='fromdate' value='" + "false" + "' readonly='readonly' />}</td>" +
+              "<td class='col-md-3'><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#add1").append(finalresult);
+                   
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else
+        {
+
+        }
+    }
+    function addquli2() {
+        var id2 = $("#Country5").val();
+        var finalresult1 = " ";
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (id2 != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/Risks",
+                data: { "id": id2 },
+                success: function (result) {
+                    debugger
+                    finalresult1 = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='risk' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3' ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#ad1d3").append(finalresult1);
+            
+              debugger
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli3() {
+        var ID = $("#Country4").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/skill",
+                data: { "ID": ID },
+                success: function (result) {
+                    debugger
+                    finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='newskill' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+                "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Name + "' readonly='readonly' /></td>" +
+              "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#add122").append(finalresult);
+               
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli4() {
+       
+        var ID = $("#Country6").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/reponsiblities",
+                data: { "ID": ID},
+                success: function (result) {
+                    debugger
+              finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='respon' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3' hidden ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+              "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+              $("#ad1d4").append(finalresult);
+           
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli5() {
+       
+        var ID = $("#Country7").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/requirments",
+                data: { "ID":ID },
+                success: function (result) {
+                    debugger
+                    finalresult =
+                        "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='requirment' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+                      "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+                      "<td  class='col-md-3'><input id='codefrom'  class = 'form-control' name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+                      "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                      $("#ad1d5").append(finalresult);
+               
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function remove(thi)
+    {
+        debugger
+        thi.parent().parent().remove();
+        //thi.parent().parent().parent().remove(removed);
+
+
+    }
+</script>
+<script>
+    function generate()
+    {
+        debugger
+        var slot_code = $("#code").val();
+        var slot_desc = $("#name").val();
+        var job_level_code = $("#Country").val();
+        var Job_level_desc = $("#countryname").val();
+        var finalresult = " ";
+        var number = $("#number").val();
+        if (slot_code != "" || slot_desc != "" || job_level_code != "" || Job_level_desc != "" || finalresult != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/Creat_slots",
+                data: { "number": number },
+                success: function (result) {
+                    debugger
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='class_type' hidden value='" + value.ID + "' readonly='readonly' /></td>" +
+                  "<td style='width:60px'><input id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + slot_code + "_" + (key + 1) + "' readonly='readonly' /></td>" +
+                  "<td style='width:60px' ><input id='codefrom'  style='width:60px' name='codefrom'  value='" + slot_desc + "' readonly='readonly' /></td>" +
+                  "<td style='width:60px'><input id='from' style='width:60px' name='from' value='" + job_level_code + "' readonly='readonly' /></td>" +
+                  "<td  style='width:30px' hidden ><input id='codeto'  style='width:30px' name='codeto'  value='" + Job_level_desc + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='to' style='width:60px' name='to' value='" + "active" + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='fromdate' style='width:60px' name='fromdate' value='" + "active" + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='todate' style='margin-bottom: 1em;' name='todate' value='" + "1" + "' readonly='readonly' /></td>" +
+                  "<td><input id='Price' name='Price' value='" + "ff" + "' readonly='readonly' /></td>" +
+                  "</tr>";
+                        $("#add1").append(finalresult);
+                    });
+
+                    debugger
+                },
+                error: function () {
+                    debugger
+                }
+
+            });
+        }
+        else
+        {
+
+        }
+        debugger
+    }
+
+</script>
+
+@section scripts{}

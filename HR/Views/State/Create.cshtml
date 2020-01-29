@@ -1,0 +1,205 @@
+﻿@model HR.Models.the_states
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create State
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "State", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                       
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Country CODE</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m=>m.CountryID,new SelectList(ViewBag.Country, "ID", "Code"), "Select country", new { @class = "select2", @onchange = "CountryName()", @id = "Country", required = "required" })
+                                  <input type="text" value=" " class="form-control" id="countryname" disabled />
+                            </div>
+                            <div class="col-md-3" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">County</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Area CODE</label> <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Areaid, new SelectList(ViewBag.Area, "ID", "Code"), "Select Area", new { @class = "select2", @id = "Area", @disabled=true ,@onchange="getareaname()", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Areaid, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="Areaname" disabled />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">CREATE</button>
+                                <a href="@Url.Action("index","State")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+  function getareaname()
+  {
+      debugger
+      var id = $("#Area").val();
+      $("#Areaname").val(" ");
+      debugger
+      $.ajax({
+          type: "post",
+          url: "/Helper/getarea",
+          data: { "id": id },
+          success: function (result) {
+              {
+                  $("#Areaname").val(result.Name);
+              }
+          },
+          error: function () {
+              $("#Areaname").val(" ");
+          }
+      });
+
+  }
+  function fullarea(id)
+  {
+      $.ajax({
+          type: "post",
+          url: "/Helper/getareabycountry",
+          data: { "id": id,"flag":"0" },
+          success: function (result) {
+              {
+                  debugger
+                  //$('#Area').empty();
+                  $("#Area").removeAttr('disabled');
+                  var finalresult = "<option value='0' > Choose area </option>";
+                  $.each(result, function (key, value) {
+                      finalresult += "<option value='" + value.ID + "'>"  + value.Code + "</option>";
+                  });
+                  $("#Area").html(finalresult);
+                  $("#Area").select2("val", "0");
+              }
+          },
+          error: function () {
+          }
+      });
+  }
+  function CountryName() {
+      debugger
+      var id = $("#Country").val();
+    
+      //$('#Area').empty();
+    
+      $("#Areaname").val(" ");
+      $.ajax({
+          type: "post",
+          url: "/Helper/GetCountry",
+          data: { "id": id },
+          success: function (result) {
+              debugger
+              $("#countryname").val(result.Name);
+              fullarea(result.ID);
+          },
+          error: function () {
+              debugger
+              $("#countryname").val(" ");
+          }
+      });
+  }
+</script>
+<script>
+    debugger
+    var id = $("#Country").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetCountry",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+           $("#countryname").val(result.Name);
+            
+        },
+        error: function () {
+            debugger
+            $("#countryname").val(" ");
+        }
+    });
+    if(id!=null)
+    {
+        $("#Area").removeAttr("disabled");
+        var ii = $("#Area").val();
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getarea",
+            data: { "id": ii },
+            success: function (result) {
+                $("#Areaname").val(result.Name);
+            },
+            error: function () {
+                $("#Areaname").val(" ");
+            }
+        });
+    }
+   
+</script>
+
+@section scripts{}

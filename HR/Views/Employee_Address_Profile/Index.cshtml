@@ -1,0 +1,131 @@
+﻿@model IEnumerable<HR.Models.ViewModel.addressemployee_VM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    Employee Address Profile 
+                </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>Employee Name </th>
+                            <th>Code Address</th>
+                            <th>Country</th>
+                            <th>Region</th>
+                            <th>State</th>
+                            <th>County</th>
+                            <th>City</th>
+                            <th>Postal</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+
+
+                      
+                               @foreach (var item in Model)
+                               {
+                            <tr>
+                                <td>@item.fullname</td>
+                                <td>@item.Employee_Address_Profile.Code</td>
+                                <td> @if (item.Employee_Address_Profile.countryid == null || item.Employee_Address_Profile.countryid == "0"){ item.Employee_Address_Profile.countryid = "null"; }
+                                    else {  @item.Employee_Address_Profile.Country.Name  } </td>
+                                <td>
+                                    @if (item.Employee_Address_Profile.areaid == null || item.Employee_Address_Profile.areaid == "0") { item.Employee_Address_Profile.areaid = "null"; }
+                                    else
+                                    {  @item.Employee_Address_Profile.Area.Name  }
+                                </td>
+                                <td>
+                                    @if (item.Employee_Address_Profile.stateid == null || item.Employee_Address_Profile.stateid == "0") { item.Employee_Address_Profile.stateid = "null"; }
+                                    else
+                                    {  @item.Employee_Address_Profile.the_states.Name  }
+                                </td>
+                                <td>
+                                    @if (item.Employee_Address_Profile.Territoriesid == null || item.Employee_Address_Profile.Territoriesid == "0") { item.Employee_Address_Profile.Territoriesid = "null"; }
+                                    else
+                                    {  @item.Employee_Address_Profile.Territories.Name  }
+                                </td>
+                                <td>
+                                    @if (item.Employee_Address_Profile.citiesid == null || item.Employee_Address_Profile.citiesid == "0") { item.Employee_Address_Profile.citiesid = "null"; }
+                                    else
+                                    {  @item.Employee_Address_Profile.cities.Name  }
+                                </td>
+                                <td>
+                                    @if (item.Employee_Address_Profile.postcodeId == null || item.Employee_Address_Profile.postcodeId == "0") { item.Employee_Address_Profile.postcodeId = "null"; }
+                                    else
+                                    {  @item.Employee_Address_Profile.postcode.Name  }
+                                </td>
+
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                    @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
+                                </td>
+                            </tr>
+                        }
+                 
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Employee Name </th>
+                            <th>Code Address</th>
+                            <th>Country</th>
+                            <th>Region</th>
+                            <th>State</th>
+                            <th>County</th>
+                            <th>City</th>
+                            <th>Postal</th>
+
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}

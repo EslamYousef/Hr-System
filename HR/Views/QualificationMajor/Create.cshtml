@@ -1,0 +1,210 @@
+﻿@model HR.Models.Qualification_Major
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create Qualification speciality
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "QualificationMajor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Educate_Titleid, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Educate_Titleid, new SelectList(ViewBag.titleee, "ID", "Code"), "Select Educate Title ", new { @class = "select2", @onchange = "titlee1()", @id = "titlename1" })
+                                @Html.ValidationMessageFor(model => model.Educate_Titleid, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="name1" disabled />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name_of_educational_qualificationid, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Name_of_educational_qualificationid, new SelectList(ViewBag.name, "ID", "Code"), "Select Qualification  ", new { @class = "select2", @onchange = "titlee2()", @id = "titlename2" })
+                                @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationid, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="name2" disabled />
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new {@readonly=true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create Qualification speciality" class="btn btn-success" />
+                                <a href="@Url.Action("index","QualificationMajor")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function titlee1()
+    {
+        $("#name2").val(" ");
+        $("#titlename2").empty();
+        $("#titlename2").select2("val", "");
+        debugger
+        var id = $("#titlename1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Gettitle",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#name1").val(result.Name);
+                full_Qulification(result.ID);
+            },
+            error: function () {
+                debugger
+                $("#name1").val(" ");
+            }
+        });
+    }
+    function full_Qulification(id)
+    {
+        debugger
+        $("#titlename2").empty();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallQuli",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#titlename2").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose quli </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#titlename2").html(finalresult);
+                $("#titlename2").select2("val", "0");
+            },
+            error: function () {
+                debugger
+                $("#titlename2").val(" ");
+              
+            }
+        });
+    }
+    function titlee2()
+    {
+        debugger
+        var id = $("#titlename2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getspacialquli",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#name2").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#name2").val(" ");
+            }
+        });
+    }
+</script>
+<script>
+    var id = $("#titlename1").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Gettitle",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#name1").val(result.Name);
+        },
+        error: function () {
+            debugger
+            $("#name1").val(" ");
+        }
+    });
+    var id = $("#titlename2").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getspacialquli",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#name2").val(result.Name);
+        },
+        error: function () {
+            debugger
+            $("#name2").val(" ");
+        }
+    });
+</script>
+@section scripts{}

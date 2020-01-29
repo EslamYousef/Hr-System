@@ -1,0 +1,49 @@
+﻿@model HR.Models.Budget_class
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+@using (Html.BeginForm("Delete", "Budget_class", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @readonly= true, @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Delete" class="btn btn-success" />
+                <a href="@Url.Action("index","Budget_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{}

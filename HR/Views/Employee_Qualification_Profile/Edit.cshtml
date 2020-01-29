@@ -1,0 +1,680 @@
+﻿@model HR.Models.Employee_Qualification_Profile
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Edit Employee Qualification Profile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Edit", "Employee_Qualification_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="col-md-4" style="color:black">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-white">Employee Qualification Profile</button>
+                        </div>
+           
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="employeename" disabled />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.Related_to_job, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Related_to_job, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Related_to_job, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Qualification_start_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Qualification_start_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.ValidationMessageFor(model => model.Qualification_start_date, "", new { @class = "text-danger" })
+                            </div>
+
+                            @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Qualification_end_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Qualification_end_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.ValidationMessageFor(model => model.Qualification_end_date, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Educate_categoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.Educate_categoryId, new SelectList(ViewBag.Educate_category, "ID", "Code"), "Select Educate category", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.ValidationMessageFor(model => model.Educate_categoryId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Educate_TitleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Educate_TitleId, new SelectList(ViewBag.Educate_Title, "ID", "Code"), "Select Educate Title", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Educate_TitleId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="areaname" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Main_Educate_bodyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Main_Educate_bodyId, new SelectList(ViewBag.Main_Educate_body, "ID", "Code"), "Select Main Educate body", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Main_Educate_bodyId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="statename" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sub_educational_bodyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Sub_educational_bodyId, new SelectList(ViewBag.Sub_educational_body, "ID", "Code"), "Select Sub educational body", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Sub_educational_bodyId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="tername" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name_of_educational_qualificationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Name_of_educational_qualificationId, new SelectList(ViewBag.Name_of_educational_qualification, "ID", "Code"), "Select Name of educational qualification", new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="cityname" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Qualification_MajorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Qualification_MajorId, new SelectList(ViewBag.Qualification_Major, "ID", "Code"), "Select Qualification Major", new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Qualification_MajorId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="postname" disabled />
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.GradeEducateId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.GradeEducateId, new SelectList(ViewBag.GradeEducate, "ID", "Code"), "Select Grade Educate ", new { @class = "select2", @onchange = "GradeEducate()", id = "GradeEducateId", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.GradeEducateId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="GradeEducatename" disabled />
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Extra_education_years, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Extra_education_years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Extra_education_years, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Allowance_value, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Allowance_value, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Allowance_value, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Employee_Qualification_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+
+
+<script>
+    function CountryName() {
+        debugger
+        var id = $("#country").val();
+
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#postal").empty();
+
+        $("#area").select2("val", "");
+        $("#state").select2("val", " ");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", " ");
+        $("#postal").select2("val", " ");
+
+        $("#GradeEducateId").select2("val", " ");
+        $("#statename").val(" ");
+        $("#areaname").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postname").val(" ");
+        $("#GradeEducatename").val(" ");
+
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEducatecategory",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#countryname").val(result.Name);
+                $("#area").removeAttr("disabled");
+           //     getallarea(result.ID);
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    //function getallarea(id)
+    //{
+    //    debugger
+    //   var countryname=
+    //   $.ajax({
+    //      type: "post",
+    //      url: "/Helper/getareabycountry",
+    //      data: { "id": id, "flag": "0" },
+    //      success: function (result) {
+    //          debugger
+    //          $("#area").removeAttr("disabled");
+    //          var finalresult = "<option value='0' > Choose area </option>";
+    //          $.each(result, function (key, value) {
+    //               finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+    //          });
+    //          $("#area").html(finalresult);
+    //          $("#area").select2("val", "0");
+    //      },
+    //      error: function () {
+    //          debugger
+    //          $("#area").val(" ");
+    //      }
+    //  });
+    //}
+    function areaName() {
+        debugger
+        var id = $("#area").val();
+
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#ter").empty();
+        //    $("#GradeEducateId").empty();
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+   //     $("#GradeEducateId").select2("val", "");
+        $("#statename").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postname").val(" ");
+        //     $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEducateTitle",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#state").removeAttr("disabled");
+                $("#areaname").val(result.Name);
+                getNameeducationalbyEducatetitle(result.ID);
+            },
+            error: function () {
+                debugger
+                $("#areaname").val(" ");
+            }
+        });
+    }
+    //function getallstate(id)
+    //{
+    //    debugger
+    //    $.ajax({
+    //        type: "post",
+    //        url: "/Helper/getstatebycountry",
+    //        data: { "id": id, "flag": "0" },
+    //        success: function (result) {
+    //            debugger
+    //            $("#state").removeAttr("disabled");
+    //            var finalresult = "<option value='0' > Choose state </option>";
+    //            $.each(result, function (key, value) {
+    //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+    //            });
+    //            $("#state").html(finalresult);
+    //            $("#state").select2("val", "0");
+    //        },
+    //        error: function () {
+    //            debugger
+    //            $("#state").val(" ");
+    //        }
+    //    });
+    //}
+    function getstate()
+    {
+        debugger
+        var id = $("#state").val();
+        $("#ter").empty();
+    //    $("#postal").empty();
+  //   $("#GradeEducateId").empty();
+        $("#ter").select2("val", "");
+   //     $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+    //    $("#GradeEducateId").select2("val", "");
+        $("#tername").val(" ");
+ //       $("#cityname").val(" ");
+        $("#postname").val(" ");
+        $("#GradeEducatename").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMainEducatebody",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                //        $("#ter").removeAttr("disabled");
+                $("#ter").removeAttr("disabled");
+                $("#statename").val(result.Name);
+                getSubeducationalbyMainEducate(result.ID);
+            },
+            error: function () {
+                debugger
+                $("#statename").val(" ");
+            }
+        });
+    }
+    function getSubeducationalbyMainEducate(id)
+    {
+        debugger
+
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getSubeducationalbyMainEducate",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+                debugger
+                $("#ter").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Sub Educational </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#ter").html(finalresult);
+                $("#ter").select2("val", "0");
+            },
+            error: function () {
+                debugger
+                $("#ter").val(" ");
+            }
+        });
+
+    }
+    function getter()
+    {
+        debugger
+        var id = $("#ter").val();
+    //    $("#postal").empty();
+   //     $("#GradeEducateId").empty();
+   //     $("#citeid").select2("val", "");
+    //    $("#postal").select2("val", "");
+  //      $("#GradeEducateId").select2("val", "");
+     //   $("#cityname").val(" ");
+      //  $("#postal").val(" ");
+   //     $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSubeducationalbody",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#citeid").removeAttr("disabled");
+                $("#tername").val(result.Name);
+
+            },
+            error: function () {
+                debugger
+                $("#tername").val(" ");
+            }
+        });
+    }
+    function getNameeducationalbyEducatetitle(id) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getNameeducationalbyEducatetitle",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+                debugger
+                $("#citeid").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Qualification name </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#citeid").html(finalresult);
+                $("#citeid").select2("val", "0");
+            },
+            error: function () {
+                debugger
+                $("#citeid").val(" ");
+            }
+        });
+
+    }
+    function getcite() {
+        debugger
+        var id = $("#citeid").val();
+        $("#postal").empty();
+     //   $("#GradeEducateId").empty();
+        $("#postal").select2("val", "");
+      //  $("#GradeEducateId").select2("val", "");
+        $("#postname").val(" ");
+     //   $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetNameofeducationalqualification",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#postal").removeAttr("disabled");
+                $("#cityname").val(result.Name);
+                getQualificationMajorbyNameofeducational(result.ID);
+
+            },
+            error: function () {
+                debugger
+                $("#cityname").val(" ");
+            }
+        });
+    }
+    function getQualificationMajorbyNameofeducational(id) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getQualificationMajorbyNameofeducational",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+                debugger
+                $("#postal").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Qualification specialty </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#postal").html(finalresult);
+                $("#postal").select2("val", "0");
+            },
+            error: function () {
+                debugger
+                $("#postal").val(" ");
+            }
+        });
+
+    }
+    function getpostal() {
+        debugger
+        var id = $("#postal").val();
+   //    $("#GradeEducateId").empty();
+      $("#GradeEducateId").select2("val", "");
+      $("#GradeEducatename").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetQualificationMajor",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#GradeEducateId").removeAttr("disabled");
+                $("#postname").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#postname").val(" ");
+            }
+        });
+    }
+    function GradeEducate() {
+        debugger
+        var id = $("#GradeEducateId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GradeEducate",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#GradeEducatename").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#GradeEducatename").val(" ");
+            }
+        });
+    }
+
+
+</script>
+
+
+<script>
+    debugger
+    var id = $("#country").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetEducatecategory",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#area").removeAttr("disabled");
+            $("#countryname").val(result.Name);
+        },
+        error: function () {
+            debugger
+            $("#countryname").val(" ");
+        }
+    });
+
+    var id = $("#area").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetEducateTitle",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#state").removeAttr("disabled");
+            $("#areaname").val(result.Name);
+
+        },
+        error: function () {
+            debugger
+            $("#areaname").val(" ");
+        }
+    });
+
+    var id = $("#state").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetMainEducatebody",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#ter").removeAttr("disabled");
+            $("#statename").val(result.Name);
+
+        },
+        error: function () {
+            debugger
+            $("#statename").val(" ");
+        }
+    });
+    var id = $("#ter").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetSubeducationalbody",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#citeid").removeAttr("disabled");
+            $("#tername").val(result.Name);
+
+        },
+        error: function () {
+            debugger
+            $("#tername").val(" ");
+        }
+    });
+    var id = $("#citeid").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetNameofeducationalqualification",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#postal").removeAttr("disabled");
+            $("#cityname").val(result.Name);
+
+        },
+        error: function () {
+            debugger
+            $("#cityname").val(" ");
+        }
+    });
+
+    var id = $("#postal").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetQualificationMajor",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#GradeEducateId").removeAttr("disabled");
+            $("#postname").val(result.Name);
+
+        },
+        error: function () {
+            debugger
+            $("#postname").val(" ");
+        }
+    });
+    var id = $("#GradeEducateId").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GradeEducate",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#GradeEducatename").val(result.Name);
+
+        },
+        error: function () {
+            debugger
+            $("#GradeEducatename").val(" ");
+        }
+    });
+
+</script>
+<script>
+    function employee() {
+        debugger
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Employee_Address_Profile.Code);
+            },
+            error: function () {
+                debugger
+                $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    employee();
+</script>
+

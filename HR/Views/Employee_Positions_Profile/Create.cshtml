@@ -1,0 +1,583 @@
+﻿@model HR.Models.ViewModel.Employee_Positions_Profile_VM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create Employee Positions Profile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Employee_Positions_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div>
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#home" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">Position Information</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#PersonnelInformation" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">Position Transaction Information</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="col-md-4" style="color:black">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-white">Employee Profile</button>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Position_Information.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                        @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
+                                        <input type="text" value=" " class="form-control" id="employeename" disabled />
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Position_Information.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.Position_Information.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                        @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.Position_Information.Primary_Position, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.job_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+
+                                            @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), "Select Job desc", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="countryname1" disabled />
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.Default_location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Position_Information.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), "Select Default location desc", new {@eadonly=true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Default_location_descId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="cityname" disabled />
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.Location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Position_Information.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), "Select Location desc", new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Location_descId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="cityname2" disabled />
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.SlotdescId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), "Select Unit desc", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.SlotdescId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="tername" disabled />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.Job_level_gradeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Position_Information.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"), "Select Job level desc", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="areaname1" disabled />
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.Organization_ChartId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Position_Information.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), "Select Unit desc", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="statename" disabled />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.From_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Information.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.From_date, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(model => model.Position_Information.Years, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Information.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Years, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.To_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Information.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.To_date, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(model => model.Position_Information.Months, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Information.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Months, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.working_system, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Position_Information.working_system, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.working_system, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Information.Position_status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Position_Information.Position_status, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Position_status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <ul class="nav nav-tabs bordered">
+
+                                            <li>
+                                                <a href="#Pension">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">End of Service</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-pane" id="Pension">
+
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Information.End_of_service_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Information.End_of_service_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Information.End_of_service_date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Information.Last_working_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Information.Last_working_date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Information.EOS_reasons, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-8">
+                                                    @Html.EnumDropDownListFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Information.EOS_reasons, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Information.Commnets, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.Position_Information.Commnets, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Information.Commnets, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-success" />
+                                            <a href="@Url.Action("index","Employee_Positions_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="PersonnelInformation">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Transaction_Information.Position_transaction_no, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction_no, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Position_transaction_no, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(model => model.Position_Transaction_Information.Position_transaction, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Position_transaction, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Position_Transaction_Information.Transaction_Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Transaction_Type, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Transaction_Type, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        @Html.LabelFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <ul class="nav nav-tabs bordered">
+
+                                            <li>
+                                                <a href="#HiringInformation">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">Personnel committee</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-pane" id="HiringInformation">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Transaction_Information.Resolution_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Resolution_number, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                @Html.LabelFor(model => model.Position_Transaction_Information.Resolution_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Resolution_date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Transaction_Information.Activity_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Activity_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Activity_number, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Position_Transaction_Information.Memo_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Memo_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Memo_number, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                @Html.LabelFor(model => model.Position_Transaction_Information.Memo_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Memo_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Memo_date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                                <div>
+                                                    <ul class="nav nav-tabs bordered">
+
+                                                        <li>
+                                                            <a href="#Pension">
+                                                                <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                                <span class="hidden-xs">Ministry</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <div class="tab-pane" id="Pension">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Position_Transaction_Information.Recommended_by, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Position_Transaction_Information.Recommended_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Recommended_by, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Position_Transaction_Information.Approved_by, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Position_Transaction_Information.Approved_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Approved_by, "", new { @class = "text-danger" })
+                                                            </div>
+
+                                                            @Html.LabelFor(model => model.Position_Transaction_Information.Approved_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Position_Transaction_Information.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                                @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Approved_date, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                   </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+
+
+
+    <script>
+        function CountryName() {
+            debugger
+            var id = $("#country").val();
+            $("#areaa").empty();
+            $("#statea").empty();
+            $("#tera").empty();
+            $("#citeida").empty();
+            $("#areaa").select2("val", "");
+            $("#statea").select2("val", "");
+            $("#tera").select2("val", "");
+            $("#citeida").select2("val", "");
+            $("#statenamea").val(" ");
+            $("#areanamea").val(" ");
+            $("#ternamea").val(" ");
+            $("#citynamea").val(" ");
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetJobtitle",
+                dataType: "json",
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+
+                    $("#countryname1").val(result.name);
+                    $("#area").removeAttr("disabled");
+               //     areaName(result.Organization_unit_codeID.worklocationid)
+                    areaname(result.joblevelsetupID)
+                  
+                    getter(result.ID)
+                    getstate(result.Organization_unit_codeID)
+                },
+                error: function () {
+                    debugger
+                    $("#countryname1").val(" ");
+                }
+            });
+        }
+        CountryName()
+        function areaname(did) {
+            debugger
+     
+            $.ajax({
+                type: "post",
+                url: "/helper/getjoblevel",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+                    $("#ter").removeAttr("disabled");
+                    $("#area").select2("val", result.ID);
+                    $("#areaname1").val(result.Name);
+               
+                },
+                error: function () {
+                    debugger
+                    $("#areaname1").val(" ");
+                }
+            });
+        }
+        areaname(did)
+        function getter(did) {
+            debugger
+            //var id = $("#ter").val();
+            //$("#citeid").empty();
+            //$("#citeid").select2("val", "");
+            //$("#cityname").val(" ");
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetJobSolts",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+                    var finalresult="";
+                    finalresult = "<option value='0' > Choose Slot desc </option>";
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                        //"--"+ value.slot_description +
+                    });
+                    $("#ter").html(finalresult);
+                    //      $("#citeid").removeAttr("disabled");
+                    $("#ter").select2("val", result.ID);
+
+                    $("#tername").val(result.slot_code);
+                //    getallcite(result.ID);
+                    $("#state").removeAttr("disabled");
+
+                },
+                error: function () {
+                    debugger
+                    $("#tername").val(" ");
+                }
+            });
+        }
+        getter(did)
+        function getstate(did)
+        {
+            debugger
+       //     var id = $("#state").val();
+            //$("#ter").empty();
+            //$("#citeid").empty();
+            //$("#ter").select2("val", "");
+            //$("#citeid").select2("val", "");
+            //$("#tername").val(" ");
+            //$("#cityname").val(" ");
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetOrganizationChart",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+                    $("#state").select2("val", result.ID);
+
+                    $("#citeid").removeAttr("disabled");
+                    $("#statename").val(result.unit_Description);
+                    getcite(result.worklocationid)
+                    getcite2(result.worklocationid)
+
+                },
+                error: function () {
+                    debugger
+                    $("#statename").val(" ");
+                }
+            });
+        }
+        getstate(did)
+
+        function getcite(did) {
+            debugger
+        //    var id = $("#citeid").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetWorklocation",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+
+                    $("#citeid").select2("val", result.ID);
+                    $("#cityname").val(result.Name);
+                    $("#citeid").attr("readonly", true);
+                    $("#citeid").prop("readonly", true);
+                    
+                    $("#citeid2").removeAttr("disabled");
+                },
+                error: function () {
+                    debugger
+                    $("#cityname").val(" ");
+                }
+            });
+        }
+        getcite(did)
+        function getcite2(did) {
+            debugger
+            //    var id = $("#citeid").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetWorklocation",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+
+                    $("#citeid2").select2("val", result.ID);
+                    $("#cityname2").val(result.Name);
+
+                },
+                error: function () {
+                    debugger
+                    $("#cityname2").val(" ");
+                }
+            });
+        }
+        getcite2(did)
+    </script>
+
+  
+
+ <script>
+    function employee() {
+        debugger
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Employee_Positions_Profile.Code);
+            },
+            error: function () {
+                debugger
+                $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    employee();
+</script>
+

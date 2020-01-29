@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HR.Models.ViewModel.job_title_sub_classs_VM>
+
+@{
+    ViewBag.Title = "Link";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<h2>Link</h2>
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-primary" data-collapsed="0">
+
+            <div class="panel-body">
+
+                @Html.AntiForgeryToken()
+                <div class="container">
+                    @using (Html.BeginForm("Link", "job_title_card", new { id = ViewBag.id }))
+                    {
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.selected == false)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="Selected" value="@item.Job_title_sub_class.ID" /> @item.Job_title_sub_class.Name
+
+
+                                            </label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="Selected" checked value="@item.Job_title_sub_class.ID" /> @item.Job_title_sub_class.Name
+                                            </label>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="@Url.Action("index","job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            <input type="submit" class="btn btn-primary" value="Submit" />
+                        </div>
+                    }
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+@section scripts{}

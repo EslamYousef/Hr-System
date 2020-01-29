@@ -1,0 +1,208 @@
+﻿@model HR.Models.Subscription_Syndicate
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create Subscription Syndicate
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Subscription_Syndicate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Subscription_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Subscription_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Subscription_Code, "", new { @class = "text-danger" })
+                            </div>
+                      
+                     
+                            @Html.LabelFor(model => model.Server_Legatees, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Server_Legatees, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Server_Legatees, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Subscription_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Subscription_Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Subscription_Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Subscription_Alternative_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Subscription_Alternative_Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Subscription_Alternative_Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Contact_methodsId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Contact_methodsId, new SelectList(ViewBag.Contact_methods, "ID", "Code"), "Select Contact methods", new { @class = "select2", @onchange = "Contactmethods()", @id = "ContactmethodsID" })
+                                @Html.ValidationMessageFor(model => model.Contact_methodsId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="ContactmethodsName" disabled />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Contact_Detail, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Contact_Detail, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contact_Detail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Default_Subscription_Fees, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Default_Subscription_Fees, new { htmlAttributes = new { @class = "form-control",@type="number" ,@min=0} })
+                                @Html.ValidationMessageFor(model => model.Default_Subscription_Fees, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                            @Html.LabelFor(model => model.Deduction_Period, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Deduction_Period, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Deduction_Period, "", new { @class = "text-danger" })
+                            </div>
+                      
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Phone_1, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Phone_1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Phone_1, "", new { @class = "text-danger" })
+                            </div>
+  
+                            @Html.LabelFor(model => model.Phone_2, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Phone_2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Phone_2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Fax, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Address, 4, 100, new { htmlAttributes = new { @class = "form-control"} })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">CREATE</button>
+                                <a href="@Url.Action("index","Subscription_Syndicate")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function Contactmethods()
+    {
+        debugger
+        var id = $("#ContactmethodsID").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetContactMethods",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#ContactmethodsName").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#ContactmethodsName").val(" ");
+            }
+        });
+    }
+    Contactmethods();
+</script>

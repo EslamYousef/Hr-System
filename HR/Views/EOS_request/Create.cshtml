@@ -1,0 +1,268 @@
+﻿@model HR.Models.ViewModel.EOS_VM
+@Scripts.Render("~/bundles/jqueryval")
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create EOS Request
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "EOS_request", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EOS.number, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.EOS.number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EOS.number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span> Requset date </span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.EOS.Requset_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.ValidationMessageFor(model => model.EOS.Requset_date, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">EOS interview</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span> selected employee </span>
+                            </label> <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.selected_employee, new SelectList(ViewBag.employee, "ID", "Code"), "Select employee", new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                                @Html.ValidationMessageFor(model => model.selected_employee, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
+                            </div>
+                            <div class="col-md-3" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit3" class="btn btn-success">EOS checklist</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>EOS type</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.EOS.EOS_type, "Select type", new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.EOS.EOS_type, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>Date of EOS </span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.EOS.Date_of_EOS, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.ValidationMessageFor(model => model.EOS.Date_of_EOS, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>last work day before request </span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.EOS.last_work_day_before_request, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.ValidationMessageFor(model => model.EOS.last_work_day_before_request, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>last Date of work after notice period </span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.EOS.last_Date_of_work_after_notice_period, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.ValidationMessageFor(model => model.EOS.last_Date_of_work_after_notice_period, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>Notice period </span>
+                            </label>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.EOS.Notice_period, new { htmlAttributes = new { @type = "number", @class = "form-control", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.EOS.Notice_period, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>Notice period type</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.EOS.Notice_period_type, "Select type", new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.EOS.Notice_period_type, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>are the employee has a loan or advanced</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.EOS.are_the_employee_has_a_loan_or_advanced, new { htmlAttributes = new { @class = "CheckBox" } })
+                                @Html.ValidationMessageFor(model => model.EOS.are_the_employee_has_a_loan_or_advanced, "", new { @class = "text-danger" })
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>date of settlement</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.EOS.date_of_settlement, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.ValidationMessageFor(model => model.EOS.date_of_settlement, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>are the settlement transferred to payroll</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.EOS.are_the_settlement_transferred_to_payroll, new { htmlAttributes = new { @class = "CheckBox" } })
+                                @Html.ValidationMessageFor(model => model.EOS.are_the_settlement_transferred_to_payroll, "", new { @class = "text-danger" })
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span>date of eos interview</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.EOS.date_of_eos_interview, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.ValidationMessageFor(model => model.EOS.date_of_eos_interview, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span> selected EOS Interview group </span>
+                            </label> <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.selected_EOS_group_interview, new SelectList(ViewBag.interview, "ID", "Code"), "Select group", new { @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
+                                @Html.ValidationMessageFor(model => model.selected_EOS_group_interview, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname2" disabled />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">
+                                <span> selected checklist group </span>
+                            </label> <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.selected_EOS_group_checklist, new SelectList(ViewBag.checklist, "ID", "Code"), "Select group", new { @class = "select2", @onchange = "CountryName3()", @id = "Country3" })
+                                @Html.ValidationMessageFor(model => model.selected_EOS_group_checklist, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname3" disabled />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-10">
+                                <input type="submit" value="Create EOS request " class="btn btn-success" />
+                                <a href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function CountryName1()
+    {
+        debugger
+        var id= $("#Country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.FullName);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+function CountryName2() {
+        debugger
+        var id = $("#Country2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getgroupinterview",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname2").val(result.Description_of);
+            },
+            error: function () {
+                debugger
+                $("#countryname2").val(" ");
+            }
+        });
+}
+function CountryName3() {
+    debugger
+    var id = $("#Country3").val();
+    $.ajax({
+        type: "post",
+        url: "/EOS_request/getcheck",
+        data: { "id": id },
+        success: function (result) {
+            debugger
+            $("#countryname3").val(result.Description_Group);
+        },
+        error: function () {
+            debugger
+            $("#countryname3").val(" ");
+        }
+    });
+}
+    CountryName1()
+    CountryName2()
+    CountryName3()
+</script>
+
+@section scripts{}

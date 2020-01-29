@@ -1,0 +1,175 @@
+﻿@model HR.Models.EOS_Request
+
+@{
+    ViewBag.Title = "interview";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+        Interview Questions 
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("interview", "EOS_request", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.HiddenFor(m => m.ID);
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.number, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Requset_date, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @if (Model.Requset_date != null)
+                                {
+                                    <input value=@Model.Requset_date.ToString("dd/MM/yyyy") class="form-control" readonly />
+                                }
+                                else
+                                {
+
+                                    <input value="empty" class="form-control" readonly />
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Notice_period_type, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                <input value=@Model.Notice_period_type.GetTypeCode() class="form-control" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.last_work_day_before_request, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @if (Model.last_work_day_before_request != null)
+                                {
+                                    <input value=@Model.last_work_day_before_request.ToString("dd/MM/yyyy") class="form-control" readonly />
+                                }
+                                else
+                                {
+                                    <input value="empty" class="form-control" readonly />
+                                }
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Date_of_EOS, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @if (Model.Date_of_EOS != null)
+                                {
+                                    <input value=@Model.Date_of_EOS.ToString("dd/MM/yyyy") class="form-control" readonly />
+
+                                }
+                                else
+                                {
+                                    <input value="empty" class="form-control" readonly />
+                                }
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.date_of_eos_interview, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @if (Model.date_of_eos_interview != null)
+                                {
+                                    <input value=@Model.date_of_eos_interview.ToString("dd/MM/yyyy") class="form-control" readonly />
+
+                                }
+                                else
+                                {
+                                    <input value="empty" class="form-control" readonly />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>question</th>
+                                <th>answer</th>
+                                <th>notes</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var item=0;item<Model.Answer_EOS_interview.Count();item++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(m=>m.Answer_EOS_interview[item].ID)
+                                    <td>@Html.EditorFor(model => model.Answer_EOS_interview[item].question.Question_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })</td>
+
+                                   
+                                    <td>@Html.EditorFor(model => model.Answer_EOS_interview[item].question.Question_Description, new { htmlAttributes = new { @class = "form-control" ,@readonly=true} })</td>
+
+                                    <td>@Html.EditorFor(model => model.Answer_EOS_interview[item].answer, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                    <td>@Html.EditorFor(model => model.Answer_EOS_interview[item].Notes, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Code</th>
+                                <th>question</th>
+                                <th>answer</th>
+                                <th>notes</th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="submit" class="btn btn-success" />
+                            <a href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>

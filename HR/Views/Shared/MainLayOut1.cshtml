@@ -1,0 +1,787 @@
+﻿@{
+    ViewBag.Title = "MainLayOut";
+}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="~/Content/neon-rtl/assets/images/favicon.ico">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/select2/select2.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/wysihtml5/bootstrap-wysihtml5.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/selectboxit/jquery.selectBoxIt.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-core.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-theme.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-forms.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/neon-rtl.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/custom.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Content/neon-rtl/assets/js/jquery-1.11.3.min.js"></script>
+   
+</head>
+<body class="page-body  page-fade" data-url="http://neon.dev">
+  
+    <div class="page-container">
+         <div class="navbar navbar-inverse navbar-fixed-top">
+             <div class="container">
+                 <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                     </button>
+                     @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                 </div>
+                 <div class="navbar-collapse collapse">
+                     @*<ul class="nav navbar-nav">
+                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                         <li>@Html.ActionLink("About", "About", "Home")</li>
+                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                     </ul>*@
+                     @*@Html.Partial("_LoginPartial")*@
+                 </div>
+             </div>
+</div>
+        <div class="sidebar-menu">
+            <div class="sidebar-menu-inner"  style="text-align: left;direction:ltr">
+                
+                <header class="logo-env">
+
+                    <!-- logo -->
+                    <div class="logo">
+                        <a href="@Url.Action("Index", "Home", new {area = ""})">
+                            <img src="~/Content/neon-rtl/assets/images/logo@2x.png" width="120" alt="" />
+                        </a>
+                    </div>
+
+                    <!-- logo collapse icon -->
+                    <div class="sidebar-collapse">
+                        <a href="#" class="sidebar-collapse-icon">
+                            <!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition -->
+                            <i class="entypo-menu"></i>
+                        </a>
+                    </div>
+
+
+                    <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+                    <div class="sidebar-mobile-menu visible-xs">
+                        <a href="#" class="with-animation">
+                            <!-- add class "with-animation" to support animation -->
+                            <i class="entypo-menu"></i>
+                        </a>
+                    </div>
+
+                </header>
+
+
+                <ul id="main-menu" class="main-menu"  >
+                    <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                    <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                    <li>
+                        <a href="@Url.Action("Index", "Home", new {area = ""})">
+                            <i class="entypo-gauge"></i>
+                            <span class="title">Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-parent">
+                        <a href="#"><span>Basic</span></a>
+                        <ul class="nav nav-children">
+                            <li class="nav-parent">
+                                <a href="#"><span>Setup</span></a>
+                                <ul class="nav nav-children">
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Address</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Country")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Country</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Area")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Regions</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","State")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">State/governorate</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","territory")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">County</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Cities")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">City</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Postalcode")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title"> zip/postal</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Nationality</span></a>
+                                        <ul class="nav nav-children">
+                                            <li class="nav-parent">
+                                                <a href="@Url.Action("Index","Nationality")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Nationality</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span>Religion</span></a>
+                                        <ul class="nav nav-children">
+                                            <li class="nav-parent">
+                                                <a href="@Url.Action("Index","Religion")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Religion</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Qualifications </span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Educate_category")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Qualification Category</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Educate_title")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Education Level </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","EducateMainBody")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Qualification Main provider</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Sub_educational_body")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Qualification sub provider</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Name_of_educational_qualification")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title"> Qualification Name   </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","GradeEducate")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Qualification Degree  </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","QualificationMajor")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Qualification Specialty </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span>Military</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Military_Service_Status")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title"> Military Service Status   </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Military_Service_Rank")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Military Service Rank</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span>Documents</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Document_Group")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title"> Documents_group</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Documents")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Documents</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span>Currency</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Currency")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Currency</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","ExchangeRate")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Exchange Rate</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span>Check Requisition</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Checktype")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Check type</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","checkstatus")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Check status</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Contact_methods")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Contact_methods</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Rejection_Reasons")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Rejection Reasons</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","External_compaines")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">External_compaines </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Air_ports")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Air ports </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Ticket_Prices")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Tickets Prices </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Sponsor")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Sponsor </span>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span> Transactions</span></a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a href="@Url.Action("Create","Check_Request")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Check Request</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span> Process</span></a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a href="@Url.Action("Index","Check_Request")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Check Request Action</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                                   
+                                </ul>
+                     </li>
+
+
+                    @*///////////////////////////////////
+                    //////////////////////////////////*@
+                    <li class="nav-parent">
+                        <a href="#"><span>Organization Module</span></a>
+                        <ul class="nav nav-children">
+                            <li class="nav-parent">
+                                <a href="#"><span>Setup</span></a>
+                                <ul class="nav nav-children">
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Authority</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Authority_Type")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Authority type</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index", "Authorities")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Authorities</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Skills</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Skill_group")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Skill group</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Skill")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Skill</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Risk</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Risks_type")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Risk type</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Risks")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Risk</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Requirments")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Requirments</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Experience_group")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Experience group </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Responsibilities")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Responsibilities </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","work_location")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title"> Work Locations </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Job Level</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Job_level_class")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Job Level Class</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Job_level_grade")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Job Level Grade</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Job title</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","job_title_class")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Job title Class</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Job_title_Sub_class")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Job title sub Class</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Organization Chart</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Organization_unit_schema")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Organization unit schema</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","OrganizationLevelUnit")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Organization unit level</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Organizationunittype")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Organization unit type</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Budget</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Budget_class")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Budget Class</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Budget_class_items")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Budget Class items</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span>Cards</span></a>
+                                <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","job_level_setup")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Job Level </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","job_title_card")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Job Title </span>
+                                                </a>
+                                            </li>
+                                     <li>
+                                        <a href="@Url.Action("Index","OrganizationChart")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Organization Chart </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Budget")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Budget </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><span>Inquiry</span></a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a href="@Url.Action("View_jobs","OrganizationInquiry")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">View jobs </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("organization_view_related_to_jobs","OrganizationInquiry")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">organization view related to jobs </span>
+                                        </a>
+                                    </li>
+                                  
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-parent">
+                        <a href="#"><span>Personnel Module</span></a>
+                        <ul class="nav nav-children">
+                            <li class="nav-parent">
+                                <a href="#"><span>Setup</span></a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a href="@Url.Action("Index","Contract_Type")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Contract Types</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Subscription_Syndicate")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Subscription</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Employee_Recodes_Group")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">Employee Recodes Type</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","Employee_Profile_Groups")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title"> Employee Profile Groups</span>
+                                        </a>
+                                    </li>    
+
+
+                                    <li class="nav-parent">
+                                        <a href="#"><span>Check Lists</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","Check_List_Item_Groups")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Check List Item Groups</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index", "Check_Lists_Items")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">Check List Items</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a href="#"><span>EOS</span></a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="@Url.Action("Index","EOS_Interview_Questions_Groups")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">EOS Question Groups</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","Definition_of_EOS_Interview_Questions")">
+                                                    <i class="entypo-gauge"></i>
+                                                    <span class="title">EOS Question</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                                  
+                                </ul>
+                            </li>       
+                        </ul>
+                    </li>
+
+
+
+
+
+
+                  </ul>
+                        
+                   
+            </div>
+
+        </div>
+
+        <div class="main-content">
+            <div class="row">
+
+                <!-- Profile Info and Notifications -->
+                <div class="col-md-6 col-sm-8 clearfix">
+
+                    <ul class="user-info pull-left pull-none-xsm">
+
+                        <!-- Profile Info -->
+                        <li class="profile-info dropdown">
+                            <!-- add class "pull-right" if you want to place this from right -->
+                            @*@if (user != null)
+                            {
+                                <a href="#" class="dropdown-toggle dontprint" data-toggle="dropdown">
+                                    @{
+                                        if (string.IsNullOrEmpty(user.ImagePath) || !File.Exists(HttpRuntime.AppDomainAppPath + user.ImagePath))
+                                        {
+                                            <img src="@Url.Content("~/Images/profile.png")" alt="@user.UserName" class="img-circle" width="44">
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content(user.ImagePath)" alt="@user.UserName" class="img-circle" width="44">
+                                        }
+                                    }
+                                    @User.Identity.Name
+                                </a>
+                                        }*@
+                            <ul class="dropdown-menu" style="text-align: right;">
+
+                                <!-- Reverse Caret -->
+                                <li class="caret"></li>
+
+                                <!-- Profile sub-links -->
+                                <li>
+                                    <a href="@Url.Action("UserProfile", "Security")">
+                                        <i class="entypo-user"></i>
+                                        تعديل الصفحة الشخصية
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Raw Links -->
+                <div class="col-md-6 col-sm-4 clearfix hidden-xs dontprint">
+
+                    <ul class="list-inline links-list pull-right">
+
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                تسجيل الخروج <i class="entypo-logout right"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+            @RenderBody()
+
+        </div>
+    </div>
+   
+    @using (Html.BeginForm("LogOff", "Security", new { }, FormMethod.Post, new { id = "logoutForm" }))
+            {
+        @Html.AntiForgeryToken()
+    }
+
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/rickshaw/rickshaw.min.css">
+
+    <script src="~/Content/neon-rtl/assets/js/gsap/TweenMax.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/joinable.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/resizeable.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-api.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+
+    <script src="~/Content/neon-rtl/assets/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/jquery.sparkline.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/rickshaw/vendor/d3.v3.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/rickshaw/rickshaw.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/raphael-min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/morris.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/toastr.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-chat.js"></script>
+
+    <script src="~/Content/neon-rtl/assets/js/fullcalendar/fullcalendar.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-calendar.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-chat.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap-colorpicker.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/wysihtml5/bootstrap-wysihtml5.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/jquery.multi-select.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/fileinput.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/selectboxit/jquery.selectBoxIt.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-chat.js"></script>
+
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/datatables/datatables.css">
+    <script src="~/Content/neon-rtl/assets/js/datatables/datatables.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/select2/select2.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-chat.js"></script>
+
+    <script src="~/Content/neon-rtl/assets/js/neon-custom.js"></script>
+
+    <script src="~/Content/neon-rtl/assets/js/neon-demo.js"></script>
+
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/select2/select2.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/selectboxit/jquery.selectBoxIt.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/icheck/skins/minimal/_all.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/icheck/skins/square/_all.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/icheck/skins/flat/_all.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/icheck/skins/futurico/futurico.css">
+    <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/icheck/skins/polaris/polaris.css">
+    <script src="~/Content/neon-rtl/assets/js/gsap/TweenMax.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/joinable.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/resizeable.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-api.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/select2/select2.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/typeahead.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/selectboxit/jquery.selectBoxIt.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/bootstrap-timepicker.min.js"></script>
+  
+    <script src="~/Content/neon-rtl/assets/js/moment.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/jquery.multi-select.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/icheck/icheck.min.js"></script>
+    <script src="~/Content/neon-rtl/assets/js/neon-chat.js"></script>
+    @RenderSection("scripts")
+</body>
+</html>
+

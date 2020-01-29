@@ -1,0 +1,219 @@
+﻿@model HR.Models.ViewModel.employeestate
+
+@{
+    ViewBag.Title = "status";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using (Html.BeginForm("status", "EOS_request", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+        @Html.HiddenFor(m => m.empid);
+        @Html.HiddenFor(m => m.status.ID);
+        <div class="form-group">
+            @Html.LabelFor(model => model.check_status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EnumDropDownListFor(m => m.check_status, "Select status", new { @class = "select2",@onchange="go($(this))" })
+                @Html.ValidationMessageFor(model => model.check_status, "", new { @class = "text-danger" })
+               
+            </div>
+        </div>
+       
+
+      
+                                           <div class="form-group" id="created">
+
+                                               <label class="control-label col-md-2">
+                                                   <span> created by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.created_by, new { htmlAttributes = new { id= "created1", @class = "form-control"} })
+                                                   @Html.ValidationMessageFor(model => model.status.created_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <div id="created1d" hidden>
+                                                   <label class="control-label col-md-2">
+                                                       <span> created Date</span>
+                                                   </label>
+                                                   <div class="col-md-4">
+                                                       @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                       @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
+
+                                                   </div>
+                                                   </div>
+                                               </div>
+
+                                                    <div class="form-group" id="ready">
+                                                        <label class="control-label col-md-2">
+                                                            <span>Report as ready by</span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            @Html.EditorFor(model => model.status.report_as_ready_by, new { htmlAttributes = new { id = "report1", @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.status.report_as_ready_by, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                        <div id="report1d" hidden>
+                                                            <label class="control-label col-md-2">
+                                                                <span>Report as ready Date</span>
+                                                            </label>
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
+                                                                @Html.ValidationMessageFor(model => model.status.report_as_ready_bydate, "", new { @class = "text-danger" })
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                           <div class="form-group" id="approved">
+                                               <label class="control-label col-md-2">
+                                                   <span>approved by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.approved_by, new { htmlAttributes = new { id = "approved1", @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.approved_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <div id="approved1d" hidden>
+                                               <label class="control-label col-md-2">
+                                                    <span>approved Date</span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                                    @Html.ValidationMessageFor(model => model.status.approved_bydate, "", new { @class = "text-danger" })
+
+                                                                </div>
+
+                                                            </div>
+                                                            </div>
+
+                                           <div class="form-group" id="Rejected">
+                                               <label class="control-label col-md-2">
+                                                   <span>Rejected by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.Rejected_by, new { htmlAttributes = new { id = "Rejected1", @class = "form-control"} })
+                                                   @Html.ValidationMessageFor(model => model.status.Rejected_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <div id="Rejected1d" hidden>
+                                                   <label class="control-label col-md-2">
+                                                       <span>Rejected Date</span>
+                                                   </label>
+                                                   <div class="col-md-4">
+                                                       @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
+                                                       @Html.ValidationMessageFor(model => model.status.Rejected_bydate, "", new { @class = "text-danger" })
+
+                                                   </div>
+                                               </div>
+                                               </div>
+
+
+                                           <div class="form-group" id="cancaled"  >
+                                               <label class="control-label col-md-2">
+                                                   <span>cancaled by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.cancaled_by, new { htmlAttributes = new { id = "cancaled1", @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.cancaled_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <div id="cancaled1d" hidden>
+                                                   <label class="control-label col-md-2">
+                                                       <span>cancaled Date</span>
+                                                   </label>
+                                                   <div class="col-md-4">
+                                                       @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
+                                                       @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
+
+                                                   </div>
+                                               </div>
+
+                                           </div>
+                                 
+      
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-success" />
+                <a href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back to index</a>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    close();
+    function go(input)
+    {
+        debugger
+
+        var value = input.val();
+        if(value==1)
+        {
+            close();
+            $("#created1").attr("readonly", false);
+            $("#created1d").attr("hidden", false);
+        
+        }
+        else if(value==2)
+        {
+            close();
+            $("#report1").prop("readonly", false);
+            $("#report1d").prop("hidden", false);
+        }
+        else if (value == 3)
+        {
+            close();
+            $("#approved1").prop("readonly", false);
+            $("#approved1d").prop("hidden", false);
+        }
+        else if (value == 4)
+        {
+            close();
+            $("#Rejected1").prop("readonly", false);
+            $("#Rejected1d").prop("hidden", false);
+        } else if (value == 5)
+        {
+            close();
+            $("#cancaled1").prop("readonly", false);
+            $("#cancaled1d").prop("hidden", false);
+        }
+        else if (value == 6) {
+            close();
+           
+        }
+        else if (value ==7) {
+            close();
+          
+        }
+    }
+  
+    function close()
+    {
+        $("#cancaled1").attr("readonly", true);
+        $("#Rejected1").attr("readonly", true);
+        $("#approved1").attr("readonly", true);
+        $("#ready1").attr("readonly", true);
+        $("#created1").attr("readonly", true);
+        $("#report1").attr("readonly", true);
+        //////
+        $("#cancaled1d").attr("hidden", true);
+        $("#Rejected1d").attr("hidden", true);
+        $("#approved1d").attr("hidden", true);
+        $("#ready1d").attr("hidden", true);
+        $("#created1d").attr("hidden", true);
+        $("#report1d").attr("hidden", true);
+    }
+   
+</script>
+
+@section scripts{}

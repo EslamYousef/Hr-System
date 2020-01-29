@@ -1,0 +1,141 @@
+﻿@model IEnumerable<HR.Models.ViewModel.Employee_Qualification_VM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    Employee Qualification Profile
+                </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>Employee Name </th>
+                            <th>Code Qualification</th>
+                            <th>Qualification category</th>
+                            <th>Educate level</th>
+                            <th>Qualification main provider</th>
+                            <th>Qualification sub provider</th>
+                            <th>Qualification name</th>
+                            <th>Qualification specialty</th>
+                            <th>Qualification degree</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @*<td>@if (item.Employee_Address_Profile.countryid == null || item.Employee_Address_Profile.countryid == "0") { item.Employee_Address_Profile.countryid = "null"; }
+        else
+        {  @item.Employee_Address_Profile.Country.Name  }
+    </td>
+    <td>
+        @if (item.Employee_Address_Profile.areaid == null || item.Employee_Address_Profile.areaid == "0") { item.Employee_Address_Profile.areaid = "null"; }
+        else
+        {  @item.Employee_Address_Profile.Area.Name  }
+    </td>
+    <td>
+        @if (item.Employee_Address_Profile.stateid == null || item.Employee_Address_Profile.stateid == "0") { item.Employee_Address_Profile.stateid = "null"; }
+        else
+        {  @item.Employee_Address_Profile.the_states.Name  }
+    </td>
+    <td>
+        @if (item.Employee_Address_Profile.Territoriesid == null || item.Employee_Address_Profile.Territoriesid == "0") { item.Employee_Address_Profile.Territoriesid = "null"; }
+        else
+        {  @item.Employee_Address_Profile.Territories.Name  }
+    </td>
+    <td>
+        @if (item.Employee_Address_Profile.citiesid == null || item.Employee_Address_Profile.citiesid == "0") { item.Employee_Address_Profile.citiesid = "null"; }
+        else
+        {  @item.Employee_Address_Profile.cities.Name  }
+    </td>
+    <td>
+        @if (item.Employee_Address_Profile.postcodeId == null || item.Employee_Address_Profile.postcodeId == "0") { item.Employee_Address_Profile.postcodeId = "null"; }
+        else
+        {  @item.Employee_Address_Profile.postcode.Name  }
+    </td>*@
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.fullname</td>
+                                <td>@item.Employee_Qualification_Profile.Code</td>
+
+
+
+                                <td>@item.Employee_Qualification_Profile.Educate_category.Name</td>
+                                <td>@item.Employee_Qualification_Profile.Educate_Title.Name</td>
+                                <td>@item.Employee_Qualification_Profile.Main_Educate_body.Name</td>
+                                <td>@item.Employee_Qualification_Profile.Sub_educational_body.Name</td>
+                                <td>@item.Employee_Qualification_Profile.Name_of_educational_qualification.Name</td>
+                                <td>@item.Employee_Qualification_Profile.Qualification_Major.Name</td>
+                                <td>@item.Employee_Qualification_Profile.GradeEducate.Name</td>
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "Employee_Qualification_Profile", new {id = item.Employee_Qualification_Profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                    @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Employee Name </th>
+                            <th>Code Qualification</th>
+                            <th>Qualification category</th>
+                            <th>Educate level</th>
+                            <th>Qualification main provider</th>
+                            <th>Qualification sub provider</th>
+                            <th>Qualification name</th>
+                            <th>Qualification specialty</th>
+                            <th>Qualification degree</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}

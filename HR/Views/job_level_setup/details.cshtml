@@ -1,0 +1,361 @@
+﻿@model HR.Models.job_level_setup
+
+@{
+    ViewBag.Title = "details";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "job_level_setup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control",@readonly=true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            @*<div class="col-md-3" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-white">Special Allwance History</button>
+                            </div>*@
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            @*<div class="col-md-3" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-white">Job Level Linked To Organization Unit Types</button>
+                            </div>*@
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Job_level_class__ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+
+                                @Html.DropDownListFor(m => m.Job_level_class__ID, new SelectList(ViewBag.level_code, "ID", "Code"), "Select Country", new { @class = "select2", @onchange = "CountryName1()", id = "country1", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Job_level_class__ID, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Job_level_gradeI__D, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+
+                                @Html.DropDownListFor(m => m.Job_level_gradeI__D, new SelectList(ViewBag.level_grade, "ID", "Code"), "Select Country", new { @class = "select2", @onchange = "CountryName2()", id = "country2", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Job_level_gradeI__D, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname2" disabled />
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.report_job_levelID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+
+                                @Html.DropDownListFor(m => m.report_job_levelID, new SelectList(ViewBag.report, "ID", "Code"), "Select Country", new { @disabled = true, @class = "select2", @onchange = "CountryName3()", id = "country3" })
+                                @Html.ValidationMessageFor(model => model.report_job_levelID, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname3" disabled />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.max_monthly_allowance, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+
+                                    @Html.EditorFor(model => model.max_monthly_allowance, new { htmlAttributes = new {  @readonly = true,@class = "form-control size-1", value = "1" } })
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+
+
+                            @Html.LabelFor(model => model.min_basic_salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.min_basic_salary, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.min_working_years, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.min_working_years, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+
+
+
+                            @Html.LabelFor(model => model.mid_basic_salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.mid_basic_salary, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.max_incentive_amount, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.max_incentive_amount, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+
+                                    <button type="button" class="btn btn-default" disabled >+</button>
+                                </div>
+                            </div>
+
+
+                            @Html.LabelFor(model => model.max_basic_salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.max_basic_salary, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.max_incentive_percentage, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.max_incentive_percentage, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+
+
+
+                            @Html.LabelFor(model => model.max_annual_increase_percentage, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.max_annual_increase_percentage, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+                                     
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.dedicated_allowence, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" disabled>-</button>
+                                    @Html.EditorFor(model => model.dedicated_allowence, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1" } })
+
+                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                </div>
+                            </div>
+
+
+                            @Html.LabelFor(model => model.representation_allowance_value, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-sm-3">
+                                <!-- Spinner Markup -->
+                                <div class="input-spinner">
+                                    <button type="button" class="btn btn-default" readonly>-</button>
+                                    @Html.EditorFor(model => model.representation_allowance_value, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", value = "1", min = "0" } })
+                                    <button type="button" class="btn btn-default" readonly>+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Calculate_added_experience_years, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(m => m.Calculate_added_experience_years, new { @disabled = true, @class = "icheck", id = "minimal-checkbox-1" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Calculate_added_military_years, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(m => m.Calculate_added_military_years, new { @disabled = true, @class = "icheck", id = "minimal-checkbox-2" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Calculate_extra_qualification_years, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-2">
+                                @Html.CheckBoxFor(m => m.Calculate_extra_qualification_years, new { @disabled = true, @class = "icheck", id = "minimal-checkbox-3" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-5">
+                                @Html.TextAreaFor(model => model.Notes, 5, 50, new { @readonly = true, htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+
+
+                                    <th>
+                                        <label class="control-label col-md-2">Code</label>
+                                    </th>
+                                    <th>
+                                        <label class="control-label col-md-2">Description</label>
+                                    </th>
+                                    <th>
+                                        <label class="control-label">Number of years</label>
+                                    </th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody id="add1">
+                                @foreach(var item in Model.job_level_education)
+                                {
+                                    <tr>
+                                        <td disabled>@item.Educate_Title.Code</td>
+                                        <td disabled>@item.Educate_Title.Name</td>
+                                        <td disabled>@item.number_of_years_requires</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("index","job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+<script>
+    function CountryName1() {
+        debugger
+        var id = $("#country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobclass",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    function CountryName2() {
+        debugger
+        var id = $("#country2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobgrade",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname2").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname2").val(" ");
+            }
+        });
+    }
+    function CountryName3() {
+        debugger
+        var id = $("#country3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobreport",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname3").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname3").val(" ");
+            }
+        });
+    }
+    CountryName3();
+    CountryName2();
+    CountryName1();
+</script>
+
+@section scripts{}

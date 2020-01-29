@@ -1,0 +1,492 @@
+﻿@model HR.Models.job_title_cards
+
+@{
+    ViewBag.Title = "Create"; Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary" data-collapsed="0">
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "job_title_card", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input  name="job_level" value="" hidden/>
+                    <input name="organization" value=""  hidden />   
+                    <input name="type" value="" hidden />
+                    <input name="status" value="" hidden />
+                    <input name="slotcode__" value="" hidden />
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new {@readonly=true, @class = "form-control", id = "code" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
+                                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#home" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">Home</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#profile" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">Profile</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            <span> Job Level Setup</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.joblevelsetupID, new SelectList(ViewBag.level_Set_up, "ID", "Code"), "Select job level", new { @class = "select2", @onchange = "level()", @id = "level_setup" })
+                                            @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
+                                            <input type="text" value="" class="form-control" id="levelname" disabled />
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-3" style="color:black">
+                                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Job title Linked To multi sub classes</button>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.working_system, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(m => m.working_system, new { @class = "select2"})
+                                            @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+
+                                        <div class="col-md-4" style="color:black">
+                                            <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">Job Title Details</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Organization_unit_codeID, htmlAttributes: new { @class = "control-label col-md-2" })
+
+
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Organization_unit_codeID, new SelectList(ViewBag.chart, "ID", "Code"), "Select organization chart", new { @class = "select2", @onchange = "chart11()", @id = "chart1" })
+                                            @Html.ValidationMessageFor(model => model.Organization_unit_codeID, "", new { @class = "text-danger" })
+                                         
+                                               <input type="text" value="" class="form-control" id="chartname" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.parent_job, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.parent_job, new SelectList(ViewBag.parent_jobbb, "ID", "Code"), "Select parent job title", new { @class = "select2", @onchange = "p11arent()", @id = "parent" })
+                                            @Html.ValidationMessageFor(model => model.parent_job, "", new { @class = "text-danger" })
+                                            <input type="text" value="" class="form-control" id="parentname" disabled />
+                                        </div>
+                                        <label class="control-label col-md-2">
+                                            <span> nationality</span>
+                                        </label>
+
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.nationalityID, new SelectList(ViewBag.nationality, "ID", "Code"), "Select Nationality", new { @class = "select2", @onchange = "nationality11()", @id = "nationality" })
+                                            @Html.ValidationMessageFor(model => model.nationalityID, "", new { @class = "text-danger" })
+                                            <input type="text" value="" class="form-control" id="nationalityname" disabled />
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            <span> Default job title sub class</span>
+                                        </label>
+
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Default_job_title_sub_classID, new SelectList(ViewBag.subclass, "ID", "Code"), "Select Default job title sub class", new { @class = "select2", @onchange = "defaultt11()", @id = "defaultt" })
+                                            @Html.ValidationMessageFor(model => model.Default_job_title_sub_classID, "", new { @class = "text-danger" })
+                                            <input type="text" value="" class="form-control" id="defaultname" disabled />
+                                        </div>
+                                      
+                                        <label class="control-label col-md-1">
+                                            <span> From age </span>
+                                        </label>
+
+                                        <div class="col-md-2">
+                                            @Html.EditorFor(model => model.from_age, new { htmlAttributes = new { @min = "1", @class = "form-control" } })
+                                        </div>
+                                        <label class="control-label col-md-1">
+                                            <span> To age </span>
+                                        </label>   
+                                        <div class="col-md-2">
+                                            @Html.EditorFor(model => model.to_age, new { htmlAttributes = new {  @min = "1", @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.parment, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(m => m.parment, new { @class = "select2", @id = "job_system" })
+                                            @Html.ValidationMessageFor(model => model.parment, "", new { @class = "text-danger" })
+                                        </div>
+
+
+                                        @Html.LabelFor(model => model.validity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(m => m.validity, new { @class = "select2", @id = "job_system" })
+                                            @Html.ValidationMessageFor(model => model.validity, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.num_slots, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.num_slots, new { htmlAttributes = new { type="number", id = "number", min = "0", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.num_slots, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                        <input type="button" value="Generate Slots " onclick="generat3e()" class="col-md-2 btn btn-success" id="generateenum"/>
+                                        <input type="button" value="Clear" onclick="clearnum()"  class="col-md-1 btn btn-success" style="margin-right:10px" id="clearenum11" />
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.job_Summery, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(model => model.job_Summery, 6, 500, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.job_Summery, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Job_alt_summery, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(model => model.Job_alt_summery, 6, 500, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Job_alt_summery, "", new { @class = "text-danger" })
+                                          
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="profile">
+
+                                    
+                                       
+                                        <div id="add1"></div>
+                                   
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">CREATE</button>
+                                <a href="@Url.Action("index", "job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{}
+<script>
+
+    function remove(thi) {
+        debugger
+        thi.parent().parent().remove();
+        //thi.parent().parent().parent().remove(removed);
+        var t =parseInt($("#number").val());
+        $("#number").val(t - 1);
+        if (t == 1) {
+            $("#generateenum").attr('disabled', false);
+            $("#number").readOnly = false;
+            $("#clearenum11").attr('disabled', true);
+        }
+    }
+    function generat3e()
+    {
+        debugger
+        var slot_code = $("#code").val();
+        var slot_desc = $("#name").val();
+        var level = $("#level_setup").val();
+        var org = $("#level_setup").val();
+        if (slot_code != "0" && slot_desc != "" && level != "" && org != "")
+        {
+
+            var num =(parseInt($("#number").val())+1);
+            for (var i = 1; i < (num); i++) {
+                debugger
+                var div = "<div><div class='form-group'>" +
+                              "<div class='col-md-3'>" +
+                                 "<input value='" + slot_code + "_" + i + "' class='form-control' name='slotcode__' readonly />" +
+                              "</div>" +
+                              "<div class='col-md-3'>" +
+                                 "<select id='drop1' name='job_level' class='form-control d1' />" +
+                              "</div>" +
+                              "<div class='col-md-3'>" +
+                                 "<select id='enum1' name='type' class='form-control e1' />" +
+                              "</div>" +
+                         "</div>"+ 
+                         "<div class='form-group'>" +
+                           "<div class='col-md-3'>" +
+                              "<input value='" + slot_desc + "'  class='form-control' readonly />" +
+                           "</div>" +
+                           "<div class='col-md-3'>" +
+                              "<select id='drop2' name='organization' class='form-control d2' />" +
+                           "</div>" +
+                           "<div class='col-md-3'>" +
+                              "<select id='enum2' name='status'  class='form-control e2' />" +
+                          "</div>" +
+                          "<input type='button' value='Remove' class='remove btn btn-danger' onclick='remove($(this))' />"+
+                         "</div><hr/><hr/></div>"
+                ;
+                $("#add1").append(div);
+            }
+            var firstdrop = " ";
+            $.ajax
+                ({
+                    type: "post",
+                    url: "/Helper/ALL_job_level_setup",
+                    data: {  },
+                    success: function (result)
+                    {
+                        var ii = $("#level_setup").val();
+                        debugger
+                        $.each(result, function (key, value) {
+                            if (value.ID == ii)
+                            {
+                                firstdrop += "<option value='" + value.ID + "' selected>" + "[  " + value.Name + " ]</option>";
+                            }
+                            else
+                            {
+                                firstdrop += "<option value='" + value.ID + "' >" + "[  " + value.Name + " ]</option>";
+                            }
+                        })
+                        $(".d1").html(firstdrop);
+
+                    }
+                });
+            var seconddrop = " ";
+            $.ajax
+                ({
+                    type: "post",
+                    url: "/Helper/all_organization_unit",
+                    data: {},
+                    success: function (result) {
+                        var ii = $("#level_setup").val();
+                        debugger
+                        $.each(result, function (key, value) {
+                            if (value.ID == ii)
+                            {
+                                seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Name + " ]</option>";
+                            }
+                            else
+                            {
+                                seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Name + " ]</option>";
+                            }
+
+                        })
+                        $(".d2").html(seconddrop);
+
+                    }
+                });
+            var seconddrop1 = "<option value='" + 1 + "' >" + "[  " + "active" + " ]</option>";
+            var seconddrop2 = "<option value='" + 2 + "' >" + "[  " + "Inactive" + " ]</option>";
+            $(".e1").append(seconddrop1);
+            $(".e1").append(seconddrop2);
+            var seconddrop1 = "<option value='" + 1 + "' >" + "[  " + "created" + " ]</option>";
+            var seconddrop2 = "<option value='" + 2 + "' >" + "[  " + "Report_as_ready" + " ]</option>";
+            var seconddrop3 = "<option value='" + 3 + "' >" + "[  " + "Approved" + " ]</option>";
+            var seconddrop4 = "<option value='" + 4 + "' >" + "[  " + "Rejected" + " ]</option>";
+            var seconddrop5 = "<option value='" + 5 + "' >" + "[  " + "Canceled" + " ]</option>";
+            var seconddrop6 = "<option value='" + 6 + "' >" + "[  " + "Recervied" + " ]</option>";
+            var seconddrop7 = "<option value='" + 7 + "' >" + "[  " + "Closed" + " ]</option>";
+            $(".e2").append(seconddrop1);
+            $(".e2").append(seconddrop2);
+            $(".e2").append(seconddrop3);
+            $(".e2").append(seconddrop4);
+            $(".e2").append(seconddrop5);
+            $(".e2").append(seconddrop6);
+            $(".e2").append(seconddrop7);
+            if (num > 1) {
+                $("#generateenum").prop('disabled', true);
+                $("#number").readOnly = true;
+
+                $("#clearenum11").attr('disabled', false);
+            }
+    }
+    else
+        {
+            alert(" all input must enter at first ");
+    }
+    debugger
+}
+    function level()
+    {
+        debugger
+
+        var id = $("#level_setup").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_level_setup",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#levelname").val(result.Name);
+            }
+        });
+    }
+    function p11arent()
+    {
+        debugger
+        var id = $("#parent").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_title_card",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#parentname").val(result.name);
+            }
+        });
+    }
+    function nationality11()
+    {
+        debugger
+        var id = $("#nationality").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/nationality",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#nationalityname").val(result.Name);
+            }
+        });
+    }
+    function defaultt11()
+    {
+
+        var id = $("#defaultt").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_sub_class",
+            data: { "id": id },
+            success: function (result) {
+                $("#defaultname").val(result.Name);
+
+            }
+        });
+    }
+    function chart11()
+    {
+        debugger
+        var id = $("#chart1").val();
+        $.ajax({
+            type: "post",
+            url: "/job_title_card/getchart",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#chartname").val(result.unit_Description);
+
+            }
+        });
+    }
+    function clearnum()
+    {
+        debugger
+            $("#add1").empty();
+            $("#generateenum").attr('disabled', false);
+            $("#number").readOnly = false;
+            $("#clearenum11").prop('disabled', true);
+        }
+    $("#clearenum11").prop('disabled', true);
+
+</script>
+     <script>
+        debugger
+        var num = (parseInt($("#number").val()));
+        var id = $("#parent").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_title_card",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#parentname").val(result.name);
+            }
+        });
+        var id = $("#chart1").val();
+        $.ajax({
+            type: "post",
+            url: "/job_title_card/getchart",
+            data: { "id": id },
+            success: function (result) {
+                $("#chartname").val(result.unit_Description);
+
+            }
+        });
+        var id = $("#nationality").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/nationality",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#nationalityname").val(result.Name);
+            }
+        });
+        var id = $("#defaultt").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_sub_class",
+            data: { "id": id },
+            success: function (result) {
+                $("#defaultname").val(result.Name);
+
+            }
+        });
+         var id = $("#level_setup").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_level_setup",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#levelname").val(result.Name);
+            }
+        });
+        $("#number").val(0);
+     </script>

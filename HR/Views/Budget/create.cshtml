@@ -1,0 +1,743 @@
+﻿@model HR.Models.ViewModel.budgetVM
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/MainLayOut.cshtml";
+    Layout = "~/Views/Shared/View.cshtml";
+}
+<div class="panel panel-primary" data-collapsed="0">
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "Budget", FormMethod.Post,new { id="dd",enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input name="item" value="" hidden />
+                    <input name="AmountN" value="" hidden />
+                    <input name="AmountF" value="" hidden />
+                    <input name="commentt" value="" hidden />
+                   
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model =>model.Budget.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Budget.Code, new { htmlAttributes = new {@readonly=true, @class = "form-control", id = "code" } })
+                                @Html.ValidationMessageFor(model => model.Budget.Code, "", new { @class = "text-danger" })
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> budget year </span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.EditorFor(model => model.Budget.Year_From, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1990" } })
+                                @Html.ValidationMessageFor(model => model.Budget.Year_From, "", new { @class = "text-danger" })
+
+                            </div>
+                           <div class="col-md-2">
+                                @Html.EditorFor(model => model.Budget.Year_To, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1990" } })
+                                @Html.ValidationMessageFor(model => model.Budget.Year_To, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> budget type</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.Budget.budget_type, "Select budget type", new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
+                          
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> Organization unit</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Budget.Organization_unitid, new SelectList(ViewBag.organization, "ID", "Code"), "Select Organization unit", new { @class = "select2", @onchange = "org()", @id = "orgid" })
+                                @Html.ValidationMessageFor(model => model.Budget.Organization_unitid, "", new { @class = "text-danger" })
+                                <input type="text" value="" class="form-control" id="orgname" disabled />
+                            </div>
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> native currency</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Budget.sign_native, new SelectList(ViewBag.sign, "ID", "Code"), "Select Currency", new { @class = "select2", @onchange = "curN('N')", @id = "curNid" })
+                                @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
+                                <input type="text" value="" class="form-control" id="curNname" disabled />
+                            </div>
+                            <label class="control-label col-md-2">
+                                <span> Forign currency</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Budget.sign_forign, new SelectList(ViewBag.sign, "ID", "Code"), "Select Currency", new { @class = "select2", @onchange = "curF('F')", @id = "curFid" })
+                                @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
+                                <input type="text" value="" class="form-control" id="curFname" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> Currency rate</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Budget.Currency_rate, new { htmlAttributes = new { @class = "form-control", id = "R", type = "number", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span id="ANN">amount native</span>
+                            </label>  
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Budget.amount_native, new { htmlAttributes = new { @class = "form-control", id = "N", type = "number", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Budget.amount_native, "", new { @class = "text-danger" })
+
+                            </div>
+                            <label class="control-label col-md-2">
+                                <span id="AFF"> ammount forigne</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Budget.ammount_forigne, new { htmlAttributes = new { @class = "form-control", id = "F", type = "number", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Budget.ammount_forigne, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> Remaining native</span>
+                            </label>
+                              <div class="col-md-4">
+                                @Html.EditorFor(model => model.Budget.Remaining_native, new { htmlAttributes = new { @Readonly = true, @class = "form-control", id = "RN", type = "number", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Budget.Remaining_native, "", new { @class = "text-danger" })
+
+                            </div>
+                            <label class="control-label col-md-2">
+                                <span> ammount forigne</span>
+                            </label>   
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Budget.Remaining_forgin, new { htmlAttributes = new { @Readonly = true, @class = "form-control", id = "RF", type = "number", @min = "0" } })
+                                @Html.ValidationMessageFor(model => model.Budget.Remaining_forgin, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#Budgetdetails" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">Budget details</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#BudgetStatus" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">Budget Status</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Justification" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">Justification</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                        <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                <span> Budget item </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("items", new SelectList(ViewBag.items, "ID", "Code"), "Select items", new { @class = "select2", @id = "ite" })
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                             <div class="control-label col-md-4">
+                                                <a  onclick="additems()" style="margin-right:3px" class="btn btn-success" > Add NEW Budget item </a>
+                                                 <a onclick="Reaset()" class="btn btn-success"> Clear All </a>
+                                            </div>
+                                           
+                                            
+                                        </div>
+                                            <hr />
+                                            <hr />
+                                             <div id="itemsdiv">
+
+                                            </div>
+                                        </div>
+                                       <div class="tab-pane" id="BudgetStatus">
+                                           <div class="form-group">
+                                               <label class="control-label col-md-2">
+                                                   <span>status</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EnumDropDownListFor(m => m.status.statu, new {@readonly=true, @class = "select2" })
+                                                   @Html.ValidationMessageFor(model => model.status.statu, "", new { @class = "text-danger" })
+
+                                               </div>
+                                           </div>
+                                           <div class="form-group">
+
+                                               <label class="control-label col-md-2">
+                                                   <span> created by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.created_by, new { htmlAttributes = new {  @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.created_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <label class="control-label col-md-2">
+                                                   <span> created Date</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
+
+                                               </div>
+
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="control-label col-md-2">
+                                                   <span>Report as ready by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.report_as_ready_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.report_as_ready_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <label class="control-label col-md-2">
+                                                   <span>Report as ready Date</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class="form-control datepicker", id="datefrom" } })
+                                                   @Html.ValidationMessageFor(model => model.status.report_as_ready_bydate, "", new { @class = "text-danger" })
+
+                                               </div>
+
+                                           </div>
+
+
+                                           <div class="form-group">
+                                               <label class="control-label col-md-2">
+                                                   <span>approved by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.approved_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.approved_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <label class="control-label col-md-2">
+                                                   <span>approved Date</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.ValidationMessageFor(model => model.status.approved_bydate, "", new { @class = "text-danger" })
+
+                                               </div>
+
+                                           </div>
+                                           <div class="form-group">
+                                               <label class="control-label col-md-2">
+                                                   <span>Rejected by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.Rejected_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.Rejected_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <label class="control-label col-md-2">
+                                                   <span>Rejected Date</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.ValidationMessageFor(model => model.status.Rejected_bydate, "", new { @class = "text-danger" })
+
+                                               </div>
+
+                                           </div>
+
+                                           <div class="form-group">
+                                               <label class="control-label col-md-2">
+                                                   <span>cancaled by</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.cancaled_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.cancaled_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <label class="control-label col-md-2">
+                                                   <span>cancaled Date</span>
+                                               </label>
+                                               <div class="col-md-4">
+                                                   @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
+
+                                               </div>
+                                           </div>
+                                        </div>
+                                        <div class="tab-pane" id="Justification">
+                                            @Html.TextAreaFor(m => m.justification.justifiaction,10,500,new { });
+                                            @Html.ValidationMessageFor(model => model.justification.justifiaction, "", new { @class = "text-danger" })
+                                       </div>  
+
+                                    </div>
+                             
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input id="btnSave" class="btn btn-success" onclick="ch()" value="CREATE"/>
+                                    <a href="@Url.Action("index", "Budget")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+@section scripts{}
+<script>
+    function org()
+    {
+        debugger
+        var id = $("#orgid").val();
+        $.ajax({
+            type: "post",
+            url: "/Budget/getorg",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#orgname").val(result.unit_Description);
+               
+    
+            }
+        });
+    }
+    function curN(I) {
+        debugger
+        var id = $("#curNid").val();
+        $.ajax({
+            type: "post",
+            url: "/Budget/getcurrency",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#curNname").val(result.Name + "__" + result.symbol);
+                if (I == 'N')
+                {
+                    document.getElementById("ANN").innerHTML = ("amount _" + result.symbol);
+                }
+                if (I == 'F')
+                {
+                    document.getElementById("AFF").innerHTML = ("amount _" + result.symbol);
+                }
+            }
+        });
+    }
+    function curF(I) {
+        debugger
+        var id = $("#curFid").val();
+        $.ajax({
+            type: "post",
+            url: "/Budget/getcurrency",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#curFname").val(result.Name+"__"+ result.symbol);
+                if (I == 'N') {
+                    document.getElementById("ANN").innerHTML = ("amount _" + result.symbol);
+                }
+                if (I == 'F') {
+                   document.getElementById("AFF").innerHTML =("amount _" + result.symbol);
+                }
+            }
+        });
+    }
+    $("#F").keyup(function (e) {
+        debugger
+        var N = $("#N").val();
+        var F = $("#F").val();
+        var R = $("#R").val();
+
+
+        if (R == 0 && R =="") {
+            var R = parseFloat(F / N);
+            $("#R").val(R);
+        }
+        if (N == 0 && N == "") {
+            var N = parseFloat(F / R);
+            $("#N").val(N);
+            $("#RN").val(N);
+        }
+        else
+        {
+            //var R = parseInt(F / N);
+            //$("#R").val(R);
+            var N = parseFloat(F / R);
+            $("#N").val(N);
+            $("#RN").val(N);
+        }
+        $("#RF").val(F);
+        var Nn = parseFloat($("#F").val());
+        var rr = parseFloat($("#R").val());
+        var all_value = document.getElementsByName("AmountF");
+        var u = 0;
+        $.each(all_value, function (key, value) {
+            debugger
+            var op = value.value;
+            if (op != "" && op != "0") {
+                u = parseFloat(u) + parseFloat(op)
+            }
+        });
+        $("#RF").val(Nn - u);
+        $("#RN").val((Nn - u) / rr);
+
+    });
+    $("#N").keyup(function (e) {
+        debugger
+        event.stopPropagation();
+        var N = $("#N").val();
+        var F = $("#F").val();
+        var R = $("#R").val();
+
+       
+       
+            if (R == 0 && R == "") {
+                var R = parseFloat(F / N);
+                $("#R").val(R);
+            }
+            if (F == 0 || F == "") {
+                var F = parseFloat(N * R);
+                $("#F").val(F);
+                $("#RF").val(F);
+            }
+            else {
+                //var R = parseInt(F / N);
+                //$("#R").val(R);
+                var F = parseFloat(N * R);
+                $("#F").val(F);
+                $("#RF").val(F);
+            }
+
+
+
+
+            $("#RN").val(N);
+
+
+            var Nn = parseFloat($("#N").val());
+            var rr = parseFloat($("#R").val());
+            var all_value = document.getElementsByName("AmountN");
+            var u = 0;
+            $.each(all_value, function (key, value) {
+                debugger
+                var op = value.value;
+                if (op != "" && op != "0") {
+                    u = parseFloat(u) + parseFloat(op)
+                }
+            });
+            $("#RN").val(Nn - u);
+            $("#RF").val((Nn - u) * rr);
+       
+    });
+    $("#R").keyup(function (e) {
+        debugger
+        var N = $("#N").val();
+        var F = $("#F").val()
+        var R = $("#R").val();
+
+
+        
+        var all_value = document.getElementsByName("AmountN");
+        var u = 0;
+        $.each(all_value, function (key, value) {
+            debugger
+            var op = value.value;
+            if (op != "" && op != "0") {
+                u = parseFloat(u) + parseFloat(op)
+            }
+        });
+       
+
+
+        if ((F == "0" || F == "") && (N == "0" || N == ""))
+        {
+
+        }
+        else if ((F == "0" || F == "") && (N != "0" || N != ""))
+        { 
+            var F = parseFloat(N * R); 
+            $("#F").val(F);
+            $("#RF").val(F);
+            $("#RN").val(N);
+        }
+       else if ((N == "0" || N == "")&&(F!="0"||F!=""))
+        {
+            var N = parseFloat(F / R);
+            $("#N").val(N);
+            $("#RF").val(F);
+            $("#RN").val(N);
+        }
+       else if ((F != "0" || F != "") && (N != "0" || N != ""))
+        {
+            var F = parseFloat(N * R);
+            $("#F").val(F);
+            $("#RF").val(F);
+           
+       }
+
+
+       
+
+    });
+    $("#YF").keyup(function (e) {
+        var value = $("#YF").val();
+        $("#YT").val(parseInt(parseInt(value) + parseInt(1)));
+    });
+    $("#YT").keyup(function (e) {
+        var value = $("#YT").val();
+        $("#YF").val(parseInt(parseInt(value) - parseInt(1)));
+    });
+    
+</script>
+<style>
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+
+
+<script>
+    function additems()
+    {
+        $("#R").attr("Readonly", true);
+        var ch = check();
+        if (ch == 0)
+        {
+            debugger
+            var n = $("#N").val();
+            var f = $("#F").val();
+            debugger
+            if (n == 0 || n == "" || f == 0 || f == "") {
+                alert('you must enter amount native and amount forign at first ');
+            }
+            else {
+                var i = "";
+                var d = $("#ite").val();
+                var firstdrop = " ";
+                $.ajax
+                  ({
+                      type: "post",
+                      url: "/Budget/items",
+                      data: { "id": d },
+                      success: function (result) {
+                          debugger
+                          var i = "<div><div class='form-group'>" +
+                                                    "<label class='control-label col-md-1'>" +
+                                                       "<span>Item </span>" +
+                                                    "</label>" +
+                                                    "<div class='col-md-2'>" +
+
+                                                          "<input type='text' value='" + result.Name + "' class='form-control' id='itemnamee' disabled />" +
+                                                          "<input type='text'  name='item' value='" + result.ID + "' id='itemid' hidden />" +
+
+                                                      "</div>" +
+                                                      "<label class='control-label col-md-1'>" +
+                                                          "<div>NATIVE</div>" +
+                                                      "</label>" +
+                                                    "<div class='col-md-2'>" +
+                                                           "<input type='number' min='0' value='0'  class='form-control' id='amountNn' onkeyup='calN($(this),$(this).parent().next().next().children())' name='AmountN' />" +
+                                                    "</div>" +
+                                                    "<label class='control-label col-md-1'>" +
+                                                        "<div>Forgien</div>" +
+                                                    "</label>" +
+                                                    "<div class='col-md-2'>" +
+                                                           "<input type='number'  value='0' min='0' class='form-control' id='amountFf' readonly  onkeyup='calf($(this))' name='AmountF' />" +
+                                                    "</div>" +
+                                                      "<label class='control-label col-md-1'>" +
+                                                       "<div>Comment</div>" +
+                                                    "</label>" +
+                                                      "<div class='col-md-2'>" +
+                                                          "<input type='text' class='form-control' id='comment' name='commentt' />"
+                                                          +
+                                                      "</div>" +
+                                                  "</div><div class='form-group'>" +
+                                                  "<div class='col-md-12' style='text-align:center'>" +
+                                                           "<input type='button' value='Remove' class='remove btn btn-danger' onclick='remove($(this),$(this).parent().parent().prev().children())' />" +
+
+                                                   "</div></div> <hr/></div>";
+
+                          $("#itemsdiv").append(i);
+                          $("#ite").select2("val", "Select items");
+                      }
+                  });
+
+
+            }
+            var inp = document.getElementsByName('AmountN');
+            $.each(inp, function (key, value) {
+                debugger
+                value.addEventListener('select', function () {
+                    this.selectionStart = this.selectionEnd;
+                }, false);
+            });
+        }
+    }
+    function remove(thi,l) {
+        debugger
+        thi.parent().parent().parent().remove();
+        var inputN = l.children()[4];
+        var inputF = l.children()[6];
+        var v1 = parseFloat(inputN.value);
+        var v2 = parseFloat(inputF.value);
+        var RN = parseFloat($("#RN").val());
+        var RF = parseFloat($("#RF").val());
+        $("#RN").val(v1 + RN);
+        $("#RF").val(v2 + RF);
+    }
+    function calN(th,h)
+    {
+        debugger
+        var thh = parseFloat(th.val());
+        var R = parseFloat($("#R").val());
+        var test = (parseFloat(h.val()) / R);
+        if (test == thh) {
+
+        }
+        else {
+            var N = parseFloat($("#N").val());
+            var F = parseFloat($("#F").val());
+            var RN = parseFloat($("#RN").val());
+            var RfF = parseFloat($("#RF").val());
+            var R = parseFloat($("#R").val());
+            var oi = th.val();
+            if (thh > RN) {
+                var u = 0;
+                alert("Summation of amounts in all items greater than Available value ");
+                th.val("");
+                h.val("");
+                var jj = document.getElementsByName("AmountN");
+                $.each(jj, function (key, value) {
+                    debugger
+                    var op = value.value;
+                    if (op != "" && op != "0") {
+                        u = parseFloat(u) + parseFloat(op)
+                    }
+
+                });
+                $("#RN").val(N - u);
+                $("#RF").val(F - (u * R));
+            }
+            else if (oi == 0 || oi == "") {
+
+                var t = parseFloat(h.val()) + RfF;
+                if (h.val() == "0") {
+
+                }
+                else {
+                    var tt = (parseFloat(h.val()) + RfF) / R;
+                    $("#RF").val(t);
+                    $("#RN").val(tt);
+                    h.val("");
+                }
+            }
+            else {
+                $("#RN").val(RN - parseFloat(thh));
+                var oo = parseFloat($("#RN").val());
+                h.val(thh * R);
+                $("#RF").val(oo * R);
+            }
+        }
+
+    }
+    function calF(th)
+    {
+        debugger
+        var thh = parseFloat(th.val());
+        var N = parseFloat($("#N").val());
+        var F = parseFloat($("#F").val());
+        var RN = parseFloat($("#RN").val());
+        var RF = parseFloat($("#RF").val());
+        var R = parseFloat($("#R").val());
+        if (thh > RF)
+        {
+            alert("Summation of amounts in all items greater than Available value ");
+            th.val("");
+        }
+        else
+        {
+            
+            $("#RF").val(F - parseFloat(thh));
+            var oo = parseFloat($("#RF").val());
+            $("#RN").val(oo * R);
+        
+        }
+    }
+    function check()
+    {
+        ////////////
+        debugger
+        var all_value = document.getElementsByName("AmountN");
+        var u = 0;
+        var Nn = parseFloat($("#N").val());
+        $.each(all_value, function (key, value) {
+            debugger
+            var op = value.value;
+            if (op != "" && op != "0") {
+                u = parseFloat(u) + parseFloat(op)
+            }
+        });
+        if (u > Nn && u != 0) {
+            alert("this value small than summation on budget items");
+            var R=parseFloat($("#R").val());
+            $("#F").val(R*u);
+            $("#N").val(u);
+            $("#RN").val(0);
+            $("#RF").val(0);
+            return 1;
+        }
+        else
+            return 0;
+        ////////////////
+    }
+    function ch()
+    {
+        debugger
+        var t = check();
+        if (t == 0) {
+
+
+            $("#dd").submit();
+        }
+
+    }
+    function Reaset()
+    {
+        debugger;
+        $("#R").val("0");
+        $("#N").val("0");
+        $("#F").val("0");
+        $("#RN").val("0");
+        $("#RF").val("0");
+        $("#itemsdiv").empty();
+        $("#R").attr("Readonly", false);
+    }
+    var n=parseFloat($("#N").val());
+    var f=parseFloat($("#F").val());
+    $("#RN").val(n);
+    $("#RF").val(f);
+    
+</script>

@@ -1,0 +1,287 @@
+﻿@model HR.Models.Air_ports
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Edit Air port
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Edit", "Air_ports", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.countryid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.country, "ID", "Code"), "Select Country", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.ValidationMessageFor(model => model.countryid, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.areaid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.area, "ID", "Code"), "Select Area", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.areaid, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="Areaname" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.the_statesid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.the_statesid, new SelectList(ViewBag.state, "ID", "Code"), "Select state", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.the_statesid, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="statename" disabled />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Edit  territory" class="btn btn-success" />
+                                <a href="@Url.Action("index","Air_ports")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+<script>
+    function CountryName() {
+        debugger
+        var id = $("#country").val();
+        $("#area").empty();
+        $("#state").empty();
+        $("#area").select2("val", "");
+        $("#state").select2("val", "");
+        $("#statename").val(" ");
+        $("#Areaname").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCountry",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#countryname").val(result.Name);
+                getallarea(result.ID);
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function getallarea(id) {
+        debugger
+        var countryname =
+        $.ajax({
+            type: "post",
+            url: "/Helper/getareabycountry",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+                debugger
+                $("#area").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose area </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#area").html(finalresult);
+                $("#area").select2("val", "0");
+            },
+            error: function () {
+                debugger
+                $("#Area").val(" ");
+            }
+        });
+    }
+    /////////////////////////////
+    ////////////////////////////
+    function areaName() {
+        debugger
+        var id = $("#area").val();
+        $("#state").empty();
+        $("#state").select2("val", "");
+        $("#statename").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/getarea",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#Areaname").val(result.Name);
+                getallstate(result.ID);
+            },
+            error: function () {
+                debugger
+                $("#Areaname").val(" ");
+            }
+        });
+    }
+    function getallstate(id) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getstatebycountry",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+                debugger
+                $("#state").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose state </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#state").html(finalresult);
+                $("#state").select2("val", "0");
+            },
+            error: function () {
+                debugger
+                $("#state").val(" ");
+            }
+        });
+    }
+    //////////////////////////
+    /////////////////////////
+    function getstate() {
+        debugger
+        var id = $("#state").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getstate",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#statename").val(result.Name);
+
+            },
+            error: function () {
+                debugger
+                $("#statename").val(" ");
+            }
+        });
+    }
+</script>
+
+<script>
+         debugger
+        var id = $("#country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCountry",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#countryname").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+        if (id != null)
+        {
+            $("#area").removeAttr("disabled");
+            var ID = $("#area").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/getarea",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#Areaname").val(result.Name);
+
+                },
+                error: function () {
+                    debugger
+                    $("#Areaname").val(" ");
+                }
+            });
+            if (ID != null)
+            {
+                $("#state").removeAttr("disabled");
+                var id = $("#state").val();
+                $.ajax({
+                    type: "post",
+                    url: "/Helper/Getstate",
+                    data: { "id": id },
+                    success: function (result) {
+                        debugger
+                        $("#statename").val(result.Name);
+
+                    },
+                    error: function () {
+                        debugger
+                        $("#statename").val(" ");
+                    }
+                });
+            }
+        }
+</script>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+
+
+@section scripts{}

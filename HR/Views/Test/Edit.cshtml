@@ -1,0 +1,198 @@
+﻿@model HR.Models.Test
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Edit Test
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = '1', id = "testcode" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <input type="text" id="h" hidden />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Test_type, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EnumDropDownListFor(model => model.Test_type, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = '1' } })
+                                @Html.ValidationMessageFor(model => model.Test_type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Pass_mark, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Pass_mark, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = '1' } })
+                                @Html.ValidationMessageFor(model => model.Pass_mark, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Full_mark, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Full_mark, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = '1' } })
+                                @Html.ValidationMessageFor(model => model.Full_mark, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="button" onclick="get()" value="Add Ticket Prices" class="btn btn-success" />
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">Edit</button>
+                                <a href="@Url.Action("index","Allowance_years")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+                        <table class="table table-bordered" id="hitable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <label class="control-label col-md-2">Question Code</label>
+                                    </th>
+                                    <th>
+                                        <label class="control-label col-md-2">Question</label>
+                                    </th>
+                                    <th style="width:10px">
+                                        <label class="control-label">Standard Answers</label>
+                                    </th>
+                                    <th>
+                                        <label class="control-label col-md-2">Attachment</label>
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                          
+                            <tbody id="add1">
+                               
+                                @for (var item = 0; item < Model.Questions.Count; item++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input id="CODE11" style="margin-bottom: 1em;" name="CODE11" type="Text" value=@Model.Questions[item].Code radonly />
+                                        </td>
+                                        <td>
+                                            <input id="question11" style="margin-bottom: 1em;" value=@Model.Questions[item].Question name="question11" type="Text" />
+                                        </td>
+                                        <td>
+                                            <input id="answer11" style="margin-bottom: 1em;" name="answer11" value= @Model.Questions[item].Standart_Question type="Text" />
+                                        </td>
+                                        <td>
+                                            <input type="file" id="file" name="file[@(item + 1)]" value=@Model.Questions[item].Files.filename />
+                                        </td>
+
+                                        <td>
+                                            <input type="button" value="Cancel" class="remove btn btn-danger" onclick="remove($(this))" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+<script>
+    function remove(thi) {
+        debugger
+
+        //thi.parent().parent().remove();
+        var button = thi.parent().parent();
+        //var bu = button.getElementsByTagName('button');
+        $(button).find('input').each(function () {
+
+                var tdOfCurrentColumn = $(this).val("");
+
+            debugger
+
+        });
+        thi.parent().parent().attr("hidden", true);
+        //thi.parent().parent().parent().remove(removed);
+    }
+</script>
+<script>
+    function get()
+    {
+        debugger
+        var temp = document.getElementsByName("dddd");
+        var mycode = document.getElementById('testcode').value + '_' +  (temp.length + 1);
+        $('#add1t tr').length = $('#add1t tr').length + 1;
+        $('#h').val($('#add1t tr').length);
+        var tr =
+               "<tr id='trr' name='dddd'><td><input id='CODE11' style='margin-bottom: 1em;' name='CODE11' type='Text' radonly value='" + mycode + "'  /></td>" +
+               "<td><input id='question11' style='margin-bottom: 1em;' name='question11' type='Text'  /></td>" +
+               "<td><input id='answer11' style='margin-bottom: 1em;' name='answer11' type='Text'  /></td>" +
+               "<td><input type='file'  id=file name='file["+temp.length+"]'  /> </td>" +
+               "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+        $("#add1").append(tr);
+
+    }
+</script>
+
+<script>
+    var temp = document.getElementsByName("dddd");
+    var mycode = document.getElementById('testcode').value + '_' + (temp.length + 1);
+    $('#add1t tr').length = $('#add1t tr').length + 1;
+    $('#h').val($('#add1t tr').length);
+    var counte = 0;
+    var tr = " ";
+    
+</script>
+<script>
+    var o = $("#file").last().val();
+    function appe(thiss)
+    {
+        $("#add1").append(tr);
+    }
+</script>
+
+@section scripts{}

@@ -1,0 +1,128 @@
+﻿@model HR.Models.Medical_Service
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Edit Medical Service
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Edit", "Medical_Service_Card", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Service_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Service_Code, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Service_Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Medical_Service_ClassificationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Medical_Service_ClassificationId, new SelectList(ViewBag.Medical_Service_Classification, "ID", "Code"), "Select Medical Service Classification", new { @class = "select2", @onchange = "MedicalServiceClassification()", @id = "Medical_Service_Classification" })
+                                @Html.ValidationMessageFor(model => model.Medical_Service_ClassificationId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="MedicalServiceClassificationName" disabled />
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.TName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.TName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Medical_Service_Card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function MedicalServiceClassification()
+    {
+        debugger
+        var id = $("#Medical_Service_Classification").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMedicalServiceClassification",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#MedicalServiceClassificationName").val(result.Description);
+            },
+            error: function () {
+                debugger
+                $("#MedicalServiceClassificationName").val(" ");
+            }
+        });
+    }
+    MedicalServiceClassification();
+</script>

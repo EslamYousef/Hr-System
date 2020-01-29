@@ -1,0 +1,159 @@
+﻿@model HR.Models.Medical_Contributions_Allocations_Services
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create Medical Contributions Allocations Services
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "Medical_Contributions_Allocations_Services", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Medical_Contributions_Allocations_EntryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Medical_Contributions_Allocations_EntryId, new SelectList(ViewBag.ContributionAllocations, "ID", "Code"), "Select Medical Contributions Allocations Services", new { @class = "select2", @readonly = true, @onchange = "ContributionAllocations()", @id = "ContributionAllocationsId" })
+                                @Html.ValidationMessageFor(model => model.Medical_Contributions_Allocations_EntryId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="ContributionAllocationsName" disabled />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Classification_CodeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Classification_CodeId, new SelectList(ViewBag.Classifiaction, "ID", "Code"), "Select Medical Service Classlification", new { @class = "select2", @onchange = "Services()", @id = "ClasslificationId" })
+                                @Html.ValidationMessageFor(model => model.Classification_CodeId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="ClasslificationName" disabled />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Service_CodeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Service_CodeId, new SelectList(ViewBag.Services, "ID", "Code"), "Select Medical Services", new { @class = "select2", @onchange = "ServicesMedical()", @id = "ServicesId" })
+                                @Html.ValidationMessageFor(model => model.Service_CodeId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="ServicesName" disabled />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">CREATE</button>
+                                <a href="@Url.Action("index","Medical_Contributions_Allocations_Services")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function ContributionAllocations()
+    {
+        debugger
+        var id = $("#ContributionAllocationsId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMedicalContributionsAllocationsEntry",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#ContributionAllocationsName").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#ContributionAllocationsName").val(" ");
+            }
+        });
+    }
+    ContributionAllocations();
+</script>
+
+<script>
+    var RTList = [];
+    function Services()
+    {
+        debugger
+        var id = $("#ClasslificationId").val();
+        RTList = [];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMedicalServicebyMedicalServiceClasslification",
+            data: { "id": id,"flag":0 },
+            success: function (result) {
+                var finalresult = "<option value='0' > Choose Medical Service </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                debugger
+                $("#ServicesId").html(finalresult);
+                $("#ClasslificationName").val(result[0].my.Description);
+
+            },
+            error: function () {
+                debugger
+                $("#ServicesId").val(" ");
+            }
+        });
+    }
+    Services();
+</script>
+<script>
+    var RTLists = [];
+    function ServicesMedical()
+    {
+        debugger
+        var id = $("#ServicesId").val();
+        RTLists = [];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMedicalServiceee",
+            data: { "id": id },
+            success: function (result) {
+                
+                debugger
+                $("#ServicesName").val(result);
+
+            },
+            error: function () {
+                debugger
+                $("#ServicesId").val(" ");
+            }
+        });
+    }
+    ServicesMedical();
+</script>

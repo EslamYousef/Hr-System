@@ -1,0 +1,131 @@
+﻿@model HR.Models.Exchange_Rate
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create ExchangeRate
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "ExchangeRate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CurrencyID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.CurrencyID, new SelectList(ViewBag.country, "ID", "Code"), "Select Currency", new { @class = "select2", @onchange = "go()", @id = "Country1" })
+                                @Html.ValidationMessageFor(model => model.CurrencyID, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname" disabled />
+                            </div>
+                             <div class="col-md-6">
+                                    <input type="submit" value="Create Exchange Rate" class="btn btn-success" />
+                                    <a href="@Url.Action("index","ExchangeRate")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+                             </div>
+                         </div>
+                      
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="spcialtable" >
+                            <div class="col-md-4">
+                                <table id="categories"  class="table table-bordered table-striped text-center"  style="margin-right:175px">
+                                    <thead>
+                                        <tr>
+                                            <th>text</th>
+                                            <th>value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+
+                                        @for (var i = 0; i < Model.months.Count; i++)
+                                        {
+                                            <tr>
+                                                <td class="col-md-2">
+                                                    @Html.EditorFor(model => Model.months[i].Name, new { htmlAttributes = new { @class = "form-control", onkeydown = "javascript:return false" } })
+                                                </td>
+                                                <td class="col-md-2">
+                                                    @Html.EditorFor(model => Model.months[i].value, new { htmlAttributes = new {@type="number", min = "0", @class = "form-control" } })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                       
+                   
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+
+<script>
+    function go()
+    {
+        debugger
+        var id= $("#Country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getcurrenyname",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname").val(result.Name);
+                $("#spcialtable").attr('disabled', true);
+               
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    go()
+   
+</script>
