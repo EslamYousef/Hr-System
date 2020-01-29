@@ -193,25 +193,42 @@ namespace HR.Controllers
         {
             try
             {
+                var ID = int.Parse(id);
+                var request = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == ID);
 
-                return View();
+                return View(request);
             }
             catch(Exception e)
             {
-                return View();
+                return RedirectToAction("index");
             }
         }
         [ActionName("delete")]
         public ActionResult method_delete(string id)
         {
+            var ID = int.Parse(id);
+            var request = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == ID);
+
             try
             {
+                var status = request.status;
+                dbcontext.personnel_transaction.Remove(request);
+                dbcontext.SaveChanges();
 
-                return View();
+                dbcontext.status.Remove(status);
+                dbcontext.SaveChanges();
+
+
+                return RedirectToAction("index");
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = "this request can't delete";
+                return View(request);
             }
             catch (Exception e)
             {
-                return View();
+                return View(Request);
             }
         }
 
@@ -277,7 +294,7 @@ namespace HR.Controllers
 
             return RedirectToAction("index");
         }
-        public JsonResult Getalll(List<string> c)
+        public JsonResult Getalll()
         {
             try
             {
