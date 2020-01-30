@@ -144,7 +144,7 @@ namespace HR.Models
         public DbSet<check_list_EOS> check_list_EOS { get; set; }
         public DbSet<Employee_family_profile> Employee_family_profile { get; set; }
         public DbSet<personnel_transaction> personnel_transaction { get; set; }
-
+        public DbSet<Employee_experience_profile> Employee_experience_profile { get; set; }
 
 
 

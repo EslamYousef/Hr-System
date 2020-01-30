@@ -214,6 +214,11 @@ namespace HR.Controllers
         {
             try
             {
+                if (model.Employee_ProfileId == "0" || model.Employee_ProfileId == null)
+                {
+                    ModelState.AddModelError("", "Employee Profile Code must enter");
+                    return View(model);
+                }
                 if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
                 {
                     ModelState.AddModelError("", "Educate category Code must enter");
@@ -249,11 +254,7 @@ namespace HR.Controllers
                     ModelState.AddModelError("", "Grade Educate Code must enter");
                     return View(model);
                 }
-                if (model.Employee_ProfileId == "0" || model.Employee_ProfileId == null)
-                {
-                    ModelState.AddModelError("", "Employee Profile Code must enter");
-                    return View(model);
-                }
+              
                 ViewBag.Educate_category = dbcontext.Educate_category.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_Title = dbcontext.Educate_Title.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Main_Educate_body = dbcontext.Main_Educate_body.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -263,7 +264,7 @@ namespace HR.Controllers
                 ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == model.ID);
-                //    record.Code = model.Code;
+                   record.Code = model.Code;
                 record.Related_to_job = model.Related_to_job;
                 record.Qualification_start_date = model.Qualification_start_date;
                 record.Qualification_end_date = model.Qualification_end_date;

@@ -42,7 +42,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                      
+
+
+                    @*<td>
+                        @if (item.Employee_Address_Profile.countryid == null || item.Employee_Address_Profile.countryid == "0") { item.Employee_Address_Profile.countryid = "null"; }
+                        else
+                        {  @item.Employee_Address_Profile.Country.Name  }
+                    </td>
+
+                    <td>
+                        @if (item.Employee_Address_Profile.areaid == null || item.Employee_Address_Profile.areaid == "0") { item.Employee_Address_Profile.areaid = "null"; }
+                        else
+                        {  @item.Employee_Address_Profile.Area.Name  }
+                    </td>
+
+                    <td>
+                        @if (item.Employee_Address_Profile.stateid == null || item.Employee_Address_Profile.stateid == "0") { item.Employee_Address_Profile.stateid = "null"; }
+                        else
+                        {  @item.Employee_Address_Profile.the_states.Name  }
+                    </td>
+                    <td>
+                        @if (item.Employee_Address_Profile.Territoriesid == null || item.Employee_Address_Profile.Territoriesid == "0") { item.Employee_Address_Profile.Territoriesid = "null"; }
+                        else
+                        {  @item.Employee_Address_Profile.Territories.Name  }
+                    </td>
+                    <td>
+                        @if (item.Employee_Address_Profile.citiesid == null || item.Employee_Address_Profile.citiesid == "0") { item.Employee_Address_Profile.citiesid = "null"; }
+                        else
+                        {  @item.Employee_Address_Profile.cities.Name  }
+                    </td>
+                    <td>
+                        @if (item.Employee_Address_Profile.postcodeId == null || item.Employee_Address_Profile.postcodeId == "0") { item.Employee_Address_Profile.postcodeId = "null"; }
+                        else
+                        {  @item.Employee_Address_Profile.postcode.Name  }
+                    </td>*@
 
 
                       
@@ -51,33 +84,49 @@
                             <tr>
                                 <td>@item.fullname</td>
                                 <td>@item.Employee_Address_Profile.Code</td>
-                                <td> @if (item.Employee_Address_Profile.countryid == null || item.Employee_Address_Profile.countryid == "0"){ item.Employee_Address_Profile.countryid = "null"; }
-                                    else {  @item.Employee_Address_Profile.Country.Name  } </td>
-                                <td>
-                                    @if (item.Employee_Address_Profile.areaid == null || item.Employee_Address_Profile.areaid == "0") { item.Employee_Address_Profile.areaid = "null"; }
-                                    else
-                                    {  @item.Employee_Address_Profile.Area.Name  }
-                                </td>
-                                <td>
-                                    @if (item.Employee_Address_Profile.stateid == null || item.Employee_Address_Profile.stateid == "0") { item.Employee_Address_Profile.stateid = "null"; }
-                                    else
-                                    {  @item.Employee_Address_Profile.the_states.Name  }
-                                </td>
-                                <td>
-                                    @if (item.Employee_Address_Profile.Territoriesid == null || item.Employee_Address_Profile.Territoriesid == "0") { item.Employee_Address_Profile.Territoriesid = "null"; }
-                                    else
-                                    {  @item.Employee_Address_Profile.Territories.Name  }
-                                </td>
-                                <td>
-                                    @if (item.Employee_Address_Profile.citiesid == null || item.Employee_Address_Profile.citiesid == "0") { item.Employee_Address_Profile.citiesid = "null"; }
-                                    else
-                                    {  @item.Employee_Address_Profile.cities.Name  }
-                                </td>
-                                <td>
-                                    @if (item.Employee_Address_Profile.postcodeId == null || item.Employee_Address_Profile.postcodeId == "0") { item.Employee_Address_Profile.postcodeId = "null"; }
-                                    else
-                                    {  @item.Employee_Address_Profile.postcode.Name  }
-                                </td>
+                               @if (@item.Employee_Address_Profile.Country != null)
+                                {
+                                    <td>@item.Employee_Address_Profile.Country.Name </td>
+                                }
+                                else
+                                {
+                                <td>Empty</td>}
+                                 @if (@item.Employee_Address_Profile.Area != null)
+                                {
+                                    <td>@item.Employee_Address_Profile.Area.Name</td>
+                                }
+                                else
+                                {
+                                    <td>Empty</td>}
+                                @if (@item.Employee_Address_Profile.the_states != null)
+                                {
+                                    <td>@item.Employee_Address_Profile.the_states.Name </td>
+                                }
+                                else
+                                {
+                                    <td>Empty</td>}
+                                @if (@item.Employee_Address_Profile.Territories != null)
+                                {
+                                    <td>@item.Employee_Address_Profile.Territories.Name</td>
+                                }
+                                else
+                                {
+                                    <td>Empty</td>}
+                                @if (@item.Employee_Address_Profile.cities != null)
+                                {
+                                    <td>@item.Employee_Address_Profile.cities.Name </td>
+                                }
+                                else
+                                {
+                                    <td>Empty</td>}
+                                @if (@item.Employee_Address_Profile.postcode != null)
+                                {
+                                    <td>@item.Employee_Address_Profile.postcode.Name  </td>
+                                }
+                                else
+                                {
+                                    <td>Empty</td>}
+
 
 
                                 <td>

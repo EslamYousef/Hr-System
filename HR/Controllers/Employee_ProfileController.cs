@@ -69,7 +69,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5)
         {
             try
             {
@@ -318,7 +318,27 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
                     emp.Employee_family_profile = e3;
                     dbcontext.SaveChanges();
+                    ///////////////////////////////////////////////////////////////
+                    var employeeexperience = dbcontext.Employee_experience_profile.ToList();
+                    var expcount = 0;
 
+                    if (employeeexperience.Count() == 0)
+                    {
+                        expcount = 1;
+                    }
+                    else
+                    {
+                        var te5 = employeeexperience.LastOrDefault().ID;
+                        expcount = te5 + 1;
+                    }
+                    DateTime statis5 = Convert.ToDateTime("1/1/1900");
+                    var strus5 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    var text5 = new Employee_experience_profile
+                    { Employee_ProfileId = emp.ID.ToString(), Code = strus5.Structure_Code + expcount.ToString(), Approval_date = statis5, Start_date = statis5, End_date = statis5 };
+                    var e5 = dbcontext.Employee_experience_profile.Add(text5);
+                    dbcontext.SaveChanges();
+                    emp.Employee_experience_profile = e5;
+                    dbcontext.SaveChanges();
 
                     if (command == "Submit")
                     {
@@ -336,7 +356,10 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("Create", "Employee_family_profile", new { id = emp.ID });
                     }
-
+                    if (command5 == "Submit")
+                    {
+                        return RedirectToAction("Create", "Employee_experience_profile", new { id = emp.ID });
+                    }
                     return RedirectToAction("Index");
                 }
                 else
@@ -385,7 +408,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5)
         {
             try
             {
@@ -529,6 +552,10 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("Edit", "Employee_family_profile", new { id = record.Employee_family_profile.ID });
                 }
+                if (command5 == "Submit")
+                {
+                    return RedirectToAction("Edit", "Employee_experience_profile", new { id = record.Employee_experience_profile.ID });
+                }
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -581,7 +608,7 @@ namespace HR.Controllers
             var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
             var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
             var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
-
+            var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.Employee_experience_profile.ID);
             try
             {
 
@@ -626,6 +653,10 @@ namespace HR.Controllers
                 if (Employee_family_profile != null)
                 {
                     dbcontext.Employee_family_profile.Remove(Employee_family_profile);
+                }
+                if (Employee_experience_profile != null)
+                {
+                    dbcontext.Employee_experience_profile.Remove(Employee_experience_profile);
                 }
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
