@@ -18,7 +18,7 @@ namespace HR.Controllers
         {
             try
             {
-                var model = dbcontext.Employee_records.ToList();
+                var model = dbcontext.personnel_transaction.ToList();
                 return View(model);
             }
             catch(Exception e)
@@ -91,6 +91,16 @@ namespace HR.Controllers
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
                     var mymodel = new personnel_transaction();
                     mymodel = model.personnel_transaction;
+
+                    ///////////////status////////////////////////
+                    mymodel.check_status = check_status.Report_as_ready;
+                    mymodel.ss = mymodel.check_status.GetTypeCode().ToString();
+                    var Date = Convert.ToDateTime("1/1/1900");
+                    var s = new status { statu = check_status.Report_as_ready, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = Date, Rejected_bydate = Date, report_as_ready_bydate = Date };
+                    var st = dbcontext.status.Add(s);
+                    dbcontext.SaveChanges();
+                    mymodel.status = st;
+                    mymodel.date = mymodel.transaction_date.ToShortDateString();
                     mymodel.Employee = emp;
                     dbcontext.personnel_transaction.Add(mymodel);
                     //var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == emp.Employee_Positions_Profile.ID);
@@ -204,6 +214,7 @@ namespace HR.Controllers
             }
         }
         [ActionName("delete")]
+        [HttpPost]
         public ActionResult method_delete(string id)
         {
             var ID = int.Parse(id);
@@ -215,8 +226,8 @@ namespace HR.Controllers
                 dbcontext.personnel_transaction.Remove(request);
                 dbcontext.SaveChanges();
 
-                dbcontext.status.Remove(status);
-                dbcontext.SaveChanges();
+                //dbcontext.status.Remove(status);
+                //dbcontext.SaveChanges();
 
 
                 return RedirectToAction("index");
@@ -323,7 +334,7 @@ namespace HR.Controllers
                 if (status[0] == "all")
                 {
                     var req = dbcontext.personnel_transaction.Where(m => DateTime.Compare(m.transaction_date, from) >= 0 && DateTime.Compare(m.transaction_date, to) <= 0).ToList();
-
+                    return Json(req);
                 }
                 else if (status[0] != "all")
                 {

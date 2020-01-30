@@ -22,10 +22,7 @@
                 {
 
                     @Html.AntiForgeryToken()
-                    <input name="item" value="" hidden />
-                    <input name="AmountN" value="" hidden />
-                    <input name="AmountF" value="" hidden />
-                    <input name="commentt" value="" hidden />
+                  
 
                     <div class="form-horizontal">
                         <hr />
@@ -80,54 +77,270 @@
                                 <span>Employee No</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.selected_employee, new SelectList(ViewBag.organization, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "org()", @id = "orgid" })
+                                @Html.DropDownListFor(m => m.selected_employee, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employeen()", @id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.selected_employee, "", new { @class = "text-danger" })
-                                <input type="text" value="" class="form-control" id="orgname" disabled />
+                                <input type="text" value="" class="form-control" id="employeename" disabled />
                             </div>
-                        </div>
-
-                    </div>
-                     
-                      
-                      
-                     
-                        <div class="col-md-12">
-                            <ul class="nav nav-tabs bordered">
-                                <!-- available classes "bordered", "right-aligned" -->
-                                <li class="active">
-                                    <a href="#Budgetdetails" data-toggle="tab">
-                                        <span class="visible-xs"><i class="entypo-home"></i></span>
-                                        <span class="hidden-xs">position information</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#BudgetStatus" data-toggle="tab">
-                                        <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">position transaction information</span>
-                                    </a>
-                                </li>
-                               
-                            </ul>
-                            <div class="tab-content">
-                            <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
-
-                                 
-                            </div>
-                            <div class="tab-pane" id="BudgetStatus">
-
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input id="btnSave" class="btn btn-success" onclick="ch()" value="CREATE" />
-                                    <a href="@Url.Action("index", "Budget")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            <div class="col-md-2"></div>
+                            <div style="margin-top:25px" class="form-group">
+                                <div class="col-md-4">
+                                    <input id="btnSave" style="width:150px"  class="btn btn-success" type="submit" onclick="ch()" value="CREATE" />
+                                    <a style="width:150px" href="@Url.Action("index", "personnel_transaction")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
 
-            </div>
+                    </div>
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#Budgetdetails" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">position information</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#BudgetStatus" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                    <span class="hidden-xs">position transaction information</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.LabelFor(model => model.personnel_transaction.job_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+
+                                            @Html.DropDownListFor(m => m.personnel_transaction.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), "Select Job desc", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                            @Html.ValidationMessageFor(model => model.personnel_transaction.job_descId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="countryname1" disabled />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Default_location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.personnel_transaction.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), "Select Default location desc", new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Default_location_descId, "", new { @class = "text-danger" })
+                                        <input type="text" value=" " class="form-control" id="cityname" disabled />
+
+                                    </div>
+
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.personnel_transaction.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), "Select Location desc", new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Location_descId, "", new { @class = "text-danger" })
+                                        <input type="text" value=" " class="form-control" id="cityname2" disabled />
+
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.SlotdescId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.personnel_transaction.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), "Select slot", new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.SlotdescId, "", new { @class = "text-danger" })
+                                        <input type="text" value=" " class="form-control" id="tername" disabled />
+
+                                    </div>
+
+                                </div>
+
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Job_level_gradeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.personnel_transaction.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"), "Select Job level desc", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Job_level_gradeId, "", new { @class = "text-danger" })
+                                        <input type="text" value=" " class="form-control" id="areaname1" disabled />
+
+                                    </div>
+                                </div>
+
+
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Organization_ChartId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.personnel_transaction.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), "Select Unit desc", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Organization_ChartId, "", new { @class = "text-danger" })
+                                        <input type="text" value=" " class="form-control" id="statename" disabled />
+
+                                    </div>
+                                </div>
+
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.From_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.From_date, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Years, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Years, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.To_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.To_date, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Months, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Months, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.working_system, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EnumDropDownListFor(model => model.personnel_transaction.working_system, new { htmlAttributes = new { @class = "select2" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.working_system, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Position_status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EnumDropDownListFor(model => model.personnel_transaction.Position_status, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Position_status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.End_of_service_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.End_of_service_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.End_of_service_date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Last_working_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Last_working_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Last_working_date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.EOS_reasons, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-8">
+                                        @Html.EnumDropDownListFor(model => model.personnel_transaction.EOS_reasons, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.EOS_reasons, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div style="margin-top:15px" class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Commnets, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.personnel_transaction.Commnets, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Commnets, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="tab-pane" id="BudgetStatus">
+
+                                <div class="col-md-12">
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Position_transaction, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Position_transaction, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Position_transaction, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Transaction_Type_, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EnumDropDownListFor(model => model.personnel_transaction.Transaction_Type_, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Transaction_Type_, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Fixed_basic_salary_by, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EnumDropDownListFor(model => model.personnel_transaction.Fixed_basic_salary_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Fixed_basic_salary_by, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Resolution_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Resolution_number, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Resolution_number, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Resolution_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Resolution_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Resolution_date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Activity_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.personnel_transaction.Activity_number, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Activity_number, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Memo_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Memo_number, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Memo_number, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Memo_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Memo_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Memo_date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Recommended_by, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Recommended_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Recommended_by, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @Html.LabelFor(model => model.personnel_transaction.Approved_by, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Approved_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Approved_by, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    @Html.LabelFor(model => model.personnel_transaction.Approved_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.personnel_transaction.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Approved_date, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            </div>
+                          
+                        </div>
+
+                        }
+
+                    </div>
 
         </div>
 
@@ -140,3 +353,219 @@
   });
 </script>
 @section scripts{}
+
+<script>
+        function CountryName() {
+            debugger
+            var id = $("#country").val();
+
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetJobtitle",
+                dataType: "json",
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+
+                    $("#countryname1").val(result.name);
+                    $("#area").removeAttr("disabled");
+               //     areaName(result.Organization_unit_codeID.worklocationid)
+                    areaname(result.joblevelsetupID)
+
+                    getter(result.ID)
+                    getstate(result.Organization_unit_codeID)
+                },
+                error: function () {
+                    debugger
+                    $("#countryname1").val(" ");
+                }
+            });
+        }
+        CountryName()
+        function areaname(did) {
+            debugger
+
+            $.ajax({
+                type: "post",
+                url: "/helper/getjoblevel",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+                    $("#ter").removeAttr("disabled");
+                    $("#area").select2("val", result.ID);
+                    $("#areaname1").val(result.Name);
+                    $("#area").attr("readonly", true);
+                    $("#area").prop("readonly", true);
+                },
+                error: function () {
+                    debugger
+                    $("#areaname1").val(" ");
+                }
+            });
+        }
+        //areaname(did)
+        function getter(did) {
+            debugger
+            var oo = $("#employeeId").val();
+            var id = $("#ter").val();
+
+            //$("#citeid").empty();
+            //$("#citeid").select2("val", "");
+            //$("#cityname").val(" ");
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetJobSolts",
+                data: { "id": did,"did":oo },
+                success: function (result) {
+                    debugger
+                    var finalresult="";
+                    finalresult = "<option value='0' > Choose Slot desc </option>";
+                    $.each(result, function (key, value) {
+                        if (value.ID == parseInt(@Model.personnel_transaction.SlotdescId)) {
+                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                        }
+                        else {
+                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                        }
+                        //"--"+ value.slot_description +
+                    });
+                    $("#ter").html(finalresult);
+                    //      $("#citeid").removeAttr("disabled");
+                    //$("#ter").select2("val", result.ID);
+                    slot();
+                //    getallcite(result.ID);
+                    $("#state").removeAttr("disabled");
+
+                },
+                error: function () {
+                    debugger
+                    $("#tername").val(" ");
+                }
+            });
+        }
+        slot();
+        function slot()
+        {
+            debugger
+            var id = $("#ter").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetSolt",
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+                    $("#tername").val(result.slot_code);
+                },
+                error: function () {
+                    debugger
+                    $("#tername").val(" ");
+                }
+            });
+        }
+        //getter(did)
+        function getstate(did)
+        {
+            debugger
+       //     var id = $("#state").val();
+            //$("#ter").empty();
+            //$("#citeid").empty();
+            //$("#ter").select2("val", "");
+            //$("#citeid").select2("val", "");
+            //$("#tername").val(" ");
+            //$("#cityname").val(" ");
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetOrganizationChart",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+                    $("#state").select2("val", result.ID);
+
+                    $("#citeid").removeAttr("disabled");
+                    $("#statename").val(result.unit_Description);
+                    getcite(result.worklocationid)
+                    getcite2(result.worklocationid)
+                    $("#state").attr("readonly", true);
+                    $("#state").prop("readonly", true);
+                },
+                error: function () {
+                    debugger
+                    $("#statename").val(" ");
+                }
+            });
+        }
+        //getstate(did)
+
+        function getcite(did) {
+            debugger
+        //    var id = $("#citeid").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetWorklocation",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+
+                    $("#citeid").select2("val", result.ID);
+                    $("#cityname").val(result.Name);
+                    $("#citeid").attr("readonly", true);
+                    $("#citeid").prop("readonly", true);
+                    $("#citeid2").removeAttr("disabled");
+                },
+                error: function () {
+                    debugger
+                    $("#cityname").val(" ");
+                }
+            });
+        }
+        //getcite(did)
+        function getcite2(did) {
+            debugger
+            //    var id = $("#citeid").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetWorklocation",
+                data: { "id": did },
+                success: function (result) {
+                    debugger
+
+                    $("#citeid2").select2("val", result.ID);
+                    $("#cityname2").val(result.Name);
+
+                },
+                error: function () {
+                    debugger
+                    $("#cityname2").val(" ");
+                }
+            });
+        }
+        //getcite2(did)
+</script>
+
+
+
+<script>
+    function employee() {
+        debugger
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#employeename").val(result.Name);
+                //$("#codeid").val(result.Employee_Positions_Profile.Code);
+                //$("#employeeId").attr("readonly", true);
+                //$("#employeeId").prop("readonly", true);
+            },
+            error: function () {
+                debugger
+                $("#employeename").val(" ");
+                //$("#codeid").val("");
+            }
+        });
+    }
+    employee();
+</script>
+

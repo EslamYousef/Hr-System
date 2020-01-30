@@ -26,8 +26,8 @@ namespace HR.Models
         ///////////////
 
 
-        [Display(Name = "Position transaction no.")]
-        public string Position_transaction_no { get; set; }
+       // [Display(Name = "Position transaction no.")]
+        //public string Position_transaction_no { get; set; }
         [Display(Name = "Position transaction")]
         public DateTime Position_transaction { get; set; }
         public Transaction_Type Transaction_Type_ { get; set; } = Transaction_Type.Re_Hire;
@@ -51,12 +51,12 @@ namespace HR.Models
         ///////////
         //////////
         
-        [Required]
-        [Display(Name = "Employee No.")]
-        public string Employee_ProfileId { get; set; }
-        [Required]
-        [Display(Name = "Position profile No.")]
-        public string Code { get; set; }
+       // [Required]
+       // [Display(Name = "Employee No.")]
+       // public string Employee_ProfileId { get; set; }
+        //[Required]
+       // [Display(Name = "Position profile No.")]
+      //  public string Code { get; set; }
         [Display(Name = "Primary Position")]
         public bool Primary_Position { get; set; }
         [Display(Name = "Job desc")]

@@ -1,0 +1,49 @@
+﻿@model HR.Models.personnel_transaction
+
+@{
+    ViewBag.Title = "delete";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+@using (Html.BeginForm("delete", "personnel_transaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Employee.Full_Name, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Delete" class="btn btn-success" />
+                <a href="@Url.Action("index", "personnel_transaction")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{}
