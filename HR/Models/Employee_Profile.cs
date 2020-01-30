@@ -91,7 +91,7 @@ namespace HR.Models
         public virtual Personnel_Information Personnel_Information { get; set; }
         public virtual Service_Information Service_Information { get; set; }
         public virtual Employee_Qualification_Profile Employee_Qualification_Profile { get; set; }
-        public virtual Position_Information Employee_Positions_Profile { get; set; }
+        public virtual List<Position_Information>  Employee_Positions_Profile { get; set; }
         public virtual Position_Transaction_Information Position_Transaction_Information { get; set; }
         public virtual Employee_family_profile Employee_family_profile { get; set; }
         public virtual Employee_experience_profile Employee_experience_profile { get; set; }

@@ -267,34 +267,34 @@ namespace HR.Controllers
                     emp.Employee_Qualification_Profile = e;
                     dbcontext.SaveChanges();
                     //////////////////////////////////////////////////////////
-                    var addmodel2 = dbcontext.Position_Information.ToList();
-                    var tr2 = 0;
+                    //var addmodel2 = dbcontext.Position_Information.ToList();
+                    //var tr2 = 0;
 
-                    if (addmodel2.Count() == 0)
-                    {
-                        tr2 = 1;
-                    }
-                    else
-                    {
-                        var te2 = addmodel2.LastOrDefault().ID;
-                        tr2 = te2 + 1;
-                    }
-                    DateTime statis2 = Convert.ToDateTime("1/1/1900");
-                    var strus2 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    var text2 = new Position_Information
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus2.Structure_Code + tr2.ToString(), From_date = statis2, To_date = statis2, End_of_service_date = statis2, Last_working_date = statis2, SlotdescId = "0" };
-                    var e2 = dbcontext.Position_Information.Add(text2);
-                    dbcontext.SaveChanges();
+                    //if (addmodel2.Count() == 0)
+                    //{
+                    //    tr2 = 1;
+                    //}
+                    //else
+                    //{
+                    //    var te2 = addmodel2.LastOrDefault().ID;
+                    //    tr2 = te2 + 1;
+                    //}
+                    //DateTime statis2 = Convert.ToDateTime("1/1/1900");
+                    //var strus2 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //var text2 = new Position_Information
+                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus2.Structure_Code + tr2.ToString(), From_date = statis2, To_date = statis2, End_of_service_date = statis2, Last_working_date = statis2, SlotdescId = "0" };
+                    //var e2 = dbcontext.Position_Information.Add(text2);
+                    //dbcontext.SaveChanges();
 
-                    var text22 = new Position_Transaction_Information
-                    { Position_transaction = statis2, Approved_date = statis2, Memo_date = statis2, Resolution_date = statis2 };
-                    var e22 = dbcontext.Position_Transaction_Information.Add(text22);
-                    dbcontext.SaveChanges();
+                    //var text22 = new Position_Transaction_Information
+                    //{ Position_transaction = statis2, Approved_date = statis2, Memo_date = statis2, Resolution_date = statis2 };
+                    //var e22 = dbcontext.Position_Transaction_Information.Add(text22);
+                    //dbcontext.SaveChanges();
 
-                    emp.Employee_Positions_Profile = e2;
-                    dbcontext.SaveChanges();
-                    emp.Position_Transaction_Information = e22;
-                    dbcontext.SaveChanges();
+                    //emp.Employee_Positions_Profile = e2;
+                    //dbcontext.SaveChanges();
+                    //emp.Position_Transaction_Information = e22;
+                    //dbcontext.SaveChanges();
             
                     ///////////////////////////////////////////////
 
@@ -370,7 +370,7 @@ namespace HR.Controllers
                     }
                     if (command3 == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_Positions_Profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_Positions_Profile", new { id = emp.ID });
                     }
                     if (command4 == "Submit")
                     {
@@ -570,7 +570,7 @@ namespace HR.Controllers
                 }
                 if (command3 == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_Positions_Profile", new { id = record.Employee_Positions_Profile.ID });
+                    return RedirectToAction("index", "Employee_Positions_Profile", new { id = record.ID });
                 }
                 if (command4 == "Submit")
                 {
@@ -604,7 +604,7 @@ namespace HR.Controllers
                 var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
                 var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
                 var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
-                var Position_Information = dbcontext.Position_Information.FirstOrDefault(m => m.ID == record.Employee_Positions_Profile.ID);
+                var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
                 var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
                 var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
 
@@ -632,8 +632,8 @@ namespace HR.Controllers
             var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
             var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
             var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
-            var Position_Information = dbcontext.Position_Information.FirstOrDefault(m => m.ID == record.Employee_Positions_Profile.ID);
-            var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
+            var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
+           
             var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
             var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
             var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.Employee_experience_profile.ID);
@@ -672,12 +672,12 @@ namespace HR.Controllers
                 }
                 if (Position_Information != null)
                 {
-                    dbcontext.Position_Information.Remove(Position_Information);
+                    dbcontext.Position_Information.RemoveRange(Position_Information);
                 }
-                if (Position_Transaction_Information != null)
-                {
-                    dbcontext.Position_Transaction_Information.Remove(Position_Transaction_Information);
-                }
+                ////if (Position_Transaction_Information != null)
+                ////{
+                ////    dbcontext.Position_Transaction_Information.Remove(Position_Transaction_Information);
+                ////}
                 if (Employee_family_profile != null)
                 {
                     dbcontext.Employee_family_profile.Remove(Employee_family_profile);

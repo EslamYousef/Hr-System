@@ -54,8 +54,8 @@ namespace HR.Models
         public Position_status Position_status { get; set; } = Position_status.Active;
         public EOS_reasons EOS_reasons { get; set; } = EOS_reasons.Retired;
         public virtual Position_Transaction_Information Position_Transaction_Information { get; set; }
+        public virtual Employee_Profile Employee_Profile { get; set; }
 
-        
     }
 
 }
