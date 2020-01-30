@@ -760,11 +760,30 @@ namespace HR.Controllers
             var OrganizationChart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
             return Json(OrganizationChart);
         }
+        public JsonResult GetExternalcompaines(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var ID = int.Parse(id);
+            var Externalcompaines = dbcontext.External_compaines.FirstOrDefault(m => m.ID == ID);
+            return Json(Externalcompaines);
+        }
+        public JsonResult GetRejectionReasons(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var ID = int.Parse(id);
+            var RejectionReasons = dbcontext.Rejection_Reasons.FirstOrDefault(m => m.ID == ID );
+            return Json(RejectionReasons);
+        }
+        public JsonResult GetContactmethods(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
-
-
+            var ID = int.Parse(id);
+            var Contactmethods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == ID);
+            return Json(Contactmethods);
+        }
 
     }
 

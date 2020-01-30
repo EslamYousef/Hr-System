@@ -31,7 +31,10 @@ namespace HR.Controllers
         }
         public ActionResult Create(string id)
         {
+
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m=>m.purpose==reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_experience_profile.ToList();
             var count = 0;
@@ -61,14 +64,28 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 if (ModelState.IsValid)
                 {
+                    if (model.External_compainesId == "0" || model.External_compainesId == null)
+                    {
+                        ModelState.AddModelError("", "Company Code must enter");
+                        return View(model);
+                    }
+                    if (model.Rejection_ReasonsId == "0" || model.Rejection_ReasonsId == null)
+                    {
+                        ModelState.AddModelError("", "Reason of leave Code must enter");
+                        return View(model);
+                    }
                     var experience = int.Parse(model.Employee_ProfileId);
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == experience);
                     var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == emp.Employee_experience_profile.ID);
 
+                    record.External_compainesId = model.External_compainesId;
+                    record.Rejection_ReasonsId = model.Rejection_ReasonsId;
                     record.Company_type = model.Company_type;
                     record.Job_title = model.Job_title;
                     record.Start_date = model.Start_date;
@@ -113,6 +130,9 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+
                 var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 {
@@ -134,8 +154,22 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                if (model.External_compainesId == "0" || model.External_compainesId == null)
+                {
+                    ModelState.AddModelError("", "Company Code must enter");
+                    return View(model);
+                }
+                if (model.Rejection_ReasonsId == "0" || model.Rejection_ReasonsId == null)
+                {
+                    ModelState.AddModelError("", "Reason of leave Code must enter");
+                    return View(model);
+                }
                 var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == model.ID);
                 record.Code = model.Code;
+                record.Rejection_ReasonsId = model.Rejection_ReasonsId;
+                record.External_compainesId = model.External_compainesId;
                 record.Company_type = model.Company_type;
                 record.Job_title = model.Job_title;
                 record.Start_date = model.Start_date;

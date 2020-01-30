@@ -17,6 +17,14 @@ namespace HR.Models
         [Required]
         [Display(Name = "Experience profile No.")]
         public string Code { get; set; }
+        [Required]
+        [Display(Name = "Company code")]
+        public string External_compainesId { get; set; }
+        public virtual External_compaines External_compaines { get; set; }     
+        [Required]
+        [Display(Name = "Reason of leave")]
+        public string Rejection_ReasonsId { get; set; }
+        public virtual Rejection_Reasons Rejection_Reasons { get; set; }
         [Display(Name = "Company type")]
         public string Company_type { get; set; }
         [Display(Name = "Job title")]

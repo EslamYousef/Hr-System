@@ -60,7 +60,15 @@
                                 <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
                             </div>
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.External_compainesId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.External_compainesId, new SelectList(ViewBag.External_compaines, "ID", "Code"), "Select Company", new { @class = "select2", @onchange = "company()", id = "companyId" })
+                                @Html.ValidationMessageFor(model => model.External_compainesId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="Companyname" disabled />
 
+                            </div>
+                        </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Company_type, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-8">
@@ -116,6 +124,16 @@
                                 @Html.ValidationMessageFor(model => model.Total_salary, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Rejection_ReasonsId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Rejection_ReasonsId, new SelectList(ViewBag.Rejection_Reasons, "ID", "Code"), "Select Reason of leave", new { @class = "select2", @onchange = "Reasons()", id = "ReasonsId" })
+                                @Html.ValidationMessageFor(model => model.Rejection_ReasonsId, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="Reasonsname" disabled />
+
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.Added_years, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
@@ -204,3 +222,47 @@
 </script>
 
 
+<script>
+    function company() {
+        debugger
+        var id = $("#companyId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetExternalcompaines",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#Companyname").val(result.Name);
+
+            },
+            error: function () {
+                debugger
+                $("#Companyname").val(" ");
+
+            }
+        });
+    }
+    company();
+</script>
+<script>
+    function Reasons() {
+        debugger
+        var id = $("#ReasonsId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetRejectionReasons",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#Reasonsname").val(result.Name);
+
+            },
+            error: function () {
+                debugger
+                $("#Reasonsname").val(" ");
+
+            }
+        });
+    }
+    company();
+</script>

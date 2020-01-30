@@ -95,8 +95,9 @@ namespace HR.Models
         public virtual Position_Transaction_Information Position_Transaction_Information { get; set; }
         public virtual Employee_family_profile Employee_family_profile { get; set; }
         public virtual Employee_experience_profile Employee_experience_profile { get; set; }
+        public virtual Employee_contact_profile Employee_contact_profile { get; set; }
 
-
+        
         //public string tab { get; set; }
 
         //[DataType(DataType.DateTime)]

@@ -69,7 +69,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6)
         {
             try
             {
@@ -334,10 +334,30 @@ namespace HR.Controllers
                     DateTime statis5 = Convert.ToDateTime("1/1/1900");
                     var strus5 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
                     var text5 = new Employee_experience_profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus5.Structure_Code + expcount.ToString(), Approval_date = statis5, Start_date = statis5, End_date = statis5 };
+                    { Employee_ProfileId = emp.ID.ToString(), Code = strus5.Structure_Code + expcount.ToString(), Approval_date = statis5, Start_date = statis5, End_date = statis5 ,Rejection_ReasonsId="0",External_compainesId="0"};
                     var e5 = dbcontext.Employee_experience_profile.Add(text5);
                     dbcontext.SaveChanges();
                     emp.Employee_experience_profile = e5;
+                    dbcontext.SaveChanges();
+                    ////////////////////////////////////////////////
+                    var employeecontact= dbcontext.Employee_contact_profile.ToList();
+                    var contactcount = 0;
+
+                    if (employeecontact.Count() == 0)
+                    {
+                        contactcount = 1;
+                    }
+                    else
+                    {
+                        var te6 = employeecontact.LastOrDefault().ID;
+                        contactcount = te6 + 1;
+                    }
+                    var strus6 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    var text6 = new Employee_contact_profile
+                    { Employee_ProfileId = emp.ID.ToString(), Code = strus6.Structure_Code + contactcount.ToString() };
+                    var e6 = dbcontext.Employee_contact_profile.Add(text6);
+                    dbcontext.SaveChanges();
+                    emp.Employee_contact_profile = e6;
                     dbcontext.SaveChanges();
 
                     if (command == "Submit")
@@ -359,6 +379,10 @@ namespace HR.Controllers
                     if (command5 == "Submit")
                     {
                         return RedirectToAction("Create", "Employee_experience_profile", new { id = emp.ID });
+                    }
+                    if (command6 == "Submit")
+                    {
+                        return RedirectToAction("Create", "Employee_contact_profile", new { id = emp.ID });
                     }
                     return RedirectToAction("Index");
                 }
@@ -408,7 +432,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6)
         {
             try
             {
@@ -555,6 +579,10 @@ namespace HR.Controllers
                 if (command5 == "Submit")
                 {
                     return RedirectToAction("Edit", "Employee_experience_profile", new { id = record.Employee_experience_profile.ID });
+                }
+                if (command6 == "Submit")
+                {
+                    return RedirectToAction("Edit", "Employee_contact_profile", new { id = record.Employee_contact_profile.ID });
                 }
                 return RedirectToAction("index");
             }
