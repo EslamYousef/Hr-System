@@ -98,6 +98,7 @@ namespace HR.Models
         public virtual Employee_contact_profile Employee_contact_profile { get; set; }
         public bool Active { get; set; }
 
+        public virtual List<Employee_contract_profile> Employee_contract_profile { get; set; }
 
         //public string tab { get; set; }
 

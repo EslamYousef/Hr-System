@@ -784,6 +784,50 @@ namespace HR.Controllers
             var Contactmethods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == ID);
             return Json(Contactmethods);
         }
+        public JsonResult GetContract_Type(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+
+            var ID = int.Parse(id);
+            var Contract_Type = dbcontext.Contract_Type.FirstOrDefault(m => m.ID == ID);
+            return Json(Contract_Type);
+        }
+
+        public JsonResult GetAirports(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+
+            var ID = int.Parse(id);
+            var Airports = dbcontext.Air_ports.FirstOrDefault(m => m.ID == ID);
+            return Json(Airports);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 

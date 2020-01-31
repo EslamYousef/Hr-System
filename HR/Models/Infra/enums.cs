@@ -352,5 +352,40 @@ namespace HR.Models.Infra
         [Display(Name = "Contract extenstion")]
         contract_extenstion =9
     }
+    public enum Employment_type
+    {
+        [Display(Name = "Full time")]
+        Fulltime = 1,
+        [Display(Name = "Part time")]
+        Parttime = 2
+    }
+    public enum Medical_commite_recomindation
+    {
+        
+        Fit = 1,
+        [Display(Name = "Not fit")]
+        Not_Fit = 2
+    }
     
+
+          public enum Tickets_Class_Tpye
+    {
+
+        Economy = 1,
+        [Display(Name = "Premium Economy")]
+        Premium_Economy = 2,
+        Business = 3,
+         First=4
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

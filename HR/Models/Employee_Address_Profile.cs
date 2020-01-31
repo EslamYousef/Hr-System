@@ -44,6 +44,7 @@ namespace HR.Models
         public string Pobox { get; set; }
         [Display(Name = "Distance to work location (km)")]
         public int Distancetoworklocationkm { get; set; }
+        [Display(Name = "Transportation method")]
         public Transportation_method Transportation_method { get; set; } = Transportation_method.None;
         [Display(Name = "Distance from Meeting point to work location (km)")]
         public int DistancefromMeetingpointtoworklocationkm { get; set; }

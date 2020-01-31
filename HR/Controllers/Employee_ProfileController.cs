@@ -69,7 +69,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7)
         {
             try
             {
@@ -384,6 +384,10 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("Create", "Employee_contact_profile", new { id = emp.ID });
                     }
+                    if (command7 == "Submit")
+                    {
+                        return RedirectToAction("index", "Employee_contract_profile", new { id = emp.ID });
+                    }
                     return RedirectToAction("Index");
                 }
                 else
@@ -432,7 +436,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7)
         {
             try
             {
@@ -583,6 +587,10 @@ namespace HR.Controllers
                 if (command6 == "Submit")
                 {
                     return RedirectToAction("Edit", "Employee_contact_profile", new { id = record.Employee_contact_profile.ID });
+                }
+                if (command7 == "Submit")
+                {
+                    return RedirectToAction("index", "Employee_contract_profile", new { id = record.ID });
                 }
                 return RedirectToAction("index");
             }

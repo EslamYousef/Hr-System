@@ -88,7 +88,7 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
+                ViewBag.id = model.Position_Information.ID;
                 if (ModelState.IsValid)
                 {
                      var prof = int.Parse(model.Position_Information.Employee_ProfileId);
@@ -238,6 +238,7 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.id = model.Position_Information.ID;
                 var prof = int.Parse(model.Position_Information.Employee_ProfileId);
              //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID ==model.Position_Information.ID);
