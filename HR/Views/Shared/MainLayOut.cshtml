@@ -200,10 +200,10 @@
                         </ul>
                     </li>
                     <li class="has-sub">
-                        <a href="#"><span>Basic</span></a>
+                        <a href="#Basic"><span>Basic</span></a>
                         <ul>
                             <li class="has-sub">
-                                <a href="#"><span>Setup</span></a>
+                                <a href="#Setup"><span>Setup</span></a>
                                 <ul class="nav nav-children">
                                     <li style="width:25px"  class="has-sub" >
                                         <a href="#"><span>Address----------</span></a>
@@ -370,16 +370,16 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li   class="has-sub" >
+                                    <li   class="has-sub active" >
                                         <a  href="#"><span>Documents</span></a>
                                         <ul class="nav nav-children">
-                                            <li>
+                                            <li class="active">
                                                 <a href="@Url.Action("Index","Document_Group")">
                                                     <i class="entypo-gauge"></i>
                                                     <span class="title"> Documents_group</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="active">
                                                 <a href="@Url.Action("Index","Documents")">
                                                     <i class="entypo-gauge"></i>
                                                     <span class="title">Documents</span>
@@ -453,7 +453,6 @@
 
                         </ul>
                     </li>
-
                     <li class="opened active has-sub">
                         <a href="layout-api.html">
                             <i class="entypo-layout"></i>
@@ -919,12 +918,12 @@
             </div>
 
         </header>
-        <div class="sidebar-menu">
+        <div class="sidebar-menu" id="menubar">
             <div class="sidebar-menu-inner">
 
 
 
-                <div class="sidebar-user-info">
+                @*<div class="sidebar-user-info">
 
                     <div class="sui-hover inline-links animate-in">
                         <!-- You can remove "inline-links" class to make links appear vertically, class "animate-in" will make A elements animateable when click on user profile -->
@@ -935,7 +934,7 @@
                         </a>
                         <span class="close-sui-popup">&times;</span><!-- this is mandatory -->
                     </div>
-                </div>
+                </div>*@
 
 
                 <ul id="main-menu"  class="main-menu">
@@ -949,13 +948,13 @@
                     </li>
 
                     <li class="has-sub"  >
-                        <a href="#"><span>Basic</span></a>
+                        <a href="#Basic" name="menubtn"><span>Basic</span></a>
                         <ul class="nav nav-children">
                             <li class="has-sub">
-                                <a href="#Setup"><span>Setup</span></a>
+                                <a href="#Setup" name="menubtn"><span>Setup</span></a>
                                 <ul class="nav nav-children">
                                     <li class="nav-parent">
-                                          <a class="has-sub"  href="#Address"><span>Address</span></a>
+                                          <a class="has-sub"  href="#Address" name="menubtn"><span>Address</span></a>
                                                 <ul class="nav nav-children">
                                                     <li>
                                                         <a href="@Url.Action("Index","Country")">
@@ -1008,7 +1007,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#Religion"><span>Religion</span></a>
+                                            <a href="#Religion" name="menubtn"><span>Religion</span></a>
                                             <ul class="nav nav-children">
                                                 <li class="nav-parent">
                                                     <a href="@Url.Action("Index","Religion")">
@@ -1019,7 +1018,7 @@
                                             </ul>
                                         </li>
                                         <li class="nav-parent">
-                                            <a href="#Qualifications"><span>Qualifications </span></a>
+                                            <a href="#Qualifications" name="menubtn"><span>Qualifications </span></a>
                                             <ul class="nav nav-children">
                                                 <li>
                                                     <a href="@Url.Action("Index","Educate_category")">
@@ -1066,7 +1065,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#Military"><span>Military</span></a>
+                                            <a href="#Military" name="menubtn"><span>Military</span></a>
                                             <ul class="nav nav-children">
                                                 <li>
                                                     <a href="@Url.Action("Index","Military_Service_Status")">
@@ -1083,7 +1082,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#Documents"><span>Documents</span></a>
+                                            <a href="#Documents" name="menubtn"><span>Documents</span></a>
                                             <ul class="nav nav-children">
                                                 <li>
                                                     <a href="@Url.Action("Index","Document_Group")">
@@ -1100,7 +1099,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#Currency"><span>Currency</span></a>
+                                            <a href="#Currency" name="menubtn"><span>Currency</span></a>
                                             <ul class="nav nav-children">
                                                 <li>
                                                     <a href="@Url.Action("Index","Currency")">
@@ -1117,7 +1116,7 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#Requisition"><span>Check Requisition</span></a>
+                                            <a href="#Requisition" name="menubtn"><span>Check Requisition</span></a>
                                             <ul class="nav nav-children">
                                                 <li>
                                                     <a href="@Url.Action("Index","Checktype")">
@@ -1174,7 +1173,7 @@
                                     </ul>
                             </li>
                             <li>
-                                <a href="#"><span> Transactions</span></a>
+                                <a href="#" name="menubtn"><span> Transactions</span></a>
                                 <ul class="nav nav-children">
                                     <li>
                                         <a href="@Url.Action("Create","Check_Request")">
@@ -1185,7 +1184,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#"><span> Process</span></a>
+                                <a href="#" name="menubtn"><span> Process</span></a>
                                 <ul class="nav nav-children">
                                     <li>
                                         <a href="@Url.Action("Index","Check_Request")">
@@ -1203,13 +1202,13 @@
                     @*///////////////////////////////////
             //////////////////////////////////*@
                     <li class="nav-parent">
-                        <a href="#"><span>Organization Module</span></a>
+                        <a href="#" name="menubtn"><span>Organization Module</span></a>
                         <ul class="nav nav-children">
                             <li class="nav-parent">
-                                <a href="#"><span>Setup</span></a>
+                                <a href="#" name="menubtn"><span>Setup</span></a>
                                 <ul class="nav nav-children">
                                     <li class="nav-parent">
-                                        <a href="#"><span>Authority</span></a>
+                                        <a href="#" name="menubtn"><span>Authority</span></a>
                                         <ul class="nav nav-children">
                                             <li>
                                                 <a href="@Url.Action("Index","Authority_Type")">
@@ -1588,20 +1587,15 @@
 
     </div>
 
-    <script>
-        $(document).ready(function () {
-            if (location.hash) {
-                $("a[href='" + location.hash + "']").tab("show");
-            }
-            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
-                location.hash = this.getAttribute("href");
-            });
-        });
-        $(window).on("popstate", function () {
-            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
-            $("a[href='" + anchor + "']").tab("show");
-        });
-    </script>
+    @*<script>
+    $(document).ready(function () {
+  
+
+        $("#menubar ul li a").click(function () {
+            $("#main").load("pages.html #" + $(this).attr("href"));
+        })
+    })
+    </script>*@
     @*<!-- Imported styles on this page -->
     <link rel="stylesheet" href="~/Content/neon/assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
     <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">

@@ -11,5 +11,6 @@ namespace HR.Models.ViewModel
         public int empid { get; set; }
         public status status { get; set; }
         public check_status check_status { get; set; }
+        public int opertion_id{get;set;}
     }
 }

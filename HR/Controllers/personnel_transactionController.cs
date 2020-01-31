@@ -36,8 +36,29 @@ namespace HR.Controllers
                 ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
+                //ViewBag.Employee_Profile 
+                var all_e = new List<Employee_Profile>();
+                var empll= dbcontext.Employee_Profile.ToList();
+                foreach (var item in empll)
+                {
+                    if (item.Employee_Positions_Profile.Count() > 0)
+                    {
+                        all_e.Add(item);
+                    }
+                }
+                if(all_e.Count()>0)
+                {
+                    ViewBag.Employee_Profile = all_e.Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+
+                }
+                else
+                {
+                    ViewBag.Employee_Profile = new List<Employee_Profile>();
+                }
+                /////////////////////
+                ////////////////////
+                ///////////////////
                 var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
                 var model = dbcontext.personnel_transaction.ToList();
                 var count = 0;
@@ -50,10 +71,12 @@ namespace HR.Controllers
                     var te = model.LastOrDefault().ID;
                     count = te + 1;
                 }
-                DateTime statis = Convert.ToDateTime("1/1/1900");
+                DateTime statis = Convert.ToDateTime("1/1/1900").Date;
                var vm = new personnel_transaction {Number= stru.Structure_Code + count,End_of_service_date = statis,
+                    Position_Transaction_number = stru.Structure_Code + count,
                     From_date = statis,Last_working_date = statis,To_date = statis,
-                    Position_transaction = statis,Approved_date = statis,Memo_date = statis,Resolution_date = statis
+                    Position_transaction = statis,Approved_date = statis,Memo_date = statis,Resolution_date = statis,
+                    job_descId="0",Job_level_gradeId="0",Location_descId="0",Default_location_descId="0",Organization_ChartId="0",SlotdescId="0"
                 };
                 var mymodel = new TRANS_VM {personnel_transaction=vm,selected_employee=0 };
                 //    var PositionInformation = new Position_Information();
@@ -88,9 +111,8 @@ namespace HR.Controllers
                 if (ModelState.IsValid)
                 {
                   
-                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
-                    var mymodel = new personnel_transaction();
-                    mymodel = model.personnel_transaction;
+                   var mymodel = new personnel_transaction();
+                   mymodel = model.personnel_transaction;
 
                     ///////////////status////////////////////////
                     mymodel.check_status = check_status.Report_as_ready;
@@ -101,7 +123,64 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
                     mymodel.status = st;
                     mymodel.date = mymodel.transaction_date.ToShortDateString();
-                    mymodel.Employee = emp;
+                 
+
+
+
+                    if (model.selected_employee > 0)
+                    {
+                        mymodel.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                    }
+                    else
+                    {
+                        mymodel.Employee = null;
+                    }
+
+                    if (model.personnel_transaction.job_descId != "0")
+                    {
+                        mymodel.Job_level_gradeId = model.personnel_transaction.Job_level_gradeId;
+                        var ID = int.Parse(model.personnel_transaction.job_descId);
+                        mymodel.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == ID);
+                    }
+                    else
+                    {
+                        mymodel.job_descId = "0";
+                        mymodel.job_title_cards = null;
+                    }
+                    if (model.personnel_transaction.Job_level_gradeId != "0")
+                    {
+                        var ID = int.Parse(model.personnel_transaction.Job_level_gradeId);
+                        mymodel.job_level_setup = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
+                        mymodel.Job_level_gradeId = model.personnel_transaction.Job_level_gradeId;
+                    }
+                    else
+                    {
+                        mymodel.Job_level_gradeId = "0";
+                        mymodel.job_title_cards = null;
+                    }
+
+                    if (model.personnel_transaction.Location_descId != "0")
+                    {
+                        var ID = int.Parse(model.personnel_transaction.Location_descId);
+                        mymodel.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == ID);
+                        mymodel.Location_descId = model.personnel_transaction.Job_level_gradeId;
+                    }
+                    else
+                    {
+                        mymodel.work_location = null;
+                        mymodel.Location_descId = "0";
+                    }
+                    if (model.personnel_transaction.Organization_ChartId != "0")
+                    {
+                        var ID = int.Parse(model.personnel_transaction.Organization_ChartId);
+                        mymodel.Organization_Chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
+                        mymodel.Organization_ChartId = model.personnel_transaction.Organization_ChartId;
+                    }
+                    else
+                    {
+                        mymodel.Organization_Chart = null;
+                        mymodel.Organization_ChartId = "0";
+                    }
                     dbcontext.personnel_transaction.Add(mymodel);
                     //var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == emp.Employee_Positions_Profile.ID);
                     //record.Primary_Position = model.Primary_Position;
@@ -176,11 +255,29 @@ namespace HR.Controllers
             }
         }
 
-        public ActionResult edit()
+        public ActionResult edit(string id)
         {
             try
             {
-                return View();
+                ViewBag.job_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
+                ViewBag.job_slot_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.num_slots + "------[" + m.name + ']', ID = m.ID });
+                ViewBag.Default_location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                var ID = int.Parse(id);
+                var model = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID ==ID);
+                var vm = new TRANS_VM { personnel_transaction = model };
+                if (model.Employee!=null)
+                {
+                    vm.selected_employee = model.Employee.ID;
+                }
+               else
+                {
+                    vm.selected_employee = 0;
+                }
+                return View(vm);
             }
             catch(Exception e)
             {
@@ -192,11 +289,111 @@ namespace HR.Controllers
         {
             try
             {
-                return View();
+                ViewBag.job_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
+                ViewBag.job_slot_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.num_slots + "------[" + m.name + ']', ID = m.ID });
+                ViewBag.Default_location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                var record = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == model.personnel_transaction.ID);
+                ////////////////////////////////////////////////
+                ////////////////////////////////////////////////
+                ////////////////////////////////////////////////
+                record.Activity_number = model.personnel_transaction.Activity_number;
+                record.Approved_by = model.personnel_transaction.Approved_by;
+                record.Approved_date = model.personnel_transaction.Approved_date;
+               // record.check_status = model.personnel_transaction.status.statu;
+                record.Commnets = model.personnel_transaction.Commnets;
+                record.date = model.personnel_transaction.transaction_date.ToShortDateString();
+                record.Fixed_basic_salary_by = model.personnel_transaction.Fixed_basic_salary_by;
+                record.Default_location_descId = model.personnel_transaction.Default_location_descId;
+                record.Effective_date = model.personnel_transaction.Effective_date;
+                record.End_of_service_date = model.personnel_transaction.End_of_service_date;
+                record.EOS_reasons = model.personnel_transaction.EOS_reasons;
+                record.From_date = model.personnel_transaction.From_date;
+                record.Last_working_date = model.personnel_transaction.Last_working_date;
+                record.Memo_date = model.personnel_transaction.Memo_date;
+                record.Memo_number = model.personnel_transaction.Memo_number;
+                record.Months = model.personnel_transaction.Months;
+                record.Number = model.personnel_transaction.Number;
+                record.Position_status = model.personnel_transaction.Position_status;
+                record.Position_transaction = model.personnel_transaction.Position_transaction;
+                record.Recommended_by = model.personnel_transaction.Recommended_by;
+                record.Resolution_date = model.personnel_transaction.Resolution_date;
+                record.Resolution_number = model.personnel_transaction.Resolution_number;
+                record.SlotdescId = model.personnel_transaction.SlotdescId;
+                record.To_date = model.personnel_transaction.To_date;
+                record.transaction_date = model.personnel_transaction.transaction_date;
+                record.Transaction_type = model.personnel_transaction.Transaction_type;
+                record.Transaction_Type_ = model.personnel_transaction.Transaction_Type_;
+                record.working_system = model.personnel_transaction.working_system;
+                record.work_location = model.personnel_transaction.work_location;
+                record.Years = model.personnel_transaction.Years;
+                if (model.selected_employee>0)
+                {
+                    record.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                }
+                else
+                {
+                    record.Employee = null;
+                }
+              
+                if (model.personnel_transaction.job_descId != "0")
+                {
+                    record.Job_level_gradeId = model.personnel_transaction.Job_level_gradeId;
+                    var ID = int.Parse(model.personnel_transaction.job_descId);
+                    record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == ID);
+                }
+                else
+                {
+                    record.job_descId = "0";
+                    record.job_title_cards=null;
+                }
+                if (model.personnel_transaction.Job_level_gradeId != "0")
+                {
+                    var ID = int.Parse(model.personnel_transaction.Job_level_gradeId);
+                    record.job_level_setup = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
+                    record.Job_level_gradeId = model.personnel_transaction.Job_level_gradeId;
+                }
+                else
+                {
+                    record.Job_level_gradeId = "0";
+                    record.job_title_cards = null;
+                }
+           
+                if (model.personnel_transaction.Location_descId != "0")
+                {
+                    var ID = int.Parse(model.personnel_transaction.Location_descId);
+                    record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == ID);
+                    record.Location_descId = model.personnel_transaction.Job_level_gradeId;
+                }
+                else
+                {
+                    record.work_location = null;
+                    record.Location_descId = "0";
+                }
+                if (model.personnel_transaction.Organization_ChartId != "0")
+                {
+                    var ID = int.Parse(model.personnel_transaction.Organization_ChartId);
+                    record.Organization_Chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
+                    record.Organization_ChartId = model.personnel_transaction.Organization_ChartId;
+                }
+                else
+                {
+                    record.Organization_Chart = null;
+                    record.Organization_ChartId = "0";
+                }
+                ////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
             }
             catch (Exception e)
             {
-                return View();
+                return View(model);
             }
         }
         public ActionResult delete(string id)
@@ -253,7 +450,7 @@ namespace HR.Controllers
                 var model = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == ID);
                 var st = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
-                var my_model = new employeestate { status = st, empid = ID };
+                var my_model = new employeestate { status = st, empid = model.Employee.ID,opertion_id=ID };
                 return View(my_model);
             }
             catch (Exception e)
@@ -265,13 +462,17 @@ namespace HR.Controllers
         public ActionResult status(employeestate model)
         {
             var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
-            var record = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == model.empid);
+            var record = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == model.opertion_id);
             if (model.check_status == check_status.Approved)
             {
                 sta.approved_by = model.status.approved_by;
                 sta.approved_bydate = model.status.approved_bydate;
                 record.check_status = check_status.Approved;
                 dbcontext.SaveChanges();
+                var go = new TRANS_VM { personnel_transaction = record, selected_employee = model.empid };
+                add_new_postion(go);
+
+
             }
             else if (model.check_status == check_status.Canceled)
             {
@@ -362,6 +563,110 @@ namespace HR.Controllers
             list.Add("Approved");
             list.Add("Report_as_ready");
             return Json(list);
+        }
+
+        public bool add_new_postion(TRANS_VM mmodel)
+        {
+            try
+            {
+                ///////////////update old position//////////
+                var old_position = dbcontext.Position_Information.FirstOrDefault(m => m.Primary_Position == true && m.Employee_Profile.ID == mmodel.selected_employee);
+                old_position.Primary_Position = false;
+                old_position.To_date = mmodel.personnel_transaction.Last_working_date;
+                dbcontext.SaveChanges();
+                var old_slot = new Slots();
+                var slot_id = int.Parse(old_position.SlotdescId);
+                old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID ==slot_id );
+                old_slot.Employee_Profile = null;
+                old_slot.EmployeeName = null;
+                old_slot.EmployeeID = null;
+                dbcontext.SaveChanges();
+                //////////////////////////////////////////////
+                ///////////////add new position///////////////
+                /////////////////////////////////////////////
+                var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                var model = dbcontext.Position_Information.ToList();
+                var count = 0;
+                if (model.Count() == 0)
+                {
+                    count = 1;
+                }
+                else
+                {
+                    var te = model.LastOrDefault().ID;
+                    count = te + 1;
+                }
+                var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == mmodel.selected_employee);
+             
+
+                ///////
+                Position_Transaction_Information information = new Position_Transaction_Information();
+                information.Position_transaction = mmodel.personnel_transaction.Position_transaction;
+                information.Position_transaction_no = mmodel.personnel_transaction.Position_Transaction_number;
+                information.Transaction_Type = mmodel.personnel_transaction.Transaction_Type_;
+                information.Fixed_basic_salary_by = mmodel.personnel_transaction.Fixed_basic_salary_by;
+                information.Activity_number = mmodel.personnel_transaction.Activity_number;
+                information.Position_transaction = mmodel.personnel_transaction.Position_transaction;
+                information.Memo_number = mmodel.personnel_transaction.Memo_number;
+                information.Resolution_number = mmodel.personnel_transaction.Resolution_number;
+                information.Approved_by = mmodel.personnel_transaction.Approved_by;
+                information.Recommended_by = mmodel.personnel_transaction.Recommended_by;
+                information.Approved_date = mmodel.personnel_transaction.Approved_date;
+                information.Memo_date = mmodel.personnel_transaction.Memo_date;
+                information.Resolution_date = mmodel.personnel_transaction.Resolution_date;
+                var info = dbcontext.Position_Transaction_Information.Add(information);
+                dbcontext.SaveChanges();
+                ///////
+                Position_Information record = new Position_Information();
+                record.Code = stru.Structure_Code+count;
+                record.Primary_Position =true;
+                record.From_date = mmodel.personnel_transaction.Last_working_date;
+                record.To_date = mmodel.personnel_transaction.To_date;
+                record.Years = mmodel.personnel_transaction.Years;
+                record.Months = mmodel.personnel_transaction.Months;
+                record.End_of_service_date = mmodel.personnel_transaction.End_of_service_date;
+                record.Last_working_date = mmodel.personnel_transaction.Last_working_date;
+                record.Commnets = mmodel.personnel_transaction.Commnets;
+                record.working_system = mmodel.personnel_transaction.working_system;
+                record.Position_status = mmodel.personnel_transaction.Position_status;
+                record.EOS_reasons = mmodel.personnel_transaction.EOS_reasons;
+                record.Employee_ProfileId =mmodel.selected_employee.ToString();
+                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == mmodel.selected_employee);
+                record.job_descId = mmodel.personnel_transaction.job_descId;
+                var job_descId = int.Parse(mmodel.personnel_transaction.job_descId);
+                record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == job_descId);
+                record.SlotdescId = mmodel.personnel_transaction.SlotdescId;
+                if (mmodel.personnel_transaction.SlotdescId != "0")
+                {
+                    var SlotdescId = int.Parse(mmodel.personnel_transaction.SlotdescId);
+                    var my_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == SlotdescId);
+                    my_slot.Employee_Profile = emp;
+                    my_slot.EmployeeName = emp.Full_Name;
+                    my_slot.EmployeeID = emp.ID.ToString();
+                    dbcontext.SaveChanges();
+                }
+
+                record.Default_location_descId = mmodel.personnel_transaction.Default_location_descId;
+                var Default_location_descId = int.Parse(mmodel.personnel_transaction.Default_location_descId);
+                record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == Default_location_descId);
+                record.Location_descId = mmodel.personnel_transaction.Location_descId;
+                var Location_descId = int.Parse(mmodel.personnel_transaction.Location_descId);
+                record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == Location_descId);
+                record.Job_level_gradeId = mmodel.personnel_transaction.Job_level_gradeId;
+                var Job_level_gradeId = int.Parse(mmodel.personnel_transaction.Job_level_gradeId);
+                record.Job_level_grade = dbcontext.Job_level_gradee.FirstOrDefault(m => m.ID == Job_level_gradeId);
+                record.Organization_ChartId = mmodel.personnel_transaction.Organization_ChartId;
+                var Organization_ChartId = int.Parse(mmodel.personnel_transaction.Organization_ChartId);
+                record.Organization_Chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == Organization_ChartId);
+                record.Position_Transaction_Information = info;
+                var pos = dbcontext.Position_Information.Add(record);
+                dbcontext.SaveChanges();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
         }
     }
 }

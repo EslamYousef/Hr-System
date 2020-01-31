@@ -481,7 +481,7 @@ namespace HR.Controllers
                 var model = dbcontext.EOS_Request.FirstOrDefault(m => m.ID == ID);
                 var st = model.status;
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
-                var my_model = new employeestate { status = st, empid = ID };
+                var my_model = new employeestate { status = st, empid = model.Employee.ID ,opertion_id=model.ID};
                 return View(my_model);
             }
             catch (Exception e)
@@ -493,7 +493,7 @@ namespace HR.Controllers
         public ActionResult status(employeestate model)
         {
           //  var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
-            var record = dbcontext.EOS_Request.FirstOrDefault(m => m.ID == model.empid);
+            var record = dbcontext.EOS_Request.FirstOrDefault(m => m.ID == model.opertion_id);
             var sta = record.status;
             if (model.check_status == check_status.Approved)
             {
@@ -503,6 +503,26 @@ namespace HR.Controllers
                 record.check_status = check_status.Approved;
                 record.sss = record.check_status.GetTypeCode().ToString();
                 dbcontext.SaveChanges();
+
+
+                var employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.empid);
+                employee.Service_Information.EOS_date = record.Date_of_EOS;
+                employee.Service_Information.Last_working_date = record.last_work_day_before_request;
+                employee.Active = false;
+                dbcontext.SaveChanges();
+                ////    employee.Employee_Positions_Profile.EOS_reasons = record.EOS_type;
+                var current_postion = dbcontext.Position_Information.FirstOrDefault(m => m.Primary_Position == true && m.Employee_Profile.ID == employee.ID);
+                current_postion.End_of_service_date = record.last_Date_of_work_after_notice_period;
+                current_postion.Last_working_date = record.last_work_day_before_request;
+                current_postion.Primary_Position = false;
+                dbcontext.SaveChanges();
+                var slot_id =int.Parse(current_postion.SlotdescId);
+                var slot = dbcontext.Slots.FirstOrDefault(m => m.ID ==slot_id);
+                slot.Employee_Profile = null;
+                slot.EmployeeID = null;
+                slot.EmployeeName = null;
+                dbcontext.SaveChanges();
+         
             }
             else if (model.check_status == check_status.Canceled)
             {

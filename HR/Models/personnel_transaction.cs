@@ -24,8 +24,8 @@ namespace HR.Models
         /////////////////
         ////////////////
         ///////////////
-
-
+        [Display(Name = "Position Transaction no")]
+        public string Position_Transaction_number { get; set; }
        // [Display(Name = "Position transaction no.")]
         //public string Position_transaction_no { get; set; }
         [Display(Name = "Position transaction")]
@@ -57,9 +57,9 @@ namespace HR.Models
         //[Required]
        // [Display(Name = "Position profile No.")]
       //  public string Code { get; set; }
-        [Display(Name = "Primary Position")]
-        public bool Primary_Position { get; set; }
-        [Display(Name = "Job desc")]
+        //[Display(Name = "Primary Position")]
+        //public bool Primary_Position { get; set; }
+        //[Display(Name = "Job desc")]
         public string job_descId { get; set; }
         [Display(Name = "Slot desc")]
         public string SlotdescId { get; set; }

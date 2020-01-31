@@ -43,7 +43,7 @@ namespace HR.Controllers
             ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
+            ViewBag.id = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Position_Information.ToList();
             var count = 0;
@@ -59,7 +59,7 @@ namespace HR.Controllers
          DateTime statis2 = Convert.ToDateTime("1/1/1900");
             var ID = int.Parse(id);
                 var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-                var x = new Position_Information { Code = stru.Structure_Code +count,Employee_ProfileId=id, From_date = statis2, To_date = statis2, End_of_service_date = statis2, Last_working_date = statis2 };
+                var x = new Position_Information { Code = stru.Structure_Code +count,Employee_ProfileId=id, From_date = statis2, To_date = statis2, End_of_service_date = statis2, Last_working_date = statis2 ,Primary_Position=true};
                 var y = new Position_Transaction_Information { Position_transaction = statis2, Approved_date = statis2, Memo_date = statis2, Resolution_date = statis2 };
                 var z = new Employee_Positions_Profile_VM
                 { Position_Information = x, Position_Transaction_Information = y };
@@ -141,6 +141,8 @@ namespace HR.Controllers
                         var SlotdescId = int.Parse(model.Position_Information.SlotdescId);
                         var my_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == SlotdescId);
                         my_slot.Employee_Profile = emp;
+                        my_slot.EmployeeName = emp.Full_Name;
+                        my_slot.EmployeeID = emp.ID.ToString();
                     }
 
                     //    record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == SlotdescId);
@@ -197,7 +199,7 @@ namespace HR.Controllers
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
-
+                ViewBag.id = id.ToString();
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id);
                 var record2 = record.Position_Transaction_Information;
 
@@ -296,6 +298,8 @@ namespace HR.Controllers
                         //}
                         /////add to new
                         new_slot.Employee_Profile = emp;
+                        new_slot.EmployeeName = emp.Full_Name;
+                        new_slot.EmployeeID = emp.ID.ToString();
                     }
 
                 }
@@ -353,6 +357,36 @@ namespace HR.Controllers
             }
             catch (Exception e)
             { return View(model); }
+        }
+        public ActionResult Details(int id)
+        {
+            try
+            {
+                ViewBag.job_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
+                ViewBag.job_slot_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.num_slots + "------[" + m.name + ']', ID = m.ID });
+                ViewBag.Default_location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
+                var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id&&m.Primary_Position==true);
+
+                var record2 = record.Position_Transaction_Information; /* dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == id);*/
+                var vm = new Employee_Positions_Profile_VM { Position_Information = record, Position_Transaction_Information = record2 };
+                if (vm != null)
+                {
+                    return View(vm);
+                }
+                else
+                {
+                    TempData["Message"] = "There is no Employee Position Profile";
+                    return RedirectToAction("index", "personnel_transaction");
+                }
+            }
+            catch
+            (Exception e)
+            { return RedirectToAction("index", "personnel_transaction"); }
         }
     }
 }
