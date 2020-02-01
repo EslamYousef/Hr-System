@@ -359,10 +359,19 @@ namespace HR.Controllers
             catch (Exception e)
             { return View(model); }
         }
-        public ActionResult Details(int id)
+        public ActionResult Details(int emp_id)
         {
             try
             {
+                var mo = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == emp_id);
+                  var position = mo.Employee_Positions_Profile.FirstOrDefault(m=>m.Primary_Position==true);
+                
+                if (mo==null)
+                {
+                    var mes = "this employee not have primary position";
+                    return RedirectToAction("index", "personnel_transaction",new { mess = mes });
+                }
+                var id = mo.ID;
                 ViewBag.job_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
                 ViewBag.job_slot_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.num_slots + "------[" + m.name + ']', ID = m.ID });
                 ViewBag.Default_location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -371,7 +380,7 @@ namespace HR.Controllers
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
-                var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id&&m.Primary_Position==true);
+                var record = position;
 
                 var record2 = record.Position_Transaction_Information; /* dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == id);*/
                 var vm = new Employee_Positions_Profile_VM { Position_Information = record, Position_Transaction_Information = record2 };

@@ -1,0 +1,304 @@
+﻿@model HR.Models.ViewModel.manpowerVM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create man power
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "manpower", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    @Html.AntiForgeryToken()
+                    <input name="levelcode" value="" hidden />
+                    <input name="levelname" value="" hidden />
+                    <input name="count" value="" hidden />
+                    <input name="q11" value="" hidden />
+                    <input name="q1" value="" hidden />
+                    <input name="q2" value="" hidden />
+                    <input name="q3" value="" hidden />
+                    <input name="q4" value="" hidden />
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                     
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span> From Year </span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.EditorFor(model => model.man_power.from_year, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1989" } })
+                                @Html.ValidationMessageFor(model => model.man_power.from_year, "", new { @class = "text-danger" })
+
+                            </div>
+                            <label class="control-label col-md-2">
+                                <span> To Year </span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.EditorFor(model => model.man_power.to_year, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1990" } })
+                                @Html.ValidationMessageFor(model => model.man_power.to_year, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span>Organization unit</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.selected_organ, new SelectList(ViewBag.organ, "ID", "Code"), "Select organization", new { @class = "select2", @onchange = "full_level()", @id = "employeeId" })
+                                @Html.ValidationMessageFor(model => model.selected_organ, "", new { @class = "text-danger" })
+                            
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div style="margin-top:25px" class="form-group">
+                                <div class="col-md-4">
+                                    <input id="btnSave" style="width:150px" class="btn btn-success" type="submit" onclick="ch()" value="CREATE" />
+                                    <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span>cadre code</span>
+                            </label>
+                            @*<div class="col-md-4">
+                                @Html.DropDownList("cadre", new SelectList(ViewBag.cadre, "ID", "Code"), "Select cadre", new { @class = "select2", @id = "employee11" })
+                            </div>*@
+                            <select class="col-md-4 select2"  id="employee181">
+                              
+                            </select>
+                            <div class="col-md-4">
+                                <input type="button" onclick="add()" style="width:300px" value="Add items" class="btn btn-success " />
+
+                               </div>
+                        </div>
+
+                      
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">man power plan details</span>
+                             
+                        <div class="tab-content">
+                            <div id="Budgetdetails">
+
+                                
+
+
+                            </div>
+
+                           
+                        </div>
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+  $(function () {
+      CKEDITOR.replace('Description');
+  });
+</script>
+@section scripts{}
+
+
+<script>
+    $("#YF").keyup(function (e) {
+        var value = $("#YF").val();
+        $("#YT").val(parseInt(parseInt(value) + parseInt(1)));
+    });
+    $("#YT").keyup(function (e) {
+        var value = $("#YT").val();
+        $("#YF").val(parseInt(parseInt(value) - parseInt(1)));
+    });
+</script>
+
+
+<script>
+   
+        function full_level() {
+            debugger
+            var id = $("#employeeId").val();
+            if (id == "") {
+                $("#employee181").html("");
+                $("#employee181").select2("val", "0")
+                finalresult = "<option selected value='0' > Choose organiztion at first </option>";
+                $("#employee181").html(finalresult);
+                $("#employee181").select2("val", "0")
+            }
+            $.ajax({
+                type: "post",
+                url: "/Helper/Getlevel",
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+                    var finalresult = "";
+                    finalresult = "<option selected value='0' > Choose cadre </option>";
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
+
+                    });
+                    $("#employee181").html(finalresult);
+                    $("#employee181").select2("val", "0")
+                },
+                error: function () {
+                    debugger
+                    $("#employee181").html(" ");
+                    //$("#codeid").val("");
+                }
+            });
+        }
+        full_level();
+   
+</script>
+
+
+<script>
+
+    function add()
+    {
+
+        debugger
+        var employee11 = $("#employee181").val();
+        var it = $("#manpoweritems");
+        if (it.length == 1)
+        {
+
+            var pp = $("#Budgetdetails").find("div");
+            
+            var flag=0;
+            for (var o = 0; o < pp.length; o++)
+            {
+                var inputs = pp[o].children;
+                var first = parseInt(inputs[4].value) + parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value);
+                var second = parseInt(inputs[3].value)+parseInt(inputs[2].value);
+                if (second < first)
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                
+                alert("sumtion greater than total !");
+            }
+            else
+            {
+                if (employee11 == "0" || employee11 == "" || employee11 == " ") {
+
+                    alter("you must choose organization unit then cadre")
+                }
+                else
+                {
+                    var id = $("#employee181").val();
+                    $.ajax({
+                        type: "post",
+                        url: "/Helper/get_num_of_free_jobs",
+                        data: { "id": id },
+                        success: function (result) {
+
+
+                            debugger
+                            var tr =
+                    "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q11'   value='" + 0 + "'  />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' id='lll' name='count'    value='" + result.count + "' />" +
+                       "<input id='class_type' style='margin-bottom: 1em;width:70px' name='tarek'   value='" + 0 + "'  />" +
+                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2'   value='" + 0 + "'  />" +
+                         "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3'   value='" + 0 + "'  />" +
+                          "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4'   value='" + 0 + "'  />" +
+                      "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
+                            $("#Budgetdetails").append(tr);
+                            $("#employee181").select2("val", "0");
+
+                        },
+                        error: function () {
+                            alter("some error");
+                        }
+
+                    });
+
+
+                }
+            }
+
+        }
+        else
+        {
+            if (employee11 == "0" || employee11 == "" || employee11 == " ") {
+
+                    alter("you must choose organization unit then cadre")
+                }
+                else
+                {
+                    var id = $("#employee181").val();
+                    $.ajax({
+                        type: "post",
+                        url: "/Helper/get_num_of_free_jobs",
+                        data: { "id": id },
+                        success: function (result) {
+
+
+                            debugger
+                            var tr =
+                    "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px'  name='class_type'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='class_type'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'   value='" + result.count + "' readonly='readonly' />" +
+                            "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new'   value='" + 0 + "'  />" +
+
+                    "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + result.count + "' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT'  min='0'  value='" + 0 + "' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
+                      "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
+                            $("#Budgetdetails").append(tr);
+                            $("#employee181").select2("val", "0");
+
+                        },
+                        error: function () {
+                            alter("some error");
+                        }
+
+                    });
+
+
+                }
+        }
+        
+
+    }
+    function remove(thi)
+    {
+        debugger
+        thi.parent().remove();
+    }
+    
+</script>

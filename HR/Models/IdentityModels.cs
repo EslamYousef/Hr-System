@@ -147,7 +147,10 @@ namespace HR.Models
         public DbSet<Employee_experience_profile> Employee_experience_profile { get; set; }
         public DbSet<Employee_contact_profile> Employee_contact_profile { get; set; }
         public DbSet<Employee_contract_profile> Employee_contract_profile { get; set; }
-        
+        public DbSet<man_power> man_power { get; set; }
+        public DbSet<items_man_power> items_man_power { get; set; }
+
+
 
     }
 }

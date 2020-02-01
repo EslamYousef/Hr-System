@@ -87,7 +87,7 @@
                                         @Html.LabelFor(model => model.Position_Information.job_descId, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
 
-                                            @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), "Select Job desc", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                            @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), "Select Job desc", new { @class = "select2", @onchange = "CountryName()", id = "country", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })
                                             <input type="text" value=" " class="form-control" id="countryname1" disabled />
 
@@ -217,7 +217,7 @@
                                                     @Html.EnumDropDownListFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.EOS_reasons, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>
+                                            </div>  
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Information.Commnets, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-8">
@@ -231,7 +231,6 @@
 
                                     <div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" commit="submit2" value="Back to Request" class="btn btn-success" />
                                             <a href="@Url.Action("index","personnel_transaction")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back to index page</a>
                                         </div>
                                     </div>

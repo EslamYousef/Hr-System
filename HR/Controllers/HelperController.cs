@@ -322,6 +322,26 @@ namespace HR.Controllers
                 return Json(false);
             }
         }
+        public JsonResult get_num_of_free_jobs(string id)
+        {
+            try
+            {
+                var ID = int.Parse(id);
+                var record = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
+                var job_titles = dbcontext.job_title_cards.Where(m => m.joblevelsetupID == record.ID.ToString()).ToList();
+                var count = 0;
+                foreach(var item in job_titles)
+                {
+                    count = count + item.number_vacant;
+                }
+                var model = new manpoweritems { count = count, job_level_setup = record };
+                return Json(model);
+            }
+            catch (Exception e)
+            {
+                return Json(false);
+            }
+        }
         public JsonResult Creat_slots(int number)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
@@ -807,7 +827,37 @@ namespace HR.Controllers
             return Json(model);
         }
 
+        public JsonResult Getlevel(string id)
+        {
+            try
+            {
+                dbcontext.Configuration.ProxyCreationEnabled = false;
 
+                var ID = int.Parse(id);
+                var organization_chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
+                var organiztion_unit_id = organization_chart.unit_type_codeID.ToString();
+                var unit_ID = int.Parse(organiztion_unit_id);
+                var unit = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == unit_ID);
+                var ii = dbcontext.job_level_setup.ToList();
+                var list_level = new List<job_level_setup>();
+                foreach(var item in ii)
+                {
+                    if (item.Organization_Unit_Type != null)
+                    {
+                        if (item.Organization_Unit_Type.Contains(unit))
+                        {
+                            list_level.Add(item);
+                        }
+                    }
+                }
+                //var level_setup = dbcontext.job_level_setup.ToList().Where(m => m.Organization_Unit_Type.Contains(unit)).ToList();
+                return Json(list_level.Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID }));
+            }
+            catch(Exception e)
+            {
+                return Json(false);
+            }
+        }
 
 
 

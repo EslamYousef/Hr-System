@@ -14,10 +14,14 @@ namespace HR.Controllers
     {
         // GET: personnel_transaction
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        public ActionResult index()
+        public ActionResult index(string mess)
         {
             try
             {
+                if(mess!=null)
+                {
+                    TempData["Message"] = mess;
+                }
                 var model = dbcontext.personnel_transaction.ToList();
                 return View(model);
             }
