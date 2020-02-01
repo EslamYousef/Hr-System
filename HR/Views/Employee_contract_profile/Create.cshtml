@@ -120,12 +120,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Contract_start_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control datepicker StartDate yy", @id = "dateto", @onclick = "Save()" } })
                                                 @Html.ValidationMessageFor(model => model.Contract_start_date, "", new { @class = "text-danger" })
                                             </div>
-                                            @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            @Html.LabelFor(model => model.Years, htmlAttributes: new {  @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control",id="Yearr", @type = "number", @min = 0 } })
 
                                                 @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
                                             </div>
@@ -134,12 +134,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Contract_end_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new {@class= "form-control datepicker EndDate yyy", @id = "dateto", @onclick = "Save2()" } })
                                                 @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
                                             </div>
                                             @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new {@readonly="true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
                                                 @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                                             </div>
@@ -362,9 +362,13 @@
 </script>
 
 
+<script>
+    $(document).ready(function () {
 
-
-
+        Save();
+        Save2();
+    });
+</script>
 
 <script>
     function employee() {
@@ -477,3 +481,78 @@
     }
     employee5();
 </script>
+
+
+<script>
+  //  $(function () {
+        debugger
+        function Save() {
+            debugger
+            $(".yy").on('click', function () {
+           // var x = $(".name").val();
+          
+            var StartDate = new Date($(".StartDate").val());
+            var EndDate = new Date($(".EndDate").val());
+
+            var from = $(".StartDate").val();
+            var to = $(".EndDate").val();
+
+            if (to > from) {
+                var diffTime = Math.abs(EndDate - StartDate);
+                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                var months = Math.floor(Days / 31);
+                var years = Math.floor(months / 12);
+                $("#Yearr").val(years);
+                $("#months").val(months);
+
+            }
+            else {
+                $("#Yearr").val("0");
+                $("#months").val("0");
+
+            }
+          
+        });
+    }
+</script>
+
+<script>
+  //  $(function () {
+        debugger
+        function Save2() {
+      
+            debugger
+            $(".yyy").on('click', function () {
+           // var x = $(".name").val();
+
+            var StartDate = new Date($(".StartDate").val());
+            var EndDate = new Date($(".EndDate").val());
+
+            var from = $(".StartDate").val();
+            var to = $(".EndDate").val();
+            if (to > from) {
+                var diffTime = Math.abs(EndDate - StartDate);
+                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                var months = Math.floor(Days / 31);
+                var years = Math.floor(months / 12);
+                $("#Yearr").val(years);
+                $("#months").val(months);
+                months
+            }
+            else {
+                $("#Yearr").val("0");
+                $("#months").val("0");
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
