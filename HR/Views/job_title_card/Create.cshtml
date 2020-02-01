@@ -240,7 +240,7 @@
         var slot_code = $("#code").val();
         var slot_desc = $("#name").val();
         var level = $("#level_setup").val();
-        var org = $("#level_setup").val();
+        var org = $("#chart1").val();
         if (slot_code != "0" && slot_desc != "" && level != "" && org != "")
         {
 
@@ -301,19 +301,19 @@
             $.ajax
                 ({
                     type: "post",
-                    url: "/Helper/all_organization_unit",
+                    url: "/Helper/all_organization_chart",
                     data: {},
                     success: function (result) {
-                        var ii = $("#level_setup").val();
+                        var ii = $("#chart1").val();
                         debugger
                         $.each(result, function (key, value) {
                             if (value.ID == ii)
                             {
-                                seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Name + " ]</option>";
+                                seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.unit_Description + " ]</option>";
                             }
                             else
                             {
-                                seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Name + " ]</option>";
+                                seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.unit_Description + " ]</option>";
                             }
 
                         })

@@ -470,6 +470,22 @@ namespace HR.Controllers
                 record.check_status = check_status.Approved;
                 dbcontext.SaveChanges();
                 var go = new TRANS_VM { personnel_transaction = record, selected_employee = model.empid };
+                ///////////////update old position//////////
+                var old_position = dbcontext.Position_Information.FirstOrDefault(m => m.Primary_Position == true && m.Employee_Profile.ID == go.selected_employee);
+                old_position.Primary_Position = false;
+                old_position.To_date = go.personnel_transaction.Last_working_date;
+                dbcontext.SaveChanges();
+                var old_slot = new Slots();
+                var slot_id = int.Parse(old_position.SlotdescId);
+                old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == slot_id);
+                //var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == old_slot.Employee_Profile.ID);
+
+                old_slot.Employee_Profile = new Employee_Profile();
+                dbcontext.SaveChanges();
+                old_slot.EmployeeName = null;
+                old_slot.EmployeeID = null;
+                dbcontext.SaveChanges();
+
                 add_new_postion(go);
 
 
@@ -569,18 +585,6 @@ namespace HR.Controllers
         {
             try
             {
-                ///////////////update old position//////////
-                var old_position = dbcontext.Position_Information.FirstOrDefault(m => m.Primary_Position == true && m.Employee_Profile.ID == mmodel.selected_employee);
-                old_position.Primary_Position = false;
-                old_position.To_date = mmodel.personnel_transaction.Last_working_date;
-                dbcontext.SaveChanges();
-                var old_slot = new Slots();
-                var slot_id = int.Parse(old_position.SlotdescId);
-                old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID ==slot_id );
-                old_slot.Employee_Profile = null;
-                old_slot.EmployeeName = null;
-                old_slot.EmployeeID = null;
-                dbcontext.SaveChanges();
                 //////////////////////////////////////////////
                 ///////////////add new position///////////////
                 /////////////////////////////////////////////

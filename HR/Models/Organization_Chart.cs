@@ -41,6 +41,7 @@ namespace HR.Models
         [Required]
         public string worklocationid { get; set; }
         public virtual ICollection<Organization_Chart> Childs { get; set; }
+        public List<Slots> Slots { get; set; }
 
 
     }

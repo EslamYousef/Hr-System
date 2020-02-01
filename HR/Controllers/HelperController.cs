@@ -801,13 +801,11 @@ namespace HR.Controllers
             var Airports = dbcontext.Air_ports.FirstOrDefault(m => m.ID == ID);
             return Json(Airports);
         }
-
-
-
-
-
-
-
+        public JsonResult all_organization_chart()
+        {
+            var model = dbcontext.Organization_Chart.ToList();
+            return Json(model);
+        }
 
 
 

@@ -169,16 +169,22 @@ namespace HR.Controllers
                         {
                             var IDlevel = int.Parse(job_level[iii]);
                             var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
+                            var IDorganization = int.Parse(organization[iii]);
+                            var organization2 = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == IDorganization);
+
                             var slot = new Slots
                             {
                                 EmployeeID = "0",
                                 EmployeeName = "em",
                                 slot_code = slotcode__[iii],
-                                slot_description = record.Description, 
+                                slot_description = record.Description,
                                 job_level_setup = le,
                                 joblevelsetupID = le.ID.ToString(),
+                                Organization_Chart__ = organization2,
                                 check_status = (check_status)int.Parse(status[iii]),
-                                slot_type = (slot_type)(int.Parse(type[iii]))
+                                slot_type = (slot_type)(int.Parse(type[iii])),
+                                Employee_Profile = null,
+                                
                             };
                             if (slot.EmployeeID == null || slot.EmployeeID == "0")
                             {
@@ -198,11 +204,11 @@ namespace HR.Controllers
                     record.number_vacant = vacant;
                     var card = dbcontext.job_title_cards.Add(record);
                     dbcontext.SaveChanges();
-                    foreach(var item in slots)
-                    {
-                        item.job_title_cards = card;
-                        dbcontext.SaveChanges();
-                    }
+                    //foreach(var item in slots)
+                    //{
+                    //    item.job_title_cards = card;
+                    //    dbcontext.SaveChanges();
+                    //}
                     ///////////////////
                     if (command == "Submit")
                     {
@@ -398,6 +404,9 @@ namespace HR.Controllers
                     {
                         var IDlevel = int.Parse(job_level[iii]);
                         var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
+                        var IDorganization = int.Parse(organization[iii]);
+                        var organization2 = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == IDorganization);
+
                         var slot = new Slots
                         {
                             EmployeeID = "0",
@@ -406,8 +415,10 @@ namespace HR.Controllers
                             slot_description = record.Description,
                             job_level_setup = le,
                             joblevelsetupID = le.ID.ToString(),
+                            Organization_Chart__=organization2,
                             check_status = (check_status)int.Parse(status[iii]),
-                            slot_type = (slot_type)(int.Parse(type[iii]))
+                            slot_type = (slot_type)(int.Parse(type[iii])),
+                            Employee_Profile = null,
                         };
                         if(slot.EmployeeID==null||slot.EmployeeID=="0")
                         {

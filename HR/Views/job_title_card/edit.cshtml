@@ -208,37 +208,64 @@
                                    
                                       
                                         <div id="add11">
-                                            @for(var item=0;item<Model.Slots.Count();item++)
+                                            @for (var item = 0; item < Model.Slots.Count(); item++)
                                             {
+                                                @Html.HiddenFor(m => m.Slots[item].slot_description)
+                                                @Html.HiddenFor(m => m.Slots[item].slot_type)
+                                                @Html.HiddenFor(m => m.Slots[item].job_level_setup.Name)
+                                                @Html.HiddenFor(m => m.Slots[item].slot_code)
+                                                @Html.HiddenFor(m => m.Slots[item].Organization_Chart__.unit_Description)
+                                                @Html.HiddenFor(m => m.Slots[item].check_status)
                                                
                                                 <div class="form-group" >
                                                     <div class="col-md-3">
                                                         <input  class="form-control" value="@Model.Slots[item].slot_code" readonly/>
-                                                        @Html.HiddenFor(m=>m.Slots[item].slot_code)
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input class="form-control" value="@Model.Slots[item].job_level_setup.Name" readonly />
                                                     </div>
-                                                    @Html.HiddenFor(m => m.Slots[item].job_level_setup.Name)
                                                     <div class="col-md-3">
                                                         <input class="form-control" value="@Model.Slots[item].slot_type" readonly />
                                                     </div>
-                                                    @Html.HiddenFor(m => m.Slots[item].slot_type)
+                                                    @if (Model.Slots[item].Employee_Profile != null)
+                                                    {
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" value="@Model.Slots[item].Employee_Profile.ID" readonly />
+                                                    </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" value=empty readonly />
+                                                        </div>
+                                                    }
                                                 </div>
                                                 <div class="form-group"> 
                                                     <div class="col-md-3">
                                                         <input class="form-control" value="@Model.Slots[item].slot_description" readonly />
                                                     </div>
-                                                    @Html.HiddenFor(m => m.Slots[item].slot_description)
+                                                  
                                                     <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].job_level_setup.Name" readonly />
+                                                        <input class="form-control" value="@Model.Slots[item].Organization_Chart__.unit_Description" readonly />
                                                     </div>
-                                                    @Html.HiddenFor(m => m.Slots[item].job_level_setup.Name)
-                                                    <div class="col-md-3">
+                                                   <div class="col-md-3">
                                                         <input class="form-control" value="@Model.Slots[item].check_status" readonly />
                                                     </div>
-                                                    @Html.HiddenFor(m => m.Slots[item].check_status)
-                                                </div>
+                                                    @if (Model.Slots[item].Employee_Profile != null)
+                                                    {
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" value="@Model.Slots[item].Employee_Profile.Full_Name" readonly />
+                                                    </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" value=empty readonly />
+                                                        </div>
+                                                    }
+                                                 </div>
+                                                <hr /><hr />
+                                            }
                                                 <hr /><hr/>
                                             }
                                         </div>
@@ -269,7 +296,7 @@
         var slot_code = $("#code").val();
         var slot_desc = $("#name").val();
         var level = $("#level_setup").val();
-        var org = $("#level_setup").val();
+        var org = $("#chart1").val();
         if (slot_code != "0" && slot_desc != "" && level != "" && org != "")
         {
 
@@ -333,19 +360,19 @@
             $.ajax
                 ({
                     type: "post",
-                    url: "/Helper/all_organization_unit",
+                    url: "/Helper/all_organization_chart",
                     data: {},
                     success: function (result) {
-                        var ii = $("#level_setup").val();
+                        var ii = $("#chart1").val();
                         debugger
                         $.each(result, function (key, value) {
                             if (value.ID == ii)
                             {
-                                seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Name + " ]</option>";
+                                seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.unit_Description + " ]</option>";
                             }
                             else
                             {
-                                seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Name + " ]</option>";
+                                seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.unit_Description + " ]</option>";
                             }
 
                         })
