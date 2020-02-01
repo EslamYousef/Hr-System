@@ -17,7 +17,7 @@ namespace HR.Controllers
         {
             var ID = int.Parse(id);
             var new_model = dbcontext.Employee_contract_profile.Where(m => m.Employee_Profile.ID == ID).ToList();
-            ViewBag.id = id;
+            ViewBag.idemp = id;
             return View(new_model);
         }
         public ActionResult Create(string id)
@@ -27,7 +27,7 @@ namespace HR.Controllers
             ViewBag.Contract_Type = dbcontext.Contract_Type.ToList().Select(m => new { Code = m.Contract_Type_Code + "------[" + m.Contract_Type_Description + ']', ID = m.ID });
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.id = id;
+            ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_contract_profile.ToList();
             var count = 0;
@@ -63,7 +63,7 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
-                ViewBag.id = model.ID;
+                ViewBag.idemp = model.ID;
                 if (ModelState.IsValid)
                 {
                     var con = int.Parse(model.Employee_ProfileId);
@@ -144,7 +144,7 @@ namespace HR.Controllers
                
 
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
-                ViewBag.id = record.Employee_Profile.ID.ToString();
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
               
               
                 if (record != null)
@@ -177,7 +177,7 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
-                ViewBag.id = model.ID;
+                ViewBag.idemp = model.ID;
                 var prof = int.Parse(model.Employee_ProfileId);
                 //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == model.ID);
@@ -241,7 +241,7 @@ namespace HR.Controllers
             {
 
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
-                ViewBag.id = record.Employee_Profile.ID.ToString();
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
                 if (record != null)
                 { return View(record); }
                 else
@@ -263,12 +263,12 @@ namespace HR.Controllers
         {
 
             var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
-            ViewBag.id = record.Employee_Profile.ID.ToString();
+            ViewBag.idemp = record.Employee_Profile.ID.ToString();
             try
             {
                 dbcontext.Employee_contract_profile.Remove(record);
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = record.Employee_ProfileId });
             }
             catch (DbUpdateException)
             {
