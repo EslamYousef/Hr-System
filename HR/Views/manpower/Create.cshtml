@@ -18,19 +18,19 @@
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("Create", "manpower", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "manpower", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
                 {
 
                     @Html.AntiForgeryToken()
                     <input name="levelcode" value="" hidden />
                     <input name="levelname" value="" hidden />
                     <input name="count" value="" hidden />
-                    <input name="q11" value="" hidden />
+                    <input name="new" value="" hidden />
                     <input name="q1" value="" hidden />
                     <input name="q2" value="" hidden />
                     <input name="q3" value="" hidden />
                     <input name="q4" value="" hidden />
-
+                    <input name="levelID" value="" hidden />
                     <div class="form-horizontal">
                         <hr />
                         @if (TempData["Message"] != null)
@@ -49,15 +49,12 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.from_year, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1989" } })
-                                @Html.ValidationMessageFor(model => model.man_power.from_year, "", new { @class = "text-danger" })
-
-                            </div>
+                                       </div>
                             <label class="control-label col-md-2">
                                 <span> To Year </span>
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.to_year, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1990" } })
-                                @Html.ValidationMessageFor(model => model.man_power.to_year, "", new { @class = "text-danger" })
                             </div>
                         </div>
                        
@@ -195,8 +192,8 @@
             for (var o = 0; o < pp.length; o++)
             {
                 var inputs = pp[o].children;
-                var first = parseInt(inputs[4].value) + parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value);
-                var second = parseInt(inputs[3].value)+parseInt(inputs[2].value);
+                var first = parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value) + parseInt(inputs[8].value);
+                var second = parseInt(inputs[4].value)+parseInt(inputs[3].value);
                 if (second < first)
                 {
                     flag = 1;
@@ -226,15 +223,15 @@
 
                             debugger
                             var tr =
-                    "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
+                       "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
+                     "<input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
                       "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q11'   value='" + 0 + "'  />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' id='lll' name='count'    value='" + result.count + "' />" +
-                       "<input id='class_type' style='margin-bottom: 1em;width:70px' name='tarek'   value='" + 0 + "'  />" +
-                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2'   value='" + 0 + "'  />" +
-                         "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3'   value='" + 0 + "'  />" +
-                          "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4'   value='" + 0 + "'  />" +
+                    "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new' type='number'  min='0'  value='" + 0 + "'  />" +
+                       "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q1' type='number'  min='0'  value='" + 0 + "'  />" +
+                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2' type='number'  min='0'  value='" + 0 + "'  />" +
+                         "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3' type='number'  min='0'value='" + 0 + "'  />" +
+                          "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4' type='number'  min='0'  value='" + 0 + "'  />" +
                       "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
                             $("#Budgetdetails").append(tr);
                             $("#employee181").select2("val", "0");
@@ -269,15 +266,15 @@
 
                             debugger
                             var tr =
-                    "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px'  name='class_type'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='class_type'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'   value='" + result.count + "' readonly='readonly' />" +
-                            "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new'   value='" + 0 + "'  />" +
-
-                    "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + result.count + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT'  min='0'  value='" + 0 + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
+                     "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
+                     "<input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new' type='number'  min='0'  value='" + 0 + "'  />" +
+                       "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q1' type='number'  min='0'  value='" + 0 + "'  />" +
+                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2' type='number'  min='0'  value='" + 0 + "'  />" +
+                         "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3' type='number'  min='0'value='" + 0 + "'  />" +
+                          "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4' type='number'  min='0'  value='" + 0 + "'  />" +
                       "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
                             $("#Budgetdetails").append(tr);
                             $("#employee181").select2("val", "0");
@@ -301,4 +298,45 @@
         thi.parent().remove();
     }
     
+    function ch()
+    {
+        debugger
+        var it = $("#manpoweritems");
+        if (it.length == 1)
+        {
+
+            var pp = $("#Budgetdetails").find("div");
+            var flag=0;
+            for (var o = 0; o < pp.length; o++)
+            {
+                var inputs = pp[o].children;
+                var first = parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value) + parseInt(inputs[8].value);
+                var second = parseInt(inputs[4].value)+parseInt(inputs[3].value);
+                if (second < first)
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                alert("sumtion greater than total !");
+            }
+            else if (flag == 0)
+            {
+
+
+                $("#dd").submit();
+            }
+        }
+
+    }
 </script>
+
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>

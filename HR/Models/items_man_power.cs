@@ -8,7 +8,7 @@ namespace HR.Models
     public class items_man_power
     {
         public int id { get; set; }
-        public job_level_setup cadre_code { get; set; }
+        public virtual job_level_setup cadre_code { get; set; }
         public int current_jobs { get; set; }
         public int new_jobs { get; set; }
         public int vacancy { get; set; }

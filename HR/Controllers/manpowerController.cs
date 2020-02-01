@@ -2,6 +2,7 @@
 using HR.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +15,8 @@ namespace HR.Controllers
         // GET: manpower
         public ActionResult Index()
         {
-            return View();
+            var model = dbcontext.man_power.ToList();
+            return View(model);
         }
         public ActionResult Create()
         {
@@ -56,13 +58,13 @@ namespace HR.Controllers
                     var levelcode = Form["levelcode"].Split(char.Parse(","));
                     var levelname = Form["levelname"].Split(char.Parse(","));
                     var count = Form["count"].Split(char.Parse(","));
-                    var new_job = Form["q11"].Split(char.Parse(","));
-
+                    
                     var q1 = Form["q1"].Split(char.Parse(","));
-                    var newnnn = Form["new"].Split(char.Parse(","));
+                    var new_job = Form["new"].Split(char.Parse(","));
                     var q2 = Form["q2"].Split(char.Parse(","));
                     var q3 = Form["q3"].Split(char.Parse(","));
                     var q4 = Form["q4"].Split(char.Parse(","));
+                    var id = Form["levelID"].Split(char.Parse(","));
                     var ss = new List<items_man_power>();
                    
                     for (var i= 0; i < q1.Count(); i++)
@@ -70,7 +72,7 @@ namespace HR.Controllers
 
                         if (q1[i] != "")
                         {
-                            var IDlevel = int.Parse(levelcode[i]);
+                            var IDlevel = int.Parse(id[i]);
                             var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
 
                             var item_de = new items_man_power
@@ -81,7 +83,7 @@ namespace HR.Controllers
                                 quarter1= int.Parse(q1[i]),
                                 quarter2= int.Parse(q2[i]),
                                 quarter3= int.Parse(q3[i]),
-                                quarter4= int.Parse(q3[4]),
+                                quarter4= int.Parse(q3[i]),
                                 
                             };
 
@@ -96,6 +98,11 @@ namespace HR.Controllers
                     return RedirectToAction("index");
                 }
             }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = "error";
+                return View(model);
+            }
             catch (Exception e)
             {
                 return View(model);
@@ -103,6 +110,8 @@ namespace HR.Controllers
         }
 
         public ActionResult edit(string id)
+
+
         {
             try
             {
@@ -110,7 +119,9 @@ namespace HR.Controllers
                 ViewBag.cadre = new job_level_setup();
                 int ID = int.Parse(id);
                 var model = dbcontext.man_power.FirstOrDefault(m => m.ID ==ID);
-                var VM = new manpowerVM { man_power = model, selected_organ = 0 };
+                var items = dbcontext.items_man_power.Where(m => m.man_power.ID == model.ID).ToList();
+                model.items_man_power = items;
+                var VM = new manpowerVM { man_power = model, selected_organ = model.organization.ID };
                 return View(VM);
             }
             catch (Exception e)
@@ -138,27 +149,28 @@ namespace HR.Controllers
 
 
                 var items = manpoer.items_man_power;
-                manpoer.items_man_power = null;
-                dbcontext.SaveChanges();
+                //manpoer.items_man_power = null;
+                //dbcontext.SaveChanges();
                 dbcontext.items_man_power.RemoveRange(items);
                 dbcontext.SaveChanges();
                 var levelcode = Form["levelcode"].Split(char.Parse(","));
-                    var levelname = Form["levelname"].Split(char.Parse(","));
-                    var count = Form["count"].Split(char.Parse(","));
-                    var new_job = Form["new"].Split(char.Parse(","));
+                var levelname = Form["levelname"].Split(char.Parse(","));
+                var count = Form["count"].Split(char.Parse(","));
 
-                    var q1 = Form["q1"].Split(char.Parse(","));
-                    var q2 = Form["q2"].Split(char.Parse(","));
-                    var q3 = Form["q3"].Split(char.Parse(","));
-                    var q4 = Form["q4"].Split(char.Parse(","));
-                    var ss = new List<items_man_power>();
+                var q1 = Form["q1"].Split(char.Parse(","));
+                var new_job = Form["new"].Split(char.Parse(","));
+                var q2 = Form["q2"].Split(char.Parse(","));
+                var q3 = Form["q3"].Split(char.Parse(","));
+                var q4 = Form["q4"].Split(char.Parse(","));
+                var id = Form["levelID"].Split(char.Parse(","));
+                var ss = new List<items_man_power>();
 
                     for (var i = 0; i < q1.Count(); i++)
                     {
 
                         if (q1[i] != "")
                         {
-                            var IDlevel = int.Parse(levelcode[i]);
+                            var IDlevel = int.Parse(id[i]);
                             var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
 
                             var item_de = new items_man_power
@@ -169,7 +181,7 @@ namespace HR.Controllers
                                 quarter1 = int.Parse(q1[i]),
                                 quarter2 = int.Parse(q2[i]),
                                 quarter3 = int.Parse(q3[i]),
-                                quarter4 = int.Parse(q3[4]),
+                                quarter4 = int.Parse(q3[i]),
 
                             };
 
@@ -179,10 +191,53 @@ namespace HR.Controllers
                         }
                     }
                     manpoer.items_man_power = ss;
-                    dbcontext.man_power.Add(manpoer);
+                   
                     dbcontext.SaveChanges();
                     return RedirectToAction("index");
                 
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = "error";
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return View(model);
+            }
+        }
+        public ActionResult delete(string id)
+        {
+            try
+            {
+                var ID = int.Parse(id);
+                var model = dbcontext.man_power.FirstOrDefault(m => m.ID == ID);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("index");
+            }
+        }
+        [HttpPost]
+        [ActionName("delete")]
+        public ActionResult method_delete(string id)
+        {
+            var ID = int.Parse(id);
+            var model = dbcontext.man_power.FirstOrDefault(m => m.ID == ID);
+
+            try
+            {
+                dbcontext.items_man_power.RemoveRange(model.items_man_power);
+                dbcontext.SaveChanges();
+                dbcontext.man_power.Remove(model);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch (DbUpdateException e)
+            {
+                TempData["Message"] = "You can't delete beacause it have child";
+                return View(model);
             }
             catch (Exception e)
             {

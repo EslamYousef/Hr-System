@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            Create man power
+            edit man power
         </h1>
     </section>
     <!-- Main content -->
@@ -18,7 +18,7 @@
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("edit", "personnel_transaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("edit", "manpower", FormMethod.Post, new { id = "dd",enctype = "multipart/form-data" }))
                 {
 
                     @Html.AntiForgeryToken()
@@ -30,6 +30,7 @@
                     <input name="q2" value="" hidden />
                     <input name="q3" value="" hidden />
                     <input name="q4" value="" hidden />
+                    <input name="levelID" value="" hidden />
                     @Html.HiddenFor(m => m.man_power.ID);
                     <div class="form-horizontal">
                         <hr />
@@ -49,16 +50,13 @@
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.from_year, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1990",@readonly="readonly" } })
-                                @Html.ValidationMessageFor(model => model.man_power.from_year, "", new { @class = "text-danger" })
-
-                            </div>
+                               </div>
                             <label class="control-label col-md-2">
                                 <span> To Year </span>
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.to_year, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1991",@readonly="readonly" } })
-                                @Html.ValidationMessageFor(model => model.man_power.to_year, "", new { @class = "text-danger" })
-                            </div>
+                             </div>
                         </div>
 
                         <div class="form-group">
@@ -73,7 +71,7 @@
                             <div class="col-md-2"></div>
                             <div style="margin-top:25px" class="form-group">
                                 <div class="col-md-4">
-                                    <input id="btnSave" style="width:150px" class="btn btn-success" type="submit" onclick="ch()" value="CREATE" />
+                                    <input id="btnSave" style="width:150px" class="btn btn-success" type="submit" onclick="ch()" value="edit" />
                                     <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
                                 </div>
                             </div>
@@ -103,27 +101,22 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
-
-                                @for(var i =0;i<Model.man_power.items_man_power.Count();i++)
+                              
+                                @for (var io = 0; io < Model.man_power.items_man_power.Count(); io++)
                                 {
-                                    <div id='manpoweritems' >
-                                        @*@Html.HiddenFor(m => m.man_power.items_man_power[i].cadre_code.Code);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].cadre_code.Name);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].current_jobs);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].new_jobs);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].quarter1);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].quarter2);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].quarter3);
-                                        @Html.HiddenFor(m => m.man_power.items_man_power[i].quarter4);*@
-                                        <input id="class_type" style="margin-bottom: 1em;width:100px"  name="levelcode"  value= '" + @Model.man_power.items_man_power[i].cadre_code.Code + "' readonly='readonly' />" 
-                                        <input id="class_type" style="margin-bottom: 1em;width:200px" name="levelcode" value='" + @Model.man_power.items_man_power[i].cadre_code.Name + "' readonly='readonly' />"
-                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="levelcode" value='" + @Model.man_power.items_man_power[i].current_jobs + "' readonly='readonly' />"
-                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="levelcode" value='" + @Model.man_power.items_man_power[i].new_jobs + "'  />"
-                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="levelcode" value='" + @Model.man_power.items_man_power[i].quarter1 + "'  />"
-                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="levelcode" value='" + @Model.man_power.items_man_power[i].quarter2 + "'  />"
-                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="levelcode" value='" + @Model.man_power.items_man_power[i].quarter3 + "'  />"
-                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="levelcode" value='" + @Model.man_power.items_man_power[i].quarter4 + "'  />"
-                              </div>
+                                    <div id="manpoweritems">
+
+                                        <input id="class_type" style="margin-bottom: 1em;width:100px" name="levelID" value=@Model.man_power.items_man_power[io].cadre_code.ID hidden />
+                                        <input id="class_type" style="margin-bottom: 1em;width:100px" name="levelcode" value=@Model.man_power.items_man_power[io].cadre_code.Code readonly='readonly' />
+                                        <input id="class_type" style="margin-bottom: 1em;width:200px" name="levelname" value=@Model.man_power.items_man_power[io].cadre_code.Name readonly='readonly' />
+                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="count" value=@Model.man_power.items_man_power[io].current_jobs readonly='readonly' />
+                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="new" value=@Model.man_power.items_man_power[io].new_jobs type="number" min="0" />
+                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="q1" value=@Model.man_power.items_man_power[io].quarter1 type="number" min="0" />
+                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="q2" value=@Model.man_power.items_man_power[io].quarter2 type="number" min="0" />
+                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="q3" value=@Model.man_power.items_man_power[io].quarter3 type="number" min="0" />
+                                        <input id="class_type" style="margin-bottom: 1em;width:70px" name="q4" value=@Model.man_power.items_man_power[io].quarter4 type="number" min="0" />
+                                        <input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' />
+                                    </div>
                                           }
 
 
@@ -218,8 +211,8 @@
             for (var o = 0; o < pp.length; o++)
             {
                 var inputs = pp[o].children;
-                var first = parseInt(inputs[4].value) + parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value);
-                var second = parseInt(inputs[3].value)+parseInt(inputs[2].value);
+                var first = parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value) + parseInt(inputs[8].value);
+                var second = parseInt(inputs[4].value) + parseInt(inputs[3].value);
                 if (second < first)
                 {
                     flag = 1;
@@ -249,15 +242,17 @@
 
                             debugger
                             var tr =
-                    "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
-                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new'   value='" + 0 + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q1'  type='number' id='YT' min='0'  value='" + result.count + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3'  type='number' id='YT'  min='0'  value='" + 0 + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
-                      "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
+                      "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
+                    "<input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
+                     "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
+
+                   "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
+                     "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new' type='number'  min='0'  value='" + 0 + "'  />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q1' type='number'  min='0'  value='" + 0 + "'  />" +
+                       "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2' type='number'  min='0'  value='" + 0 + "'  />" +
+                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3' type='number'  min='0'value='" + 0 + "'  />" +
+                         "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4' type='number'  min='0'  value='" + 0 + "'  />" +
+                     "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
                             $("#Budgetdetails").append(tr);
                             $("#employee181").select2("val", "0");
 
@@ -291,14 +286,17 @@
 
                             debugger
                             var tr =
-                    "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px'  name='class_type'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='class_type'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'   value='" + result.count + "' readonly='readonly' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + result.count + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT'  min='0'  value='" + 0 + "' />" +
-                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='class_type'  type='number' id='YT' min='0'  value='" + 0 + "' />" +
+                     "<div id='manpoweritems' ><input id='class_type' style='margin-bottom: 1em;width:100px' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
+                     "<input id='class_type' style='margin-bottom: 1em;width:100px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:200px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='count'   value='" + result.count + "' readonly='readonly' />" +
+                      "<input id='class_type' style='margin-bottom: 1em;width:70px' name='new' type='number'  min='0'  value='" + 0 + "'  />" +
+                       "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q1' type='number'  min='0'  value='" + 0 + "'  />" +
+                        "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q2' type='number'  min='0'  value='" + 0 + "'  />" +
+                         "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q3' type='number'  min='0'value='" + 0 + "'  />" +
+                          "<input id='class_type' style='margin-bottom: 1em;width:70px' name='q4' type='number'  min='0'  value='" + 0 + "'  />" +
                       "<input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></div>";
+
                             $("#Budgetdetails").append(tr);
                             $("#employee181").select2("val", "0");
 
@@ -320,5 +318,38 @@
         debugger
         thi.parent().remove();
     }
+    function ch() {
+        debugger
+        var it = $("#manpoweritems");
+        if (it.length == 1) {
 
+            var pp = $("#Budgetdetails").find("div");
+            var flag = 0;
+            for (var o = 0; o < pp.length; o++) {
+                var inputs = pp[o].children;
+                var first = parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value) + parseInt(inputs[8].value);
+                var second = parseInt(inputs[4].value) + parseInt(inputs[3].value);
+                if (second < first) {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1) {
+                alert("sumtion greater than total !");
+            }
+            else if (flag == 0) {
+
+
+                $("#dd").submit();
+            }
+        }
+
+    }
 </script>
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>

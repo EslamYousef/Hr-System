@@ -11,9 +11,9 @@ namespace HR.Models
         public int ID { get; set; }
         public int from_year { get; set; }
         public int to_year { get; set; }
-        public Organization_Chart organization { get; set; }
-        public status status { get; set; }
-        public List<items_man_power> items_man_power { get; set; }
+        public virtual Organization_Chart organization { get; set; } 
+        public virtual status status { get; set; }
+        public virtual List<items_man_power> items_man_power { get; set; }
 
 
     }
