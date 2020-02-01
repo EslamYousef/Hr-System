@@ -149,7 +149,7 @@ namespace HR.Models
         public DbSet<Employee_contract_profile> Employee_contract_profile { get; set; }
         public DbSet<man_power> man_power { get; set; }
         public DbSet<items_man_power> items_man_power { get; set; }
-
+        public DbSet<request_new_contract> new_contrct { get; set; }
 
 
     }
