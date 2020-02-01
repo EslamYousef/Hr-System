@@ -15,10 +15,10 @@ namespace HR.Models
         [Display(Name = "Employee No.")]
         public string Employee_ProfileId { get; set; }
         [Required]
-        [Display(Name = "Contract profile No.")]
-        public string Code { get; set; }
         [Display(Name = "Contract No.")]
-        public string Contract { get; set; }
+        public string Code { get; set; }
+        //[Display(Name = "Contract No.")]
+        //public string Contract { get; set; }
         [Display(Name = "Contract Type")]
         public string ContractTypeId { get; set; }
         [Display(Name = "Approved by")]

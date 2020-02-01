@@ -17,7 +17,7 @@ namespace HR.Controllers
         {
             var ID = int.Parse(id);
             var new_model = dbcontext.Employee_contract_profile.Where(m => m.Employee_Profile.ID == ID).ToList();
-            ViewBag.idemp = id;
+            ViewBag.id = id;
             return View(new_model);
         }
         public ActionResult Create(string id)
@@ -71,7 +71,7 @@ namespace HR.Controllers
 
                     Employee_contract_profile record = new Employee_contract_profile();
                     record.Code = model.Code;
-                    record.Contract = model.Contract;
+               //     record.Contract = model.Contract;
                     record.Employment_type = model.Employment_type;
                     record.Contract_start_date = model.Contract_start_date;
                     record.Contract_end_date = model.Contract_end_date;
@@ -141,9 +141,11 @@ namespace HR.Controllers
                 ViewBag.Contract_Type = dbcontext.Contract_Type.ToList().Select(m => new { Code = m.Contract_Type_Code + "------[" + m.Contract_Type_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.id = id.ToString();
-                var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
+               
 
+                var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.id = record.Employee_Profile.ID.ToString();
+              
               
                 if (record != null)
                 {
@@ -181,7 +183,7 @@ namespace HR.Controllers
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == model.ID);
                 var emp = record.Employee_Profile;
                 record.Code = model.Code;
-                record.Contract = model.Contract;
+             //   record.Contract = model.Contract;
                 record.Employment_type = model.Employment_type;
                 record.Contract_start_date = model.Contract_start_date;
                 record.Contract_end_date = model.Contract_end_date;
@@ -237,7 +239,9 @@ namespace HR.Controllers
         {
             try
             {
+
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.id = record.Employee_Profile.ID.ToString();
                 if (record != null)
                 { return View(record); }
                 else
@@ -257,8 +261,9 @@ namespace HR.Controllers
         [HttpPost]
         public ActionResult Deletemethod(int id)
         {
-            var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
 
+            var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == id);
+            ViewBag.id = record.Employee_Profile.ID.ToString();
             try
             {
                 dbcontext.Employee_contract_profile.Remove(record);
