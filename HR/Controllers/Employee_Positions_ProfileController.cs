@@ -43,7 +43,7 @@ namespace HR.Controllers
             ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.id = id;
+            ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Position_Information.ToList();
             var count = 0;
@@ -88,7 +88,7 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.id = model.Position_Information.ID;
+                ViewBag.idemp = model.Position_Information.ID;
                 if (ModelState.IsValid)
                 {
                      var prof = int.Parse(model.Position_Information.Employee_ProfileId);
@@ -163,12 +163,12 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
                     //        if (record.SlotdescId.Where(m => m.Employee_Profile != null).ToList().Select(m => m.Employee_Profile.ID).ToList())
 
-                  
 
-                    //if (command == "Submit")
-                    //{
-                    //    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
-                    //}
+
+                    if (command == "Submit")
+                    {
+                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                    }
                     return RedirectToAction("Index",new { id=model.Position_Information.Employee_ProfileId});
                 }
                 else
@@ -199,10 +199,10 @@ namespace HR.Controllers
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
-                ViewBag.id = id.ToString();
+           
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id);
                 var record2 = record.Position_Transaction_Information;
-
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
                 var vm = new Employee_Positions_Profile_VM { Position_Information = record, Position_Transaction_Information = record2 };
                 if (vm != null)
                 {
@@ -238,7 +238,7 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.id = model.Position_Information.ID;
+                ViewBag.idemp = model.Position_Information.ID;
                 var prof = int.Parse(model.Position_Information.Employee_ProfileId);
              //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID ==model.Position_Information.ID);
@@ -345,10 +345,10 @@ namespace HR.Controllers
                 information.Resolution_date = model.Position_Transaction_Information.Resolution_date;
                 dbcontext.SaveChanges();
 
-                //if (command == "Submit")
-                //{
-                //    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
-                //}
+                if (command == "Submit")
+                {
+                    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                }
                 return RedirectToAction("index", new { id = model.Position_Information.Employee_ProfileId });
             }
             catch (DbUpdateException e)
