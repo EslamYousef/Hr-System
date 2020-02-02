@@ -8,14 +8,15 @@
     <div class="col-md-12">
         <div class="panel panel-primary" data-collapsed="0">
             <div class="panel-body">
-                @using (Html.BeginForm("edit", "job_title_card", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("edit", "job_title_card", FormMethod.Post, new {id="ed", enctype = "multipart/form-data" }))
                 {
                     <input name="job_level" value="" hidden />
                     <input name="organization" value="" hidden />
+                    <input name="id" value="" hidden />
                     <input name="type" value="" hidden />
                     <input name="status" value="" hidden />
                     <input name="slotcode__" value="" hidden />
-                    @Html.HiddenFor(m => m.ID);
+                
                     
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -26,7 +27,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 @TempData["Message"]
                             </div>
-                        }
+                        }    @Html.HiddenFor(m => m.ID);
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -52,6 +53,12 @@
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
                             </div>
+                          
+                                <div class="col-md-4">
+                                    <input id="btnSave" class="btn btn-success" onclick="go()" value="Edit" />
+                                    <a href="@Url.Action("index", "job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                </div>
+                            
                         </div>
                         <div class="col-md-12">
                             <ul class="nav nav-tabs bordered">
@@ -204,72 +211,89 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="profile">
-
-                                   
-                                      
                                         <div id="add11">
                                             @for (var item = 0; item < Model.Slots.Count(); item++)
                                             {
+                                                @Html.HiddenFor(m => m.Slots[item].ID)
                                                 @Html.HiddenFor(m => m.Slots[item].slot_description)
                                                 @Html.HiddenFor(m => m.Slots[item].slot_type)
                                                 @Html.HiddenFor(m => m.Slots[item].job_level_setup.Name)
                                                 @Html.HiddenFor(m => m.Slots[item].slot_code)
                                                 @Html.HiddenFor(m => m.Slots[item].Organization_Chart__.unit_Description)
                                                 @Html.HiddenFor(m => m.Slots[item].check_status)
-                                               
-                                                <div class="form-group" >
-                                                    <div class="col-md-3">
-                                                        <input  class="form-control" value="@Model.Slots[item].slot_code" readonly/>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].job_level_setup.Name" readonly />
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].slot_type" readonly />
-                                                    </div>
-                                                    @if (Model.Slots[item].Employee_Profile != null)
-                                                    {
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].Employee_Profile.ID" readonly />
-                                                    </div>
-                                                    }
-                                                    else
-                                                    {
+
+                                                <div>
+                                                    <div class="form-group">
                                                         <div class="col-md-3">
-                                                            <input class="form-control" value=empty readonly />
+                                                            <input name="id" value="@Model.Slots[item].ID" hidden />
+                                                            <input class="form-control" value="@Model.Slots[item].slot_code" readonly />
                                                         </div>
-                                                    }
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" value="@Model.Slots[item].job_level_setup.Name" readonly />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            @if (Model.Slots[item].EmployeeID != null || Model.Slots[item].EmployeeID != "0")
+                                                            {
+                                                                <input class="form-control" name='type' value="@Model.Slots[item].slot_type" readonly />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input class="form-control" name='type' value="@Model.Slots[item].slot_type" />
+                                                            }
+                                                        </div>
+                                                        @if (Model.Slots[item].EmployeeID != null)
+                                                        {
+                                                            <div class="col-md-2">
+                                                                <input class="form-control" value="@Model.Slots[item].EmployeeID" readonly />
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-md-3">
+                                                                <input class="form-control" value=empty readonly />
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" value="@Model.Slots[item].slot_description" readonly />
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" value="@Model.Slots[item].Organization_Chart__.unit_Description" readonly />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input class="form-control" name='status' value="@Model.Slots[item].check_status" readonly />
+                                                        </div>
+                                                        @if (Model.Slots[item].EmployeeID != null)
+                                                        {
+                                                            <div class="col-md-2">
+                                                                <input class="form-control" value="@Model.Slots[item].EmployeeName" readonly />
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-md-3">
+                                                                <input class="form-control" value=empty readonly />
+                                                            </div>
+                                                        }
+                                                        @*@if (Model.Slots[item].EmployeeID == null || Model.Slots[item].EmployeeID == "0")
+                                                        {
+
+                                                            <input type="button" value="Remove" class="col-md-1 remove btn btn-danger" onclick="remove1($(this))" />
+
+                                                        }*@
+
+                                                        <hr /><hr />
+                                                    </div>
                                                 </div>
-                                                <div class="form-group"> 
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].slot_description" readonly />
-                                                    </div>
-                                                  
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].Organization_Chart__.unit_Description" readonly />
-                                                    </div>
-                                                   <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].check_status" readonly />
-                                                    </div>
-                                                    @if (Model.Slots[item].Employee_Profile != null)
-                                                    {
-                                                    <div class="col-md-3">
-                                                        <input class="form-control" value="@Model.Slots[item].Employee_Profile.Full_Name" readonly />
-                                                    </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="col-md-3">
-                                                            <input class="form-control" value=empty readonly />
-                                                        </div>
-                                                    }
-                                                 </div>
-                                                <hr /><hr />
+
                                             }
-                                                <hr /><hr/>
-                                            }
-                                        </div>
+                                                    <hr /><hr />
+
+                                                </div>
                                     <div id="add1">
+
                                         </div>
 
                                     </div>
@@ -277,12 +301,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">edit</button>
-                                <a href="@Url.Action("index", "job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
-                            </div>
-                        </div>
+                       
                     </div>
                 }
             </div>
@@ -290,6 +309,7 @@
     </div>
     @section scripts{}
     <script>
+        
     function generat3e()
     {
         debugger
@@ -570,5 +590,25 @@
             $("#clearenum11").attr('disabled', true);
            
         }
-    }
+         }
+        function remove1(thi) {
+            debugger
+            thi.parent().parent().remove();
+            //thi.parent().parent().parent().remove(removed);
+            var t = parseInt($("#increase").val());
+            var u = parseInt('@ViewBag.num');
+            $("#increase").val(t - 1);
+            $("#number").val(t - 1);
+            if (t == (u + 1)) {
+                $("#generateenum").attr('disabled', false);
+                $("#number").readOnly = false;
+                $("#clearenum11").attr('disabled', true);
+
+            }
+        }
+        function go()
+        {
+            $("#ed").submit();
+
+        }
     </script>

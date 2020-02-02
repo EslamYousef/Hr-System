@@ -384,43 +384,49 @@
 </script>
 @section scripts{}
 
+
+
+
 <script>
         function CountryName() {
-            debugger
+           
             var id = $("#country").val();
+            var g=$("#employeeId").val();
+            if (g == "") {
+                alert("you must choose employee");
+                $("#country").select2("val", "0");
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: "/Helper/GetJobtitle",
+                    dataType: "json",
+                    data: { "id": id },
+                    success: function (result) {
 
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetJobtitle",
-                dataType: "json",
-                data: { "id": id },
-                success: function (result) {
-                    debugger
 
-                    $("#countryname1").val(result.name);
-                    $("#area").removeAttr("disabled");
-               //     areaName(result.Organization_unit_codeID.worklocationid)
-                    areaname(result.joblevelsetupID)
+                        $("#countryname1").val(result.name);
+                        $("#area").removeAttr("disabled");
+                        //     areaName(result.Organization_unit_codeID.worklocationid)
+                        areaname(result.joblevelsetupID)
 
-                    getter(result.ID)
-                    getstate(result.Organization_unit_codeID)
-                },
-                error: function () {
-                    debugger
-                    $("#countryname1").val(" ");
-                }
-            });
+                        getter(result.ID)
+                        getstate(result.Organization_unit_codeID)
+                    },
+                    error: function () {
+
+                        $("#countryname1").val(" ");
+                    }
+                });
+            }
         }
         CountryName()
         function areaname(did) {
-            debugger
-
             $.ajax({
                 type: "post",
                 url: "/helper/getjoblevel",
                 data: { "id": did },
                 success: function (result) {
-                    debugger
                     $("#ter").removeAttr("disabled");
                     $("#area").select2("val", result.ID);
                     $("#areaname1").val(result.Name);
@@ -428,7 +434,7 @@
                     $("#area").prop("readonly", true);
                 },
                 error: function () {
-                    debugger
+                   
                     $("#areaname1").val(" ");
                 }
             });
@@ -447,15 +453,15 @@
                 url: "/Helper/GetJobSolts",
                 data: { "id": did,"did":oo },
                 success: function (result) {
-                    debugger
+                  
                     var finalresult="";
                     finalresult = "<option value='0' > Choose Slot desc </option>";
                     $.each(result, function (key, value) {
                         if (value.ID == parseInt(@Model.personnel_transaction.SlotdescId)) {
-                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                         }
                         else {
-                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                         }
                         //"--"+ value.slot_description +
                     });
@@ -468,7 +474,7 @@
 
                 },
                 error: function () {
-                    debugger
+                   
                     $("#tername").val(" ");
                 }
             });
@@ -476,18 +482,18 @@
         slot();
         function slot()
         {
-            debugger
+           
             var id = $("#ter").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/GetSolt",
                 data: { "id": id },
                 success: function (result) {
-                    debugger
+                   
                     $("#tername").val(result.slot_code);
                 },
                 error: function () {
-                    debugger
+                  
                     $("#tername").val(" ");
                 }
             });
@@ -495,7 +501,7 @@
         //getter(did)
         function getstate(did)
         {
-            debugger
+          
        //     var id = $("#state").val();
             //$("#ter").empty();
             //$("#citeid").empty();
@@ -508,7 +514,7 @@
                 url: "/Helper/GetOrganizationChart",
                 data: { "id": did },
                 success: function (result) {
-                    debugger
+                   
                     $("#state").select2("val", result.ID);
 
                     $("#citeid").removeAttr("disabled");
@@ -519,7 +525,7 @@
                     $("#state").prop("readonly", true);
                 },
                 error: function () {
-                    debugger
+                   
                     $("#statename").val(" ");
                 }
             });
@@ -527,14 +533,14 @@
         //getstate(did)
 
         function getcite(did) {
-            debugger
+           
         //    var id = $("#citeid").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/GetWorklocation",
                 data: { "id": did },
                 success: function (result) {
-                    debugger
+                   
 
                     $("#citeid").select2("val", result.ID);
                     $("#cityname").val(result.Name);
@@ -543,28 +549,28 @@
                     $("#citeid2").removeAttr("disabled");
                 },
                 error: function () {
-                    debugger
+                   
                     $("#cityname").val(" ");
                 }
             });
         }
         //getcite(did)
         function getcite2(did) {
-            debugger
+           
             //    var id = $("#citeid").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/GetWorklocation",
                 data: { "id": did },
                 success: function (result) {
-                    debugger
+                   
 
                     $("#citeid2").select2("val", result.ID);
                     $("#cityname2").val(result.Name);
 
                 },
                 error: function () {
-                    debugger
+                  
                     $("#cityname2").val(" ");
                 }
             });
@@ -576,7 +582,7 @@
 
 <script>
     function employe88en() {
-        debugger
+       
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
@@ -584,18 +590,20 @@
             data: { "id": id },
             success: function (result) {
                 debugger
+                var idg = $("#country").val();
+                getter(idg);
                 $("#employeename").val(result.Name);
-                //$("#codeid").val(result.Employee_Positions_Profile.Code);
-                //$("#employeeId").attr("readonly", true);
-                //$("#employeeId").prop("readonly", true);
+                $("#codeid").val(result.Employee_Positions_Profile.Code);
+                $("#employeeId").attr("readonly", true);
+                $("#employeeId").prop("readonly", true);
+                
             },
             error: function () {
-                debugger
+                
                 $("#employeename").val(" ");
-                //$("#codeid").val("");
+                $("#codeid").val("");
             }
         });
     }
-    employee();
+    employe88en();
 </script>
-

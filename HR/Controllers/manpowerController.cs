@@ -96,6 +96,7 @@ namespace HR.Controllers
                     dbcontext.man_power.Add(manpoer);
                     dbcontext.SaveChanges();
                     return RedirectToAction("index");
+
                 }
             }
             catch (DbUpdateException)

@@ -518,6 +518,10 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
                 var slot_id =int.Parse(current_postion.SlotdescId);
                 var slot = dbcontext.Slots.FirstOrDefault(m => m.ID ==slot_id);
+                var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == slot.job_title_cards.ID);////update vacant and hired number
+                job.number_hired = job.number_hired + 1;
+                job.number_vacant = job.number_vacant - 1;
+                dbcontext.SaveChanges();
                 slot.Employee_Profile = null;
                 slot.EmployeeID = null;
                 slot.EmployeeName = null;

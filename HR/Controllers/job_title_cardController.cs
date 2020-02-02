@@ -175,7 +175,7 @@ namespace HR.Controllers
                             var slot = new Slots
                             {
                                 EmployeeID = "0",
-                                EmployeeName = "em",
+                                EmployeeName = "empty",
                                 slot_code = slotcode__[iii],
                                 slot_description = record.Description,
                                 job_level_setup = le,
@@ -186,14 +186,11 @@ namespace HR.Controllers
                                 Employee_Profile = null,
                                 
                             };
-                            if (slot.EmployeeID == null || slot.EmployeeID == "0")
-                            {
-                                vacant = vacant + 1;
-                            }
-                            else
-                            {
+                            
                                 hir = hir + 1;
-                            }
+                            
+                                vacant = 0;
+                            
                             var ss = dbcontext.Slots.Add(slot);
                             dbcontext.SaveChanges();
                             slots.Add(ss);
@@ -388,11 +385,36 @@ namespace HR.Controllers
                 //////////////////
                 //record.Job_Details = details;
                 //record.Job_DetailsID = details.ID.ToString();
+                var old_id = form["id"].Split(char.Parse(","));
+                var type = form["type"].Split(char.Parse(","));
+                int co = 0;
+                for (var i= 0;i < model.Slots.Count();i++)
+                {
+                    var boolo=old_id.Contains(model.Slots[i].ID.ToString());
+                    if(boolo==false)
+                    {
+                        var slot = dbcontext.Slots.FirstOrDefault(m => m.ID == model.Slots[i].ID);
+                        var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == slot.job_title_cards.ID);
+                        job.number_hired = job.number_hired + 1;
+                        job.number_vacant = job.number_vacant - 1;
+                        dbcontext.SaveChanges();
+                        dbcontext.Slots.Remove(slot);
+                        dbcontext.SaveChanges();
+                        co = co + 1;
+                    }
+                }
+                for(var i=0;i<co;i++)
+                {
+                    var id =int.Parse(old_id[i]);
+                    var slot = dbcontext.Slots.FirstOrDefault(m => m.ID == id);
+                    slot.slot_type = (slot_type)(int.Parse(type[i]));
+                }
+
+
 
                 var job_level = form["job_level"].Split(char.Parse(","));
                 var slotcode__ = form["slotcode__"].Split(char.Parse(","));
                 var organization = form["organization"].Split(char.Parse(","));
-                var type = form["type"].Split(char.Parse(","));
                 var status = form["status"].Split(char.Parse(","));
                 var slots = new List<Slots>();
                 var hired = 0;
@@ -410,7 +432,7 @@ namespace HR.Controllers
                         var slot = new Slots
                         {
                             EmployeeID = "0",
-                            EmployeeName = "em",
+                            EmployeeName = "empty",
                             slot_code = slotcode__[iii],
                             slot_description = record.Description,
                             job_level_setup = le,
@@ -420,23 +442,15 @@ namespace HR.Controllers
                             slot_type = (slot_type)(int.Parse(type[iii])),
                             Employee_Profile = null,
                         };
-                        if(slot.EmployeeID==null||slot.EmployeeID=="0")
-                        {
-                            vacant++;
-                        }
-                        else
-                        {
-                            hired++;
-                        }
+                        hired++;
+                        
                         var ss = dbcontext.Slots.Add(slot);
                         dbcontext.SaveChanges();
                         slots.Add(ss);
                     }
                 }
                 record.Slots.AddRange(slots);
-
                 record.number_hired += hired;
-                record.number_vacant += vacant;
                 dbcontext.SaveChanges();
                  foreach (var item in slots)
                 {

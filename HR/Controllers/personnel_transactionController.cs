@@ -479,12 +479,15 @@ namespace HR.Controllers
                 old_position.Primary_Position = false;
                 old_position.To_date = go.personnel_transaction.Last_working_date;
                 dbcontext.SaveChanges();
-                var old_slot = new Slots();
+                 //old_slot = new Slots();
                 var slot_id = int.Parse(old_position.SlotdescId);
-                old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == slot_id);
-                //var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == old_slot.Employee_Profile.ID);
-
-                old_slot.Employee_Profile = new Employee_Profile();
+                var old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == slot_id);
+                ////var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == old_slot.Employee_Profile.ID);
+                var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == old_slot.job_title_cards.ID);////update vacant and hired number
+                job.number_hired = job.number_hired + 1;
+                job.number_vacant = job.number_vacant - 1;
+                dbcontext.SaveChanges();
+                old_slot.Employee_Profile = null;
                 dbcontext.SaveChanges();
                 old_slot.EmployeeName = null;
                 old_slot.EmployeeID = null;
@@ -652,6 +655,11 @@ namespace HR.Controllers
                     my_slot.EmployeeName = emp.Full_Name;
                     my_slot.EmployeeID = emp.ID.ToString();
                     dbcontext.SaveChanges();
+                    var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == my_slot.job_title_cards.ID);////update vacant and hired number
+                    job.number_hired = job.number_hired - 1;
+                    job.number_vacant = job.number_vacant + 1;
+                    dbcontext.SaveChanges();
+
                 }
 
                 record.Default_location_descId = mmodel.personnel_transaction.Default_location_descId;

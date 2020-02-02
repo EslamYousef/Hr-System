@@ -78,7 +78,7 @@
                                 <span>Employee No</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.selected_employee, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employeen()", @id = "employeeId" })
+                                @Html.DropDownListFor(m => m.selected_employee, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employe88en()", @id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.selected_employee, "", new { @class = "text-danger" })
                                 <input type="text" value="" class="form-control" id="employeename" disabled />
                             </div>
@@ -396,28 +396,35 @@
         function CountryName() {
             debugger
             var id = $("#country").val();
+            var g=$("#employeeId").val();
+            if (g == "") {
+                alert("you must choose employee");
+                $("#country").select2("val", "0");
 
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetJobtitle",
-                dataType: "json",
-                data: { "id": id },
-                success: function (result) {
-                    debugger
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: "/Helper/GetJobtitle",
+                    dataType: "json",
+                    data: { "id": id },
+                    success: function (result) {
+                        debugger
 
-                    $("#countryname1").val(result.name);
-                    $("#area").removeAttr("disabled");
-               //     areaName(result.Organization_unit_codeID.worklocationid)
-                    areaname(result.joblevelsetupID)
+                        $("#countryname1").val(result.name);
+                        $("#area").removeAttr("disabled");
 
-                    getter(result.ID)
-                    getstate(result.Organization_unit_codeID)
-                },
-                error: function () {
-                    debugger
-                    $("#countryname1").val(" ");
-                }
-            });
+                        areaname(result.joblevelsetupID)
+
+                        getter(result.ID)
+                        getstate(result.Organization_unit_codeID)
+                    },
+                    error: function () {
+                        debugger
+                        $("#countryname1").val(" ");
+                    }
+                });
+            }
         }
         CountryName()
         function areaname(did) {
@@ -441,15 +448,13 @@
                 }
             });
         }
-        //areaname(did)
+
         function getter(did) {
             debugger
             var oo = $("#employeeId").val();
             var id = $("#ter").val();
 
-            //$("#citeid").empty();
-            //$("#citeid").select2("val", "");
-            //$("#cityname").val(" ");
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetJobSolts",
@@ -460,18 +465,17 @@
                     finalresult = "<option value='0' > Choose Slot desc </option>";
                     $.each(result, function (key, value) {
                         if (value.ID == parseInt(@Model.personnel_transaction.SlotdescId)) {
-                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                         }
                         else {
-                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.slot_code + " ]</option>";
+                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                         }
-                        //"--"+ value.slot_description +
+
                     });
                     $("#ter").html(finalresult);
-                    //      $("#citeid").removeAttr("disabled");
-                    //$("#ter").select2("val", result.ID);
+
                     slot();
-                //    getallcite(result.ID);
+
                     $("#state").removeAttr("disabled");
 
                 },
@@ -504,13 +508,7 @@
         function getstate(did)
         {
             debugger
-       //     var id = $("#state").val();
-            //$("#ter").empty();
-            //$("#citeid").empty();
-            //$("#ter").select2("val", "");
-            //$("#citeid").select2("val", "");
-            //$("#tername").val(" ");
-            //$("#cityname").val(" ");
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetOrganizationChart",
@@ -583,8 +581,8 @@
 
 
 <script>
-    function employeen() {
-        debugger
+    function employe88en() {
+
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
@@ -592,18 +590,20 @@
             data: { "id": id },
             success: function (result) {
                 debugger
+                var idg = $("#country").val();
+                getter(idg);
                 $("#employeename").val(result.Name);
-                //$("#codeid").val(result.Employee_Positions_Profile.Code);
-                //$("#employeeId").attr("readonly", true);
-                //$("#employeeId").prop("readonly", true);
+                $("#codeid").val(result.Employee_Positions_Profile.Code);
+                $("#employeeId").attr("readonly", true);
+                $("#employeeId").prop("readonly", true);
+
             },
             error: function () {
-                debugger
+
                 $("#employeename").val(" ");
-                //$("#codeid").val("");
+                $("#codeid").val("");
             }
         });
     }
-    employeen();
+    employe88en();
 </script>
-
