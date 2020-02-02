@@ -760,7 +760,7 @@ namespace HR.Controllers
             dbcontext.Configuration.ProxyCreationEnabled = false;
             var ii = int.Parse(did);
             var ID = int.Parse(id);
-            var Slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == ID && ((m.Employee_Profile == null) || m.Employee_Profile.ID == ii));
+            var Slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == ID && ((m.EmployeeID == null|| m.EmployeeID == "0") || m.EmployeeID == did)).Where(m=>m.slot_type == slot_type.Active).ToList().Select(m => new { Code = m.slot_code + "------[" + m.slot_description + ']', ID = m.ID });
             return Json(Slots);
         }
         public JsonResult GetSolt(string id)
@@ -858,14 +858,7 @@ namespace HR.Controllers
                 return Json(false);
             }
         }
-        public JsonResult GetMilitaryServiceRank(string id)
-        {
-            dbcontext.Configuration.ProxyCreationEnabled = false;
 
-            var ID = int.Parse(id);
-            var MilitaryServiceRank = dbcontext.Military_Service_Rank.FirstOrDefault(m => m.ID == ID);
-            return Json(MilitaryServiceRank);
-        }
 
 
 
