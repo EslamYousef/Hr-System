@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HR.Models.ViewModel.Employeefamily_VM>
+﻿@model IEnumerable<HR.Models.Employee_family_profile>
 
 @{
     ViewBag.Title = "Index";
@@ -8,82 +8,83 @@
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    Employee Family Profile
+                    <a href="@Url.Action("Create", "Employee_family_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Family Profile </a>
                 </p>
             </div>
+          
 
-            <!-- /.box-header -->
-            <div class="box-body">
-                @if (TempData["Message"] != null)
-                {
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @TempData["Message"]
-                    </div>
-                }
+                <!-- /.box-header -->
+                <div class="box-body">
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
 
-                <table id="categories" class="table table-bordered table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Employee Name</th>
-                            <th>Family Name</th>
-                            <th>Family member type</th>
-                            <th>Degree of kinship</th>
-
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-
-
-                        @foreach (var item in Model)
-                        {
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
                             <tr>
+                                <th>Code</th>
+                                <th>Employee Name</th>
+                                <th>Family Name</th>
+                                <th>Family member type</th>
+                                <th>Degree of kinship</th>
 
-                                <td>@item.Employee_family_profile.Code</td>
-                                <td>@item.fullname</td>
-                                @if (@item.Employee_family_profile.Name != null)
-                                {
-                                    <td>@item.Employee_family_profile.Name</td>}
-                                else
-                                { <td> Empty </td> }
-
-                                <td>@item.Employee_family_profile.Family_member_type</td>
-                                <td>@item.Employee_family_profile.Degree_of_kinship</td>
-                            
-
-                                <td>
-                                    <a href="@Url.Action("Edit", "Employee_family_profile", new {id = item.Employee_family_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
-                                </td>
+                                <th></th>
                             </tr>
-                        }
+                        </thead>
+                        <tbody>
 
 
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>Employee Name</th>
-                            <th>Family Name</th>
-                            <th>Family member type</th>
-                            <th>Degree of kinship</th>
 
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>@item.Code</td>
+                                    <td>@item.Employee_Profile.Full_Name</td>
+                                    @if (@item.Name != null)
+                                    {
+                                        <td>@item.Name</td>}
+                                    else
+                                    {
+                                <td> Empty </td> }
+
+                                    <td>@item.Family_member_type</td>
+                                    <td>@item.Degree_of_kinship</td>
+
+
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Employee_family_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                        <a href="@Url.Action("delete", "Employee_family_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Code</th>
+                                <th>Employee Name</th>
+                                <th>Family Name</th>
+                                <th>Family member type</th>
+                                <th>Degree of kinship</th>
+
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
-        </div>
 
-    </section>
+</section>
 
 </div>
 

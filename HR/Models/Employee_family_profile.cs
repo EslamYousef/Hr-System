@@ -80,7 +80,8 @@ namespace HR.Models
         [Display(Name = "Mobil phone number")]
         public string Mobil_phone_number { get; set; }
         public string Address { get; set; }
-        
+        public virtual Employee_Profile Employee_Profile { get; set; }
+
 
 
     }

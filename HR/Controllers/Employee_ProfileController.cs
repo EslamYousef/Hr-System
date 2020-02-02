@@ -69,7 +69,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9)
         {
             try
             {
@@ -298,26 +298,26 @@ namespace HR.Controllers
             
                     ///////////////////////////////////////////////
 
-                    var employeefamily = dbcontext.Employee_family_profile.ToList();
-                    var famcount = 0;
+                    //var employeefamily = dbcontext.Employee_family_profile.ToList();
+                    //var famcount = 0;
 
-                    if (employeefamily.Count() == 0)
-                    {
-                        famcount = 1;
-                    }
-                    else
-                    {
-                        var te3 = employeefamily.LastOrDefault().ID;
-                        famcount = te3 + 1;
-                    }
-                    DateTime statis3 = Convert.ToDateTime("1/1/1900");
-                    var strus3 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    var text3 = new Employee_family_profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus3.Structure_Code + famcount.ToString(), Birth_date = statis3, Death_date = statis3, End_relation_date = statis3, Start_relation_date = statis3 };
-                    var e3 = dbcontext.Employee_family_profile.Add(text3);
-                    dbcontext.SaveChanges();
-                    emp.Employee_family_profile = e3;
-                    dbcontext.SaveChanges();
+                    //if (employeefamily.Count() == 0)
+                    //{
+                    //    famcount = 1;
+                    //}
+                    //else
+                    //{
+                    //    var te3 = employeefamily.LastOrDefault().ID;
+                    //    famcount = te3 + 1;
+                    //}
+                    //DateTime statis3 = Convert.ToDateTime("1/1/1900");
+                    //var strus3 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //var text3 = new Employee_family_profile
+                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus3.Structure_Code + famcount.ToString(), Birth_date = statis3, Death_date = statis3, End_relation_date = statis3, Start_relation_date = statis3 };
+                    //var e3 = dbcontext.Employee_family_profile.Add(text3);
+                    //dbcontext.SaveChanges();
+                    //emp.Employee_family_profile = e3;
+                    //dbcontext.SaveChanges();
                     ///////////////////////////////////////////////////////////////
                     var employeeexperience = dbcontext.Employee_experience_profile.ToList();
                     var expcount = 0;
@@ -359,7 +359,47 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
                     emp.Employee_contact_profile = e6;
                     dbcontext.SaveChanges();
+                    /////////////////////////////////////////
+                    if (record.Gender==Gender.male /*&& command8 == "Submit"*/)
+                    {
+                        var employeemilitary = dbcontext.Employee_military_service_profile.ToList();
+                        var militarycount = 0;
 
+                        if (employeemilitary.Count() == 0)
+                        {
+                            militarycount = 1;
+                        }
+                        else
+                        {
+                            var te8 = employeemilitary.LastOrDefault().ID;
+                            militarycount = te8 + 1;
+                        }
+                        DateTime statis8 = Convert.ToDateTime("1/1/1900");
+                        var strus8 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                        var text8 = new Employee_military_service_profile
+                        { Employee_ProfileId = emp.ID.ToString(), Code = strus8.Structure_Code + militarycount.ToString(), Certificate_date = statis8, From_date = statis8, To_date = statis8 };
+                        var e8 = dbcontext.Employee_military_service_profile.Add(text8);
+                        dbcontext.SaveChanges();
+                        emp.Employee_military_service_profile = e8;
+                        dbcontext.SaveChanges();
+
+                    }
+                    else if (record.Gender == Gender.female && command8 == "Submit")
+                    {
+                        TempData["Message"] = "You must choose a male from the gender ";
+                        return View(model);
+                    }
+                    else if (record.Gender == Gender.other && command8 == "Submit")
+                    {
+                        TempData["Message"] = "You must choose a male from the gender ";
+                        return View(model);
+                    }
+
+
+
+
+
+                    //////////////////////////
                     if (command == "Submit")
                     {
                         return RedirectToAction("Create", "Employee_Address_Profile", new { id = emp.ID });
@@ -374,11 +414,11 @@ namespace HR.Controllers
                     }
                     if (command4 == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_family_profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_family_profile", new { id = emp.ID });
                     }
                     if (command5 == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_experience_profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_experience_profile", new { id = emp.ID });
                     }
                     if (command6 == "Submit")
                     {
@@ -387,6 +427,14 @@ namespace HR.Controllers
                     if (command7 == "Submit")
                     {
                         return RedirectToAction("index", "Employee_contract_profile", new { id = emp.ID });
+                    }
+                    if (command8 == "Submit")
+                    {
+                        return RedirectToAction("Create", "Employee_military_service_profile", new { id = emp.ID });
+                    }
+                    if (command9 == "Submit")
+                    {
+                        return RedirectToAction("index", "Employee_military_service_calling", new { id = emp.ID });
                     }
                     return RedirectToAction("Index");
                 }
@@ -436,7 +484,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9)
         {
             try
             {
@@ -553,10 +601,10 @@ namespace HR.Controllers
                 var Service = dbcontext.Service_Information.FirstOrDefault(m => m.ID == model.Employee_Profile.Service_Information.ID);
                 Service.Pension = model.Service_Information.Pension;
                 Service.Pension_source = model.Service_Information.Pension_source;
-                Service.EOS_date = model.Service_Information.EOS_date;
+             //   Service.EOS_date = model.Service_Information.EOS_date;
                 Service.Have_pension = model.Service_Information.Have_pension;
-                Service.Retired_expected_EOS = model.Service_Information.Retired_expected_EOS;
-                Service.Last_working_date = model.Service_Information.Last_working_date;
+            //    Service.Retired_expected_EOS = model.Service_Information.Retired_expected_EOS;
+             //   Service.Last_working_date = model.Service_Information.Last_working_date;
                 Service.Is_merits_The_date_of_death = model.Service_Information.Is_merits_The_date_of_death;
                 Service.Pension = model.Service_Information.Pension;
                 Service.CurrencyId = model.Service_Information.CurrencyId;
@@ -578,7 +626,7 @@ namespace HR.Controllers
                 }
                 if (command4 == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_family_profile", new { id = record.Employee_family_profile.ID });
+                    return RedirectToAction("index", "Employee_family_profile", new { id = record.ID });
                 }
                 if (command5 == "Submit")
                 {
@@ -591,6 +639,24 @@ namespace HR.Controllers
                 if (command7 == "Submit")
                 {
                     return RedirectToAction("index", "Employee_contract_profile", new { id = record.ID });
+                }
+                if (record.Gender == Gender.male && command8 == "Submit")
+                {
+                    return RedirectToAction("Edit", "Employee_military_service_profile", new { id = record.Employee_military_service_profile.ID });
+                }
+                else if (record.Gender == Gender.female && command8 == "Submit")
+                {
+                    TempData["Message"] = "You must choose a male from the gender ";
+                    return View(model);
+                }
+                else if (record.Gender == Gender.other && command8 == "Submit")
+                {
+                    TempData["Message"] = "You must choose a male from the gender ";
+                    return View(model);
+                }
+                if (command9 == "Submit")
+                {
+                    return RedirectToAction("index", "Employee_military_service_calling", new { id = record.ID });
                 }
                 return RedirectToAction("index");
             }
@@ -614,7 +680,7 @@ namespace HR.Controllers
                 var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
                 var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
                 var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
-                var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
+                var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.ID);
 
                 if (record != null)
                 { return View(record); }
@@ -643,7 +709,7 @@ namespace HR.Controllers
             var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
            
             var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
-            var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.Employee_family_profile.ID);
+            var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.ID);
             var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.Employee_experience_profile.ID);
             try
             {

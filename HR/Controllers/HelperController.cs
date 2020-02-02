@@ -858,7 +858,14 @@ namespace HR.Controllers
                 return Json(false);
             }
         }
+        public JsonResult GetMilitaryServiceRank(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var ID = int.Parse(id);
+            var MilitaryServiceRank = dbcontext.Military_Service_Rank.FirstOrDefault(m => m.ID == ID);
+            return Json(MilitaryServiceRank);
+        }
 
 
 

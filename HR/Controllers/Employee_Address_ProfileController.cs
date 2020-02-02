@@ -230,47 +230,47 @@ namespace HR.Controllers
             catch (Exception e)
             { return View(model); }
         }
-        //public ActionResult Delete(int id)
-        //{
-        //    try
-        //    {
-        //        var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
-        //        if (record != null)
-        //        { return View(record); }
-        //        else
-        //        {
-        //            TempData["Message"] = "There is no Employee Address Profile";
-        //            return View();
-        //        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
+                if (record != null)
+                { return View(record); }
+                else
+                {
+                    TempData["Message"] = "There is no Employee Address Profile";
+                    return View();
+                }
 
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return View();
-        //    }
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
 
-        //}
-        //[ActionName("Delete")]
-        //[HttpPost]
-        //public ActionResult Deletemethod(int id)
-        //{
-        //    var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
+        }
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult Deletemethod(int id)
+        {
+            var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
 
-        //    try
-        //    {
-        //        dbcontext.Employee_Address_Profile.Remove(record);
-        //        dbcontext.SaveChanges();
-        //        return RedirectToAction("index");
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        TempData["Message"] = "You can't delete beacause it have child";
-        //        return View(record);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return View();
-        //    }
-        //}
+            try
+            {
+                dbcontext.Employee_Address_Profile.Remove(record);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = "You can't delete beacause it have child";
+                return View(record);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
     }
 }

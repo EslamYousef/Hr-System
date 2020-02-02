@@ -93,12 +93,15 @@ namespace HR.Models
         public virtual Employee_Qualification_Profile Employee_Qualification_Profile { get; set; }
         public virtual List<Position_Information>  Employee_Positions_Profile { get; set; }
         public virtual Position_Transaction_Information Position_Transaction_Information { get; set; }
-        public virtual Employee_family_profile Employee_family_profile { get; set; }
+        public virtual List<Employee_family_profile> Employee_family_profile { get; set; }
         public virtual Employee_experience_profile Employee_experience_profile { get; set; }
         public virtual Employee_contact_profile Employee_contact_profile { get; set; }
         public bool Active { get; set; }
 
         public virtual List<Employee_contract_profile> Employee_contract_profile { get; set; }
+        public virtual Employee_military_service_profile Employee_military_service_profile { get; set; }
+        public virtual List<Employee_military_service_calling> Employee_military_service_calling { get; set; }
+        public virtual List<Employee_beneficiary_profile> Employee_beneficiary_profile { get; set; }
 
         //public string tab { get; set; }
 

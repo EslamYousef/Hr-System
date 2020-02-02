@@ -92,7 +92,7 @@ namespace HR.Models
         public string Commnets { get; set; }
         public working_system working_system { get; set; } = working_system.Day;
         public Position_status Position_status { get; set; } = Position_status.Active;
-        public EOS_reasons EOS_reasons { get; set; } = EOS_reasons.Retired;
+        public EOS_type EOS_reasons { get; set; } = EOS_type.On_poinsor;
 
 
 

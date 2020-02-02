@@ -360,17 +360,15 @@ namespace HR.Models.Infra
         Parttime = 2
     }
     public enum Medical_commite_recomindation
-    {
-        
+    {    
         Fit = 1,
         [Display(Name = "Not fit")]
         Not_Fit = 2
     }
     
 
-          public enum Tickets_Class_Tpye
+     public enum Tickets_Class_Tpye
     {
-
         Economy = 1,
         [Display(Name = "Premium Economy")]
         Premium_Economy = 2,
@@ -378,8 +376,32 @@ namespace HR.Models.Infra
          First=4
     }
 
+    public enum Level
+    {
+        Poor = 1,
+        Good = 2,
+        [Display(Name = "Very Good ")]
+        very_good = 3,
+        [Display(Name = "a Good Idol")]
+        a_good_idol = 4
+    }
 
-
+    public enum Military_service_status
+    {
+        [Display(Name = "Led service")]
+        Led_service = 1,
+        [Display(Name = "Under Request")]
+        Under_Request = 2,
+        [Display(Name = "Permanently recovered ")]
+        Permanently_recovered = 3,
+        hale =4,
+        Delayed = 5,
+        [Display(Name = "Never asked for service ")]
+        Never_asked_for_service = 6,
+        Excluded=7,
+        [Display(Name = "In Service ")]
+        in_service = 8
+    }
 
 
 
