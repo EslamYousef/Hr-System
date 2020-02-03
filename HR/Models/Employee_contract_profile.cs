@@ -27,8 +27,10 @@ namespace HR.Models
         [Display(Name = "Employment type")]
         public Employment_type Employment_type { get; set; } = Employment_type.Fulltime;
         [Display(Name = "Contract start date ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public DateTime Contract_start_date { get; set; }
         [Display(Name = "Contract end date ")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public DateTime Contract_end_date { get; set; }
         public int Years { get; set; }
         public int Months { get; set; }

@@ -46,8 +46,6 @@
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-                                    <input type="text" value=" " class="form-control" id="employeename" disabled />
-
                                 </div>
 
                                 <div class="col-md-6" style="color:black">
@@ -394,9 +392,10 @@
 @section scripts{}
 
 <script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+
+    });
 </script>
 
 
@@ -450,7 +449,8 @@
             }
         });
     }
-    employee();
+   
+
 </script>
 <script>
     function employee2() {

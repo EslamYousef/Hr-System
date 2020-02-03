@@ -41,7 +41,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="employeename" disabled />
+                                @*<input type="text" value=" " class="form-control" id="employeename" disabled />*@
                             </div>
                             <div class="col-md-4" style="color:black">
                                 <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
@@ -107,55 +107,55 @@
     </section>
 </div>
 @section scripts{}
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
+
 
 
 <script>
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Address_Profile.Code);
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
-    employee();
+    //employee();
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+
+    });
 </script>
 
 <script>
     function Contact() {
-        debugger
+         
         var id = $("#ContactId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetContactmethods",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
         //        $("#Contactname").val(result.Description);
            
             },
             error: function () {
-                debugger
+                 
               //  $("#Contactname").val(" ");
               
             }
         });
     }
-    employee();
+    //employee();
 </script>

@@ -25,9 +25,11 @@ namespace HR.Models
         public virtual Employee_Profile Employee_Profile { get; set; }  
         [Display(Name = "Family profile No")]
         public string Family_profile_No { get; set; }
+        [Display(Name = "Family profile No")]
+        public string Family_profile_No2 { get; set; }
         [Display(Name = "Family name")]
         public string Family_name { get; set; }
-        public string Percentage { get; set; }
+        public int Percentage { get; set; }
         
 
     }

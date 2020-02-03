@@ -69,7 +69,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9,string command10)
         {
             try
             {
@@ -225,25 +225,25 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
 
                     ///////////////////////////////////////////////////////////////////////////
-                    var addmodel = dbcontext.Employee_Address_Profile.ToList();
-                    var couunt = 0;
-                    if (addmodel.Count() == 0)
-                    {
-                        couunt = 1;
-                    }
-                    else
-                    {
-                        var te = addmodel.LastOrDefault().ID;
-                        couunt = te + 1;
-                    }
-                    var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //var addmodel = dbcontext.Employee_Address_Profile.ToList();
+                    //var couunt = 0;
+                    //if (addmodel.Count() == 0)
+                    //{
+                    //    couunt = 1;
+                    //}
+                    //else
+                    //{
+                    //    var te = addmodel.LastOrDefault().ID;
+                    //    couunt = te + 1;
+                    //}
+                    //var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
 
-                    var adddd = new Employee_Address_Profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + couunt.ToString() };
-                    var address_emp = dbcontext.Employee_Address_Profile.Add(adddd);
-                    dbcontext.SaveChanges();
-                    emp.Employee_Address_Profile = address_emp;
-                    dbcontext.SaveChanges();
+                    //var adddd = new Employee_Address_Profile
+                    //{ Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + couunt.ToString() };
+                    //var address_emp = dbcontext.Employee_Address_Profile.Add(adddd);
+                    //dbcontext.SaveChanges();
+                    //emp.Employee_Address_Profile = address_emp;
+                    //dbcontext.SaveChanges();
                     ///////////////////////////////////////////////
                     var addmodel1 = dbcontext.Employee_Qualification_Profile.ToList();
                     var tr = 0;
@@ -402,7 +402,7 @@ namespace HR.Controllers
                     //////////////////////////
                     if (command == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_Address_Profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_Address_Profile", new { id = emp.ID });
                     }
                     if (command2 == "Submit")
                     {
@@ -435,6 +435,10 @@ namespace HR.Controllers
                     if (command9 == "Submit")
                     {
                         return RedirectToAction("index", "Employee_military_service_calling", new { id = emp.ID });
+                    }
+                    if (command10 == "Submit")
+                    {
+                        return RedirectToAction("index", "Employee_beneficiary_profile", new { id = emp.ID });
                     }
                     return RedirectToAction("Index");
                 }
@@ -484,7 +488,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9, string command10)
         {
             try
             {
@@ -614,7 +618,7 @@ namespace HR.Controllers
 
                 if (command == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_Address_Profile", new { id = record.Employee_Address_Profile.ID });
+                    return RedirectToAction("index", "Employee_Address_Profile", new { id = record.ID });
                 }
                 if (command2 == "Submit")
                 {
@@ -658,6 +662,10 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("index", "Employee_military_service_calling", new { id = record.ID });
                 }
+                if (command10 == "Submit")
+                {
+                    return RedirectToAction("index", "Employee_beneficiary_profile", new { id = record.ID });
+                }
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -673,7 +681,7 @@ namespace HR.Controllers
             try
             {
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
-                var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.Employee_Address_Profile.ID);
+                var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.ID);
                 var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.Employee_Qualification_Profile.ID);
                 var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
                 var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
@@ -701,7 +709,7 @@ namespace HR.Controllers
         public ActionResult Deletemethod(int id)
         {
             var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
-            var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.Employee_Address_Profile.ID);
+            var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.ID);
             var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.Employee_Qualification_Profile.ID);
             var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
             var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);

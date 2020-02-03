@@ -25,7 +25,7 @@ namespace HR.Controllers
             if (o == null || o.Count() == 0)
             {
 
-                TempData["Message"] = "Please go to Create Contact methods";
+                TempData["Message"] = "Don't Create Contact methods";
                 var modelll = dbcontext.Subscription_Syndicate.ToList();
                 return View("index", modelll);
 

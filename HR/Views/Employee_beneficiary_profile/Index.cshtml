@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HR.Models.Subscription_Syndicate>
+﻿@model IEnumerable<HR.Models.Employee_beneficiary_profile>
 
 @{
     ViewBag.Title = "Index";
@@ -12,15 +12,16 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Subscription_Syndicate")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Subscription Syndicate</a>
+                    <a href="@Url.Action("Create", "Employee_beneficiary_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Beneficiary Profile </a>
                 </p>
             </div>
+
 
             <!-- /.box-header -->
             <div class="box-body">
                 @if (TempData["Message"] != null)
                 {
-                    <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         @TempData["Message"]
                     </div>
@@ -29,40 +30,48 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Subscription Code</th>
-                            <th>Subscription Description </th>
-                            <th>Server Legatees </th>
-                            <th>Deduction Period </th>
-                            <th>Type</th>
+                            <th>Code Beneficiary</th>
+                            <th>Employee Name </th>
+                            <th>Family Name</th>
+                            <th>Percentage</th>
+                            <th>Legatee</th>
+                          
+
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+
+
+
+
+
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Subscription_Code</td>
-                                <td>@item.Subscription_Description</td>
-                                <td>@item.Server_Legatees</td>
-                                <td>@item.Deduction_Period</td>
-                                <td>@item.Type</td>
+                                <td>@item.Code</td>
+                                <td>@item.Employee_Profile.Full_Name</td>
+                                <td>@item.Family_name</td>
+                                <td>@item.Percentage</td>
+                                <td>@item.Legatee</td>
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Subscription_Syndicate", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Subscription_Syndicate", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_beneficiary_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_beneficiary_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
                                 </td>
                             </tr>
                         }
+
+
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Subscription Code</th>
-                            <th>Subscription Description </th>
-                            <th>Server Legatees </th>
-                            <th>Deduction Period </th>
-                            <th>Type</th>
-
+                            <th>Code Beneficiary</th>
+                            <th>Employee Name </th>
+                            <th>Family Name</th>
+                            <th>Percentage</th>
+                            <th>Legatee</th>
 
                             <th></th>
                         </tr>
@@ -74,7 +83,6 @@
     </section>
 
 </div>
-@section scripts{}
 
 <!-- page script -->
 <script>
@@ -92,3 +100,5 @@
         });
     });
 </script>
+
+@section scripts{}

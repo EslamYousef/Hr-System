@@ -13,20 +13,12 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_Address_Profile
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var address = dbcontext.Employee_Address_Profile.ToList();
-            var employeeprofile = dbcontext.Employee_Profile.ToList();
-            var model = from a in employeeprofile
-                        join b in address on a.Employee_Address_Profile.ID equals b.ID
-                        select new addressemployee_VM
-                        {
-                            fullname = a.Full_Name,
-                            code = a.Code,
-                            EmployeeId = a.ID,
-                            Employee_Address_Profile = b
-                        };
-            return View(model);
+            var ID = int.Parse(id);
+            var new_model = dbcontext.Employee_Address_Profile.Where(m => m.Employee_Profile.ID == ID).ToList();
+            ViewBag.idemp = id;
+            return View(new_model);
         }
         public ActionResult Create(string id)
         {
@@ -38,7 +30,7 @@ namespace HR.Controllers
             ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
+            ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_Address_Profile.ToList();
             var count = 0;
@@ -51,15 +43,10 @@ namespace HR.Controllers
                 var te = model.LastOrDefault().ID;
                 count = te + 1;
             }
-            if (id != null)
-            {
-                var ID = int.Parse(id);
-                var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-                var x = emp.Employee_Address_Profile;
-                return View(x);
-            }
-
-            var EmployeeAddress = new Employee_Address_Profile();
+        
+            var ID = int.Parse(id);
+              var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
+            var EmployeeAddress = new Employee_Address_Profile { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() }; ;
             return View(EmployeeAddress);
 
         }
@@ -82,13 +69,15 @@ namespace HR.Controllers
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.idemp = model.ID;
 
                 if (ModelState.IsValid)
                 {
                     var prof = int.Parse(model.Employee_ProfileId);
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
-                    var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == emp.Employee_Address_Profile.ID);
+                    Employee_Address_Profile record = new Employee_Address_Profile();
                     record.Resident = model.Resident;
+                    record.Code = model.Code;
                     record.Streetname = model.Streetname;
                     record.Streetnumber = model.Streetnumber;
                     record.Pobox = model.Pobox;
@@ -97,6 +86,7 @@ namespace HR.Controllers
                     record.Transportation_method = model.Transportation_method;
                     record.Employee_ProfileId = model.Employee_ProfileId;
                     var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
                     record.countryid = model.countryid;
                     var Countryid = int.Parse(model.countryid);
                     record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);
@@ -115,13 +105,13 @@ namespace HR.Controllers
                     record.postcodeId = model.postcodeId;
                     var postcodeId = int.Parse(model.postcodeId);
                     record.postcode = dbcontext.postcode.FirstOrDefault(m => m.ID == postcodeId);
-
+                    dbcontext.Employee_Address_Profile.Add(record);
                     dbcontext.SaveChanges();
                     if (command == "Submit")
                     {
                         return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { id = model.Employee_ProfileId });
                 }
                 else
                 {
@@ -151,6 +141,8 @@ namespace HR.Controllers
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
                 if (record != null)
                 {
                     return View(record);
@@ -184,7 +176,10 @@ namespace HR.Controllers
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.idemp = model.ID;
+
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == model.ID);
+                var emp = record.Employee_Profile;
                 record.Code = model.Code;
                 record.Resident = model.Resident;
                 record.Streetname = model.Streetname;
@@ -220,7 +215,7 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
                 }
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = model.Employee_ProfileId });
             }
             catch (DbUpdateException)
             {
@@ -235,6 +230,8 @@ namespace HR.Controllers
             try
             {
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
                 if (record != null)
                 { return View(record); }
                 else
@@ -255,12 +252,13 @@ namespace HR.Controllers
         public ActionResult Deletemethod(int id)
         {
             var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
+            ViewBag.idemp = record.Employee_Profile.ID.ToString();
 
             try
             {
                 dbcontext.Employee_Address_Profile.Remove(record);
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = record.Employee_ProfileId });
             }
             catch (DbUpdateException)
             {

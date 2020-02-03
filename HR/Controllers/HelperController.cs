@@ -11,6 +11,12 @@ namespace HR.Controllers
 {
     public class HelperController : Controller
     {
+
+        public HelperController()
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: Helper
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         public ActionResult Index()
@@ -610,12 +616,25 @@ namespace HR.Controllers
         }
         public JsonResult GetEmployee(string id)
         {
-            dbcontext.Configuration.ProxyCreationEnabled = false;
+            //dbcontext.Configuration.ProxyCreationEnabled = false;
             var ID = int.Parse(id);
             var Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(Employee);
 
         }
+
+        public JsonResult CheckAddressEmployee(string id)
+        {
+            var ID = int.Parse(id);
+            var emps = (from emp in dbcontext.Employee_Profile
+                        join add in dbcontext.Employee_Address_Profile on emp.ID.ToString() equals add.Employee_ProfileId
+                        where emp.ID == ID
+                        select add.Transportation_method
+                     ).FirstOrDefault();
+            return Json(emps);
+
+        }
+
         public JsonResult GetEmployeeRecodes(string id)
         {
             var ID = int.Parse(id);
@@ -858,11 +877,33 @@ namespace HR.Controllers
                 return Json(false);
             }
         }
+        public JsonResult GetSubscriptionSyndicate(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var ID = int.Parse(id);
+            var SubscriptionSyndicate = dbcontext.Subscription_Syndicate.FirstOrDefault(m => m.ID == ID);
+            return Json(SubscriptionSyndicate);
+        }
 
+        public JsonResult GetEmployeefamilyprofile(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var ID = int.Parse(id);
+            var Employeefamilyprofile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == ID);
+            return Json(Employeefamilyprofile);
+        }
 
-
+        public JsonResult getfamilybyemployee(string id /*string flag*/)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            int ID2 = int.Parse(id);
+                var family = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == ID2);
+           
+                return Json(family);
+            
+        }
 
 
 

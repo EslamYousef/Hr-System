@@ -48,6 +48,8 @@ namespace HR.Models
         public Transportation_method Transportation_method { get; set; } = Transportation_method.None;
         [Display(Name = "Distance from Meeting point to work location (km)")]
         public int DistancefromMeetingpointtoworklocationkm { get; set; }
-        
+        public virtual Employee_Profile Employee_Profile { get; set; }
+
+
     }
 }

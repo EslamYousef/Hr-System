@@ -17,6 +17,7 @@ namespace HR.Models
         [Required]
         [Display(Name = "Family profile No.")]
         public string Code { get; set; }
+        [Required]
         public string Name { get; set; }
         [Display(Name = "Is Reliable")]
         public bool Is_Reliable { get; set; }

@@ -153,7 +153,8 @@ namespace HR.Models
         public DbSet<Employee_military_service_profile> Employee_military_service_profile { get; set; }
         public DbSet<Employee_military_service_calling> Employee_military_service_calling { get; set; }
         public DbSet<Employee_beneficiary_profile> Employee_beneficiary_profile { get; set; }
+        public DbSet<Employee_vehicle_profile> Employee_vehicle_profile { get; set; }
 
-        
+
     }
 }

@@ -86,7 +86,7 @@ namespace HR.Models
         [Display(Name = "Cite Code")]
         public string citiesaddressid { get; set; }
         public virtual cities cities { get; set; }
-        public virtual Employee_Address_Profile Employee_Address_Profile { get; set; }
+        public virtual List<Employee_Address_Profile> Employee_Address_Profile { get; set; }
         public virtual Ability Ability { get; set; }
         public virtual Personnel_Information Personnel_Information { get; set; }
         public virtual Service_Information Service_Information { get; set; }

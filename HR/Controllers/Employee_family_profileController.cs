@@ -93,8 +93,24 @@ namespace HR.Controllers
                     var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
                     record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
                     record.NationalityId = model.NationalityId;
+
                     record.Birth_date = model.Birth_date;
                     record.Death_date = model.Death_date;
+                    if (model.Birth_date > model.Death_date)
+                    {
+                        TempData["Message"] = "Birth date  bigger Death date ";
+                        return View(model);
+                    }
+                    if (model.Start_relation_date > model.End_relation_date)
+                    {
+                        TempData["Message"] = "Start relation date bigger End relation date ";
+                        return View(model);
+                    }
+                    if (model.Start_relation_date > model.Birth_date)
+                    {
+                        TempData["Message"] = " Start relation date bigger Birth date";
+                        return View(model);
+                    }
                     record.Marital_Status = model.Marital_Status;
                     record.Id_type = model.Id_type;
                     record.Id_number = model.Id_number;

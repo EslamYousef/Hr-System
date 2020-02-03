@@ -62,8 +62,8 @@ namespace HR.Controllers
                 ViewBag.Contract_Type = dbcontext.Contract_Type.ToList().Select(m => new { Code = m.Contract_Type_Code + "------[" + m.Contract_Type_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
                 ViewBag.idemp = model.ID;
+
                 if (ModelState.IsValid)
                 {
                     var con = int.Parse(model.Employee_ProfileId);
@@ -176,8 +176,8 @@ namespace HR.Controllers
                 ViewBag.Contract_Type = dbcontext.Contract_Type.ToList().Select(m => new { Code = m.Contract_Type_Code + "------[" + m.Contract_Type_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
                 ViewBag.idemp = model.ID;
+
                 var prof = int.Parse(model.Employee_ProfileId);
                 //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == model.ID);
