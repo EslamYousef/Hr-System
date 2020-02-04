@@ -155,6 +155,7 @@ namespace HR.Models
         public DbSet<Employee_beneficiary_profile> Employee_beneficiary_profile { get; set; }
         public DbSet<Employee_vehicle_profile> Employee_vehicle_profile { get; set; }
 
+        public DbSet<Append_beneficiary_Family> Append_beneficiary_Family { get; set; }
 
     }
 }

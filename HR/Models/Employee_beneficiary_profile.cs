@@ -11,26 +11,19 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
-        [Display(Name = "Employee No.")]
-        public string Employee_ProfileId { get; set; }
+      
         [Required]
         [Display(Name = "Beneficiary Profile No.")]
         public string Code { get; set; }
         public bool Legatee { get; set; }
+
+        public virtual Employee_Profile Employee_Profile { get; set; }
         [Required]
-        [Display(Name = "Benefit type code")]
-        public string Benefit_type_codeId { get; set; }
-        public virtual Subscription_Syndicate Subscription_Syndicate { get; set; }
-        public virtual Employee_Profile Employee_Profile { get; set; }  
-        [Display(Name = "Family profile No")]
-        public string Family_profile_No { get; set; }
-        [Display(Name = "Family profile No")]
-        public string Family_profile_No2 { get; set; }
-        [Display(Name = "Family name")]
-        public string Family_name { get; set; }
-        public int Percentage { get; set; }
-        
+        [Display(Name = "Employee No.")]
+        public string Employee_ProfileId { get; set; }
+
+        public virtual List<Append_beneficiary_Family> Append_beneficiary_Family { get; set; }
+
 
     }
 }

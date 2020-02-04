@@ -21,7 +21,7 @@
                     debugger
                     if (Family_profile != "") {
                         var T = "";
-                        T = "<tr><td><input type='text' name='Family_profile_No2' value='" + result.Code + "'/></td><td><input type='text' name='Family_name' value='" + result.Name + "'/></td><td><input type='number' name='Percentage' value='0'  /></td><td><input type='button' class='del-btn tb-btn' value='Remove'/></td></tr>"
+                        T = "<tr><td><input type='text' readonly name='Family_profile_No2' value='" + result.Code + "'/></td><td><input type='text' readonly name='Family_name' value='" + result.Name + "'/></td><td><input type='number' name='Percentage' value='0'  /></td><td><input type='button' class='del-btn tb-btn' value='Remove'/></td></tr>"
                         $("#tb-family").append(T)
                     }
                 }
@@ -71,6 +71,9 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+                        <input name="Family_profile_No2" hidden/>
+                        <input name="Family_name" hidden/>
+                        <input name="Percentage" hidden/>
 
                         <div>
 
@@ -99,20 +102,25 @@
                                 </div>
                             </div>
                           
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Benefit_type_codeId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-3">
-                                            @Html.DropDownListFor(m => m.Benefit_type_codeId, new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), "Select Subscription Syndicate", new {@class = "select2", @onchange = "employee2()", id = "employeeId2" })
-                                            @Html.ValidationMessageFor(model => model.Benefit_type_codeId, "", new { @class = "text-danger" })
 
-                                        </div>
-                                    </div>
-                                 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Family_profile_No, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                <label class="control-label col-md-2">
+                                    <span>Benefit type code</span>
+                                </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.Family_profile_No, new SelectList(ViewBag.family, "ID", "Code"), "Select Family Profile No.", new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-                                    @Html.ValidationMessageFor(model => model.Family_profile_No, "", new { @class = "text-danger" })
+                                    @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), "Select Subscription Syndicate", new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span>Family profile No</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), "Select Family Profile No.", new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
 
                                 </div>
                             </div>

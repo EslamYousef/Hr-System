@@ -13,11 +13,11 @@ namespace HR.Models
         public int ID { get; set; }
         [Required]
         [Display(Name = "Employee No.")]
-        public string Employee_ProfileId { get; set; }
+        public int Employee_ProfileId { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
         [Required]
         [Display(Name = "Sponsor profile No.")]
-        public string SponsorId { get; set; }
+        public int SponsorId { get; set; }
         public virtual Sponsor Sponsor { get; set; }
         [Display(Name = "Residence Id")]
         public string Residence_Id { get; set; }

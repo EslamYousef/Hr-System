@@ -46,7 +46,7 @@ namespace HR.Controllers
         
             var ID = int.Parse(id);
               var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeAddress = new Employee_Address_Profile { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() }; ;
+            var EmployeeAddress = new Employee_Address_Profile { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() }; 
             return View(EmployeeAddress);
 
         }
@@ -61,20 +61,21 @@ namespace HR.Controllers
                 if (model.Territoriesid == null) { model.Territoriesid = "0"; }
                 if (model.citiesid == null) { model.citiesid = "0"; }
                 if (model.postcodeId == null) { model.postcodeId = "0"; }
-
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.idemp = model.ID;
                 ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.the_states = dbcontext.the_states.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.ID;
+                //ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                //ViewBag.idemp = model.ID;
 
                 if (ModelState.IsValid)
                 {
-                    var prof = int.Parse(model.Employee_ProfileId);
-                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+             //       var prof = int.Parse(model.Employee_ProfileId);
+            //        var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                     Employee_Address_Profile record = new Employee_Address_Profile();
                     record.Resident = model.Resident;
                     record.Code = model.Code;

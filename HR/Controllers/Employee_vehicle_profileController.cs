@@ -65,7 +65,7 @@ namespace HR.Controllers
                         TempData["Message"] = "From date  bigger To date ";
                         return View(model);
                     }
-             
+                                
                     dbcontext.Employee_vehicle_profile.Add(record);
                     dbcontext.SaveChanges();
                   
@@ -86,6 +86,108 @@ namespace HR.Controllers
                 return View(model);
             }
 
+        }
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == id);
+
+                if (record != null)
+                {
+                    return View(record);
+                }
+                else
+                {
+                    TempData["Message"] = "There is no Employee Vehicle Profile";
+                    return View();
+                }
+            }
+            catch
+            (Exception e)
+            { return View(); }
+        }
+        [HttpPost]
+        public ActionResult Edit(Employee_vehicle_profile model)
+        {
+            try
+            {
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+
+                var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == model.ID);
+                //    var emp = record.Employee_Profile;
+                record.Code = model.Code;
+                record.Vehicle_plate_number = model.Vehicle_plate_number;
+                record.Vehicle_model = model.Vehicle_model;
+                record.Comments = model.Comments;
+                record.Employee_ProfileId = model.Employee_ProfileId;
+                var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
+                record.From_date = model.From_date;
+                record.To_date = model.To_date;
+                if (model.From_date > model.To_date)
+                {
+                    TempData["Message"] = "From date  bigger To date ";
+                    return View(model);
+                }
+
+                dbcontext.SaveChanges();
+
+               
+                return RedirectToAction("index");
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = "This code Is already exists";
+                return View(model);
+            }
+            catch (Exception e)
+            { return View(model); }
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == id);
+
+                if (record != null)
+                { return View(record); }
+                else
+                {
+                    TempData["Message"] = "There is no Employee Vehicle Profile";
+                    return View();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+        }
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult Deletemethod(int id)
+        {
+            var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == id);
+            ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
+            try
+            {
+                dbcontext.Employee_vehicle_profile.Remove(record);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = "You can't delete beacause it have child";
+                return View(record);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
     }
 }

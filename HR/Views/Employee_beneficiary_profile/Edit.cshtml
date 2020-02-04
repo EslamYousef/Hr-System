@@ -22,7 +22,7 @@
                     debugger
                     if (Family_profile != "") {
                         var T = "";
-                        T = "<tr><td><input type='text' name='Family_profile_No2' value='" + result.Code + "'/></td><td><input type='text' name='Family_name' value='" + result.Name + "'/></td><td><input type='number' name='Percentage' value='0'  /></td><td><input type='button' class='del-btn tb-btn' value='Remove'/></td></tr>"
+                        T = "<tr><td><input type='text' readonly name='Family_profile_No2' value='" + result.Code + "'/></td><td><input type='text' readonly name='Family_name' value='" + result.Name + "'/></td><td><input type='number' name='Percentage' value='0' /></td><td><input type='button' class='del-btn tb-btn' value='Remove'/></td></tr>"
                         $("#tb-family").append(T)
                     }
                 }
@@ -70,7 +70,10 @@
                                 @TempData["Message"]
                             </div>
                         }
-
+                        <input name="Family_profile_No2" hidden />
+                        <input name="Family_name" hidden />
+                        <input name="Percentage" hidden />
+                        @Html.HiddenFor(m => m.ID);
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div>
@@ -101,31 +104,64 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Benefit_type_codeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                              
+                                <label class = "control-label col-md-2" >
+                                    <span>Benefit type code</span>
+                                </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.Benefit_type_codeId, new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), "Select Subscription Syndicate", new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
-                                    @Html.ValidationMessageFor(model => model.Benefit_type_codeId, "", new { @class = "text-danger" })
+                                    @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), "Select Subscription Syndicate", new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                   
 
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Family_profile_No, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">
+                                    <span>Family profile No</span>
+                                </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.Family_profile_No, new SelectList(ViewBag.family, "ID", "Code"), "Select Family Profile No.", new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-                                    @Html.ValidationMessageFor(model => model.Family_profile_No, "", new { @class = "text-danger" })
-
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), "Select Family Profile No.", new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                
                                 </div>
                             </div>
                             <table id="tb-family" border="1">
                                 <thead>
                                     <tr>
-                                        <th>Family Profile No.</th>
-                                        <th>Family Name</th>
-                                        <th>Percentage</th>
-                                        <th>Delete</th>
+                                        <td>Family Profile No.</td>
+                                        <td>Family Name</td>
+                                        <td>Percentage</td>
+                                        <td>Delete</td>
                                     </tr>
+
+
                                 </thead>
+                                <tbody>
+                                   @for (var i=0;i< Model.Append_beneficiary_Family.Count();i++)
+                                   {
+                                       @*@Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_profile);
+                                       @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_name);
+                                       @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Percentage);
+                                    @Html.HiddenFor(m => m.Append_beneficiary_Family[i].ID);*@
+                                    <tr>
+                                     
+                                        <td>
+
+                                            <input name="Family_profile_No2"  type="text" value="@Model.Append_beneficiary_Family[i].Family_profile" readonly />
+                                            
+                                        </td>
+                                        <td>
+
+                                            <input name="Family_name"  type="text" value="@Model.Append_beneficiary_Family[i].Family_name" readonly/>
+                                        </td>
+                                        <td>
+                                           <input name="Percentage" type="number" value="@Model.Append_beneficiary_Family[i].Percentage" /> 
+                                        </td>
+                                        <td>
+                                            <input type="button" value="Remove" class="del-btn" onclick="Remove()" id="tt" />
+                                        </td>
+                                    </tr>
+                                   }
+                                </tbody>
                             </table>
 
                             <input type="button" value="Add" id="ss" />
@@ -151,9 +187,15 @@
 @section scripts{}
 
 <script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
+    function Remove()
+    {
+        debugger
+        //$("#tt").click (function () {
+         //   $(this).closest('tr').remove();
+        $("#tt").closest('tr').remove();
+        //})
+    }
+       
 </script>
 
 <script>

@@ -11,7 +11,6 @@
     <section class="content-header">
         <h1>
             Create Employee Vehicle Profile
-
         </h1>
     </section>
 
@@ -92,7 +91,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create Air ports" class="btn btn-success" />
+                                    <input type="submit" value="Create" class="btn btn-success" />
                                     <a href="@Url.Action("index","Employee_vehicle_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
 
                                 </div>
@@ -108,7 +107,6 @@
 </div>
 
 
-
 @section scripts{}
 
 
@@ -122,29 +120,26 @@
             data: { "id": id },
             success: function (result) {
                 debugger
-                if (result != 3) //3 = Car
+                if (result.namex != 3 || result.nameb == "0") //3 = Car
                 {
-                    alert("This employee doesn't have a Car.");
+                    alert("This Employee doesn't have a Car and a Address.");
                     $("#employeeId").val(" ");
                     $("#select2-chosen-1")[0].innerText = " ";
-
                     return;
                 }
-                //$("#employeename").val(result.Name);
-                //     $("#codeid").val(result.Employee_vehicle_profile.Code);
-                //   $("#employeeId").prop("readonly", true);
+                var finalresult = "<option value='0' > Choose Employee </option>";
+                $.each(result, function (key, value) {                  
+                    finalresult += "<option value='" + value.namex + "' >" + "[  " + value.nameb + " ]</option>";
+                });
                 $("#employeeId").attr("readonly", true);
 
             },
             error: function () {
+                
+                alert("This employee doesn't have a Address.");
+                $("#employeeId").select2("val", " ");
                 debugger
-               // $("#employeename").val(" ");
-           //     $("#codeid").val("");
             }
         });
     }
-    //employee();
-</script>
-<script>
-
 </script>

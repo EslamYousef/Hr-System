@@ -616,11 +616,11 @@ namespace HR.Controllers
         }
         public JsonResult GetEmployee(string id)
         {
-            //dbcontext.Configuration.ProxyCreationEnabled = false;
+           
             var ID = int.Parse(id);
             var Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(Employee);
-
+            dbcontext.Configuration.ProxyCreationEnabled = false;
         }
 
         public JsonResult CheckAddressEmployee(string id)
@@ -629,7 +629,7 @@ namespace HR.Controllers
             var emps = (from emp in dbcontext.Employee_Profile
                         join add in dbcontext.Employee_Address_Profile on emp.ID.ToString() equals add.Employee_ProfileId
                         where emp.ID == ID
-                        select add.Transportation_method
+                        select new {namex= add.Transportation_method ,nameb=add.countryid} 
                      ).FirstOrDefault();
             return Json(emps);
 

@@ -69,45 +69,38 @@ namespace HR.Controllers
                 ViewBag.family = model.ID;
                 if (ModelState.IsValid)
                 {
-                    var Beneficiary = int.Parse(model.Employee_ProfileId);
-                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Beneficiary);
-                    //      var record = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == emp.Employee_family_profile.ID);
-                    Employee_beneficiary_profile record = new Employee_beneficiary_profile();
+                  
 
-                    record.Code = model.Code;
-                    record.Legatee = model.Legatee;                  
-                    record.Employee_ProfileId = model.Employee_ProfileId;
                     var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
-                    record.Benefit_type_codeId = model.Benefit_type_codeId;
-                    var Benefit_type_codeId = int.Parse(model.Benefit_type_codeId);
-                    record.Subscription_Syndicate = dbcontext.Subscription_Syndicate.FirstOrDefault(m => m.ID == Benefit_type_codeId);
-                    
+                    var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
+                   
                     var Family_profile =form["Family_profile_No2"].Split(char.Parse(","));
                     var Family_name = form["Family_name"].Split(char.Parse(","));
                     var Percentage = form["Percentage"].Split(char.Parse(","));
-
+                    var items = new List<Append_beneficiary_Family>();
                     for (var i = 0; i < Family_profile.Count(); i++)
                     {
                         if (Family_profile[i] != "" && Family_name[i] != "" && Percentage[i] != "" )
                         {
-                            record.Percentage = int.Parse(Percentage[i]);
-                            record.Family_name = Family_name[i];
-                            record.Family_profile_No = Family_profile[i];
+                            items.Add(new Append_beneficiary_Family { Percentage = int.Parse(Percentage[i]), Family_name = Family_name[i], Family_profile = Family_profile[i] });
+                         
                           
                         }
-                        dbcontext.Employee_beneficiary_profile.Add(record);
+                  
+                    }
+                    if (items.Count() > 0)
+                    {
+                        var add_items= dbcontext.Append_beneficiary_Family.AddRange(items);
+                        dbcontext.SaveChanges();
+                        var benfit = new Employee_beneficiary_profile { Append_beneficiary_Family = add_items.ToList(), Code = model.Code, Employee_Profile = Employee_Profile, Legatee = model.Legatee, Employee_ProfileId = Employee_Profile.ID.ToString() };
+                        dbcontext.Employee_beneficiary_profile.Add(benfit);
                         dbcontext.SaveChanges();
                     }
-
-                    //record.Family_profile_No = Family_profile;
-                    //record.Family_name = Family_name;
-                    //record.Percentage = Percentage;
-              //      dbcontext.Employee_beneficiary_profile.Add(record);
+                   
                     dbcontext.SaveChanges();
                     if (command == "Submit")
                     {
-                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(Employee_Profile.ID.ToString()) });
                     }
                     return RedirectToAction("Index", new { id = model.Employee_ProfileId });
                 }
@@ -134,12 +127,15 @@ namespace HR.Controllers
             {
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                var ID = int.Parse(id);
+                 var ID = int.Parse(id);
                 var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == ID);
-                ViewBag.idemp = record.Employee_Profile.ID.ToString();
-                var x = int.Parse(id);
-                var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == x);
+                var emp = record.Employee_Profile;
                 ViewBag.family = emp.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+              
+     
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+          
+             
 
                 if (record != null)
                 {
@@ -164,36 +160,45 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.idemp = model.ID;
-                ViewBag.family = model.ID;
-
-
                 var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == model.ID);
-                var emp = record.Employee_Profile;
-                record.Code = model.Code;
+                var empId = int.Parse(model.Employee_ProfileId);
+               var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == empId);
+                ViewBag.family = emp.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
+
+
+          //      var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == model.ID);
+                //var emp = record.Employee_Profile;
                 record.Legatee = model.Legatee;
-                record.Employee_ProfileId = model.Employee_ProfileId;
-                var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
-                record.Benefit_type_codeId = model.Benefit_type_codeId;
-                var Benefit_type_codeId = int.Parse(model.Benefit_type_codeId);
-                record.Subscription_Syndicate = dbcontext.Subscription_Syndicate.FirstOrDefault(m => m.ID == Benefit_type_codeId);
+                ///////////delete old Append_beneficiary_Family///////
+               // var all_items = model.Append_beneficiary_Family;
+                dbcontext.Append_beneficiary_Family.RemoveRange(record.Append_beneficiary_Family);
+                dbcontext.SaveChanges();
 
-
+                /////////////////add new Append_beneficiary_Family////////
                 var Family_profile = form["Family_profile_No2"].Split(char.Parse(","));
                 var Family_name = form["Family_name"].Split(char.Parse(","));
                 var Percentage = form["Percentage"].Split(char.Parse(","));
 
+                var items = new List<Append_beneficiary_Family>();
                 for (var i = 0; i < Family_profile.Count(); i++)
                 {
                     if (Family_profile[i] != "" && Family_name[i] != "" && Percentage[i] != "")
                     {
-                        record.Percentage = int.Parse(Percentage[i]);
-                        record.Family_name = Family_name[i];
-                        record.Family_profile_No = Family_profile[i];
+                        items.Add(new Append_beneficiary_Family { Percentage = int.Parse(Percentage[i]), Family_name = Family_name[i], Family_profile = Family_profile[i] });
+
 
                     }
-                    dbcontext.Employee_beneficiary_profile.Add(record);
+
+                    dbcontext.SaveChanges();
+                }
+                if (items.Count() > 0)
+                {
+                    var add_items = dbcontext.Append_beneficiary_Family.AddRange(items);
+                    dbcontext.SaveChanges();
+                    record.Append_beneficiary_Family = add_items.ToList();
+                    //var benfit = new Employee_beneficiary_profile { Append_beneficiary_Family = add_items.ToList(), Code = model.Code, Employee_Profile = emp, Legatee = model.Legatee, Employee_ProfileId = Employee_Profile.ID.ToString() };
+                    //dbcontext.Employee_beneficiary_profile.Add(benfit);
                     dbcontext.SaveChanges();
                 }
 

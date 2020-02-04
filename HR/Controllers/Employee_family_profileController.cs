@@ -76,8 +76,8 @@ namespace HR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var family = int.Parse(model.Employee_ProfileId);
-                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == family);
+                  //  var family = int.Parse(model.Employee_ProfileId);
+                 //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == family);
                     //      var record = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == emp.Employee_family_profile.ID);
                     Employee_family_profile record = new Employee_family_profile();
                     record.Name = model.Name;
