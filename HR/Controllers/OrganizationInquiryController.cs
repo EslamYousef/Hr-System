@@ -23,7 +23,7 @@ namespace HR.Controllers
                 {
                     if(item.number_hired>0)
                     {
-                         empID = item.Slots.Where(m => m.EmployeeID != null || m.EmployeeID != "0").ToList().Select(m => m.EmployeeID).ToList();
+                         empID = item.Slots.Where(m => m.EmployeeID != null && m.EmployeeID != "0").ToList().Select(m => m.EmployeeID).ToList();
                     }
                     else
                     {

@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,10 +17,14 @@ namespace HR.Controllers
     {
 
             ApplicationDbContext dbcontext = new ApplicationDbContext();
+       
             // GET: Country
-            public ActionResult Index()
+            public ActionResult Index(/*string language*/)
             {
-               var model= dbcontext.Country.ToList();
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
+            var model = dbcontext.Country.ToList();
                 return View(model);
             }
 

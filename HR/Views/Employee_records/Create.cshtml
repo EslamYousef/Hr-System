@@ -7,6 +7,46 @@
 
 
 @Scripts.Render("~/bundles/jqueryval")
+<script>
+    CountryName1()
+    CountryName2()
+    function CountryName1()
+    {
+        debugger
+        var id= $("#Country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.Full_Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    function CountryName2() {
+        debugger
+        var id = $("#Country2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployeeRecodes",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname2").val(result.Record_Group_Description);
+            },
+            error: function () {
+                debugger
+                $("#countryname2").val(" ");
+            }
+        });
+    }
+
+</script>
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -39,7 +79,7 @@
                         }
                         <div class="form-group">
                             @Html.LabelFor(model => model.record.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.Code, "", new { @class = "text-danger" })
                             </div>
@@ -55,7 +95,7 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.record.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.Description, "", new { @class = "text-danger" })
                             </div>
@@ -130,50 +170,8 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
 
-<script>
-    function CountryName1()
-    {
-        debugger
-        var id= $("#Country1").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetEmployee",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname1").val(result.Full_Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname1").val(" ");
-            }
-        });
-    }
-    function CountryName2() {
-        debugger
-        var id = $("#Country2").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetEmployeeRecodes",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname2").val(result.Record_Group_Description);
-            },
-            error: function () {
-                debugger
-                $("#countryname2").val(" ");
-            }
-        });
-    }
-    CountryName1()
-    CountryName2()
-</script>
+
+
 
 @section scripts{}

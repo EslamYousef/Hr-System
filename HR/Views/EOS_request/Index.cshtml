@@ -4,6 +4,191 @@
     ViewBag.Title = "index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
     }
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+        filt(); filt2();
+        function filt() {
+
+            var ht = "";
+            $.ajax
+                ({
+                    type: "post",
+                    url: "/EOS_request/getallstatues",
+                    data: {},
+                    success: function (result) {
+                        debugger
+                        $.each(result, function (key, value) {
+                            ht += "<option  value='" + value + "'>" + value + "</option>";
+
+                        });
+                        $("#filter").html(ht);
+                    }
+                });
+        }
+        function filt2() {
+
+            var ht = "";
+            $.ajax
+                ({
+                    type: "post",
+                    url: "/EOS_request/get_eos_type",
+                    data: {},
+                    success: function (result) {
+                        debugger
+                        $.each(result, function (key, value) {
+                            ht += "<option  value='" + value + "'>"  + value +"</option>";
+
+                        });
+                        $("#filter_eos_type").html(ht);
+                    }
+                });
+        }
+
+
+    function getrequest()
+    {
+        debugger
+        $("#tbody11 tr").remove();
+        var status = $("#filter").val();
+        var type = $("#filter_eos_type").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        if (from == "")
+        {
+            from = "1/1/1900";
+        }
+        if (to == "") {
+            to="1/1/3000"
+        }
+        if (type == null)
+        {
+            type = "all";
+        }
+        if (status == null)
+        {
+            status = "all";
+        }
+        debugger
+            $.ajax({
+                type: "post",
+                url: "/EOS_request/Getone",
+                data: { "from": from, "to": to, "status": status, "type": type },
+                success: function (result) {
+                    debugger
+                    $("#tbody11 tr").remove();
+                    $.each(result, function (key, value) {
+                        var d1;var d2;
+                        if (value.Employee != null)
+                        {
+                            d1 = value.Employee.Code;
+                            d2 = value.Employee.Name;
+                        }
+                        else
+                        {
+                            d1 = "Empty";
+                            d2 = "Empty";
+                        }
+                            debugger
+                            var tr =
+                  "<tr id='tr'><td>" + value.number + "</td>" +
+
+                 "<td style='width:60px'>" + d1 + "</td>" +
+                 "<td style='width:150px'>" + d2 + "</td>" +
+                  "<td  style='width:30px'>" + value.req_date + "</td>" +
+                 "<td  style='width:30px'>" + value.eos_Date + "</td>" +
+                 "<td class='col-md-0' >" + value.name_state + "</td>" +
+                  "<td class='col-md-0' >" + value.name_type + "</td>" +
+                 "<td>" +
+                 "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
+                 "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" +" "+
+                 "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+                            $("#tbody11").append(tr);
+
+
+
+                                   });
+
+                },
+                error: function () {
+                    debugger
+
+                }
+            });
+        }
+
+    function getallrequest() {
+        debugger
+        var status = $("#filter").val();
+        var type = $("#filter_eos_type").val();
+        $.ajax({
+            type: "post",
+            url: "/EOS_request/Getalll",
+            data: { },
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+                    debugger
+                    var d1; var d2;
+
+                    if ((value.Employee) != null) {
+                        d1 = value.Employee.Code;
+                        d2 = value.Employee.Name;
+                    }
+                    else {
+                        d1 = "Empty";
+                        d2 = "Empty";
+                    }
+                    debugger
+                    var tr =
+          "<tr id='tr'><td>" + value.number + "</td>" +
+
+         "<td style='width:60px'>" + d1 + "</td>" +
+         "<td style='width:150px'>" + d2 + "</td>" +
+         "<td  style='width:30px'>" + value.req_date + "</td>" +
+           "<td  style='width:30px'>" + value.eos_Date + "</td>" +
+         "<td class='col-md-0' >" + value.name_state + "</td>" +
+          "<td class='col-md-0' >" + value.name_type + "</td>" +
+         "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
+         "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+         "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+
+                    $("#tbody11").append(tr);
+                });
+
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+
+    function change(id)
+    {
+        window.open("/EOS_request/Edit?id=" + id);
+    }
+    function history(id) {
+
+        window.open("/EOS_request/status?id=" + id);
+    }
+    function deletee(id) {
+        debugger
+        window.open("/EOS_request/Delete/" + id);
+    }
+</script>
 
     <div class="content-wrapper">
         <!-- Main content -->
@@ -64,6 +249,7 @@
                                     <th>request date</th>
                                     <th>EOS date</th>
                                     <th>status</th>
+                                    <th>type</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -86,6 +272,7 @@
                                     <td>@item.Requset_date.ToString("dd-MM-yyyy")</td>
                                     <td>@item.Date_of_EOS.ToString("dd-MM-yyyy")</td>
                                     <td>@item.check_status</td>
+                                    <td>@item.name_type</td>
                                     <td>
                                         <a href="@Url.Action("Edit", "EOS_request" , new {id=item.ID})" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>Change</a>
                                         <a href="@Url.Action("Delete", "EOS_request" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
@@ -104,6 +291,7 @@
                                     <th>request date</th>
                                     <th>EOS date</th>
                                     <th>status</th>
+                                    <th>type</th>
                                     <th></th>
                                 </tr>
                             </tfoot>
@@ -117,191 +305,5 @@
     </div>
 
     <!-- page script -->
-    <script>
-    var $ = jQuery;
-
-    $(document).ready(function () {
-        $('#categories').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-            "order" : 1
-        });
-    });
-    </script>
-
-    <script>
-        filt(); filt2();
-        function filt() {
-
-            var ht = "";
-            $.ajax
-                ({
-                    type: "post",
-                    url: "/EOS_request/getallstatues",
-                    data: {},
-                    success: function (result) {
-                        debugger
-                        $.each(result, function (key, value) {
-                            ht += "<option  value='" + value + "'>" + value + "</option>";
-
-                        });
-                        $("#filter").html(ht);
-                    }
-                });
-        }
-        function filt2() {
-
-            var ht = "";
-            $.ajax
-                ({
-                    type: "post",
-                    url: "/EOS_request/get_eos_type",
-                    data: {},
-                    success: function (result) {
-                        debugger
-                        $.each(result, function (key, value) {
-                            ht += "<option  value='" + value + "'>"  + value +"</option>";
-
-                        });
-                        $("#filter_eos_type").html(ht);
-                    }
-                });
-        }
-        
-
-    function getrequest()
-    {
-        debugger
-        var status = $("#filter").val();
-        var type = $("#filter_eos_type").val();
-        var from = $("#datefrom").val();
-        var to = $("#dateto").val();
-        if (from == "")
-        {
-            from = "1/1/1900";
-        }
-        if (to == "") {
-            to="1/1/3000"
-        }
-        if (type == null)
-        {
-            type = "all";
-        }
-        if (status == null)
-        {
-            status = "all";
-        }
-        debugger
-            $.ajax({
-                type: "post",
-                url: "/EOS_request/Getone",
-                data: { "from": from, "to": to, "status": status, "type": type },
-                success: function (result) {
-                    debugger
-                    $("#tbody11 tr").remove();
-                    $.each(result, function (key, value) {
-                        var d1;var d2;
-                        if (value.Employee != null)
-                        {
-                            d1 = value.Employee.Code;
-                            d2 = value.Employee.Name;
-                        }
-                        else
-                        {
-                            d1 = "Empty";
-                            d2 = "Empty";
-                        }
-                            debugger
-                            var tr =
-                  "<tr id='tr'><td>" + value.number + "</td>" +
-                
-                 "<td style='width:60px'>" + d1 + "</td>" +
-                 "<td style='width:150px'>" + d2 + "</td>" +
-                  "<td  style='width:30px'>" + value.req_date + "</td>" +
-                 "<td  style='width:30px'>" + value.eos_Date + "</td>" +
-                 "<td class='col-md-0' >" + value.sss + "</td>" +
-                 "<td>" +
-                 "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
-                 "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" +" "+
-                 "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
-                            $("#tbody11").append(tr);
-
-
-
-                                   });
-
-                },
-                error: function () {
-                    debugger
-
-                }
-            });
-        }
-
-    function getallrequest() {
-        debugger
-        var status = $("#filter").val();
-        var type = $("#filter_eos_type").val();
-        $.ajax({
-            type: "post",
-            url: "/EOS_request/Getalll",
-            data: { },
-            success: function (result) {
-                debugger
-                $("#tbody11 tr").remove();
-                $.each(result, function (key, value) {
-                    debugger
-                    var d1; var d2;
-                    
-                    if ((value.Employee) != null) {
-                        d1 = value.Employee.Code;
-                        d2 = value.Employee.Name;
-                    }
-                    else {
-                        d1 = "Empty";
-                        d2 = "Empty";
-                    }
-                    debugger
-                    var tr =
-          "<tr id='tr'><td>" + value.number + "</td>" +
-
-         "<td style='width:60px'>" + d1 + "</td>" +
-         "<td style='width:150px'>" + d2 + "</td>" +
-         "<td  style='width:30px'>" + value.req_date + "</td>" +
-           "<td  style='width:30px'>" + value.eos_Date + "</td>" +
-         "<td class='col-md-0' >" + value.sss + "</td>" +
-         "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
-         "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
-         "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
-
-                    $("#tbody11").append(tr);
-                });
-
-            },
-            error: function () {
-                debugger
-
-            }
-        });
-    }
-    </script>
-    <script>
-    function change(id)
-    {
-        window.open("/EOS_request/Edit?id=" + id);
-    }
-    function history(id) {
-
-        window.open("/EOS_request/status?id=" + id);
-    }
-    function deletee(id) {
-        debugger
-        window.open("/EOS_request/Delete/" + id);
-    }
-    </script>
-
+   
     @section scripts{}

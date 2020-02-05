@@ -4,6 +4,265 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+
+<script>
+    function addquli1()
+    {
+        var name = $("#Country1").val();
+        var speci = $("#Country2").val();
+        var grade = $("#Country3").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true)
+        {
+             req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+             req = "false";
+        }
+        if (name != "" || speci != "" || grade != "" || req != "")
+        {
+            $.ajax({
+                type: "post",
+                url: "/Helper/quli",
+                data: { "name": name, "speci": speci, "grade": grade },
+                success: function (result) {
+                    debugger
+                    finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='s1' hidden value='" + result.name.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.name.Name + "' readonly='readonly' /></td>" +
+              "<td hidden ><input id='codefrom'  name='s11'  value='" + result.Qualification_Major.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='from' name='from' class = 'form-control' value='" + result.Qualification_Major.Name + "' readonly='readonly' /></td>" +
+              "<td  hidden ><input id='codeto'  style='width:30px' name='s111'  value='" + result.GradeEducate.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3' ><input id='to'  class = 'form-control' name='to' value='" + result.GradeEducate.Name + "active" + "' readonly='readonly' /></td>" +
+              //"<td class='col-md-0' >if("+req+"=='true'){<input id='fromdate' style='width:60px' name='fromdate' value='" + "true" + "' readonly='readonly' />}"+
+              //"if("+req+"=='false'){<input id='fromdate' style='width:60px' name='fromdate' value='" + "false" + "' readonly='readonly' />}</td>" +
+              "<td class='col-md-3'><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#add1").append(finalresult);
+
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else
+        {
+
+        }
+    }
+    function addquli2() {
+        var id2 = $("#Country5").val();
+        var finalresult1 = " ";
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (id2 != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/Risks",
+                data: { "id": id2 },
+                success: function (result) {
+                    debugger
+                    finalresult1 = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='risk' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3' ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#ad1d3").append(finalresult1);
+
+              debugger
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli3() {
+        var ID = $("#Country4").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/skill",
+                data: { "ID": ID },
+                success: function (result) {
+                    debugger
+                    finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='newskill' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+                "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Name + "' readonly='readonly' /></td>" +
+              "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#add122").append(finalresult);
+
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli4() {
+
+        var ID = $("#Country6").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/reponsiblities",
+                data: { "ID": ID},
+                success: function (result) {
+                    debugger
+              finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='respon' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+              "<td class='col-md-3' hidden ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+              "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+              $("#ad1d4").append(finalresult);
+
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli5() {
+
+        var ID = $("#Country7").val();
+        debugger
+        //var d = $("#minimal-checkbox-1");
+        var req = "";
+        if ($("#minimal-checkbox-1").checked == true) {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false) {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/requirments",
+                data: { "ID":ID },
+                success: function (result) {
+                    debugger
+                    finalresult =
+                        "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='requirment' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+                      "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+                      "<td  class='col-md-3'><input id='codefrom'  class = 'form-control' name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+                      "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                      $("#ad1d5").append(finalresult);
+
+                },
+                error: function () {
+
+                    debugger
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function remove(thi)
+    {
+        debugger
+        thi.parent().parent().remove();
+        //thi.parent().parent().parent().remove(removed);
+
+
+    }
+
+    function generate()
+    {
+        debugger
+        var slot_code = $("#code").val();
+        var slot_desc = $("#name").val();
+        var job_level_code = $("#Country").val();
+        var Job_level_desc = $("#countryname").val();
+        var finalresult = " ";
+        var number = $("#number").val();
+        if (slot_code != "" || slot_desc != "" || job_level_code != "" || Job_level_desc != "" || finalresult != "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/Creat_slots",
+                data: { "number": number },
+                success: function (result) {
+                    debugger
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='class_type' hidden value='" + value.ID + "' readonly='readonly' /></td>" +
+                  "<td style='width:60px'><input id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + slot_code + "_" + (key + 1) + "' readonly='readonly' /></td>" +
+                  "<td style='width:60px' ><input id='codefrom'  style='width:60px' name='codefrom'  value='" + slot_desc + "' readonly='readonly' /></td>" +
+                  "<td style='width:60px'><input id='from' style='width:60px' name='from' value='" + job_level_code + "' readonly='readonly' /></td>" +
+                  "<td  style='width:30px' hidden ><input id='codeto'  style='width:30px' name='codeto'  value='" + Job_level_desc + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='to' style='width:60px' name='to' value='" + "active" + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='fromdate' style='width:60px' name='fromdate' value='" + "active" + "' readonly='readonly' /></td>" +
+                  "<td class='col-md-0' ><input id='todate' style='margin-bottom: 1em;' name='todate' value='" + "1" + "' readonly='readonly' /></td>" +
+                  "<td><input id='Price' name='Price' value='" + "ff" + "' readonly='readonly' /></td>" +
+                  "</tr>";
+                        $("#add1").append(finalresult);
+                    });
+
+                    debugger
+                },
+                error: function () {
+                    debugger
+                }
+
+            });
+        }
+        else
+        {
+
+        }
+        debugger
+    }
+
+</script>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary" data-collapsed="0">
@@ -453,264 +712,5 @@
         </div>
     </div>
 </div>
-<script>
-    function addquli1()
-    {
-        var name = $("#Country1").val();
-        var speci = $("#Country2").val();
-        var grade = $("#Country3").val();
-        debugger
-        //var d = $("#minimal-checkbox-1");
-        var req = ""; 
-        if ($("#minimal-checkbox-1").checked == true)
-        {
-             req = "true";
-        }
-        else if ($("#minimal-checkbox-1").checked == false) {
-             req = "false";
-        }
-        if (name != "" || speci != "" || grade != "" || req != "")
-        {
-            $.ajax({
-                type: "post",
-                url: "/Helper/quli",
-                data: { "name": name, "speci": speci, "grade": grade },
-                success: function (result) {
-                    debugger
-                    finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='s1' hidden value='" + result.name.ID + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.name.Name + "' readonly='readonly' /></td>" +
-              "<td hidden ><input id='codefrom'  name='s11'  value='" + result.Qualification_Major.ID + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3'><input id='from' name='from' class = 'form-control' value='" + result.Qualification_Major.Name + "' readonly='readonly' /></td>" +
-              "<td  hidden ><input id='codeto'  style='width:30px' name='s111'  value='" + result.GradeEducate.ID + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3' ><input id='to'  class = 'form-control' name='to' value='" + result.GradeEducate.Name + "active" + "' readonly='readonly' /></td>" +
-              //"<td class='col-md-0' >if("+req+"=='true'){<input id='fromdate' style='width:60px' name='fromdate' value='" + "true" + "' readonly='readonly' />}"+
-              //"if("+req+"=='false'){<input id='fromdate' style='width:60px' name='fromdate' value='" + "false" + "' readonly='readonly' />}</td>" +
-              "<td class='col-md-3'><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-                    $("#add1").append(finalresult);
-                   
-                },
-                error: function () {
-
-                    debugger
-                }
-
-            });
-        }
-
-        else
-        {
-
-        }
-    }
-    function addquli2() {
-        var id2 = $("#Country5").val();
-        var finalresult1 = " ";
-        debugger
-        //var d = $("#minimal-checkbox-1");
-        var req = "";
-        if ($("#minimal-checkbox-1").checked == true) {
-            req = "true";
-        }
-        else if ($("#minimal-checkbox-1").checked == false) {
-            req = "false";
-        }
-        if (id2 != "") {
-            $.ajax({
-                type: "post",
-                url: "/Helper/Risks",
-                data: { "id": id2 },
-                success: function (result) {
-                    debugger
-                    finalresult1 = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='risk' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3' ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3'><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-                    $("#ad1d3").append(finalresult1);
-            
-              debugger
-                },
-                error: function () {
-
-                    debugger
-                }
-
-            });
-        }
-
-        else {
-
-        }
-    }
-    function addquli3() {
-        var ID = $("#Country4").val();
-        debugger
-        //var d = $("#minimal-checkbox-1");
-        var req = "";
-        if ($("#minimal-checkbox-1").checked == true) {
-            req = "true";
-        }
-        else if ($("#minimal-checkbox-1").checked == false) {
-            req = "false";
-        }
-        if (ID != "") {
-            $.ajax({
-                type: "post",
-                url: "/Helper/skill",
-                data: { "ID": ID },
-                success: function (result) {
-                    debugger
-                    finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='newskill' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
-                "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Name + "' readonly='readonly' /></td>" +
-              "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-                    $("#add122").append(finalresult);
-               
-                },
-                error: function () {
-
-                    debugger
-                }
-
-            });
-        }
-
-        else {
-
-        }
-    }
-    function addquli4() {
-       
-        var ID = $("#Country6").val();
-        debugger
-        //var d = $("#minimal-checkbox-1");
-        var req = "";
-        if ($("#minimal-checkbox-1").checked == true) {
-            req = "true";
-        }
-        else if ($("#minimal-checkbox-1").checked == false) {
-            req = "false";
-        }
-        if (ID != "") {
-            $.ajax({
-                type: "post",
-                url: "/Helper/reponsiblities",
-                data: { "ID": ID},
-                success: function (result) {
-                    debugger
-              finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='respon' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
-              "<td class='col-md-3' hidden ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
-              "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-              $("#ad1d4").append(finalresult);
-           
-                },
-                error: function () {
-
-                    debugger
-                }
-
-            });
-        }
-
-        else {
-
-        }
-    }
-    function addquli5() {
-       
-        var ID = $("#Country7").val();
-        debugger
-        //var d = $("#minimal-checkbox-1");
-        var req = "";
-        if ($("#minimal-checkbox-1").checked == true) {
-            req = "true";
-        }
-        else if ($("#minimal-checkbox-1").checked == false) {
-            req = "false";
-        }
-        if (ID != "") {
-            $.ajax({
-                type: "post",
-                url: "/Helper/requirments",
-                data: { "ID":ID },
-                success: function (result) {
-                    debugger
-                    finalresult =
-                        "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='requirment' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
-                      "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
-                      "<td  class='col-md-3'><input id='codefrom'  class = 'form-control' name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
-                      "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-                      $("#ad1d5").append(finalresult);
-               
-                },
-                error: function () {
-
-                    debugger
-                }
-
-            });
-        }
-
-        else {
-
-        }
-    }
-    function remove(thi)
-    {
-        debugger
-        thi.parent().parent().remove();
-        //thi.parent().parent().parent().remove(removed);
-
-
-    }
-</script>
-<script>
-    function generate()
-    {
-        debugger
-        var slot_code = $("#code").val();
-        var slot_desc = $("#name").val();
-        var job_level_code = $("#Country").val();
-        var Job_level_desc = $("#countryname").val();
-        var finalresult = " ";
-        var number = $("#number").val();
-        if (slot_code != "" || slot_desc != "" || job_level_code != "" || Job_level_desc != "" || finalresult != "") {
-            $.ajax({
-                type: "post",
-                url: "/Helper/Creat_slots",
-                data: { "number": number },
-                success: function (result) {
-                    debugger
-                    $.each(result, function (key, value) {
-                        debugger
-                        finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='class_type' hidden value='" + value.ID + "' readonly='readonly' /></td>" +
-                  "<td style='width:60px'><input id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + slot_code + "_" + (key + 1) + "' readonly='readonly' /></td>" +
-                  "<td style='width:60px' ><input id='codefrom'  style='width:60px' name='codefrom'  value='" + slot_desc + "' readonly='readonly' /></td>" +
-                  "<td style='width:60px'><input id='from' style='width:60px' name='from' value='" + job_level_code + "' readonly='readonly' /></td>" +
-                  "<td  style='width:30px' hidden ><input id='codeto'  style='width:30px' name='codeto'  value='" + Job_level_desc + "' readonly='readonly' /></td>" +
-                  "<td class='col-md-0' ><input id='to' style='width:60px' name='to' value='" + "active" + "' readonly='readonly' /></td>" +
-                  "<td class='col-md-0' ><input id='fromdate' style='width:60px' name='fromdate' value='" + "active" + "' readonly='readonly' /></td>" +
-                  "<td class='col-md-0' ><input id='todate' style='margin-bottom: 1em;' name='todate' value='" + "1" + "' readonly='readonly' /></td>" +
-                  "<td><input id='Price' name='Price' value='" + "ff" + "' readonly='readonly' /></td>" +
-                  "</tr>";
-                        $("#add1").append(finalresult);
-                    });
-
-                    debugger
-                },
-                error: function () {
-                    debugger
-                }
-
-            });
-        }
-        else
-        {
-
-        }
-        debugger
-    }
-
-</script>
 
 @section scripts{}

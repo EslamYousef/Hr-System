@@ -67,11 +67,20 @@ namespace HR.Controllers
 
             try
             {
+                if(model.selected_employee==0)
+                {
+                    TempData["Message"] = "you must choose employee";
+                    return View(model);
+                }
                 var record = new EOS_Request();
                 record = model.EOS;
                 if (model.selected_employee > 0)
                 {
-                    record.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                  
+
+                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                    record.Employee = emp;
+                    record.statID = emp.ID;
                 }
                 ///////////////status////////////////////////
                 record.check_status = check_status.Report_as_ready;
@@ -138,6 +147,9 @@ namespace HR.Controllers
                 ////////////////create//////////////////////
                 record.req_date = record.Requset_date.ToShortDateString();
                 record.eos_Date = record.date_of_eos_interview.ToShortDateString();
+                record.name_state = nameof(check_status.Report_as_ready);
+                var t = (EOS_type)(int)record.EOS_type;
+                record.name_type = t.ToString();
                 dbcontext.EOS_Request.Add(record);
                 dbcontext.SaveChanges();
                 ///////////////click EOS interview/////////
@@ -219,12 +231,18 @@ namespace HR.Controllers
                 ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Full_Name + ']', ID = m.ID }).ToList();
                 ViewBag.interview = dbcontext.EOS_Interview_Questions_Groups.ToList().Select(m => new { Code = "" + m.Questions_Group_Code + "-----[" + m.Description_of + ']', ID = m.ID }).ToList();
                 ViewBag.checklist = dbcontext.Check_List_Item_Groups.ToList().Select(m => new { Code = "" + m.Group_Code + "-----[" + m.Description_Group + ']', ID = m.ID }).ToList();
-
+                if (model.selected_employee == 0)
+                {
+                    TempData["Message"] = "you must choose employee";
+                    return View(model);
+                }
                 /////////////////////edit//////////////////////////
                 var record = dbcontext.EOS_Request.FirstOrDefault(m => m.ID == model.EOS.ID);
-                if(model.selected_employee>0)
+                if (model.selected_employee > 0)
                 {
-                    record.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                    record.Employee = emp;
+                    record.statID = emp.ID;
                 }
                 else
                 {
@@ -318,6 +336,8 @@ namespace HR.Controllers
                 record.sss = record.check_status.GetTypeCode().ToString();
                 record.req_date = record.Requset_date.ToShortDateString();
                 record.eos_Date = record.date_of_eos_interview.ToShortDateString();
+                var t = (EOS_type)(int)record.EOS_type;
+                record.name_type = t.ToString();
                 dbcontext.SaveChanges();
                 if (command == "Submit2")
                 {
@@ -502,6 +522,8 @@ namespace HR.Controllers
                 sta.statu = check_status.Approved;
                 record.check_status = check_status.Approved;
                 record.sss = record.check_status.GetTypeCode().ToString();
+
+                record.name_state = nameof(check_status.Approved);
                 dbcontext.SaveChanges();
 
 
@@ -519,8 +541,8 @@ namespace HR.Controllers
                 var slot_id =int.Parse(current_postion.SlotdescId);
                 var slot = dbcontext.Slots.FirstOrDefault(m => m.ID ==slot_id);
                 var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == slot.job_title_cards.ID);////update vacant and hired number
-                job.number_hired = job.number_hired + 1;
-                job.number_vacant = job.number_vacant - 1;
+                job.number_hired = job.number_hired - 1;
+                job.number_vacant = job.number_vacant +1;
                 dbcontext.SaveChanges();
                 slot.Employee_Profile = null;
                 slot.EmployeeID = null;
@@ -535,6 +557,7 @@ namespace HR.Controllers
                 sta.statu = check_status.Canceled;
                 record.check_status = check_status.Canceled;
                 record.sss = record.check_status.GetType().ToString();
+                record.name_state = nameof(check_status.Canceled);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.created)
@@ -544,6 +567,7 @@ namespace HR.Controllers
                 sta.statu = check_status.created;
                 record.check_status = check_status.created;
                 record.sss = record.check_status.GetType().ToString();
+                record.name_state = nameof(check_status.created);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Rejected)
@@ -553,6 +577,7 @@ namespace HR.Controllers
                 sta.statu = check_status.Rejected;
                 record.check_status = check_status.Rejected;
                 record.sss = record.check_status.GetType().ToString();
+                record.name_state = nameof(check_status.Rejected);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Report_as_ready)
@@ -562,6 +587,7 @@ namespace HR.Controllers
                 sta.statu = check_status.Report_as_ready;
                 record.check_status = check_status.Report_as_ready;
                 record.sss = record.check_status.GetHashCode().ToString();
+                record.name_state = nameof(check_status.Report_as_ready);
                 dbcontext.SaveChanges();
             }
 
@@ -574,6 +600,12 @@ namespace HR.Controllers
                 var mymodel = new eos_date();
                 dbcontext.Configuration.ProxyCreationEnabled = false;
                 var model = dbcontext.EOS_Request.ToList();
+                foreach (var item in model)
+                {
+                   
+                    item.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == item.statID);
+
+                }
                 return Json(model);
             }
             catch (Exception e)
@@ -627,18 +659,24 @@ namespace HR.Controllers
                 else if(status[0] == "all" && type[0] == "all")
                 {
                     req = dbcontext.EOS_Request.Where(m => DateTime.Compare(m.Requset_date, from) >= 0 && DateTime.Compare(m.Requset_date, to) <= 0).ToList();
+                    foreach (var itemm in req)
+                    {
+                        itemm.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
+
+                    }
                     return Json(req);
                 }
                 else
                 {
+                    var uu = new List<EOS_Request>();
                     req = dbcontext.EOS_Request.Where(m => DateTime.Compare(m.Requset_date, from) >= 0 && DateTime.Compare(m.Requset_date, to) <= 0 ).ToList();
                     foreach (var item in nn)
                     {
-                        re1.AddRange(req.Where(m => m.check_status == item).ToList());
+                        uu.AddRange(req.Where(m => m.check_status == item).ToList());
                     }
                     foreach (var item in mm)
                     {
-                        re1.AddRange(req.Where(m => m.EOS_type == item).ToList());
+                        re1.AddRange(uu.Where(m => m.EOS_type == item).ToList());
                     }
                 }
                 //    var executed_list=  list.Except(status).ToList();
@@ -648,7 +686,11 @@ namespace HR.Controllers
                     item.Date_of_EOS = Convert.ToDateTime(item.Date_of_EOS.ToShortDateString());
                    
                 }
-              
+                foreach (var itemm in re1)
+                {
+                    itemm.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
+
+                }
 
                 return Json(re1);
             }

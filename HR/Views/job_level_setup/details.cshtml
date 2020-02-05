@@ -6,6 +6,63 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+<script>
+    CountryName3();
+    CountryName2();
+    CountryName1();
+    function CountryName1() {
+        debugger
+        var id = $("#country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobclass",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    function CountryName2() {
+        debugger
+        var id = $("#country2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobgrade",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname2").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname2").val(" ");
+            }
+        });
+    }
+    function CountryName3() {
+        debugger
+        var id = $("#country3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobreport",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname3").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname3").val(" ");
+            }
+        });
+    }
+
+</script>
 <div class="content-wrapper">
 
     <!-- Main content -->
@@ -35,7 +92,7 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control",@readonly=true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
@@ -296,66 +353,7 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
-<script>
-    function CountryName1() {
-        debugger
-        var id = $("#country1").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/getjobclass",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname1").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname1").val(" ");
-            }
-        });
-    }
-    function CountryName2() {
-        debugger
-        var id = $("#country2").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/getjobgrade",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname2").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname2").val(" ");
-            }
-        });
-    }
-    function CountryName3() {
-        debugger
-        var id = $("#country3").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/getjobreport",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname3").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname3").val(" ");
-            }
-        });
-    }
-    CountryName3();
-    CountryName2();
-    CountryName1();
-</script>
+
+
 
 @section scripts{}

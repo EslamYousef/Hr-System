@@ -7,6 +7,162 @@
 
 
 @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    function CountryName1() {
+        debugger
+        var id = $("#country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobclass",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    function CountryName2() {
+        debugger
+        var id = $("#country2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobgrade",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname2").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname2").val(" ");
+            }
+        });
+    }
+    function CountryName3() {
+        debugger
+        var id = $("#country3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjobreport",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname3").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname3").val(" ");
+            }
+        });
+    }
+    CountryName3();
+    CountryName2();
+    CountryName1();
+
+    function addd()
+    {
+
+        debugger
+        var country = $("#country").val();
+        var num = $("#num").val();
+        if (country == ""  )
+        {
+            debugger
+            alert("Please enter Education !");
+
+        }
+        else if ( num == "") {
+            debugger
+            alert("Please enter Number Of years !");
+
+        }
+        else
+        {
+
+            $.ajax({
+                type:"post",
+                url: "/Helper/Get_Education",
+                data: { "id": country },
+                success: function (result) {
+                    if (result == false)
+                    {
+
+                        debugger
+
+                    }
+                    else
+                    {
+                        debugger
+                        var tr =
+               "<tr id='tr'>" + "<td hidden><input  style='margin-bottom: 1em;' name='codeid' value='" + result.ID + "' readonly='readonly' /></td>" +
+               "<td class='col-md-0'><input  style='margin-bottom: 1em;' name='codeee' value='" + result.Code + "' readonly='readonly' /></td>" +
+               "<td style='width:30px' ><input style='width:120px' name='Description'  value='" + result.Name + "' readonly='readonly' /></td>" +
+               "<td class='col-md-0'><input  style='margin-bottom: 1em;' name='num' value='" + num + "' readonly='readonly' /></td>" +
+               "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                        $("#add1").append(tr);
+                        $("#num").val(" ");
+                        $("#country").select2("val", "");
+                    }
+
+
+                },
+                error: function()
+                {
+                    debugger
+                }
+
+            });
+
+
+        }
+
+    }
+    function remove(thi)
+    {
+        debugger
+        thi.parent().parent().remove();
+        //thi.parent().parent().parent().remove(removed);
+
+
+    }
+
+    $("#min").keyup(function (e) {
+        debugger
+        var min = parseInt($("#min").val());
+        var max = parseInt($("#max").val());
+        var mid=( min+max)/2;
+        $("#mid").val(mid);
+
+    });
+    $("#max").keyup(function (e) {
+        debugger
+        var min = parseInt($("#min").val());
+        var max = parseInt($("#max").val());
+        var mid = (min + max) / 2;
+        $("#mid").val(mid);
+
+    });
+    function updateminplus(value)
+    {
+        debugger
+        var min = parseInt($("#min").val()) + parseInt(value);
+        var max = parseInt($("#max").val());
+        var mid = (min + max) / 2;
+        $("#mid").val(mid);
+    }
+    function updatemaxplus(value) {
+        debugger
+        var min = parseInt($("#min").val()) ;
+        var max = parseInt($("#max").val()) + parseInt(value);
+        var mid = (min + max) / 2;
+        $("#mid").val(mid);
+    }
+</script>
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -317,165 +473,4 @@
 </div>
 
 @section scripts{}
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
-<script>
-    function CountryName1() {
-        debugger
-        var id = $("#country1").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/getjobclass",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname1").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname1").val(" ");
-            }
-        });
-    }
-    function CountryName2() {
-        debugger
-        var id = $("#country2").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/getjobgrade",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname2").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname2").val(" ");
-            }
-        });
-    }
-    function CountryName3() {
-        debugger
-        var id = $("#country3").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/getjobreport",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname3").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname3").val(" ");
-            }
-        });
-    }
-    CountryName3();
-    CountryName2();
-    CountryName1();
-</script>
-<script>
-    function addd()
-    {
 
-        debugger
-        var country = $("#country").val();
-        var num = $("#num").val();
-        if (country == ""  )
-        {
-            debugger
-            alert("Please enter Education !");
-
-        }
-        else if ( num == "") {
-            debugger
-            alert("Please enter Number Of years !");
-
-        }
-        else
-        {
-          
-            $.ajax({
-                type:"post",
-                url: "/Helper/Get_Education",
-                data: { "id": country },
-                success: function (result) {
-                    if (result == false)
-                    {
-
-                        debugger
-                     
-                    }
-                    else
-                    {
-                        debugger
-                        var tr =
-               "<tr id='tr'>" + "<td hidden><input  style='margin-bottom: 1em;' name='codeid' value='" + result.ID + "' readonly='readonly' /></td>" +
-               "<td class='col-md-0'><input  style='margin-bottom: 1em;' name='codeee' value='" + result.Code + "' readonly='readonly' /></td>" +
-               "<td style='width:30px' ><input style='width:120px' name='Description'  value='" + result.Name + "' readonly='readonly' /></td>" +
-               "<td class='col-md-0'><input  style='margin-bottom: 1em;' name='num' value='" + num + "' readonly='readonly' /></td>" +
-               "<td><input type='button' value='Cancel' class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-                        $("#add1").append(tr);
-                        $("#num").val(" ");
-                        $("#country").select2("val", "");
-                    }
-
-
-                },
-                error: function()
-                {
-                    debugger
-                }
-
-            });
-
-
-        }
-
-    }
-    function remove(thi)
-    {
-        debugger
-        thi.parent().parent().remove();
-        //thi.parent().parent().parent().remove(removed);
-
-
-    }
-</script>
-<script>
-    $("#min").keyup(function (e) {
-        debugger
-        var min = parseInt($("#min").val());
-        var max = parseInt($("#max").val());
-        var mid=( min+max)/2;
-        $("#mid").val(mid);
-    
-    });
-    $("#max").keyup(function (e) {
-        debugger
-        var min = parseInt($("#min").val());
-        var max = parseInt($("#max").val());
-        var mid = (min + max) / 2;
-        $("#mid").val(mid);
-
-    });
-    function updateminplus(value)
-    {
-        debugger
-        var min = parseInt($("#min").val()) + parseInt(value);
-        var max = parseInt($("#max").val());
-        var mid = (min + max) / 2;
-        $("#mid").val(mid);
-    }
-    function updatemaxplus(value) {
-        debugger
-        var min = parseInt($("#min").val()) ;
-        var max = parseInt($("#max").val()) + parseInt(value);
-        var mid = (min + max) / 2;
-        $("#mid").val(mid);
-    }
-</script>

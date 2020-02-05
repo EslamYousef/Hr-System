@@ -3,7 +3,165 @@
     ViewBag.Title = "index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
     }
+<!-- page script -->
+<script>
+    var $ = jQuery;
 
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+
+        filt();
+        function filt() {
+
+            var ht = "";
+            $.ajax
+                ({
+                    type: "post",
+                    url: "/personnel_transaction/getallstatues",
+                    data: {},
+                    success: function (result) {
+                        debugger
+                        $.each(result, function (key, value) {
+                            ht += "<option  value='" + value + "'>" + value + "</option>";
+
+                        });
+                        $("#filter").html(ht);
+                    }
+                });
+        }
+    function getrequest()
+    {
+        debugger
+        var c = $("#filter").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        var status = $("#filter").val();
+        var type = $("#filter_eos_type").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        if (from == "") {
+            from = "1/1/1900";
+        }
+        if (to == "") {
+            to = "1/1/3000"
+        }
+        if (c == null) {
+            c = "all";
+        }
+        debugger
+            $.ajax({
+                type: "post",
+                url: "/personnel_transaction/Getone",
+                data: { "from": from, "to": to, "status": c },
+                success: function (result) {
+                    debugger
+                    $("#tbody11 tr").remove();
+                    $.each(result, function (key, value) {
+                        var d1;var d2;
+                        if (value.Employee != null)
+                        {
+                            d1 = value.Employee.ID;
+                            d2 = value.Employee.Full_Name;
+                        }
+                        else
+                        {
+                            d1 = "Empty";
+                            d2 = "Empty";
+                        }
+                            debugger
+                            var tr =
+                  "<tr id='tr'><td>" + value.Number + "</td>" +
+                 "<td>" + d1 + "</td>" +
+                 "<td>" + d2 + "</td>" +
+                 "<td>" + value.date + "</td>" +
+                 "<td>" + value.name_state + "</td>" +
+                  "<td>" + value.name_type + "</td>" +
+                 "<td>" +
+                 "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
+                 "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:60px' onclick='history(" + value.ID + ")' />" +" "+
+                 "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+                            $("#tbody11").append(tr);
+
+
+
+                                   });
+
+                },
+                error: function () {
+                    debugger
+
+                }
+            });
+        }
+
+    function getallrequest() {
+        debugger
+        var c = $("#filter").val();
+        $.ajax({
+            type: "post",
+            url: "/personnel_transaction/Getalll",
+            data: { "c": c },
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+                    debugger
+                    var d1; var d2;
+
+                    if (value.Employee != null) {
+                        d1 = value.Employee.ID;
+                        d2 = value.Employee.Name;
+                    }
+                    else {
+                        d1 = "Empty";
+                        d2 = "Empty";
+                    }
+                    debugger
+                    var tr =
+          "<tr id='tr'><td>" + value.Number + "</td>" +
+
+         "<td>" + d1 + "</td>" +
+         "<td>" + d2 + "</td>" +
+        "<td>" + value.date + "</td>" +
+                 "<td>" + value. name_state+ "</td>" +
+                  "<td>" + value.name_type + "</td>" +
+         "<td >" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
+         "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:60px' onclick='history(" + value.ID + ")' />" +" "+
+         "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+
+                    $("#tbody11").append(tr);
+                });
+
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+
+    function change(id)
+    {
+        window.open("/personnel_transaction/Edit?id=" + id);
+    }
+    function history(id) {
+
+        window.open("/personnel_transaction/status?id=" + id);
+    }
+    function deletee(id) {
+        debugger
+        window.open("/personnel_transaction/Delete/" + id);
+    }
+</script>
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
@@ -105,167 +263,5 @@
 
     </div>
 
-    <!-- page script -->
-    <script>
-    var $ = jQuery;
-
-    $(document).ready(function () {
-        $('#categories').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-            "order" : 1
-        });
-    });
-    </script>
-
-    <script>
-        filt();
-        function filt() {
-
-            var ht = "";
-            $.ajax
-                ({
-                    type: "post",
-                    url: "/personnel_transaction/getallstatues",
-                    data: {},
-                    success: function (result) {
-                        debugger
-                        $.each(result, function (key, value) {
-                            ht += "<option  value='" + value + "'>" + value + "</option>";
-
-                        });
-                        $("#filter").html(ht);
-                    }
-                });
-        }
-    function getrequest()
-    {
-        debugger
-        var c = $("#filter").val();
-        var from = $("#datefrom").val();
-        var to = $("#dateto").val();
-        var status = $("#filter").val();
-        var type = $("#filter_eos_type").val();
-        var from = $("#datefrom").val();
-        var to = $("#dateto").val();
-        if (from == "") {
-            from = "1/1/1900";
-        }
-        if (to == "") {
-            to = "1/1/3000"
-        }
-        if (c == null) {
-            c = "all";
-        }
-        debugger
-            $.ajax({
-                type: "post",
-                url: "/personnel_transaction/Getone",
-                data: { "from": from, "to": to, "status": c },
-                success: function (result) {
-                    debugger
-                    $("#tbody11 tr").remove();
-                    $.each(result, function (key, value) {
-                        var d1;var d2;
-                        if (value.Employee != null)
-                        {
-                            d1 = value.Employee.ID;
-                            d2 = value.Employee.Full_Name;
-                        }
-                        else
-                        {
-                            d1 = "Empty";
-                            d2 = "Empty";
-                        }
-                            debugger
-                            var tr =
-                  "<tr id='tr'><td>" + value.Number + "</td>" +
-                 "<td>" + d1 + "</td>" +
-                 "<td>" + d2 + "</td>" +
-                 "<td>" + value.date + "</td>" +
-                 "<td>" + value.check_status + "</td>" +
-                  "<td>" + value.Transaction_type + "</td>" +
-                 "<td>" +
-                 "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
-                 "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:60px' onclick='history(" + value.ID + ")' />" +" "+
-                 "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
-                            $("#tbody11").append(tr);
-
-
-
-                                   });
-
-                },
-                error: function () {
-                    debugger
-
-                }
-            });
-        }
-
-    function getallrequest() {
-        debugger
-        var c = $("#filter").val();
-        $.ajax({
-            type: "post",
-            url: "/personnel_transaction/Getalll",
-            data: { "c": c },
-            success: function (result) {
-                debugger
-                $("#tbody11 tr").remove();
-                $.each(result, function (key, value) {
-                    debugger
-                    var d1; var d2;
-
-                    if (value.Employee != null) {
-                        d1 = value.Employee.ID;
-                        d2 = value.Employee.Name;
-                    }
-                    else {
-                        d1 = "Empty";
-                        d2 = "Empty";
-                    }
-                    debugger
-                    var tr =
-          "<tr id='tr'><td>" + value.Number + "</td>" +
-
-         "<td>" + d1 + "</td>" +
-         "<td>" + d2 + "</td>" +
-        "<td>" + value.date + "</td>" +
-                 "<td>" + value.check_status + "</td>" +
-                  "<td>" + value.Transaction_type + "</td>" +
-         "<td >" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
-         "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:60px' onclick='history(" + value.ID + ")' />" +" "+
-         "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
-
-                    $("#tbody11").append(tr);
-                });
-
-            },
-            error: function () {
-                debugger
-
-            }
-        });
-    }
-    </script>
-    <script>
-    function change(id)
-    {
-        window.open("/personnel_transaction/Edit?id=" + id);
-    }
-    function history(id) {
-
-        window.open("/personnel_transaction/status?id=" + id);
-    }
-    function deletee(id) {
-        debugger
-        window.open("/personnel_transaction/Delete/" + id);
-    }
-    </script>
 
     @section scripts{}

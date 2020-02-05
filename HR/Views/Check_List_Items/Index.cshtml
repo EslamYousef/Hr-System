@@ -1,5 +1,19 @@
 ﻿@model IEnumerable<HR.Models.Check_List_Items>
+<script>
+        var $ = jQuery;
 
+        $(document).ready(function () {
+            $('#categories').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "order" : 1
+            });
+        });
+</script>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -69,20 +83,6 @@
     </div>
 
     <!-- page script -->
-    <script>
-        var $ = jQuery;
-
-        $(document).ready(function () {
-            $('#categories').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": false,
-                "info": true,
-                "autoWidth": false,
-                "order" : 1
-            });
-        });
-    </script>
+    
 
 @section scripts{}

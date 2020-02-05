@@ -1,5 +1,69 @@
 ﻿@model HR.Models.ViewModel.employeestate
+<script>
+    close();
+    function go(input)
+    {
+        debugger
 
+        var value = input.val();
+        if(value==1)
+        {
+            close();
+            $("#created1").attr("readonly", false);
+            $("#created1d").attr("hidden", false);
+
+        }
+        else if(value==2)
+        {
+            close();
+            $("#report1").prop("readonly", false);
+            $("#report1d").prop("hidden", false);
+        }
+        else if (value == 3)
+        {
+            close();
+            $("#approved1").prop("readonly", false);
+            $("#approved1d").prop("hidden", false);
+        }
+        else if (value == 4)
+        {
+            close();
+            $("#Rejected1").prop("readonly", false);
+            $("#Rejected1d").prop("hidden", false);
+        } else if (value == 5)
+        {
+            close();
+            $("#cancaled1").prop("readonly", false);
+            $("#cancaled1d").prop("hidden", false);
+        }
+        else if (value == 6) {
+            close();
+
+        }
+        else if (value ==7) {
+            close();
+
+        }
+    }
+
+    function close()
+    {
+        $("#cancaled1").attr("readonly", true);
+        $("#Rejected1").attr("readonly", true);
+        $("#approved1").attr("readonly", true);
+        $("#ready1").attr("readonly", true);
+        $("#created1").attr("readonly", true);
+        $("#report1").attr("readonly", true);
+        //////
+        $("#cancaled1d").attr("hidden", true);
+        $("#Rejected1d").attr("hidden", true);
+        $("#approved1d").attr("hidden", true);
+        $("#ready1d").attr("hidden", true);
+        $("#created1d").attr("hidden", true);
+        $("#report1d").attr("hidden", true);
+    }
+
+</script>
 @{
     ViewBag.Title = "status";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -152,70 +216,6 @@
         </div>
     </div>
 }
-<script>
-    close();
-    function go(input)
-    {
-        debugger
 
-        var value = input.val();
-        if(value==1)
-        {
-            close();
-            $("#created1").attr("readonly", false);
-            $("#created1d").attr("hidden", false);
-        
-        }
-        else if(value==2)
-        {
-            close();
-            $("#report1").prop("readonly", false);
-            $("#report1d").prop("hidden", false);
-        }
-        else if (value == 3)
-        {
-            close();
-            $("#approved1").prop("readonly", false);
-            $("#approved1d").prop("hidden", false);
-        }
-        else if (value == 4)
-        {
-            close();
-            $("#Rejected1").prop("readonly", false);
-            $("#Rejected1d").prop("hidden", false);
-        } else if (value == 5)
-        {
-            close();
-            $("#cancaled1").prop("readonly", false);
-            $("#cancaled1d").prop("hidden", false);
-        }
-        else if (value == 6) {
-            close();
-           
-        }
-        else if (value ==7) {
-            close();
-          
-        }
-    }
-  
-    function close()
-    {
-        $("#cancaled1").attr("readonly", true);
-        $("#Rejected1").attr("readonly", true);
-        $("#approved1").attr("readonly", true);
-        $("#ready1").attr("readonly", true);
-        $("#created1").attr("readonly", true);
-        $("#report1").attr("readonly", true);
-        //////
-        $("#cancaled1d").attr("hidden", true);
-        $("#Rejected1d").attr("hidden", true);
-        $("#approved1d").attr("hidden", true);
-        $("#ready1d").attr("hidden", true);
-        $("#created1d").attr("hidden", true);
-        $("#report1d").attr("hidden", true);
-    }
-   
-</script>
 
 @section scripts{}

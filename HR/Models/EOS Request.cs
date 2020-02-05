@@ -40,5 +40,9 @@ namespace HR.Models
         public string sss { get; set; }
         public string req_date { get; set; }
         public string eos_Date { get; set; }
+        public int statID { get; set; }
+
+        public string name_state { get; set; }
+        public string name_type { get; set; }
     }
 }

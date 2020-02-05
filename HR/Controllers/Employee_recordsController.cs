@@ -63,9 +63,18 @@ namespace HR.Controllers
             {
                 var record = new Employee_records();
                 record = model.record;
+                if (model.selectedEmpoyee == 0)
+                {
+                    TempData["Message"] = "you must choose employee";
+                    return View(model);
+                }
                 if (model.selectedEmpoyee > 0)
                 {
-                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selectedEmpoyee);
+                   
+
+                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selectedEmpoyee);
+                    record.Employee_Profile = emp;
+                    record.statID = emp.ID;
                 }
                 if (model.selectedgroup > 0)
                 {
@@ -78,7 +87,7 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
                 record.status = st;
                 record.sss = record.Record_date.ToShortDateString();
-                
+                record.name_state = nameof(check_status.Report_as_ready);
                 dbcontext.Employee_records.Add(record);
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
@@ -134,6 +143,11 @@ namespace HR.Controllers
             ViewBag.group = dbcontext.Employee_Recodes_Group.ToList().Select(m => new { Code = "" + m.Record_Group_Code + "-----[" + m.Record_Group_Description + ']', ID = m.ID }).ToList();
             try
             {
+                if (model.selectedEmpoyee == 0)
+                {
+                    TempData["Message"] = "you must choose employee";
+                    return View(model);
+                }
                 var reco = dbcontext.Employee_records.FirstOrDefault(m => m.ID == model.record.ID);
                 reco.Name = model.record.Name;
                 reco.Description = model.record.Description;
@@ -144,7 +158,9 @@ namespace HR.Controllers
                 reco.record_value = model.record.record_value;
                 if (model.selectedEmpoyee > 0)
                 {
-                    reco.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selectedEmpoyee);
+                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selectedEmpoyee);
+                    reco.Employee_Profile = emp;
+                    reco.statID = emp.ID;
                 }
                 else
                 {
@@ -159,6 +175,7 @@ namespace HR.Controllers
                     reco.Employee_Recodes_Group = null;
                 }
                 reco.sss = reco.Record_date.ToShortDateString();
+               
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
@@ -236,6 +253,7 @@ namespace HR.Controllers
                 sta.approved_by = model.status.approved_by;
                 sta.approved_bydate = model.status.approved_bydate;
                 record.check_status = check_status.Approved;
+                record.name_state = nameof(check_status.Approved);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Canceled)
@@ -244,6 +262,7 @@ namespace HR.Controllers
                 sta.cancaled_by = model.status.cancaled_by;
                 sta.cancaled_bydate = model.status.cancaled_bydate;
                 record.check_status = check_status.Canceled;
+                record.name_state = nameof(check_status.Canceled);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.created)
@@ -251,6 +270,7 @@ namespace HR.Controllers
                 sta.created_by = model.status.created_by;
                 sta.created_bydate = model.status.created_bydate;
                 record.check_status = check_status.created;
+                record.name_state = nameof(check_status.created);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Rejected)
@@ -258,6 +278,7 @@ namespace HR.Controllers
                 sta.Rejected_by = model.status.Rejected_by;
                 sta.Rejected_bydate = model.status.Rejected_bydate;
                 record.check_status = check_status.Rejected;
+                record.name_state = nameof(check_status.Rejected);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Report_as_ready)
@@ -265,6 +286,7 @@ namespace HR.Controllers
                 sta.report_as_ready_by = model.status.report_as_ready_by;
                 sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
                 record.check_status = check_status.Report_as_ready;
+                record.name_state = nameof(check_status.Report_as_ready);
                 dbcontext.SaveChanges();
             }
           
@@ -274,12 +296,15 @@ namespace HR.Controllers
         {
             try
             {
+                dbcontext.Configuration.ProxyCreationEnabled = false;
                 var model = dbcontext.Employee_records.ToList();
                 foreach (var item in model)
                 {
                     item.Effictive_date =Convert.ToDateTime(item.Effictive_date.ToShortDateString());
+                    item.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == item.statID);
 
                 }
+              
                 return Json(model);
             }
             catch(Exception e)
@@ -304,7 +329,11 @@ namespace HR.Controllers
                 if (status[0] == "all")
                 {
                     var req = dbcontext.Employee_records.Where(m => DateTime.Compare(m.Record_date, from) >= 0 && DateTime.Compare(m.Record_date, to) <= 0).ToList();
+                    foreach (var itemm in re1)
+                    {
+                        itemm.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
 
+                    }
                 }
                 else if (status[0] != "all" )
                 {
@@ -313,6 +342,11 @@ namespace HR.Controllers
                     foreach (var item in nn)
                     {
                         re1.AddRange(req.Where(m => m.check_status == item).ToList());
+                    }
+                    foreach (var itemm in re1)
+                    {
+                        itemm.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
+
                     }
                 }
                 

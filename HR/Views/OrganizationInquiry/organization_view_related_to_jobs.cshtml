@@ -9,6 +9,35 @@
 
 
 <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
+<script src="~/Scripts/jsTree3/jstree.min.js"></script>
+<script>
+        debugger
+        $("#jstree").jstree("open_all");
+        $(function () {
+            var selectedData;
+            $('#jstree').jstree({
+                "core": {
+                    "multiple": true,
+                    "check_callback": false,
+                    'themes': {
+                        "responsive": true,
+                        'variant': 'larg',
+                        'stripes': false,
+                        'dots': false
+                    }
+                },
+                "types": {
+                    "default": {
+                        "icon": "fa fa-folder icon-state-warning icon-lg"
+                    },
+                    "file": {
+                        "icon": "fa fa-file icon-state-warning icon-lg"
+                    }
+                },
+                "plugins": ["dnd", "state", "types", "sort", "checkbox"]
+            });
+        });
+</script>
 
 <div class="form-group">
 
@@ -43,33 +72,5 @@
 
 @section scripts{
 
-    <script src="~/Scripts/jsTree3/jstree.min.js"></script>
-    <script>
-        debugger
-        $("#jstree").jstree("open_all");
-        $(function () {
-            var selectedData;
-            $('#jstree').jstree({
-                "core": {
-                    "multiple": true,
-                    "check_callback": false,
-                    'themes': {
-                        "responsive": true,
-                        'variant': 'larg',
-                        'stripes': false,
-                        'dots': false
-                    }
-                },
-                "types": {
-                    "default": {
-                        "icon": "fa fa-folder icon-state-warning icon-lg"
-                    },
-                    "file": {
-                        "icon": "fa fa-file icon-state-warning icon-lg"
-                    }
-                },
-                "plugins": ["dnd", "state", "types", "sort", "checkbox"]
-            });
-        });
-    </script>
+  
 }

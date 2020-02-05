@@ -11,33 +11,10 @@
 <link href="~/Content/print.css" rel="stylesheet" media="print"/>
 
 <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
-<p>
-    <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue"  value="Print Current Tree" />
-</p>
-<div class="form-group">
-    <div class="form-body">
-        <div id="jstree" style="text-align: left;direction:ltr" class="b">
-            @(Html.TreeView(Model)
-                          .EmptyContent("Root")
-                          .Children(m => m.Childs)
-                          .HtmlAttributes(new { id = "tree" })
-                          .ChildrenHtmlAttributes(new { @class = "subItem" })
-                          .ItemText(m => m.unit_Description)
-                          .ItemTemplate(
-            @<a  href="@Url.Action("Details", "OrganizationChart",new{id=@item.ID})">
-                @item.unit_Description
-            </a>
-        )
-            )
-        </div>
-    </div>
-</div>
 
-@section scripts{
+<script src="~/Scripts/jsTree3/jstree.min.js"></script>
+<script>
 
-    <script src="~/Scripts/jsTree3/jstree.min.js"></script>
-    <script>
-        debugger
         $("#jstree").jstree("close_all");
         $(function () {
             var selectedData;
@@ -63,6 +40,28 @@
                 "plugins": ["dnd", "state", "types", "sort", "checkbox"]
             });
         });
-    </script>
-}
+</script>
+<p>
+    <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue"  value="Print Current Tree" />
+</p>
+<div class="form-group">
+    <div class="form-body">
+        <div id="jstree" style="text-align: left;direction:ltr" class="b">
+            @(Html.TreeView(Model)
+                          .EmptyContent("Root")
+                          .Children(m => m.Childs)
+                          .HtmlAttributes(new { id = "tree" })
+                          .ChildrenHtmlAttributes(new { @class = "subItem" })
+                          .ItemText(m => m.unit_Description)
+                          .ItemTemplate(
+            @<a  href="@Url.Action("Details", "OrganizationChart",new{id=@item.ID})">
+                @item.unit_Description
+            </a>
+        )
+            )
+        </div>
+    </div>
+</div>
+
+@section scripts{}
 

@@ -6,6 +6,77 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    CountryName2()
+    CountryName1();
+    location87();
+
+    var v=$("#mas").val();
+    if(v=="Y")
+    {
+
+        $("#Country1").prop('disabled', true);
+    }
+    function location87()
+    {
+        debugger
+        var id= $("#Lo").val();
+        $.ajax({
+            type: "post",
+            url: "/OrganizationChart/location",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#Loname").val(result.Name);
+            }
+        });
+    }
+    function CountryName2()
+    {
+        debugger
+        var id= $("#Country2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetOrganization_unit_type",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname2").val(result.Name);
+                $("#U_L_C").val(result.Organization_Unit_Level.Code);
+                $("#U_L_N").val(result.Organization_Unit_Level.Name);
+                $("#U_S_C").val(result.Organization_Unit_Schema.Code);
+                $("#U_S_N").val(result.Organization_Unit_Schema.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname2").val(" ");
+                $("#U_L_C").val("");
+                $("#U_L_N").val("");
+                $("#U_S_C").val("");
+                $("#U_S_N").val("");
+            }
+        });
+    }
+    function CountryName1() {
+        debugger
+        var id = $("#Country1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Get_organization_unit_chart",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname1").val(result.unit_Description);
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+
+</script>
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -54,14 +125,14 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.unit_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.unit_Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.unit_Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.alter_unit_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.alter_unit_Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.alter_unit_Description, "", new { @class = "text-danger" })
                             </div>
@@ -81,13 +152,13 @@
                                 <input type="text" value=" " class="form-control" id="countryname1" disabled />
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  col-md-12">
                             <label class="control-label col-md-2"><spane> unit level code</spane></label>
                             <input class="form-control col-md-4" type="text" id="U_L_C" readonly />
                             <div class="col-md-2"></div>
                             <input class="form-control col-md-4" type="text" id="U_L_N" readonly />
                         </div>
-                        <div class="form-group">
+                        <div class="form-group  col-md-12">
                             <label class="control-label col-md-2"><spane> unit Schema code</spane></label>
                             <input class="form-control col-md-4" type="text" id="U_S_C" readonly />
                             <div class="col-md-2"></div>
@@ -150,79 +221,3 @@
     </section>
 </div>
 @section scripts{}
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
-<script>
-    debugger
-    var v=$("#mas").val();
-    if(v=="Y")
-    {
-       
-        $("#Country1").prop('disabled', true);
-    }
-</script>
-<script>
-    function location87()
-    {
-        debugger
-        var id= $("#Lo").val();
-        $.ajax({
-            type: "post",
-            url: "/OrganizationChart/location",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#Loname").val(result.Name);
-            }
-        });
-    }
-    function CountryName2()
-    {
-        debugger
-        var id= $("#Country2").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetOrganization_unit_type",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname2").val(result.Name);
-                $("#U_L_C").val(result.Organization_Unit_Level.Code);
-                $("#U_L_N").val(result.Organization_Unit_Level.Name);
-                $("#U_S_C").val(result.Organization_Unit_Schema.Code);
-                $("#U_S_N").val(result.Organization_Unit_Schema.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname2").val(" ");
-                $("#U_L_C").val("");
-                $("#U_L_N").val("");
-                $("#U_S_C").val("");
-                $("#U_S_N").val("");
-            }
-        });
-    }
-    function CountryName1() {
-        debugger
-        var id = $("#Country1").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/Get_organization_unit_chart",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname1").val(result.unit_Description);
-            },
-            error: function () {
-                debugger
-                $("#countryname1").val(" ");
-            }
-        });
-    }
-    CountryName2()
-    CountryName1();
-    location87();
-</script>

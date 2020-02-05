@@ -43,7 +43,8 @@ namespace HR.Controllers
 
                 //ViewBag.Employee_Profile 
                 var all_e = new List<Employee_Profile>();
-                var empll= dbcontext.Employee_Profile.ToList();
+                var empll= dbcontext.Employee_Profile.Where(m=>m.Active==true).ToList();
+                
                 foreach (var item in empll)
                 {
                     if (item.Employee_Positions_Profile.Count() > 0)
@@ -80,7 +81,8 @@ namespace HR.Controllers
                     Position_Transaction_number = stru.Structure_Code + count,
                     From_date = statis,Last_working_date = statis,To_date = statis,
                     Position_transaction = statis,Approved_date = statis,Memo_date = statis,Resolution_date = statis,
-                    job_descId="0",Job_level_gradeId="0",Location_descId="0",Default_location_descId="0",Organization_ChartId="0",SlotdescId="0"
+                    job_descId="0",Job_level_gradeId="0",Location_descId="0",Default_location_descId="0",Organization_ChartId="0",SlotdescId="0",
+                    Transaction_type=transaction_type.assignment
                 };
                 var mymodel = new TRANS_VM {personnel_transaction=vm,selected_employee=0 };
                 //    var PositionInformation = new Position_Information();
@@ -114,8 +116,22 @@ namespace HR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                  
-                   var mymodel = new personnel_transaction();
+                    if (model.selected_employee == 0)
+                    {
+                        TempData["Message"] = "you must choose employee";
+                        return View(model);
+                    }
+                    else if (model.personnel_transaction.job_descId == "0" || model.personnel_transaction.job_descId == null)
+                    {
+                        TempData["Message"] = "you must choose job title";
+                        return View(model);
+                    }
+                    else if (model.personnel_transaction.SlotdescId == "0" || model.personnel_transaction.job_descId == null)
+                    {
+                        TempData["Message"] = "you must choose slot";
+                        return View(model);
+                    }
+                    var mymodel = new personnel_transaction();
                    mymodel = model.personnel_transaction;
 
                     ///////////////status////////////////////////
@@ -127,13 +143,18 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
                     mymodel.status = st;
                     mymodel.date = mymodel.transaction_date.ToShortDateString();
-                 
 
+                    mymodel.name_state =nameof(check_status.Report_as_ready);
 
-
+                    var tt = (int)mymodel.Transaction_type;
+                    var t = (transaction_type)(int)mymodel.Transaction_type;
+                    mymodel.name_type = t.ToString();
                     if (model.selected_employee > 0)
                     {
-                        mymodel.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                       
+                        var emp= dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                        mymodel.Employee = emp;
+                        mymodel.statID = emp.ID;
                     }
                     else
                     {
@@ -185,6 +206,8 @@ namespace HR.Controllers
                         mymodel.Organization_Chart = null;
                         mymodel.Organization_ChartId = "0";
                     }
+                    mymodel.name_state = nameof(check_status.Report_as_ready);
+                  
                     dbcontext.personnel_transaction.Add(mymodel);
                     //var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == emp.Employee_Positions_Profile.ID);
                     //record.Primary_Position = model.Primary_Position;
@@ -300,6 +323,21 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                if (model.selected_employee == 0)
+                {
+                    TempData["Message"] = "you must choose employee";
+                    return View(model);
+                }
+                else if (model.personnel_transaction.job_descId == "0"|| model.personnel_transaction.job_descId == null)
+                {
+                    TempData["Message"] = "you must choose job title";
+                    return View(model);
+                }
+                else if (model.personnel_transaction.SlotdescId == "0" || model.personnel_transaction.job_descId == null)
+                {
+                    TempData["Message"] = "you must choose slot";
+                    return View(model);
+                }
                 var record = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == model.personnel_transaction.ID);
                 ////////////////////////////////////////////////
                 ////////////////////////////////////////////////
@@ -334,9 +372,14 @@ namespace HR.Controllers
                 record.working_system = model.personnel_transaction.working_system;
                 record.work_location = model.personnel_transaction.work_location;
                 record.Years = model.personnel_transaction.Years;
+                var tt = (int)record.Transaction_type;
+                var t=(transaction_type)(int)record.Transaction_type;
+                record.name_type = t.ToString();
                 if (model.selected_employee>0)
                 {
-                    record.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.selected_employee);
+                    record.Employee = emp;
+                    record.statID = emp.ID;
                 }
                 else
                 {
@@ -472,6 +515,7 @@ namespace HR.Controllers
                 sta.approved_by = model.status.approved_by;
                 sta.approved_bydate = model.status.approved_bydate;
                 record.check_status = check_status.Approved;
+                record.name_state = nameof(check_status.Approved);
                 dbcontext.SaveChanges();
                 var go = new TRANS_VM { personnel_transaction = record, selected_employee = model.empid };
                 ///////////////update old position//////////
@@ -484,8 +528,8 @@ namespace HR.Controllers
                 var old_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == slot_id);
                 ////var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == old_slot.Employee_Profile.ID);
                 var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == old_slot.job_title_cards.ID);////update vacant and hired number
-                job.number_hired = job.number_hired + 1;
-                job.number_vacant = job.number_vacant - 1;
+                job.number_hired = job.number_hired - 1;
+                job.number_vacant = job.number_vacant + 1;
                 dbcontext.SaveChanges();
                 old_slot.Employee_Profile = null;
                 dbcontext.SaveChanges();
@@ -503,6 +547,8 @@ namespace HR.Controllers
                 sta.cancaled_by = model.status.cancaled_by;
                 sta.cancaled_bydate = model.status.cancaled_bydate;
                 record.check_status = check_status.Canceled;
+
+                record.name_state = nameof(check_status.Canceled);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.created)
@@ -510,6 +556,8 @@ namespace HR.Controllers
                 sta.created_by = model.status.created_by;
                 sta.created_bydate = model.status.created_bydate;
                 record.check_status = check_status.created;
+
+                record.name_state = nameof(check_status.created);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Rejected)
@@ -517,6 +565,7 @@ namespace HR.Controllers
                 sta.Rejected_by = model.status.Rejected_by;
                 sta.Rejected_bydate = model.status.Rejected_bydate;
                 record.check_status = check_status.Rejected;
+                record.name_state = nameof(check_status.Rejected);
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Report_as_ready)
@@ -524,6 +573,7 @@ namespace HR.Controllers
                 sta.report_as_ready_by = model.status.report_as_ready_by;
                 sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
                 record.check_status = check_status.Report_as_ready;
+                record.name_state = nameof(check_status.Report_as_ready);
                 dbcontext.SaveChanges();
             }
 
@@ -533,7 +583,14 @@ namespace HR.Controllers
         {
             try
             {
+                dbcontext.Configuration.ProxyCreationEnabled = false;
                 var model = dbcontext.personnel_transaction.ToList();
+                foreach (var item in model)
+                {
+                 
+                    item.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == item.statID);
+
+                }
                 return Json(model);
             }
             catch (Exception e)
@@ -558,15 +615,25 @@ namespace HR.Controllers
                 if (status[0] == "all")
                 {
                     var req = dbcontext.personnel_transaction.Where(m => DateTime.Compare(m.transaction_date, from) >= 0 && DateTime.Compare(m.transaction_date, to) <= 0).ToList();
+                    foreach (var itemm in req)
+                    {
+                        itemm.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
+                      
+                    }
                     return Json(req);
                 }
                 else if (status[0] != "all")
                 {
                     var req = dbcontext.personnel_transaction.Where(m => DateTime.Compare(m.transaction_date, from) >= 0 && DateTime.Compare(m.transaction_date, to) <= 0).ToList();
-
+                    
                     foreach (var item in nn)
                     {
                         re1.AddRange(req.Where(m => m.check_status == item).ToList());
+                    }
+                    foreach(var itemm in re1)
+                    {
+                         itemm.Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
+                      
                     }
                 }
 
@@ -656,8 +723,8 @@ namespace HR.Controllers
                     my_slot.EmployeeID = emp.ID.ToString();
                     dbcontext.SaveChanges();
                     var job = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == my_slot.job_title_cards.ID);////update vacant and hired number
-                    job.number_hired = job.number_hired - 1;
-                    job.number_vacant = job.number_vacant + 1;
+                    job.number_hired = job.number_hired + 1;
+                    job.number_vacant = job.number_vacant - 1;
                     dbcontext.SaveChanges();
 
                 }

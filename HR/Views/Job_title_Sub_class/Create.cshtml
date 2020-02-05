@@ -6,6 +6,29 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    CountryName();
+    function CountryName()
+    {
+        debugger
+        var id= $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Get_job_title_sub_class",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#countryname").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+    }
+
+</script>
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -127,32 +150,7 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
 
-<script>
-    function CountryName()
-    {
-        debugger
-        var id= $("#Country").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/Get_job_title_sub_class",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                $("#countryname").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname").val(" ");
-            }
-        });
-    }
-    CountryName();
-</script>
+
 
 @section scripts{}

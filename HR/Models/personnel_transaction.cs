@@ -20,7 +20,10 @@ namespace HR.Models
         public check_status check_status { get; set; }
         public string date { get; set; }
         public string ss { get; set; }
+        public int statID { get; set; }
 
+        public string name_state { get; set; }
+        public string name_type { get; set; }
         /////////////////
         ////////////////
         ///////////////
