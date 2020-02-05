@@ -69,7 +69,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9,string command10)
+        public ActionResult Create(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9, string command10, string command11, string command12)
         {
             try
             {
@@ -440,6 +440,14 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("index", "Employee_beneficiary_profile", new { id = emp.ID });
                     }
+                    if (command11 == "Submit")
+                    {
+                        return RedirectToAction("index", "Employee_subscription_syndicate_profile", new { id = emp.ID });
+                    }
+                    if (command12 == "Submit")
+                    {
+                        return RedirectToAction("index", "Employee_attachment_profile", new { id = emp.ID });
+                    }
                     return RedirectToAction("Index");
                 }
                 else
@@ -488,7 +496,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9, string command10)
+        public ActionResult Edit(Employee_Profile_VM model, string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9, string command10, string command11, string command12)
         {
             try
             {
@@ -665,6 +673,14 @@ namespace HR.Controllers
                 if (command10 == "Submit")
                 {
                     return RedirectToAction("index", "Employee_beneficiary_profile", new { id = record.ID });
+                }
+                if (command11 == "Submit")
+                {
+                    return RedirectToAction("index", "Employee_subscription_syndicate_profile", new { id = record.ID });
+                }
+                if (command12 == "Submit")
+                {
+                    return RedirectToAction("index", "Employee_attachment_profile", new { id = record.ID });
                 }
                 return RedirectToAction("index");
             }

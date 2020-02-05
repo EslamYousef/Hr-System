@@ -319,13 +319,15 @@ namespace HR.Models.Infra
     public enum Health_Status2
     {
         Ability = 1,
+        [Display(Name = "In Ability")]
         In_Ability = 2
     }
     public enum Working_status
     {
         Working = 1,
         Retired = 2,
-        Not_working=3
+        [Display(Name = "Not working")]
+        Not_working =3
     }
     
     public enum Emergency_level
@@ -402,10 +404,33 @@ namespace HR.Models.Infra
         [Display(Name = "In Service ")]
         in_service = 8
     }
-
-
-
-
+    public enum Subscription_value_type
+    {
+        Fixed = 1,
+        Variable = 2
+    }
+    public enum Membership_type
+    {
+        Member = 1,
+        [Display(Name = "Board member")]
+        Board_member = 2,
+        [Display(Name = "Head member")]
+        Head_member = 3
+    }
+    
+ public enum Related_to
+    {
+        Employee = 1,
+        Family =2
+    }
+    public enum Document_status
+    {
+        [Display(Name = "Not delivered")]
+        Not_delivered =1,
+        Delivered =2,
+        [Display(Name = "Received by employee")]
+        Received_by_employee =3
+    }
 
 
 

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<HR.Models.Employee_attachment_profile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    <a href="@Url.Action("Create", "Employee_attachment_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Attachment Profile </a>
+                </p>
+            </div>
+
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Employee Name</th>
+                            <th>Documents Name</th>
+                            <th> Document Group Name</th>
+                            <th> Related to </th>
+                            <th>  Is Copy </th>
+                            <th>  Is Required  </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.Code</td>
+                                <td>@item.Employee_Profile.Full_Name</td>
+                                <td>@item.Documents.Name</td>
+                                <td>@item.Documents.Document_Group.Name</td>
+                                <td>@item.Related_to</td>
+                                <td>@item.Is_copy</td>
+                                <td>@item.Is_required</td>
+
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "Employee_attachment_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_attachment_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Code</th>
+                            <th>Employee Name</th>
+                            <th>Documents Name</th>
+                            <th> Document Group Name</th>
+                            <th> Related to </th>
+                            <th>  Is Copy </th>
+                            <th>  Is Required  </th>
+
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}

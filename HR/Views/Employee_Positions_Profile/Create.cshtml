@@ -39,6 +39,33 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">                  
+                            <label class = "control-label col-md-2"><span>Employee No.</span></label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
+                            </div>
+                                   <div class="col-md-4" style="color:black">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
+                                </div>
+
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"><span>Position profile No.</span></label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Position_Information.Code, new
+                                   { htmlAttributes = new  {   @class = "form-control"@*, id = "codeid" *@ ,  @readonly = true   }  })
+                                @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2"><span>Primary Position</span></label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
                         <div>
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
@@ -57,91 +84,60 @@
 
                             </ul>
                             <div class="tab-content">
-                                <div class="col-md-4" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-white">Employee Profile</button>
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Position_Information.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-3">
-                                        @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                        @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
-                                        <input type="text" value=" " class="form-control" id="employeename" disabled />
-
-                                    </div>
-                                </div>
+                              
+                                
 
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Position_Information.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Position_Information.Code, new { htmlAttributes = new { @class = "form-control"@*, id = "codeid" *@ , @readonly = true } })
-                                        @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
-                                    </div>
-
-                                    @Html.LabelFor(model => model.Position_Information.Primary_Position, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-4">
-                                        @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+                              
 
                                 <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.job_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Job desc</span></label>
                                         <div class="col-md-4">
-
                                             @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), "Select Job desc", new { @class = "select2", @onchange = "CountryName()", id = "country" })
-                                            @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="countryname1" disabled />
-
+                                            @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })                                    
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Default_location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Default location desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), "Select Default location desc", new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Default_location_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="cityname" disabled />
 
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Location desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), "Select Location desc", new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Location_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="cityname2" disabled />
-
+                                          
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.SlotdescId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Slot desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), "Select slot", new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.SlotdescId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="tername" disabled />
-
+                                        
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Job_level_gradeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Job level desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"), "Select Job level desc", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
-                                            @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="areaname1" disabled />
-
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })                
                                         </div>
                                     </div>
 
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Organization_ChartId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Unit desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), "Select Unit desc", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="statename" disabled />
 
                                         </div>
                                     </div>

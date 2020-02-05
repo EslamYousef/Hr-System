@@ -412,7 +412,7 @@ namespace HR.Controllers
         public JsonResult ALL_job_level_setup()
         {
 
-            var model = dbcontext.job_level_setup.ToList();
+            var model = dbcontext.job_level_setup.ToList().Select(m=> new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             return Json(model);
         }
         public JsonResult all_organization_unit()
@@ -842,7 +842,7 @@ namespace HR.Controllers
         }
         public JsonResult all_organization_chart()
         {
-            var model = dbcontext.Organization_Chart.ToList();
+            var model = dbcontext.Organization_Chart.ToList().Select(m=> new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
             return Json(model);
         }
 
@@ -904,10 +904,21 @@ namespace HR.Controllers
                 return Json(family);
             
         }
+        public JsonResult GetSponsor(string id)
+        {
+            var ID = int.Parse(id);
+            var Sponsor = dbcontext.Sponsor.FirstOrDefault(m => m.ID == ID);
+            return Json(Sponsor);
+        }
 
-
-
-
+        public JsonResult GetDocuments(string id)
+        {
+            var ID = int.Parse(id);
+            var Documents = dbcontext.Documents.FirstOrDefault(m => m.ID == ID);
+            var ID2 = int.Parse(Documents.Document_Groupid);
+            Documents.Document_Group = dbcontext.Document_Group.FirstOrDefault(m => m.ID == ID2);
+            return Json(Documents);
+        }
 
 
 

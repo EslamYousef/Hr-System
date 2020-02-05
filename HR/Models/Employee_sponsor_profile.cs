@@ -28,8 +28,10 @@ namespace HR.Models
         public string Nationality { get; set; }
         public string Religin { get; set; }
         [Display(Name = "Issue date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Issue_date { get; set; }
         [Display(Name = "Birth date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Birth_date { get; set; }
 
          

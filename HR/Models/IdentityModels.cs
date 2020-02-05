@@ -154,8 +154,10 @@ namespace HR.Models
         public DbSet<Employee_military_service_calling> Employee_military_service_calling { get; set; }
         public DbSet<Employee_beneficiary_profile> Employee_beneficiary_profile { get; set; }
         public DbSet<Employee_vehicle_profile> Employee_vehicle_profile { get; set; }
-
+        public DbSet<Employee_sponsor_profile> Employee_sponsor_profile { get; set; }
         public DbSet<Append_beneficiary_Family> Append_beneficiary_Family { get; set; }
+        public DbSet<Employee_subscription_syndicate_profile> Employee_subscription_syndicate_profile { get; set; }
+        public DbSet<Employee_attachment_profile> Employee_attachment_profile { get; set; }
 
     }
 }

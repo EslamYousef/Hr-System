@@ -102,6 +102,8 @@ namespace HR.Models
         public virtual Employee_military_service_profile Employee_military_service_profile { get; set; }
         public virtual List<Employee_military_service_calling> Employee_military_service_calling { get; set; }
         public virtual List<Employee_beneficiary_profile> Employee_beneficiary_profile { get; set; }
+        public virtual List<Employee_subscription_syndicate_profile> Employee_subscription_syndicate_profile { get; set; }
+        public virtual List<Employee_attachment_profile> Employee_attachment_profile { get; set; }
 
         //public string tab { get; set; }
 
