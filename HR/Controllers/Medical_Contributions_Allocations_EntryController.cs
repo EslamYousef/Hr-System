@@ -9,7 +9,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Medical_Contributions_Allocations_EntryController : Controller
+    public class Medical_Contributions_Allocations_EntryController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Medical_Contributions_Allocations_Entry

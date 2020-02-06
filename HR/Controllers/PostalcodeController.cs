@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class PostalcodeController : Controller
+    public class PostalcodeController : BaseController
     {
         // GET: Postalcode
         ApplicationDbContext dbcontext = new ApplicationDbContext();

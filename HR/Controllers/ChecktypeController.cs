@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class ChecktypeController : Controller
+    public class ChecktypeController : BaseController
     {
         // GET: Checktype
         ApplicationDbContext dbcontext = new ApplicationDbContext();

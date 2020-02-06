@@ -10,7 +10,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class structureModelsController : Controller
+    public class structureModelsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: structureModels

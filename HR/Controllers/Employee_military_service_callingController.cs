@@ -10,7 +10,7 @@ using HR.Models.ViewModel;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Employee_military_service_callingController : Controller
+    public class Employee_military_service_callingController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_military_service_calling

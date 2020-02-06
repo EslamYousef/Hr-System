@@ -9,7 +9,7 @@ using HR.Models.Infra;
 using HR.Models.ViewModel;
 namespace HR.Controllers
 {
-    public class Employee_Address_ProfileController : Controller
+    public class Employee_Address_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_Address_Profile

@@ -9,8 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace HR.Controllers
-{
-    public class BudgetController : Controller
+{   [Authorize]
+    public class BudgetController : BaseController
     {
         // GET: Budget
         ApplicationDbContext dbcontext = new ApplicationDbContext();
@@ -112,7 +112,7 @@ namespace HR.Controllers
                 //    budget.sign_forign = dbcontext.Currency.FirstOrDefault(m => m.ID == IDSignF).symbol;
                 //}
                 status = model.status;
-                status.Type = Models.Infra.Type.budget;
+                status.Type = Models.Infra.Type.Budget;
                 just = model.justification;
                 var s= dbcontext.status.Add(status);
                 var j= dbcontext.justification.Add(just);

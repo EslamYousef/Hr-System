@@ -9,7 +9,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HR.Controllers
 {
-    public class Allergy_TypeController : Controller
+    public class Allergy_TypeController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Allergy_Type

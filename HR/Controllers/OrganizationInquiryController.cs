@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class OrganizationInquiryController : Controller
+    public class OrganizationInquiryController : BaseController
     {
         // GET: OrganizationInquiry
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -9,7 +9,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Subscription_SyndicateController : Controller
+    public class Subscription_SyndicateController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Subscription_Syndicate

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Allowance_yearsController : Controller
+    public class Allowance_yearsController : BaseController
     {
         // GET: Allowance_years
         ApplicationDbContext dbcontext = new ApplicationDbContext();

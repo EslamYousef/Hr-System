@@ -11,7 +11,7 @@ using System.IO;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Employee_attachment_profileController : Controller
+    public class Employee_attachment_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_attachment_profile

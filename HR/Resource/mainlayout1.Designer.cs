@@ -79,6 +79,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arabic.
+        /// </summary>
+        public static string Arabic {
+            get {
+                return ResourceManager.GetString("Arabic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorities.
         /// </summary>
         public static string Authorities {
@@ -282,6 +291,15 @@ namespace HR.Resource {
         public static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ltr.
+        /// </summary>
+        public static string d {
+            get {
+                return ResourceManager.GetString("d", resourceCulture);
             }
         }
         
@@ -921,6 +939,15 @@ namespace HR.Resource {
         public static string zip_postal {
             get {
                 return ResourceManager.GetString("zip_postal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العربية.
+        /// </summary>
+        public static string العربية {
+            get {
+                return ResourceManager.GetString("العربية", resourceCulture);
             }
         }
     }

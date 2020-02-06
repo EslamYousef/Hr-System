@@ -9,7 +9,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Check_Lists_ItemsController : Controller
+    public class Check_Lists_ItemsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Check_Lists_Items

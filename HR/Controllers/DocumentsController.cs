@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class DocumentsController : Controller
+    public class DocumentsController : BaseController
     {
         // GET: Documents
         ApplicationDbContext dbcontext = new ApplicationDbContext();

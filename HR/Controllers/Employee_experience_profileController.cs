@@ -11,7 +11,7 @@ using HR.Models.ViewModel;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Employee_experience_profileController : Controller
+    public class Employee_experience_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_experience_profile

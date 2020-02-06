@@ -32,10 +32,10 @@
     <![endif]-->
 
 </head>
-<body class="page-body  page-left-in" data-url="http://neon.dev">
+<body class="page-body  page-left-in" data-url="http://neon.dev" dir="@HR.Resource.mainlayout.d">
     <div class="page-container horizontal-menu with-sidebar fit-logo-with-sidebar">
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
-        <header class="navbar navbar-fixed-top">
+        <header class="navbar navbar-fixed-top" dir="@HR.Resource.mainlayout.d">
             <!-- set fixed position by adding class "navbar-fixed-top" -->
 
             <div class="navbar-inner">
@@ -43,7 +43,7 @@
                 <!-- logo -->
                 <div class="navbar-brand">
                     <a href="index.html">
-                        <img src="~/Content/neon/assets/images/logo@2x.png" width="88" alt="" />
+                        <img src="~/Content/neon/assets/images/logo@2x.png" width="88"  dir="@HR.Resource.mainlayout.d" />
                     </a>
                 </div>
 
@@ -893,7 +893,9 @@
 
 
                 <!-- notifications and other links -->
+              
                 <ul class="nav navbar-right pull-right">
+                 
                     <li>
                         <a href="@Url.Action("LogOff","Security")">
                             @mainlayout.Logout <i class="entypo-logout right"></i>
@@ -906,7 +908,11 @@
                     @*<li>
                         @Html.ActionLink("Arabic", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["Controller"].ToString(), new { language = "el-GR" }, null)
                     </li>*@
+                    <li class="lang">                   
+                            <i class="fa fa-globe" title="10001" aria-hidden="true"></i>
+                            <a href="/Language/@HR.Resource.mainlayout.Arabic">@mainlayout.العربية</a>
 
+                    </li>
                     <!-- mobile only -->
                     <li class="visible-xs">
 
@@ -923,15 +929,14 @@
                 </ul>
 
             </div>
-
+         
         </header>
-        <div class="sidebar-menu" id="menubar">
-            <div class="multiple-expanded">
+        <div class="sidebar-menu" id="menubar"dir="@HR.Resource.mainlayout.d" >
+            <div class="multiple-expanded" dir="@HR.Resource.mainlayout.d">
 
 
 
-
-                <ul id="main-menu"  class="auto-inherit-active-class">
+                <ul id="main-menu"  class="auto-inherit-active-class" dir="@HR.Resource.mainlayout.d">
                     <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                     <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                     <li>
@@ -2222,7 +2227,7 @@
             @RenderBody()
 
             <!-- Footer -->
-            <footer class="main">
+            <footer class="main" dir="@HR.Resource.mainlayout.d" >
 
                 &copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
 

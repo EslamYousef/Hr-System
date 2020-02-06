@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Contact_methodsController : Controller
+    public class Contact_methodsController : BaseController
     {
         // GET: Contact_methods
       

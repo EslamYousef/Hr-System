@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Rejection_ReasonsController : Controller
+    public class Rejection_ReasonsController : BaseController
     {
         // GET: Rejection_Reasons
         ApplicationDbContext dbcontext = new ApplicationDbContext();

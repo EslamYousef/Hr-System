@@ -13,7 +13,7 @@ using System.Web.Mvc;
 namespace Company.Controllers
 {
    
-    public class SecurityController : Controller
+    public class SecurityController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

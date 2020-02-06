@@ -10,7 +10,7 @@ using System.Data.Entity.Infrastructure;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Employee_sponsor_profileController : Controller
+    public class Employee_sponsor_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_sponsor_profile

@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Employee_military_service_profileController : Controller
+    public class Employee_military_service_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_military_service_profile

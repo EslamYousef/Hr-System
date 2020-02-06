@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class ReligionController : Controller
+    public class ReligionController : BaseController
     {
         // GET: Religion
         ApplicationDbContext dbcontext = new ApplicationDbContext();

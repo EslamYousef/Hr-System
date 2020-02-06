@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Ticket_PricesController : Controller
+    public class Ticket_PricesController : BaseController
     {
         // GET: Ticket_Prices
         ApplicationDbContext dbcontext = new ApplicationDbContext();

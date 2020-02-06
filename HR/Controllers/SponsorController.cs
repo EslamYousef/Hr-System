@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class SponsorController : Controller
+    public class SponsorController : BaseController
     {
         // GET: Sponsor
         ApplicationDbContext dbcontext = new ApplicationDbContext();

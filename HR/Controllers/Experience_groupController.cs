@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Experience_groupController : Controller
+    public class Experience_groupController : BaseController
     {
         // GET: Experience_group
         ApplicationDbContext dbcontext = new ApplicationDbContext();

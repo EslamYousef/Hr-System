@@ -9,7 +9,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Employee_Recodes_GroupController : Controller
+    public class Employee_Recodes_GroupController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_Recodes_Group

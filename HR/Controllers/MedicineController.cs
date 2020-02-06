@@ -9,7 +9,7 @@ using System.Data.Entity.Infrastructure;
 namespace HR.Controllers
 {
     [Authorize]
-    public class MedicineController : Controller
+    public class MedicineController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Medicine

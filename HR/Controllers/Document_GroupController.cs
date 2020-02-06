@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Document_GroupController : Controller
+    public class Document_GroupController : BaseController
     {
         // GET: Document_Group
         ApplicationDbContext dbcontext = new ApplicationDbContext();

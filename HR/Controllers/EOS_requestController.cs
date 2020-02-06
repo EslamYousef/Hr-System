@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class EOS_requestController : Controller
+    public class EOS_requestController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: EOS_request

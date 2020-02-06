@@ -9,7 +9,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Contract_TypeController : Controller
+    public class Contract_TypeController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Contract_Type

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class work_locationController : Controller
+    public class work_locationController : BaseController
     {
         // GET: work_location
         ApplicationDbContext dbcontext = new ApplicationDbContext();

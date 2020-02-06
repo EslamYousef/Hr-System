@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class External_compainesController : Controller
+    public class External_compainesController : BaseController
     {
         // GET: External_compaines
 

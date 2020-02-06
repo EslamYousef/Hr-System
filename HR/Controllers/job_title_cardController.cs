@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class job_title_cardController : Controller
+    public class job_title_cardController : BaseController
     {
         // GET: job_title_card
         ApplicationDbContext dbcontext = new ApplicationDbContext();

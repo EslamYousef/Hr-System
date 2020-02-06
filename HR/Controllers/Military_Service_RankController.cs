@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Military_Service_RankController : Controller
+    public class Military_Service_RankController : BaseController
     {
         // GET: Military_Service_Rank
         ApplicationDbContext dbcontext = new ApplicationDbContext();

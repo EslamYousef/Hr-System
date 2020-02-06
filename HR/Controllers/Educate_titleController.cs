@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Educate_titleController : Controller
+    public class Educate_titleController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
 

@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class ExchangeRateController : Controller
+    public class ExchangeRateController : BaseController
     {
 
         ApplicationDbContext dbcontext = new ApplicationDbContext();

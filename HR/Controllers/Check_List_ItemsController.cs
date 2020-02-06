@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Check_List_ItemsController : Controller
+    public class Check_List_ItemsController : BaseController
     {
         // GET: Check_List_Items
         ApplicationDbContext dbcontext = new ApplicationDbContext();

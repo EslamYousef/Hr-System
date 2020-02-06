@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class CurrencyController : Controller
+    public class CurrencyController : BaseController
     {
         // GET: Currency
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class Committe_subjectsController : Controller
+    public class Committe_subjectsController : BaseController
     {
         // GET: Committe_subjects
         ApplicationDbContext dbcontext = new ApplicationDbContext();

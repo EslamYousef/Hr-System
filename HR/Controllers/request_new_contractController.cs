@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class request_new_contractController : Controller
+    public class request_new_contractController : BaseController
     {
         // GET: request_new_contract
         ApplicationDbContext dbcontext = new ApplicationDbContext();

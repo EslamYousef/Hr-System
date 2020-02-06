@@ -13,7 +13,7 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
-    public class CountryController : Controller
+    public class CountryController : BaseController
     {
 
             ApplicationDbContext dbcontext = new ApplicationDbContext();

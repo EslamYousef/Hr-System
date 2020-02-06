@@ -7,10 +7,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HR.Controllers    /*jkhjhk*/
+namespace HR.Controllers   
 {
     [Authorize]
-    public class Budget_classController : Controller
+    public class Budget_classController : BaseController
     {
         // GET: Budget_class
         ApplicationDbContext dbcontext = new ApplicationDbContext();

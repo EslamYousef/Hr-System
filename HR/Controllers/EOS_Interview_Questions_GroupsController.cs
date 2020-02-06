@@ -9,7 +9,7 @@ using HR.Models.Infra;
 namespace HR.Controllers
 {
     [Authorize]
-    public class EOS_Interview_Questions_GroupsController : Controller
+    public class EOS_Interview_Questions_GroupsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: EOS_Interview_Questions_Groups
