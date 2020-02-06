@@ -9,6 +9,7 @@ using HR.Models.Infra;
 using HR.Models.ViewModel;
 namespace HR.Controllers
 {
+    [Authorize]
     public class Employee_military_service_callingController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

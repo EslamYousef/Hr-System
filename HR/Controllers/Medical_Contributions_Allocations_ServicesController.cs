@@ -8,6 +8,7 @@ using HR.Models;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Medical_Contributions_Allocations_ServicesController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

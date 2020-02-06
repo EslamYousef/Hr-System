@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class ChecktypeController : Controller
     {
         // GET: Checktype

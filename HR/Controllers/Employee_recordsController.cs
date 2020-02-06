@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Employee_recordsController : Controller
     {
         // GET: Employee_records

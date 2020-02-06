@@ -10,6 +10,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Employee_military_service_profileController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

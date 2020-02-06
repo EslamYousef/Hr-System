@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Risks_typeController : Controller
     {
         // GET: Risks_type

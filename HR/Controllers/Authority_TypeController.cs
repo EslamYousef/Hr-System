@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Authority_TypeController : Controller
     {
         // GET: Authorities

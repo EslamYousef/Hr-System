@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Educate_titleController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

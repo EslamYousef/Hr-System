@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
+    [Authorize]
     public class Employee_Profile_GroupsController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

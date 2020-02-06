@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Sub_educational_bodyController : Controller
     {
         // GET: Sub_educational_body

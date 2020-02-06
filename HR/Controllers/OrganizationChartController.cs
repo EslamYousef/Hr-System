@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class OrganizationChartController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

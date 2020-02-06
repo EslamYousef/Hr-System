@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Organization_unit_schemaController : Controller
     {
         // GET: Organization_unit_schema

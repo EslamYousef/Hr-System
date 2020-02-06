@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Check_List_ItemsController : Controller
     {
         // GET: Check_List_Items

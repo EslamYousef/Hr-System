@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Committe_subjectsController : Controller
     {
         // GET: Committe_subjects

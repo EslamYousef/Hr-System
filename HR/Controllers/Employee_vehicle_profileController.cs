@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace HR.Controllers
 {
+    [Authorize]
     public class Employee_vehicle_profileController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

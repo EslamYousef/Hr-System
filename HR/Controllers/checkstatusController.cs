@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class checkstatusController : Controller
     {
         // GET: checkstatus

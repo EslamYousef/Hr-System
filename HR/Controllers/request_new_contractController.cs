@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class request_new_contractController : Controller
     {
         // GET: request_new_contract

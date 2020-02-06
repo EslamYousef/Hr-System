@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Medical_Doctors_LevelController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

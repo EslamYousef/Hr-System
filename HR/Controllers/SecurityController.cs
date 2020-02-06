@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Company.Controllers
 {
-    [Authorize]
+   
     public class SecurityController : Controller
     {
         private ApplicationSignInManager _signInManager;

@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
+    [Authorize]
     public class Subscription_SyndicateController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

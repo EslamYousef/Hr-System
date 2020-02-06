@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
+    [Authorize]
     public class EOS_Interview_Questions_GroupsController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

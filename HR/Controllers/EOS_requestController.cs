@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class EOS_requestController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

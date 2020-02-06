@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
+    [Authorize]
     public class Medical_Contributions_Allocations_EntryController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

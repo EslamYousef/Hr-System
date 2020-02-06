@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Budget_class_itemsController : Controller
     {
         // GET: Budget_class_items

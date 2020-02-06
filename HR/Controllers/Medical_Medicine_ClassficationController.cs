@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Medical_Medicine_ClassficationController : Controller
     {
         // GET: Medical_Medicine_Classfication

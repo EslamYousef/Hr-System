@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Name_of_educational_qualificationController : Controller
     {
         // GET: Name_of_educational_qualification

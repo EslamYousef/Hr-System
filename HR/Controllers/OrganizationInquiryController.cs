@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class OrganizationInquiryController : Controller
     {
         // GET: OrganizationInquiry
