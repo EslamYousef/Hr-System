@@ -96,13 +96,14 @@ namespace Company.Controllers
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             try
             {
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                ViewBag.ReturnUrl =0;
                 return RedirectToAction("Login", "Account");
             }
             catch (Exception)
