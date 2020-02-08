@@ -27,7 +27,7 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
-                 
+
                         <hr />
 
                         @if (TempData["Message"] != null)
@@ -39,6 +39,8 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(m => m.Employee_ProfileId);
 
                         <div>
 
@@ -63,12 +65,12 @@
                             </div>
 
                             @*<div class="form-group">
-                                @Html.LabelFor(model => model.Contract, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Contract, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
-                                </div>
-                            </div>*@
+                                    @Html.LabelFor(model => model.Contract, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.Contract, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
 
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
@@ -111,16 +113,15 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Employment_type, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Employment_type, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Employment_type, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Employment_type, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
-
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Contract_start_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date" } })
+                                            @Html.EditorFor(model => model.Contract_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker StartDate yy", @onchange = "Save()", @id = "Start"@*, @type = "date"*@, @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Contract_start_date, "", new { @class = "text-danger" })
                                         </div>
                                         @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -134,7 +135,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Contract_end_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date" } })
+                                            @Html.EditorFor(model => model.Contract_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker EndDate yyy", @onchange = "Save2()", @id = "End"@*, @type = "date"*@, @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
                                         </div>
                                         @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -147,7 +148,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.ApprovedbyId, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-3">
-                                            @Html.DropDownListFor(m => m.ApprovedbyId, new SelectList(ViewBag.Approved_date, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                            @Html.DropDownListFor(m => m.ApprovedbyId, new SelectList(ViewBag.Approved_date, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2", @autocomplete = "off" })
                                             @Html.ValidationMessageFor(model => model.ApprovedbyId, "", new { @class = "text-danger" })
 
                                         </div>
@@ -155,7 +156,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Approved_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Approved_date, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -163,7 +164,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.TextAreaFor(model => model.Notes,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.TextAreaFor(model => model.Notes, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -174,7 +175,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Medical_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.TextBoxFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Medical_date, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -182,35 +183,35 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Medical_commite_recomindation, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Medical_commite_recomindation, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Medical_commite_recomindation, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Medical_commite_recomindation, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Medical_entity_name, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Medical_entity_name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EditorFor(model => model.Medical_entity_name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Medical_entity_name, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Not_fit_reason, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.TextAreaFor(model => model.Not_fit_reason,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.TextAreaFor(model => model.Not_fit_reason, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Not_fit_reason, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Medical_commite_comments, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.TextAreaFor(model => model.Medical_commite_comments,4,100, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.TextAreaFor(model => model.Medical_commite_comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Medical_commite_comments, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Result, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Result, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Result, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Result, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -230,7 +231,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Days_Balance, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Days_Balance, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Days_Balance, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
 
                                             @Html.ValidationMessageFor(model => model.Days_Balance, "", new { @class = "text-danger" })
                                         </div>
@@ -238,7 +239,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Days_Per_Period, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Days_Per_Period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Days_Per_Period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
 
                                             @Html.ValidationMessageFor(model => model.Days_Per_Period, "", new { @class = "text-danger" })
                                         </div>
@@ -261,7 +262,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Tickets_No, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
 
                                             @Html.ValidationMessageFor(model => model.Tickets_No, "", new { @class = "text-danger" })
                                         </div>
@@ -269,7 +270,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Tickets_Per_Period, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Tickets_Per_Period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Tickets_Per_Period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
 
                                             @Html.ValidationMessageFor(model => model.Tickets_Per_Period, "", new { @class = "text-danger" })
                                         </div>
@@ -278,7 +279,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Tickets_Class_Tpyeemp, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Tickets_Class_Tpyeemp, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Tickets_Class_Tpyeemp, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Tickets_Class_Tpyeemp, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -312,7 +313,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Adult_Tickets_No, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Adult_Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Adult_Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
 
                                             @Html.ValidationMessageFor(model => model.Adult_Tickets_No, "", new { @class = "text-danger" })
                                         </div>
@@ -320,7 +321,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Child_Tickets_No, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Child_Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Child_Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
 
                                             @Html.ValidationMessageFor(model => model.Child_Tickets_No, "", new { @class = "text-danger" })
                                         </div>
@@ -329,7 +330,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Tickets_Class_Tpyefam, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Tickets_Class_Tpyefam, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Tickets_Class_Tpyefam, new { @class = "select2", @autocomplete = "off" })
                                             @Html.ValidationMessageFor(model => model.Tickets_Class_Tpyefam, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -344,6 +345,7 @@
                             </div>
                         </div>
                     </div>
+
                 }
 
             </div>
@@ -353,14 +355,8 @@
     </section>
 </div>
 
-@section scripts{}
 
-<script>
-  
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
+@section scripts{}
 
 <script>
     $(document).ready(function () {
@@ -392,10 +388,7 @@
             }
         });
     }
-    employee();
-</script>
 
-<script>
     function employee2() {
         debugger
         var id = $("#employeeId2").val();
@@ -405,19 +398,16 @@
             data: { "id": id },
             success: function (result) {
                 debugger
-              //  $("#employeename").val(result.Name);
+                //  $("#employeename").val(result.Name);
 
             },
             error: function () {
                 debugger
-            //    $("#employeename").val(" ");
+                //    $("#employeename").val(" ");
             }
         });
     }
-    employee2();
-</script>
 
-<script>
     function employee3() {
         debugger
         var id = $("#employeeId3").val();
@@ -427,18 +417,16 @@
             data: { "id": id },
             success: function (result) {
                 debugger
-              //  $("#employeename").val(result.Name);
+                //  $("#employeename").val(result.Name);
 
             },
             error: function () {
                 debugger
-            //    $("#employeename").val(" ");
+                //    $("#employeename").val(" ");
             }
         });
     }
-    employee3();
-</script>
-<script>
+
     function employee4() {
         debugger
         var id = $("#employeeId4").val();
@@ -448,18 +436,13 @@
             data: { "id": id },
             success: function (result) {
                 debugger
-              //  $("#employeename").val(result.Name);
-
             },
             error: function () {
                 debugger
-            //    $("#employeename").val(" ");
             }
         });
     }
-    employee4();
-</script>
-<script>
+
     function employee5() {
         debugger
         var id = $("#employeeId5").val();
@@ -469,62 +452,57 @@
             data: { "id": id },
             success: function (result) {
                 debugger
-              //  $("#employeename").val(result.Name);
 
             },
             error: function () {
                 debugger
-            //    $("#employeename").val(" ");
             }
         });
     }
-    employee5();
-</script>
 
-<script>
-            function Save(){
-            var StartDate = new Date($(".StartDate").val());
-            var EndDate = new Date($(".EndDate").val());
+    function Save() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
 
-            var from = $(".StartDate").val();
-            var to = $(".EndDate").val();
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
 
-            if (to >  from) {
-                var diffTime = Math.abs(EndDate - StartDate);
-                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                var months = Math.floor(Days / 31);
-                var years = Math.floor(months / 12);
-                $("#Yearr").val(years);
-                $("#months").val(months);
-            }
-            else {
-                $("#Yearr").val("0");
-                $("#months").val("0");
-            }
-        };
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
 
-</script>
+    function Save2() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
 
-<script>
-            function Save2(){
-            var StartDate = new Date($(".StartDate").val());
-            var EndDate = new Date($(".EndDate").val());
-
-            var from = $(".StartDate").val();
-            var to = $(".EndDate").val();
-            if (to > from) {
-                var diffTime = Math.abs(EndDate - StartDate);
-                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                var months = Math.floor(Days / 31);
-                var years = Math.floor(months / 12);
-                $("#Yearr").val(years);
-                $("#months").val(months);
-                
-            }
-            else {
-                $("#Yearr").val("0");
-                $("#months").val("0");
-            }
-        };
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
 
 </script>
+
+
+
+

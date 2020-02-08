@@ -5,6 +5,13 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+
+        $(".yy").datepicker({ dateFormat: 'yy-mm-dd' });
+        $(".yyy").datepicker({ dateFormat: 'yy-mm-dd' });
+    });
+</script>
 
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
@@ -28,6 +35,7 @@
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         @Html.HiddenFor(m => m.Position_Information.ID);
+                        @Html.HiddenFor(m => m.Position_Information.Employee_ProfileId);
                         @Html.HiddenFor(m => m.Position_Transaction_Information.ID);
                         <hr />
 
@@ -40,6 +48,37 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label col-md-2"><span>Employee No.</span></label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"><span>Position profile No.</span></label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Position_Information.Code, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control"@*, id = "codeid" *@ ,
+                                   @readonly = true
+                               }
+                           })
+                                @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2"><span>Primary Position</span></label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
                         <div>
                             <ul class="nav nav-tabs bordered">
@@ -59,108 +98,74 @@
 
                             </ul>
                             <div class="tab-content">
-                                <div class="col-md-4" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-white">Employee Profile</button>
-                                </div>
-                                @Html.HiddenFor(model => model.Position_Information.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                @Html.HiddenFor(model => model.Position_Information.Position_Transaction_Information.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Position_Information.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-3">
-                                        @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                        @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
-                                        <input type="text" value=" " class="form-control" id="employeename" disabled />
-
-                                    </div>
-                                </div>
 
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Position_Information.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Position_Information.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
-                                        @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
-                                    </div>
 
-                                    @Html.LabelFor(model => model.Position_Information.Primary_Position, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-4">
-                                        @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+
+
 
                                 <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.job_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Job desc</span></label>
                                         <div class="col-md-4">
-
                                             @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), "Select Job desc", new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="countryname1" disabled />
-
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Default_location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Default location desc</span></label>
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.Position_Information.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), "Select Default location desc", new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                            @Html.DropDownListFor(m => m.Position_Information.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), "Select Default location desc", new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Default_location_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="cityname" disabled />
 
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Location_descId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Location desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), "Select Location desc", new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Location_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="cityname2" disabled />
 
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.SlotdescId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Slot desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), "Select slot", new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.SlotdescId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="tername" disabled />
 
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Job_level_gradeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Job level desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"), "Select Job level desc", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="areaname1" disabled />
-
                                         </div>
                                     </div>
 
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Position_Information.Organization_ChartId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2"><span>Unit desc</span></label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), "Select Unit desc", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="statename" disabled />
 
                                         </div>
                                     </div>
+
 
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.From_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Information.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Position_Information.From_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker StartDate yy", @onchange = "Save()", @id = "Start"@*, @type = "date"*@ } })
                                             @Html.ValidationMessageFor(model => model.Position_Information.From_date, "", new { @class = "text-danger" })
                                         </div>
-
                                         @Html.LabelFor(model => model.Position_Information.Years, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Information.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Position_Information.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Position_Information.Years, "", new { @class = "text-danger" })
                                         </div>
@@ -169,27 +174,27 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.To_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Information.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Position_Information.To_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker EndDate yyy", @onchange = "Save2()", @id = "End"@*, @type = "date"*@ } })
                                             @Html.ValidationMessageFor(model => model.Position_Information.To_date, "", new { @class = "text-danger" })
                                         </div>
-
                                         @Html.LabelFor(model => model.Position_Information.Months, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Information.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Position_Information.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+
                                             @Html.ValidationMessageFor(model => model.Position_Information.Months, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.working_system, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Information.working_system, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Position_Information.working_system, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.working_system, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.Position_status, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Information.Position_status, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Position_Information.Position_status, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Position_status, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -212,28 +217,28 @@
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Information.End_of_service_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Information.End_of_service_date, new { htmlAttributes = new { @class = "form-control",  @readonly = "true" @*datepicker", @id = "dateto"*@ } })
+                                                    @Html.EditorFor(model => model.Position_Information.End_of_service_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.End_of_service_date, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Information.Last_working_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control ", @readonly = "true" @*datepicker", @id = "dateto"*@ } })
+                                                    @Html.EditorFor(model => model.Position_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.Last_working_date, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Information.EOS_reasons, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-8">
-                                                    @Html.EditorFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control", @readonly = "true", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.EOS_reasons, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Information.Commnets, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-8">
-                                                    @Html.EditorFor(model => model.Position_Information.Commnets, new { htmlAttributes = new { @class = "form-control" } })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Information.Commnets, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.Commnets, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -241,12 +246,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Edit" class="btn btn-success" />
-                                            <a href="@Url.Action("index","Employee_Positions_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
-                                        </div>
-                                    </div>
+
                                 </div>
 
 
@@ -255,26 +255,26 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Transaction_Information.Position_transaction_no, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction_no, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction_no, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Position_transaction_no, "", new { @class = "text-danger" })
                                         </div>
 
                                         @Html.LabelFor(model => model.Position_Transaction_Information.Position_transaction, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Position_transaction, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Transaction_Information.Transaction_Type, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Transaction_Type, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Transaction_Type, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Transaction_Type, "", new { @class = "text-danger" })
                                         </div>
 
                                         @Html.LabelFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -293,21 +293,21 @@
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Transaction_Information.Resolution_number, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Resolution_number, "", new { @class = "text-danger" })
                                                 </div>
 
                                                 @Html.LabelFor(model => model.Position_Transaction_Information.Resolution_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Resolution_date, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Transaction_Information.Activity_number, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                <div class="col-md-8">
-                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Activity_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Activity_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Activity_number, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -316,13 +316,13 @@
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Position_Transaction_Information.Memo_number, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Memo_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Memo_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Memo_number, "", new { @class = "text-danger" })
                                                 </div>
 
                                                 @Html.LabelFor(model => model.Position_Transaction_Information.Memo_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Memo_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.EditorFor(model => model.Position_Transaction_Information.Memo_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Memo_date, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -343,7 +343,7 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Position_Transaction_Information.Recommended_by, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Position_Transaction_Information.Recommended_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.Position_Transaction_Information.Recommended_by, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Recommended_by, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -351,14 +351,19 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Position_Transaction_Information.Approved_by, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Position_Transaction_Information.Approved_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.Position_Transaction_Information.Approved_by, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Approved_by, "", new { @class = "text-danger" })
                                                     </div>
-
                                                     @Html.LabelFor(model => model.Position_Transaction_Information.Approved_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Position_Transaction_Information.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                        @Html.EditorFor(model => model.Position_Transaction_Information.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Approved_date, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-offset-2 col-md-10">
+                                                        <input type="submit" value="Edit" class="btn btn-success" />
+                                                        <a href="@Url.Action("index","Employee_Positions_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,210 +384,15 @@
 
 @section scripts{}
 
-<script>
-     @*<div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="edit" class="btn btn-success" />
-                                            <a href="@url.action("index","employee_positions_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>back</a>
-
-                                        </div>
-                                    </div>*@
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
 
 
 <script>
-        function CountryName() {
-            debugger
-            var id = $("#country").val();
+    $(document).ready(function () {
 
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetJobtitle",
-                dataType: "json",
-                data: { "id": id },
-                success: function (result) {
-                    debugger
-
-                    $("#countryname1").val(result.name);
-                    $("#area").removeAttr("disabled");
-               //     areaName(result.Organization_unit_codeID.worklocationid)
-                    areaname(result.joblevelsetupID)
-
-                    getter(result.ID)
-                    getstate(result.Organization_unit_codeID)
-                },
-                error: function () {
-                    debugger
-                    $("#countryname1").val(" ");
-                }
-            });
-        }
-        CountryName()
-        function areaname(did) {
-            debugger
-
-            $.ajax({
-                type: "post",
-                url: "/helper/getjoblevel",
-                data: { "id": did },
-                success: function (result) {
-                    debugger
-                    $("#ter").removeAttr("disabled");
-                    $("#area").select2("val", result.ID);
-                    $("#areaname1").val(result.Name);
-                    $("#area").attr("readonly", true);
-                    $("#area").prop("readonly", true);
-                },
-                error: function () {
-                    debugger
-                    $("#areaname1").val(" ");
-                }
-            });
-        }
-        //areaname(did)
-        function getter(did) {
-            debugger
-            var oo = $("#employeeId").val();
-            var id = $("#ter").val();
-
-            //$("#citeid").empty();
-            //$("#citeid").select2("val", "");
-            //$("#cityname").val(" ");
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetJobSolts",
-                data: { "id": did,"did":oo },
-                success: function (result) {
-                    debugger
-                    var finalresult="";
-                    finalresult = "<option value='0' > Choose Slot desc </option>";
-                    $.each(result, function (key, value) {
-                        if (value.ID == parseInt(@Model.Position_Information.SlotdescId)) {
-                            finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-                        }
-                        else {
-                            finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-                        }
-                        //"--"+ value.slot_description +
-                    });
-                    $("#ter").html(finalresult);
-                    //      $("#citeid").removeAttr("disabled");
-                    //$("#ter").select2("val", result.ID);
-                    slot();
-                //    getallcite(result.ID);
-                    $("#state").removeAttr("disabled");
-
-                },
-                error: function () {
-                    debugger
-                    $("#tername").val(" ");
-                }
-            });
-        }
-        slot();
-        function slot()
-        {
-            debugger
-            var id = $("#ter").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetSolt",
-                data: { "id": id },
-                success: function (result) {
-                    debugger
-                    $("#tername").val(result.slot_code);
-                },
-                error: function () {
-                    debugger
-                    $("#tername").val(" ");
-                }
-            });
-        }
-        //getter(did)
-        function getstate(did)
-        {
-            debugger
-       //     var id = $("#state").val();
-            //$("#ter").empty();
-            //$("#citeid").empty();
-            //$("#ter").select2("val", "");
-            //$("#citeid").select2("val", "");
-            //$("#tername").val(" ");
-            //$("#cityname").val(" ");
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetOrganizationChart",
-                data: { "id": did },
-                success: function (result) {
-                    debugger
-                    $("#state").select2("val", result.ID);
-
-                    $("#citeid").removeAttr("disabled");
-                    $("#statename").val(result.unit_Description);
-                    getcite(result.worklocationid)
-                    getcite2(result.worklocationid)
-                    $("#state").attr("readonly", true);
-                    $("#state").prop("readonly", true);
-                },
-                error: function () {
-                    debugger
-                    $("#statename").val(" ");
-                }
-            });
-        }
-        //getstate(did)
-
-        function getcite(did) {
-            debugger
-        //    var id = $("#citeid").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetWorklocation",
-                data: { "id": did },
-                success: function (result) {
-                    debugger
-
-                    $("#citeid").select2("val", result.ID);
-                    $("#cityname").val(result.Name);
-                    $("#citeid").attr("readonly", true);
-                    $("#citeid").prop("readonly", true);
-                    $("#citeid2").removeAttr("disabled");
-                },
-                error: function () {
-                    debugger
-                    $("#cityname").val(" ");
-                }
-            });
-        }
-        //getcite(did)
-        function getcite2(did) {
-            debugger
-            //    var id = $("#citeid").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetWorklocation",
-                data: { "id": did },
-                success: function (result) {
-                    debugger
-
-                    $("#citeid2").select2("val", result.ID);
-                    $("#cityname2").val(result.Name);
-
-                },
-                error: function () {
-                    debugger
-                    $("#cityname2").val(" ");
-                }
-            });
-        }
-        //getcite2(did)
+        Save();
+        Save2();
+    });
 </script>
-
-
-
 <script>
     function employee() {
         debugger
@@ -595,10 +405,8 @@
                 debugger
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
-
-           //     $("#employeeId").prop("readonly", true);
-           //     $("#employeeId").attr("readonly", true);
-
+                $("#employeeId").attr("readonly", true);
+                $("#employeeId").prop("readonly", true);
             },
             error: function () {
                 debugger
@@ -607,5 +415,212 @@
             }
         });
     }
-    employee();
+    function CountryName() {
+        debugger
+        var id = $("#country").val();
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetJobtitle",
+            dataType: "json",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#countryname1").val(result.name);
+                $("#area").removeAttr("disabled");
+                //     areaName(result.Organization_unit_codeID.worklocationid)
+                areaname(result.joblevelsetupID)
+
+                getter(result.ID)
+                getstate(result.Organization_unit_codeID)
+            },
+            error: function () {
+                debugger
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    CountryName()
+    function areaname(did) {
+        debugger
+
+        $.ajax({
+            type: "post",
+            url: "/helper/getjoblevel",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+                $("#ter").removeAttr("disabled");
+                $("#area").select2("val", result.ID);
+                $("#areaname1").val(result.Name);
+                $("#area").attr("readonly", true);
+                $("#area").prop("readonly", true);
+            },
+            error: function () {
+                debugger
+                $("#areaname1").val(" ");
+            }
+        });
+    }
+    function getter(did) {
+        debugger
+        var oo = $("#employeeId").val();
+        var id = $("#ter").val();
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetJobSolts",
+            data: { "id": did, "did": oo },
+            success: function (result) {
+                debugger
+                var finalresult = "";
+                finalresult = "<option value='0' > Choose Slot desc </option>";
+                $.each(result, function (key, value) {
+                    if (value.ID == parseInt(@Model.Position_Information.SlotdescId)) {
+                        finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    }
+                    else {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    }
+                    //"--"+ value.slot_description +
+                });
+                $("#ter").html(finalresult);
+                //      $("#citeid").removeAttr("disabled");
+                //$("#ter").select2("val", result.ID);
+                slot();
+                //    getallcite(result.ID);
+                $("#state").removeAttr("disabled");
+
+            },
+            error: function () {
+                debugger
+                $("#tername").val(" ");
+            }
+        });
+    }
+    function slot() {
+        debugger
+        var id = $("#ter").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSolt",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#tername").val(result.slot_code);
+            },
+            error: function () {
+                debugger
+                $("#tername").val(" ");
+            }
+        });
+    }
+    function getstate(did) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetOrganizationChart",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+                $("#state").select2("val", result.ID);
+
+                $("#citeid").removeAttr("disabled");
+                $("#statename").val(result.unit_Description);
+                getcite(result.worklocationid)
+                getcite2(result.worklocationid)
+                $("#state").attr("readonly", true);
+                $("#state").prop("readonly", true);
+            },
+            error: function () {
+                debugger
+                $("#statename").val(" ");
+            }
+        });
+    }
+
+    function getcite(did) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetWorklocation",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+
+                $("#citeid").select2("val", result.ID);
+                $("#cityname").val(result.Name);
+                $("#citeid").attr("readonly", true);
+                $("#citeid").prop("readonly", true);
+                $("#citeid2").removeAttr("disabled");
+            },
+            error: function () {
+                debugger
+                $("#cityname").val(" ");
+            }
+        });
+    }
+
+    function getcite2(did) {
+        debugger
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetWorklocation",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+
+                $("#citeid2").select2("val", result.ID);
+                $("#cityname2").val(result.Name);
+
+            },
+            error: function () {
+                debugger
+                $("#cityname2").val(" ");
+            }
+        });
+    }
+    function Save() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+    function Save2() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
 </script>
+

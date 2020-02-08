@@ -27,17 +27,18 @@ namespace HR.Models
         [Display(Name = "Employment type")]
         public Employment_type Employment_type { get; set; } = Employment_type.Fulltime;
         [Display(Name = "Contract start date ")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Contract_start_date { get; set; }
         [Display(Name = "Contract end date ")]
-        [DisplayFormat(DataFormatString = "{0:C}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Contract_end_date { get; set; }
         public int Years { get; set; }
         public int Months { get; set; }
         [Display(Name = "Approved date ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Approved_date { get; set; }
         public string Notes { get; set; }
-
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Display(Name = "Medical date ")]
         public DateTime Medical_date { get; set; }
         [Display(Name = "Medical entity name")]
@@ -51,7 +52,7 @@ namespace HR.Models
         public Medical_commite_recomindation Medical_commite_recomindation { get; set; } = Medical_commite_recomindation.Fit;
         public Medical_commite_recomindation Result { get; set; } = Medical_commite_recomindation.Fit;
 
-        [Display(Name = "Days_Balance")]
+        [Display(Name = "Days Balance")]
         public int Days_Balance { get; set; }
         [Display(Name = "Days Per Period")]
         public int Days_Per_Period { get; set; }

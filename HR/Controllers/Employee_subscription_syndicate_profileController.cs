@@ -62,7 +62,7 @@ namespace HR.Controllers
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
-                ViewBag.idemp = model.ID;
+                ViewBag.idemp = model.Employee_ProfileId;
 
                 if (ModelState.IsValid)
                 {
@@ -155,7 +155,7 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
 
-                ViewBag.idemp = model.ID;
+                ViewBag.idemp = model.Employee_ProfileId;
 
                 var record = dbcontext.Employee_subscription_syndicate_profile.FirstOrDefault(m => m.ID == model.ID);
                 record.Code = model.Code;

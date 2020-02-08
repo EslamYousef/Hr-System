@@ -23,7 +23,9 @@ namespace HR.Models
         [Display(Name = "Vehicle plate number ")]
         public string Vehicle_plate_number { get; set; }
         [Display(Name = "From date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime From_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Display(Name = "To date")]
         public DateTime To_date { get; set; }
         public string Comments { get; set; }

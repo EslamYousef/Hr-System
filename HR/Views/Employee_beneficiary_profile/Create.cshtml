@@ -6,20 +6,24 @@
 }
  
 @Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
 <script>
     debugger
     $(function () {
-
+        $("#tb-family").hide();
         $("#ss").click(function () {
             debugger
             var Family_profile = $("#employeeId3").val();
+            var Beneficiary=$("#employeeId2").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/getfamilybyemployee",
                 data: { "id": Family_profile },
                 success: function (result) {
                     debugger
-                    if (Family_profile != "") {
+
+                    if (Family_profile != "" && Beneficiary != "") {
+                        $("#tb-family").show();
                         var T = "";
                         T = "<tr><td><input type='text' readonly name='Family_profile_No2' value='" + result.Code + "'/></td><td><input type='text' readonly name='Family_name' value='" + result.Name + "'/></td><td><input type='number' name='Percentage' value='0'  /></td><td><input type='button' class='del-btn tb-btn' value='Remove'/></td></tr>"
                         $("#tb-family").append(T)
@@ -27,10 +31,22 @@
                 }
             })
             $("#tb-family").on('click', '.del-btn', function () {
-                $(this).closest('tr').remove();
+               $(this).closest('tr').remove();
 
+                //var trcount = $(this).closest('tbody')[0].childElementCount; 
+                //if (trcount > 0) {
+                //    $(this).closest('tr').remove();
+                //    // condition 
+                //    trcount == 1 ? trcount-- : trcount;
+                //    // when trcount or row Equal 0 , Empty tfoot
+                //    if (trcount == 0) {
+                //        $("#fa")[0].innerText = "";
+                //        $("#na")[0].innerText = "";
+                //        $("#per")[0].innerText = "";
+                //        $("#De")[0].innerText = "";
+                //    }
+                //}
             })
-
 
 
 
@@ -124,10 +140,13 @@
 
                                 </div>
                             </div>
-                            <table id="tb-family" border="1">
+                            <table id="tb-family" border="1" style="display: table; width:400px;" >
                                 <thead>
                                     <tr>
-                                        <th>Family Profile No.</th><th>Family Name</th><th>Percentage</th><th>Delete</th>
+                                        <th id="fa">Family Profile No.</th>
+                                        <th id="na">Family Name</th>
+                                        <th id="per">Percentage</th>
+                                        <th id="De">Delete</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -153,11 +172,7 @@
 </div>
 
 @section scripts{}
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
+
 
 <script>
     function employee() {
@@ -181,10 +196,6 @@
             }
         });
     }
-    employee();
-</script>
-
-<script>
     function employee2() {
         debugger
         var id = $("#employeeId2").val();
@@ -203,10 +214,7 @@
             }
         });
     }
-    employee2();
-</script>
-
-<script>
+   
     function employee3() {
         debugger
         var id = $("#employeeId3").val();
@@ -225,13 +233,5 @@
             }
         });
     }
-    employee3();
+
 </script>
-
-
-
-
-
-
-
-

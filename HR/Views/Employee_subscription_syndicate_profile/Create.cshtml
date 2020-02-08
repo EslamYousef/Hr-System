@@ -7,7 +7,6 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 
-
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -39,6 +38,9 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                                @Html.HiddenFor(m => m.Employee_ProfileId);
+
                         <div>
 
                             <div class="form-group">
@@ -81,7 +83,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Subscription_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Subscription_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Subscription_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Subscription_date, "", new { @class = "text-danger" })
                                         </div>                             
                                     </div>
@@ -89,12 +91,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Employee_pay, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Employee_pay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.Employee_pay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.Employee_pay, "", new { @class = "text-danger" })
                                             </div>
                                             @Html.LabelFor(model => model.Company_pay, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Company_pay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.Company_pay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.Company_pay, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -102,12 +104,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Start_year_of_deduction, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Start_year_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.Start_year_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.Start_year_of_deduction, "", new { @class = "text-danger" })
                                             </div>
                                             @Html.LabelFor(model => model.Start_month_of_deduction, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Start_month_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.Start_month_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.Start_month_of_deduction, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -115,24 +117,24 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.End_year_of_deduction, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.End_year_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.End_year_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.End_year_of_deduction, "", new { @class = "text-danger" })
                                             </div>
                                             @Html.LabelFor(model => model.End_month_of_deduction, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.End_month_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.End_month_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.End_month_of_deduction, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Beneficiary_period, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Beneficiary_period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                @Html.EditorFor(model => model.Beneficiary_period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.Beneficiary_period, "", new { @class = "text-danger" })
                                             </div>
                                             @Html.LabelFor(model => model.Referance_number, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Referance_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Referance_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                 @Html.ValidationMessageFor(model => model.Referance_number, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -140,12 +142,12 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Last_date_paid, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Last_date_paid, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                        @Html.EditorFor(model => model.Last_date_paid, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Last_date_paid, "", new { @class = "text-danger" })
                                                     </div>
                                                     @Html.LabelFor(model => model.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control ", @type = "number", @min = "0" } })
+                                                        @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control ", @type = "number", @min = "0", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Balance, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -153,14 +155,14 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Pay_to_entity, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Pay_to_entity, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.Pay_to_entity, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Pay_to_entity, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Pay_to_entity_type, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Pay_to_entity_type, new { htmlAttributes = new { @class = "form-control", } })
+                                                        @Html.EditorFor(model => model.Pay_to_entity_type, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
 
                                                         @Html.ValidationMessageFor(model => model.Pay_to_entity_type, "", new { @class = "text-danger" })
                                                     </div>
@@ -170,13 +172,13 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Subscription_value_type, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EnumDropDownListFor(model => model.Subscription_value_type, new { htmlAttributes = new { @class = "form-control", } })
+                                                        @Html.EnumDropDownListFor(model => model.Subscription_value_type ,  new { @class = "select2"  })
 
                                                         @Html.ValidationMessageFor(model => model.Subscription_value_type, "", new { @class = "text-danger" })
                                                     </div>
                                                     @Html.LabelFor(model => model.Membership, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Membership, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EditorFor(model => model.Membership, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Membership, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -184,13 +186,13 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Subscription_fees, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Subscription_fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                        @Html.EditorFor(model => model.Subscription_fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Subscription_fees, "", new { @class = "text-danger" })
                                                     </div>
 
                                                     @Html.LabelFor(model => model.Subscription_in_house, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.CheckBoxFor(model => model.Subscription_in_house, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.CheckBoxFor(model => model.Subscription_in_house, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Subscription_in_house, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -198,48 +200,44 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Is_family_subscribed, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.CheckBoxFor(model => model.Is_family_subscribed, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.CheckBoxFor(model => model.Is_family_subscribed, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Is_family_subscribed, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Family_subscription_fees, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Family_subscription_fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0" } })
+                                                        @Html.EditorFor(model => model.Family_subscription_fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Family_subscription_fees, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Membership_type, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EnumDropDownListFor(model => model.Membership_type, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.EnumDropDownListFor(model => model.Membership_type,  new { @class = "select2",id= "membership"  , onclick = "drop()" })
                                                         @Html.ValidationMessageFor(model => model.Membership_type, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Boarder_election_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                        @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control datepicker boarder", @id = "dateto", @autocomplete = "off", @*disabled = "disabled"*@ } })
+                   
                                                         @Html.ValidationMessageFor(model => model.Boarder_election_date, "", new { @class = "text-danger" })
                                                     </div>
                                                     @Html.LabelFor(model => model.Head_election_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                        @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control datepicker head", @id = "dateto", @autocomplete = "off", @*disabled= "disabled"*@ hidden = "hidden" } })
                                                         @Html.ValidationMessageFor(model => model.Head_election_date, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Contact_detail, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.TextAreaFor(model => model.Contact_detail, 4, 60, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.TextAreaFor(model => model.Contact_detail, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Contact_detail, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-
-
-
                                                 <div class="form-group">
                                                     <div class="col-md-offset-2 col-md-10">
                                                         <input type="submit" value="Create" class="btn btn-success" />
@@ -308,6 +306,28 @@
 
             }
         });
+    }
+    function drop() {
+        debugger
+        var member = $("#membership").val();
+        if (member == 1) {
+            $(".boarder").attr('disabled', true);
+            $(".head").attr('disabled', true);
+        }
+        else if (member == 2) {
+            debugger
+            //$(".boarder").removeattr('disabled');
+            //$(".head").attr('disabled', true);
+            $(".boarder").show();
+            $(".head").hide();
+         
+        }
+        else if (member == 3) {
+            //$(".head").removeAttr('disabled');
+            //$(".boarder").attr('disabled', true);
+            $(".boarder").hide();
+            $(".head").show();
+        }
     }
 </script>
 
