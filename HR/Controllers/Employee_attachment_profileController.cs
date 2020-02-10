@@ -51,12 +51,12 @@ namespace HR.Controllers
             DateTime statis = Convert.ToDateTime("1/1/1900");
             var ID = int.Parse(id);
             var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeAttachment = new Employee_attachment_profile { Employee_ProfileId = emp.ID, Code = stru.Structure_Code + count.ToString(), Expiry_date = statis, Issue_date = statis };
+            var EmployeeAttachment = new Employee_attachment_profile { Employee_Profile = emp, Employee_ProfileId = emp.ID, Code = stru.Structure_Code + count.ToString(), Expiry_date = statis, Issue_date = statis };
             return View(EmployeeAttachment);
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_attachment_profile model, string command, HttpPostedFileBase MyItem,int File)
+        public ActionResult Create(Employee_attachment_profile model, string command, HttpPostedFileBase MyItem)
         {
             try
             {
@@ -66,14 +66,18 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Documents = dbcontext.Documents.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
-                ViewBag.idemp = model.ID;
-
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+                Employee_attachment_profile record = new Employee_attachment_profile();
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == 0 ? model.Employee_ProfileId = EmpObj.ID : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
                 if (ModelState.IsValid)
                 {
                     //  var family = int.Parse(model.Employee_ProfileId);
                     //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == family);
                     //      var record = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == emp.Employee_family_profile.ID);
-                    Employee_attachment_profile record = new Employee_attachment_profile();
+
+               
                    
                     record.Code = model.Code;
                     record.Is_copy = model.Is_copy;
@@ -84,8 +88,8 @@ namespace HR.Controllers
                     record.Reference_number = model.Reference_number;
                     record.Document_number = model.Document_number;
                     record.Document_description = model.Document_description;
-              record.Employee_ProfileId=   model.Employee_ProfileId;
-                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_ProfileId);
+
+                    record.Employee_Profile = EmpObj;
                     record.DocumentsId = model.DocumentsId;
                     record.Documents = dbcontext.Documents.FirstOrDefault(m => m.ID == model.DocumentsId);
                     record.Issue_date = model.Issue_date;
@@ -100,7 +104,7 @@ namespace HR.Controllers
                     record.Comments = model.Comments;
 
                     var fileId = 1;
-                    File = fileId + 1;
+                     var  File = fileId + 1;
 
                     string folderpath = Server.MapPath("~/files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
                     Directory.CreateDirectory(folderpath + File);
@@ -108,15 +112,15 @@ namespace HR.Controllers
                     string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
                     MyItem.SaveAs(mypath + "/" + filename);
                     model.Attachmentfile = filename;
-                    record.Attachmentfile = model.Attachmentfile;
+                    //record.Attachmentfile = model.Attachmentfile;
 
                     dbcontext.Employee_attachment_profile.Add(record);
                     dbcontext.SaveChanges();
                     if (command == "Submit")
                     {
-                        return RedirectToAction("edit", "Employee_Profile", new { id =record.Employee_ProfileId});
+                        return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
                     }
-                    return RedirectToAction("Index", new { id = model.Employee_ProfileId });
+                    return RedirectToAction("Index", new { id = EmpObj.ID });
                 }
                 else
                 {
@@ -164,7 +168,8 @@ namespace HR.Controllers
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Documents = dbcontext.Documents.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.ID;
+                //   ViewBag.idemp = model.Employee_ProfileId;
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
                 var record = dbcontext.Employee_attachment_profile.FirstOrDefault(m => m.ID == model.ID);
 
@@ -177,8 +182,10 @@ namespace HR.Controllers
                 record.Reference_number = model.Reference_number;
                 record.Document_number = model.Document_number;
                 record.Document_description = model.Document_description;
-                record.Employee_ProfileId = model.Employee_ProfileId;
-                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_ProfileId);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == 0 ? model.Employee_ProfileId = EmpObj.ID : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
                 record.DocumentsId = model.DocumentsId;
                 record.Documents = dbcontext.Documents.FirstOrDefault(m => m.ID == model.DocumentsId);
                 record.Issue_date = model.Issue_date;
@@ -207,9 +214,9 @@ namespace HR.Controllers
 
                 if (command == "Submit")
                 {
-                    return RedirectToAction("edit", "Employee_Profile", new { id = record.Employee_ProfileId});
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
                 }
-                return RedirectToAction("index", new { id = model.Employee_ProfileId });
+                return RedirectToAction("index", new { id = EmpObj.ID });
             }
             catch (DbUpdateException)
             {

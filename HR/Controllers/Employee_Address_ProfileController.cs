@@ -46,7 +46,7 @@ namespace HR.Controllers
 
             var ID = int.Parse(id);
             var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeAddress = new Employee_Address_Profile { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() };
+            var EmployeeAddress = new Employee_Address_Profile { Employee_Profile=emp,Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() };
             return View(EmployeeAddress);
 
         }
@@ -55,14 +55,13 @@ namespace HR.Controllers
         {
             try
             {
-                if (model.countryid == null) { model.countryid = "0"; }
-                if (model.areaid == null) { model.areaid = "0"; }
-                if (model.stateid == null) { model.stateid = "0"; }
+                //if (model.countryid == null) { model.countryid = "0"; }
+                //if (model.areaid == null) { model.areaid = "0"; }
+                //if (model.stateid == null) { model.stateid = "0"; }
                 if (model.Territoriesid == null) { model.Territoriesid = "0"; }
                 if (model.citiesid == null) { model.citiesid = "0"; }
                 if (model.postcodeId == null) { model.postcodeId = "0"; }
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.ID;
                 ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.the_states = dbcontext.the_states.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -74,12 +73,12 @@ namespace HR.Controllers
 
                 //if (ModelState.IsValid)
                 //{
-                //       var prof = int.Parse(model.Employee_ProfileId);
-                //        var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+                    //     var prof = int.Parse(model.Employee_ProfileId);
+                    //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
 
-                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+                    var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
-                Employee_Address_Profile record = new Employee_Address_Profile();
+                    Employee_Address_Profile record = new Employee_Address_Profile();
                 record.Resident = model.Resident;
                 record.Code = model.Code;
                 record.Streetname = model.Streetname;
@@ -88,11 +87,13 @@ namespace HR.Controllers
                 record.DistancefromMeetingpointtoworklocationkm = model.DistancefromMeetingpointtoworklocationkm;
                 record.Distancetoworklocationkm = model.Distancetoworklocationkm;
                 record.Transportation_method = model.Transportation_method;
-                var empid = EmpObj.Code + "------" + EmpObj.Name;
-                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = empid : model.Employee_ProfileId;
-                // var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
-                record.countryid = model.countryid;
+
+                    var empid = EmpObj.Code + "------" + EmpObj.Name;
+                    record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+
+                    record.countryid = model.countryid;
                 var Countryid = int.Parse(model.countryid);
                 record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);
                 record.areaid = model.areaid;
@@ -122,8 +123,8 @@ namespace HR.Controllers
                 //{
                 //    return View(model);
                 //}
-                return View(model);
-            }
+            return View(model);
+        }
             catch (DbUpdateException e)
             {
                 TempData["Message"] = "this code Is already exists";
@@ -139,13 +140,13 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.the_states = dbcontext.the_states.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == id);
                 ViewBag.idemp = record.Employee_Profile.ID.ToString();
 
@@ -168,12 +169,13 @@ namespace HR.Controllers
         {
             try
             {
-                if (model.countryid == null) { model.countryid = "0"; }
-                if (model.areaid == null) { model.areaid = "0"; }
-                if (model.stateid == null) { model.stateid = "0"; }
+                //if (model.countryid == null) { model.countryid = "0"; }
+                //if (model.areaid == null) { model.areaid = "0"; }
+                //if (model.stateid == null) { model.stateid = "0"; }
                 if (model.Territoriesid == null) { model.Territoriesid = "0"; }
                 if (model.citiesid == null) { model.citiesid = "0"; }
                 if (model.postcodeId == null) { model.postcodeId = "0"; }
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
                 ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Area = dbcontext.Area.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -181,11 +183,11 @@ namespace HR.Controllers
                 ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.ID;
+           //     ViewBag.idemp = model.Employee_ProfileId;
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == model.ID);
-                var emp = record.Employee_Profile;
+           //     var emp = record.Employee_Profile;
                 record.Code = model.Code;
                 record.Resident = model.Resident;
                 record.Streetname = model.Streetname;
@@ -194,8 +196,12 @@ namespace HR.Controllers
                 record.DistancefromMeetingpointtoworklocationkm = model.DistancefromMeetingpointtoworklocationkm;
                 record.Distancetoworklocationkm = model.Distancetoworklocationkm;
                 record.Transportation_method = model.Transportation_method;
-                record.Employee_ProfileId = model.Employee_ProfileId;
-                var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+
+                //                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
                 record.countryid = model.countryid;
                 var Countryid = int.Parse(model.countryid);
                 record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);
@@ -219,9 +225,9 @@ namespace HR.Controllers
 
                 if (command == "Submit")
                 {
-                    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
                 }
-                return RedirectToAction("index", new { id = model.Employee_ProfileId });
+                return RedirectToAction("index", new { id = EmpObj.ID });
             }
             catch (DbUpdateException)
             {

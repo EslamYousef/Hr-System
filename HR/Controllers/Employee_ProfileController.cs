@@ -407,7 +407,7 @@ namespace HR.Controllers
                     }
                     if (command2 == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_Qualification_Profile", new { id = emp.ID });
+                        return RedirectToAction("Edit", "Employee_Qualification_Profile", new { id = emp.ID });
                     }
                     if (command3 == "Submit")
                     {
@@ -526,7 +526,7 @@ namespace HR.Controllers
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
 
                 record.Code = model.Employee_Profile.Code;
-                record.Name = model.Employee_Profile.Name;
+                 record.Name = model.Employee_Profile.Name;
                 record.Full_Name = model.Employee_Profile.Full_Name;
                 record.Surname = model.Employee_Profile.Surname;
                 record.Arabic = model.Employee_Profile.Arabic;

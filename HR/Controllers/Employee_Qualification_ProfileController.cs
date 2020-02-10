@@ -132,6 +132,11 @@ namespace HR.Controllers
                     record.Related_to_job = model.Related_to_job;
                     record.Qualification_start_date = model.Qualification_start_date;
                     record.Qualification_end_date = model.Qualification_end_date;
+                    if (model.Qualification_start_date > model.Qualification_end_date)
+                    {
+                        TempData["Message"] = "Qualification start date bigger Qualification end date";
+                        return View(model);
+                    }
                     record.Years = model.Years;
                     record.Months = model.Months;
                     record.Extra_education_years = model.Extra_education_years;
@@ -187,6 +192,7 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_category = dbcontext.Educate_category.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_Title = dbcontext.Educate_Title.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Main_Educate_body = dbcontext.Main_Educate_body.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -194,7 +200,6 @@ namespace HR.Controllers
                 ViewBag.Name_of_educational_qualification = dbcontext.Name_of_educational_qualification.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Qualification_Major = dbcontext.Qualification_Major.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 {
@@ -215,6 +220,7 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_category = dbcontext.Educate_category.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_Title = dbcontext.Educate_Title.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Main_Educate_body = dbcontext.Main_Educate_body.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -222,13 +228,19 @@ namespace HR.Controllers
                 ViewBag.Name_of_educational_qualification = dbcontext.Name_of_educational_qualification.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Qualification_Major = dbcontext.Qualification_Major.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
-                if (model.Employee_ProfileId == "0" || model.Employee_ProfileId == null)
-                {
-                    ModelState.AddModelError("", "Employee Profile Code must enter");
-                    return View(model);
-                }
+
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+
+                var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == model.ID);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                var empl = record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+
+                //if (model.Employee_ProfileId == "0" || model.Employee_ProfileId == null)
+                //{
+                //    ModelState.AddModelError("", "Employee Profile Code must enter");
+                //    return View(model);
+                //}
                 if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
                 {
                     ModelState.AddModelError("", "Educate category Code must enter");
@@ -265,17 +277,20 @@ namespace HR.Controllers
                     return View(model);
                 }
               
-               var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == model.ID);
-                   record.Code = model.Code;
+                record.Code = model.Code;
                 record.Related_to_job = model.Related_to_job;
                 record.Qualification_start_date = model.Qualification_start_date;
                 record.Qualification_end_date = model.Qualification_end_date;
+                if (model.Qualification_start_date > model.Qualification_end_date)
+                {
+                    TempData["Message"] = "Qualification start date bigger Qualification end date";
+                    return View(model);
+                }
                 record.Years = model.Years;
                 record.Months = model.Months;
                 record.Extra_education_years = model.Extra_education_years;
                 record.Allowance_value = model.Allowance_value;
-                record.Employee_ProfileId = model.Employee_ProfileId;
-                var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+
                 record.Educate_categoryId = model.Educate_categoryId;
                 var Educate_categoryId = int.Parse(model.Educate_categoryId);
                 record.Educate_category = dbcontext.Educate_category.FirstOrDefault(m => m.ID == Educate_categoryId);

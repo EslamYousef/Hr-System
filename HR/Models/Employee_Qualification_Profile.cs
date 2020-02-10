@@ -20,8 +20,10 @@ namespace HR.Models
         [Display(Name = "Related to job")]
         public bool Related_to_job { get; set; }
         [Display(Name = "Qualification start date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Qualification_start_date { get; set; }
         [Display(Name = "Qualification end date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Qualification_end_date { get; set; }
         public int Years { get; set; }
         public int Months { get; set; }

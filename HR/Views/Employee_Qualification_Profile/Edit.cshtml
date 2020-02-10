@@ -46,8 +46,8 @@
                             @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="employeename" disabled />
+                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
+                     
                             </div>
                             <div class="col-md-4" style="color:black">
                                 <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
@@ -68,17 +68,16 @@
                         </div>
 
 
-
                         <div class="form-group">
                             @Html.LabelFor(model => model.Qualification_start_date, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Qualification_start_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.EditorFor(model => model.Qualification_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Qualification_start_date, "", new { @class = "text-danger" })
                             </div>
-
                             @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
+
                                 @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -86,16 +85,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Qualification_end_date, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Qualification_end_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.EditorFor(model => model.Qualification_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Qualification_end_date, "", new { @class = "text-danger" })
                             </div>
                             @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+
                                 @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Educate_categoryId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -103,8 +102,7 @@
 
                                 @Html.DropDownListFor(m => m.Educate_categoryId, new SelectList(ViewBag.Educate_category, "ID", "Code"), "Select Educate category", new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                 @Html.ValidationMessageFor(model => model.Educate_categoryId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname" disabled />
-
+                       
                             </div>
                         </div>
                         <div class="form-group">
@@ -112,8 +110,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Educate_TitleId, new SelectList(ViewBag.Educate_Title, "ID", "Code"), "Select Educate Title", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Educate_TitleId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="areaname" disabled />
-
+                    
                             </div>
                         </div>
                         <div class="form-group">
@@ -121,7 +118,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Main_Educate_bodyId, new SelectList(ViewBag.Main_Educate_body, "ID", "Code"), "Select Main Educate body", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Main_Educate_bodyId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="statename" disabled />
+                         
 
                             </div>
                         </div>
@@ -130,7 +127,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Sub_educational_bodyId, new SelectList(ViewBag.Sub_educational_body, "ID", "Code"), "Select Sub educational body", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Sub_educational_bodyId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="tername" disabled />
+                       
 
                             </div>
                         </div>
@@ -139,7 +136,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Name_of_educational_qualificationId, new SelectList(ViewBag.Name_of_educational_qualification, "ID", "Code"), "Select Name of educational qualification", new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="cityname" disabled />
+           
 
                             </div>
                         </div>
@@ -148,7 +145,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Qualification_MajorId, new SelectList(ViewBag.Qualification_Major, "ID", "Code"), "Select Qualification Major", new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Qualification_MajorId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="postname" disabled />
+                             
 
                             </div>
                         </div>
@@ -159,7 +156,7 @@
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.GradeEducateId, new SelectList(ViewBag.GradeEducate, "ID", "Code"), "Select Grade Educate ", new { @class = "select2", @onchange = "GradeEducate()", id = "GradeEducateId", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.GradeEducateId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="GradeEducatename" disabled />
+
 
                             </div>
                         </div>
@@ -201,9 +198,11 @@
 @section scripts{}
 
 <script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+        Save();
+        Save2();
+    });
 </script>
 
 
@@ -249,30 +248,7 @@
             }
         });
     }
-    //function getallarea(id)
-    //{
-    //    debugger
-    //   var countryname=
-    //   $.ajax({
-    //      type: "post",
-    //      url: "/Helper/getareabycountry",
-    //      data: { "id": id, "flag": "0" },
-    //      success: function (result) {
-    //          debugger
-    //          $("#area").removeAttr("disabled");
-    //          var finalresult = "<option value='0' > Choose area </option>";
-    //          $.each(result, function (key, value) {
-    //               finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-    //          });
-    //          $("#area").html(finalresult);
-    //          $("#area").select2("val", "0");
-    //      },
-    //      error: function () {
-    //          debugger
-    //          $("#area").val(" ");
-    //      }
-    //  });
-    //}
+
     function areaName() {
         debugger
         var id = $("#area").val();
@@ -308,29 +284,7 @@
             }
         });
     }
-    //function getallstate(id)
-    //{
-    //    debugger
-    //    $.ajax({
-    //        type: "post",
-    //        url: "/Helper/getstatebycountry",
-    //        data: { "id": id, "flag": "0" },
-    //        success: function (result) {
-    //            debugger
-    //            $("#state").removeAttr("disabled");
-    //            var finalresult = "<option value='0' > Choose state </option>";
-    //            $.each(result, function (key, value) {
-    //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-    //            });
-    //            $("#state").html(finalresult);
-    //            $("#state").select2("val", "0");
-    //        },
-    //        error: function () {
-    //            debugger
-    //            $("#state").val(" ");
-    //        }
-    //    });
-    //}
+
     function getstate()
     {
         debugger
@@ -394,14 +348,6 @@
     {
         debugger
         var id = $("#ter").val();
-    //    $("#postal").empty();
-   //     $("#GradeEducateId").empty();
-   //     $("#citeid").select2("val", "");
-    //    $("#postal").select2("val", "");
-  //      $("#GradeEducateId").select2("val", "");
-     //   $("#cityname").val(" ");
-      //  $("#postal").val(" ");
-   //     $("#GradeEducateId").val(" ");
 
         $.ajax({
             type: "post",
@@ -533,11 +479,6 @@
         });
     }
 
-
-</script>
-
-
-<script>
     debugger
     var id = $("#country").val();
     $.ajax({
@@ -653,8 +594,7 @@
         }
     });
 
-</script>
-<script>
+
     function employee() {
         debugger
         var id = $("#employeeId").val();
@@ -672,11 +612,51 @@
             },
             error: function () {
                 debugger
-                $("#employeename").val(" ");
+       //         $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
-    employee();
+    function Save() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
+    function Save2() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
 </script>
 
