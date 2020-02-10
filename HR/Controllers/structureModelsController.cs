@@ -54,7 +54,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "The Model Really Exister";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -72,7 +72,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "This Model Is already exists";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -104,7 +104,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This Model Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)

@@ -83,7 +83,7 @@ namespace HR.Controllers
                     From_date = statis,Last_working_date = statis,To_date = statis,
                     Position_transaction = statis,Approved_date = statis,Memo_date = statis,Resolution_date = statis,
                     job_descId="0",Job_level_gradeId="0",Location_descId="0",Default_location_descId="0",Organization_ChartId="0",SlotdescId="0",
-                    Transaction_type=transaction_type.assignment
+                    Transaction_type=transaction_type.assignment,transaction_date=DateTime.Now.Date,Effective_date=DateTime.Now.Date
                 };
                 var mymodel = new TRANS_VM {personnel_transaction=vm,selected_employee=0 };
                 //    var PositionInformation = new Position_Information();
@@ -274,7 +274,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists  ;
                 return View(model);
             }
             catch (Exception e)
@@ -479,7 +479,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this request can't delete";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow ;
                 return View(request);
             }
             catch (Exception e)

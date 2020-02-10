@@ -21,12 +21,12 @@ namespace HR.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public  int  ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Code")]
        // [Index(IsUnique = true)]
         public string Code { get; set; }
         //[Display(Name = "Name", ResourceType = typeof(Resource1))]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Name")]
         public virtual string Name { get; set; }
         //[Display(Name = "Description", ResourceType = typeof(Resource1))] 

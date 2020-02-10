@@ -10,7 +10,7 @@ namespace HR.Models
     {
         [Display(Name = "Description")]
         public string Skill_Description { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Authority Type")]
         public string Authority_TypeId { get; set; }
         public virtual Authority_Type Authority_Type { get; set; }

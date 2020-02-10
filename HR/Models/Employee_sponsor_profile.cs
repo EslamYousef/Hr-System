@@ -11,11 +11,11 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Employee No.")]
         public int Employee_ProfileId { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Sponsor profile No.")]
         public int SponsorId { get; set; }
         public virtual Sponsor Sponsor { get; set; }

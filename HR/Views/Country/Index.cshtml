@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<HR.Models.Country>
+
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -11,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Country")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new country</a>
+                    <a href="@Url.Action("Create", "Country")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Basic.Create_country</a>
                 </p>
             </div>
 
@@ -24,13 +26,12 @@
                         @TempData["Message"]
                     </div>
                 }
-
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.description</th>
                            
                             <th></th>
                         </tr>
@@ -45,17 +46,17 @@
                                 
                                
                                 <td>
-                                    <a href="@Url.Action("Edit", "Country", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Country", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Country", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Basic.Edit</a>
+                                    <a href="@Url.Action("delete", "Country", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Delete</a>
                                 </td>
                             </tr>
                                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.description</th>
                             <th></th>
                         </tr>
                     </tfoot>

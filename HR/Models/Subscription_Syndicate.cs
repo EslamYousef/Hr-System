@@ -13,10 +13,10 @@ namespace HR.Models
         public int ID { get; set; }
         [Display(Name = "Server Legatees ")]
         public bool Server_Legatees { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription Code")]
         public string Subscription_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription Description")]
         public string Subscription_Description { get; set; }
         [Display(Name = "Subscription Alternative Description")]
@@ -25,7 +25,7 @@ namespace HR.Models
         public string Contact_Detail { get; set; }
         [Display(Name = "Default Subscription Fees")]
         public int Default_Subscription_Fees { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Deduction Period")]
         public Deduction_Period Deduction_Period { get; set; }
         [Required]
@@ -39,7 +39,7 @@ namespace HR.Models
         public string Email { get; set; }
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contact Methods Code")]
         public string Contact_methodsId { get; set; }
         public virtual Contact_methods Contact_methods { get; set; }

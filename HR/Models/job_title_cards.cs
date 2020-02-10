@@ -11,10 +11,10 @@ namespace HR.Models
     public class job_title_cards
     {
         public int ID { get; set; }
-       // [Index(IsUnique = true)]
-        [Required]
+        // [Index(IsUnique = true)]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string name { get; set; }
         public string Description { get; set; }
         public string job_Summery { get; set; }
@@ -23,7 +23,7 @@ namespace HR.Models
       
         public int from_age { get; set; }
         public int to_age { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int num_slots { get; set; }
         //////////////////////////////////////////
         public string parent_job { get; set; }
@@ -31,24 +31,24 @@ namespace HR.Models
         public virtual List<Job_title_sub_class> Job_title_sub_class { get; set; }
         public  List<string> Job_title_sub_classid { get; set; }
         public virtual Nationality Nationality { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string joblevelsetupID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Default_job_title_sub_classID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string nationalityID { get; set; }
         //public virtual List<Organization_Unit_Type> Organization_Unit_Type { get; set; }
         //public List<string> Organization_Unit_TypeID { get; set; }
         /////////////////////////////////////////////enum/////////////////
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public gender gender { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public working_system working_system { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public check_status check_status { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public validity validity { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public parment parment { get; set; }
         //////////////////////////////////////////////////////////////
 
@@ -62,7 +62,7 @@ namespace HR.Models
 
         //////////////////////////
         public virtual Organization_Chart Organization_Chart { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Organization unit code")]
         public string Organization_unit_codeID { get; set; }
 

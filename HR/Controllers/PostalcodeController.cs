@@ -93,7 +93,7 @@ namespace HR.Controllers
             }
             if (model.citiesid =="0"||model.citiesid==null)
             {
-                ModelState.AddModelError("", " City Code must ENTER");
+                ModelState.AddModelError("", HR.Resource.Basic.cityCodemustenter111);
                 return View(model);
             }
             var id = int.Parse(model.Territoriesid);
@@ -108,7 +108,7 @@ namespace HR.Controllers
                     postcode record = new postcode();
                     if (model.citiesid == "0" || model.citiesid == null)
                     {
-                        ModelState.AddModelError("", " City Code must ENTER");
+                        ModelState.AddModelError("", HR.Resource.Basic.cityCodemustenter111);
                         return View(model);
                     }
                     record.Name = model.Name;
@@ -137,7 +137,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -150,7 +150,7 @@ namespace HR.Controllers
             var record = dbcontext.postcode.FirstOrDefault(m => m.ID == id);
             if (record == null)
             {
-                TempData["Message"] = "there is no state";
+                TempData["Message"] = HR.Resource.Basic.thereisnodata;
                 return View();
             }
             ViewBag.country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -207,7 +207,7 @@ namespace HR.Controllers
                 }
                 if (model.citiesid == "0" || model.citiesid == null)
                 {
-                    ModelState.AddModelError("", " City Code must ENTER");
+                    ModelState.AddModelError("", HR.Resource.Basic.cityCodemustenter111);
                     return View(model);
                 }
                 var id = int.Parse(model.Territoriesid);
@@ -247,7 +247,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -262,7 +262,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no postal code";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -286,7 +286,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

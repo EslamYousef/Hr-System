@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Checktype>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Checktype")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Check type</a>
+                    <a href="@Url.Action("Create", "Checktype")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Basic.add_new_check_type</a>
                 </p>
             </div>
 
@@ -29,10 +30,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th>Direction</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.description</th>
+                            <th>@Basic.diraections</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,18 +47,18 @@
                                 <td>@item.Directions</td>
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Checktype", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Checktype", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Checktype", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Basic.Edit</a>
+                                    <a href="@Url.Action("delete", "Checktype", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th>Direction</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.description</th>
+                            <th>@Basic.diraections</th>
                             <th></th>
                         </tr>
                     </tfoot>

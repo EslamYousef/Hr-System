@@ -10,10 +10,10 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Questions Group Code")]
         public string Questions_Group_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Description of")]
         public string Description_of { get; set; }
         [Display(Name = "Description Alternative")]

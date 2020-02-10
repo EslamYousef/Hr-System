@@ -1,5 +1,7 @@
 ﻿@model HR.Models.Qualification_Major
 
+@using HR.Resource;
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -39,8 +41,10 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Educate_Titleid, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-3">
+                            <label class="control-label col-md-3">
+                                @Basic.educate_title
+                            </label>
+                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Educate_Titleid, new SelectList(ViewBag.titleee, "ID", "Code"), "Select Educate Title ", new { @class = "select2", @onchange = "titlee1()", @id = "titlename1" })
                                 @Html.ValidationMessageFor(model => model.Educate_Titleid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="name1" disabled />
@@ -48,8 +52,9 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name_of_educational_qualificationid, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-3">
+                            <label class="control-label col-md-3">
+                                @Basic.Name_of_educational_qualification
+                            </label>  <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Name_of_educational_qualificationid, new SelectList(ViewBag.name, "ID", "Code"), "Select Qualification  ", new { @class = "select2", @onchange = "titlee2()", @id = "titlename2" })
                                 @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="name2" disabled />
@@ -59,23 +64,26 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-3">
+                            <label class="control-label col-md-3">
+                                @Basic.code
+                            </label>  <div class="col-md-3">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-3">
+                            <label class="control-label col-md-3">
+                                @Basic.name
+                            </label> <div class="col-md-3">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-3">
+                            <label class="control-label col-md-3">
+                                @Basic.description
+                            </label> <div class="col-md-3">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
@@ -88,8 +96,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit Qualification speciality" class="btn btn-success" />
-                                <a href="@Url.Action("index","QualificationMajor")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value=@Basic.Create class="btn btn-success" />
+                                <a href="@Url.Action("index","QualificationMajor")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
                             </div>
                         </div>
@@ -103,11 +111,7 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
+
 
 <script>
     function titlee1()

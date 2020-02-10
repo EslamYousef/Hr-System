@@ -1,11 +1,12 @@
 ﻿@model HR.Models.ViewModel.Check_Request_VM
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-<h3>Are you sure you want to delete this Check_Request?</h3>
+<h3>@Basic.message_delete</h3>
 @using (Html.BeginForm("Delete", "Check_Request", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -26,7 +27,10 @@
         @Html.HiddenFor(m => m.check_request_change_status.ID);
 
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.Request_number, htmlAttributes: new { @class = "control-label col-md-2" })
+          
+            <label class="control-label col-md-2">
+                @Basic.Request_number
+            </label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.check_Request.Request_number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
@@ -37,7 +41,9 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.Request_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.Request_date
+            </label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.check_Request.Request_date, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
@@ -46,7 +52,9 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.ChecktypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.ChecktypeID
+            </label>
             <div class="col-md-4">
                 @Html.DropDownListFor(m => m.check_Request.ChecktypeID, new SelectList(ViewBag.Type, "ID", "Code"), "Select Check type", new { @class = "select2", @onchange = "CountryName()", @id = "Country", @readonly = true, disabled = "disabled" })
 
@@ -54,7 +62,9 @@
             </div>
 
 
-            @Html.LabelFor(model => model.check_request_change_status.check_request_statusID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.check_request_statusID
+            </label>
             <div class="col-md-4">
                 @Html.DropDownListFor(m => m.check_request_change_status.check_request_statusID, new SelectList(ViewBag.check_request_status, "ID", "Code"), "Select check request statue", new { @class = "select2", @onchange = "CountryName1()", @id = "Country1", @readonly = true, disabled = "disabled" })
                 <input type="text" value=" " class="form-control" id="countryname1" disabled />
@@ -62,24 +72,32 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.month, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.month
+            </label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.check_Request.month, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @readonly = true } })
             </div>
 
-            @Html.LabelFor(model => model.check_request_change_status.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.Date
+            </label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.check_request_change_status.Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.year
+            </label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.check_Request.year, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @readonly = true } })
             </div>
 
-            @Html.LabelFor(model => model.check_request_change_status.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.Comment
+            </label>
 
 
             <div class="col-md-4">
@@ -88,31 +106,41 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.amount
+            </label>
             <div class="col-md-8">
                 @Html.EditorFor(model => model.check_Request.amount, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @readonly = true } })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.check_number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.check_number
+            </label>
             <div class="col-md-8">
                 @Html.EditorFor(model => model.check_Request.check_number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.Check_Due_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.Check_Due_date
+            </label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.check_Request.Check_Due_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.Description1
+            </label>
             <div class="col-md-8">
                 @Html.TextAreaFor(model => model.check_Request.Description, 4, 100, new { @readonly = true,htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.check_Request.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.Comment
+            </label>
             <div class="col-md-8">
                 @Html.TextAreaFor(model => model.check_Request.Comment, new { @readonly = true,htmlAttributes = new { @class = "form-control" } })
             </div>
@@ -120,8 +148,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Delete" class="btn btn-success" />
-                <a href="@Url.Action("index","Check_Request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                <input type="submit" value=@Basic.Create class="btn btn-success" />
+                <a href="@Url.Action("index","Check_Request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
             </div>
         </div>

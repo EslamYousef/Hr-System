@@ -1,109 +1,11 @@
 ﻿@model IEnumerable<HR.Models.ViewModel.Check_Request_VM>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-<div class="content-wrapper">
-    <!-- Main content -->
-    <section class="content">
-
-        <div class="box">
-            <div class="box-header">
-                <p class="lead">
-                </p>
-            </div>
-
-            <!-- /.box-header -->
-            <div class="box-body">
-                @if (TempData["Message"] != null)
-                {
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @TempData["Message"]
-                    </div>
-                }
-                <div class="form-group" id="buttons">
-                  
-                        <a href="@Url.Action("Create", "Check_Request")"  style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add Check Request</a>
-
-                        <input type="button" style="width:130px" onclick="getrequest()" value="Special Request" class="btn btn-success" />
-
-
-                        <input type="button" style="width:130px" onclick="getallrequest()" value="ALL Requests" class="btn btn-success" />
-                    <div class="col-sm-7">
-                        <select name="test" class="select2" id="filter" placeholder="Choose your status" multiple></select>
-                    </div>
-
-                </div>
-
-                <div class="form-group" style="margin-top:20px;margin-bottom:15px">
-                 
-                    <div class="col-md-3">
-                            <input value="" autocomplete="off" placeholder="Date From" class="form-control datepicker" id="datefrom" />
-                    </div>
-                   <div class="col-md-4">
-                            <input  placeholder="Date To" autocomplete="off" class="form-control datepicker" id="dateto" />
-                   </div>
-                </div>
-                <div class="form-group" style="margin-top:70px">
-                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th>Request number</th>
-                                <th>Request date</th>
-                                <th>Check type</th>
-                                <th>amount</th>
-                                <th>check number</th>
-                                <th>check Request</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody11">
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.check_Request.Request_number</td>
-                                    @*<td>@item.check_Request.Request_date.ToShortDateString()</td>*@
-                                    <td>
-                                        @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.check_Request.Request_date))
-                                    </td>
-
-                                    <td>@item.check_Request.Checktype.Name</td>
-                                    <td>@item.check_Request.amount</td>
-                                    <td>@item.check_Request.check_number</td>
-                                    <td>@item.check_request_change_status.check_Request.Name</td>
-                                    <td>
-                                        <a href="@Url.Action("Edit", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>Change</a>
-                                        <a href="@Url.Action("history", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-primary btn-sm" style="width:100px"><i class="fa fa-edit"></i>status history</a>
-                                      
-                                        <a href="@Url.Action("Delete", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Request number</th>
-                                <th>Request date</th>
-                                <th>Check.type</th>
-                                <th>amount</th>
-                                <th>check.number</th>
-                                <th>check Request</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                  </div>
-                </div>
-        </div>
-
-    </section>
-
-</div>
-
-<!-- page script -->
 <script>
     var $ = jQuery;
 
@@ -118,9 +20,7 @@
             "order" : 1
         });
     });
-</script>
 
-<script>
     function getrequest()
     {
         debugger
@@ -179,7 +79,7 @@
          "<td class='col-md-0'>" + value.amount + "</td>" +
          "<td  style='width:30px'>" + value.check_number + "</td>" +
          "<td class='col-md-0' >" + value.check_request_change_status.check_Request.Name + "</td>" +
-         "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +   
+         "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
          "<input type='button' value='status History' class='btn btn-primary btn-sm' style='width:100px' onclick='history(" + value.ID + ")' />" +" "+
                     "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
 
@@ -196,14 +96,13 @@
             }
         });
     }
-</script>
-<script>
+
     function change(id)
     {
         window.open("/Check_Request/Edit?id=" + id);
     }
     function history(id) {
-      
+
         window.open("/Check_Request/history?id=" + id);
     }
     debugger
@@ -212,5 +111,104 @@
         window.open("/Check_Request/Delete/" + id);
     }
 </script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                <div class="form-group" id="buttons">
+                  
+                        <a href="@Url.Action("Create", "Check_Request")"  style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Basic.add_check_request</a>
+
+                        <input type="button" style="width:130px" onclick="getrequest()" value=@Basic.specialrequest class="btn btn-success" />
+
+
+                        <input type="button" style="width:130px" onclick="getallrequest()" value=@Basic.Allrequests class="btn btn-success" />
+                    <div class="col-sm-7">
+                        <select name="test" class="select2" id="filter" placeholder=@Basic.chooseyourstatus  multiple></select>
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-top:20px;margin-bottom:15px">
+                 
+                    <div class="col-md-3">
+                            <input value="" autocomplete="off" placeholder=@Basic.datefrom class="form-control datepicker" id="datefrom" />
+                    </div>
+                   <div class="col-md-4">
+                            <input  placeholder=@Basic.dateto autocomplete="off" class="form-control datepicker" id="dateto" />
+                   </div>
+                </div>
+                <div class="form-group" style="margin-top:70px">
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@Basic.Request_number</th>
+                                <th>@Basic.Request_date</th>
+                                <th>@Basic.check_type</th>
+                                <th>@Basic.amount</th>
+                                <th>@Basic.check_number</th>
+                                <th>@Basic.check_Request</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.check_Request.Request_number</td>
+                                    @*<td>@item.check_Request.Request_date.ToShortDateString()</td>*@
+                                    <td>
+                                        @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.check_Request.Request_date))
+                                    </td>
+
+                                    <td>@item.check_Request.Checktype.Name</td>
+                                    <td>@item.check_Request.amount</td>
+                                    <td>@item.check_Request.check_number</td>
+                                    <td>@item.check_request_change_status.check_Request.Name</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@Basic.Edit</a>
+                                        <a href="@Url.Action("history", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-primary btn-sm" style="width:100px"><i class="fa fa-edit"></i>@Basic.statushistory</a>
+                                      
+                                        <a href="@Url.Action("Delete", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>@Basic.Request_number</th>
+                                <th>@Basic.Request_date</th>
+                                <th>@Basic.check_type</th>
+                                <th>@Basic.amount</th>
+                                <th>@Basic.check_number</th>
+                                <th>@Basic.check_Request</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                  </div>
+                </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
 
 @section scripts{}

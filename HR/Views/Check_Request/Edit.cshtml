@@ -1,181 +1,11 @@
 ﻿@model HR.Models.ViewModel.Check_Request_VM
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
 @Scripts.Render("~/bundles/jqueryval")
-<div class="content-wrapper">
-
-    <section class="content-header">
-        <h1>
-            Edit Change Request
-        </h1>
-    </section>
-    <!-- Main content -->
-    <section class="content">
-        <div class="box">
-            <!-- /.box-header -->
-            <div class="box-body">
-                @using (Html.BeginForm("Edit", "Check_Request", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
-                        <hr />
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.check_Request.ID);
-                        @Html.HiddenFor(m => m.check_request_change_status.ID);
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.Request_number, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.Request_number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.check_Request.Request_number, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                <h3><label style="margin-right:200px ;color:cadetblue">Check Request Status</label></h3>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.Request_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.Request_date, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.check_Request.Request_date, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-6">
-                                <hr /><hr />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.ChecktypeID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.check_Request.ChecktypeID, new SelectList(ViewBag.Type, "ID", "Code"), "Select Check type", new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
-                                @Html.ValidationMessageFor(model => model.check_Request.ChecktypeID, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname" disabled />
-                            </div>
-
-
-                            @Html.LabelFor(model => model.check_request_change_status.check_request_statusID, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.check_request_change_status.check_request_statusID, new SelectList(ViewBag.check_request_status, "ID", "Code"), "Select check request statue", new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
-                                @Html.ValidationMessageFor(model => model.check_request_change_status.check_request_statusID, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.month, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.month, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
-                                @Html.ValidationMessageFor(model => model.check_Request.month, "", new { @class = "text-danger" })
-                            </div>
-
-                            @Html.LabelFor(model => model.check_request_change_status.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_request_change_status.Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.check_request_change_status.Date, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.year, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.year, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
-                                @Html.ValidationMessageFor(model => model.check_Request.year, "", new { @class = "text-danger" })
-                            </div>
-
-                            @Html.LabelFor(model => model.check_request_change_status.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-
-
-                            <div class="col-md-2"></div>
-
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.check_request_change_status.selected_signby, new SelectList(ViewBag.employee, "ID", "Code"), "Select Sign By", new { @class = "select2", @onchange = "emp81()", @id = "emp1" })
-                                @Html.ValidationMessageFor(model => model.check_request_change_status.selected_signby, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="empname1" disabled />
-                            </div>
-
-
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.amount, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.amount, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.check_Request.amount, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="col-md-2"></div>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.check_request_change_status.selected_directedto, new SelectList(ViewBag.employee, "ID", "Code"), "Select Directed To", new { @class = "select2", @onchange = "emp82()", @id = "emp2" })
-                                @Html.ValidationMessageFor(model => model.check_request_change_status.selected_directedto, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="empname2" disabled />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.check_number, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.check_number, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.check_Request.check_number, "", new { @class = "text-danger" })
-                            </div>
-
-                            @Html.LabelFor(model => model.check_request_change_status.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.check_request_change_status.Comment, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.check_request_change_status.Comment, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.Check_Due_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.Check_Due_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.check_Request.Check_Due_date, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.check_Request.Description, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.check_Request.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.check_Request.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.check_Request.Comment, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.check_Request.Comment, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">Edit</button>
-                                <a href="@Url.Action("index","Check_Request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-
-        </div>
-
-    </section>
-</div>
-
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
 
 <script>
     function CountryName()
@@ -256,5 +86,205 @@
     emp81();
     emp82();
 </script>
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Basic.editcheck_Request
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Check_Request", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.check_Request.ID);
+                        @Html.HiddenFor(m => m.check_request_change_status.ID);
+                        <div class="form-group">
+                           
+                            <label class="control-label col-md-2">
+                                @Basic.Request_number
+                            </label>
+                              <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.Request_number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.check_Request.Request_number, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                <h3>
+
+                                    <label style="margin-right:200px ;color:cadetblue">
+                                        @Basic.Check_Request_Status
+                                    </label>
+                                </h3>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.Request_date
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.Request_date, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.check_Request.Request_date, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                <hr /><hr />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.ChecktypeID
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.check_Request.ChecktypeID, new SelectList(ViewBag.Type, "ID", "Code"), "Select Check type", new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
+                                @Html.ValidationMessageFor(model => model.check_Request.ChecktypeID, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname" disabled />
+                            </div>
+
+
+                            <label class="control-label col-md-2">
+                                @Basic.check_request_statusID
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.check_request_change_status.check_request_statusID, new SelectList(ViewBag.check_request_status, "ID", "Code"), "Select check request statue", new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                                @Html.ValidationMessageFor(model => model.check_request_change_status.check_request_statusID, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.month
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.month, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.ValidationMessageFor(model => model.check_Request.month, "", new { @class = "text-danger" })
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                @Basic.Date
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_request_change_status.Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.check_request_change_status.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.year
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.year, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.ValidationMessageFor(model => model.check_Request.year, "", new { @class = "text-danger" })
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                @Basic.Comment
+                            </label>
+
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.check_request_change_status.selected_signby, new SelectList(ViewBag.employee, "ID", "Code"), "Select Sign By", new { @class = "select2", @onchange = "emp81()", @id = "emp1" })
+                                @Html.ValidationMessageFor(model => model.check_request_change_status.selected_signby, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="empname1" disabled />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.amount
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.amount, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.check_Request.amount, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.check_request_change_status.selected_directedto, new SelectList(ViewBag.employee, "ID", "Code"), "Select Directed To", new { @class = "select2", @onchange = "emp82()", @id = "emp2" })
+                                @Html.ValidationMessageFor(model => model.check_request_change_status.selected_directedto, "", new { @class = "text-danger" })
+                                <input type="text" value=" " class="form-control" id="empname2" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.check_number
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.check_number, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.check_Request.check_number, "", new { @class = "text-danger" })
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                @Basic.Comment
+                            </label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.check_request_change_status.Comment, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.check_request_change_status.Comment, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.Check_Due_date
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.check_Request.Check_Due_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.check_Request.Check_Due_date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.Description1
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.check_Request.Description, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.check_Request.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.Comment
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.check_Request.Comment, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.check_Request.Comment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Basic.Edit</button>
+                                <a href="@Url.Action("index","Check_Request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
 
 @section scripts{}

@@ -11,10 +11,10 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contract Type Code")]
         public string Contract_Type_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contract Type Description")]
         public string Contract_Type_Description { get; set; }
         [Display(Name = "Contract Type Alternative Description")]

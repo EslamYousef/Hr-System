@@ -12,18 +12,18 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Employee No.")]
         public int Employee_ProfileId { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Attachment profile No.")]
         public string Code { get; set; }
         [Display(Name = "Is copy")]
         public bool Is_copy { get; set; }
         [Display(Name = "Is required")]
         public bool Is_required { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Document code")]
         public int DocumentsId { get; set; }
         public virtual Documents Documents { get; set; }

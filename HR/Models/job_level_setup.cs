@@ -12,10 +12,10 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
-     //   [Index(IsUnique = true)]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        //   [Index(IsUnique = true)]
         public string Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Name { get; set; }
         public string Description { get; set; }
         ///////////////////////////////////////////////////////
@@ -45,11 +45,11 @@ namespace HR.Models
         ///////////////////////////////////////////////////////////////////
       
         public virtual Job_level_class Job_level_class { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string  Job_level_class__ID { get; set; }
       
         public virtual Job_level_grade Job_level_grade { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Job_level_gradeI__D { get; set; }
      
         //public virtual Job_level_grade report_job_level { get; set; }

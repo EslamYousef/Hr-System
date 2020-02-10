@@ -11,14 +11,14 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-      
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Beneficiary Profile No.")]
         public string Code { get; set; }
         public bool Legatee { get; set; }
 
         public virtual Employee_Profile Employee_Profile { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Employee No.")]
         public string Employee_ProfileId { get; set; }
 

@@ -11,11 +11,11 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Index(IsUnique = true)]
         [Display(Name = "Sing Code")]
         public double Sing_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Sing Name")]
         public string Sing_Name { get; set; }
         public string Notes { get; set; }

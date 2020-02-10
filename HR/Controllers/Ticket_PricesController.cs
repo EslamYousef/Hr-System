@@ -89,7 +89,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -108,7 +108,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no data";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -124,18 +124,18 @@ namespace HR.Controllers
                 ViewBag.airport = dbcontext.Air_ports.ToList();
                 if (DateTime.Compare(model.From_Date, model.TO_Date) > 0)
                 {
-                    TempData["Message"] = "From Date Later than To date";
+                    TempData["Message"] = HR.Resource.Basic.FromDateLaterthanTodate;
                     return View(model);
                 }
                 else if (model.From_air_port_Idd <1)
                 {
-                    TempData["Message"] = "you must enter From Air";
+                    TempData["Message"] = HR.Resource.Basic.youmustenterFromAir;
                     return View(model);
                 }
 
                 else if (model.To_air_port_Idd <1 )
                 {
-                    TempData["Message"] = "you must enter To Air";
+                    TempData["Message"] = HR.Resource.Basic.youmustentertoAir1;
                     return View(model);
                 }
                 var record = dbcontext.TicketPrice.FirstOrDefault(m => m.ID == model.ID);
@@ -152,7 +152,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -167,7 +167,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no country";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -191,7 +191,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "you can't delete this Row";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

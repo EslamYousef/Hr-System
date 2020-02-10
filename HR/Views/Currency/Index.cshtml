@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Currency>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Currency")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Currency</a>
+                    <a href="@Url.Action("Create", "Currency")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Basic.add_new_currency</a>
                 </p>
             </div>
 
@@ -29,12 +30,14 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>symbol</th>
-                            <th>num decimal  of places</th>
-                            <th>Native</th>
-                            <th>description</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                         
+                            <th>@Basic.symbol</th>
+                            <th>@Basic.number_of_decimal_places</th>
+                            <th>@Basic.native</th>
+                           
+                            <th>@Basic.description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -45,16 +48,14 @@
                                 <td>@item.Code</td>
                                 <td>@item.Name</td>
                                 <td>@item.symbol</td>
-                                <td>
-                                    @item.Nmmber_of_decimal_places
-                                </td>
+                                <td>@item.Nmmber_of_decimal_places</td>
                                 <td>@item.Native</td>
                                 <td>@item.Description</td>
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Currency", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Currency", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Currency", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Basic.Edit</a>
+                                    <a href="@Url.Action("delete", "Currency", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Delete</a>
                              
                                    </td>
                             </tr>
@@ -62,12 +63,12 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>symbol</th>
-                            <th>num decimal  of places</th>
-                            <th>Native</th>
-                            <th>description</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.symbol</th>
+                            <th>@Basic.number_of_decimal_places</th>
+                            <th>@Basic.native</th>
+                            <th>@Basic.description</th>
 
                             <th></th>
                         </tr>

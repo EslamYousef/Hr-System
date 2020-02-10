@@ -59,7 +59,7 @@ namespace HR.Controllers
               
                 if (model.the_statesid == "0" || model.the_statesid == null)
                 {
-                    ModelState.AddModelError("", "State Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Basic.StateCodemustenter);
                     return View(model);
                 }
                 Air_ports record = new Air_ports();
@@ -77,7 +77,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -90,7 +90,7 @@ namespace HR.Controllers
             var record = dbcontext.Air_ports.FirstOrDefault(m => m.ID == id);
             if (record == null)
             {
-                TempData["Message"] = "there is no state";
+                TempData["Message"] = HR.Resource.Basic.thereisnodata;
                 return View();
             }
             ViewBag.country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -129,7 +129,7 @@ namespace HR.Controllers
                 }
                 if (model.the_statesid == "0" || model.the_statesid == null)
                 {
-                    ModelState.AddModelError("", "State Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Basic.StateCodemustenter);
                     return View(model);
                 }
                 record.Name = model.Name;
@@ -145,7 +145,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -160,7 +160,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no country";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -184,7 +184,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

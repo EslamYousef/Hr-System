@@ -4,21 +4,22 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-
+using HR.Resource;
 namespace HR.Models
 {
     public class Air_ports
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic),ErrorMessageResourceName = "error_message")]
         //[Index(IsUnique = true)]
         public string Code { get; set; }
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Name { get; set; }
         public string Description { get; set; }
         [Display(Name = "State Name")]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string the_statesid { get; set; }
         public virtual the_states the_states { get; set; }
         public int areaid { get; set; }

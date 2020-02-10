@@ -89,7 +89,7 @@ namespace HR.Controllers
                 ViewBag.check_request_status = dbcontext.check_request_status.ToList().Select(m => new { Code = m.Code + "-----" + m.Name, ID = m.ID });
                 if (model.check_Request.check_number == 0.ToString()||model.check_Request.check_number==null)
                 {
-                    TempData["Message"] = "You Must enter check number status";
+                    TempData["Message"] = HR.Resource.Basic.YouMustenterchecknumber;
                     return View(model);
                 }
                var check_request_change_status_record = new check_request_change_status();
@@ -141,7 +141,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "You Must enter check request statu";
+                    TempData["Message"] = HR.Resource.Basic.YouMustentercheckrequeststatu;
                     return View(model);
                 }
             }
@@ -181,7 +181,7 @@ namespace HR.Controllers
                 ViewBag.check_request_status = dbcontext.check_request_status.ToList().Select(m => new { Code = m.Code + "-----" + m.Name, ID = m.ID });
                 if (model.check_Request.check_number == 0.ToString() || model.check_Request.check_number == null)
                 {
-                    TempData["Message"] = "You Must enter check number";
+                    TempData["Message"] = HR.Resource.Basic.YouMustenterchecknumber;
                     return View(model);
                 }
                 var check_request_change_status_record = dbcontext.check_request_change_status.FirstOrDefault(m=>m.ID==model.check_request_change_status.ID);
@@ -257,7 +257,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"]= "there is no Check_Request";
+                    TempData["Message"]= HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -293,10 +293,6 @@ namespace HR.Controllers
                 return View();
             }
         }
-
-
-
-
-
+        
     }
 }

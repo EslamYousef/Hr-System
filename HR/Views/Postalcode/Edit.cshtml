@@ -1,5 +1,7 @@
 ﻿@model HR.Models.postcode
 
+@using HR.Resource;
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -10,7 +12,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Postal Code
+            @Basic.edit_postalcode
         </h1>
     </section>
 
@@ -37,36 +39,45 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.countryid, htmlAttributes: new { @class = "control-label col-md-2" })
+                         
+                            <label class = "control-label col-md-2">
+                                @Basic.Country
+                            </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.country, "ID", "Code"), "Select Country", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.country, "ID", "Code"),Basic.Country, new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                 @Html.ValidationMessageFor(model => model.countryid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname" disabled />
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.areaid, htmlAttributes: new { @class = "control-label col-md-2" })
+                             <label class="control-label col-md-2">
+                                @Basic.Region
+                            </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.area, "ID", "Code"), "Select Area", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.area, "ID", "Code"), Basic.Region, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.areaid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="areaname" disabled />
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.stateid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @Basic.State
+                            </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.stateid, new SelectList(ViewBag.state, "ID", "Code"), "Select state", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.DropDownListFor(m => m.stateid, new SelectList(ViewBag.state, "ID", "Code"), Basic.State, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.stateid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="statename" disabled />
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Territoriesid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.ter, "ID", "Code"), "Select Territoer", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                             <label class="control-label col-md-2">
+                                @Basic.County
+                            </label>
+                             <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.ter, "ID", "Code"), Basic.County, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Territoriesid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="tername" disabled />
 
@@ -74,9 +85,11 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.citiesid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.citiesid, new SelectList(ViewBag.city, "ID", "Code"), "Select City", new { @class = "select2", @onchange = "getcity()", id = "city", @disabled = true })
+                            <label class="control-label col-md-2">
+                                @Basic.City
+                            </label>
+                              <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.citiesid, new SelectList(ViewBag.city, "ID", "Code"), Basic.City, new { @class = "select2", @onchange = "getcity()", id = "city", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.citiesid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="cityname" disabled />
 
@@ -84,38 +97,48 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @Basic.code
+                            </label>
+                              <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @Basic.name
+                            </label>
+                               <div class="col-md-4">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @Basic.description
+                            </label>
+                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.streetname, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                             <label class="control-label col-md-2">
+                                @Basic.street_name
+                            </label>
+                              <div class="col-md-4">
                                 @Html.EditorFor(model => model.streetname, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.streetname, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.numstreetfrom, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                             <label class="control-label col-md-2">
+                                @Basic.Num_Street_From
+                            </label>
+                             <div class="col-md-4">
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
                                     @Html.TextBoxFor(model => model.numstreetfrom, new { htmlAttributes = new { @class = "form-control size-1", @value = "1", data_min = "0" } })
@@ -127,8 +150,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.numstreetto, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                             <label class="control-label col-md-2">
+                                @Basic.Num_Street_To
+                            </label>
+                              <div class="col-md-4">
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
 
@@ -139,16 +164,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.typenumstreet, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @Basic.Street_Num_Type
+                            </label>
+                              <div class="col-md-4">
                                 @Html.EnumDropDownListFor(model => model.typenumstreet, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.typenumstreet, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit Postal Code" class="btn btn-success" />
-                                <a href="@Url.Action("index","Postalcode")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value=@Basic.edit_postalcode class="btn btn-success" />
+                                <a href="@Url.Action("index","Postalcode")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
                             </div>
                         </div>

@@ -11,15 +11,15 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Group Code")]
         public string Group_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Description Group")]
         public string Description_Group { get; set; }
         [Display(Name = "Description Alternative")]
         public string Description_Alternative { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "The Purpose")]
         public The_Purpose The_Purpose { get; set; }
         public virtual List<Check_Lists_Items> check_items { get; set; }

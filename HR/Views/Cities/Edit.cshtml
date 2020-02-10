@@ -1,5 +1,5 @@
 ﻿@model HR.Models.cities
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            Edit City
+            @Basic.Edit_city
         </h1>
     </section>
 
@@ -48,39 +48,41 @@
                                 </div>
                             </div>*@
                         <div class="form-group">
-                            @Html.LabelFor(model => model.countryid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.Country</label> 
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.country, "ID", "Code"), "Select Country", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.country, "ID", "Code"), Basic.Country, new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                 @Html.ValidationMessageFor(model => model.countryid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname" disabled />
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.areaid, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <label class="control-label col-md-2">@Basic.Region</label> 
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.area, "ID", "Code"), "Select Area", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.area, "ID", "Code"), Basic.Region, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.areaid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="areaname" disabled />
 
                             </div>
                             <div class="col-md-3" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Postalcode</button>
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Basic.Postal_code</button>
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.stateid, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <label class="control-label col-md-2">@Basic.State</label> 
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.stateid, new SelectList(ViewBag.state, "ID", "Code"), "Select state", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.DropDownListFor(m => m.stateid, new SelectList(ViewBag.state, "ID", "Code"), Basic.State, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.stateid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="statename" disabled />
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Territoriesid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.County</label> 
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.ter, "ID", "Code"), "Select Territoer", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.ter, "ID", "Code"), Basic.County, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Territoriesid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="tername" disabled />
 
@@ -89,7 +91,8 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <label class="control-label col-md-2">@Basic.code</label> 
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -97,7 +100,8 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <label class="control-label col-md-2">@Basic.name</label> 
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -105,7 +109,8 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <label class="control-label col-md-2">@Basic.description</label> 
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -115,7 +120,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Edit City" class="btn btn-success" />
-                                <a href="@Url.Action("index","Cities")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <a href="@Url.Action("index","Cities")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
                             </div>
                         </div>

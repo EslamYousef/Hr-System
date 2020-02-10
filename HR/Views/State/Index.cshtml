@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<HR.Models.the_states>
 
+@using HR.Resource;
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +14,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "State")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new State</a>
+                    <a href="@Url.Action("Create", "State")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Basic.create_state</a>
                 </p>
             </div>
 
@@ -29,11 +31,11 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th>Region</th>
-                            <th>Country</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.description</th>
+                            <th>@Basic.Region</th>
+                            <th>@Basic.Country</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -47,19 +49,19 @@
                                 <td>@item.Area.Name</td>
                                 <td>@item.Area.Country.Name</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "State", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "State", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "State", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Basic.Edit</a>
+                                    <a href="@Url.Action("delete", "State", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th>Area</th>
-                            <th>Country</th>
+                            <th>@Basic.code</th>
+                            <th>@Basic.name</th>
+                            <th>@Basic.description</th>
+                            <th>@Basic.Region</th>
+                            <th>@Basic.Country</th>
                             <th></th>
                         </tr>
                     </tfoot>

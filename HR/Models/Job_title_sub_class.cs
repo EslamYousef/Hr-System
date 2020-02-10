@@ -11,11 +11,11 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Code")]
       //  [Index(IsUnique = true)]
         public string Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Name")]
         public string Name { get; set; }
         [Display(Name = "Description")]
@@ -27,7 +27,7 @@ namespace HR.Models
         public float Dedicated_ALLWANCE_VALUE { get; set; }
         [Display(Name = "Exchanging ALLWANCE VALUE")]
         public float Exchanging_ALLWANCE_VALUE { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Job title class")]
         public string Job_title_classId { get; set; }
         public virtual Job_title_class Job_title_class { get; set; } 

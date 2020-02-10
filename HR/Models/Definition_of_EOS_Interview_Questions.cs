@@ -10,16 +10,16 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-      
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Question Code")]
         public string Question_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Question Description")]
         public string Question_Description { get; set; }
         public string Description { get; set; }
         [Display(Name = "Question Group")]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Question_GroupId { get; set; }
         public virtual EOS_Interview_Questions_Groups EOS_Interview_Questions_Groups { get; set; }
     }

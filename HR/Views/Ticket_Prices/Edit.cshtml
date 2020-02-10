@@ -1,4 +1,5 @@
 ﻿@model HR.Models.TicketPrice
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Edit";
@@ -11,7 +12,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Ticket Price
+           @Basic.edit_Tichet_price
         </h1>
     </section>
 
@@ -40,7 +41,7 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.classtype, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.class_type</label>
                             <div class="col-md-4">
                                 @Html.EnumDropDownListFor(m => m.classtype, new { @class = "select2"})
                                 @Html.ValidationMessageFor(model => model.classtype, "", new { @class = "text-danger" })
@@ -49,32 +50,32 @@
                           
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.From_air_port_Idd, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.from_air_port</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.From_air_port_Idd, new SelectList(ViewBag.airport, "ID", "Code"), "Select Air", new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
+                                @Html.DropDownListFor(m => m.From_air_port_Idd, new SelectList(ViewBag.airport, "ID", "Code"), new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
                                 @Html.ValidationMessageFor(model => model.From_air_port_Idd, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname" disabled />
                             </div>
                            
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.To_air_port_Idd, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.to_air_port</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.To_air_port_Idd, new SelectList(ViewBag.airport, "ID", "Code"), "Select Air", new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                                @Html.DropDownListFor(m => m.To_air_port_Idd, new SelectList(ViewBag.airport, "ID", "Code"), new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
                                 @Html.ValidationMessageFor(model => model.To_air_port_Idd, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname1" disabled />
                             </div>
                             
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.From_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.from_date</label>
                             <div class="col-md-8">
                                 @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new {  @class = "form-control datepicker", @autocomplete = "off"   , id = "datefrom" } })
                                 @Html.ValidationMessageFor(model => model.From_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.TO_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.to_date</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.TO_Date, new { htmlAttributes = new { @class = "form-control datepicker" , @autocomplete = "off", id="datefrom" } })
                                 @Html.ValidationMessageFor(model => model.TO_Date, "", new { @class = "text-danger" })
@@ -82,7 +83,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Basic.price</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control",@type="number",@min="1" } })
                                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
@@ -90,8 +91,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">Edit</button>
-                                <a href="@Url.Action("index","Ticket_Prices")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Basic.Edit</button>
+                                <a href="@Url.Action("index","Ticket_Prices")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
                             </div>
                         </div>
                     </div>
@@ -104,11 +105,6 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
 
 <script>
     function CountryName()
