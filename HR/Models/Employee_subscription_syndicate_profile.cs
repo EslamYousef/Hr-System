@@ -11,14 +11,14 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Employee No.")]
         public int Employee_ProfileId { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription profile No.")]
         public string Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription No.")]
         public int Subscription_SyndicateId { get; set; }
         public virtual Subscription_Syndicate Subscription_Syndicate { get; set; }

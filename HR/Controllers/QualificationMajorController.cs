@@ -72,7 +72,7 @@ namespace HR.Controllers
                 {
                     if (model.Name_of_educational_qualificationid <= 0)
                     {
-                        ModelState.AddModelError("", "State Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Basic.requiredName_of_educational_qualification);
                         return View(model);
                     }
                     Qualification_Major record = new Qualification_Major();
@@ -94,7 +94,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -114,7 +114,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no country";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -138,7 +138,7 @@ namespace HR.Controllers
             {
                 if (model.Name_of_educational_qualificationid <= 0)
                 {
-                    ModelState.AddModelError("", "State Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Basic.requiredName_of_educational_qualification);
                     return View(model);
                 }
                 var record = dbcontext.Qualification_Major.FirstOrDefault(m => m.ID == model.ID);
@@ -153,7 +153,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -168,7 +168,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no data";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 

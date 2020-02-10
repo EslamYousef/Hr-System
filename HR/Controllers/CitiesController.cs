@@ -95,7 +95,7 @@ namespace HR.Controllers
             {
                 if (model.Territoriesid == "0")
                 {
-                    ModelState.AddModelError("", " Territorie Code must ENTER");
+                    ModelState.AddModelError("", HR.Resource.Basic.countyCodemustenter11);
                     return View(model);
                 }
                 cities record = new cities();
@@ -120,7 +120,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -133,7 +133,7 @@ namespace HR.Controllers
             var record = dbcontext.cities.FirstOrDefault(m => m.ID == id);
             if (record == null)
             {
-                TempData["Message"] = "there is no state";
+                TempData["Message"] = HR.Resource.Basic.thereisnodata;
                 return View();
             }
             ViewBag.country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -203,7 +203,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -219,7 +219,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no Citie";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -243,7 +243,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

@@ -11,11 +11,11 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Index(IsUnique = true)]
         [Display(Name = "Allergy Code")]
         public double Allergy_Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Allergy Name")]
         public string Allergy_Name { get; set; }
         [Display(Name = "Allergy TName")]

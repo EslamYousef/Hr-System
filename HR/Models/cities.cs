@@ -11,17 +11,17 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Code  ")]
       //  [Index(IsUnique = true)]
         public string  Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "  Name")]
         public string Name { get; set; }
         [Display(Name = "  Description")]
         public string Description { get; set; }
         [Display(Name = "Territory Name")]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
 
         public string Territoriesid { get; set; }
         public virtual Territories Territories { get; set; }

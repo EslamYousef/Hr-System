@@ -1,4 +1,5 @@
 ﻿@model HR.Models.Currency
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +12,7 @@
 
     <section class="content-header">
         <h1>
-            Create Currency
+            @Basic.create_currency
         </h1>
     </section>
 
@@ -41,16 +42,18 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                           <label class="col-sm-2">
+                               @Basic.code
+                           </label>
                                 <div class="col-md-6">
                                         @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                 </div>
                       
                             <div class="col-sm-4">
-                                <div class="col-sm-2">
-                                    @Html.LabelFor(model => model.Native, htmlAttributes: new { @class = "control-label" })
-                                </div>
+                                <label class="col-sm-2">
+                                    @Basic.native
+                                </label>
                                 <div class="col-md-2">
                                         @Html.CheckBoxFor(model => model.Native, new { htmlAttributes = new { @class = "CheckBox" } })
                                         @Html.ValidationMessageFor(model => model.Native, "", new { @class = "text-danger" })
@@ -59,7 +62,9 @@
                           </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="col-sm-2">
+                                @Basic.name
+                            </label>
                             <div class="col-md-8">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -67,7 +72,9 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="col-sm-2">
+                                @Basic.description
+                            </label>
                             <div class="col-md-8">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -76,17 +83,18 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.symbol, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="col-sm-2">
+                                @Basic.symbol
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.symbol, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.symbol, "", new { @class = "text-danger" })
                             </div>
                            
                             <div class="col-sm-6">
-                                <div class="col-sm-5">
-                                    <!-- Spinner Markup -->
-                                    @Html.LabelFor(model => model.Nmmber_of_decimal_places, htmlAttributes: new { @class = "control-label" })
-                                </div>
+                                <label class="col-sm-5">
+                                    @Basic.number_of_decimal_places
+                                </label>
                                 <div class="col-sm-1">
                                     <div class="input-spinner">
                                         @*<button type="button" class="btn btn-default">-</button>*@
@@ -98,8 +106,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create Currency" class="btn btn-success" />
-                                <a href="@Url.Action("index","Currency")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value=@Basic.create_currency class="btn btn-success" />
+                                <a href="@Url.Action("index","Currency")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
                             </div>
                         </div>
@@ -114,8 +122,3 @@
 </div>
 
 @section scripts{}
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>

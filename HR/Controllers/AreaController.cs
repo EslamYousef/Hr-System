@@ -59,7 +59,7 @@ namespace HR.Controllers
                 {
                     if (model.Countryid == "0" || model.Countryid == null)
                     {
-                        ModelState.AddModelError("", "Country Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Basic.countryCodemustenter1);
                         return View(model);
                     }
                     Area record = new Area();
@@ -85,7 +85,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -103,7 +103,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no country";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -119,7 +119,7 @@ namespace HR.Controllers
                 ViewBag.country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 if (model.Countryid == "0" || model.Countryid == null)
                 {
-                    ModelState.AddModelError("", "Country Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Basic.countryCodemustenter1);
                     return View(model);
                 }
                 var record = dbcontext.Area.FirstOrDefault(m => m.ID == model.ID);
@@ -138,7 +138,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -153,7 +153,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "there is no country";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -178,7 +178,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

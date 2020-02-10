@@ -1,11 +1,12 @@
 ﻿@model HR.Models.Sponsor
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-<h3>Are you sure you want to delete this ?</h3>
+<h3>@Basic.message_delete</h3>
 @using (Html.BeginForm("Delete", "Sponsor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -23,7 +24,9 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.name
+            </label>
             <div class="col-md-8">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
 
@@ -31,15 +34,17 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @Basic.description
+            </label>
             <div class="col-md-8">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Delete" class="btn btn-success" />
-                <a href="@Url.Action("index","Sponsor")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                <input type="submit" value=@Basic.Delete class="btn btn-success" />
+                <a href="@Url.Action("index","Sponsor")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
             </div>
         </div>

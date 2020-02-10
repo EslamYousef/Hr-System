@@ -10,11 +10,11 @@ namespace HR.Models
     public class Job_level_grade
     {
         [Key]
-        public int ID { get; set; } 
-        [Required]
-      //  [Index(IsUnique = true)] 
+        public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        //  [Index(IsUnique = true)] 
         public string Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Name { get; set; } 
         public string Description { get; set; }
         ///////////////////////////////////////////////////////

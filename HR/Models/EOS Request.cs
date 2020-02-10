@@ -10,7 +10,7 @@ namespace HR.Models
     public class EOS_Request
     {
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string number { get; set; }
         public DateTime Requset_date { get; set; }
         public virtual Employee_Profile Employee { get; set; }

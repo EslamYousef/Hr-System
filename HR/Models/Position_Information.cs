@@ -11,17 +11,17 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Employee No.")]
         public string Employee_ProfileId { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Position profile No.")]
         public string Code { get; set; }
         [Display(Name = "Primary Position")]
         public bool Primary_Position { get; set; }
         [Display(Name = "Job desc")]
         public string job_descId { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Slot desc")]
         public string SlotdescId { get; set; }
         public virtual job_title_cards job_title_cards { get; set; }
