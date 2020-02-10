@@ -33,7 +33,7 @@ namespace HR.Controllers
         {
 
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Description + ']', ID = m.ID });
+            ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_contact_profile.ToList();
             var count = 0;
@@ -65,18 +65,19 @@ namespace HR.Controllers
             {
 
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Description + ']', ID = m.ID });
+                ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 if (ModelState.IsValid)
                 {
                     var contact = int.Parse(model.Employee_ProfileId);
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == contact);
                     var record = dbcontext.Employee_contact_profile.FirstOrDefault(m => m.ID == emp.Employee_contact_profile.ID);
 
-                    record.ContactmethodsId = model.ContactmethodsId;
+                    record.Contact_method_detail = model.Contact_method_detail;
                     record.Primary = model.Primary;
                     record.Employee_ProfileId = model.Employee_ProfileId;
                     record.Comments = model.Comments;
-                    record.Contact_method_detail = model.Contact_method_detail;
+                    record.ContactmethodsId = model.ContactmethodsId;
+                
 
                     dbcontext.SaveChanges();
                     if (command == "Submit")
@@ -107,7 +108,7 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Description + ']', ID = m.ID });
+                ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
         var record = dbcontext.Employee_contact_profile.FirstOrDefault(m => m.ID == id);
                 if (record != null)
@@ -130,7 +131,7 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Description + ']', ID = m.ID });
+                ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
                 var record = dbcontext.Employee_contact_profile.FirstOrDefault(m => m.ID == model.ID);
@@ -138,6 +139,8 @@ namespace HR.Controllers
                 var empl = record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
                 record.Code = model.Code;
                 record.ContactmethodsId = model.ContactmethodsId;
+                var ContactmethodsId = int.Parse(model.ContactmethodsId);
+                record.Contact_methods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == ContactmethodsId);
                 record.Primary = model.Primary;
                 record.Employee_ProfileId = model.Employee_ProfileId;
                 record.Comments = model.Comments;

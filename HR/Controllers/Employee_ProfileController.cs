@@ -423,7 +423,7 @@ namespace HR.Controllers
                     }
                     if (command6 == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_contact_profile", new { id = emp.ID });
+                        return RedirectToAction("Edit", "Employee_contact_profile", new { id = emp.ID });
                     }
                     if (command7 == "Submit")
                     {

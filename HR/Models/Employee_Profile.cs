@@ -20,6 +20,7 @@ namespace HR.Models
         [Display(Name = "Full Name")]
         public string Full_Name { get; set; }
         public string Arabic { get; set; }
+        [Display(Name = "Full Name")]
         public string Full { get; set; }
         [Display(Name = "SurName")]
         public string Surname { get; set; }

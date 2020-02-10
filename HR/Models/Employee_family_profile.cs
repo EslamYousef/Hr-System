@@ -46,14 +46,17 @@ namespace HR.Models
         [Display(Name = "Qualification name")]
         public string Name_of_educational_qualificationId { get; set; }
         public virtual Name_of_educational_qualification Name_of_educational_qualification { get; set; }
-        
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Display(Name = "Start relation date")]
         public DateTime Start_relation_date { get; set; }
         [Display(Name = "End relation date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime End_relation_date { get; set; }
         [Display(Name = "Birth date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Birth_date { get; set; }
         [Display(Name = "Death date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Death_date { get; set; }
         [Display(Name = "Id number")]
         public string Id_number { get; set; }
