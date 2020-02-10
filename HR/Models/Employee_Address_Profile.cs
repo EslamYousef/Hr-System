@@ -19,11 +19,14 @@ namespace HR.Models
         public string Code { get; set; }
         public bool Resident { get; set; }
         [Display(Name = "Country name")]
+        [Required]
         public string countryid { get; set; }
         public virtual Country Country { get; set; }
+        [Required]
         [Display(Name = "Region name")]
         public string areaid { get; set; }
         public virtual Area Area { get; set; }
+        [Required]
         [Display(Name = "State name")]
         public string stateid { get; set; }
         public virtual the_states the_states { get; set; }

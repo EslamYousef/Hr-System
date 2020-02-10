@@ -43,10 +43,10 @@ namespace HR.Controllers
                 var te = model.LastOrDefault().ID;
                 count = te + 1;
             }
-        
+
             var ID = int.Parse(id);
-              var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeAddress = new Employee_Address_Profile { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() }; 
+            var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
+            var EmployeeAddress = new Employee_Address_Profile { Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() };
             return View(EmployeeAddress);
 
         }
@@ -72,52 +72,57 @@ namespace HR.Controllers
                 //ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 //ViewBag.idemp = model.ID;
 
-                if (ModelState.IsValid)
+                //if (ModelState.IsValid)
+                //{
+                //       var prof = int.Parse(model.Employee_ProfileId);
+                //        var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+
+                Employee_Address_Profile record = new Employee_Address_Profile();
+                record.Resident = model.Resident;
+                record.Code = model.Code;
+                record.Streetname = model.Streetname;
+                record.Streetnumber = model.Streetnumber;
+                record.Pobox = model.Pobox;
+                record.DistancefromMeetingpointtoworklocationkm = model.DistancefromMeetingpointtoworklocationkm;
+                record.Distancetoworklocationkm = model.Distancetoworklocationkm;
+                record.Transportation_method = model.Transportation_method;
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = empid : model.Employee_ProfileId;
+                // var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
+                record.countryid = model.countryid;
+                var Countryid = int.Parse(model.countryid);
+                record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);
+                record.areaid = model.areaid;
+                var Areaid = int.Parse(model.areaid);
+                record.Area = dbcontext.Area.FirstOrDefault(m => m.ID == Areaid);
+                record.stateid = model.stateid;
+                var the_statesid = int.Parse(model.stateid);
+                record.the_states = dbcontext.the_states.FirstOrDefault(m => m.ID == the_statesid);
+                record.Territoriesid = model.Territoriesid;
+                var Territoriesid = int.Parse(model.Territoriesid);
+                record.Territories = dbcontext.Territories.FirstOrDefault(m => m.ID == Territoriesid);
+                record.citiesid = model.citiesid;
+                var citiesid = int.Parse(model.citiesid);
+                record.cities = dbcontext.cities.FirstOrDefault(m => m.ID == citiesid);
+                record.postcodeId = model.postcodeId;
+                var postcodeId = int.Parse(model.postcodeId);
+                record.postcode = dbcontext.postcode.FirstOrDefault(m => m.ID == postcodeId);
+                dbcontext.Employee_Address_Profile.Add(record);
+                dbcontext.SaveChanges();
+                if (command == "Submit")
                 {
-             //       var prof = int.Parse(model.Employee_ProfileId);
-            //        var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
-                    Employee_Address_Profile record = new Employee_Address_Profile();
-                    record.Resident = model.Resident;
-                    record.Code = model.Code;
-                    record.Streetname = model.Streetname;
-                    record.Streetnumber = model.Streetnumber;
-                    record.Pobox = model.Pobox;
-                    record.DistancefromMeetingpointtoworklocationkm = model.DistancefromMeetingpointtoworklocationkm;
-                    record.Distancetoworklocationkm = model.Distancetoworklocationkm;
-                    record.Transportation_method = model.Transportation_method;
-                    record.Employee_ProfileId = model.Employee_ProfileId;
-                    var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
-                    record.countryid = model.countryid;
-                    var Countryid = int.Parse(model.countryid);
-                    record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);
-                    record.areaid = model.areaid;
-                    var Areaid = int.Parse(model.areaid);
-                    record.Area = dbcontext.Area.FirstOrDefault(m => m.ID == Areaid);
-                    record.stateid = model.stateid;
-                    var the_statesid = int.Parse(model.stateid);
-                    record.the_states = dbcontext.the_states.FirstOrDefault(m => m.ID == the_statesid);
-                    record.Territoriesid = model.Territoriesid;
-                    var Territoriesid = int.Parse(model.Territoriesid);
-                    record.Territories = dbcontext.Territories.FirstOrDefault(m => m.ID == Territoriesid);
-                    record.citiesid = model.citiesid;
-                    var citiesid = int.Parse(model.citiesid);
-                    record.cities = dbcontext.cities.FirstOrDefault(m => m.ID == citiesid);
-                    record.postcodeId = model.postcodeId;
-                    var postcodeId = int.Parse(model.postcodeId);
-                    record.postcode = dbcontext.postcode.FirstOrDefault(m => m.ID == postcodeId);
-                    dbcontext.Employee_Address_Profile.Add(record);
-                    dbcontext.SaveChanges();
-                    if (command == "Submit")
-                    {
-                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
-                    }
-                    return RedirectToAction("Index", new { id = model.Employee_ProfileId });
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });//int.Parse(record.Employee_ProfileId)
                 }
-                else
-                {
-                    return View(model);
-                }
+                return RedirectToAction("Index", new { id = EmpObj.ID }); //model.Employee_ProfileId 
+                //}
+                //else
+                //{
+                //    return View(model);
+                //}
+                return View(model);
             }
             catch (DbUpdateException e)
             {

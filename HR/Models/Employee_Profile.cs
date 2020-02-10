@@ -21,7 +21,9 @@ namespace HR.Models
         public string Full_Name { get; set; }
         public string Arabic { get; set; }
         public string Full { get; set; }
+        [Display(Name = "SurName")]
         public string Surname { get; set; }
+        [Display(Name = "SurName")]
         public string Sur_Name { get; set; }
         public Gender Gender { get; set; } = Gender.male;
         [Display(Name = "Marital Status")]
@@ -35,20 +37,24 @@ namespace HR.Models
         public string NationalityId { get; set; }
         public virtual Nationality Nationality { get; set; }
         public bool Citizen { get; set; }
+        [Display(Name = "Blood group")]
         public Blood_group Blood_group { get; set; } = Blood_group.None;
         [Display(Name = "ID type")]
         public ID_type ID_type { get; set; } = ID_type.National_ID;
+        [Display(Name = "Health Status")]
         public Health_Status Health_Status { get; set; } = Health_Status.Ability;
         [Display(Name = "Birth date")]
-       
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Birth_date { get; set; }
         [Display(Name = "ID number")]
         public string ID_number { get; set; }
         [Display(Name = "ID number in attendance machine")]
         public string ID_number_in_attendance_machine { get; set; }
         [Display(Name = "Issue date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Issue_date { get; set; }
         [Display(Name = "Expire date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Expire_date { get; set; }
  
          

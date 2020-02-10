@@ -19,8 +19,10 @@ namespace HR.Models
         [Display(Name = "Contract No.")]
         public string Code { get; set; }
         [Display(Name = "Start date ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Start_date { get; set; }
         [Display(Name = "End date ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime End_date { get; set; }
         public double Years { get; set; }
         public double Months { get; set; }

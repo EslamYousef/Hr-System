@@ -29,10 +29,13 @@ namespace HR.Models
         public string Military_Service_RankId { get; set; }
         public virtual Military_Service_Rank Military_Service_Rank { get; set; }
         [Display(Name = "Certificate date ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Certificate_date { get; set; }
         [Display(Name = "From date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime From_date { get; set; }
         [Display(Name = "To date ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime To_date { get; set; }
         [Display(Name = "Batch reference No.")]
         public string Batch_reference_No { get; set; }

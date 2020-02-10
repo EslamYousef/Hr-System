@@ -90,6 +90,7 @@ namespace HR.Controllers
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.idemp = model.Position_Information.Employee_ProfileId;
+
                 if (ModelState.IsValid)
                 {
                      var prof = int.Parse(model.Position_Information.Employee_ProfileId);
@@ -121,6 +122,11 @@ namespace HR.Controllers
                     record.Primary_Position = model.Position_Information.Primary_Position;
                     record.From_date = model.Position_Information.From_date;
                     record.To_date = model.Position_Information.To_date;
+                    if (model.Position_Information.From_date > model.Position_Information.To_date)
+                    {
+                        TempData["Message"] = "From date  bigger To date ";
+                        return View(model);
+                    }
                     record.Years = model.Position_Information.Years;
                     record.Months = model.Position_Information.Months;
                     record.End_of_service_date = model.Position_Information.End_of_service_date;
@@ -253,6 +259,11 @@ namespace HR.Controllers
                 record.Primary_Position = model.Position_Information.Primary_Position;
                 record.From_date = model.Position_Information.From_date;
                 record.To_date = model.Position_Information.To_date;
+                if (model.Position_Information.From_date > model.Position_Information.To_date)
+                {
+                    TempData["Message"] = "From date  bigger To date ";
+                    return View(model);
+                }
                 record.Years = model.Position_Information.Years;
                 record.Months = model.Position_Information.Months;
           //      record.End_of_service_date = model.Position_Information.End_of_service_date;

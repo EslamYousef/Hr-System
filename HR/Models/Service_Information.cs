@@ -16,12 +16,15 @@ namespace HR.Models
        [Display(Name = "Pension source")]
         public string Pension_source { get; set; }
         [Display(Name = "EOS date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime EOS_date { get; set; }
         [Display(Name = "Have pension")]
         public bool Have_pension { get; set; }
         [Display(Name = "Retired Expected EOS")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Retired_expected_EOS { get; set; }
         [Display(Name = "Last working date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Last_working_date { get; set; }
         [Display(Name = "Currency")]
         public string CurrencyId { get; set; }

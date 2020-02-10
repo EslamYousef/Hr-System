@@ -76,7 +76,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Contact_method_detail, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Contact_method_detail, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control"} })
+                                @Html.TextAreaFor(model => model.Comments,4,55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -135,9 +135,7 @@
         $("#employeeId").attr("disabled", true);
 
     });
-</script>
 
-<script>
     function Contact() {
          
         var id = $("#ContactId").val();

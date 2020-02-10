@@ -91,6 +91,11 @@ namespace HR.Controllers
                     record.Job_title = model.Job_title;
                     record.Start_date = model.Start_date;
                     record.End_date = model.End_date;
+                    if (model.Start_date > model.End_date)
+                    {
+                        TempData["Message"] = "Start date bigger End date";
+                        return View(model);
+                    }
                     record.Years = model.Years;
                     record.Months = model.Months;
                     record.Days = model.Days;
@@ -157,29 +162,42 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                if (model.External_compainesId == "0" || model.External_compainesId == null)
-                {
-                    ModelState.AddModelError("", "Company Code must enter");
-                    return View(model);
-                }
-                if (model.Rejection_ReasonsId == "0" || model.Rejection_ReasonsId == null)
-                {
-                    ModelState.AddModelError("", "Reason of leave Code must enter");
-                    return View(model);
-                }
+                //if (model.External_compainesId == "0" || model.External_compainesId == null)
+                //{
+                //    ModelState.AddModelError("", "Company Code must enter");
+                //    return View(model);
+                //}
+                //if (model.Rejection_ReasonsId == "0" || model.Rejection_ReasonsId == null)
+                //{
+                //    ModelState.AddModelError("", "Reason of leave Code must enter");
+                //    return View(model);
+                //}
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+
                 var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == model.ID);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                 record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
                 record.Code = model.Code;
                 record.Rejection_ReasonsId = model.Rejection_ReasonsId;
+                var Rejection_ReasonsId = int.Parse(model.Rejection_ReasonsId);
+                record.Rejection_Reasons = dbcontext.Rejection_Reasons.FirstOrDefault(m => m.ID == Rejection_ReasonsId);
                 record.External_compainesId = model.External_compainesId;
+                var External_compainesId = int.Parse(model.External_compainesId);
+                record.External_compaines = dbcontext.External_compaines.FirstOrDefault(m => m.ID == External_compainesId);
                 record.Company_type = model.Company_type;
                 record.Job_title = model.Job_title;
                 record.Start_date = model.Start_date;
                 record.End_date = model.End_date;
+                if (model.Start_date > model.End_date)
+                {
+                    TempData["Message"] = "Start date bigger End date";
+                    return View(model);
+                }
                 record.Years = model.Years;
                 record.Months = model.Months;
                 record.Days = model.Days;
                 record.Total_salary = model.Total_salary;
-                record.Employee_ProfileId = model.Employee_ProfileId;
+        
                 record.Added_days = model.Added_days;
                 record.Added_months = model.Added_months;
                 record.Added_years = model.Added_years;

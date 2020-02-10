@@ -69,6 +69,7 @@ namespace HR.Controllers
                 {
                     var con = int.Parse(model.Employee_ProfileId);
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == con);
+                    var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
                     Employee_contract_profile record = new Employee_contract_profile();
                     record.Code = model.Code;
@@ -78,7 +79,7 @@ namespace HR.Controllers
                     record.Contract_end_date = model.Contract_end_date;
                     if (model.Contract_start_date > model.Contract_end_date)
                     {
-                        TempData["Message"] = "From date Issue bigger date Expire";
+                        TempData["Message"] = "Contract start date bigger Contract end date";
                         return View(model);
                     }
                     record.Years = model.Years;
@@ -102,9 +103,12 @@ namespace HR.Controllers
                     record.Adult_Tickets_No = model.Adult_Tickets_No;
                     record.Child_Tickets_No = model.Child_Tickets_No;
                     record.Tickets_Class_Tpyefam = model.Tickets_Class_Tpyefam;
-                    record.Employee_ProfileId = model.Employee_ProfileId;
-                    var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
+                    var empid = EmpObj.Code + "------" + EmpObj.Name;
+                    record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = empid : model.Employee_ProfileId;
+                    record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
+                    //   record.Employee_ProfileId = model.Employee_ProfileId;
+                    //var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                    //record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
                     record.ContractTypeId = model.ContractTypeId;
                     record.ApprovedbyId = model.ApprovedbyId;
          
@@ -113,15 +117,16 @@ namespace HR.Controllers
 
                     if (command == "Submit")
                     {
-                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                        return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });//id = int.Parse(record.Employee_ProfileId)
                     }
-                    return RedirectToAction("Index", new { id = model.Employee_ProfileId });
-                }
+                    return RedirectToAction("Index", new { id = EmpObj.ID });
+            }
                 else
                 {
-                    return View(model);
-                }
+                return View(model);
             }
+            //    return View(model);
+        }
             catch (DbUpdateException e)
             {
                 TempData["Message"] = "this code Is already exists";
@@ -178,6 +183,7 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.idemp = model.Employee_ProfileId;
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
                 var prof = int.Parse(model.Employee_ProfileId);
                 //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
@@ -190,7 +196,7 @@ namespace HR.Controllers
                 record.Contract_end_date = model.Contract_end_date;
                 if (model.Contract_start_date > model.Contract_end_date)
                 {
-                    TempData["Message"] = "From date Issue bigger date Expire";
+                    TempData["Message"] = "Contract start date bigger Contract end date";
                     return View(model);
                 }
                 record.Years = model.Years;
@@ -214,19 +220,21 @@ namespace HR.Controllers
                 record.Adult_Tickets_No = model.Adult_Tickets_No;
                 record.Child_Tickets_No = model.Child_Tickets_No;
                 record.Tickets_Class_Tpyefam = model.Tickets_Class_Tpyefam;
-
-                record.Employee_ProfileId = model.Employee_ProfileId;
-                var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = empid : model.Employee_ProfileId;
+                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
+                //record.Employee_ProfileId = model.Employee_ProfileId;
+                //var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                //record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
                 record.ContractTypeId = model.ContractTypeId;
                 record.ApprovedbyId = model.ApprovedbyId;
                 dbcontext.SaveChanges();
 
                 if (command == "Submit")
                 {
-                    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID   }); //id = int.Parse(record.Employee_ProfileId)
                 }
-                return RedirectToAction("index", new { id = model.Employee_ProfileId });
+                return RedirectToAction("index", new { id = EmpObj.ID }); //id = model.Employee_ProfileId 
             }
             catch (DbUpdateException e)
             {

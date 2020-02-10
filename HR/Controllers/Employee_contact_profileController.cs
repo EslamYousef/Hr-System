@@ -131,8 +131,11 @@ namespace HR.Controllers
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Contactmethods = dbcontext.Contact_methods.ToList().Select(m => new { Code = m.Code + "------[" + m.Description + ']', ID = m.ID });
-              
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+
                 var record = dbcontext.Employee_contact_profile.FirstOrDefault(m => m.ID == model.ID);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                var empl = record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
                 record.Code = model.Code;
                 record.ContactmethodsId = model.ContactmethodsId;
                 record.Primary = model.Primary;

@@ -19,6 +19,7 @@ namespace HR.Models
         [Display(Name = "registration number")]
         public string registration_number { get; set; }
         [Display(Name = "registration date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime registration_date { get; set; }
     }
 }

@@ -44,8 +44,7 @@
                             @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="employeename" disabled />
+                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
                             </div>
                             <div class="col-md-4" style="color:black">
                                 <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
@@ -79,8 +78,8 @@
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Contact_method_detail, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Contact_method_detail, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -88,7 +87,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.TextAreaFor(model => model.Comments,4,55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -114,9 +113,10 @@
 @section scripts{}
 
 <script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+
+    });
 </script>
 
 <script>
@@ -141,10 +141,7 @@
             }
         });
     }
-    employee();
-</script>
 
-<script>
     function Contact() {
         debugger
         var id = $("#ContactId").val();
@@ -164,5 +161,4 @@
             }
         });
     }
-    employee();
 </script>

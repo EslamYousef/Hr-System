@@ -125,18 +125,17 @@
                                     <span>Benefit type code</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), "Select Subscription Syndicate", new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                    @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), "Select Subscription Syndicate", new { @required = "required", @class = "select2", @onchange = "employee2()", id = "employeeId2" })
 
 
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="control-label col-md-2">
                                     <span>Family profile No</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), "Select Family Profile No.", new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), "Select Family Profile No.", new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
 
                                 </div>
                             </div>
@@ -172,7 +171,12 @@
 </div>
 
 @section scripts{}
+@*<script>
+        $(document).ready(function () {
+            $("#employeeId").attr("disabled", true);
 
+        });
+</script>*@
 
 <script>
     function employee() {

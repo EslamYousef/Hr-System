@@ -73,13 +73,17 @@ namespace HR.Controllers
                 ViewBag.Military_Service_Rank = dbcontext.Military_Service_Rank.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(a=>a.purpose==reject_purpose.Military_service).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+             
 
 
                 if (ModelState.IsValid)
                 {
                     var prof = int.Parse(model.Employee_ProfileId);
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+                 //   var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+
                     var record = dbcontext.Employee_military_service_profile.FirstOrDefault(m => m.ID == emp.Employee_military_service_profile.ID);
+
                     record.Service_at_hire = model.Service_at_hire;
                     record.Trio_number = model.Trio_number;
                     record.Branch = model.Branch;
@@ -89,6 +93,11 @@ namespace HR.Controllers
                     record.Certificate_date = model.Certificate_date;
                     record.From_date = model.From_date;
                     record.To_date = model.To_date;
+                    if (model.From_date > model.To_date)
+                    {
+                        TempData["Message"] = "From date bigger To date";
+                        return View(model);
+                    }
                     record.Batch_reference_No = model.Batch_reference_No;
                     record.Id_number = model.Id_number;                 
                     record.Rejection_ReasonsId = model.Rejection_ReasonsId;
@@ -161,8 +170,14 @@ namespace HR.Controllers
                 ViewBag.Military_Service_Rank = dbcontext.Military_Service_Rank.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(a => a.purpose == reject_purpose.Military_service).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+             
+              var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
                 var record = dbcontext.Employee_military_service_profile.FirstOrDefault(m => m.ID == model.ID);
+               var empid = EmpObj.Code + "------" + EmpObj.Name;
+               var empl= record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+         //       record.Employee_ProfileId = empl;
+    //            var trt = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == int.Parse(empl));
                 record.Code = model.Code;
 
                 record.Service_at_hire = model.Service_at_hire;
@@ -174,6 +189,11 @@ namespace HR.Controllers
                 record.Certificate_date = model.Certificate_date;
                 record.From_date = model.From_date;
                 record.To_date = model.To_date;
+                if (model.From_date > model.To_date)
+                {
+                    TempData["Message"] = "From date bigger To date";
+                    return View(model);
+                }
                 record.Batch_reference_No = model.Batch_reference_No;
                 record.Id_number = model.Id_number;
                 record.Rejection_ReasonsId = model.Rejection_ReasonsId;

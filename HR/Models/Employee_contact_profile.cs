@@ -18,6 +18,7 @@ namespace HR.Models
         [Display(Name = "Contact profile No.")]
         public string Code { get; set; }
         public bool Primary { get; set; }
+   
         [Display(Name = "Contact method code")]
         public string ContactmethodsId { get; set; }
         public virtual Contact_methods Contact_methods { get; set; }

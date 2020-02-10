@@ -45,7 +45,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId2" })
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId88" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
                             </div>        
                         </div>
@@ -179,12 +179,17 @@
     </section>
 </div>
 @section scripts{}
+<script>
+    $(document).ready(function () {
+        $("#employeeId88").attr("disabled", true);
 
+    });
+</script>
 
 <script>
     function employee() {
         debugger
-        var id = $("#employeeId2").val();
+        var id = $("#employeeId88").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
@@ -199,7 +204,7 @@
             },
             error: function () {
                 debugger
-                $("#employeeId2").val();
+                $("#employeeId88").val();
                 $("#codeid").val("");
             }
         });
@@ -498,7 +503,7 @@
 
 </script>
 
-<script>
+@*<script>
     debugger
     var id = $("#country").val();
     $.ajax({
@@ -598,4 +603,4 @@
             $("#postname").val(" ");
         }
     });
-</script>
+</script>*@
