@@ -6,12 +6,7 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
-<script>
-    $(document).ready(function () {
-        $("#employeeId2").attr("disabled", true);
 
-    });
-</script>
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -41,12 +36,14 @@
                             </div>
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                       
+                        @Html.HiddenFor(m => m.Employee_Profile.ID)
+
+
                         <div class="form-group">
                             @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId88" })
-                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
                             </div>        
                         </div>
 
@@ -65,64 +62,63 @@
                       
                         <div class="form-group">
                             @Html.LabelFor(model => model.countryid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
 
                                 @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.Country, "ID", "Code"), "Select Country", new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                 @Html.ValidationMessageFor(model => model.countryid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname" disabled />
+                 
 
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.areaid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.Area, "ID", "Code"), "Select Area", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.areaid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="areaname" disabled />
+                      
 
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.stateid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.stateid, new SelectList(ViewBag.the_states, "ID", "Code"), "Select state", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.stateid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="statename" disabled />
-
+            
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Territoriesid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.Territories, "ID", "Code"), "Select Territoer", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Territoriesid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="tername" disabled />
+
 
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.citiesid, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.citiesid, new SelectList(ViewBag.cities, "ID", "Code"), "Select Cite", new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.citiesid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="cityname" disabled />
+       
 
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.postcodeId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.postcodeId, new SelectList(ViewBag.postcode, "ID", "Code"), "Select Postal", new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.postcodeId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="postname" disabled />
+                               
 
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Streetname, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Streetname, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Streetname, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Streetname, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -135,7 +131,7 @@
                             </div>
                             @Html.LabelFor(model => model.Pobox, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Pobox, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Pobox, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Pobox, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -148,8 +144,8 @@
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Transportation_method, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EnumDropDownListFor(model => model.Transportation_method, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Transportation_method,  new { @class = "select2"  })
                                 @Html.ValidationMessageFor(model => model.Transportation_method, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -198,20 +194,18 @@
                 debugger
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Address_Profile.Code);
-                $("#employeeId2").prop("readonly", true);
-                $("#employeeId2").attr("readonly", true);
+           //     $("#employeeId2").prop("readonly", true);
+             //   $("#employeeId2").attr("readonly", true);
 
             },
             error: function () {
                 debugger
-                $("#employeeId88").val();
+          //      $("#employeeId88").val();
                 $("#codeid").val("");
             }
         });
     }
-</script>
 
-<script>
     function CountryName() {
         debugger
         var id = $("#country").val();
@@ -502,105 +496,3 @@
 
 
 </script>
-
-@*<script>
-    debugger
-    var id = $("#country").val();
-    $.ajax({
-        type: "post",
-        url: "/Helper/GetCountry",
-        data: { "id": id },
-        success: function (result) {
-            debugger
-            $("#area").removeAttr("disabled");
-            $("#countryname").val(result.Name);
-        },
-        error: function () {
-            debugger
-            $("#countryname").val(" ");
-        }
-    });
-
-    var id = $("#area").val();
-    $.ajax({
-        type: "post",
-        url: "/Helper/getarea",
-        data: { "id": id },
-        success: function (result) {
-            debugger
-            $("#state").removeAttr("disabled");
-            $("#areaname").val(result.Name);
-
-        },
-        error: function () {
-            debugger
-            $("#areaname").val(" ");
-        }
-    });
-
-    var id = $("#state").val();
-    $.ajax({
-        type: "post",
-        url: "/Helper/Getstate",
-        data: { "id": id },
-        success: function (result) {
-            debugger
-            $("#ter").removeAttr("disabled");
-            $("#statename").val(result.Name);
-
-        },
-        error: function () {
-            debugger
-            $("#statename").val(" ");
-        }
-    });
-    var id = $("#ter").val();
-    $.ajax({
-        type: "post",
-        url: "/Helper/Getter",
-        data: { "id": id },
-        success: function (result) {
-            debugger
-            $("#citeid").removeAttr("disabled");
-            $("#tername").val(result.Name);
-
-        },
-        error: function () {
-            debugger
-            $("#tername").val(" ");
-        }
-    });
-    var id = $("#citeid").val();
-    $.ajax({
-        type: "post",
-        url: "/Helper/Getcite",
-        data: { "id": id },
-        success: function (result) {
-            debugger
-            $("#postal").removeAttr("disabled");
-            $("#cityname").val(result.Name);
-
-        },
-        error: function () {
-            debugger
-            $("#cityname").val(" ");
-        }
-    });
-
-    var id = $("#postal").val();
-    $.ajax({
-        type: "post",
-        url: "/Helper/Getpost",
-        data: { "id": id },
-        success: function (result) {
-            debugger
-       
-            $("#postname").val(result.Name);
-
-        },
-        error: function () {
-            debugger
-            $("#postname").val(" ");
-        }
-    });
-</script>*@
