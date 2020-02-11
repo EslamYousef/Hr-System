@@ -926,8 +926,18 @@ namespace HR.Controllers
             var newmodel = dbcontext.Position_Information.FirstOrDefault(m => m.ID == ID);
             return Json(newmodel);
         }
-
-
+        public JsonResult GetDataByIdcontract(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
+        public JsonResult GetDataByIdsubscription(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Employee_subscription_syndicate_profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
 
 
 

@@ -121,7 +121,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Contract_start_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker StartDate yy", @onchange = "Save()", @id = "Start"@*, @type = "date"*@, @autocomplete = "off" } })
+                                            @Html.EditorFor(model => model.Contract_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control StartDate", @onchange = "Save()", @id = "Start", @type = "date", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Contract_start_date, "", new { @class = "text-danger" })
                                         </div>
                                         @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -135,7 +135,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Contract_end_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker EndDate yyy", @onchange = "Save2()", @id = "End"@*, @type = "date"*@, @autocomplete = "off" } })
+                                            @Html.EditorFor(model => model.Contract_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control EndDate", @onchange = "Save2()", @id = "End", @type = "date", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
                                         </div>
                                         @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -360,16 +360,11 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
+        GetDataById2();
 
     });
 </script>
-<script>
-    $(document).ready(function () {
 
-        Save();
-        Save2();
-    });
-</script>
 
 <script>
     function employee() {
@@ -465,13 +460,86 @@
         });
     }
 
+      function GetDataById()
+    {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdcontract",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Contract_end_date)
+                    var month;
+                    if ((date.getMonth()+1)<10) {
+                        month ="0"+(date.getMonth()+1).toString();
+                    }
+                }
+                else
+                    month =date.getMonth()+1;
+                var d =date.getFullYear()+ '-'+ month + '-' +date.getDate();
+                $("#End").val(d);
+                Save();
+                Save2();
+                console.log(result);
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+ //   GetDataById();
+    function parseJsonDate(jsonDateString)
+    {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdcontract",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Contract_start_date)
+                    var month;
+                    if ((date.getMonth() + 1) < 10) {
+                        month = "0" + (date.getMonth() + 1).toString();
+                    }
+                }
+                else
+                    month = date.getMonth() + 1;
+                var d = date.getFullYear() + '-' + month + '-' + date.getDate();
+                $("#Start").val(d);
+                GetDataById();
+                console.log(result);
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+  //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
     function Save() {
+
+        debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 
-        var from = $(".StartDate").val();
-        var to = $(".EndDate").val();
-
+        //   var from = $(".StartDate").val();
+        //   var to = $(".EndDate").val();
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
         if (to > from) {
             var diffTime = Math.abs(EndDate - StartDate);
             var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -485,13 +553,17 @@
             $("#months").val("0");
         }
     };
-
     function Save2() {
+        debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
-
-        var from = $(".StartDate").val();
-        var to = $(".EndDate").val();
+        //   var x = $(".StartDate").val().split('/');
+        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
+        //    var EndDate = new Date($(".EndDate").val());
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        //   var from = $(".StartDate").val();
+        //     var to = $(".EndDate").val();
         if (to > from) {
             var diffTime = Math.abs(EndDate - StartDate);
             var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -505,8 +577,9 @@
             $("#months").val("0");
         }
     };
-
 </script>
+
+
 
 
 
