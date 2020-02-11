@@ -34,9 +34,9 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
-                        @Html.HiddenFor(m => m.Position_Information.ID);
-                        @Html.HiddenFor(m => m.Position_Information.Employee_ProfileId);
-                        @Html.HiddenFor(m => m.Position_Transaction_Information.ID);
+                        @Html.HiddenFor(m => m.Position_Information.ID)
+                        @Html.HiddenFor(m => m.Position_Information.Employee_ProfileId)
+                        @Html.HiddenFor(m => m.Position_Transaction_Information.ID)
                         <hr />
 
                         @if (TempData["Message"] != null)
@@ -160,7 +160,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.From_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Information.From_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker StartDate yy", @onchange = "Save()", @id = "Start"@*, @type = "date"*@ } })
+                                            @Html.EditorFor(model => model.Position_Information.From_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control StartDate", @onchange = "Save()", @id = "Start", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Position_Information.From_date, "", new { @class = "text-danger" })
                                         </div>
                                         @Html.LabelFor(model => model.Position_Information.Years, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -174,7 +174,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Position_Information.To_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Position_Information.To_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control datepicker EndDate yyy", @onchange = "Save2()", @id = "End"@*, @type = "date"*@ } })
+                                            @Html.EditorFor(model => model.Position_Information.To_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control EndDate", @onchange = "Save2()", @id = "End", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Position_Information.To_date, "", new { @class = "text-danger" })
                                         </div>
                                         @Html.LabelFor(model => model.Position_Information.Months, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -386,38 +386,31 @@
 
 
 
-<script>
-    $(document).ready(function () {
 
-        Save();
-        Save2();
-    });
-</script>
 <script>
     function employee() {
-        debugger
+  
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+              
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
                 $("#employeeId").attr("readonly", true);
                 $("#employeeId").prop("readonly", true);
             },
             error: function () {
-                debugger
+       
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
     function CountryName() {
-        debugger
-        var id = $("#country").val();
+            var id = $("#country").val();
 
         $.ajax({
             type: "post",
@@ -425,8 +418,7 @@
             dataType: "json",
             data: { "id": id },
             success: function (result) {
-                debugger
-
+                
                 $("#countryname1").val(result.name);
                 $("#area").removeAttr("disabled");
                 //     areaName(result.Organization_unit_codeID.worklocationid)
@@ -436,21 +428,21 @@
                 getstate(result.Organization_unit_codeID)
             },
             error: function () {
-                debugger
+              
                 $("#countryname1").val(" ");
             }
         });
     }
     CountryName()
     function areaname(did) {
-        debugger
+     
 
         $.ajax({
             type: "post",
             url: "/helper/getjoblevel",
             data: { "id": did },
             success: function (result) {
-                debugger
+          
                 $("#ter").removeAttr("disabled");
                 $("#area").select2("val", result.ID);
                 $("#areaname1").val(result.Name);
@@ -458,13 +450,13 @@
                 $("#area").prop("readonly", true);
             },
             error: function () {
-                debugger
+          
                 $("#areaname1").val(" ");
             }
         });
     }
     function getter(did) {
-        debugger
+     
         var oo = $("#employeeId").val();
         var id = $("#ter").val();
 
@@ -473,7 +465,7 @@
             url: "/Helper/GetJobSolts",
             data: { "id": did, "did": oo },
             success: function (result) {
-                debugger
+      
                 var finalresult = "";
                 finalresult = "<option value='0' > Choose Slot desc </option>";
                 $.each(result, function (key, value) {
@@ -494,36 +486,36 @@
 
             },
             error: function () {
-                debugger
+           
                 $("#tername").val(" ");
             }
         });
     }
     function slot() {
-        debugger
+
         var id = $("#ter").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetSolt",
             data: { "id": id },
             success: function (result) {
-                debugger
+            
                 $("#tername").val(result.slot_code);
             },
             error: function () {
-                debugger
+        
                 $("#tername").val(" ");
             }
         });
     }
     function getstate(did) {
-        debugger
+      
         $.ajax({
             type: "post",
             url: "/Helper/GetOrganizationChart",
             data: { "id": did },
             success: function (result) {
-                debugger
+                
                 $("#state").select2("val", result.ID);
 
                 $("#citeid").removeAttr("disabled");
@@ -534,21 +526,20 @@
                 $("#state").prop("readonly", true);
             },
             error: function () {
-                debugger
+         
                 $("#statename").val(" ");
             }
         });
     }
 
     function getcite(did) {
-        debugger
+      
         $.ajax({
             type: "post",
             url: "/Helper/GetWorklocation",
             data: { "id": did },
             success: function (result) {
-                debugger
-
+              
                 $("#citeid").select2("val", result.ID);
                 $("#cityname").val(result.Name);
                 $("#citeid").attr("readonly", true);
@@ -556,39 +547,110 @@
                 $("#citeid2").removeAttr("disabled");
             },
             error: function () {
-                debugger
+          
                 $("#cityname").val(" ");
             }
         });
     }
 
     function getcite2(did) {
-        debugger
-
+      
         $.ajax({
             type: "post",
             url: "/Helper/GetWorklocation",
             data: { "id": did },
             success: function (result) {
-                debugger
+                
 
                 $("#citeid2").select2("val", result.ID);
                 $("#cityname2").val(result.Name);
 
             },
             error: function () {
-                debugger
+           
                 $("#cityname2").val(" ");
             }
         });
     }
+    
+    function GetDataById()
+    {
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataById",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.To_date)
+                    var month;
+                    if ((date.getMonth()+1)<10) {
+                        month ="0"+(date.getMonth()+1).toString();
+                    }
+                }
+                else
+                    month =date.getMonth()+1;
+                var d =date.getFullYear()+ '-'+ month + '-' +date.getDate();
+                $("#End").val(d);
+                Save();
+                Save2();
+                console.log(result);
+            },
+            error: function () {
+                debugger
+            
+            }
+        });
+    }
+ //   GetDataById();
+    function parseJsonDate(jsonDateString)
+    {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataById",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.From_date)
+                    var month;
+                    if ((date.getMonth() + 1) < 10) {
+                        month = "0" + (date.getMonth() + 1).toString();
+                    }
+                }
+                else
+                    month = date.getMonth() + 1;
+                var d = date.getFullYear() + '-' + month + '-' + date.getDate();
+                $("#Start").val(d);
+                GetDataById();
+                console.log(result);
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+  //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
     function Save() {
+
+        debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 
-        var from = $(".StartDate").val();
-        var to = $(".EndDate").val();
-
+        //   var from = $(".StartDate").val();
+        //   var to = $(".EndDate").val();
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
         if (to > from) {
             var diffTime = Math.abs(EndDate - StartDate);
             var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -603,11 +665,16 @@
         }
     };
     function Save2() {
+        debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
-
-        var from = $(".StartDate").val();
-        var to = $(".EndDate").val();
+        //   var x = $(".StartDate").val().split('/');
+        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
+        //    var EndDate = new Date($(".EndDate").val());
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        //   var from = $(".StartDate").val();
+        //     var to = $(".EndDate").val();
         if (to > from) {
             var diffTime = Math.abs(EndDate - StartDate);
             var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -621,6 +688,14 @@
             $("#months").val("0");
         }
     };
+   </script>
 
+<script>
+    $(document).ready(function () {
+
+       
+       
+       
+        GetDataById2();
+    });
 </script>
-

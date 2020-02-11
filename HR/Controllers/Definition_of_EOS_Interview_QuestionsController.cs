@@ -26,7 +26,7 @@ namespace HR.Controllers
             if (o==null || o.Count()  == 0)
             {
 
-                TempData["Message"] = "";
+                TempData["Message"] = "Enter data first on EOS Interview Questions Groups";
                 var modelll = dbcontext.Definition_of_EOS_Interview_Questions.ToList();
                 return View("index",modelll);
     

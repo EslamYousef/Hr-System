@@ -61,7 +61,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Personnel.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -82,7 +82,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Contract Type";
+                    TempData["Message"] = HR.Resource.Personnel.thereisnodata;
                     return View();
                 }
             }
@@ -104,7 +104,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Personnel.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -119,7 +119,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Contract Type"; ;
+                    TempData["Message"] = HR.Resource.Personnel.thereisnodata;
                     return View();
                 }
 
@@ -143,7 +143,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Personnel.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

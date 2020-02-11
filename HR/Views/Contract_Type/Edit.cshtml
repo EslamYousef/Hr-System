@@ -1,4 +1,5 @@
 ﻿@model HR.Models.Contract_Type
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Edit";
@@ -10,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Contract Type
+           @Personnel.Edit_Contract_Type
         </h1>
     </section>
 
@@ -41,25 +42,25 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Contract_Type_Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Contract_Type_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            <label class="control-label col-md-2">@Personnel.Contract_type_code</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Contract_Type_Code, Personnel.Contract_type_code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Contract_Type_Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Contract_Type_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Contract_Type_Description, new { htmlAttributes = new { @class = "form-control" } })
+                            <label class="control-label col-md-2">@Personnel.Contracty_type_description</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Contract_Type_Description, @Personnel.Contracty_type_description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Contract_Type_Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Contract_Type_Alternative_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Contract_Type_Alternative_Description, new { htmlAttributes = new { @class = "form-control" } })
+                            <label class="control-label col-md-2">@Personnel.Contract_type_alternative_description</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Contract_Type_Alternative_Description, @Personnel.Contract_type_alternative_description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Contract_Type_Alternative_Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -67,8 +68,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Contract_Type")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Contract_Type")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                             </div>
                         </div>
                     </div>
@@ -81,8 +82,3 @@
     </section>
 </div>
 @section scripts{}
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Subscription_Syndicate>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Subscription_Syndicate")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Subscription Syndicate</a>
+                    <a href="@Url.Action("Create", "Subscription_Syndicate")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.Add_New_Subscription_Syndicate</a>
                 </p>
             </div>
 
@@ -29,11 +29,11 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Subscription Code</th>
-                            <th>Subscription Description </th>
-                            <th>Server Legatees </th>
-                            <th>Deduction Period </th>
-                            <th>Type</th>
+                            <th>@Personnel.Subscription_Code</th>
+                            <th>@Personnel.Subscription_Description </th>
+                            <th>@Personnel.Server_Legatees </th>
+                            <th>@Personnel.Deduction_Period </th>
+                            <th>@Personnel.Type</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -49,19 +49,19 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Subscription_Syndicate", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Subscription_Syndicate", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Subscription_Syndicate", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Subscription_Syndicate", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Subscription Code</th>
-                            <th>Subscription Description </th>
-                            <th>Server Legatees </th>
-                            <th>Deduction Period </th>
-                            <th>Type</th>
+                            <th>@Personnel.Subscription_Code</th>
+                            <th>@Personnel.Subscription_Description </th>
+                            <th>@Personnel.Server_Legatees </th>
+                            <th>@Personnel.Deduction_Period </th>
+                            <th>@Personnel.Type</th>
 
 
                             <th></th>

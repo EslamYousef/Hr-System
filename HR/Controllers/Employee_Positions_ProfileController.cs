@@ -257,6 +257,8 @@ namespace HR.Controllers
                 var emp = record.Employee_Profile;
                 record.Code = model.Position_Information.Code;
                 record.Primary_Position = model.Position_Information.Primary_Position;
+          //      model.Position_Information.From_date = record.From_date;
+        //        model.Position_Information.To_date = record.To_date;
                 record.From_date = model.Position_Information.From_date;
                 record.To_date = model.Position_Information.To_date;
                 if (model.Position_Information.From_date > model.Position_Information.To_date)

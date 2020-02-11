@@ -920,6 +920,12 @@ namespace HR.Controllers
             Documents.Document_Group = dbcontext.Document_Group.FirstOrDefault(m => m.ID == ID2);
             return Json(Documents);
         }
+        public JsonResult GetDataById(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Position_Information.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
 
 
 

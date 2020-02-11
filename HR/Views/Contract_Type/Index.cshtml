@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Contract_Type>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Contract_Type")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Contract Type </a>
+                    <a href="@Url.Action("Create", "Contract_Type")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.Add_New_Contract_Type </a>
                 </p>
             </div>
 
@@ -29,9 +29,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Contract Type Code</th>
-                            <th>Contract Type Description</th>
-                            <th>Contract Type Alternative Description</th>
+                            <th>@Personnel.Contract_type_code</th>
+                            <th>@Personnel.Contracty_type_description</th>
+                            <th>@Personnel.Contract_type_alternative_description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -43,17 +43,17 @@
                                 <td>@item.Contract_Type_Description</td>
                                 <th>@item.Contract_Type_Alternative_Description</th>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Contract_Type", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Contract_Type", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Contract_Type", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Contract_Type", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Contract Type Code</th>
-                            <th>Contract Type Description</th>
-                            <th>Contract Type Alternative Description</th>
+                            <th>@Personnel.Contract_type_code</th>
+                            <th>@Personnel.Contracty_type_description</th>
+                            <th>@Personnel.Contract_type_alternative_description</th>
                             <th></th>
                         </tr>
                     </tfoot>
