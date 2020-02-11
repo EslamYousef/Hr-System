@@ -617,11 +617,11 @@ namespace HR.Controllers
         }
         public JsonResult GetEmployee(string id)
         {
-           
+            dbcontext.Configuration.ProxyCreationEnabled = false;
             var ID = int.Parse(id);
             var Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(Employee);
-            dbcontext.Configuration.ProxyCreationEnabled = false;
+            
         }
 
         public JsonResult CheckAddressEmployee(string id)

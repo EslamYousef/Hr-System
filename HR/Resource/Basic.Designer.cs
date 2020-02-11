@@ -61,11 +61,155 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add check request.
+        /// </summary>
+        public static string add_check_request {
+            get {
+                return ResourceManager.GetString("add_check_request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add county.
+        /// </summary>
+        public static string add_county {
+            get {
+                return ResourceManager.GetString("add_county", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add new air port.
+        /// </summary>
+        public static string add_new_air_port {
+            get {
+                return ResourceManager.GetString("add_new_air_port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add new check status.
+        /// </summary>
+        public static string add_new_check_status {
+            get {
+                return ResourceManager.GetString("add_new_check_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new check type.
+        /// </summary>
+        public static string add_new_check_type {
+            get {
+                return ResourceManager.GetString("add_new_check_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new contect method.
+        /// </summary>
+        public static string add_new_contect_method {
+            get {
+                return ResourceManager.GetString("add_new_contect_method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new country.
         /// </summary>
         public static string Add_new_country {
             get {
                 return ResourceManager.GetString("Add_new_country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new currency.
+        /// </summary>
+        public static string add_new_currency {
+            get {
+                return ResourceManager.GetString("add_new_currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new degree.
+        /// </summary>
+        public static string add_new_degree {
+            get {
+                return ResourceManager.GetString("add_new_degree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new docment.
+        /// </summary>
+        public static string add_new_docment {
+            get {
+                return ResourceManager.GetString("add_new_docment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new document group.
+        /// </summary>
+        public static string add_new_document_group {
+            get {
+                return ResourceManager.GetString("add_new_document_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new exchange rate.
+        /// </summary>
+        public static string add_new_exchange_rate {
+            get {
+                return ResourceManager.GetString("add_new_exchange_rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new exchange rate.
+        /// </summary>
+        public static string add_new_exchange_rate1 {
+            get {
+                return ResourceManager.GetString("add_new_exchange_rate1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new external company.
+        /// </summary>
+        public static string add_new_external_company {
+            get {
+                return ResourceManager.GetString("add_new_external_company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new nationality.
+        /// </summary>
+        public static string add_new_nationality {
+            get {
+                return ResourceManager.GetString("add_new_nationality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new postal.
+        /// </summary>
+        public static string add_new_postal {
+            get {
+                return ResourceManager.GetString("add_new_postal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new Qualification speciality.
+        /// </summary>
+        public static string add_new_Qualification_speciality {
+            get {
+                return ResourceManager.GetString("add_new_Qualification_speciality", resourceCulture);
             }
         }
         
@@ -79,11 +223,164 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new religion.
+        /// </summary>
+        public static string add_new_religion {
+            get {
+                return ResourceManager.GetString("add_new_religion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new sponser.
+        /// </summary>
+        public static string add_new_sponser {
+            get {
+                return ResourceManager.GetString("add_new_sponser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add new ticket price.
+        /// </summary>
+        public static string add_new_ticket_price {
+            get {
+                return ResourceManager.GetString("add_new_ticket_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add another ticket.
+        /// </summary>
+        public static string add_onther_ticket {
+            get {
+                return ResourceManager.GetString("add_onther_ticket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Name of educational qualification.
+        /// </summary>
+        public static string addName_of_educational_qualificati {
+            get {
+                return ResourceManager.GetString("addName_of_educational_qualificati", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string address {
+            get {
+                return ResourceManager.GetString("address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Air port alt-name.
+        /// </summary>
+        public static string air_port_alt_name {
+            get {
+                return ResourceManager.GetString("air_port_alt_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All-requests.
+        /// </summary>
+        public static string Allrequests {
+            get {
+                return ResourceManager.GetString("Allrequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to amount.
+        /// </summary>
+        public static string amount {
+            get {
+                return ResourceManager.GetString("amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Due date.
+        /// </summary>
+        public static string Check_Due_date {
+            get {
+                return ResourceManager.GetString("Check_Due_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to check number.
+        /// </summary>
+        public static string check_number {
+            get {
+                return ResourceManager.GetString("check_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to check Request.
+        /// </summary>
+        public static string check_Request {
+            get {
+                return ResourceManager.GetString("check_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Request Status.
+        /// </summary>
+        public static string Check_Request_Status {
+            get {
+                return ResourceManager.GetString("Check_Request_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to check request status ID.
+        /// </summary>
+        public static string check_request_statusID {
+            get {
+                return ResourceManager.GetString("check_request_statusID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to check-type.
+        /// </summary>
+        public static string check_type {
+            get {
+                return ResourceManager.GetString("check_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checktype ID.
+        /// </summary>
+        public static string ChecktypeID {
+            get {
+                return ResourceManager.GetString("ChecktypeID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string chooseyourstatus {
+            get {
+                return ResourceManager.GetString("chooseyourstatus", resourceCulture);
             }
         }
         
@@ -97,11 +394,65 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to you must choose city.
+        /// </summary>
+        public static string cityCodemustenter111 {
+            get {
+                return ResourceManager.GetString("cityCodemustenter111", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to class type.
+        /// </summary>
+        public static string class_type {
+            get {
+                return ResourceManager.GetString("class_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to code.
         /// </summary>
         public static string code {
             get {
                 return ResourceManager.GetString("code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company type.
+        /// </summary>
+        public static string company_type {
+            get {
+                return ResourceManager.GetString("company_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact type.
+        /// </summary>
+        public static string contact_type {
+            get {
+                return ResourceManager.GetString("contact_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Corporation.
+        /// </summary>
+        public static string corporation {
+            get {
+                return ResourceManager.GetString("corporation", resourceCulture);
             }
         }
         
@@ -115,11 +466,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to you must choose country.
+        /// </summary>
+        public static string countryCodemustenter1 {
+            get {
+                return ResourceManager.GetString("countryCodemustenter1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to County.
         /// </summary>
         public static string County {
             get {
                 return ResourceManager.GetString("County", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you must choose county.
+        /// </summary>
+        public static string countyCodemustenter11 {
+            get {
+                return ResourceManager.GetString("countyCodemustenter11", resourceCulture);
             }
         }
         
@@ -133,11 +502,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to create check type.
+        /// </summary>
+        public static string create_check_type {
+            get {
+                return ResourceManager.GetString("create_check_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create_city.
         /// </summary>
         public static string Create_city {
             get {
                 return ResourceManager.GetString("Create_city", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create contect method.
+        /// </summary>
+        public static string create_contect_method {
+            get {
+                return ResourceManager.GetString("create_contect_method", resourceCulture);
             }
         }
         
@@ -160,6 +547,96 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create currency.
+        /// </summary>
+        public static string create_currency {
+            get {
+                return ResourceManager.GetString("create_currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create document.
+        /// </summary>
+        public static string create_document {
+            get {
+                return ResourceManager.GetString("create_document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create exchange rate.
+        /// </summary>
+        public static string create_exchange_rate {
+            get {
+                return ResourceManager.GetString("create_exchange_rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create external company.
+        /// </summary>
+        public static string create_external_company {
+            get {
+                return ResourceManager.GetString("create_external_company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Military Service Rank.
+        /// </summary>
+        public static string Create_Military_Service_Rank {
+            get {
+                return ResourceManager.GetString("Create_Military_Service_Rank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Military Service Status.
+        /// </summary>
+        public static string Create_Military_Service_Status {
+            get {
+                return ResourceManager.GetString("Create_Military_Service_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create nationality.
+        /// </summary>
+        public static string create_nationality {
+            get {
+                return ResourceManager.GetString("create_nationality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create new check status.
+        /// </summary>
+        public static string create_new_check_status {
+            get {
+                return ResourceManager.GetString("create_new_check_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new document group.
+        /// </summary>
+        public static string create_new_document_group {
+            get {
+                return ResourceManager.GetString("create_new_document_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new Qualification sub-provider.
+        /// </summary>
+        public static string create_new_Qualificationsubprovider1 {
+            get {
+                return ResourceManager.GetString("create_new_Qualificationsubprovider1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create postal code.
         /// </summary>
         public static string Create_postalcode {
@@ -169,11 +646,119 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Qualification speciality.
+        /// </summary>
+        public static string Create_Qualification_speciality {
+            get {
+                return ResourceManager.GetString("Create_Qualification_speciality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create-region.
+        /// </summary>
+        public static string Create_region {
+            get {
+                return ResourceManager.GetString("Create_region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create rejection reason.
+        /// </summary>
+        public static string create_rejection_reason {
+            get {
+                return ResourceManager.GetString("create_rejection_reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create religion.
+        /// </summary>
+        public static string create_religion {
+            get {
+                return ResourceManager.GetString("create_religion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create state.
         /// </summary>
         public static string create_state {
             get {
                 return ResourceManager.GetString("create_state", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Name of educational qualification.
+        /// </summary>
+        public static string createName_of_educational_qualification {
+            get {
+                return ResourceManager.GetString("createName_of_educational_qualification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new educate level.
+        /// </summary>
+        public static string createneweducatelevel {
+            get {
+                return ResourceManager.GetString("createneweducatelevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Qualification category.
+        /// </summary>
+        public static string CreateQualificationcategory {
+            get {
+                return ResourceManager.GetString("CreateQualificationcategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Qualification Main provider.
+        /// </summary>
+        public static string CreateQualificationMainprovider {
+            get {
+                return ResourceManager.GetString("CreateQualificationMainprovider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string currency {
+            get {
+                return ResourceManager.GetString("currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From-date.
+        /// </summary>
+        public static string datefrom {
+            get {
+                return ResourceManager.GetString("datefrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To-date.
+        /// </summary>
+        public static string dateto {
+            get {
+                return ResourceManager.GetString("dateto", resourceCulture);
             }
         }
         
@@ -196,11 +781,56 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description1.
+        /// </summary>
+        public static string Description1 {
+            get {
+                return ResourceManager.GetString("Description1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diraections.
+        /// </summary>
+        public static string diraections {
+            get {
+                return ResourceManager.GetString("diraections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to document group.
+        /// </summary>
+        public static string document_group {
+            get {
+                return ResourceManager.GetString("document_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit airport.
+        /// </summary>
+        public static string edit_airport {
+            get {
+                return ResourceManager.GetString("edit_airport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit check type.
+        /// </summary>
+        public static string edit_check_type {
+            get {
+                return ResourceManager.GetString("edit_check_type", resourceCulture);
             }
         }
         
@@ -214,11 +844,119 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit contect method.
+        /// </summary>
+        public static string edit_contect_method {
+            get {
+                return ResourceManager.GetString("edit_contect_method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Country.
         /// </summary>
         public static string Edit_Country {
             get {
                 return ResourceManager.GetString("Edit_Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit currency.
+        /// </summary>
+        public static string edit_currency {
+            get {
+                return ResourceManager.GetString("edit_currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit degree.
+        /// </summary>
+        public static string edit_degree {
+            get {
+                return ResourceManager.GetString("edit_degree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit document.
+        /// </summary>
+        public static string edit_document {
+            get {
+                return ResourceManager.GetString("edit_document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit exchange rate.
+        /// </summary>
+        public static string edit_exchange_rate {
+            get {
+                return ResourceManager.GetString("edit_exchange_rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit external company.
+        /// </summary>
+        public static string edit_external_company {
+            get {
+                return ResourceManager.GetString("edit_external_company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Military Service Rank.
+        /// </summary>
+        public static string edit_Military_Service_Rank {
+            get {
+                return ResourceManager.GetString("edit_Military_Service_Rank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Military Service Status.
+        /// </summary>
+        public static string edit_Military_Service_Status {
+            get {
+                return ResourceManager.GetString("edit_Military_Service_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit nationality.
+        /// </summary>
+        public static string Edit_nationality {
+            get {
+                return ResourceManager.GetString("Edit_nationality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit new check status.
+        /// </summary>
+        public static string edit_new_check_status {
+            get {
+                return ResourceManager.GetString("edit_new_check_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit new document group.
+        /// </summary>
+        public static string edit_new_document_group {
+            get {
+                return ResourceManager.GetString("edit_new_document_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit new Qualification sub-provider.
+        /// </summary>
+        public static string edit_new_Qualificationsubprovider11 {
+            get {
+                return ResourceManager.GetString("edit_new_Qualificationsubprovider11", resourceCulture);
             }
         }
         
@@ -241,11 +979,155 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit rejection reason.
+        /// </summary>
+        public static string Edit_rejection_reason {
+            get {
+                return ResourceManager.GetString("Edit_rejection_reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit religion.
+        /// </summary>
+        public static string edit_religion {
+            get {
+                return ResourceManager.GetString("edit_religion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit sponser.
+        /// </summary>
+        public static string edit_sponser {
+            get {
+                return ResourceManager.GetString("edit_sponser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit state.
         /// </summary>
         public static string edit_state {
             get {
                 return ResourceManager.GetString("edit_state", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Tichet price.
+        /// </summary>
+        public static string edit_Tichet_price {
+            get {
+                return ResourceManager.GetString("edit_Tichet_price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit check Request.
+        /// </summary>
+        public static string editcheck_Request {
+            get {
+                return ResourceManager.GetString("editcheck_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Name of educational qualification.
+        /// </summary>
+        public static string editName_of_educational_qualification1 {
+            get {
+                return ResourceManager.GetString("editName_of_educational_qualification1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Qualification category.
+        /// </summary>
+        public static string editQualificationcategory {
+            get {
+                return ResourceManager.GetString("editQualificationcategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Qualification Main-provider.
+        /// </summary>
+        public static string editQualificationMainprovider {
+            get {
+                return ResourceManager.GetString("editQualificationMainprovider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Educate title.
+        /// </summary>
+        public static string educate_title {
+            get {
+                return ResourceManager.GetString("educate_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter this filed.
+        /// </summary>
+        public static string error_message {
+            get {
+                return ResourceManager.GetString("error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to from.
+        /// </summary>
+        public static string from {
+            get {
+                return ResourceManager.GetString("from", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to from airport.
+        /// </summary>
+        public static string from_air_port {
+            get {
+                return ResourceManager.GetString("from_air_port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to from date.
+        /// </summary>
+        public static string from_date {
+            get {
+                return ResourceManager.GetString("from_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Date Later than To date.
+        /// </summary>
+        public static string FromDateLaterthanTodate {
+            get {
+                return ResourceManager.GetString("FromDateLaterthanTodate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBAN.
+        /// </summary>
+        public static string IBAN {
+            get {
+                return ResourceManager.GetString("IBAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Education-body.
+        /// </summary>
+        public static string MainEducatebody {
+            get {
+                return ResourceManager.GetString("MainEducatebody", resourceCulture);
             }
         }
         
@@ -259,11 +1141,38 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to month.
+        /// </summary>
+        public static string month {
+            get {
+                return ResourceManager.GetString("month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to name.
         /// </summary>
         public static string name {
             get {
                 return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of educational qualification.
+        /// </summary>
+        public static string Name_of_educational_qualification {
+            get {
+                return ResourceManager.GetString("Name_of_educational_qualification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Native.
+        /// </summary>
+        public static string native {
+            get {
+                return ResourceManager.GetString("native", resourceCulture);
             }
         }
         
@@ -286,11 +1195,119 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of decimal places.
+        /// </summary>
+        public static string number_of_decimal_places {
+            get {
+                return ResourceManager.GetString("number_of_decimal_places", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oil sector.
+        /// </summary>
+        public static string oil_sector {
+            get {
+                return ResourceManager.GetString("oil_sector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other1.
+        /// </summary>
+        public static string other1 {
+            get {
+                return ResourceManager.GetString("other1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other2.
+        /// </summary>
+        public static string other2 {
+            get {
+                return ResourceManager.GetString("other2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other3.
+        /// </summary>
+        public static string other3 {
+            get {
+                return ResourceManager.GetString("other3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Postal code.
         /// </summary>
         public static string Postal_code {
             get {
                 return ResourceManager.GetString("Postal_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to price.
+        /// </summary>
+        public static string price {
+            get {
+                return ResourceManager.GetString("price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purpose.
+        /// </summary>
+        public static string purpose {
+            get {
+                return ResourceManager.GetString("purpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qulifaication name linked to multi-sub-provder.
+        /// </summary>
+        public static string qulifaicationnamelinkedtomultisubprovder {
+            get {
+                return ResourceManager.GetString("qulifaicationnamelinkedtomultisubprovder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qulification specialty.
+        /// </summary>
+        public static string qulification_specialty {
+            get {
+                return ResourceManager.GetString("qulification_specialty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qulification name.
+        /// </summary>
+        public static string qulificationname {
+            get {
+                return ResourceManager.GetString("qulificationname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qulification sub-provider.
+        /// </summary>
+        public static string qulificationsubprovider {
+            get {
+                return ResourceManager.GetString("qulificationsubprovider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate.
+        /// </summary>
+        public static string rate {
+            get {
+                return ResourceManager.GetString("rate", resourceCulture);
             }
         }
         
@@ -304,6 +1321,96 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to you must choose region.
+        /// </summary>
+        public static string regionCodemustenter1111 {
+            get {
+                return ResourceManager.GetString("regionCodemustenter1111", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request date.
+        /// </summary>
+        public static string Request_date {
+            get {
+                return ResourceManager.GetString("Request_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request number.
+        /// </summary>
+        public static string Request_number {
+            get {
+                return ResourceManager.GetString("Request_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you must enter name of educational qulifaication.
+        /// </summary>
+        public static string requiredName_of_educational_qualification {
+            get {
+                return ResourceManager.GetString("requiredName_of_educational_qualification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select check request statue.
+        /// </summary>
+        public static string select_check_request_statue {
+            get {
+                return ResourceManager.GetString("select_check_request_statue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select check type.
+        /// </summary>
+        public static string select_check_type {
+            get {
+                return ResourceManager.GetString("select_check_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select directed to.
+        /// </summary>
+        public static string select_directedto {
+            get {
+                return ResourceManager.GetString("select_directedto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select sign by.
+        /// </summary>
+        public static string select_sign_by {
+            get {
+                return ResourceManager.GetString("select_sign_by", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to special-request.
+        /// </summary>
+        public static string specialrequest {
+            get {
+                return ResourceManager.GetString("specialrequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sponser-ID.
+        /// </summary>
+        public static string SPONSER_ID {
+            get {
+                return ResourceManager.GetString("SPONSER_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         public static string State {
@@ -313,11 +1420,173 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to you must choose state.
+        /// </summary>
+        public static string StateCodemustenter {
+            get {
+                return ResourceManager.GetString("StateCodemustenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to statuse.
+        /// </summary>
+        public static string statuse {
+            get {
+                return ResourceManager.GetString("statuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to status history.
+        /// </summary>
+        public static string statushistory {
+            get {
+                return ResourceManager.GetString("statushistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Street name.
+        /// </summary>
+        public static string street_name {
+            get {
+                return ResourceManager.GetString("street_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Street Num Type.
         /// </summary>
         public static string Street_Num_Type {
             get {
                 return ResourceManager.GetString("Street_Num_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol.
+        /// </summary>
+        public static string symbol {
+            get {
+                return ResourceManager.GetString("symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string text {
+            get {
+                return ResourceManager.GetString("text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to there is no data.
+        /// </summary>
+        public static string thereisnodata {
+            get {
+                return ResourceManager.GetString("thereisnodata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this code already exists.
+        /// </summary>
+        public static string thiscodeIsalreadyexists {
+            get {
+                return ResourceManager.GetString("thiscodeIsalreadyexists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to.
+        /// </summary>
+        public static string to {
+            get {
+                return ResourceManager.GetString("to", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to airport.
+        /// </summary>
+        public static string to_air_port {
+            get {
+                return ResourceManager.GetString("to_air_port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to date.
+        /// </summary>
+        public static string to_date {
+            get {
+                return ResourceManager.GetString("to_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string value {
+            get {
+                return ResourceManager.GetString("value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to year.
+        /// </summary>
+        public static string year {
+            get {
+                return ResourceManager.GetString("year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you can not delete this row.
+        /// </summary>
+        public static string youcannotdeletethisRow {
+            get {
+                return ResourceManager.GetString("youcannotdeletethisRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Must enter check number.
+        /// </summary>
+        public static string YouMustenterchecknumber {
+            get {
+                return ResourceManager.GetString("YouMustenterchecknumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Must enter check request statu.
+        /// </summary>
+        public static string YouMustentercheckrequeststatu {
+            get {
+                return ResourceManager.GetString("YouMustentercheckrequeststatu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you must enter From Air.
+        /// </summary>
+        public static string youmustenterFromAir {
+            get {
+                return ResourceManager.GetString("youmustenterFromAir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to you must enter to Air.
+        /// </summary>
+        public static string youmustentertoAir1 {
+            get {
+                return ResourceManager.GetString("youmustentertoAir1", resourceCulture);
             }
         }
     }
