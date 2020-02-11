@@ -916,6 +916,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to v.
+        /// </summary>
+        public static string v {
+            get {
+                return ResourceManager.GetString("v", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to view jobs.
         /// </summary>
         public static string view_jobs {
