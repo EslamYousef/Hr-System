@@ -70,7 +70,7 @@
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("Create", "Employee_beneficiary_profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Employee_beneficiary_profile", FormMethod.Post, new { id= @ViewBag.idemp, enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -97,7 +97,7 @@
                                 @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-3">
                                     @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                    @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                    @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
 
                                 </div>
                                 <div class="col-md-4" style="color:black">
@@ -158,25 +158,20 @@
                                         </div>
                                     </div>
                                 </div>
-
-                            </div>
-                   
+                            </div>  
                 }
-
             </div>
-
         </div>
-
     </section>
 </div>
 
 @section scripts{}
-@*<script>
+<script>
         $(document).ready(function () {
             $("#employeeId").attr("disabled", true);
 
         });
-</script>*@
+</script>
 
 <script>
     function employee() {

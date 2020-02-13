@@ -29,6 +29,7 @@ namespace HR.Controllers
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.idemp = id;
 
+
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_beneficiary_profile.ToList();
             var count = 0;
@@ -58,23 +59,36 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(FormCollection form, Employee_beneficiary_profile model, string command)
+        public ActionResult Create(FormCollection form, Employee_beneficiary_profile model, string command,string id)
         {
             try
             {
 
 
-                ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.Employee_ProfileId;
-                ViewBag.family = model.ID;
-                if (ModelState.IsValid)
+                ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID }).ToList();
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID }).ToList();
+                if(model.Employee_ProfileId!=null)
                 {
-                  
+                    ViewBag.idemp = model.Employee_ProfileId;
+                }
+                else
+                {
+                    model.Employee_ProfileId=id;
+                    ViewBag.idemp = id;
+                }
+                //  ViewBag.family = model.ID;
+                var Employee_Profiled = int.Parse(model.Employee_ProfileId);
+                var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_Profiled);
 
-                    var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                    var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
-                   
+                ViewBag.family = Employee_Profile.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                //if (ModelState.IsValid)
+                //{
+               //     var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
+                 //   var empid = EmpObj.Code + "------" + EmpObj.Name;
+                    //record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = empid : model.Employee_ProfileId;
+                    //record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
+
+               
                     var Family_profile =form["Family_profile_No2"].Split(char.Parse(","));
                     var Family_name = form["Family_name"].Split(char.Parse(","));
                     var Percentage = form["Percentage"].Split(char.Parse(","));
@@ -104,11 +118,11 @@ namespace HR.Controllers
                         return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(Employee_Profile.ID.ToString()) });
                     }
                     return RedirectToAction("Index", new { id = model.Employee_ProfileId });
-                }
-                else
-                {
-                    return View(model);
-                }
+                //}
+                //else
+                //{
+                //    return View(model);
+                //}
             }
             catch (DbUpdateException e)
             {
@@ -128,8 +142,8 @@ namespace HR.Controllers
             {
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                 var ID = int.Parse(id);
-                var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == ID);
+               
+                var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.Employee_ProfileId == id);
                 var emp = record.Employee_Profile;
                 ViewBag.family = emp.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
               
@@ -153,22 +167,36 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(Employee_beneficiary_profile model, string command,FormCollection form)
+        public ActionResult Edit(Employee_beneficiary_profile model, string command,FormCollection form ,string id)
         {
             try
             {
 
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.Employee_ProfileId;
+                //ViewBag.idemp = model.Employee_ProfileId;
                 var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == model.ID);
-                var empId = int.Parse(model.Employee_ProfileId);
-               var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == empId);
-                ViewBag.family = emp.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+               // var empId = int.Parse(model.Employee_ProfileId);
+               //var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == empId);
+               // ViewBag.family = emp.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+
+                if (model.Employee_ProfileId != null)
+                {
+                    ViewBag.idemp = model.Employee_ProfileId;
+                }
+                else
+                {
+                    model.Employee_ProfileId = id;
+                    ViewBag.idemp = id;
+                }
+                //  ViewBag.family = model.ID;
+                var Employee_Profiled = int.Parse(model.Employee_ProfileId);
+                var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_Profiled);
+
+                ViewBag.family = Employee_Profile.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
 
-
-          //      var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == model.ID);
+                //      var record = dbcontext.Employee_beneficiary_profile.FirstOrDefault(m => m.ID == model.ID);
                 //var emp = record.Employee_Profile;
                 record.Legatee = model.Legatee;
                 ///////////delete old Append_beneficiary_Family///////

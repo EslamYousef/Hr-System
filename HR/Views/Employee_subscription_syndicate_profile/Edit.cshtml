@@ -222,12 +222,12 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Boarder_election_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control datepicker boarder", @id = "dateto", @autocomplete = "off", disabled = "disabled" } })
+                                    @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new {@type="date", @class = "form-control  boarder", @id = "Start", @autocomplete = "off"} })
                                     @Html.ValidationMessageFor(model => model.Boarder_election_date, "", new { @class = "text-danger" })
                                 </div>
                                 @Html.LabelFor(model => model.Head_election_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control datepicker head", @id = "dateto", @autocomplete = "off", disabled = "disabled" } })
+                                    @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @type = "date", @class = "form-control head", @id = "End", @autocomplete = "off" } })
                                     @Html.ValidationMessageFor(model => model.Head_election_date, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -263,7 +263,9 @@
 <script>
         $(document).ready(function () {
             $("#employeeId").attr("disabled", true);
-
+            drop();
+            //GetDataById2();
+            //GetDataById();
         });
     </script>
 
@@ -309,6 +311,89 @@
             }
         });
     }
+
+
+
+
+    function GetDataById() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdsubscription",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Head_election_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+                    var d = date.getFullYear() + '-' + month + '-' + day;//date.getDate()
+                    document.getElementById("End").value = d;
+                    var ttttt = $("#End").val();
+                }
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+    GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdsubscription",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Boarder_election_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10)
+                    {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+                    var d = date.getFullYear() + '-' + month + '-' + day;//date.getDate()
+                    document.getElementById("Start").value = d;
+                    var ttttt = $("#Start").val();           
+                }
+            },
+            error: function () {
+                debugger
+
+            }
+        });
+    }
+   GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+
+
+
+
+
+
+
+
+
     function drop() {
         debugger
         var member = $("#membership").val();
@@ -329,3 +414,4 @@
     }
 </script>
 
+         

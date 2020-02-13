@@ -179,11 +179,27 @@ namespace HR.Controllers
                  record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
                 record.Code = model.Code;
                 record.Rejection_ReasonsId = model.Rejection_ReasonsId;
-                var Rejection_ReasonsId = int.Parse(model.Rejection_ReasonsId);
-                record.Rejection_Reasons = dbcontext.Rejection_Reasons.FirstOrDefault(m => m.ID == Rejection_ReasonsId);
+                if (model.Rejection_ReasonsId == null)
+                {
+                    record.Rejection_Reasons = null;
+                }
+                else
+                {
+                    var Rejection_ReasonsId = int.Parse(model.Rejection_ReasonsId);
+                    record.Rejection_Reasons = dbcontext.Rejection_Reasons.FirstOrDefault(m => m.ID == Rejection_ReasonsId);
+                }
                 record.External_compainesId = model.External_compainesId;
-                var External_compainesId = int.Parse(model.External_compainesId);
-                record.External_compaines = dbcontext.External_compaines.FirstOrDefault(m => m.ID == External_compainesId);
+                if (model.External_compainesId == null)
+                {
+                    record.External_compaines = null;
+                }
+                else
+                {
+                    var External_compainesId = int.Parse(model.External_compainesId);
+                    record.External_compaines = dbcontext.External_compaines.FirstOrDefault(m => m.ID == External_compainesId);
+                }
+            
+             
                 record.Company_type = model.Company_type;
                 record.Job_title = model.Job_title;
                 record.Start_date = model.Start_date;

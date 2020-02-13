@@ -40,7 +40,7 @@ namespace HR.Controllers
             DateTime statis2 = Convert.ToDateTime("1/1/1900");
             var ID = int.Parse(id);
             var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var Employee_military_service_calling = new Employee_military_service_calling { Code = stru.Structure_Code + count, Employee_ProfileId = id, Start_date = statis2, End_date = statis2,Employee_Profile=emp };
+            var Employee_military_service_calling = new Employee_military_service_calling { Code = stru.Structure_Code + count, Employee_ProfileId = emp.ID.ToString(), Start_date = statis2, End_date = statis2,Employee_Profile=emp };
 
             return View(Employee_military_service_calling);
         }
@@ -51,7 +51,7 @@ namespace HR.Controllers
             {
 
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.Employee_ProfileId;
+            
                 //if (ModelState.IsValid)
                 //{
                     //    var con = int.Parse(model.Employee_ProfileId);
@@ -59,7 +59,12 @@ namespace HR.Controllers
                     var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
                     Employee_military_service_calling record = new Employee_military_service_calling();
-                    record.Code = model.Code;                  
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+
+                record.Code = model.Code;                  
                     record.Years = model.Years;
                     record.Months = model.Months;
                     record.Start_date = model.Start_date;
@@ -72,9 +77,6 @@ namespace HR.Controllers
                 record.Days = model.Days;
                     record.Comments = model.Comments;
 
-                    var empid = EmpObj.Code + "------" + EmpObj.Name;
-                    record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
-                  record.Employee_Profile =EmpObj;
 
 
                     var pos = dbcontext.Employee_military_service_calling.Add(record);

@@ -57,7 +57,7 @@ namespace HR.Controllers
                     count = te + 1;
                 }
                 var Employee = new Employee_Profile { Code = stru.Structure_Code + count, Birth_date = statis, Issue_date = statis, Expire_date = statis };
-                var Ability = new Ability { registration_date = DateTime.Now.Date };
+                var Ability = new Ability { registration_date = statis };
                 var Personnel_Information = new Personnel_Information { Hire_Date = statis, Join_Date = statis, Boarding_Date = statis, Sector_Join_Date = statis, Social_Insurance_Date = statis };
                 var Service_Information = new Service_Information { EOS_date = statis, Last_working_date = statis, Retired_expected_EOS = statis };
 
@@ -96,6 +96,32 @@ namespace HR.Controllers
                 ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
 
+                Personnel_Information Personnel = new Personnel_Information();
+                if (model.Personnel_Information.Boarding_membership == Boarding_membership.None)
+                {
+                    Personnel.Boarding_membership = model.Personnel_Information.Boarding_membership;
+                    model.Personnel_Information.Boarding_Date = Convert.ToDateTime("01/01/1900").Date;
+                    Personnel.Boarding_Date = model.Personnel_Information.Boarding_Date;
+                }
+                else if((model.Personnel_Information.Boarding_membership == Boarding_membership.Head_member ) || (model.Personnel_Information.Boarding_membership == Boarding_membership.Board_member))
+                {
+                    Personnel.Boarding_membership = model.Personnel_Information.Boarding_membership;
+                    Personnel.Boarding_Date = model.Personnel_Information.Boarding_Date;
+                }
+                Ability AbilityRecode = new Ability();
+                Employee_Profile record = new Employee_Profile();
+                if (model.Employee_Profile.Health_Status == Health_Status.Ability)
+                {
+                    record.Health_Status = model.Employee_Profile.Health_Status;
+                    model.Ability.registration_date = Convert.ToDateTime("01/01/1900").Date;
+                    AbilityRecode.registration_date = model.Ability.registration_date;
+                }
+                else if ((model.Employee_Profile.Health_Status == Health_Status.In_Ability || (model.Employee_Profile.Health_Status == Health_Status.In_Ability_military_operations)))
+                {
+                    record.Health_Status = model.Employee_Profile.Health_Status;
+                    AbilityRecode.registration_date = model.Ability.registration_date;
+                }
+
                 if (ModelState.IsValid)
                 {
 
@@ -115,7 +141,7 @@ namespace HR.Controllers
                         ModelState.AddModelError("", "Nationality Code must enter");
                         return View(model);
                     }
-                    Employee_Profile record = new Employee_Profile();
+           //         Employee_Profile record = new Employee_Profile();
                     record.Code = model.Employee_Profile.Code;
                     record.Name = model.Employee_Profile.Name;
                     record.Full_Name = model.Employee_Profile.Full_Name;
@@ -134,7 +160,7 @@ namespace HR.Controllers
                     record.Citizen = model.Employee_Profile.Citizen;
                     record.Blood_group = model.Employee_Profile.Blood_group;
                     record.ID_type = model.Employee_Profile.ID_type;
-                    record.Health_Status = model.Employee_Profile.Health_Status;
+                   
 
                     record.Birth_date = model.Employee_Profile.Birth_date;
 
@@ -179,15 +205,15 @@ namespace HR.Controllers
                     var citiesaddressid = int.Parse(model.Employee_Profile.citiesaddressid);
                     record.cities = dbcontext.cities.FirstOrDefault(m => m.ID == citiesaddressid);
 
-
-                    Ability AbilityRecode = new Ability();
+              
+                   // Ability AbilityRecode = new Ability();
                     AbilityRecode.Inability_reason = model.Ability.Inability_reason;
                     AbilityRecode.Inability_description = model.Ability.Inability_description;
                     AbilityRecode.registration_number = model.Ability.registration_number;
-                    AbilityRecode.registration_date = model.Ability.registration_date;
+
                     //record.tab = model.tab;
 
-                    Personnel_Information Personnel = new Personnel_Information();
+             //     Personnel_Information Personnel = new Personnel_Information();
                     Personnel.Main_Status = model.Personnel_Information.Main_Status;
                     Personnel.Sub_Status = model.Personnel_Information.Sub_Status;
                     Personnel.Hire_Date = model.Personnel_Information.Hire_Date;
@@ -198,8 +224,10 @@ namespace HR.Controllers
                     Personnel.Social_Insurance_Date = model.Personnel_Information.Social_Insurance_Date;
                     Personnel.Service_period_ins_Y = model.Personnel_Information.Service_period_ins_Y;
                     Personnel.Service_period_ins_M = model.Personnel_Information.Service_period_ins_M;
-                    Personnel.Boarding_membership = model.Personnel_Information.Boarding_membership;
-                    Personnel.Boarding_Date = model.Personnel_Information.Boarding_Date;
+                   
+                 
+                //    Personnel.Boarding_membership = model.Personnel_Information.Boarding_membership;
+                //    Personnel.Boarding_Date = model.Personnel_Information.Boarding_Date;
 
                     Service_Information Service = new Service_Information();
                     Service.Pension = model.Service_Information.Pension;
@@ -419,7 +447,7 @@ namespace HR.Controllers
                     }
                     if (command5 == "Submit")
                     {
-                        return RedirectToAction("index", "Employee_experience_profile", new { id = emp.ID });
+                        return RedirectToAction("Edit", "Employee_experience_profile", new { id = emp.ID });
                     }
                     if (command6 == "Submit")
                     {
@@ -522,8 +550,35 @@ namespace HR.Controllers
                 ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
 
+                var Personnel = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == model.Employee_Profile.Personnel_Information.ID);
+                if (model.Personnel_Information.Boarding_membership == Boarding_membership.None)
+                {
+                    Personnel.Boarding_membership = model.Personnel_Information.Boarding_membership;
+                    model.Personnel_Information.Boarding_Date = Personnel.Boarding_Date;
+                }
+                else if ((model.Personnel_Information.Boarding_membership == Boarding_membership.Head_member || (model.Personnel_Information.Boarding_membership == Boarding_membership.Board_member)))
+                {
+                    Personnel.Boarding_membership = model.Personnel_Information.Boarding_membership;
+                    Personnel.Boarding_Date = model.Personnel_Information.Boarding_Date;
+                }
 
+                var AbilityRecode = dbcontext.Ability.FirstOrDefault(m => m.ID == model.Employee_Profile.Ability.ID);
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
+
+                if (model.Employee_Profile.Health_Status == Health_Status.Ability)
+                {
+                    record.Health_Status = model.Employee_Profile.Health_Status;
+                    model.Ability.registration_date= AbilityRecode.registration_date ;
+                }
+                else if ((model.Employee_Profile.Health_Status == Health_Status.In_Ability || (model.Employee_Profile.Health_Status == Health_Status.In_Ability_military_operations)))
+                {
+                    record.Health_Status = model.Employee_Profile.Health_Status;
+                    AbilityRecode.registration_date = model.Ability.registration_date;
+                }
+           
+
+
+          //      var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
 
                 record.Code = model.Employee_Profile.Code;
                  record.Name = model.Employee_Profile.Name;
@@ -543,7 +598,6 @@ namespace HR.Controllers
                 record.Citizen = model.Employee_Profile.Citizen;
                 record.Blood_group = model.Employee_Profile.Blood_group;
                 record.ID_type = model.Employee_Profile.ID_type;
-                record.Health_Status = model.Employee_Profile.Health_Status;
 
                 record.Birth_date = model.Employee_Profile.Birth_date;
 
@@ -589,14 +643,15 @@ namespace HR.Controllers
                 record.cities = dbcontext.cities.FirstOrDefault(m => m.ID == citiesaddressid);
                 dbcontext.SaveChanges();
 
-                var AbilityRecode = dbcontext.Ability.FirstOrDefault(m => m.ID == model.Employee_Profile.Ability.ID);
+          //    var AbilityRecode = dbcontext.Ability.FirstOrDefault(m => m.ID == model.Employee_Profile.Ability.ID);
+     
                 AbilityRecode.Inability_reason = model.Ability.Inability_reason;
                 AbilityRecode.Inability_description = model.Ability.Inability_description;
                 AbilityRecode.registration_number = model.Ability.registration_number;
-                AbilityRecode.registration_date = model.Ability.registration_date;
+              
                 dbcontext.SaveChanges();
 
-                var Personnel = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == model.Employee_Profile.Personnel_Information.ID);
+       //       var Personnel = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == model.Employee_Profile.Personnel_Information.ID);
                 Personnel.Main_Status = model.Personnel_Information.Main_Status;
                 Personnel.Sub_Status = model.Personnel_Information.Sub_Status;
                 Personnel.Hire_Date = model.Personnel_Information.Hire_Date;

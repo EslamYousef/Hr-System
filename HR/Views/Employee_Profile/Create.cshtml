@@ -7,7 +7,12 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
-
+<script>
+    $(document).ready(function () {
+        drop();
+        dropAbility();
+    });
+</script>
 <script>
     $(function () {
            
@@ -455,7 +460,7 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Employee_Profile.Health_Status, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.Health_Status, new { @onchange = "goes($(this))", @class = "select2"  })
+                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.Health_Status, new { @onclick = "dropAbility()", @class = "select2" ,@id="ability" })
                                                 @Html.ValidationMessageFor(model => model.Employee_Profile.Health_Status, "", new { @class = "text-danger" })
                                             </div>
                                             @*<a href="#Ability" data-toggle="tab" aria-expanded="true">     <div class="col-md-6" id="ability">Reason, Description, Regesrtation Number, Regesrtation Date</div></a>*@
@@ -487,7 +492,7 @@
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Ability.registration_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto" , @readonly = true} })
+                                                @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto" } })
                                                 @Html.ValidationMessageFor(model => model.Ability.registration_date, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -579,13 +584,13 @@
                                                     <div class="form-group">
                                                         @Html.LabelFor(model => model.Personnel_Information.Boarding_membership, htmlAttributes: new { @class = "control-label col-md-2" })
                                                         <div class="col-md-4">
-                                                            @Html.EnumDropDownListFor(model => model.Personnel_Information.Boarding_membership, new { @onchange = "go($(this))", @class = "select2"  })
+                                                            @Html.EnumDropDownListFor(model => model.Personnel_Information.Boarding_membership, new { @onclick = "drop()", @class = "select2",@id= "membership" })
                                                             @Html.ValidationMessageFor(model => model.Personnel_Information.Boarding_membership, "", new { @class = "text-danger" })
                                                         </div>
 
                                                         @Html.LabelFor(model => model.Personnel_Information.Boarding_Date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                         <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Boarding_Date, new { htmlAttributes = new {@class = "form-control sd @*datepicker*@", id = "dateto" , @readonly = true } })
+                                                            @Html.EditorFor(model => model.Personnel_Information.Boarding_Date, new { htmlAttributes = new {  @class = "form-control datepicker boarder", @id = "dateto" } })
                                                             @Html.ValidationMessageFor(model => model.Personnel_Information.Boarding_Date, "", new { @class = "text-danger" })
                                                         </div>
                                                         </div>
@@ -644,7 +649,7 @@
                                                     <div class="form-group">
                                                         @Html.LabelFor(model => model.Service_Information.CurrencyId, htmlAttributes: new { @class = "control-label col-md-2" })
                                                         <div class="col-md-4">
-                                                            @Html.DropDownListFor(m => m.Service_Information.CurrencyId, new SelectList(ViewBag.Currency, "ID", "Code"), "Select Religion", new { @class = "select2", @onchange = "Currency()", @id = "CurrencyId" })
+                                                            @Html.DropDownListFor(m => m.Service_Information.CurrencyId, new SelectList(ViewBag.Currency, "ID", "Code"), "Select Currency", new { @class = "select2", @onchange = "Currency()", @id = "CurrencyId" })
                                                             @Html.ValidationMessageFor(model => model.Service_Information.CurrencyId, "", new { @class = "text-danger" })
                                      
                                                         </div>
@@ -1370,50 +1375,36 @@
     }
 
 
-    function go(input)
+    function drop()
     {
-         
-
-        var value = input.val();
-        if(value==1)
+        debugger
+        var member = $("#membership").val();
+        if (member == 1)
         {
-            $(".sd").attr("readonly", true);
+            $(".boarder").attr('disabled', true);
         }
-        else if(value==2)
+        else if ((member == 2 || member == 3))
         {
-            $(".sd").removeAttr("readonly");
-        }
-        else if (value == 3)
-        {
-            $(".sd").removeAttr("readonly");
-        }
+            $(".boarder").removeAttr('disabled');
+        }    
     }
 
-    function goes(input)
+    function dropAbility()
     {
-         
-
-        var value = input.val();
-        if(value==1)
+        var member = $("#ability").val();
+        if (member == 1)
         {
             $("#reason").attr("readonly", true);
             $(".de").attr("readonly", true);
             $("#registration").attr("readonly", true);
-            $(".nv").attr("readonly", true);
+            $(".nv").attr('disabled', true);
         }
-        else if(value==2)
+        else if ((member == 2 || member == 3))
         {
             $("#reason").removeAttr("readonly", true);
             $(".de").removeAttr("readonly", true);
             $("#registration").removeAttr("readonly", true);
-            $(".nv").removeAttr("readonly", true);
-        }
-        else if (value == 3)
-        {
-            $("#reason").removeAttr("readonly", true);
-            $(".de").removeAttr("readonly", true);
-            $("#registration").removeAttr("readonly", true);
-            $(".nv").removeAttr("readonly", true);
-        }
+            $(".nv").removeAttr('disabled');
+        }    
     }
 </script>

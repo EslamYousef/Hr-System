@@ -63,10 +63,31 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.idemp = model.Employee_ProfileId;
-
+                Employee_subscription_syndicate_profile record = new Employee_subscription_syndicate_profile();
+                if (model.Membership_type == Membership_type.Member)
+                {
+                    record.Membership_type = model.Membership_type;
+                    model.Boarder_election_date =Convert.ToDateTime("01/01/1900").Date;
+                    record.Boarder_election_date = model.Boarder_election_date;
+                    model.Head_election_date = Convert.ToDateTime("01/01/1900").Date;
+                    record.Head_election_date = model.Head_election_date;
+                }
+                else if (model.Membership_type == Membership_type.Board_member)
+                {
+                    record.Membership_type = model.Membership_type;
+                    record.Boarder_election_date = model.Boarder_election_date;
+                    model.Head_election_date = Convert.ToDateTime("01/01/1900").Date;
+                    record.Head_election_date = model.Head_election_date;
+                }
+                else if (model.Membership_type == Membership_type.Head_member)
+                {
+                    record.Membership_type = model.Membership_type;
+                    record.Head_election_date = model.Head_election_date;
+                    model.Boarder_election_date = Convert.ToDateTime("01/01/1900").Date;
+                    record.Boarder_election_date = model.Boarder_election_date;
+                }
                 if (ModelState.IsValid)
                 {
-                    Employee_subscription_syndicate_profile record = new Employee_subscription_syndicate_profile();
                  
                     record.Code = model.Code;
                     record.Subscription_type = model.Subscription_type;
@@ -93,9 +114,9 @@ namespace HR.Controllers
                     record.Family_subscription_fees = model.Family_subscription_fees;
                     record.Subscription_in_house = model.Subscription_in_house;
                     record.Is_family_subscribed = model.Is_family_subscribed;
-                    record.Membership_type = model.Membership_type;
-                    record.Boarder_election_date = model.Boarder_election_date;
-                    record.Head_election_date = model.Head_election_date;
+                //    record.Membership_type = model.Membership_type;
+                //    record.Boarder_election_date = model.Boarder_election_date;
+                 //   record.Head_election_date = model.Head_election_date;
                     record.Contact_detail = model.Contact_detail;
                 
                     dbcontext.Employee_subscription_syndicate_profile.Add(record);
@@ -158,6 +179,24 @@ namespace HR.Controllers
                 ViewBag.idemp = model.Employee_ProfileId;
 
                 var record = dbcontext.Employee_subscription_syndicate_profile.FirstOrDefault(m => m.ID == model.ID);
+                if (model.Membership_type == Membership_type.Member)
+                {
+                    record.Membership_type = model.Membership_type;
+                    model.Boarder_election_date= record.Boarder_election_date;
+                    model.Head_election_date = record.Head_election_date;
+                }
+             else   if (model.Membership_type == Membership_type.Board_member)
+                {
+                    record.Membership_type = model.Membership_type;
+                    record.Boarder_election_date = model.Boarder_election_date;
+                    model.Head_election_date = record.Head_election_date;
+                }
+             else   if (model.Membership_type == Membership_type.Head_member)
+                {
+                    record.Membership_type = model.Membership_type;
+                    record.Head_election_date = model.Head_election_date;
+                    model.Boarder_election_date = record.Boarder_election_date;
+                }
                 record.Code = model.Code;
                 record.Subscription_type = model.Subscription_type;
                 record.Subscription_date = model.Subscription_date;
@@ -183,9 +222,9 @@ namespace HR.Controllers
                 record.Family_subscription_fees = model.Family_subscription_fees;
                 record.Subscription_in_house = model.Subscription_in_house;
                 record.Is_family_subscribed = model.Is_family_subscribed;
-                record.Membership_type = model.Membership_type;
-                record.Boarder_election_date = model.Boarder_election_date;
-                record.Head_election_date = model.Head_election_date;
+              //  record.Membership_type = model.Membership_type;
+             //   record.Boarder_election_date = model.Boarder_election_date;
+             //   record.Head_election_date = model.Head_election_date;
                 record.Contact_detail = model.Contact_detail;
                 dbcontext.SaveChanges();
 

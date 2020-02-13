@@ -221,13 +221,13 @@
                                                 <div class="form-group">
                                                     @Html.LabelFor(model => model.Boarder_election_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control datepicker boarder", @id = "dateto", @autocomplete = "off", @*disabled = "disabled"*@ } })
+                                                        @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control datepicker boarder", @id = "dateto", @autocomplete = "off" } })
                    
                                                         @Html.ValidationMessageFor(model => model.Boarder_election_date, "", new { @class = "text-danger" })
                                                     </div>
                                                     @Html.LabelFor(model => model.Head_election_date, htmlAttributes: new { @class = "control-label col-md-2" })
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control datepicker head", @id = "dateto", @autocomplete = "off", @*disabled= "disabled"*@ hidden = "hidden" } })
+                                                        @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control datepicker head", @id = "dateto", @autocomplete = "off"} })
                                                         @Html.ValidationMessageFor(model => model.Head_election_date, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -261,7 +261,7 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-
+        drop();
     });
 </script>
 
@@ -316,17 +316,13 @@
         }
         else if (member == 2) {
             debugger
-            //$(".boarder").removeattr('disabled');
-            //$(".head").attr('disabled', true);
-            $(".boarder").show();
-            $(".head").hide();
-         
+            $(".boarder").removeAttr('disabled');
+            $(".head").attr('disabled', true);
         }
         else if (member == 3) {
-            //$(".head").removeAttr('disabled');
-            //$(".boarder").attr('disabled', true);
-            $(".boarder").hide();
-            $(".head").show();
+            $(".head").removeAttr('disabled');
+            $(".boarder").attr('disabled', true);
+
         }
     }
 </script>
