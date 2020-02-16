@@ -1,4 +1,5 @@
 ﻿@model HR.Models.Check_Lists_Items
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Edit";
@@ -34,7 +35,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Check List Items
+          @Personnel.EditCheckListItems
         </h1>
     </section>
 
@@ -64,19 +65,16 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Check_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.CheckCode</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Check_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Check_Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Description</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -84,8 +82,7 @@
                         </div>
 
                         <div class="form-group">
-
-                            @Html.LabelFor(model => model.Description_Alternative, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.DescriptionAlternative</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description_Alternative, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description_Alternative, "", new { @class = "text-danger" })
@@ -95,16 +92,15 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Check_List_Item_GroupsId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.CheckListItemGroups</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Check_List_Item_GroupsId, new SelectList(ViewBag.Check_List_Item_Groups, "ID", "Code"), "Select List Item Groups", new { @class = "select2", @onchange = "ItemGroups()", @id = "CheckListItemGroups" })
+                                @Html.DropDownListFor(m => m.Check_List_Item_GroupsId, new SelectList(ViewBag.Check_List_Item_Groups, "ID", "Code"), Personnel.ListItemGroups, new { @class = "select2", @onchange = "ItemGroups()", @id = "CheckListItemGroups" })
                                 @Html.ValidationMessageFor(model => model.Check_List_Item_GroupsId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="ItemGroupsName" disabled />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Is_Mandatory, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.IsMandatory</label>
                             <div class="col-md-4">
                                 @Html.CheckBoxFor(model => model.Is_Mandatory, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Is_Mandatory, "", new { @class = "text-danger" })
@@ -117,8 +113,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Check_Lists_Items")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Check_Lists_Items")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
                             </div>
                         </div>

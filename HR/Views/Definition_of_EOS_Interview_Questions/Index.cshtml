@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Definition_of_EOS_Interview_Questions>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Definition_of_EOS_Interview_Questions")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Definition of EOS Interview Questions</a>
+                    <a href="@Url.Action("Create", "Definition_of_EOS_Interview_Questions")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewDefinitionofEOSInterviewQuestion</a>
                 </p>
             </div>
 
@@ -20,7 +20,7 @@
             <div class="box-body">
                 @if (TempData["Message"] != null)
                 {
-                    <div class="alert alert-success alert-dismissible" role="alert">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         @TempData["Message"]
                     </div>
@@ -29,10 +29,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Question Code</th>
-                            <th>Question Description </th>
-                            <th>Description </th>
-                            <th>Questions Groups</th>
+                            <th>@Personnel.QuestionCode</th>
+                            <th>@Personnel.QuestionDescription </th>
+                            <th>@Personnel.Description </th>
+                            <th>@Personnel.QuestionGroup</th>
 
                             <th></th>
                         </tr>
@@ -49,23 +49,13 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Definition_of_EOS_Interview_Questions", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Definition_of_EOS_Interview_Questions", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Definition_of_EOS_Interview_Questions", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Definition_of_EOS_Interview_Questions", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Question Code</th>
-                            <th>Question Description </th>
-                            <th>Description </th>
-                            <th>Questions Groups</th>
-
-
-                            <th></th>
-                        </tr>
-                    </tfoot>
+             
                 </table>
             </div>
         </div>

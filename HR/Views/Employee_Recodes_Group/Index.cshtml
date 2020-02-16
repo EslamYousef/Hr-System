@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Employee_Recodes_Group>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Employee_Recodes_Group")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Recodes Group    </a>
+                    <a href="@Url.Action("Create", "Employee_Recodes_Group")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeRecodesGroup</a>
                 </p>
             </div>
 
@@ -29,9 +29,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Recode Group Code</th>
-                            <th>Recode Group Description</th>
-                            <th> Recode Group Alternative</th>
+                            <th>@Personnel.Record_Group_Code</th>
+                            <th>@Personnel.Record_Group_Description</th>
+                            <th>@Personnel.Record_Group_Alternative</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -43,20 +43,13 @@
                                 <td>@item.Record_Group_Description</td>
                                 <th>@item.Record_Group_Alternative</th>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_Recodes_Group", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Employee_Recodes_Group", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_Recodes_Group", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_Recodes_Group", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Recode Group Code</th>
-                            <th>Recode Group Description</th>
-                            <th>Recode Group Alternative</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+                 
                 </table>
             </div>
         </div>

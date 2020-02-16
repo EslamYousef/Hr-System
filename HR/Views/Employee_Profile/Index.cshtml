@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Employee_Profile>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Employee_Profile")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Profile </a>
+                    <a href="@Url.Action("Create", "Employee_Profile")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeProfile </a>
                 </p>
             </div>
 
@@ -29,9 +30,8 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Full Name</th>
+                            <th>@Personnel.EmployeeNo</th>                        
+                            <th>@Personnel.FullName</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,23 +40,15 @@
                         {
                             <tr>
                                 <td>@item.Code</td>
-                                <td>@item.Name</td>
-                                <th>@item.Full_Name</th>
+                                <td>@item.Full_Name</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("Delete", "Employee_Profile", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("Delete", "Employee_Profile", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Full Name</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+              
                 </table>
             </div>
         </div>

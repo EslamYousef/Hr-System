@@ -200,8 +200,10 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-        Save();
-        Save2();
+        GetDataById2();
+
+        //Save();
+        //Save2();
     });
 </script>
 
@@ -209,7 +211,7 @@
 
 <script>
     function CountryName() {
-        debugger
+ 
         var id = $("#country").val();
 
         $("#ter").empty();
@@ -236,21 +238,21 @@
             url: "/Helper/GetEducatecategory",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
 
                 $("#countryname").val(result.Name);
                 $("#area").removeAttr("disabled");
            //     getallarea(result.ID);
             },
             error: function () {
-                debugger
+         
                 $("#countryname").val(" ");
             }
         });
     }
 
     function areaName() {
-        debugger
+ 
         var id = $("#area").val();
 
         $("#citeid").empty();
@@ -273,13 +275,13 @@
             url: "/Helper/GetEducateTitle",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
                 $("#state").removeAttr("disabled");
                 $("#areaname").val(result.Name);
                 getNameeducationalbyEducatetitle(result.ID);
             },
             error: function () {
-                debugger
+         
                 $("#areaname").val(" ");
             }
         });
@@ -287,7 +289,7 @@
 
     function getstate()
     {
-        debugger
+ 
         var id = $("#state").val();
         $("#ter").empty();
     //    $("#postal").empty();
@@ -305,7 +307,7 @@
             url: "/Helper/GetMainEducatebody",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
 
                 //        $("#ter").removeAttr("disabled");
                 $("#ter").removeAttr("disabled");
@@ -313,14 +315,14 @@
                 getSubeducationalbyMainEducate(result.ID);
             },
             error: function () {
-                debugger
+         
                 $("#statename").val(" ");
             }
         });
     }
     function getSubeducationalbyMainEducate(id)
     {
-        debugger
+ 
 
 
         $.ajax({
@@ -328,7 +330,7 @@
             url: "/Helper/getSubeducationalbyMainEducate",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+         
                 $("#ter").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Sub Educational </option>";
                 $.each(result, function (key, value) {
@@ -338,7 +340,7 @@
                 $("#ter").select2("val", "0");
             },
             error: function () {
-                debugger
+         
                 $("#ter").val(" ");
             }
         });
@@ -346,7 +348,7 @@
     }
     function getter()
     {
-        debugger
+ 
         var id = $("#ter").val();
 
         $.ajax({
@@ -354,26 +356,26 @@
             url: "/Helper/GetSubeducationalbody",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
 
                 $("#citeid").removeAttr("disabled");
                 $("#tername").val(result.Name);
 
             },
             error: function () {
-                debugger
+         
                 $("#tername").val(" ");
             }
         });
     }
     function getNameeducationalbyEducatetitle(id) {
-        debugger
+ 
         $.ajax({
             type: "post",
             url: "/Helper/getNameeducationalbyEducatetitle",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+         
                 $("#citeid").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Qualification name </option>";
                 $.each(result, function (key, value) {
@@ -383,14 +385,14 @@
                 $("#citeid").select2("val", "0");
             },
             error: function () {
-                debugger
+         
                 $("#citeid").val(" ");
             }
         });
 
     }
     function getcite() {
-        debugger
+ 
         var id = $("#citeid").val();
         $("#postal").empty();
      //   $("#GradeEducateId").empty();
@@ -404,7 +406,7 @@
             url: "/Helper/GetNameofeducationalqualification",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
 
                 $("#postal").removeAttr("disabled");
                 $("#cityname").val(result.Name);
@@ -412,19 +414,19 @@
 
             },
             error: function () {
-                debugger
+         
                 $("#cityname").val(" ");
             }
         });
     }
     function getQualificationMajorbyNameofeducational(id) {
-        debugger
+ 
         $.ajax({
             type: "post",
             url: "/Helper/getQualificationMajorbyNameofeducational",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+         
                 $("#postal").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Qualification specialty </option>";
                 $.each(result, function (key, value) {
@@ -434,14 +436,14 @@
                 $("#postal").select2("val", "0");
             },
             error: function () {
-                debugger
+         
                 $("#postal").val(" ");
             }
         });
 
     }
     function getpostal() {
-        debugger
+ 
         var id = $("#postal").val();
    //    $("#GradeEducateId").empty();
       $("#GradeEducateId").select2("val", "");
@@ -451,29 +453,29 @@
             url: "/Helper/GetQualificationMajor",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
                 $("#GradeEducateId").removeAttr("disabled");
                 $("#postname").val(result.Name);
             },
             error: function () {
-                debugger
+         
                 $("#postname").val(" ");
             }
         });
     }
     function GradeEducate() {
-        debugger
+ 
         var id = $("#GradeEducateId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GradeEducate",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
                 $("#GradeEducatename").val(result.Name);
             },
             error: function () {
-                debugger
+         
                 $("#GradeEducatename").val(" ");
             }
         });
@@ -486,12 +488,12 @@
         url: "/Helper/GetEducatecategory",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#area").removeAttr("disabled");
             $("#countryname").val(result.Name);
         },
         error: function () {
-            debugger
+     
             $("#countryname").val(" ");
         }
     });
@@ -502,13 +504,13 @@
         url: "/Helper/GetEducateTitle",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#state").removeAttr("disabled");
             $("#areaname").val(result.Name);
 
         },
         error: function () {
-            debugger
+     
             $("#areaname").val(" ");
         }
     });
@@ -519,13 +521,13 @@
         url: "/Helper/GetMainEducatebody",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#ter").removeAttr("disabled");
             $("#statename").val(result.Name);
 
         },
         error: function () {
-            debugger
+     
             $("#statename").val(" ");
         }
     });
@@ -535,13 +537,13 @@
         url: "/Helper/GetSubeducationalbody",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#citeid").removeAttr("disabled");
             $("#tername").val(result.Name);
 
         },
         error: function () {
-            debugger
+     
             $("#tername").val(" ");
         }
     });
@@ -551,13 +553,13 @@
         url: "/Helper/GetNameofeducationalqualification",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#postal").removeAttr("disabled");
             $("#cityname").val(result.Name);
 
         },
         error: function () {
-            debugger
+     
             $("#cityname").val(" ");
         }
     });
@@ -568,13 +570,13 @@
         url: "/Helper/GetQualificationMajor",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#GradeEducateId").removeAttr("disabled");
             $("#postname").val(result.Name);
 
         },
         error: function () {
-            debugger
+     
             $("#postname").val(" ");
         }
     });
@@ -584,26 +586,26 @@
         url: "/Helper/GradeEducate",
         data: { "id": id },
         success: function (result) {
-            debugger
+     
             $("#GradeEducatename").val(result.Name);
 
         },
         error: function () {
-            debugger
+     
             $("#GradeEducatename").val(" ");
         }
     });
 
 
     function employee() {
-        debugger
+ 
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+         
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Qualification_Profile.Code);
                 $("#employeeId").attr('readonly', true);
@@ -611,13 +613,141 @@
 
             },
             error: function () {
-                debugger
+         
        //         $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
+    function GetDataById() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdQualification",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Qualification_end_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+              
+              
+               //     month = date.getMonth() + 1;
+                var d = date.getFullYear() + '-' + month + '-' + day;
+                $("#End").val(d);
+                Save();
+                Save2();
+                console.log(result);
+            }
+            },
+            error: function () {
+         
+
+            }
+        });
+    }
+    //   GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+ debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdQualification",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Qualification_start_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+               
+              
+              //      month = date.getMonth() + 1;
+                var d = date.getFullYear() + '-' + month + '-' + day;
+                $("#Start").val(d);
+                GetDataById();
+                console.log(result);
+            }
+            },
+            error: function () {
+         
+
+            }
+        });
+    }
+    //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
     function Save() {
+
+ 
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        //   var from = $(".StartDate").val();
+        //   var to = $(".EndDate").val();
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+    function Save2() {
+ 
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+        //   var x = $(".StartDate").val().split('/');
+        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
+        //    var EndDate = new Date($(".EndDate").val());
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        //   var from = $(".StartDate").val();
+        //     var to = $(".EndDate").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
+</script>
+
+ @*function Save() {
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 
@@ -656,7 +786,4 @@
             $("#Yearr").val("0");
             $("#months").val("0");
         }
-    };
-
-</script>
-
+    };*@

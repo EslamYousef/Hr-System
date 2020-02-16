@@ -946,6 +946,12 @@ namespace HR.Controllers
             var newmodel = dbcontext.Employee_military_service_calling.FirstOrDefault(m => m.ID == ID);
             return Json(newmodel);
         }
+        public JsonResult GetDataByIdQualification(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
 
 
 

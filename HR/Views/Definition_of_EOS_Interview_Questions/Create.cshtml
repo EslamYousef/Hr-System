@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Definition_of_EOS_Interview_Questions
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -36,7 +36,7 @@
 
     <section class="content-header">
         <h1>
-            Create Definition of EOS Interview Questions 
+           @Personnel.CreateDefinitionofEOSInterviewQuestions 
         </h1>
     </section>
 
@@ -70,7 +70,7 @@
 
 
                         <div class="form-group">
-                                @Html.LabelFor(model => model.Question_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.QuestionCode</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.Question_Code, new { htmlAttributes = new { @class = "form-control" ,@readonly=true} })
                                     @Html.ValidationMessageFor(model => model.Question_Code, "", new { @class = "text-danger" })
@@ -80,7 +80,7 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Question_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.QuestionDescription</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Question_Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Question_Description, "", new { @class = "text-danger" })
@@ -88,33 +88,26 @@
                         </div>
 
                         <div class="form-group">
-
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Description</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Question_GroupId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.QuestionGroup</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Question_GroupId, new SelectList(ViewBag.EOS_Interview_Questions_Groups, "ID", "Code"), "Select Question Group", new { @class = "select2", @onchange = "QuestionsGroups()", @id = "EOSInterviewQuestionsGroups" })
+                                @Html.DropDownListFor(m => m.Question_GroupId, new SelectList(ViewBag.EOS_Interview_Questions_Groups, "ID", "Code"),Personnel.QuestionGroup2, new { @class = "select2", @onchange = "QuestionsGroups()", @id = "EOSInterviewQuestionsGroups" })
                                 @Html.ValidationMessageFor(model => model.Question_GroupId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="QuestionsGroupsName2" disabled />
                             </div>
                         </div>
 
 
-
-
-
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">CREATE</button>
-                                <a href="@Url.Action("index","Definition_of_EOS_Interview_Questions")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
+                                <a href="@Url.Action("index","Definition_of_EOS_Interview_Questions")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                             </div>
                         </div>
                     </div>

@@ -23,14 +23,14 @@ namespace HR.Controllers
 
             var o = dbcontext.Contact_methods.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Name + ']', ID = m.ID }).ToList();
             ViewBag.Contact_methods = o;
-            if (o == null || o.Count() == 0)
-            {
+            //if (o == null || o.Count() == 0)
+            //{
 
-                TempData["Message"] = "Don't Create Contact methods";
-                var modelll = dbcontext.Subscription_Syndicate.ToList();
-                return View("index", modelll);
+            //    TempData["Message"] = "Don't Create Contact methods";
+            //    var modelll = dbcontext.Subscription_Syndicate.ToList();
+            //    return View("index", modelll);
 
-            }
+            //}
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Subscription_Syndicate.ToList();
             var count = 0;
@@ -56,11 +56,11 @@ namespace HR.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    if (model.Contact_methodsId == "0" || model.Contact_methodsId == null)
-                    {
-                        ModelState.AddModelError("", "Contact Methods Code must enter");
-                        return View(model);
-                    }
+                    //if (model.Contact_methodsId == "0" || model.Contact_methodsId == null)
+                    //{
+                    //    ModelState.AddModelError("", "Contact Methods Code must enter");
+                    //    return View(model);
+                    //}
                     Subscription_Syndicate record = new Subscription_Syndicate();
                     record.Subscription_Code = model.Subscription_Code;
                     record.Server_Legatees = model.Server_Legatees;
@@ -91,8 +91,8 @@ namespace HR.Controllers
                     record.Address = model.Address;
 
                     record.Contact_methodsId = model.Contact_methodsId;
-                    var Contact_methodsId = int.Parse(model.Contact_methodsId);
-                    record.Contact_methods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == Contact_methodsId);
+                  //  var Contact_methodsId = int.Parse(model.Contact_methodsId);
+                //    record.Contact_methods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == Contact_methodsId);
                     }
                    
                     dbcontext.Subscription_Syndicate.Add(record);
@@ -141,11 +141,11 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Contact_methods = dbcontext.Contact_methods.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Name + ']', ID = m.ID }).ToList();
-                if (model.Contact_methodsId == "0" || model.Contact_methodsId == null)
-                {
-                    ModelState.AddModelError("", "Contact methods Code must enter");
-                    return View(model);
-                }
+                //if (model.Contact_methodsId == "0" || model.Contact_methodsId == null)
+                //{
+                //    ModelState.AddModelError("", "Contact methods Code must enter");
+                //    return View(model);
+                //}
                 var record = dbcontext.Subscription_Syndicate.FirstOrDefault(m => m.ID == model.ID);
                 record.Subscription_Code = model.Subscription_Code;
                 record.Server_Legatees = model.Server_Legatees;
@@ -176,8 +176,8 @@ namespace HR.Controllers
                     record.Address = model.Address;
 
                     record.Contact_methodsId = model.Contact_methodsId;
-                    var Contact_methodsId = int.Parse(model.Contact_methodsId);
-                    record.Contact_methods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == Contact_methodsId);
+                //    var Contact_methodsId = int.Parse(model.Contact_methodsId);
+              //      record.Contact_methods = dbcontext.Contact_methods.FirstOrDefault(m => m.ID == Contact_methodsId);
                 }
 
                 dbcontext.SaveChanges();

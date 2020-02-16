@@ -1,5 +1,5 @@
 ﻿@model HR.Models.EOS_Interview_Questions_Groups
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            Edit EOS Interview Questions Groups
+            @Personnel.EditEOSInterviewQuestionsGroups
         </h1>
     </section>
 
@@ -40,36 +40,36 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Questions_Group_Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">@Personnel.QuestionsGroupCode</label>
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Questions_Group_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Questions_Group_Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description_of, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">@Personnel.Descriptionof</label>
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description_of, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description_of, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description_Alternative, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">@Personnel.DescriptionAlternative</label>
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description_Alternative, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description_Alternative, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
 
+
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","EOS_Interview_Questions_Groups")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="  @Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","EOS_Interview_Questions_Groups")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                             </div>
                         </div>
                     </div>

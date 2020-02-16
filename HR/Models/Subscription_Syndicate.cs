@@ -39,7 +39,7 @@ namespace HR.Models
         public string Email { get; set; }
         public string Address { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        //[Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contact Methods Code")]
         public string Contact_methodsId { get; set; }
         public virtual Contact_methods Contact_methods { get; set; }
