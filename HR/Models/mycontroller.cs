@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using static HR.Models.Langmanger;
 using System.Web.Mvc;
+using HR.Controllers;
+
 namespace HR.Models
 {
-    public class MyController : Controller
+    public class MyController : BaseController
     {
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
