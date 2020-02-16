@@ -115,6 +115,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new contect method.
+        /// </summary>
+        public static string add_new_contect_method1 {
+            get {
+                return ResourceManager.GetString("add_new_contect_method1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new country.
         /// </summary>
         public static string Add_new_country {
@@ -966,6 +975,15 @@ namespace HR.Resource {
         public static string edit_postalcode {
             get {
                 return ResourceManager.GetString("edit_postalcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Qualification-speciality.
+        /// </summary>
+        public static string Edit_Qualification_speciality1 {
+            get {
+                return ResourceManager.GetString("Edit_Qualification_speciality1", resourceCulture);
             }
         }
         

@@ -330,11 +330,12 @@ namespace HR.Controllers
                 if (status[0] == "all")
                 {
                     var req = dbcontext.Employee_records.Where(m => DateTime.Compare(m.Record_date, from) >= 0 && DateTime.Compare(m.Record_date, to) <= 0).ToList();
-                    foreach (var itemm in re1)
+                    foreach (var itemm in req)
                     {
                         itemm.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == itemm.statID);
 
                     }
+                    return Json(req);
                 }
                 else if (status[0] != "all" )
                 {

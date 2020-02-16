@@ -119,13 +119,70 @@
 </div>
 
 <script>
+    $(function () {
+    
+
+        debugger
+        var id = $("#country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCountry",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#countryname").val(result.Name);
+            },
+            error: function () {
+                debugger
+                $("#countryname").val(" ");
+            }
+        });
+        if (id != null) {
+            $("#area").removeAttr("disabled");
+            var ID = $("#area").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/getarea",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#Areaname").val(result.Name);
+
+                },
+                error: function () {
+                    debugger
+                    $("#Areaname").val(" ");
+                }
+            });
+            if (ID != null) {
+                $("#state").removeAttr("disabled");
+                var id = $("#state").val();
+                $.ajax({
+                    type: "post",
+                    url: "/Helper/Getstate",
+                    data: { "id": id },
+                    success: function (result) {
+                        debugger
+                        $("#statename").val(result.Name);
+
+                    },
+                    error: function () {
+                        debugger
+                        $("#statename").val(" ");
+                    }
+                });
+            }
+        }
+    });
     function CountryName() {
         debugger
         var id = $("#country").val();
+       
+        //$("#area").select2("val", "0");
+        //$("#state").select2("val", " ");
         $("#area").empty();
         $("#state").empty();
-        $("#area").select2("val", "");
-        $("#state").select2("val", "");
         $("#statename").val(" ");
         $("#Areaname").val(" ");
         $.ajax({
@@ -173,7 +230,7 @@
         debugger
         var id = $("#area").val();
         $("#state").empty();
-        $("#state").select2("val", "");
+        //$("#state").select2("val", "");
         $("#statename").val(" ");
         $.ajax({
             type: "post",
@@ -233,63 +290,6 @@
             }
         });
     }
-</script>
-
-<script>
-         debugger
-        var id = $("#country").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetCountry",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-
-                $("#countryname").val(result.Name);
-            },
-            error: function () {
-                debugger
-                $("#countryname").val(" ");
-            }
-        });
-        if (id != null)
-        {
-            $("#area").removeAttr("disabled");
-            var ID = $("#area").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/getarea",
-                data: { "id": ID },
-                success: function (result) {
-                    debugger
-                    $("#Areaname").val(result.Name);
-
-                },
-                error: function () {
-                    debugger
-                    $("#Areaname").val(" ");
-                }
-            });
-            if (ID != null)
-            {
-                $("#state").removeAttr("disabled");
-                var id = $("#state").val();
-                $.ajax({
-                    type: "post",
-                    url: "/Helper/Getstate",
-                    data: { "id": id },
-                    success: function (result) {
-                        debugger
-                        $("#statename").val(result.Name);
-
-                    },
-                    error: function () {
-                        debugger
-                        $("#statename").val(" ");
-                    }
-                });
-            }
-        }
 </script>
 
 @section scripts{}

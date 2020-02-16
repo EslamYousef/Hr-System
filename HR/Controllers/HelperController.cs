@@ -279,12 +279,26 @@ namespace HR.Controllers
         {
             try
             {
-                var req = dbcontext.check_Request.ToList();
-                foreach (var item in req)
-                {
-                    item.date = item.Request_date.ToString("dd/MM/yyyy");
-                }
-                return Json(req);
+                var request = dbcontext.check_Request.ToList();
+
+                var check_type = dbcontext.Checktype.ToList();
+                var checkRequestStatues = dbcontext.check_request_change_status.ToList();
+
+                var employeeRecord = from e in request
+                                     join d in check_type on e.ChecktypeID equals d.ID.ToString()
+                                     join i in checkRequestStatues on e.check_request_change_statusID equals i.ID.ToString()
+                                     select new CheckRequestVM
+                                     {
+                                         iD = e.ID,
+                                         amount = e.amount,
+                                         checkNumber = e.check_number,
+                                         requestDate = e.Request_date.ToString("dd/MM/yyyy"),
+                                         requestNumber = e.Request_number,
+                                         checkType = d.Name,
+
+                                     };
+                var t = employeeRecord.ToList();
+                return Json(employeeRecord, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -517,6 +531,10 @@ namespace HR.Controllers
         {
             var ID = int.Parse(id);
             var model = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == ID);
+            int ID_unitlevel = int.Parse(model.unitLevelcode);
+            model.Organization_Unit_Level = dbcontext.Organization_Unit_Level.FirstOrDefault(m => m.ID == ID_unitlevel);
+            int ID_unitschema = int.Parse(model.unitschemacode);
+            model.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID == ID_unitschema);
             return Json(model);
 
         }

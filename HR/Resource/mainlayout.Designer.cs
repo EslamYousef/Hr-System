@@ -583,6 +583,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mainpower.
+        /// </summary>
+        public static string mainpo {
+            get {
+                return ResourceManager.GetString("mainpo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mainpower.
+        /// </summary>
+        public static string Mainpower {
+            get {
+                return ResourceManager.GetString("Mainpower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to miliraty service rank.
         /// </summary>
         public static string miliraty_service_rank {
@@ -795,6 +813,24 @@ namespace HR.Resource {
         public static string Religion {
             get {
                 return ResourceManager.GetString("Religion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request new contract.
+        /// </summary>
+        public static string request_new_contract {
+            get {
+                return ResourceManager.GetString("request_new_contract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request new contract.
+        /// </summary>
+        public static string requestconter {
+            get {
+                return ResourceManager.GetString("requestconter", resourceCulture);
             }
         }
         

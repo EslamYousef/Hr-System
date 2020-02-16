@@ -149,8 +149,16 @@ namespace HR.Controllers
                 record.req_date = record.Requset_date.ToShortDateString();
                 record.eos_Date = record.date_of_eos_interview.ToShortDateString();
                 record.name_state = nameof(check_status.Report_as_ready);
+                
                 var t = (EOS_type)(int)record.EOS_type;
-                record.name_type = t.ToString();
+                if (t == 0)
+                {
+                    record.name_type = nameof(EOS_type.Early_EOS);
+                }
+                else
+                {
+                    record.name_type = t.ToString();
+                }
                 dbcontext.EOS_Request.Add(record);
                 dbcontext.SaveChanges();
                 ///////////////click EOS interview/////////

@@ -33,9 +33,10 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.airport = dbcontext.Air_ports.ToList();
                 if (ModelState.IsValid)
                 {
-                    ViewBag.airport = dbcontext.Air_ports.ToList();
+                  
                     var fromair = form["from"].Split(char.Parse(","));
                     var to = form["to"].Split(char.Parse(","));
                     var codefromair = form["codefrom"].Split(char.Parse(","));
