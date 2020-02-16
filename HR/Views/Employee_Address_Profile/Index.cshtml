@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Employee_Address_Profile>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Employee_Address_Profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Address Profile </a>
+                    <a href="@Url.Action("Create", "Employee_Address_Profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeAddressProfile </a>
                 </p>
             </div>
       
@@ -30,14 +30,14 @@
                     <table id="categories" class="table table-bordered table-striped text-center">
                         <thead>
                             <tr>
-                                <th>Code Address</th>
-                                <th>Employee Name </th>
-                                <th>Country</th>
-                                <th>Region</th>
-                                <th>State</th>
-                                <th>County</th>
-                                <th>City</th>
-                                <th>Postal</th>
+                                <th>@Personnel.AddressprofileNo</th>
+                                <th>@Personnel.EmployeeName </th>
+                                <th>@Personnel.Country</th>
+                                <th>@Personnel.Regionname</th>
+                                <th>@Personnel.Statename</th>
+                                <th>@Personnel.County</th>
+                                <th>@Personnel.Cityname</th>
+                                <th>@Personnel.Postalname</th>
 
                                 <th></th>
                             </tr>
@@ -100,8 +100,8 @@
 
 
                                     <td>
-                                        <a href="@Url.Action("Edit", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                        <a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                        <a href="@Url.Action("Edit", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                        <a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                     </td>
                                 </tr>
                             }

@@ -1,10 +1,10 @@
 ﻿@model HR.Models.Employee_Address_Profile
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-<h3>Are you sure you want to delete this Employee Address Profile ?</h3>
+<h3>@Personnel.message_delete</h3>
 @using (Html.BeginForm("Delete", "Employee_Address_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -39,8 +39,8 @@
         </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Delete" class="btn btn-success" />
-                <a href="@Url.Action("index","Employee_Address_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                <input type="submit" value=" @Personnel.Delete" class="btn btn-success" />
+                <a href="@Url.Action("index","Employee_Address_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
             </div>
         </div>

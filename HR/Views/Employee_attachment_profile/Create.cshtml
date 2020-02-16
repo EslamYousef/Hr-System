@@ -1,10 +1,10 @@
 ﻿@model HR.Models.Employee_attachment_profile
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-
 @Scripts.Render("~/bundles/jqueryval")
 
 
@@ -12,7 +12,7 @@
 
     <section class="content-header">
         <h1>
-            Create Employee Attachment Profile
+          @Personnel.CreateEmployeeAttachmentProfile
         </h1>
     </section>
 
@@ -44,23 +44,23 @@
                         @Html.HiddenFor(m => m.Employee_Profile.Full_Name)
                         @Html.HiddenFor(m => m.Employee_Profile.Code)
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                                 <div class="col-md-4">
                                     @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="col-md-6" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.AttachmentprofileNo</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @autocomplete = "off" } })
                                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.Is_copy, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <label class="control-label col-md-2">@Personnel.Iscopy</label>
                                 <div class="col-md-3">
                                     @Html.CheckBoxFor(model => model.Is_copy, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Is_copy, "", new { @class = "text-danger" })
@@ -68,26 +68,26 @@
                             </div>                   
                         
                             <div class="form-group">
-                                @Html.LabelFor(model => model.DocumentsId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.Documentcode</label>
                                 <div class="col-md-4">
-                                    @Html.DropDownListFor(m => m.DocumentsId, new SelectList(ViewBag.Documents, "ID", "Code"), "Select Document", new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                    @Html.DropDownListFor(m => m.DocumentsId, new SelectList(ViewBag.Documents, "ID", "Code"), Personnel.SelectDocument, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
                                     @Html.ValidationMessageFor(model => model.DocumentsId, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.Is_required, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <label class="control-label col-md-2">@Personnel.Isrequired</label>
                                 <div class="col-md-3">
                                     @Html.CheckBoxFor(model => model.Is_required, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Is_required, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(model => model.DocumentGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.Documentgroup</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.DocumentGroup, new { htmlAttributes = new { @class = "form-control", id = "groupdocument", @readonly = true, @autocomplete = "off" } })
                                     @Html.ValidationMessageFor(model => model.DocumentGroup, "", new { @class = "text-danger" })
                                 </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Related_to, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <label class="control-label col-md-2">@Personnel.Relatedto</label>
                                     <div class="col-md-4">
                                         @Html.EnumDropDownListFor(model => model.Related_to, new { @class = "select2", @autocomplete = "off" })
 
@@ -96,7 +96,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Issued_place, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <label class="control-label col-md-2">@Personnel.Issuedplace</label>
                                     <div class="col-md-4">
                                         @Html.EditorFor(model => model.Issued_place, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
 
@@ -105,12 +105,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Issue_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Issuedate</label>
                                         <div class="col-md-4">
                                             @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control datepicker", @id = "dateto" } })
                                             @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
                                         </div>
-                                        @Html.LabelFor(model => model.Expiry_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Expirydate</label>
                                         <div class="col-md-4">
                                             @Html.EditorFor(model => model.Expiry_date, new { htmlAttributes = new { @autocomplete = "off",@class = "form-control datepicker", @id = "dateto" } })
                                             @Html.ValidationMessageFor(model => model.Expiry_date, "", new { @class = "text-danger" })
@@ -119,21 +119,21 @@
                   
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Reference_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Referencenumber</label>
                                         <div class="col-md-4">
                                             @Html.EditorFor(model => model.Reference_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Reference_number, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Document_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Documentnumber</label>
                                         <div class="col-md-4">
                                             @Html.EditorFor(model => model.Document_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Document_number, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Document_description, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Documentdescription</label>
                                         <div class="col-md-4">
                                             @Html.EditorFor(model => model.Document_description, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Document_description, "", new { @class = "text-danger" })
@@ -141,7 +141,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Document_status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Documentstatus</label>
                                         <div class="col-md-4">
                                             @Html.EnumDropDownListFor(model => model.Document_status, new {  @class = "select2"  , @autocomplete = "off"})
 
@@ -152,7 +152,7 @@
                         <strong class = "control-label col-md-2">Attachments : </strong> <input type="file" name="MyItem" required /><br />
 
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">@Personnel.Comments</label>
                                         <div class="col-md-4">
                                             @Html.TextAreaFor(model => model.Comments,4,55, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
@@ -161,8 +161,8 @@
 
                                     <div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Create" class="btn btn-success" />
-                                            <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp })" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                            <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                            <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp })" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                                         </div>
                                     </div>
                           </div>
