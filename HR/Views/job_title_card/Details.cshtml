@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-
+@using HR.Resource;
 <script>
     function addquli1()
     {
@@ -288,7 +288,9 @@
                         }
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.code
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new {  @class = "form-control", id = "code", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -297,7 +299,9 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.name
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
@@ -307,12 +311,14 @@
 
                             </div>
                             <div class="col-md-4">
-                                <button type="submit" style="width:200px" id="btnSave" class="btn btn-success" name="Command" value="Save">Submit</button>
-                                <a href="@Url.Action("index","job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back to index</a>
+                                <button type="submit" style="width:200px" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</button>
+                                <a href="@Url.Action("index","job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backtoindex</a>
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.description
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -331,31 +337,31 @@
                                 <li class="active">
                                     <a href="#Qulifications" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
-                                        <span class="hidden-xs">Qulifications</span>
+                                        <span class="hidden-xs">@organ.qulifications</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#Risks" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">Risks</span>
+                                        <span class="hidden-xs">@organ.risks</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#skills" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
-                                        <span class="hidden-xs">skills</span>
+                                        <span class="hidden-xs">@organ.skills</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#Responsiblities" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">Responsiblities</span>
+                                        <span class="hidden-xs">@organ.responsibllities</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#Requirment" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
-                                        <span class="hidden-xs">Special Requirment</span>
+                                        <span class="hidden-xs">@organ.specialrequirment</span>
                                     </a>
                                 </li>
 
@@ -368,30 +374,31 @@
                                         <div class="form-group">
                                          
                                             <label class="control-label col-md-2">
-                                                Name of educational qualification
+                                              @organ.NamEofeducationalqualification
                                             </label>
                                             <div class="col-md-4">
-                                                @Html.DropDownList("name", new SelectList(ViewBag.quliname, "ID", "Code"), "Select Name of educational qualification", new { @class = "select2", @id = "Country1" })
+                                                @Html.DropDownList("name", new SelectList(ViewBag.quliname, "ID", "Code"), organ.NamEofeducationalqualification, new { @class = "select2", @id = "Country1" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group">
                                              <label class="control-label col-md-2">
-                                                Qualification Major
+                                                 @organ.QualificationMajor
                                             </label>
                                              <div class="col-md-4">
-                                                @Html.DropDownList("qulispeci", new SelectList(ViewBag.qulispeci, "ID", "Code"), "Select Qualification Major", new { @class = "select2", @id = "Country2" })
+                                                @Html.DropDownList("qulispeci", new SelectList(ViewBag.qulispeci, "ID", "Code"),organ.QualificationMajor, new { @class = "select2", @id = "Country2" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="control-label col-md-2">
-                                                Grade
+                                                @organ.Grade
+
                                             </label>
                                               <div class="col-md-4">
-                                                @Html.DropDownList("grade", new SelectList(ViewBag.qulidegree, "ID", "Code"), "Select Grade", new { @class = "select2", @id = "Country3" })
+                                                @Html.DropDownList("grade", new SelectList(ViewBag.qulidegree, "ID", "Code"), organ.Grade, new { @class = "select2", @id = "Country3" })
                                             </div>
                                         </div>
                                     </div>
@@ -406,20 +413,20 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="button" value="Add Nother Row" id="add" class="btn btn-success" onclick="addquli1()" />
+                                            <input type="button" value=@organ.addanotherrow id="add" class="btn btn-success" onclick="addquli1()" />
                                         </div>
                                     </div>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <label class="control-label col-md-3">Description Name </label>
+                                                    <label class="control-label col-md-3">@organ.description </label>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">Specialty</label>
+                                                    <label class="control-label col-md-3">@organ.Specialty</label>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">Degree</label>
+                                                    <label class="control-label col-md-3">@organ.Grade</label>
                                                 </th>
                                                 @*<th>
                                                         <label class="control-label">Required</label>
@@ -443,7 +450,7 @@
                                                <td class="col-md-3"><input class = "form-control" value=@item.Qualification_Major.Name /></td>  
                                                <td hidden><input name="s111" class = "form-control" value=@item.GradeEducate.ID /></td>  
                                                <td class="col-md-3"><input  class = "form-control"value=@item.GradeEducate.Name /></td>
-                                               <td class="col-md-3"><input value="cancel" type="button" class="remove btn btn-danger" onclick="remove($(this))"/> </td>    
+                                               <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))"/> </td>    
                                                 </tr>
                                                 }
                                             }
@@ -455,10 +462,10 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                            <label class="control-label col-md-2">
-                                                Risk
+                                                @organ.risks
                                             </label>
                                                <div class="col-md-4">
-                                                @Html.DropDownList("o", new SelectList(ViewBag.risk, "ID", "Code"), "Select Risk", new { @class = "select2", @id = "Country5" })
+                                                @Html.DropDownList("o", new SelectList(ViewBag.risk, "ID", "Code"), organ.risks, new { @class = "select2", @id = "Country5" })
                                             </div>
                                         </div>
                                     </div>
@@ -473,7 +480,7 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="button" value="Add Nother Row" id="add3" class="btn btn-success" onclick="addquli2()" />
+                                            <input type="button" value=@organ.addanotherrow id="add3" class="btn btn-success" onclick="addquli2()" />
                                         </div>
                                     </div>
                                     <table class="table table-bordered">
@@ -481,10 +488,10 @@
                                             <tr>
 
                                                 <th class="control-label col-md-3">
-                                                    <label class="control-label col-md-3"> code </label>
+                                                    <label class="control-label col-md-3"> @organ.code </label>
                                                 </th>
                                                 <th class="control-label col-md-3">
-                                                    <label class="control-label col-md-3">name</label>
+                                                    <label class="control-label col-md-3">@organ.name</label>
                                                 </th>
                                                 <th></th>
                                                 @*<th>
@@ -507,7 +514,7 @@
                                                             <td hidden><input name="risk" value=@item.ID /></td>
                                                             <td><input class = "form-control" value=@item.Risks_Type.Code /></td>
                                                             <td><input class = "form-control" value=@item.Risks_Type.Name /></td>
-                                                            <td><input  value="cancel" type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                            <td><input  value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
                                                         </tr>
                                                     }
                                                 }
@@ -519,10 +526,10 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="control-label col-md-2">
-                                                Skill
+                                               @organ.skills
                                             </label>
                                                  <div class="col-md-4">
-                                                @Html.DropDownList("o", new SelectList(ViewBag.skill, "ID", "Code"), "Select Skill", new { @class = "select2", @id = "Country4" })
+                                                @Html.DropDownList("o", new SelectList(ViewBag.skill, "ID", "Code"), organ.skills, new { @class = "select2", @id = "Country4" })
                                             </div>
                                         </div>
                                     </div>
@@ -538,7 +545,7 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="button" value="Add Nother Row" id="add2" class="btn btn-success" onclick="addquli3()" />
+                                            <input type="button" value=@organ.addanotherrow id="add2" class="btn btn-success" onclick="addquli3()" />
                                         </div>
                                     </div>
 
@@ -548,10 +555,10 @@
                                             <tr>
 
                                                 <th>
-                                                    <label class="control-label col-md-2">code </label>
+                                                    <label class="control-label col-md-2">@organ.code </label>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-2">name</label>
+                                                    <label class="control-label col-md-2">@organ.name</label>
                                                 </th>
 
                                                 @*<th>
@@ -573,7 +580,7 @@
                                                             <td hidden><input class="control-label col-md-3" name="newskill" value=@item.skill.ID /></td>
                                                             <td class="col-md-3"><input class = "form-control"value=@item.skill.Code /></td>
                                                             <td class="col-md-3"><input class = "form-control"value=@item.skill.Name /></td>
-                                                            <td class="col-md-3"><input value="cancel" type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                            <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
                                                         </tr>
                                                     }
                                                 }
@@ -585,10 +592,10 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="control-label col-md-2">
-                                                Responsiblity
+                                                @organ.responsibllities
                                             </label>
                                                 <div class="col-md-4">
-                                                @Html.DropDownList("o", new SelectList(ViewBag.respon, "ID", "Code"), "Select Responsiblity", new { @class = "select2", @id = "Country6" })
+                                                @Html.DropDownList("o", new SelectList(ViewBag.respon, "ID", "Code"),organ.responsibllities, new { @class = "select2", @id = "Country6" })
                                             </div>
                                         </div>
                                     </div>
@@ -603,7 +610,7 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="button" value="Add Nother Row" id="add4" class="btn btn-success" onclick="addquli4()" />
+                                            <input type="button" value=@organ.addanotherrow id="add4" class="btn btn-success" onclick="addquli4()" />
                                         </div>
                                     </div>
                                     <table class="table table-bordered">
@@ -611,10 +618,10 @@
                                             <tr>
 
                                                 <th>
-                                                    <label class="control-label col-md-2">code </label>
+                                                    <label class="control-label col-md-2">@organ.code </label>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-2">name</label>
+                                                    <label class="control-label col-md-2">@organ.name</label>
                                                 </th>
                                                 <th></th>
                                                 @*<th>
@@ -634,7 +641,7 @@
                                                     <td hidden><input name="respon" value=@item.ID /></td>
                                                     <td><input class = "form-control" value=@item.Code /></td>
                                                     <td><input class = "form-control" value=@item.Name /></td>
-                                                    <td><input value="cancel" type="button"  class="remove btn btn-danger"  onclick="remove($(this))" /> </td>
+                                                    <td><input value=@organ.remove type="button"  class="remove btn btn-danger"  onclick="remove($(this))" /> </td>
                                                 </tr>
                                                     }
                                                 }
@@ -646,10 +653,10 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="control-label col-md-2">
-                                                Requirment
+                                                @organ.specialrequirment
                                             </label>
                                                 <div class="col-md-4">
-                                                @Html.DropDownList("o", new SelectList(ViewBag.requi, "ID", "Code"), "Select Requirment", new { @class = "select2", @id = "Country7" })
+                                                @Html.DropDownList("o", new SelectList(ViewBag.requi, "ID", "Code"), organ.specialrequirment, new { @class = "select2", @id = "Country7" })
                                             </div>
                                         </div>
                                     </div>
@@ -664,7 +671,7 @@
 
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="button" value="Add Nother Row" id="add5" class="btn btn-success" onclick="addquli5()" />
+                                            <input type="button" value=@organ.addanotherrow id="add5" class="btn btn-success" onclick="addquli5()" />
                                         </div>
                                     </div>
                                     <table class="table table-bordered">
@@ -672,10 +679,10 @@
                                             <tr>
 
                                                 <th>
-                                                    <label class="control-label col-md-2">code </label>
+                                                    <label class="control-label col-md-2">@organ.code </label>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-2">name</label>
+                                                    <label class="control-label col-md-2">@organ.name</label>
                                                 </th>
                                                 <th></th>
                                                 @*<th>
@@ -695,7 +702,7 @@
                                                     <td hidden><input name="requirment" value=@item.ID /></td>
                                                     <td><input class = "form-control" value=@item.Code /></td>
                                                     <td><input class = "form-control" value=@item.Name /></td>
-                                                    <td><input  value="cancel" type="button"  class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                    <td><input  value=@organ.remove type="button"  class="remove btn btn-danger" onclick="remove($(this))" /> </td>
                                                 </tr>
                                                     }
                                                 }

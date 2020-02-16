@@ -12,8 +12,10 @@ namespace HR.Models
     {
         public int ID { get; set; }
         public string Number { get; set; }
-        public DateTime transaction_date { get; set; }
-        public DateTime Effective_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime transaction_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Effective_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public transaction_type Transaction_type { get; set; }
         public virtual Employee_Profile Employee { get; set; }
         public virtual status status { get; set; }
@@ -32,34 +34,38 @@ namespace HR.Models
        // [Display(Name = "Position transaction no.")]
         //public string Position_transaction_no { get; set; }
         [Display(Name = "Position transaction")]
-        public DateTime Position_transaction { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Position_transaction { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public Transaction_Type Transaction_Type_ { get; set; } = Transaction_Type.Re_Hire;
         public Fixed_basic_salary_by Fixed_basic_salary_by { get; set; } = Fixed_basic_salary_by.In_House;
         [Display(Name = "Resolution number")]
         public string Resolution_number { get; set; }
         [Display(Name = "Resolution date")]
-        public DateTime Resolution_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Resolution_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = "Activity number")]
         public string Activity_number { get; set; }
         [Display(Name = "Memo number")]
         public string Memo_number { get; set; }
         [Display(Name = "Memo date")]
-        public DateTime Memo_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Memo_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = "Recommended by")]
         public string Recommended_by { get; set; }
         [Display(Name = "Approved by")]
         public string Approved_by { get; set; }
         [Display(Name = "Approved date")]
-        public DateTime Approved_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Approved_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         ///////////
         //////////
-        
-       // [Required]
-       // [Display(Name = "Employee No.")]
-       // public string Employee_ProfileId { get; set; }
+
+        // [Required]
+        // [Display(Name = "Employee No.")]
+        // public string Employee_ProfileId { get; set; }
         //[Required]
-       // [Display(Name = "Position profile No.")]
-      //  public string Code { get; set; }
+        // [Display(Name = "Position profile No.")]
+        //  public string Code { get; set; }
         //[Display(Name = "Primary Position")]
         //public bool Primary_Position { get; set; }
         //[Display(Name = "Job desc")]
@@ -83,15 +89,20 @@ namespace HR.Models
         public virtual Organization_Chart Organization_Chart { get; set; }
 
         [Display(Name = "From date")]
-        public DateTime From_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime From_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Display(Name = "To date")]
-        public DateTime To_date { get; set; }
+        public DateTime To_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public int Years { get; set; }
         public int Months { get; set; }
         [Display(Name = "End of service date")]
-        public DateTime End_of_service_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+
+        public DateTime End_of_service_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         [Display(Name = "Last working date")]
-        public DateTime Last_working_date { get; set; }
+        public DateTime Last_working_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public string Commnets { get; set; }
         public working_system working_system { get; set; } = working_system.Day;
         public Position_status Position_status { get; set; } = Position_status.Active;

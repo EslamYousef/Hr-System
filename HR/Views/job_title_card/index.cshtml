@@ -4,6 +4,7 @@
     ViewBag.Title = "index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+@using HR.Resource; 
 <script>
     var $ = jQuery;
 
@@ -26,7 +27,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "job_title_card")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new job title card</a>
+                    <a href="@Url.Action("Create", "job_title_card")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.add_new_job_title</a>
                 </p>
             </div>
 
@@ -43,9 +44,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
 
                             <th></th>
                         </tr>
@@ -60,17 +61,17 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("edit", "job_title_card", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("Remove", "job_title_card", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("edit", "job_title_card", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.edit</a>
+                                    <a href="@Url.Action("Remove", "job_title_card", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
                             <th></th>
                         </tr>
                     </tfoot>

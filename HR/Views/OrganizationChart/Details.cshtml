@@ -4,19 +4,21 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+@using HR.Resource;
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>
-    CountryName2()
-    CountryName1();
-    location87();
+    $(function () {
+        CountryName2()
+        CountryName1();
+        location87();
+    });
     var v=$("#mas").val();
     if(v=="Y")
     {
 
         $("#Country1").prop('disabled', true);
     }
-
     function CountryName2()
     {
         debugger
@@ -78,7 +80,7 @@
 
     <section class="content-header">
         <h1>
-          Details 
+          @organ.details 
         </h1>
     </section>
 
@@ -106,19 +108,23 @@
                           @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             <div class="col-md-2"></div>
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("edit_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value="Edit" />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("Delete", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value="Delete" />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value="View chart" />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value="back to index" />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("edit_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.edit/>
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("Delete", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.delete />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.viewchart />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.backtoindex />
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                             <label class = "control-label col-md-2" >
+                                @organ.code
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control",@readonly=true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.User_unit_code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.userunitCode
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.User_unit_code, new { htmlAttributes = new { @class = "form-control" , @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.User_unit_code, "", new { @class = "text-danger" })
@@ -126,14 +132,18 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.unit_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.unitDescription
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.unit_Description, new { htmlAttributes = new { @class = "form-control" , @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.unit_Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.alter_unit_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.AlterunitDescription
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.alter_unit_Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.alter_unit_Description, "", new { @class = "text-danger" })
@@ -141,64 +151,82 @@
                         </div>
                         <div class="form-group">
 
-                            @Html.LabelFor(model => model.unit_type_codeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.UnitTypeCode
+                            </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.unit_type_codeID, new SelectList(ViewBag.unit_type, "ID", "Code"), "Select unit type code", new { @disabled=true, @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
+                                @Html.DropDownListFor(m => m.unit_type_codeID, new SelectList(ViewBag.unit_type, "ID", "Code"),organ.UnitTypeCode, new { @disabled=true, @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
                                 @Html.ValidationMessageFor(model => model.unit_type_codeID, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname2" disabled />
                             </div>
-                            @Html.LabelFor(model => model.parent, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.parentunitcode
+                            </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parenttt, "ID", "Code"), "Select parent node", new { @disabled = true, @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                                @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parenttt, "ID", "Code"), organ.parentunitcode, new { @disabled = true, @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
                                 @Html.ValidationMessageFor(model => model.parent, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname1" disabled />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2"><spane> unit level code</spane></label>
+                            <label class="control-label col-md-2">
+                                @organ.unitlevelcode
+                            </label>
                             <input class="form-control col-md-4" type="text" id="U_L_C" readonly />
                             <div class="col-md-2"> </div>
                             <input class="form-control col-md-4" type="text" id="U_L_N" readonly />
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2"><spane> unit Schema code</spane></label>
+                            <label class="control-label col-md-2">
+                                @organ.unitSchemacode
+                            </label>
                             <input class="form-control col-md-4" type="text" id="U_S_C" readonly />
                             <div class="col-md-2"></div>
                             <input class="form-control col-md-4" type="text" id="U_S_N" readonly />
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.worklocationid, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.worklocationid
+                            </label>
 
 
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.worklocationid, new SelectList(ViewBag.location, "ID", "Code"), "Select Location work", new { @class = "select2", @id = "Lo" ,@disabled = true })
+                                @Html.DropDownListFor(m => m.worklocationid, new SelectList(ViewBag.location, "ID", "Code"), organ.worklocationid , new { @class = "select2", @id = "Lo" ,@disabled = true })
                                 @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="Loname" disabled />
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.unit_status, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.unitstate
+                            </label>
                             <div class="col-md-4">
                                 @Html.EnumDropDownListFor(model => model.unit_status, new { @class = "select2" , @disabled = true })
                                 @Html.ValidationMessageFor(model => model.unit_status, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.number_of_direct_positions, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.numberofdirectpositions
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.number_of_direct_positions, new { htmlAttributes = new { @readonly = true,type = "number", min = "0", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.number_of_direct_positions, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.refrence_number, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.Refrencenumber
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.refrence_number, new { htmlAttributes = new { type = "number", @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.refrence_number, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.unit_mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.unitmail
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.unit_mail, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.unit_mail, "", new { @class = "text-danger" })

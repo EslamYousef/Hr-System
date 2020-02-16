@@ -64,7 +64,7 @@ namespace HR.Controllers
                 model.Employee_Profile = emp;
                 if (model.Contract_start_date > model.Contract_end_date)
                 {
-                    TempData["Message"] = "From date Issue bigger date Expire";
+                    TempData["Message"] = HR.Resource.pers_2.FromdateIssuebiggerdateExpire;
                     return View(model);
                 }
                 var Date = Convert.ToDateTime("1/1/1900");
@@ -79,7 +79,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] =HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -103,7 +103,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Contract Profile";
+                    TempData["Message"] = HR.Resource.organ.thereisnodata;
                     return View();
                 }
             }
@@ -131,7 +131,7 @@ namespace HR.Controllers
                 record.Contract_end_date = model.Contract_end_date;
                 if (model.Contract_start_date > model.Contract_end_date)
                 {
-                    TempData["Message"] = "From date Issue bigger date Expire";
+                    TempData["Message"] = HR.Resource.pers_2.FromdateIssuebiggerdateExpire;
                     return View(model);
                 }
                 record.Years = model.Years;
@@ -155,7 +155,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -170,7 +170,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Contract Profile";
+                    TempData["Message"] =HR.Resource.organ.thereisnodata;
                     return View();
                 }
 
@@ -195,7 +195,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete this data";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)
@@ -237,13 +237,13 @@ namespace HR.Controllers
                 var flag=add_contract_(model.opertion_id.ToString());
                 if(flag==true)
                 {
-                    var ms= "added Successfully";
+                    var ms= HR.Resource.pers_2.addedSuccessfully;
                     return RedirectToAction("Index", new { mess = ms });
                    
                 }
                 else
                 {
-                    var ms = "Faild";
+                    var ms =HR.Resource.pers_2.Faild;
                     return RedirectToAction("Index", new { mess = ms });
                 }
 

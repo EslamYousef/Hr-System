@@ -4,7 +4,7 @@
     ViewBag.Title = "index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
     }
-
+@using HR.Resource;
 <script>
     var $ = jQuery;
 
@@ -19,8 +19,9 @@
             "order" : 1
         });
     });
-
+    $(function () { 
         filt();
+    })
         function filt() {
 
             var ht = "";
@@ -180,9 +181,9 @@
                     </div>
                     }
                     <div class="form-group" id="buttons">
-                            <a href="@Url.Action("Create", "Employee_records" )" style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add Employee record</a>
-                            <input type="button" style="width:130px" onclick="getrequest()" value="specific Record" class="btn btn-success" />
-                            <input type="button" style="width:130px" onclick="getallrequest()" value="ALL Record" class="btn btn-success" />
+                            <a href="@Url.Action("Create", "Employee_records" )" style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.addemployeerecord</a>
+                            <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
+                            <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
                             <div class="col-sm-7">
                                 <select name="test" class="select2" id="filter" placeholder="Choose your status" multiple>
                                    
@@ -193,11 +194,11 @@
                       
                             
                             <div class="col-md-3">
-                                <input autocomplete="off" placeholder="Date From" value="" class="form-control datepicker" id="datefrom" />
+                                <input autocomplete="off" placeholder=@pers_2.fromdate value="" class="form-control datepicker" id="datefrom" />
                             </div>
                             
                             <div class="col-md-4">
-                                <input autocomplete="off" placeholder="Date To" class="form-control datepicker" id="dateto" />
+                                <input autocomplete="off" placeholder=@pers_2.todate class="form-control datepicker" id="dateto" />
                             </div>
                      
                     </div>
@@ -207,12 +208,12 @@
                         <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
-                                    <th>Record number</th>
-                                    <th>Record Name</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Effictive date</th>
-                                    <th>Record status</th>
+                                    <th>@pers_2.recordnumber </th>
+                                    <th>@pers_2.recordname</th>
+                                    <th>@pers_2.empid</th>
+                                    <th>@pers_2.employee</th>
+                                    <th>@pers_2.EffectiveDate</th>
+                                    <th>@pers_2.status</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -235,24 +236,24 @@
                                     <td>@item.Effictive_date.ToString("dd-MM-yyyy")</td>
                                     <td>@item.check_status</td>
                                     <td>
-                                        <a href="@Url.Action("Edit", "Employee_records" , new {id=item.ID})" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>Change</a>
-                                        <a href="@Url.Action("Delete", "Employee_records" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
-                                        <a href="@Url.Action("status", "Employee_records" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>statues</a>
+                                        <a href="@Url.Action("Edit", "Employee_records" , new {id=item.ID})" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@pers_2.change</a>
+                                        <a href="@Url.Action("Delete", "Employee_records" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
+                                        <a href="@Url.Action("status", "Employee_records" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
 
                                         </td>
                                 </tr>
                                 }
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <th>Record number</th>
-                                    <th>Record Name</th>
-                                    <th>Employee ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Effictive date</th>
-                                    <th>Record status</th>
+                                @*<tr>
+                                    <th>@pers_2.recordnumber </th>
+                                    <th>@pers_2.recordname</th>
+                                    <th>@pers_2.empid</th>
+                                    <th>@pers_2.employee</th>
+                                    <th>@pers_2.EffectiveDate</th>
+                                    <th>@pers_2.status</th>
                                     <th></th>
-                                </tr>
+                                </tr>*@
                             </tfoot>
                         </table>
                     </div>

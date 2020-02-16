@@ -70,7 +70,7 @@ namespace HR.Controllers
             {
                 if(model.selected_employee==0)
                 {
-                    TempData["Message"] = "you must choose employee";
+                    TempData["Message"] =HR.Resource.pers_2.youmustchooseemployee;
                     return View(model);
                 }
                 var record = new EOS_Request();
@@ -167,7 +167,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "Faild Save";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -234,7 +234,7 @@ namespace HR.Controllers
                 ViewBag.checklist = dbcontext.Check_List_Item_Groups.ToList().Select(m => new { Code = "" + m.Group_Code + "-----[" + m.Description_Group + ']', ID = m.ID }).ToList();
                 if (model.selected_employee == 0)
                 {
-                    TempData["Message"] = "you must choose employee";
+                    TempData["Message"] =HR.Resource.pers_2.youmustchooseemployee;
                     return View(model);
                 }
                 /////////////////////edit//////////////////////////
@@ -352,7 +352,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "Faild edit";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -394,12 +394,12 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "Faild delete";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(model);
             }
             catch (Exception e)
             {
-                TempData["Message"] = "Faild delete";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(model);
             }
         }
@@ -412,7 +412,7 @@ namespace HR.Controllers
                 var EOS = dbcontext.EOS_Request.FirstOrDefault(m => m.ID == EOS_id);
                 if (EOS.Check_List_Item_Groups == null)
                 {
-                    return RedirectToAction("edit", new { id = EOS_id.ToString(), error_message = "you must choose group of chick list at first" });
+                    return RedirectToAction("edit", new { id = EOS_id.ToString(), error_message = HR.Resource.pers_2.youmustchoosegroupofchicklistatfirst });
                 }
                 else
                 {
@@ -422,7 +422,7 @@ namespace HR.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("edit", new { id = id, error_message = "there is error in interview" });
+                return RedirectToAction("edit", new { id = id, error_message = HR.Resource.pers_2.thereiserrorininterview});
 
             }
         }
@@ -457,7 +457,7 @@ namespace HR.Controllers
                 var EOS = dbcontext.EOS_Request.FirstOrDefault(m => m.ID == EOS_id);
                 if (EOS.EOS_group == null)
                 {
-                    return RedirectToAction("edit", new { id = EOS_id.ToString(), error_message = "you must choose group of EOS interview at first" });
+                    return RedirectToAction("edit", new { id = EOS_id.ToString(), error_message =HR.Resource.pers_2.youmustchoosegroupofchicklistatfirst });
                 }
                 else
                 {
@@ -467,7 +467,7 @@ namespace HR.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("edit", new { id =id, error_message = "there is error in interview" });
+                return RedirectToAction("edit", new { id =id, error_message = HR.Resource.pers_2.thereiserrorininterview });
 
             }
         }

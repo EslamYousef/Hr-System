@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+@using HR.Resource;
 
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>
-    CountryName1()
-    CountryName2()
+    $(function () {
+        CountryName1();
+        CountryName2();
+    });
     function CountryName1()
     {
         debugger
@@ -52,7 +55,7 @@
 
     <section class="content-header">
         <h1>
-            edit employee record
+         @pers_2.editemployeerecord1
         </h1>
     </section>
 
@@ -80,15 +83,19 @@
                         }
                         @Html.HiddenFor(m => m.record.ID);
                         <div class="form-group">
-                            @Html.LabelFor(model => model.record.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.code
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.record.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @organ.name
+                            </label>
+                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.Name, "", new { @class = "text-danger" })
                             </div>
@@ -96,25 +103,31 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.record.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @organ.description
+                            </label>
+                              <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.selectedEmpoyee, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.selectedEmpoyee, new SelectList(ViewBag.employee, "ID", "Code"), "Select employee", new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                            <label class="control-label col-md-2">
+                                @pers_2.employee
+                            </label>
+                             <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.selectedEmpoyee, new SelectList(ViewBag.employee, "ID", "Code"), pers_2.employee, new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
                                 @Html.ValidationMessageFor(model => model.selectedEmpoyee, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname1" disabled />
                             </div>
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.selectedgroup, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.selectedgroup, new SelectList(ViewBag.group, "ID", "Code"), "Select group code ", new { @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
+                            <label class="control-label col-md-2">
+                                @pers_2.group
+                            </label>
+                             <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.selectedgroup, new SelectList(ViewBag.group, "ID", "Code"),pers_2.group, new { @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
                                 @Html.ValidationMessageFor(model => model.selectedgroup, "", new { @class = "text-danger" })
                                 <input type="text" value=" " class="form-control" id="countryname2" disabled />
                             </div>
@@ -122,34 +135,44 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.record.Record_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                             <label class="control-label col-md-2">
+                                @pers_2.Recorddate
+                            </label>
+                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Record_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
                                 @Html.ValidationMessageFor(model => model.record.Record_date, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.record.Effictive_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @pers_2.EffectiveDate
+                            </label>
+                                <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Effictive_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
                                 @Html.ValidationMessageFor(model => model.record.Effictive_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.record.Record_expire_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @pers_2.Recordexpiredate
+                            </label>
+                              <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.Record_expire_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
                                 @Html.ValidationMessageFor(model => model.record.Record_expire_date, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.record.record_value, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @pers_2.Recordvalue
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.record_value, new { htmlAttributes = new { @type = "number", @min = "0", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.record_value, "", new { @class = "text-danger" })
                             </div>
 
 
-                            @Html.LabelFor(model => model.record.record_amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                           <label class="control-label col-md-2">
+                                @pers_2.Recordamount
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.record.record_amount, new { htmlAttributes = new { @type = "number", @min = "0", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.record_amount, "", new { @class = "text-danger" })
@@ -157,8 +180,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value=@organ.edit class="btn btn-success" />
+                                <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
 
                             </div>
                         </div>

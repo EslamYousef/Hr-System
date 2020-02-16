@@ -68,7 +68,7 @@ namespace HR.Controllers
                 ViewBag.organization = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 if((model.Budget.Year_From+1)!=model.Budget.Year_To)
                 {
-                    TempData["Message"] = "Difference between years must be one year";
+                    TempData["Message"] = HR.Resource.organ.Differencebetweenyearsmustbeoneyear;
                     return View(model);
                 }
                 var ID = int.Parse(model.Budget.Organization_unitid);
@@ -182,7 +182,7 @@ namespace HR.Controllers
                 }
                 if ((model.Budget.Year_From + 1) != model.Budget.Year_To)
                 {
-                    TempData["Message"] = "Difference between years must be one year";
+                    TempData["Message"] = HR.Resource.organ.Differencebetweenyearsmustbeoneyear;
                     return View(model);
                 }
                 /////////////////////////
@@ -342,7 +342,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(model);
             }
             catch (Exception e)

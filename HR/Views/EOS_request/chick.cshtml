@@ -6,12 +6,13 @@
 }
 
 
+@using HR.Resource;
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-            check List
+           @pers_2.checkList
         </h1>
     </section>
 
@@ -40,7 +41,9 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.number, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @pers_2.number
+                            </label>
                             <div class="col-md-8">
                                 @Html.EditorFor(model => model.number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.number, "", new { @class = "text-danger" })
@@ -48,8 +51,10 @@
                         </div>
                         
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Requset_date, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-3">
+                                @pers_2.requestdate
+                            </label>
+                             <div class="col-md-8">
                                 @if (Model.Requset_date != null)
                                 {
                                     <input value=@Model.Requset_date.ToString("dd/MM/yyyy") class = "form-control" readonly />
@@ -62,14 +67,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Notice_period_type, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
+                           <label class="control-label col-md-3">
+                                @pers_2.Noticeperiodtype
+                            </label>
+                              <div class="col-md-8">
                                 <input value=@Model.Notice_period_type.GetTypeCode() class="form-control" readonly />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.last_work_day_before_request, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @pers_2.lastworkdaybeforerequest
+                            </label>
                             <div class="col-md-8">
                                 @if (Model.last_work_day_before_request != null)
                                 {
@@ -83,8 +92,10 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Date_of_EOS, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-3">
+                                @pers_2.DateofEOS
+                            </label>
+                             <div class="col-md-8">
                                 @if (Model.Date_of_EOS != null)
                                 {
                                     <input value=@Model.Date_of_EOS.ToString("dd/MM/yyyy")  class = "form-control" readonly />
@@ -98,8 +109,10 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.date_of_eos_interview, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-8">
+                             <label class="control-label col-md-3">
+                                @pers_2.dateofeosinterview
+                            </label>
+                             <div class="col-md-8">
                                 @if (Model.date_of_eos_interview != null)
                                 {
                                     <input value=@Model.date_of_eos_interview.ToString("dd/MM/yyyy") class = "form-control" readonly />
@@ -117,9 +130,9 @@
                     <table id="categories" class="table table-bordered table-striped text-center">
                         <thead>
                             <tr>
-                                <th>Code</th>
-                                <th>items</th>
-                                <th>interpolation</th>
+                                <th>@pers_2.code</th>
+                                <th>@pers_2.items</th>
+                                <th>@pers_2.interpolation</th>
 
 
                               
@@ -139,10 +152,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Code</th>
-                                <th>items</th>
-                                <th>interpolation</th>
-                              
+                                <th>@pers_2.code</th>
+                                <th>@pers_2.items</th>
+                                <th>@pers_2.interpolation</th>
+
 
                             </tr>
                         </tfoot>
@@ -150,8 +163,8 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="submit" class="btn btn-success" />
-                            <a href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                            <input type="submit" value=@pers_2.create class="btn btn-success" />
+                            <a href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
 
                         </div>
                     </div>

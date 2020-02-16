@@ -1,11 +1,15 @@
 ﻿@model HR.Models.job_level_setup
+@using HR.Resource;
+
+
+
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@organ.message_delete</h3>
 @using (Html.BeginForm("Delete", "job_level_setup", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -23,8 +27,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Delete" class="btn btn-success" />
-                <a href="@Url.Action("index", "job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                <input type="submit" value=@organ.delete class="btn btn-success" />
+                <a href="@Url.Action("index", "job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
 
             </div>
         </div>

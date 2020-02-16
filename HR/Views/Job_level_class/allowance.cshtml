@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Special_Allwonce_History
-
+@using HR.Resource;
 @{
     ViewBag.Title = "allowance";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -33,7 +33,7 @@
 
     <section class="content-header">
         <h1>
-            Special Allwonce History
+           @organ.specialallwance
         </h1>
     </section>
 
@@ -65,7 +65,9 @@
                         @Html.HiddenFor(m => m.type_allowance)
                         @Html.HiddenFor(m => m.selectedID)
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class = "control-label col-md-3">
+                                @organ.Year
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -80,7 +82,9 @@
 
 
 
-                            @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.Month
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -94,8 +98,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Percentage, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-sm-3">
+                            <label class="control-label col-md-3">
+                                @organ.Percentage
+                            </label> <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
@@ -109,8 +114,9 @@
 
 
 
-                            @Html.LabelFor(model => model.Allowance_amount, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-sm-3">
+                            <label class="control-label col-md-3">
+                                @organ.Allowanceamount
+                            </label> <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
@@ -124,8 +130,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                                @Html.LabelFor(model => model.pervious_basic, htmlAttributes: new { @class = "control-label col-md-3" })
-                                <div class="col-sm-3">
+                            <label class="control-label col-md-3">
+                                @organ.perviousbasicsallary
+                            </label>  
+                            <div class="col-sm-3">
                                     <!-- Spinner Markup -->
                                     <div class="input-spinner">
                                         <button type="button" class="btn btn-default">-</button>
@@ -139,8 +147,9 @@
 
 
 
-                                @Html.LabelFor(model => model.new_basic_sallary, htmlAttributes: new { @class = "control-label col-md-3" })
-                                <div class="col-sm-3">
+                            <label class="control-label col-md-3">
+                                @organ.newbasicsallary
+                            </label> <div class="col-sm-3">
                                     <!-- Spinner Markup -->
                                     <div class="input-spinner">
                                         <button type="button" class="btn btn-default">-</button>
@@ -154,18 +163,18 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">Submit</button>
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</button>
                                @if (Model.type_allowance == HR.Models.Infra.type_allowance.job_level_class)
                                {
-                                    <a href="@Url.Action("index", "Job_level_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                    <a href="@Url.Action("index", "Job_level_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                                }
                                else if (Model.type_allowance == HR.Models.Infra.type_allowance.job_levle_grade)
                                 {
-                                    <a href="@Url.Action("index", "Job_level_grade")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                    <a href="@Url.Action("index", "Job_level_grade")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                                 }
                                 else if (Model.type_allowance == HR.Models.Infra.type_allowance.job_level_card)
                                 {
-                                    <a href="@Url.Action("index", "job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                    <a href="@Url.Action("index", "job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                                 }
                             </div>
                         </div>

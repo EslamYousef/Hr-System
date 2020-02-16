@@ -13,11 +13,14 @@ namespace HR.Models
         public virtual Employee_Profile Employee_Profile { get; set; }
         public virtual Employee_Recodes_Group Employee_Recodes_Group { get; set; }
         [Display(Name = "Record date")]
-        public DateTime Record_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Record_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = " Effictive date")]
-        public DateTime Effictive_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Effictive_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = "Record expire date")]
-        public DateTime Record_expire_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Record_expire_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = "Record value")]
         public double record_value { get; set; }
         [Display(Name = "Record amount")]

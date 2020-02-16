@@ -119,17 +119,17 @@ namespace HR.Controllers
                 {
                     if (model.selected_employee == 0)
                     {
-                        TempData["Message"] = "you must choose employee";
+                        TempData["Message"] = HR.Resource.pers_2.youmustchooseemployee;
                         return View(model);
                     }
                     else if (model.personnel_transaction.job_descId == "0" || model.personnel_transaction.job_descId == null)
                     {
-                        TempData["Message"] = "you must choose job title";
+                        TempData["Message"] =HR.Resource.pers_2.youmustchoosejobtitle;
                         return View(model);
                     }
                     else if (model.personnel_transaction.SlotdescId == "0" || model.personnel_transaction.job_descId == null)
                     {
-                        TempData["Message"] = "you must choose slot";
+                        TempData["Message"] = HR.Resource.pers_2.youmustchooseslot;
                         return View(model);
                     }
                     var mymodel = new personnel_transaction();
@@ -326,17 +326,17 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 if (model.selected_employee == 0)
                 {
-                    TempData["Message"] = "you must choose employee";
+                    TempData["Message"] = HR.Resource.pers_2.youmustchooseemployee;
                     return View(model);
                 }
                 else if (model.personnel_transaction.job_descId == "0"|| model.personnel_transaction.job_descId == null)
                 {
-                    TempData["Message"] = "you must choose job title";
+                    TempData["Message"] = HR.Resource.pers_2.youmustchoosejobtitle;
                     return View(model);
                 }
                 else if (model.personnel_transaction.SlotdescId == "0" || model.personnel_transaction.job_descId == null)
                 {
-                    TempData["Message"] = "you must choose slot";
+                    TempData["Message"] = HR.Resource.pers_2.youmustchooseslot;
                     return View(model);
                 }
                 var record = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID == model.personnel_transaction.ID);

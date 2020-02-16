@@ -42,7 +42,6 @@
                  "<td style='width:30px'>" + value.Checktype.Name + "</td>" +
                  "<td class='col-md-0'>" + value.amount + "</td>" +
                  "<td  style='width:30px'>" + value.check_number + "</td>" +
-                 "<td class='col-md-0' >" + value.check_request_change_status.check_Request.Name + "</td>" +
                  "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" +" "+
                  "<input type='button' value='status History' class='btn btn-primary btn-sm' style='width:100px' onclick='history(" + value.ID + ")' />" +" "+
                  "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
@@ -65,23 +64,23 @@
         debugger
 
         $.ajax({
-            type: "post",
             url: "/Helper/Getalllrequest",
+            async:false,
             success: function (result) {
                 debugger
                 $("#tbody11 tr").remove();
                 $.each(result, function (key, value) {
                     debugger
                     var tr =
-          "<tr id='tr'><td>" + value.Request_number + "</td>" +
-         "<td class='col-md-0'>" + value.date + "</td>" +
-         "<td style='width:30px'>" + value.Checktype.Name + "</td>" +
+          "<tr id='tr'><td>" + value.requestNumber + "</td>" +
+         "<td class='col-md-0'>" + value.requestDate + "</td>" +
+         "<td style='width:30px'>" + value.checkType + "</td>" +
          "<td class='col-md-0'>" + value.amount + "</td>" +
-         "<td  style='width:30px'>" + value.check_number + "</td>" +
-         "<td class='col-md-0' >" + value.check_request_change_status.check_Request.Name + "</td>" +
-         "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
-         "<input type='button' value='status History' class='btn btn-primary btn-sm' style='width:100px' onclick='history(" + value.ID + ")' />" +" "+
-                    "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+         "<td  style='width:30px'>" + value.checkNumber + "</td>" +
+      
+         "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.iD + ")' />" + " " +
+         "<input type='button' value='status History' class='btn btn-primary btn-sm' style='width:100px' onclick='history(" + value.iD + ")' />" +" "+
+                    "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.iD + ")' /></td>";
 
                     $("#tbody11").append(tr);
 
@@ -138,20 +137,21 @@
 
 
                         <input type="button" style="width:130px" onclick="getallrequest()" value=@Basic.Allrequests class="btn btn-success" />
-                    <div class="col-sm-7">
+                    @*<div class="col-sm-7">
                         <select name="test" class="select2" id="filter" placeholder=@Basic.chooseyourstatus  multiple></select>
+                    </div>*@
+
+                    <div class="col-md-3">
+                        <input value="" autocomplete="off" placeholder=@Basic.datefrom class="form-control datepicker" id="datefrom" />
+                    </div>
+                    <div class="col-md-4">
+                        <input placeholder=@Basic.dateto autocomplete="off" class="form-control datepicker" id="dateto" />
                     </div>
 
                 </div>
 
                 <div class="form-group" style="margin-top:20px;margin-bottom:15px">
                  
-                    <div class="col-md-3">
-                            <input value="" autocomplete="off" placeholder=@Basic.datefrom class="form-control datepicker" id="datefrom" />
-                    </div>
-                   <div class="col-md-4">
-                            <input  placeholder=@Basic.dateto autocomplete="off" class="form-control datepicker" id="dateto" />
-                   </div>
                 </div>
                 <div class="form-group" style="margin-top:70px">
                     <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
@@ -162,7 +162,7 @@
                                 <th>@Basic.check_type</th>
                                 <th>@Basic.amount</th>
                                 <th>@Basic.check_number</th>
-                                <th>@Basic.check_Request</th>
+                                @*<th>@Basic.check_Request</th>*@
                                 <th></th>
                             </tr>
                         </thead>
@@ -179,7 +179,7 @@
                                     <td>@item.check_Request.Checktype.Name</td>
                                     <td>@item.check_Request.amount</td>
                                     <td>@item.check_Request.check_number</td>
-                                    <td>@item.check_request_change_status.check_Request.Name</td>
+                                    @*<td>@item.check_request_change_status.check_Request.Name</td>*@
                                     <td>
                                         <a href="@Url.Action("Edit", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@Basic.Edit</a>
                                         <a href="@Url.Action("history", "Check_Request", new {id = item.check_Request.ID})" class="btn btn-primary btn-sm" style="width:100px"><i class="fa fa-edit"></i>@Basic.statushistory</a>
@@ -190,7 +190,7 @@
                             }
                         </tbody>
                         <tfoot>
-                            <tr>
+                            @*<tr>
                                 <th>@Basic.Request_number</th>
                                 <th>@Basic.Request_date</th>
                                 <th>@Basic.check_type</th>
@@ -198,7 +198,7 @@
                                 <th>@Basic.check_number</th>
                                 <th>@Basic.check_Request</th>
                                 <th></th>
-                            </tr>
+                            </tr>*@
                         </tfoot>
                     </table>
                   </div>

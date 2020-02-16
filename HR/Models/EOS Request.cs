@@ -12,20 +12,26 @@ namespace HR.Models
         public int ID { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string number { get; set; }
-        public DateTime Requset_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Requset_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public virtual Employee_Profile Employee { get; set; }
         public EOS_type EOS_type { get; set; }
         public Notice_period_type Notice_period_type { get; set; }
         public double Notice_period { get; set; }
-        public DateTime Date_of_EOS { get; set; }
-        public DateTime last_work_day_before_request { get; set; }
-        public DateTime last_Date_of_work_after_notice_period { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Date_of_EOS { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime last_work_day_before_request { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime last_Date_of_work_after_notice_period { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public bool are_the_employee_has_a_loan_or_advanced { get; set; }
-        public bool are_the_settlement_transferred_to_payroll { get; set; } 
-      
-        public DateTime date_of_eos_interview { get; set; }
-        public DateTime date_of_settlement { get; set; }
-     
+        public bool are_the_settlement_transferred_to_payroll { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+
+        public DateTime date_of_eos_interview { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime date_of_settlement { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+
         public string note { get; set; }
         public virtual status status { get; set; }
         public check_status check_status { get; set; }

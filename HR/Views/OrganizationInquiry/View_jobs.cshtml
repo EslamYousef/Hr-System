@@ -4,6 +4,7 @@
     ViewBag.Title = "View_jobs";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+@using HR.Resource;
 <script>
     var $ = jQuery;
 
@@ -33,11 +34,11 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Slots</th>
-                            <th>Vacant</th>
-                            <th>Hired</th>
-                            <th>Hired Id</th>
+                            <th>@organ.name</th>
+                            <th>@organ.slots</th>
+                            <th>@organ.vacant</th>
+                            <th>@organ.hired</th>
+                            <th>@organ.hiredid</th>
                          
                         </tr>
                     </thead>
@@ -51,7 +52,7 @@
                                 <td>@item.jobs.number_hired</td>
                                 @if (item.jobs.number_hired > 0)
                                 {
-                                    <td>@Html.DropDownList("ID", new SelectList(item.ID), "ID", new { @class = "select2" })</td>
+                                    <td>@Html.DropDownList("ID", new SelectList(item.ID), organ.ID, new { @class = "select2" })</td>
                                 }
                                 else
                                 {
@@ -62,11 +63,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Slots</th>
-                            <th>Vacant</th>
-                            <th>Hired</th>
-                            <th>Hired Id</th>
+                            <th>@organ.name</th>
+                            <th>@organ.slots</th>
+                            <th>@organ.vacant</th>
+                            <th>@organ.hired</th>
+                            <th>@organ.hiredid</th>
                           
                         </tr>
                     </tfoot>

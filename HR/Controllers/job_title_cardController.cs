@@ -99,7 +99,7 @@ namespace HR.Controllers
                     record.to_age = model.to_age;
                     if (model.from_age > model.to_age)
                     {
-                        TempData["Message"] = "Frome age bigger than to age";
+                        TempData["Message"] = HR.Resource.organ.Fromeagebiggerthantoage;
                      
                         return View(model);
                     }
@@ -231,7 +231,7 @@ namespace HR.Controllers
             catch (DbUpdateException)
             {
                 
-                TempData["Message"] = "this code already in Database";
+                TempData["Message"] =HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -301,7 +301,7 @@ namespace HR.Controllers
                 record.to_age = model.to_age;
                 if (model.from_age > model.to_age)
                 {
-                    TempData["Message"] = "Frome age bigger than to age";
+                    TempData["Message"] = HR.Resource.organ.Fromeagebiggerthantoage;
                     return View(model);
                 }
                 record.check_status = model.check_status;
@@ -503,7 +503,7 @@ namespace HR.Controllers
             catch (DbUpdateException e)
             {
               
-                TempData["Message"] = "this code already in Database";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -943,7 +943,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(model);
             }
             catch (Exception e)

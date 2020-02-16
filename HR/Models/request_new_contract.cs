@@ -25,17 +25,21 @@ namespace HR.Models
         [Display(Name = "Employment type")]
         public Employment_type Employment_type { get; set; } = Employment_type.Fulltime;
         [Display(Name = "Contract start date ")]
-        public DateTime Contract_start_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Contract_start_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = "Contract end date ")]
-        public DateTime Contract_end_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Contract_end_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public int Years { get; set; }
         public int Months { get; set; }
         [Display(Name = "Approved date ")]
-        public DateTime Approved_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Approved_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public string Notes { get; set; }
 
         [Display(Name = "Medical date ")]
-        public DateTime Medical_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Medical_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         [Display(Name = "Medical entity name")]
         public string Medical_entity_name { get; set; }
 

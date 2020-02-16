@@ -150,7 +150,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -273,7 +273,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] =HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -384,7 +384,7 @@ namespace HR.Controllers
             var child = dbcontext.job_level_setup.Where(m => m.report_job_levelID == record.ID.ToString());
             if(child.Count()>0)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(record);
             }
             try
@@ -425,7 +425,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

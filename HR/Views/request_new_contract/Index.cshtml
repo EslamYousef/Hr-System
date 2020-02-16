@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+@using HR.Resource;
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -24,7 +25,7 @@
                 }
                 <div class="form-group" id="buttons">
 
-                    <a href="@Url.Action("Create","request_new_contract")" style="width:240px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add request to new contract</a>
+                    <a href="@Url.Action("Create","request_new_contract")" style="width:240px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.CreaterequesttonewContract</a>
                    
                 </div>
              
@@ -33,10 +34,10 @@
                     <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
                         <thead>
                             <tr>
-                                <th>number</th>
-                                <th>Employee ID</th>
-                                <th>Employee Name</th> 
-                                <th> status</th>
+                                <th>@pers_2.number</th>
+                                <th>@pers_2.empid</th>
+                                <th> @pers_2.employee</th>
+                                <th>@pers_2.status</th> 
                                 <th></th>
                             </tr>
                         </thead>
@@ -60,23 +61,23 @@
                                   
                                     <td>
 
-                                        <a href=@Url.Action("Edit", "request_new_contract", new {id=item.ID}) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>Change</a>
-                                        <a href=@Url.Action("Delete", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
-                                        <a href=@Url.Action("status", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>statues</a>
+                                        <a href=@Url.Action("Edit", "request_new_contract", new {id=item.ID}) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@pers_2.change</a>
+                                        <a href=@Url.Action("Delete", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
+                                        <a href=@Url.Action("status", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
 
                                     </td>
                                 </tr>
                             }
                         </tbody>
                         <tfoot>
-                            <tr>
+                            @*<tr>
 
-                                <th>number</th>
-                                <th>Employee ID</th>
-                                <th>Employee Name</th>
-                                <th> status</th>
+                                <th>@pers_2.number</th>
+                                <th>@pers_2.empid</th>
+                                <th>@pers_2.employee</th>
+                                <th>@pers_2.status</th> 
                                 <th></th>
-                            </tr>
+                            </tr>*@
                         </tfoot>
                     </table>
                 </div>

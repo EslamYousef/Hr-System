@@ -5,8 +5,11 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+@using HR.Resource;
 <script>
-    close();
+    $(function () {
+        close();
+    });
     function go(input)
     {
         debugger
@@ -87,9 +90,11 @@
         @Html.HiddenFor(m => m.empid);
         @Html.HiddenFor(m => m.status.ID);
         <div class="form-group">
-            @Html.LabelFor(model => model.check_status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">
+                @pers_2.check_status
+            </label>
             <div class="col-md-4">
-                @Html.EnumDropDownListFor(m => m.check_status, "Select status", new { @class = "select2",@onchange="go($(this))" })
+                @Html.EnumDropDownListFor(m => m.check_status, pers_2.status, new { @class = "select2",@onchange="go($(this))" })
                 @Html.ValidationMessageFor(model => model.check_status, "", new { @class = "text-danger" })
                
             </div>
@@ -100,7 +105,7 @@
                                            <div class="form-group" id="created">
 
                                                <label class="control-label col-md-2">
-                                                   <span> created by</span>
+                                                   <span> @organ.createdby</span>
                                                </label>
                                                <div class="col-md-4">
                                                    @Html.EditorFor(model => model.status.created_by, new { htmlAttributes = new { id= "created1", @class = "form-control"} })
@@ -109,7 +114,7 @@
                                                </div>
                                                <div id="created1d" hidden>
                                                    <label class="control-label col-md-2">
-                                                       <span> created Date</span>
+                                                       <span> @organ.createdDate</span>
                                                    </label>
                                                    <div class="col-md-4">
                                                        @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control datepicker" } })
@@ -121,7 +126,7 @@
 
                                                     <div class="form-group" id="ready">
                                                         <label class="control-label col-md-2">
-                                                            <span>Report as ready by</span>
+                                                            <span>@organ.Reportasreadyby</span>
                                                         </label>
                                                         <div class="col-md-4">
                                                             @Html.EditorFor(model => model.status.report_as_ready_by, new { htmlAttributes = new { id = "report1", @class = "form-control" } })
@@ -130,7 +135,7 @@
                                                         </div>
                                                         <div id="report1d" hidden>
                                                             <label class="control-label col-md-2">
-                                                                <span>Report as ready Date</span>
+                                                                <span>@organ.ReportasreadyDate</span>
                                                             </label>
                                                             <div class="col-md-4">
                                                                 @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
@@ -143,7 +148,7 @@
 
                                            <div class="form-group" id="approved">
                                                <label class="control-label col-md-2">
-                                                   <span>approved by</span>
+                                                   <span>@organ.approvedby</span>
                                                </label>
                                                <div class="col-md-4">
                                                    @Html.EditorFor(model => model.status.approved_by, new { htmlAttributes = new { id = "approved1", @class = "form-control" } })
@@ -152,7 +157,7 @@
                                                </div>
                                                <div id="approved1d" hidden>
                                                <label class="control-label col-md-2">
-                                                    <span>approved Date</span>
+                                                    <span>@organ.approvedDate</span>
                                                                 </label>
                                                                 <div class="col-md-4">
                                                                     @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control datepicker" } })
@@ -165,7 +170,7 @@
 
                                            <div class="form-group" id="Rejected">
                                                <label class="control-label col-md-2">
-                                                   <span>Rejected by</span>
+                                                   <span>@organ.Rejectedby</span>
                                                </label>
                                                <div class="col-md-4">
                                                    @Html.EditorFor(model => model.status.Rejected_by, new { htmlAttributes = new { id = "Rejected1", @class = "form-control"} })
@@ -174,7 +179,7 @@
                                                </div>
                                                <div id="Rejected1d" hidden>
                                                    <label class="control-label col-md-2">
-                                                       <span>Rejected Date</span>
+                                                       <span>@organ.RejectedDate</span>
                                                    </label>
                                                    <div class="col-md-4">
                                                        @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
@@ -187,7 +192,7 @@
 
                                            <div class="form-group" id="cancaled"  >
                                                <label class="control-label col-md-2">
-                                                   <span>cancaled by</span>
+                                                   <span>@organ.cancaledby</span>
                                                </label>
                                                <div class="col-md-4">
                                                    @Html.EditorFor(model => model.status.cancaled_by, new { htmlAttributes = new { id = "cancaled1", @class = "form-control" } })
@@ -196,7 +201,7 @@
                                                </div>
                                                <div id="cancaled1d" hidden>
                                                    <label class="control-label col-md-2">
-                                                       <span>cancaled Date</span>
+                                                       <span>@organ.cancaledDate</span>
                                                    </label>
                                                    <div class="col-md-4">
                                                        @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
@@ -210,8 +215,8 @@
       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-success" />
-                <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back to index</a>
+                <input type="submit" value=@organ.submit class="btn btn-success" />
+                <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backtoindex</a>
             </div>
         </div>
     </div>

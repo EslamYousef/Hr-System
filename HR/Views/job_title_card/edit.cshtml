@@ -1,4 +1,5 @@
 ﻿@model HR.Models.job_title_cards
+    @using HR.Resource;
 
 @{
     ViewBag.Title = "edit";
@@ -322,7 +323,9 @@
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                             <label class="control-label col-md-2">
+                                @organ.code
+                            </label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control", id = "code" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -331,16 +334,18 @@
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @organ.name
+                            </label> <div class="col-md-4">
                                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
                                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
+                            <label class="control-label col-md-2">
+                                @organ.description
+                            </label><div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
@@ -352,13 +357,13 @@
                                 <li class="active">
                                     <a href="#home" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
-                                        <span class="hidden-xs">Home</span>
+                                        <span class="hidden-xs">@organ.Home</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#profile" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">slot</span>
+                                        <span class="hidden-xs">@organ.slot</span>
                                     </a>
                                 </li>
 
@@ -368,21 +373,23 @@
 
                                     <div class="form-group">
                                         <label class="control-label col-md-2">
-                                            <span> Job Level Setup</span>
+                                            <span> @organ.JobLevelSetup</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.joblevelsetupID, new SelectList(ViewBag.level_Set_up, "ID", "Code"), "Select job level", new { @class = "select2", @onchange = "level()", @id = "level_setup" })
+                                            @Html.DropDownListFor(m => m.joblevelsetupID, new SelectList(ViewBag.level_Set_up, "ID", "Code"),organ.JobLevelSetup, new { @class = "select2", @onchange = "level()", @id = "level_setup" })
                                             @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
                                             <input type="text" value="" class="form-control" id="levelname" disabled />
                                         </div>
                                         <div class="col-md-2">
                                         </div>
                                         <div class="col-md-4" style="color:black">
-                                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Job title Linked To multi sub classes</button>
+                                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@organ.joblevellinkdetoorganizationunittipes</button>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.working_system, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.working_system</span>
+                                        </label>
                                         <div class="col-md-4">
                                             @Html.EnumDropDownListFor(m => m.working_system, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
@@ -391,32 +398,36 @@
                                         </div>
 
                                         <div class="col-md-4" style="color:black">
-                                            <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">Job Title Details</button>
+                                            <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">@organ.jobtitledetails</button>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Organization_unit_codeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.organizationchart</span>
+                                        </label>
 
 
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.Organization_unit_codeID, new SelectList(ViewBag.chart, "ID", "Code"), "Select organization chart", new { @class = "select2", @onchange = "chart11()", @id = "chart1" })
+                                            @Html.DropDownListFor(m => m.Organization_unit_codeID, new SelectList(ViewBag.chart, "ID", "Code"),organ.organizationchart, new { @class = "select2", @onchange = "chart11()", @id = "chart1" })
                                             @Html.ValidationMessageFor(model => model.parent_job, "", new { @class = "text-danger" })
                                             <input type="text" value="" class="form-control" id="chartname" disabled />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.parent_job, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.parentjob</span>
+                                        </label>
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.parent_job, new SelectList(ViewBag.parent_jobbb, "ID", "Code"), "Select parent job title", new { @class = "select2", @onchange = "p11arent()", @id = "parent" })
+                                            @Html.DropDownListFor(m => m.parent_job, new SelectList(ViewBag.parent_jobbb, "ID", "Code"),organ.parentjob, new { @class = "select2", @onchange = "p11arent()", @id = "parent" })
                                             @Html.ValidationMessageFor(model => model.parent_job, "", new { @class = "text-danger" })
                                             <input type="text" value="" class="form-control" id="parentname" disabled />
                                         </div>
                                         <label class="control-label col-md-2">
-                                            <span> nationality</span>
+                                            <span> @organ.nationality</span>
                                         </label>
 
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.nationalityID, new SelectList(ViewBag.nationality, "ID", "Code"), "Select Nationality", new { @class = "select2", @onchange = "nationality11()", @id = "nationality" })
+                                            @Html.DropDownListFor(m => m.nationalityID, new SelectList(ViewBag.nationality, "ID", "Code"), organ.nationality, new { @class = "select2", @onchange = "nationality11()", @id = "nationality" })
                                             @Html.ValidationMessageFor(model => model.nationalityID, "", new { @class = "text-danger" })
                                             <input type="text" value="" class="form-control" id="nationalityname" disabled />
                                         </div>
@@ -424,24 +435,24 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">
-                                            <span> Default job title sub class</span>
+                                            <span> @organ.Defaultjobtitlesubclass</span>
                                         </label>
 
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.Default_job_title_sub_classID, new SelectList(ViewBag.subclass, "ID", "Code"), "Select Default job title sub class", new { @class = "select2", @onchange = "defaultt11()", @id = "defaultt" })
+                                            @Html.DropDownListFor(m => m.Default_job_title_sub_classID, new SelectList(ViewBag.subclass, "ID", "Code"), organ.Defaultjobtitlesubclass, new { @class = "select2", @onchange = "defaultt11()", @id = "defaultt" })
                                             @Html.ValidationMessageFor(model => model.Default_job_title_sub_classID, "", new { @class = "text-danger" })
                                             <input type="text" value="" class="form-control" id="defaultname" disabled />
                                         </div>
                                       
                                         <label class="control-label col-md-1">
-                                            <span> From age </span>
+                                            <span> @organ.Fromage </span>
                                         </label>
 
                                         <div class="col-md-2">
                                             @Html.EditorFor(model => model.from_age, new { htmlAttributes = new { @min = "1", @class = "form-control" } })
                                         </div>
                                         <label class="control-label col-md-1">
-                                            <span> To age </span>
+                                            <span> @organ.Toage</span>
                                         </label>
                                         <div class="col-md-2">
                                             @Html.EditorFor(model => model.to_age, new { htmlAttributes = new { @min = "1", @class = "form-control" } })
@@ -449,21 +460,27 @@
 
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.parment, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.parment</span>
+                                        </label>
                                         <div class="col-md-4">
                                             @Html.EnumDropDownListFor(m => m.parment, new { @class = "select2", @id = "job_system" })
                                             @Html.ValidationMessageFor(model => model.parment, "", new { @class = "text-danger" })
                                         </div>
 
 
-                                        @Html.LabelFor(model => model.validity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.validity</span>
+                                        </label>
                                         <div class="col-md-4">
                                             @Html.EnumDropDownListFor(m => m.validity, new { @class = "select2", @id = "job_system" })
                                             @Html.ValidationMessageFor(model => model.validity, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.num_slots, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.num_slots</span>
+                                        </label>
                                         <div class="col-md-2">
                                             @Html.EditorFor(model => model.num_slots, new { htmlAttributes = new { id = "number", min = "0", @class = "form-control", @readonly = true } })
                                             @Html.ValidationMessageFor(model => model.num_slots, "", new { @class = "text-danger" })
@@ -474,20 +491,24 @@
                                         <div class="col-md-1">
                                        
                                          </div>
-                                        <input type="button" value="increase number of slots" onclick="generat3e()" class="col-md-3 btn btn-success" id="generateenum" />
-                                        <input type="button" value="Clear" onclick="clearnum()" class="col-md-1 btn btn-success" style="margin-right:10px" id="clearenum11" />
+                                        <input type="button" value=@organ.increasenumberofslots onclick="generat3e()" class="col-md-3 btn btn-success" id="generateenum" />
+                                        <input type="button" value=@organ.clear onclick="clearnum()" class="col-md-1 btn btn-success" style="margin-right:10px" id="clearenum11" />
 
                                         
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.job_Summery, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.job_Summery</span>
+                                        </label>
                                         <div class="col-md-10">
                                             @Html.TextAreaFor(model => model.job_Summery, 6, 500, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.job_Summery, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Job_alt_summery, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <label class="control-label col-md-2">
+                                            <span> @organ.Job_alt_summery</span>
+                                        </label>
                                         <div class="col-md-10">
                                             @Html.TextAreaFor(model => model.Job_alt_summery, 6, 500, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Job_alt_summery, "", new { @class = "text-danger" })
@@ -676,7 +697,7 @@
                                                         @if (Model.Slots[item].EmployeeID == null || Model.Slots[item].EmployeeID == "0")
                                                         {
                                                           
-                                                            <input type="button" value="Remove" class="col-md-1 remove btn btn-danger" onclick="remove1($(this))" />
+                                                            <input type="button" value=@organ.remove class="col-md-1 remove btn btn-danger" onclick="remove1($(this))" />
                                                         }
                                                     </div>
                                                     <hr /><hr />
@@ -695,8 +716,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">edit</button>
-                                <a href="@Url.Action("index", "job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.edit</button>
+                                <a href="@Url.Action("index", "job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                             </div>
                         </div>
                     </div>

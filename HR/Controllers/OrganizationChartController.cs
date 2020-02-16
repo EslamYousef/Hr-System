@@ -101,7 +101,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] =HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -177,7 +177,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(record);
             }
             catch (Exception e)
@@ -215,7 +215,7 @@ namespace HR.Controllers
                 var child_noeds = dbcontext.Organization_Chart.Where(m => m.parent == id).ToList();
                 if(child_noeds.Count()>0)
                 {
-                    TempData["Message"] = "You can't delete this node because it is a parent";
+                    TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                    
                     var modell = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
                    return View("Details", modell);
@@ -229,7 +229,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code have chaild";
+                TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
                 var modell = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
                 ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 var parentt = dbcontext.Organization_Chart.Where(m => m.ID != model.ID && m.parent != model.ID.ToString()).ToList();

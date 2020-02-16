@@ -45,7 +45,7 @@ namespace HR.Controllers
                 var check_date = dbcontext.man_power.FirstOrDefault(m => m.from_year == model.man_power.from_year);
                 if(check_date!=null)
                 {
-                    TempData["Message"] = "this year have already man power you can add your items by enter to edit action and add it  ";
+                    TempData["Message"] = HR.Resource.organ.thisyearhavealreadymanpoweryoucanaddyouritemsbyentertoeditactionandaddit;
                     return RedirectToAction("index");
                 }
                 else
@@ -102,7 +102,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "error";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -200,7 +200,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "error";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -238,7 +238,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] =HR.Resource.organ.youcannotdeletethisRow;
                 return View(model);
             }
             catch (Exception e)

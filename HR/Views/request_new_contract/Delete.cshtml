@@ -4,7 +4,8 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-<h3>Are you sure you want to delete this request   ?</h3>
+@using HR.Resource;
+<h3>@pers_2.deletemessage   </h3>
 @using (Html.BeginForm("Delete", "request_new_contract", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -39,8 +40,8 @@
             </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Delete" class="btn btn-success" />
-                <a href="@Url.Action("index","request_new_contract")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                <input type="submit" value=@pers_2.delete class="btn btn-success" />
+                <a href="@Url.Action("index","request_new_contract")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
 
             </div>
         </div>

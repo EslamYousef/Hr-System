@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+@using HR.Resource;
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-            edit man power
+            @organ.Editmanpower
         </h1>
     </section>
     <!-- Main content -->
@@ -46,13 +47,13 @@
 
                         <div class="form-group">
                             <label class="control-label col-md-2">
-                                <span> From Year </span>
+                                <span> @organ.fromyear </span>
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.from_year, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1990",@readonly="readonly" } })
                                </div>
                             <label class="control-label col-md-2">
-                                <span> To Year </span>
+                                <span> @organ.toyear </span>
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.to_year, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1991",@readonly="readonly" } })
@@ -61,31 +62,31 @@
 
                         <div class="form-group">
                             <label class="control-label col-md-2">
-                                <span>Organization unit</span>
+                                <span>@organ.organizationchart</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.selected_organ, new SelectList(ViewBag.organ, "ID", "Code"), "Select organization", new { @class = "select2", @onchange = "full_level()", @id = "employeeId" })
+                                @Html.DropDownListFor(m => m.selected_organ, new SelectList(ViewBag.organ, "ID", "Code"),organ.organizationchart, new { @class = "select2", @onchange = "full_level()", @id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.selected_organ, "", new { @class = "text-danger" })
 
                             </div>
                             <div class="col-md-2"></div>
                             <div style="margin-top:25px" class="form-group">
                                 <div class="col-md-4">
-                                    <input id="btnSave" style="width:150px" class="btn btn-success"   onclick="ch()" value="edit" />
-                                    <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                    <input id="btnSave" style="width:150px" class="btn btn-success"   onclick="ch()" value=@organ.edit />
+                                    <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">
-                                <span>cadre code</span>
+                                <span>@organ.Job_level_class__ID</span>
                             </label>
                             @*<div class="col-md-4">
                                     @Html.DropDownList("cadre", new SelectList(ViewBag.cadre, "ID", "Code"), "Select cadre", new { @class = "select2", @id = "employee11" })
                                 </div>*@
                             <select class="col-md-4 select2" id="employee181"></select>
                             <div class="col-md-4">
-                                <input type="button" onclick="add()" style="width:300px" value="Add items" class="btn btn-success " />
+                                <input type="button" onclick="add()" style="width:300px" value=@organ.additems  class="btn btn-success " />
 
                             </div>
                         </div>
@@ -95,7 +96,7 @@
                             <li class="active">
                                 <a href="#Budgetdetails" data-toggle="tab">
                                     <span class="visible-xs"><i class="entypo-home"></i></span>
-                                    <span class="hidden-xs">man power plan details</span>
+                                    <span class="hidden-xs">@organ.powerplandetails</span>
                                 </a>
                             </li>
                         </ul>
@@ -115,7 +116,7 @@
                                         <input class='col-md-1' style="margin-bottom: 1em;margin-left:4px" name="q2" value=@Model.man_power.items_man_power[io].quarter2 type="number" min="0" />
                                         <input class='col-md-1' style="margin-bottom: 1em;margin-left:4px" name="q3" value=@Model.man_power.items_man_power[io].quarter3 type="number" min="0" />
                                         <input class='col-md-1' style="margin-bottom: 1em;margin-left:4px" name="q4" value=@Model.man_power.items_man_power[io].quarter4 type="number" min="0" />
-                                        <input type='button' value='Cancel' class='col-md-1 remove btn btn-danger' onclick='remove($(this))' />
+                                        <input type='button' value=@organ.remove class='col-md-1 remove btn btn-danger' onclick='remove($(this))' />
                                     </div>
                                           }
 
@@ -134,11 +135,7 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
+
 @section scripts{}
 
 
@@ -151,10 +148,7 @@
         var value = $("#YT").val();
         $("#YF").val(parseInt(parseInt(value) - parseInt(1)));
     });
-</script>
 
-
-<script>
 
         function full_level() {
             debugger
@@ -173,7 +167,7 @@
                 success: function (result) {
                     debugger
                     var finalresult = "";
-                    finalresult = "<option selected value='0' > Choose cadre </option>";
+                    finalresult = "<option selected value='0' > @HR.Resource.organ.JobLevelSetup </option>";
                     $.each(result, function (key, value) {
                         debugger
                         finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
@@ -191,10 +185,7 @@
         }
         full_level();
 
-</script>
 
-
-<script>
 
     function add()
     {

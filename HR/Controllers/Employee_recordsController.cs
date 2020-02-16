@@ -66,7 +66,7 @@ namespace HR.Controllers
                 record = model.record;
                 if (model.selectedEmpoyee == 0)
                 {
-                    TempData["Message"] = "you must choose employee";
+                    TempData["Message"] = HR.Resource.pers_2.youmustchooseemployee;
                     return View(model);
                 }
                 if (model.selectedEmpoyee > 0)
@@ -95,7 +95,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "Faild Save";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -146,7 +146,7 @@ namespace HR.Controllers
             {
                 if (model.selectedEmpoyee == 0)
                 {
-                    TempData["Message"] = "you must choose employee";
+                    TempData["Message"] = HR.Resource.pers_2.youmustchooseemployee;
                     return View(model);
                 }
                 var reco = dbcontext.Employee_records.FirstOrDefault(m => m.ID == model.record.ID);
@@ -182,7 +182,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "Faild edit";
+                TempData["Message"] = HR.Resource.organ.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -220,7 +220,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "Faild delete";
+                TempData["Message"] =HR.Resource.organ.youcannotdeletethisRow;
                 return View(model);
             }
             catch (Exception e)

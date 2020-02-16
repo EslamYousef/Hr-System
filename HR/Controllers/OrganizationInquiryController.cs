@@ -62,7 +62,7 @@ namespace HR.Controllers
                     if (jobs.Count() > 0)
                     {
                         job.ID = i++;
-                        job.unit_Description = "jobs";
+                        job.unit_Description = HR.Resource.organ.jobs;
                         job.Childs = job_node;
                         item1.Childs.Add(job);
 
@@ -102,7 +102,7 @@ namespace HR.Controllers
                     if (jobs.Count() > 0)
                     {
                         job.ID = i++;
-                        job.unit_Description = "jobs";
+                        job.unit_Description = HR.Resource.organ.jobs;
                         job.Childs = job_node;
                         item1.Childs.Add(job);
 
