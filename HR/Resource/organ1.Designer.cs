@@ -1168,6 +1168,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Root.
+        /// </summary>
+        public static string Root {
+            get {
+                return ResourceManager.GetString("Root", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select-eduction.
         /// </summary>
         public static string selecteduction {
