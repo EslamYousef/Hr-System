@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Employee_Qualification_Profile
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -11,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Employee Qualification Profile
+            @Personnel.EditEmployeeQualificationProfile
         </h1>
     </section>
 
@@ -43,24 +43,23 @@
 
                        
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
-                     
+                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@                    
                             </div>
                             <div class="col-md-4" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.QualificationprofileNo</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Related_to_job, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Relatedtojob</label>
                             <div class="col-md-4">
                                 @Html.CheckBoxFor(model => model.Related_to_job, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Related_to_job, "", new { @class = "text-danger" })
@@ -69,12 +68,12 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Qualification_start_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationstartdate</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Qualification_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Qualification_start_date, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Years</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
 
@@ -83,12 +82,12 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Qualification_end_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationenddate</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Qualification_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Qualification_end_date, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Months</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
@@ -97,81 +96,76 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Educate_categoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationcategorycode</label>
                             <div class="col-md-3">
 
-                                @Html.DropDownListFor(m => m.Educate_categoryId, new SelectList(ViewBag.Educate_category, "ID", "Code"), "Select Educate category", new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.DropDownListFor(m => m.Educate_categoryId, new SelectList(ViewBag.Educate_category, "ID", "Code"), Personnel.SelectEducatecategory, new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                 @Html.ValidationMessageFor(model => model.Educate_categoryId, "", new { @class = "text-danger" })
-                       
+
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Educate_TitleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Educatelevelcode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Educate_TitleId, new SelectList(ViewBag.Educate_Title, "ID", "Code"), "Select Educate Title", new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.DropDownListFor(m => m.Educate_TitleId, new SelectList(ViewBag.Educate_Title, "ID", "Code"), Personnel.SelectEducateTitle, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Educate_TitleId, "", new { @class = "text-danger" })
-                    
+
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Main_Educate_bodyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationmainprovidercode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Main_Educate_bodyId, new SelectList(ViewBag.Main_Educate_body, "ID", "Code"), "Select Main Educate body", new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.DropDownListFor(m => m.Main_Educate_bodyId, new SelectList(ViewBag.Main_Educate_body, "ID", "Code"), Personnel.SelectMainEducatebody, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Main_Educate_bodyId, "", new { @class = "text-danger" })
-                         
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Sub_educational_bodyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationsubprovidercode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Sub_educational_bodyId, new SelectList(ViewBag.Sub_educational_body, "ID", "Code"), "Select Sub educational body", new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                @Html.DropDownListFor(m => m.Sub_educational_bodyId, new SelectList(ViewBag.Sub_educational_body, "ID", "Code"), Personnel.SelectSubeducationalbody, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Sub_educational_bodyId, "", new { @class = "text-danger" })
-                       
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name_of_educational_qualificationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationnamecode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Name_of_educational_qualificationId, new SelectList(ViewBag.Name_of_educational_qualification, "ID", "Code"), "Select Name of educational qualification", new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                @Html.DropDownListFor(m => m.Name_of_educational_qualificationId, new SelectList(ViewBag.Name_of_educational_qualification, "ID", "Code"), Personnel.SelectNameofeducationalqualification, new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationId, "", new { @class = "text-danger" })
-           
 
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Qualification_MajorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationspecialtycode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Qualification_MajorId, new SelectList(ViewBag.Qualification_Major, "ID", "Code"), "Select Qualification Major", new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
+                                @Html.DropDownListFor(m => m.Qualification_MajorId, new SelectList(ViewBag.Qualification_Major, "ID", "Code"), Personnel.SelectQualificationMajor, new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.Qualification_MajorId, "", new { @class = "text-danger" })
-                             
 
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.GradeEducateId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Qualificationdegreecode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.GradeEducateId, new SelectList(ViewBag.GradeEducate, "ID", "Code"), "Select Grade Educate ", new { @class = "select2", @onchange = "GradeEducate()", id = "GradeEducateId", @disabled = true })
+                                @Html.DropDownListFor(m => m.GradeEducateId, new SelectList(ViewBag.GradeEducate, "ID", "Code"), Personnel.SelectGradeEducate, new { @class = "select2", @onchange = "GradeEducate()", id = "GradeEducateId", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.GradeEducateId, "", new { @class = "text-danger" })
 
-
                             </div>
                         </div>
 
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Extra_education_years, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Extraeducationyears</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Extra_education_years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
                                 @Html.ValidationMessageFor(model => model.Extra_education_years, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Allowance_value, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Allowancevalue</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Allowance_value, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
                                 @Html.ValidationMessageFor(model => model.Allowance_value, "", new { @class = "text-danger" })
@@ -181,8 +175,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Employee_Qualification_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Employee_Qualification_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
                             </div>
                         </div>

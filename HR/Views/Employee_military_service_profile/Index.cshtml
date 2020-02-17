@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.ViewModel.EmployeeMilitary_VM>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    Employee Military Service Profile
+                    @Personnel.EmployeeMilitaryServiceProfile
                 </p>
             </div>
 
@@ -29,12 +29,12 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code Military Service</th>
-                            <th>Employee Name </th>
-                            <th>Military Service Rank</th>
-                            <th>Exemption Reason</th>
-                            <th>Military Service Status</th>
-                            <th>Level</th>
+                            <th>@Personnel.MilitaryserviceprofileeNo</th>
+                            <th>@Personnel.EmployeeName </th>
+                            <th>@Personnel.Militaryservicerankcode</th>
+                            <th>@Personnel.Exemptionreason</th>
+                            <th>@Personnel.Militaryservicestatus</th>
+                            <th>@Personnel.Level</th>
                          
 
                             <th></th>
@@ -69,8 +69,8 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_military_service_profile", new {id = item.Employee_military_service_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Employee_military_service_profile", new {id = item.Employee_military_service_profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_military_service_profile", new {id = item.Employee_military_service_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_military_service_profile", new {id = item.Employee_military_service_profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }

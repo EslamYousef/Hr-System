@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Employee_military_service_calling
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -11,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Employee Military Service Calling
+            @Personnel.EditEmployeeMilitaryServiceCalling
         </h1>
     </section>
 
@@ -43,18 +43,18 @@
                         <div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                                 <div class="col-md-3">
                                     @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId8" })
                                 
                                 </div>
                                 <div class="col-md-4" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.MilitaryservicecallingNo</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -65,12 +65,13 @@
 
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Start_date, htmlAttributes: new { @class = "control-label col-md-2" })                    
+                                <label class="control-label col-md-2">@Personnel.Startdate</label>
+  
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.Start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control StartDate", @onchange = "Save()", @id = "Start", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.Years, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.Years</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
 
@@ -79,18 +80,18 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.End_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.Enddate</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.End_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control EndDate", @onchange = "Save2()", @id = "End", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.Months, htmlAttributes: new { @class = "control-label col-md-1" })
+                                <label class="control-label col-md-2">@Personnel.Months</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
                                     @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                                 </div>
-                                @Html.LabelFor(model => model.Days, htmlAttributes: new { @class = "control-label col-md-1" })
+                                <label class="control-label col-md-2">@Personnel.Days</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Days" } })
                                     @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
@@ -98,7 +99,7 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <label class="control-label col-md-2">@Personnel.Comments</label>
                                 <div class="col-md-3">
                                     @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                     @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
@@ -240,16 +241,14 @@
 
 
 
-        function Save() {
-
+    function Save() {
         debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 
-        //   var from = $(".StartDate").val();
-        //   var to = $(".EndDate").val();
-        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
-        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+
         if (to > from) {
             var diffTime = Math.abs(EndDate - StartDate);
             var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -265,17 +264,14 @@
             $("#Days").val("0");
         }
     };
-        function Save2() {
+
+    function Save2() {
         debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
-        //   var x = $(".StartDate").val().split('/');
-        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
-        //    var EndDate = new Date($(".EndDate").val());
-        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
-        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
-        //   var from = $(".StartDate").val();
-        //     var to = $(".EndDate").val();
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
         if (to > from) {
             var diffTime = Math.abs(EndDate - StartDate);
             var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
@@ -284,7 +280,6 @@
             $("#Yearr").val(years);
             $("#months").val(months - (years * 12));
             $("#Days").val(Days - (months * 31) - (years * 12));
-       
         }
         else {
             $("#Yearr").val("0");

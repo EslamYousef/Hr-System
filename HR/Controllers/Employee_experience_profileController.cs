@@ -131,15 +131,15 @@ namespace HR.Controllers
             }
 
         }
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
-                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == id);
+                var ID = int.Parse(id);
+                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.Employee_ProfileId == ID.ToString());
                 if (record != null)
                 {
                     return View(record);
@@ -174,7 +174,7 @@ namespace HR.Controllers
                 //}
                 var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
-                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == model.ID);
+                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.Employee_ProfileId == model.ID.ToString());
                 var empid = EmpObj.Code + "------" + EmpObj.Name;
                  record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
                 record.Code = model.Code;

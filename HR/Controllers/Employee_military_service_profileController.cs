@@ -135,7 +135,7 @@ namespace HR.Controllers
             }
 
         }
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             try
             {
@@ -144,7 +144,8 @@ namespace HR.Controllers
                 ViewBag.Military_Service_Rank = dbcontext.Military_Service_Rank.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(a => a.purpose == reject_purpose.Military_service).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                var record = dbcontext.Employee_military_service_profile.FirstOrDefault(m => m.ID == id);
+                var ID = int.Parse(id);
+                var record = dbcontext.Employee_military_service_profile.FirstOrDefault(m => m.Employee_ProfileId == ID.ToString());
                 if (record != null)
                 {
                     return View(record);
@@ -173,7 +174,7 @@ namespace HR.Controllers
              
               var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
-                var record = dbcontext.Employee_military_service_profile.FirstOrDefault(m => m.ID == model.ID);
+                var record = dbcontext.Employee_military_service_profile.FirstOrDefault(m => m.Employee_ProfileId == model.ID.ToString());
                var empid = EmpObj.Code + "------" + EmpObj.Name;
                var empl= record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
          //       record.Employee_ProfileId = empl;

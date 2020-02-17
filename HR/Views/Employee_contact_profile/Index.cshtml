@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.ViewModel.EmployeeContact_VM>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    Employee Contact Profile
+                    @Personnel.EmployeeContactProfile
                 </p>
             </div>
 
@@ -29,10 +29,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>Employee Name</th>
-                            <th>Contact Methods</th>
-                            <th>Primary</th>
+                            <th>@Personnel.ContactprofileNo</th>
+                            <th>@Personnel.EmployeeName</th>
+                            <th>@Personnel.Contact_Methods_Code</th>
+                            <th>@Personnel.Primary</th>
                          
                             <th></th>
                         </tr>
@@ -58,7 +58,7 @@
                                 }
                               <td>@item.Employee_contact_profile.Primary</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_contact_profile", new {id = item.Employee_contact_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                    <a href="@Url.Action("Edit", "Employee_contact_profile", new {id = item.Employee_contact_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
                                     @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
                                 </td>
                             </tr>

@@ -459,7 +459,7 @@ namespace HR.Controllers
                     }
                     if (command8 == "Submit")
                     {
-                        return RedirectToAction("Create", "Employee_military_service_profile", new { id = emp.ID });
+                        return RedirectToAction("Edit", "Employee_military_service_profile", new { id = emp.ID });
                     }
                     if (command9 == "Submit")
                     {

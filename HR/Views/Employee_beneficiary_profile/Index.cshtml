@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Employee_beneficiary_profile>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Employee_beneficiary_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Beneficiary Profile </a>
+                    <a href="@Url.Action("Create", "Employee_beneficiary_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeBeneficiaryProfile </a>
                 </p>
             </div>
 
@@ -30,8 +30,8 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code Beneficiary</th>
-                            <th>Employee Name </th>
+                            <th>@Personnel.BeneficiaryProfileNo</th>
+                            <th>@Personnel.EmployeeName </th>
                             
 
                             <th></th>
@@ -54,8 +54,8 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_beneficiary_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Employee_beneficiary_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_beneficiary_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_beneficiary_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }

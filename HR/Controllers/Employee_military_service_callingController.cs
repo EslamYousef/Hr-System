@@ -141,6 +141,10 @@ namespace HR.Controllers
                 var record = dbcontext.Employee_military_service_calling.FirstOrDefault(m => m.ID == model.ID);
 
                var emp = record.Employee_Profile;
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
                 record.Code = model.Code;
                 record.Years = model.Years;
                 record.Months = model.Months;
@@ -153,10 +157,7 @@ namespace HR.Controllers
                 }
                 record.Days = model.Days;
                 record.Comments = model.Comments;
-                var empid = EmpObj.Code + "------" + EmpObj.Name;
-                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
-                ViewBag.idemp = model.Employee_ProfileId;
-                record.Employee_Profile = EmpObj;
+             
 
                 dbcontext.SaveChanges();
 

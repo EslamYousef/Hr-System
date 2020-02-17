@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Employee_sponsor_profile
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -11,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Employee Sponsor Profile
+            @Personnel.EditEmployeeSponsorProfile
         </h1>
     </section>
 
@@ -42,18 +42,18 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.SponsorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.SponsorprofileNo</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.SponsorId, new SelectList(ViewBag.Sponsor, "ID", "Code"), "Select Sponsor", new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                @Html.DropDownListFor(m => m.SponsorId, new SelectList(ViewBag.Sponsor, "ID", "Code"), Personnel.SelectSponsor, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
                                 @Html.ValidationMessageFor(model => model.SponsorId, "", new { @class = "text-danger" })
 
                             </div>
@@ -61,7 +61,7 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Residence_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.ResidenceId</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Residence_Id, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Residence_Id, "", new { @class = "text-danger" })
@@ -71,7 +71,7 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Issue_place, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Issueplace</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Issue_place, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Issue_place, "", new { @class = "text-danger" })
@@ -80,13 +80,13 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Issue_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Issuedate</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
                             </div>
 
-                            @Html.LabelFor(model => model.Birth_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Birthdate</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Birth_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Birth_date, "", new { @class = "text-danger" })
@@ -94,7 +94,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Owner, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Owner</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
@@ -103,7 +103,7 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Job, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Job</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Job, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
@@ -111,7 +111,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Nationality</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
@@ -119,7 +119,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Religin, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Religin</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Religin, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Religin, "", new { @class = "text-danger" })
@@ -128,8 +128,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Employee_sponsor_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Employee_sponsor_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                             </div>
                         </div>
                     </div>

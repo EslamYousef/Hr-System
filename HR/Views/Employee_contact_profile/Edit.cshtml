@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Employee_contact_profile
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -11,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Employee Contact Profile
+            @Personnel.EditEmployeeContactProfile
         </h1>
     </section>
 
@@ -41,23 +41,22 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Employee_ProfileId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                             <div class="col-md-3">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
                                 @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
                             </div>
                             <div class="col-md-4" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Employee Profile</button>
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.ContactprofileNo</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Primary, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Primary</label>
                             <div class="col-md-4">
                                 @Html.CheckBoxFor(model => model.Primary, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Primary, "", new { @class = "text-danger" })
@@ -65,10 +64,10 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ContactmethodsId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Contact_Methods_Code</label>
                             <div class="col-md-3">
 
-                                @Html.DropDownListFor(m => m.ContactmethodsId, new SelectList(ViewBag.Contactmethods, "ID", "Code"), "Select Contact Method", new { @class = "select2", @onchange = "Contact()", id = "ContactId" })
+                                @Html.DropDownListFor(m => m.ContactmethodsId, new SelectList(ViewBag.Contactmethods, "ID", "Code"), Personnel.Select_Contact_Methods, new { @class = "select2", @onchange = "Contact()", id = "ContactId" })
                                 @Html.ValidationMessageFor(model => model.ContactmethodsId, "", new { @class = "text-danger" })
                                 @*<input type="text" value=" " class="form-control" id="Contactname" disabled />*@
 
@@ -77,7 +76,7 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Contact_method_detail, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Contactmethoddetail</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Contact_method_detail, "", new { @class = "text-danger" })
@@ -85,7 +84,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@Personnel.Comments</label>
                             <div class="col-md-4">
                                 @Html.TextAreaFor(model => model.Comments,4,55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
@@ -96,8 +95,8 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Employee_contact_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Employee_contact_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
                             </div>
                         </div>

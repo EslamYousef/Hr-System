@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Employee_military_service_calling>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Employee_military_service_calling", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Employee Military Service Calling </a>
+                    <a href="@Url.Action("Create", "Employee_military_service_calling", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeMilitaryServiceCalling </a>
                 </p>
             </div>
 
@@ -30,10 +30,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Employee Name </th>
-                            <th>Code Military Service</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>@Personnel.MilitaryservicecallingNo</th>
+                            <th>@Personnel.EmployeeName </th>
+                            <th>@Personnel.Startdate</th>
+                            <th>@Personnel.Enddate</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -45,15 +45,15 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Employee_Profile.Full_Name</td>
                                 <td>@item.Code</td>
+                                <td>@item.Employee_Profile.Full_Name</td>                                
                                 <td>@item.Start_date.ToShortDateString()</td>
                                 <td>@item.End_date.ToShortDateString()</td>
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_military_service_calling", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Employee_military_service_calling", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_military_service_calling", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_military_service_calling", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }

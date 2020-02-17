@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.ViewModel.Employee_Qualification_VM>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    Employee Qualification Profile
+                    @Personnel.EmployeeQualificationProfile
                 </p>
             </div>
 
@@ -29,15 +29,16 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Employee Name </th>
-                            <th>Code Qualification</th>
-                            <th>Qualification category</th>
-                            <th>Educate level</th>
-                            <th>Qualification main provider</th>
-                            <th>Qualification sub provider</th>
-                            <th>Qualification name</th>
-                            <th>Qualification specialty</th>
-                            <th>Qualification degree</th>
+                          
+                            <th>@Personnel.QualificationprofileNo</th>
+                            <th>@Personnel.EmployeeName </th>
+                            <th>@Personnel.Qualificationcategorycode</th>
+                            <th>@Personnel.Educatelevel</th>
+                            <th>@Personnel.Qualificationmainprovidercode</th>
+                            <th>@Personnel.Qualificationsubprovidercode</th>
+                            <th>@Personnel.Qualificationname</th>
+                            <th>@Personnel.Qualificationspecialtycode</th>
+                            <th>@Personnel.Qualificationdegreecode</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -49,9 +50,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.fullname</td>
+                                
                                 <td>@item.Employee_Qualification_Profile.Code</td>
-
+                                <td>@item.fullname</td>
                          
                                     @if (@item.Employee_Qualification_Profile.Educate_category != null )
                                     { <td>@item.Employee_Qualification_Profile.Educate_category.Name </td> }
@@ -93,7 +94,7 @@
                                     {<td>Empty</td>}
                              
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_Qualification_Profile", new {id = item.Employee_Qualification_Profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
+                                    <a href="@Url.Action("Edit", "Employee_Qualification_Profile", new {id = item.Employee_Qualification_Profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
                                     @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
                                 </td>
                             </tr>
