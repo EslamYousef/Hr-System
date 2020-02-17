@@ -1,4 +1,8 @@
 ﻿@model HR.Models.Job_level_grade
+@using HR.Resource;
+
+
+
 
 @{
     ViewBag.Title = "Details";
@@ -36,7 +40,9 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.code
+                            </label>
                             <div class="col-md-7">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -45,7 +51,9 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.name
+                            </label>
                             <div class="col-md-7">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -53,23 +61,27 @@
                         </div>
                      
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">
+                                @organ.description
+                            </label>
                             <div class="col-md-7">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                            
                         </div>
-                        <div class="form-group" style="margin-right:220px">
+                        @*<div class="form-group" style="margin-right:220px">
                             <button type="submit" id="btnSubmit" style="background:black;color:aqua" name="Command" value="edit" class="btn btn-white">Edit</button>
                             <button type="submit" id="btnSubmit" style="background:black;color:aqua" name="Command" value="delete" class="btn btn-white">Delete</button>
                             <button type="submit" id="btnSubmit" style="background:black;color:aqua" name="Command" value="back" class="btn btn-white">Back</button>
 
-                        </div>
+                        </div>*@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.max_monthly_allowance, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.max_monthly_allowance
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -81,7 +93,9 @@
                             </div>
 
 
-                            @Html.LabelFor(model => model.min_basic_salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.min_basic_salary
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -94,7 +108,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.min_working_years, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.min_working_years
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -108,7 +124,9 @@
 
 
 
-                            @Html.LabelFor(model => model.mid_basic_salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.mid_basic_salary
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -121,7 +139,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.max_incentive_amount, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.max_incentive_amount
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -134,7 +154,9 @@
                             </div>
 
 
-                            @Html.LabelFor(model => model.max_basic_salary, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.max_basic_salary
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -147,7 +169,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.max_incentive_percentage, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.max_incentive_percentage
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -161,7 +185,9 @@
 
 
 
-                            @Html.LabelFor(model => model.max_annual_increase_percentage, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.max_incentive_percentage
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -174,7 +200,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.dedicated_allowence, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.dedicated_allowence
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -187,7 +215,9 @@
                             </div>
 
 
-                            @Html.LabelFor(model => model.representation_allowance_value, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-3">
+                                @organ.representation_allowance_value
+                            </label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">

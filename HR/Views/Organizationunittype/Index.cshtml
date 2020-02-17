@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Organization_Unit_Type>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -11,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Organizationunittype")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Organization unit type</a>
+                    <a href="@Url.Action("Create", "Organizationunittype")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.addOrganizationunittype</a>
                 </p>
             </div>
 
@@ -28,11 +29,11 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>Organization Unit Level </th>
-                            <th>Organization Unit Schema </th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
+                            <th>@organ.OrganizationUnitLevel </th>
+                            <th>@organ.OrganizationUnitSchema </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -47,22 +48,14 @@
                                 <td>@item.Organization_Unit_Schema.Name</td>
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Organizationunittype", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Organizationunittype", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Organizationunittype", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.edit</a>
+                                    <a href="@Url.Action("delete", "Organizationunittype", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>Organization Unit Level </th>
-                            <th>Organization Unit Schema </th>
-
-                            <th></th>
-                        </tr>
+                      
                     </tfoot>
                 </table>
             </div>

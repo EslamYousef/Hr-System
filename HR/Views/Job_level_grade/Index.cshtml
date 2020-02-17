@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Job_level_grade>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Job_level_grade")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Job_level_grade</a>
+                    <a href="@Url.Action("Create", "Job_level_grade")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.AddJob_level_grade</a>
                 </p>
             </div>
 
@@ -29,9 +29,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -43,9 +43,9 @@
                                 <td>@item.Name</td>
                                 <td>@item.Description</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Job_level_grade", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Job_level_grade", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
-                                    <a href="@Url.Action("Details", "Job_level_grade", new {id = item.ID})" class="btn btn-success"><i class="fa fa-trash-o"></i>Details</a>
+                                    <a href="@Url.Action("Edit", "Job_level_grade", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.edit</a>
+                                    <a href="@Url.Action("delete", "Job_level_grade", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
+                                    <a href="@Url.Action("Details", "Job_level_grade", new {id = item.ID})" class="btn btn-success"><i class="fa fa-trash-o"></i>@organ.details</a>
 
                                 
                                   </td>
@@ -53,12 +53,7 @@
                         }
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th></th>
-                        </tr>
+                      
                     </tfoot>
                 </table>
             </div>

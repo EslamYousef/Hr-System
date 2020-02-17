@@ -97,6 +97,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Job level grade.
+        /// </summary>
+        public static string AddJob_level_grade {
+            get {
+                return ResourceManager.GetString("AddJob_level_grade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Job level class.
+        /// </summary>
+        public static string AddJoblevelclass {
+            get {
+                return ResourceManager.GetString("AddJoblevelclass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to add new budget.
         /// </summary>
         public static string addnewbudget {
@@ -129,6 +147,33 @@ namespace HR.Resource {
         public static string addnewmanpower {
             get {
                 return ResourceManager.GetString("addnewmanpower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Organization Level Unit.
+        /// </summary>
+        public static string addOrganizationLevelUnit {
+            get {
+                return ResourceManager.GetString("addOrganizationLevelUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Organization unit schema.
+        /// </summary>
+        public static string addOrganizationunitschema {
+            get {
+                return ResourceManager.GetString("addOrganizationunitschema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Organization unit type.
+        /// </summary>
+        public static string addOrganizationunittype {
+            get {
+                return ResourceManager.GetString("addOrganizationunittype", resourceCulture);
             }
         }
         
@@ -367,11 +412,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Job level grade.
+        /// </summary>
+        public static string CreateJob_level_grade {
+            get {
+                return ResourceManager.GetString("CreateJob_level_grade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create job level.
         /// </summary>
         public static string Createjoblevel {
             get {
                 return ResourceManager.GetString("Createjoblevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Job level class.
+        /// </summary>
+        public static string CreateJoblevelclass {
+            get {
+                return ResourceManager.GetString("CreateJoblevelclass", resourceCulture);
             }
         }
         
@@ -390,6 +453,33 @@ namespace HR.Resource {
         public static string Createnewnode {
             get {
                 return ResourceManager.GetString("Createnewnode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Organization Level Unit.
+        /// </summary>
+        public static string CreateOrganizationLevelUnit {
+            get {
+                return ResourceManager.GetString("CreateOrganizationLevelUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Organization unit schema.
+        /// </summary>
+        public static string CreateOrganizationunitschema {
+            get {
+                return ResourceManager.GetString("CreateOrganizationunitschema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Organization unit type.
+        /// </summary>
+        public static string CreateOrganizationunittype {
+            get {
+                return ResourceManager.GetString("CreateOrganizationunittype", resourceCulture);
             }
         }
         
@@ -484,11 +574,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EDIT Job_level_grade.
+        /// </summary>
+        public static string EDITJob_level_grade {
+            get {
+                return ResourceManager.GetString("EDITJob_level_grade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit job level.
         /// </summary>
         public static string Editjoblevel {
             get {
                 return ResourceManager.GetString("Editjoblevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EDIT Job level class.
+        /// </summary>
+        public static string EDITJoblevellass {
+            get {
+                return ResourceManager.GetString("EDITJoblevellass", resourceCulture);
             }
         }
         
@@ -507,6 +615,33 @@ namespace HR.Resource {
         public static string editOrganizationchart {
             get {
                 return ResourceManager.GetString("editOrganizationchart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Organization Level Unit.
+        /// </summary>
+        public static string EditOrganizationLevelUnit {
+            get {
+                return ResourceManager.GetString("EditOrganizationLevelUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Organization unit schema.
+        /// </summary>
+        public static string EditOrganizationunitschema {
+            get {
+                return ResourceManager.GetString("EditOrganizationunitschema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Organization unit type.
+        /// </summary>
+        public static string EditOrganizationunittype {
+            get {
+                return ResourceManager.GetString("EditOrganizationunittype", resourceCulture);
             }
         }
         
@@ -745,6 +880,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level Number.
+        /// </summary>
+        public static string LevelNumber {
+            get {
+                return ResourceManager.GetString("LevelNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Link.
         /// </summary>
         public static string Link {
@@ -966,6 +1110,24 @@ namespace HR.Resource {
         public static string Organizationunit {
             get {
                 return ResourceManager.GetString("Organizationunit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Unit Level.
+        /// </summary>
+        public static string OrganizationUnitLevel {
+            get {
+                return ResourceManager.GetString("OrganizationUnitLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Unit Schema.
+        /// </summary>
+        public static string OrganizationUnitSchema {
+            get {
+                return ResourceManager.GetString("OrganizationUnitSchema", resourceCulture);
             }
         }
         
