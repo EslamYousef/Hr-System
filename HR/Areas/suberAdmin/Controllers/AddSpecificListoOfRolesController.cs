@@ -1,4 +1,5 @@
 ﻿using HR.Areas.suberAdmin.Models;
+using HR.Models;
 using HR.Reposatory;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,19 @@ namespace HR.Areas.suberAdmin.Controllers
         // GET: suberAdmin/AddSpecificListoOfRoles
 
         private readonly IAddSpecificListOfRoles model;
-        AddSpecificListoOfRolesController(AddSpecificListOfRoles context)
+       public AddSpecificListoOfRolesController()
         {
-            model = context;
+            model = new AddSpecificListOfRoles(new ApplicationDbContext());
         }
         public ActionResult Index()
         {
             var models = model.GetAll();
-            return View();
+            return View(model);
         }
         public ActionResult Add()
         {
             try
             {
-                var listOfFreeRole = new List<Roles>();
-                //ViewBag.freeRoles = new SelectList(listOfFreeRole, "ID",);
                 return View();
             }
             catch (Exception e)

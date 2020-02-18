@@ -106,9 +106,7 @@ namespace HR.Controllers
             }
 
         }
-
-
-
+        
         public ActionResult Edit(int id)
         {
             try

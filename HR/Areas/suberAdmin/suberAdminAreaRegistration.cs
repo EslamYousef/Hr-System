@@ -17,7 +17,7 @@ namespace HR.Areas.suberAdmin
             context.MapRoute(
                 "suberAdmin_default",
                 "suberAdmin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller= "AddSpecificListoOfRoles", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
