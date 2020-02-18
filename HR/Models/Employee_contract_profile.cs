@@ -16,6 +16,8 @@ namespace HR.Models
         public string Employee_ProfileId { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contract No.")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         //[Display(Name = "Contract No.")]
         //public string Contract { get; set; }

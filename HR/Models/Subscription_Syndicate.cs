@@ -15,6 +15,8 @@ namespace HR.Models
         public bool Server_Legatees { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription Code")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Subscription_Code { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription Description")]

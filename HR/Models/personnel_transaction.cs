@@ -3,6 +3,7 @@ using HR.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,8 @@ namespace HR.Models
     public class personnel_transaction
     {
         public int ID { get; set; }
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Number { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime transaction_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;

@@ -12,7 +12,8 @@ namespace HR.Models
         [Key]
         public int ID { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
-        //   [Index(IsUnique = true)]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Name { get; set; }

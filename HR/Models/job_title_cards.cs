@@ -11,7 +11,8 @@ namespace HR.Models
     public class job_title_cards
     {
         public int ID { get; set; }
-        // [Index(IsUnique = true)]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Code { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]

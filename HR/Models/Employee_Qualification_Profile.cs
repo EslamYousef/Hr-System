@@ -16,6 +16,8 @@ namespace HR.Models
         public string Employee_ProfileId { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Qualification profile No.")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [Display(Name = "Related to job")]
         public bool Related_to_job { get; set; }

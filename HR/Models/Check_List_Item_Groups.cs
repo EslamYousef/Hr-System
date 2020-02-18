@@ -13,6 +13,8 @@ namespace HR.Models
         public int ID { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Group Code")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Group_Code { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Description Group")]

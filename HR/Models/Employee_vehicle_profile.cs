@@ -17,6 +17,8 @@ namespace HR.Models
         public virtual Employee_Profile Employee_Profile { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Vehicle profile No.")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [Display(Name = "Vehicle model")]
         public string Vehicle_model { get; set; }

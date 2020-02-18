@@ -17,6 +17,8 @@ namespace HR.Models
         public virtual Employee_Profile Employee_Profile { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription profile No.")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Subscription No.")]

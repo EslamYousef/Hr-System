@@ -17,6 +17,7 @@ namespace HR.Models
         public virtual Employee_Profile Employee_Profile { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Sponsor profile No.")]
+        [Index(IsUnique = true)]
         public int SponsorId { get; set; }
         public virtual Sponsor Sponsor { get; set; }
         [Display(Name = "Residence Id")]

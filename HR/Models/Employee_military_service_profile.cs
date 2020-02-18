@@ -16,6 +16,8 @@ namespace HR.Models
         public string Employee_ProfileId { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Military service profilee No.")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [Display(Name = "Service at hire")]
         public bool Service_at_hire { get; set; }

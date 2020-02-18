@@ -18,6 +18,8 @@ namespace HR.Models
         public virtual Employee_Profile Employee_Profile { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Attachment profile No.")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
         [Display(Name = "Is copy")]
         public bool Is_copy { get; set; }

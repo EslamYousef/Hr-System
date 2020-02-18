@@ -14,7 +14,8 @@ namespace HR.Models
 
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Code")]
-       // [Index(IsUnique = true)]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Code { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]

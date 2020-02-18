@@ -13,6 +13,8 @@ namespace HR.Models
         public int ID { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Personnel), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contract Type Code")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Contract_Type_Code { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Personnel), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Contract Type Description")]

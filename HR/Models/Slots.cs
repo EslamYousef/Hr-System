@@ -1,6 +1,8 @@
 ﻿using HR.Models.Infra;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +11,8 @@ namespace HR.Models
     public class Slots
     {
         public int ID { get; set; }
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string slot_code { get; set; }
         public string slot_description { get; set; }
         public virtual job_level_setup job_level_setup { get; set; }
