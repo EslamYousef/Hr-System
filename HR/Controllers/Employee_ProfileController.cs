@@ -133,12 +133,12 @@ namespace HR.Controllers
 
                     if (model.Employee_Profile.ReligionId == "0" || model.Employee_Profile.ReligionId == null)
                     {
-                        ModelState.AddModelError("", "Religion Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.ReligionCodemustenter);
                         return View(model);
                     }
                     if (model.Employee_Profile.NationalityId == "0" || model.Employee_Profile.NationalityId == null)
                     {
-                        ModelState.AddModelError("", "Nationality Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.NationalityCodemustenter);
                         return View(model);
                     }
            //         Employee_Profile record = new Employee_Profile();
@@ -168,7 +168,7 @@ namespace HR.Controllers
                     record.Expire_date = model.Employee_Profile.Expire_date;
                     if (model.Employee_Profile.Issue_date > model.Employee_Profile.Expire_date)
                     {
-                        TempData["Message"] = "From date Issue bigger date Expire";
+                        TempData["Message"] = HR.Resource.Personnel.IssuedatebiggerExpirydate;
                         return View(model);
                     }
                     record.ID_number = model.Employee_Profile.ID_number;
@@ -415,12 +415,12 @@ namespace HR.Controllers
                     }
                     else if (record.Gender == Gender.female && command8 == "Submit")
                     {
-                        TempData["Message"] = "You must choose a male from the gender ";
+                        TempData["Message"] = HR.Resource.Personnel.Youmustchooseamalefromthegender;
                         return View(model);
                     }
                     else if (record.Gender == Gender.other && command8 == "Submit")
                     {
-                        TempData["Message"] = "You must choose a male from the gender ";
+                        TempData["Message"] = HR.Resource.Personnel.Youmustchooseamalefromthegender;
                         return View(model);
                     }
 
@@ -486,7 +486,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -514,7 +514,7 @@ namespace HR.Controllers
                 { return View(vm); }
                 else
                 {
-                    TempData["Message"] = "there is no Employee Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -605,7 +605,7 @@ namespace HR.Controllers
                 record.Expire_date = model.Employee_Profile.Expire_date;
                 if (model.Employee_Profile.Issue_date > model.Employee_Profile.Expire_date)
                 {
-                    TempData["Message"] = "From date Issue bigger date Expire";
+                    TempData["Message"] = HR.Resource.Personnel.IssuedatebiggerExpirydate;
                     return View(model);
                 }
                 record.ID_number = model.Employee_Profile.ID_number;
@@ -714,12 +714,12 @@ namespace HR.Controllers
                 }
                 else if (record.Gender == Gender.female && command8 == "Submit")
                 {
-                    TempData["Message"] = "You must choose a male from the gender ";
+                    TempData["Message"] = HR.Resource.Personnel.Youmustchooseamalefromthegender;
                     return View(model);
                 }
                 else if (record.Gender == Gender.other && command8 == "Submit")
                 {
-                    TempData["Message"] = "You must choose a male from the gender ";
+                    TempData["Message"] = HR.Resource.Personnel.Youmustchooseamalefromthegender;
                     return View(model);
                 }
                 if (command9 == "Submit")
@@ -742,7 +742,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -766,7 +766,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -845,7 +845,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

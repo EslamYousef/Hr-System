@@ -88,42 +88,42 @@ namespace HR.Controllers
                 {
                     if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
                     {
-                        ModelState.AddModelError("", "Educate category Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.EducatecategoryCodemustenter);
                         return View(model);
                     }
                     if (model.Educate_TitleId == "0" || model.Educate_TitleId == null)
                     {
-                        ModelState.AddModelError("", "Educate Title Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.EducateTitleCodemustenter);
                         return View(model);
                     }
                     if (model.Main_Educate_bodyId == "0" || model.Main_Educate_bodyId == null)
                     {
-                        ModelState.AddModelError("", "Main Educate body Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.MainEducatebodyCodemustenter);
                         return View(model);
                     }
                     if (model.Sub_educational_bodyId == "0" || model.Sub_educational_bodyId == null)
                     {
-                        ModelState.AddModelError("", "Sub educational body Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.SubeducationalbodyCodemustenter);
                         return View(model);
                     }
                     if (model.Name_of_educational_qualificationId == "0" || model.Name_of_educational_qualificationId == null)
                     {
-                        ModelState.AddModelError("", "Name of educational qualification Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.NameofeducationalqualificationCodemustenter);
                         return View(model);
                     }
                     if (model.Qualification_MajorId == "0" || model.Qualification_MajorId == null)
                     {
-                        ModelState.AddModelError("", "Qualification Major Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.QualificationMajorCodemustenter);
                         return View(model);
                     }
                     if (model.GradeEducateId == "0" || model.GradeEducateId == null)
                     {
-                        ModelState.AddModelError("", "Grade Educate Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.GradeEducateCodemustenter);
                         return View(model);
                     }
                     if (model.Employee_ProfileId == "0" || model.Employee_ProfileId == null)
                     {
-                        ModelState.AddModelError("", "Employee Profile Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.EmployeeProfileCodemustenter);
                         return View(model);
                     }
                     var prof = int.Parse(model.Employee_ProfileId);
@@ -134,7 +134,7 @@ namespace HR.Controllers
                     record.Qualification_end_date = model.Qualification_end_date;
                     if (model.Qualification_start_date > model.Qualification_end_date)
                     {
-                        TempData["Message"] = "Qualification start date bigger Qualification end date";
+                        TempData["Message"] = HR.Resource.Personnel.QualificationstartdatebiggerQualificationenddate;
                         return View(model);
                     }
                     record.Years = model.Years;
@@ -179,7 +179,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -207,7 +207,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Qualification Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -243,37 +243,37 @@ namespace HR.Controllers
                 //}
                 if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
                 {
-                    ModelState.AddModelError("", "Educate category Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.EducatecategoryCodemustenter);
                     return View(model);
                 }
                 if (model.Educate_TitleId == "0" || model.Educate_TitleId == null)
                 {
-                    ModelState.AddModelError("", "Educate Title Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.EducateTitleCodemustenter);
                     return View(model);
                 }
                 if (model.Main_Educate_bodyId == "0" || model.Main_Educate_bodyId == null)
                 {
-                    ModelState.AddModelError("", "Main Educate body Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.MainEducatebodyCodemustenter);
                     return View(model);
                 }
                 if (model.Sub_educational_bodyId == "0" || model.Sub_educational_bodyId == null)
                 {
-                    ModelState.AddModelError("", "Sub educational body Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.SubeducationalbodyCodemustenter);
                     return View(model);
                 }
                 if (model.Name_of_educational_qualificationId == "0" || model.Name_of_educational_qualificationId == null)
                 {
-                    ModelState.AddModelError("", "Name of educational qualification Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.NameofeducationalqualificationCodemustenter);
                     return View(model);
                 }
                 if (model.Qualification_MajorId == "0" || model.Qualification_MajorId == null)
                 {
-                    ModelState.AddModelError("", "Qualification Major Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.QualificationMajorCodemustenter);
                     return View(model);
                 }
                 if (model.GradeEducateId == "0" || model.GradeEducateId == null)
                 {
-                    ModelState.AddModelError("", "Grade Educate Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.GradeEducateCodemustenter);
                     return View(model);
                 }
               
@@ -283,7 +283,7 @@ namespace HR.Controllers
                 record.Qualification_end_date = model.Qualification_end_date;
                 if (model.Qualification_start_date > model.Qualification_end_date)
                 {
-                    TempData["Message"] = "Qualification start date bigger Qualification end date";
+                    TempData["Message"] = HR.Resource.Personnel.QualificationstartdatebiggerQualificationenddate;
                     return View(model);
                 }
                 record.Years = model.Years;
@@ -323,7 +323,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)

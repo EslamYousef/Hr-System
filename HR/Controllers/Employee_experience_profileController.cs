@@ -73,12 +73,12 @@ namespace HR.Controllers
                 {
                     if (model.External_compainesId == "0" || model.External_compainesId == null)
                     {
-                        ModelState.AddModelError("", "Company Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.CompanyCodemustenter);
                         return View(model);
                     }
                     if (model.Rejection_ReasonsId == "0" || model.Rejection_ReasonsId == null)
                     {
-                        ModelState.AddModelError("", "Reason of leave Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.ReasonofleaveCodemustenter);
                         return View(model);
                     }
                     var experience = int.Parse(model.Employee_ProfileId);
@@ -93,7 +93,7 @@ namespace HR.Controllers
                     record.End_date = model.End_date;
                     if (model.Start_date > model.End_date)
                     {
-                        TempData["Message"] = "Start date bigger End date";
+                        TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                         return View(model);
                     }
                     record.Years = model.Years;
@@ -122,7 +122,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -146,7 +146,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Experience Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -206,7 +206,7 @@ namespace HR.Controllers
                 record.End_date = model.End_date;
                 if (model.Start_date > model.End_date)
                 {
-                    TempData["Message"] = "Start date bigger End date";
+                    TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                     return View(model);
                 }
                 record.Years = model.Years;
@@ -230,7 +230,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)

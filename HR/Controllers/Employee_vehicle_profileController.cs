@@ -63,7 +63,7 @@ namespace HR.Controllers
                     record.To_date = model.To_date;
                     if (model.From_date > model.To_date)
                     {
-                        TempData["Message"] = "From date  bigger To date ";
+                        TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                         return View(model);
                     }
                                 
@@ -79,7 +79,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -101,7 +101,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Vehicle Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -129,7 +129,7 @@ namespace HR.Controllers
                 record.To_date = model.To_date;
                 if (model.From_date > model.To_date)
                 {
-                    TempData["Message"] = "From date  bigger To date ";
+                    TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                     return View(model);
                 }
 
@@ -140,7 +140,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -156,7 +156,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Vehicle Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -182,7 +182,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

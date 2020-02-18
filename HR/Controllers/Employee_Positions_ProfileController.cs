@@ -124,7 +124,7 @@ namespace HR.Controllers
                     record.To_date = model.Position_Information.To_date;
                     if (model.Position_Information.From_date > model.Position_Information.To_date)
                     {
-                        TempData["Message"] = "From date  bigger To date ";
+                        TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                         return View(model);
                     }
                     record.Years = model.Position_Information.Years;
@@ -190,7 +190,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -222,7 +222,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Position Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -263,7 +263,7 @@ namespace HR.Controllers
                 record.To_date = model.Position_Information.To_date;
                 if (model.Position_Information.From_date > model.Position_Information.To_date)
                 {
-                    TempData["Message"] = "From date  bigger To date ";
+                    TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                     return View(model);
                 }
                 record.Years = model.Position_Information.Years;
@@ -388,7 +388,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException e)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -403,7 +403,7 @@ namespace HR.Controllers
                 
                 if (mo==null)
                 {
-                    var mes = "this employee not have primary position";
+                    var mes = HR.Resource.Personnel.Thisemployeenothaveprimaryposition;
                     return RedirectToAction("index", "personnel_transaction",new { mess = mes });
                 }
                 var id = mo.ID;
@@ -425,7 +425,7 @@ namespace HR.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "There is no Employee Position Profile";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return RedirectToAction("index", "personnel_transaction");
                 }
             }

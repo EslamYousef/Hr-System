@@ -502,6 +502,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Birth date bigger Death date.
+        /// </summary>
+        public static string BirthdatebiggerDeathdate {
+            get {
+                return ResourceManager.GetString("BirthdatebiggerDeathdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blood group.
         /// </summary>
         public static string Bloodgroup {
@@ -660,6 +669,15 @@ namespace HR.Resource {
         public static string Companycode {
             get {
                 return ResourceManager.GetString("Companycode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company code must enter.
+        /// </summary>
+        public static string CompanyCodemustenter {
+            get {
+                return ResourceManager.GetString("CompanyCodemustenter", resourceCulture);
             }
         }
         
@@ -1474,6 +1492,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Educate category Code must enter.
+        /// </summary>
+        public static string EducatecategoryCodemustenter {
+            get {
+                return ResourceManager.GetString("EducatecategoryCodemustenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Educate level.
         /// </summary>
         public static string Educatelevel {
@@ -1488,6 +1515,15 @@ namespace HR.Resource {
         public static string Educatelevelcode {
             get {
                 return ResourceManager.GetString("Educatelevelcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Educate Title Code must enter.
+        /// </summary>
+        public static string EducateTitleCodemustenter {
+            get {
+                return ResourceManager.GetString("EducateTitleCodemustenter", resourceCulture);
             }
         }
         
@@ -1632,6 +1668,15 @@ namespace HR.Resource {
         public static string EmployeeProfile {
             get {
                 return ResourceManager.GetString("EmployeeProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Profile Code must enter.
+        /// </summary>
+        public static string EmployeeProfileCodemustenter {
+            get {
+                return ResourceManager.GetString("EmployeeProfileCodemustenter", resourceCulture);
             }
         }
         
@@ -1915,6 +1960,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From date bigger To date.
+        /// </summary>
+        public static string FromdatebiggerTodate {
+            get {
+                return ResourceManager.GetString("FromdatebiggerTodate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full name.
         /// </summary>
         public static string FullName {
@@ -1929,6 +1983,15 @@ namespace HR.Resource {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grade Educate Code must enter.
+        /// </summary>
+        public static string GradeEducateCodemustenter {
+            get {
+                return ResourceManager.GetString("GradeEducateCodemustenter", resourceCulture);
             }
         }
         
@@ -2140,6 +2203,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Issue date bigger Expiry date.
+        /// </summary>
+        public static string IssuedatebiggerExpirydate {
+            get {
+                return ResourceManager.GetString("IssuedatebiggerExpirydate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Issued date.
         /// </summary>
         public static string Issueddate {
@@ -2298,6 +2370,15 @@ namespace HR.Resource {
         public static string Locationdesc {
             get {
                 return ResourceManager.GetString("Locationdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Educate body Code must enter.
+        /// </summary>
+        public static string MainEducatebodyCodemustenter {
+            get {
+                return ResourceManager.GetString("MainEducatebodyCodemustenter", resourceCulture);
             }
         }
         
@@ -2509,11 +2590,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name of educational qualification Code must enter.
+        /// </summary>
+        public static string NameofeducationalqualificationCodemustenter {
+            get {
+                return ResourceManager.GetString("NameofeducationalqualificationCodemustenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nationality.
         /// </summary>
         public static string Nationality {
             get {
                 return ResourceManager.GetString("Nationality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nationality Code must enter.
+        /// </summary>
+        public static string NationalityCodemustenter {
+            get {
+                return ResourceManager.GetString("NationalityCodemustenter", resourceCulture);
             }
         }
         
@@ -2815,6 +2914,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Qualification Major Code must enter.
+        /// </summary>
+        public static string QualificationMajorCodemustenter {
+            get {
+                return ResourceManager.GetString("QualificationMajorCodemustenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Qualification name.
         /// </summary>
         public static string Qualificationname {
@@ -2865,6 +2973,15 @@ namespace HR.Resource {
         public static string Qualificationstartdate {
             get {
                 return ResourceManager.GetString("Qualificationstartdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qualification start date bigger Qualification end date.
+        /// </summary>
+        public static string QualificationstartdatebiggerQualificationenddate {
+            get {
+                return ResourceManager.GetString("QualificationstartdatebiggerQualificationenddate", resourceCulture);
             }
         }
         
@@ -2928,6 +3045,15 @@ namespace HR.Resource {
         public static string Reasonofleave {
             get {
                 return ResourceManager.GetString("Reasonofleave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason of leave code must enter.
+        /// </summary>
+        public static string ReasonofleaveCodemustenter {
+            get {
+                return ResourceManager.GetString("ReasonofleaveCodemustenter", resourceCulture);
             }
         }
         
@@ -3045,6 +3171,15 @@ namespace HR.Resource {
         public static string Religion {
             get {
                 return ResourceManager.GetString("Religion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Religion Code must enter.
+        /// </summary>
+        public static string ReligionCodemustenter {
+            get {
+                return ResourceManager.GetString("ReligionCodemustenter", resourceCulture);
             }
         }
         
@@ -3562,6 +3697,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start relation date bigger Birth date.
+        /// </summary>
+        public static string StartrelationdatebiggerBirthdate {
+            get {
+                return ResourceManager.GetString("StartrelationdatebiggerBirthdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start relation date bigger End relation date.
+        /// </summary>
+        public static string StartrelationdatebiggerEndrelationdate {
+            get {
+                return ResourceManager.GetString("StartrelationdatebiggerEndrelationdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start year of deduction.
         /// </summary>
         public static string Startyearofdeduction {
@@ -3612,6 +3765,15 @@ namespace HR.Resource {
         public static string Streetnumber {
             get {
                 return ResourceManager.GetString("Streetnumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub educational body Code must enter.
+        /// </summary>
+        public static string SubeducationalbodyCodemustenter {
+            get {
+                return ResourceManager.GetString("SubeducationalbodyCodemustenter", resourceCulture);
             }
         }
         
@@ -3774,6 +3936,15 @@ namespace HR.Resource {
         public static string thiscodeIsalreadyexists {
             get {
                 return ResourceManager.GetString("thiscodeIsalreadyexists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this employee not have primary position.
+        /// </summary>
+        public static string Thisemployeenothaveprimaryposition {
+            get {
+                return ResourceManager.GetString("Thisemployeenothaveprimaryposition", resourceCulture);
             }
         }
         
@@ -3963,6 +4134,15 @@ namespace HR.Resource {
         public static string youcannotdeletethisRow {
             get {
                 return ResourceManager.GetString("youcannotdeletethisRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must choose a male from the gender.
+        /// </summary>
+        public static string Youmustchooseamalefromthegender {
+            get {
+                return ResourceManager.GetString("Youmustchooseamalefromthegender", resourceCulture);
             }
         }
     }
