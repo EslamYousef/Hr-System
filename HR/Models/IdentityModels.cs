@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using HR.Models.Infra;
 using HR.Models.ViewModel;
+using HR.Reposatory;
+using HR.Areas.suberAdmin.Models;
 
 namespace HR.Models
 {
@@ -158,6 +160,7 @@ namespace HR.Models
         public DbSet<Append_beneficiary_Family> Append_beneficiary_Family { get; set; }
         public DbSet<Employee_subscription_syndicate_profile> Employee_subscription_syndicate_profile { get; set; }
         public DbSet<Employee_attachment_profile> Employee_attachment_profile { get; set; }
+        public DbSet<Roles> AddSpecificListOfRoles { get; set; }
 
     }
 }
