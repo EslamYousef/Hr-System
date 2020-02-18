@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Job_title_sub_class>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Job_title_Sub_class")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Job title Sub class</a>
+                    <a href="@Url.Action("Create", "Job_title_Sub_class")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.AddNewJobtitleSubclass</a>
                 </p>
             </div>
 
@@ -29,10 +29,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>Job title class</th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
+                            <th>@organ.Jobtitleclass</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,21 +46,13 @@
                                 <td>@item.Job_title_class.Name</td>
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Job_title_Sub_class", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Job_title_Sub_class", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Job_title_Sub_class", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.edit</a>
+                                    <a href="@Url.Action("delete", "Job_title_Sub_class", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>Job title class</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+                 
                 </table>
             </div>
         </div>

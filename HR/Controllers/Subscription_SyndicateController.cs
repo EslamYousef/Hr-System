@@ -71,12 +71,12 @@ namespace HR.Controllers
                     record.Default_Subscription_Fees = model.Default_Subscription_Fees;
                     if (model.Deduction_Period == 0)
                     {
-                        TempData["Message"] = "Please Choose in The Deduction Period";
+                        TempData["Message"] = HR.Resource.Personnel.PleaseChoosefromTheDeductionPeriod;
                         return View(model);
                     }
                     if (model.Type == 0)
                     {
-                        TempData["Message"] = "Please Choose in The Type";
+                        TempData["Message"] = HR.Resource.Personnel.PleaseChoosefromTheType;
                         return View(model);
                     }
                     else
@@ -106,7 +106,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -127,7 +127,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Contact methods";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -156,12 +156,12 @@ namespace HR.Controllers
                 record.Default_Subscription_Fees = model.Default_Subscription_Fees;
                 if (model.Deduction_Period == 0)
                 {
-                    TempData["Message"] = "Please Choose in The Deduction Period";
+                    TempData["Message"] = HR.Resource.Personnel.PleaseChoosefromTheDeductionPeriod;
                     return View(model);
                 }
                 if (model.Type == 0)
                 {
-                    TempData["Message"] = "Please Choose in The Type";
+                    TempData["Message"] = HR.Resource.Personnel.PleaseChoosefromTheType;
                     return View(model);
                 }
                 else
@@ -185,7 +185,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -200,7 +200,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Subscription Syndicate";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -225,7 +225,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

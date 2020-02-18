@@ -26,7 +26,7 @@ namespace HR.Controllers
             if (o == null || o.Count() == 0)
             {
 
-                TempData["Message"] = "Enter data first on Check List Item Groups ";
+                TempData["Message"] = HR.Resource.Personnel.EnterdatafirstfromCheckListItemGroups;
                 var modelll = dbcontext.Check_Lists_Items.ToList();
                 return View("index", modelll);
 
@@ -58,7 +58,7 @@ namespace HR.Controllers
                 {
                     if (model.Check_List_Item_GroupsId == "0" || model.Check_List_Item_GroupsId == null)
                     {
-                        ModelState.AddModelError("", "Check List Item Groups Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.CheckListItemGroupCodemustenter);
                         return View(model);
                     }
                     Check_Lists_Items record = new Check_Lists_Items();
@@ -97,7 +97,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -119,7 +119,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Check List Item Groups";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -135,7 +135,7 @@ namespace HR.Controllers
                 ViewBag.Check_List_Item_Groups = dbcontext.Check_List_Item_Groups.ToList().Select(m => new { Code = "" + m.Group_Code + "-----[" + m.Description_Group + ']', ID = m.ID }).ToList();
                 if (model.Check_Code == "0" || model.Check_Code == null)
                 {
-                    ModelState.AddModelError("", "Check List Item Groups Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.CheckListItemGroupCodemustenter);
                     return View(model);
                 }
                 var record = dbcontext.Check_Lists_Items.FirstOrDefault(m => m.ID == model.ID);
@@ -163,7 +163,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -178,7 +178,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Check Lists Items ";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -208,7 +208,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

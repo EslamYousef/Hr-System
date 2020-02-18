@@ -574,6 +574,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check List Item Group Code must enter.
+        /// </summary>
+        public static string CheckListItemGroupCodemustenter {
+            get {
+                return ResourceManager.GetString("CheckListItemGroupCodemustenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check List Item Groups.
         /// </summary>
         public static string CheckListItemGroups {
@@ -1717,11 +1726,38 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter data first from Check List Item Groups.
+        /// </summary>
+        public static string EnterdatafirstfromCheckListItemGroups {
+            get {
+                return ResourceManager.GetString("EnterdatafirstfromCheckListItemGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter data first on EOS Interview Questions Groups.
+        /// </summary>
+        public static string EnterdatafirstonEOSInterviewQuestionsGroups {
+            get {
+                return ResourceManager.GetString("EnterdatafirstonEOSInterviewQuestionsGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EOS date.
         /// </summary>
         public static string EOSdate {
             get {
                 return ResourceManager.GetString("EOSdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EOS Interview Questions Groups Code must enter.
+        /// </summary>
+        public static string EOSInterviewQuestionsGroupsCodemustenter {
+            get {
+                return ResourceManager.GetString("EOSInterviewQuestionsGroupsCodemustenter", resourceCulture);
             }
         }
         
@@ -2365,7 +2401,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  You-want-delete-this-data ?.
+        ///   Looks up a localized string similar to You want delete this data ?.
         /// </summary>
         public static string message_delete {
             get {
@@ -2604,6 +2640,33 @@ namespace HR.Resource {
         public static string Phone_2 {
             get {
                 return ResourceManager.GetString("Phone_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Choose from The Deduction Period.
+        /// </summary>
+        public static string PleaseChoosefromTheDeductionPeriod {
+            get {
+                return ResourceManager.GetString("PleaseChoosefromTheDeductionPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Choose fromThe Purpose.
+        /// </summary>
+        public static string PleaseChoosefromThePurpose {
+            get {
+                return ResourceManager.GetString("PleaseChoosefromThePurpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Choose from The Type.
+        /// </summary>
+        public static string PleaseChoosefromTheType {
+            get {
+                return ResourceManager.GetString("PleaseChoosefromTheType", resourceCulture);
             }
         }
         
@@ -3085,6 +3148,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Contract Type.
+        /// </summary>
+        public static string SelectContractType {
+            get {
+                return ResourceManager.GetString("SelectContractType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Country.
         /// </summary>
         public static string SelectCountry {
@@ -3108,6 +3180,15 @@ namespace HR.Resource {
         public static string SelectCurrency {
             get {
                 return ResourceManager.GetString("SelectCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Default location desc.
+        /// </summary>
+        public static string SelectDefaultlocationdesc {
+            get {
+                return ResourceManager.GetString("SelectDefaultlocationdesc", resourceCulture);
             }
         }
         
@@ -3157,11 +3238,47 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select From Airport.
+        /// </summary>
+        public static string SelectFromAirport {
+            get {
+                return ResourceManager.GetString("SelectFromAirport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Grade Educate.
         /// </summary>
         public static string SelectGradeEducate {
             get {
                 return ResourceManager.GetString("SelectGradeEducate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Job desc.
+        /// </summary>
+        public static string SelectJobdesc {
+            get {
+                return ResourceManager.GetString("SelectJobdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Job level desc.
+        /// </summary>
+        public static string SelectJobleveldesc {
+            get {
+                return ResourceManager.GetString("SelectJobleveldesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Location desc.
+        /// </summary>
+        public static string SelectLocationdesc {
+            get {
+                return ResourceManager.GetString("SelectLocationdesc", resourceCulture);
             }
         }
         
@@ -3256,6 +3373,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select slot.
+        /// </summary>
+        public static string Selectslot {
+            get {
+                return ResourceManager.GetString("Selectslot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Sponsor.
         /// </summary>
         public static string SelectSponsor {
@@ -3288,6 +3414,24 @@ namespace HR.Resource {
         public static string SelectSubscription {
             get {
                 return ResourceManager.GetString("SelectSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select To Airport.
+        /// </summary>
+        public static string SelectToAirport {
+            get {
+                return ResourceManager.GetString("SelectToAirport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Unit desc.
+        /// </summary>
+        public static string SelectUnitdesc {
+            get {
+                return ResourceManager.GetString("SelectUnitdesc", resourceCulture);
             }
         }
         

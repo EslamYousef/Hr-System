@@ -26,7 +26,7 @@ namespace HR.Controllers
             if (o==null || o.Count()  == 0)
             {
 
-                TempData["Message"] = "Enter data first on EOS Interview Questions Groups";
+                TempData["Message"] = HR.Resource.Personnel.EnterdatafirstonEOSInterviewQuestionsGroups; 
                 var modelll = dbcontext.Definition_of_EOS_Interview_Questions.ToList();
                 return View("index",modelll);
     
@@ -58,7 +58,7 @@ namespace HR.Controllers
                 {
                     if (model.Question_GroupId == "0" || model.Question_GroupId == null)
                     {
-                        ModelState.AddModelError("", "EOS Interview Questions Groups Code must enter");
+                        ModelState.AddModelError("", HR.Resource.Personnel.EOSInterviewQuestionsGroupsCodemustenter);
                         return View(model);
                     }
                     Definition_of_EOS_Interview_Questions record = new Definition_of_EOS_Interview_Questions();
@@ -96,7 +96,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "this code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -118,7 +118,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no EOS Interview Questions Groups";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
             }
@@ -134,7 +134,7 @@ namespace HR.Controllers
                 ViewBag.EOS_Interview_Questions_Groups = dbcontext.EOS_Interview_Questions_Groups.ToList().Select(m => new { Code = "" + m.Questions_Group_Code + "-----[" + m.Description_of + ']', ID = m.ID });
                 if (model.Question_Code == "0" || model.Question_Code == null)
                 {
-                    ModelState.AddModelError("", "EOS Interview Questions Groups Code must enter");
+                    ModelState.AddModelError("", HR.Resource.Personnel.EOSInterviewQuestionsGroupsCodemustenter);
                     return View(model);
                 }
                 var record = dbcontext.Definition_of_EOS_Interview_Questions.FirstOrDefault(m => m.ID == model.ID);
@@ -163,7 +163,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "This code Is already exists";
+                TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
@@ -178,7 +178,7 @@ namespace HR.Controllers
                 { return View(record); }
                 else
                 {
-                    TempData["Message"] = "There is no Definition of EOS Interview Questions ";
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
 
@@ -210,7 +210,7 @@ namespace HR.Controllers
             }
             catch (DbUpdateException)
             {
-                TempData["Message"] = "You can't delete beacause it have child";
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
             }
             catch (Exception e)

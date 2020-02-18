@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Job_title_sub_class
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Job title Sub class
+            @organ.EditJobtitleSubclass
         </h1>
     </section>
 
@@ -39,38 +39,37 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Job_title_classId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@organ.Jobtitleclass</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Job_title_classId, new SelectList(ViewBag.Job_title_class, "ID", "Code"), "Select Select Job title class ", new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
+                                @Html.DropDownListFor(m => m.Job_title_classId, new SelectList(ViewBag.Job_title_class, "ID", "Code"), @organ.SelectJobtitleclass, new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
                                 @Html.ValidationMessageFor(model => model.Job_title_classId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname" disabled />
                             </div>
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">@organ.code</label>
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true,@class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">@organ.name</label>
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
+                            <label class="control-label col-md-2">@organ.description</label>
+                            <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div> 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.JOB_TYPE_ALLWANCE_PERCENTAGE, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-2">@organ.JOBTYPEALLWANCEPERCENTAGE</label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -83,7 +82,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Dedicated_ALLWANCE_VALUE, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-2">@organ.DEDICATEDALLWANCEVALUE</label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -97,7 +96,7 @@
                         </div>
                         <div class="form-group">
 
-                            @Html.LabelFor(model => model.Exchanging_ALLWANCE_VALUE, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <label class="control-label col-md-2">@organ.ExchangingALLWANCEVALUE</label>
                             <div class="col-sm-3">
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
@@ -111,8 +110,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index", "Job_title_Sub_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@organ.edit" class="btn btn-success" />
+                                <a href="@Url.Action("index", "Job_title_Sub_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                             </div>
                         </div>
                     </div>
@@ -125,11 +124,7 @@
     </section>
 </div>
 
-<script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
-</script>
+
 
 <script>
     function CountryName()

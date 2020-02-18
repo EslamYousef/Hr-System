@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Authority_Type>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Authority_Type")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Authority_Type</a>
+                    <a href="@Url.Action("Create", "Authority_Type")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.AddNewAuthorityType</a>
                 </p>
             </div>
 
@@ -29,9 +29,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
 
                             <th></th>
                         </tr>
@@ -46,20 +46,13 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Authority_Type", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Authority_Type", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Authority_Type", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.edit</a>
+                                    <a href="@Url.Action("delete", "Authority_Type", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+             
                 </table>
             </div>
         </div>

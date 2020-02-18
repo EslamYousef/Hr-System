@@ -1,5 +1,5 @@
 ﻿@model HR.Models.Authorities
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -32,7 +32,7 @@
 
     <section class="content-header">
         <h1>
-            Edit Authoritie
+            @organ.EditAuthority
         </h1>
     </section>
 
@@ -61,23 +61,22 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Authority_TypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@organ.AuthorityType</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Authority_TypeId, new SelectList(ViewBag.author, "ID", "Code"), "Select Authority_Type", new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
+                                @Html.DropDownListFor(m => m.Authority_TypeId, new SelectList(ViewBag.author, "ID", "Code"), organ.SelectAuthorityType, new { @class = "select2", @onchange = "CountryName()", @id = "Country" })
                                 @Html.ValidationMessageFor(model => model.Authority_TypeId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname" disabled />
                             </div>
 
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@organ.code</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new {  htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@organ.name</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -85,7 +84,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <label class="control-label col-md-2">@organ.description</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -93,8 +92,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index", "Authorities")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
+                                <input type="submit" value="@organ.edit" class="btn btn-success" />
+                                <a href="@Url.Action("index", "Authorities")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                             </div>
                         </div>
                     </div>

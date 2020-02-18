@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Budget_class_items>
-
+@using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -11,7 +11,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Budget_class_items")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Budget class item </a>
+                    <a href="@Url.Action("Create", "Budget_class_items")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.AddNewBudgetclassitem </a>
                 </p>
             </div>
 
@@ -28,10 +28,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>Budget class</th>
+                            <th>@organ.code</th>
+                            <th>@organ.name</th>
+                            <th>@organ.description</th>
+                            <th>@organ.BudgetclassId</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -45,21 +45,13 @@
                                 <td>@item.Budget_class.Name</td>
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Budget_class_items", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Budget_class_items", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Budget_class_items", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.edit</a>
+                                    <a href="@Url.Action("delete", "Budget_class_items", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th>Budget class</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+                 
                 </table>
             </div>
         </div>
