@@ -3616,6 +3616,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to sidebar-collapsed.
+        /// </summary>
+        public static string sidebarcollapsed {
+            get {
+                return ResourceManager.GetString("sidebarcollapsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slot desc.
         /// </summary>
         public static string Slotdesc {
