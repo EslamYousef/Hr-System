@@ -4,7 +4,31 @@
     ViewBag.Title = "الصفحة الرئيسية";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+<script>
 
+ function allBasic()
+    {
+        var T = "";
+        T = "<div class='col-lg-4'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/aaa1.jpg alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetup()'>" +
+            "@mainlayout.Setup</div></a></div></div></div> </div><div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/2.png' alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>@mainlayout.organization</div></a></div></div></div>    <div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/2.png' alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>@mainlayout.Process</div></a></div></div></div>"
+        $("#bas").empty();
+        $("#bas").append(T)
+    };
+
+
+
+
+
+
+    function AllSetup()
+    {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/aaa1.jpg alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" +
+            "@mainlayout.Address</div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/2.png' alt='' class='img-circle' width='40'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>@mainlayout.Nationality</div></a></div></div></div>   <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/2.png' alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>@mainlayout.Religion</div></a></div></div></div> <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/2.png' alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>@mainlayout.Qulifaication</div></a></div></div></div>"
+        $("#SetupBas").empty();
+        $("#SetupBas").append(T)
+    };
+</script>
 
 <div class="right_col" role="main">
     @if (TempData["Message"] != null)
@@ -35,7 +59,7 @@
 
         <div class="col-lg-10">
             <div class="row" style="padding: 10px">
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="tabal-home">
                         <div class="row">
                             <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
@@ -43,13 +67,13 @@
                                     <img src="~/icon/aaa1.jpg" alt="" class="img-circle" width="40" />
                                 </div>
                                 <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
+                                    <span id="AllBasic" onclick="allBasic()">@Basic.Basicmodule</span> @*<a href="/Home/GetAllBasicModule" style="color:#373e4a"></a>*@
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="tabal-home">
                         <div class="row">
                             <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
@@ -58,13 +82,13 @@
                                     <img src="~/icon/2.jpg" alt="" class="img-circle" width="40" />
                                 </div>
                                 <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
+                                    @organ.Organizationmodule
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 ">
+                <div class="col-lg-4">
                     <div class="tabal-home">
                         <div class="row">
                             <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
@@ -73,231 +97,234 @@
                                     <img src="~/icon/2.png" alt="" class="img-circle" width="40" />
                                 </div>
                                 <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
+                                    @Personnel.Personnelmodule
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
 
-                                    <img src="~/icon/4.png" alt="" class="img-circle" width="40" />
+                @*<div class="col-lg-3 ">
+                        <div class="tabal-home">
+                            <div class="row">
+                                <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                    <div class="col-lg-2">
+
+                                        <img src="~/icon/4.png" alt="" class="img-circle" width="40" />
+                                    </div>
+                                    <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                        @organ.AddNewAuthorityType
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+            <div id="bas"></div>
+                <div id="SetupBas"></div>
+                @*<div class="row" style="padding: 10px">
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/5.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/6.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/7.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/8.jpg" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="row" style="padding: 10px">
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/10.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/11.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/12.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/13.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 10px">
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/14.jpg" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/15.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/16.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ">
+                            <div class="tabal-home">
+                                <div class="row">
+                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                        <div class="col-lg-2">
+
+                                            <img src="~/icon/17.png" alt="" class="img-circle" width="40" />
+                                        </div>
+                                        <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                            @organ.AddNewAuthorityType
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>*@
             </div>
             @*<div class="row" style="padding: 10px">
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
+                    <div class="col-lg-3 ">
+                        <div class="tabal-home">
+                            <div class="row">
+                                <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                    <div class="col-lg-2">
 
-                                    <img src="~/icon/5.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/6.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/7.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/8.jpg" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="padding: 10px">
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/10.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/11.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/12.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/13.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="padding: 10px">
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/14.jpg" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/15.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/16.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/17.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
+                                        <img src="~/icon/18.png" alt="" class="img-circle" width="40" />
+                                    </div>
+                                    <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
+                                        @organ.AddNewAuthorityType
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>*@
-            </div>
-            <div class="row" style="padding: 10px">
-                <div class="col-lg-3 ">
-                    <div class="tabal-home">
-                        <div class="row">
-                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                <div class="col-lg-2">
-
-                                    <img src="~/icon/18.png" alt="" class="img-circle" width="40" />
-                                </div>
-                                <div class="col-lg-10" dir="@HR.Resource.mainlayout.d">
-                                    @organ.AddNewAuthorityType
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
 
@@ -305,7 +332,18 @@
 
 
         <br />
-        <script type="text/javascript">
+
+
+
+    </div>
+
+
+    </div>
+
+@*</div>*@
+
+@section scripts{}
+<script type="text/javascript">
             // Code used to add Todo Tasks
             jQuery(document).ready(function ($) {
                 var $todo_tasks = $("#todo_tasks");
@@ -325,14 +363,4 @@
                     }
                 });
             });
-        </script>
-
-
-
-
-
-    </div>
-
-</div>
-
-@section scripts{}
+</script>

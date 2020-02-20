@@ -23,5 +23,40 @@ namespace HR.Controllers
             new Langmanger().SetLanguage(lang);
             return RedirectToAction("Index", "Home");
         }
+
+
+        public ActionResult GetAllBasicModule()
+        {
+
+            return View();
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

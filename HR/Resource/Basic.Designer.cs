@@ -322,6 +322,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basic module.
+        /// </summary>
+        public static string Basicmodule {
+            get {
+                return ResourceManager.GetString("Basicmodule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check Due date.
         /// </summary>
         public static string Check_Due_date {

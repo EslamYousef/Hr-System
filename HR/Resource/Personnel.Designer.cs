@@ -2725,6 +2725,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personnel module.
+        /// </summary>
+        public static string Personnelmodule {
+            get {
+                return ResourceManager.GetString("Personnelmodule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone 1.
         /// </summary>
         public static string Phone_1 {
