@@ -61,36 +61,9 @@
         <script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
 
     }
-
-
-
-
-
-    @*<script src="~/Content/neon/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>*@
-
-
-
-
-
-
-    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
-<body class="page-body  page-left-in" data-url="http://neon.dev" @*dir="@HR.Resource.mainlayout.d"*@>
-    @*@{string str = ""; }*@
-@*if (Session["lang"] != null && Session["lang"].ToString() == "ar-EG")
-{
-    str = <div class="page-container sidebar-collapsed right-sidebar">
-    }
-    else
-    {
-    <div class="page-container sidebar-collapsed">
-        }*@
+<body class="page-body  page-left-in" data-url="http://neon.dev">
+   
     <div class="page-container @HR.Resource.Personnel.sidebarcollapsed">// @*sidebar-collapsed right-sidebar*@
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 
@@ -102,7 +75,8 @@
                     <div class="logo">
                         <a href="index.html">
 
-                            <img src="~/Content/neon/assets/css/logo-horizontal.png" />
+                            @*<img src="~/Content/neon/assets/css/logo-horizontal.png" />*@
+                            <img src="~/image010.jpg" style="width:139px;height:70px"/>
                         </a>
                     </div>
                     <!-- logo collapse icon -->
@@ -113,32 +87,6 @@
                         </a>
                     </div>
 
-                    @*<ul class="nav navbar-right pull-right">
-
-                            <li>
-                                <a href="@Url.Action("LogOff","Security")">
-                                    @mainlayout.Logout <i class="entypo-logout right"></i>
-                                </a>
-                            </li>
-                            <li class="lang">
-                                <i class="fa fa-globe" title="10001" aria-hidden="true"></i>
-                                <a href="/Language/@HR.Resource.mainlayout.Arabic">@mainlayout.العربية</a>
-
-                            </li>
-                            <!-- mobile only -->
-                            <li class="visible-xs">
-
-                                <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
-                                <div class="horizontal-mobile-menu visible-xs">
-                                    <a href="#" class="with-animation">
-                                        <!-- add class "with-animation" to support animation -->
-                                        <i class="entypo-menu"></i>
-                                    </a>
-                                </div>
-
-                            </li>
-
-                        </ul>*@
                     <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
                     <div class="sidebar-mobile-menu visible-xs">
                         <a href="#" class="with-animation">
@@ -969,28 +917,6 @@
                                             <i class="entypo-chat"></i>
                                         </a>
                                     </li>
-
-
-                                    <li class="notifications dropdown">
-
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                            <i class="entypo-search"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <form class="top-dropdown-search">
-
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Search anything..." name="s" />
-                                                    </div>
-
-                                                </form>
-                                            </li>
-
-                                        </ul>
-
-                                    </li>
-
                                 </ul>
                             </ul>
                         </div>
@@ -1000,7 +926,7 @@
                         <h3 style="color: #fff">Contoso company</h3>
                     </div>
                 </div>
-            <div class="container" style="width:95%;max-width:95%;" dir="@HR.Resource.mainlayout.d">
+           
                 @*<div class="row" style="padding: 20px">
                 <div class="col-lg-2">
                     <div class="panel panel-primary panel-table">
@@ -1401,6 +1327,7 @@
                     <span class="time">09:27</span>
                 </li>
             </ul>*@
+            <div class="container" style="width:95%;max-width:95%;" dir='@HR.Resource.mainlayout.d'>
                 <br />
                 @RenderBody()
                 <script type="text/javascript">
@@ -1553,26 +1480,7 @@
                 <script src="~/Content/neon/assets/js/icheck/icheck.min.js"></script>
                 <script src="~/Content/neon/assets/js/neon-chat.js"></script>
     }
-
-
     <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">
-    <!-- Bottom scripts (common) -->
-    @*<script src="assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-        <script src="assets/js/bootstrap.js"></script>
-        <script src="assets/js/joinable.js"></script>
-        <script src="assets/js/resizeable.js"></script>
-        <script src="assets/js/neon-api.js"></script>
-        <script src="assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>*@
-
-    <!-- Imported scripts on this page -->
-
-
-
-
-
-
-
-
     @RenderSection("scripts")
 </body>
 </html>
