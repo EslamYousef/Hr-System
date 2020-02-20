@@ -271,14 +271,14 @@
 
 <script>
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_subscription_syndicate_profile.Code);
                 $("#employeeId").prop("readonly", true);
@@ -286,26 +286,26 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
     function employee2() {
-        debugger
+         
         var id = $("#employeeId2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetSubscriptionSyndicate",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename2").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
 
             }
@@ -316,14 +316,14 @@
 
 
     function GetDataById() {
-        debugger
+         
         let x = window.location.href.split('/')[5];
         $.ajax({
             type: "post",
             url: "/Helper/GetDataByIdsubscription",
             data: { "id": x },
             success: function (result) {
-                debugger
+                 
                 if (result) {
                     var date = parseJsonDate(result.Head_election_date)
                     month = date.getMonth() + 1;
@@ -340,7 +340,7 @@
                 }
             },
             error: function () {
-                debugger
+                 
 
             }
         });
@@ -351,14 +351,14 @@
     }
     ///////////////////////////////////
     function GetDataById2() {
-        debugger
+         
         let x = window.location.href.split('/')[5];
         $.ajax({
             type: "post",
             url: "/Helper/GetDataByIdsubscription",
             data: { "id": x },
             success: function (result) {
-                debugger
+                 
                 if (result) {
                     var date = parseJsonDate(result.Boarder_election_date)
                     month = date.getMonth() + 1;
@@ -376,7 +376,7 @@
                 }
             },
             error: function () {
-                debugger
+                 
 
             }
         });
@@ -395,14 +395,14 @@
 
 
     function drop() {
-        debugger
+         
         var member = $("#membership").val();
         if (member == 1) {
             $(".boarder").attr('disabled', true);
             $(".head").attr('disabled', true);
         }
         else if (member == 2) {
-            debugger
+             
             $(".boarder").removeAttr('disabled');
             $(".head").attr('disabled', true);
         }

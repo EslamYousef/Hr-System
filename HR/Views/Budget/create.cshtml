@@ -314,14 +314,14 @@
 <script>
     function org()
     {
-        debugger
+         
         var id = $("#orgid").val();
         $.ajax({
             type: "post",
             url: "/Budget/getorg",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#orgname").val(result.unit_Description);
                
     
@@ -329,14 +329,14 @@
         });
     }
     function curN(I) {
-        debugger
+         
         var id = $("#curNid").val();
         $.ajax({
             type: "post",
             url: "/Budget/getcurrency",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#curNname").val(result.Name + "__" + result.symbol);
                 if (I == 'N')
                 {
@@ -350,14 +350,14 @@
         });
     }
     function curF(I) {
-        debugger
+         
         var id = $("#curFid").val();
         $.ajax({
             type: "post",
             url: "/Budget/getcurrency",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#curFname").val(result.Name+"__"+ result.symbol);
                 if (I == 'N') {
                     document.getElementById("ANN").innerHTML = ("amount _" + result.symbol);
@@ -369,7 +369,7 @@
         });
     }
     $("#F").keyup(function (e) {
-        debugger
+         
         var N = $("#N").val();
         var F = $("#F").val();
         var R = $("#R").val();
@@ -398,7 +398,7 @@
         var all_value = document.getElementsByName("AmountF");
         var u = 0;
         $.each(all_value, function (key, value) {
-            debugger
+             
             var op = value.value;
             if (op != "" && op != "0") {
                 u = parseFloat(u) + parseFloat(op)
@@ -409,7 +409,7 @@
 
     });
     $("#N").keyup(function (e) {
-        debugger
+         
         event.stopPropagation();
         var N = $("#N").val();
         var F = $("#F").val();
@@ -445,7 +445,7 @@
             var all_value = document.getElementsByName("AmountN");
             var u = 0;
             $.each(all_value, function (key, value) {
-                debugger
+                 
                 var op = value.value;
                 if (op != "" && op != "0") {
                     u = parseFloat(u) + parseFloat(op)
@@ -456,7 +456,7 @@
        
     });
     $("#R").keyup(function (e) {
-        debugger
+         
         var N = $("#N").val();
         var F = $("#F").val()
         var R = $("#R").val();
@@ -466,7 +466,7 @@
         var all_value = document.getElementsByName("AmountN");
         var u = 0;
         $.each(all_value, function (key, value) {
-            debugger
+             
             var op = value.value;
             if (op != "" && op != "0") {
                 u = parseFloat(u) + parseFloat(op)
@@ -531,10 +531,10 @@ input::-webkit-inner-spin-button {
         var ch = check();
         if (ch == 0)
         {
-            debugger
+             
             var n = $("#N").val();
             var f = $("#F").val();
-            debugger
+             
             if (n == 0 || n == "" || f == 0 || f == "") {
                 alert('you must enter amount native and amount forign at first ');
             }
@@ -548,7 +548,7 @@ input::-webkit-inner-spin-button {
                       url: "/Budget/items",
                       data: { "id": d },
                       success: function (result) {
-                          debugger
+                           
                           var i = "<div><div class='form-group'>" +
                                                     "<label class='control-label col-md-1'>" +
                                                        "<span>@organ.item </span>" +
@@ -593,7 +593,7 @@ input::-webkit-inner-spin-button {
             }
             var inp = document.getElementsByName('AmountN');
             $.each(inp, function (key, value) {
-                debugger
+                 
                 value.addEventListener('select', function () {
                     this.selectionStart = this.selectionEnd;
                 }, false);
@@ -601,7 +601,7 @@ input::-webkit-inner-spin-button {
         }
     }
     function remove(thi,l) {
-        debugger
+         
         thi.parent().parent().parent().remove();
         var inputN = l.children()[4];
         var inputF = l.children()[6];
@@ -614,7 +614,7 @@ input::-webkit-inner-spin-button {
     }
     function calN(th,h)
     {
-        debugger
+         
         var thh = parseFloat(th.val());
         var R = parseFloat($("#R").val());
         var test = (parseFloat(h.val()) / R);
@@ -635,7 +635,7 @@ input::-webkit-inner-spin-button {
                 h.val("");
                 var jj = document.getElementsByName("AmountN");
                 $.each(jj, function (key, value) {
-                    debugger
+                     
                     var op = value.value;
                     if (op != "" && op != "0") {
                         u = parseFloat(u) + parseFloat(op)
@@ -669,7 +669,7 @@ input::-webkit-inner-spin-button {
     }
     function calF(th)
     {
-        debugger
+         
         var thh = parseFloat(th.val());
         var N = parseFloat($("#N").val());
         var F = parseFloat($("#F").val());
@@ -693,12 +693,12 @@ input::-webkit-inner-spin-button {
     function check()
     {
         ////////////
-        debugger
+         
         var all_value = document.getElementsByName("AmountN");
         var u = 0;
         var Nn = parseFloat($("#N").val());
         $.each(all_value, function (key, value) {
-            debugger
+             
             var op = value.value;
             if (op != "" && op != "0") {
                 u = parseFloat(u) + parseFloat(op)
@@ -719,7 +719,7 @@ input::-webkit-inner-spin-button {
     }
     function ch()
     {
-        debugger
+         
         var t = check();
         if (t == 0) {
 
@@ -730,7 +730,7 @@ input::-webkit-inner-spin-button {
     }
     function Reaset()
     {
-        debugger;
+         ;
         $("#R").val("0");
         $("#N").val("0");
         $("#F").val("0");

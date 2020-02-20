@@ -11,7 +11,7 @@
         var name = $("#Country1").val();
         var speci = $("#Country2").val();
         var grade = $("#Country3").val();
-        debugger
+         
         //var d = $("#minimal-checkbox-1");
         var req = "";
         if ($("#minimal-checkbox-1").checked == true)
@@ -28,7 +28,7 @@
                 url: "/Helper/quli",
                 data: { "name": name, "speci": speci, "grade": grade },
                 success: function (result) {
-                    debugger
+                     
                     finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='s1' hidden value='" + result.name.ID + "' readonly='readonly' /></td>" +
               "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.name.Name + "' readonly='readonly' /></td>" +
               "<td hidden ><input id='codefrom'  name='s11'  value='" + result.Qualification_Major.ID + "' readonly='readonly' /></td>" +
@@ -43,7 +43,7 @@
                 },
                 error: function () {
 
-                    debugger
+                     
                 }
 
             });
@@ -57,7 +57,7 @@
     function addquli2() {
         var id2 = $("#Country5").val();
         var finalresult1 = " ";
-        debugger
+         
         //var d = $("#minimal-checkbox-1");
         var req = "";
         if ($("#minimal-checkbox-1").checked == true) {
@@ -72,18 +72,18 @@
                 url: "/Helper/Risks",
                 data: { "id": id2 },
                 success: function (result) {
-                    debugger
+                     
                     finalresult1 = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='risk' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
               "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
               "<td class='col-md-3' ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
               "<td class='col-md-3'><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
                     $("#ad1d3").append(finalresult1);
 
-              debugger
+               
                 },
                 error: function () {
 
-                    debugger
+                     
                 }
 
             });
@@ -95,7 +95,7 @@
     }
     function addquli3() {
         var ID = $("#Country4").val();
-        debugger
+         
         //var d = $("#minimal-checkbox-1");
         var req = "";
         if ($("#minimal-checkbox-1").checked == true) {
@@ -110,7 +110,7 @@
                 url: "/Helper/skill",
                 data: { "ID": ID },
                 success: function (result) {
-                    debugger
+                     
                     finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='newskill' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
               "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
                 "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Name + "' readonly='readonly' /></td>" +
@@ -120,7 +120,7 @@
                 },
                 error: function () {
 
-                    debugger
+                     
                 }
 
             });
@@ -133,7 +133,7 @@
     function addquli4() {
 
         var ID = $("#Country6").val();
-        debugger
+         
         //var d = $("#minimal-checkbox-1");
         var req = "";
         if ($("#minimal-checkbox-1").checked == true) {
@@ -148,7 +148,7 @@
                 url: "/Helper/reponsiblities",
                 data: { "ID": ID},
                 success: function (result) {
-                    debugger
+                     
               finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='respon' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
               "<td class='col-md-3'><input id='class_type_n' class = 'form-control' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
               "<td class='col-md-3' hidden ><input id='codefrom' class = 'form-control'  name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
@@ -158,7 +158,7 @@
                 },
                 error: function () {
 
-                    debugger
+                     
                 }
 
             });
@@ -171,7 +171,7 @@
     function addquli5() {
 
         var ID = $("#Country7").val();
-        debugger
+         
         //var d = $("#minimal-checkbox-1");
         var req = "";
         if ($("#minimal-checkbox-1").checked == true) {
@@ -186,7 +186,7 @@
                 url: "/Helper/requirments",
                 data: { "ID":ID },
                 success: function (result) {
-                    debugger
+                     
                     finalresult =
                         "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='requirment' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
                       "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
@@ -197,7 +197,7 @@
                 },
                 error: function () {
 
-                    debugger
+                     
                 }
 
             });
@@ -209,7 +209,7 @@
     }
     function remove(thi)
     {
-        debugger
+         
         thi.parent().parent().remove();
         //thi.parent().parent().parent().remove(removed);
 
@@ -218,7 +218,7 @@
 
     function generate()
     {
-        debugger
+         
         var slot_code = $("#code").val();
         var slot_desc = $("#name").val();
         var job_level_code = $("#Country").val();
@@ -231,9 +231,9 @@
                 url: "/Helper/Creat_slots",
                 data: { "number": number },
                 success: function (result) {
-                    debugger
+                     
                     $.each(result, function (key, value) {
-                        debugger
+                         
                         finalresult = "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='class_type' hidden value='" + value.ID + "' readonly='readonly' /></td>" +
                   "<td style='width:60px'><input id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + slot_code + "_" + (key + 1) + "' readonly='readonly' /></td>" +
                   "<td style='width:60px' ><input id='codefrom'  style='width:60px' name='codefrom'  value='" + slot_desc + "' readonly='readonly' /></td>" +
@@ -247,10 +247,10 @@
                         $("#add1").append(finalresult);
                     });
 
-                    debugger
+                     
                 },
                 error: function () {
-                    debugger
+                     
                 }
 
             });
@@ -259,7 +259,7 @@
         {
 
         }
-        debugger
+         
     }
 
 </script>

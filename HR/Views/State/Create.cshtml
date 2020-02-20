@@ -104,10 +104,10 @@
  
   function getareaname()
   {
-      debugger
+       
       var id = $("#Area").val();
       $("#Areaname").val(" ");
-      debugger
+       
       $.ajax({
           type: "post",
           url: "/Helper/getarea",
@@ -131,7 +131,7 @@
           data: { "id": id,"flag":"0" },
           success: function (result) {
               {
-                  debugger
+                   
                   //$('#Area').empty();
                   $("#Area").removeAttr('disabled');
                   var finalresult = "<option value='0' > Choose area </option>";
@@ -147,7 +147,7 @@
       });
   }
   function CountryName() {
-      debugger
+       
       var id = $("#Country").val();
     
       //$('#Area').empty();
@@ -158,30 +158,30 @@
           url: "/Helper/GetCountry",
           data: { "id": id },
           success: function (result) {
-              debugger
+               
               $("#countryname").val(result.Name);
               fullarea(result.ID);
           },
           error: function () {
-              debugger
+               
               $("#countryname").val(" ");
           }
       });
   }
 
-    debugger
+     
     var id = $("#Country").val();
     $.ajax({
         type: "post",
         url: "/Helper/GetCountry",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
            $("#countryname").val(result.Name);
             
         },
         error: function () {
-            debugger
+             
             $("#countryname").val(" ");
         }
     });
@@ -189,7 +189,7 @@
     {
         $("#Area").removeAttr("disabled");
         var ii = $("#Area").val();
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getarea",

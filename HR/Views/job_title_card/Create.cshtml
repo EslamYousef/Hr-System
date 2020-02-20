@@ -7,7 +7,7 @@
 <script>
 
     function remove(thi) {
-        debugger
+         
         thi.parent().parent().remove();
         //thi.parent().parent().parent().remove(removed);
         var t =parseInt($("#number").val());
@@ -20,7 +20,7 @@
     }
     function generat3e()
     {
-        debugger
+         
         var slot_code = $("#code").val();
         var slot_desc = $("#name").val();
         var level = $("#level_setup").val();
@@ -30,7 +30,7 @@
 
             var num =(parseInt($("#number").val())+1);
             for (var i = 1; i < (num); i++) {
-                debugger
+                 
                 var div = "<div><div class='form-group'>" +
                               "<div class='col-md-3'>" +
                                  "<input value='" + slot_code + "_" + i + "' class='form-control' name='slotcode__' readonly />" +
@@ -66,7 +66,7 @@
                     success: function (result)
                     {
                         var ii = $("#level_setup").val();
-                        debugger
+                         
                         $.each(result, function (key, value) {
                             if (value.ID == ii)
                             {
@@ -89,7 +89,7 @@
                     data: {},
                     success: function (result) {
                         var ii = $("#chart1").val();
-                        debugger
+                         
                         $.each(result, function (key, value) {
                             if (value.ID == ii)
                             {
@@ -134,11 +134,11 @@
         {
             alert(" all input must enter at first ");
     }
-    debugger
+     
 }
     function level()
     {
-        debugger
+         
 
         var id = $("#level_setup").val();
         $.ajax({
@@ -146,35 +146,35 @@
             url: "/Helper/job_level_setup",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#levelname").val(result.Name);
             }
         });
     }
     function p11arent()
     {
-        debugger
+         
         var id = $("#parent").val();
         $.ajax({
             type: "post",
             url: "/Helper/job_title_card",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#parentname").val(result.name);
             }
         });
     }
     function nationality11()
     {
-        debugger
+         
         var id = $("#nationality").val();
         $.ajax({
             type: "post",
             url: "/Helper/nationality",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#nationalityname").val(result.Name);
             }
         });
@@ -195,14 +195,14 @@
     }
     function chart11()
     {
-        debugger
+         
         var id = $("#chart1").val();
         $.ajax({
             type: "post",
             url: "/job_title_card/getchart",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#chartname").val(result.unit_Description);
 
             }
@@ -210,7 +210,7 @@
     }
     function clearnum()
     {
-        debugger
+         
             $("#add1").empty();
             $("#generateenum").attr('disabled', false);
             $("#number").readOnly = false;
@@ -219,7 +219,7 @@
     $("#clearenum11").prop('disabled', true);
 
 
-        debugger
+         
         var num = (parseInt($("#number").val()));
         var id = $("#parent").val();
         $.ajax({
@@ -227,7 +227,7 @@
             url: "/Helper/job_title_card",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#parentname").val(result.name);
             }
         });
@@ -247,7 +247,7 @@
             url: "/Helper/nationality",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#nationalityname").val(result.Name);
             }
         });
@@ -267,7 +267,7 @@
             url: "/Helper/job_level_setup",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#levelname").val(result.Name);
             }
         });

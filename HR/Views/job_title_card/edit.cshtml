@@ -7,7 +7,7 @@
 }
 <script>
         function remove1(thi) {
-            debugger
+             
 
             thi.parent().parent().remove();
 
@@ -15,7 +15,7 @@
         }
     function generat3e()
     {
-        debugger
+         
         var slot_code = $("#code").val();
         var slot_desc = $("#name").val();
         var level = $("#level_setup").val();
@@ -27,7 +27,7 @@
             var num2 = (parseInt($("#increase").val()));
             var num = parseInt(num2 - num1+1);
             for (var i = 1; i < (num); i++) {
-                debugger
+                 
                 var div = "<div><div class='form-group'>" +
                               "<div class='col-md-3'>" +
                                  "<input value='" + slot_code + "_" + parseInt(i + num1 - 1) + "' class='form-control' name='slotcode__' readonly />" +
@@ -64,7 +64,7 @@
                     success: function (result)
                     {
                         var ii = $("#level_setup").val();
-                        debugger
+                         
                         $.each(result, function (key, value) {
                             if (value.ID == ii)
                             {
@@ -87,7 +87,7 @@
                     data: {},
                     success: function (result) {
                         var ii = $("#chart1").val();
-                        debugger
+                         
                         $.each(result, function (key, value) {
                             if (value.ID == ii)
                             {
@@ -125,7 +125,7 @@
             $(".e2").append(seconddrop7);
             if (num > 1)
             {
-                debugger
+                 
                 $("#generateenum").prop('disabled', true);
                 $("#number").readOnly = true;
                 $("#clearenum11").attr('disabled', false);
@@ -136,11 +136,11 @@
     else
     {
     }
-    debugger
+     
 }
     function level()
     {
-        debugger
+         
 
         var id = $("#level_setup").val();
         $.ajax({
@@ -148,35 +148,35 @@
             url: "/Helper/job_level_setup",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#levelname").val(result.Name);
             }
         });
     }
     function p11arent()
     {
-        debugger
+         
         var id = $("#parent").val();
         $.ajax({
             type: "post",
             url: "/Helper/job_title_card",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#parentname").val(result.name);
             }
         });
     }
     function nationality11()
     {
-        debugger
+         
         var id = $("#nationality").val();
         $.ajax({
             type: "post",
             url: "/Helper/nationality",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#nationalityname").val(result.Name);
             }
         });
@@ -210,7 +210,7 @@
 
     function clearnum()
     {
-        debugger
+         
             $("#add1").empty();
             $("#generateenum").attr('disabled', false);
             $("#number").readOnly = false;
@@ -224,7 +224,7 @@
         }
     $("#clearenum11").prop('disabled', true);
 
-        debugger
+         
         var num = (parseInt($("#number").val()));
         document.getElementById("increase").setAttribute("min", num);
         document.getElementById("increase").setAttribute("value", num);
@@ -234,7 +234,7 @@
             url: "/Helper/job_title_card",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#parentname").val(result.name);
             }
         });
@@ -254,7 +254,7 @@
             url: "/Helper/nationality",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#nationalityname").val(result.Name);
             }
         });
@@ -274,14 +274,14 @@
             url: "/Helper/job_level_setup",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#levelname").val(result.Name);
             }
         });
 
 
          function remove(thi) {
-        debugger
+         
         thi.parent().parent().remove();
         //thi.parent().parent().parent().remove(removed);
         var t = parseInt($("#increase").val());
@@ -544,7 +544,7 @@
                                                             @if (Model.Slots[item].EmployeeID == null || Model.Slots[item].EmployeeID == "0")
                                                             {
                                                               <script>
-                                                                  debugger
+                                                                   
                                                                   call(@Model.Slots[item].job_level_setup.ID);
 
                                                                   function call(ID) {
@@ -556,7 +556,7 @@
                                                                                  success: function (result) {
                                                                                      seconddrop = "";
                                                                                      var v=0;
-                                                                                     debugger
+                                                                                      
                                                                                      $.each(result, function (key, value) {
                                                                                          if (value.ID == ID) {
                                                                                              v=ID;
@@ -636,7 +636,7 @@
                                                                 var t = @Model.Slots[item].ID + 1000000;
                                                                 <select id=@t name="organization" class="select2"></select>
                                                                 <script>
-                                                                    debugger
+                                                                     
                                                                     call(@Model.Slots[item].Organization_Chart__.ID);
 
                                                                     function call(ID) {
@@ -648,7 +648,7 @@
                                                                                    success: function (result) {
                                                                                        seconddrop = "";
                                                                                        var v=0;
-                                                                                       debugger
+                                                                                        
                                                                                        $.each(result, function (key, value) {
                                                                                            if (value.ID == ID) {
                                                                                                v=ID;

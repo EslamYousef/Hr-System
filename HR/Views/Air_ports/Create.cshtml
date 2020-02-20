@@ -122,19 +122,19 @@
     $(function () {
     
 
-        debugger
+         
         var id = $("#country").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetCountry",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#countryname").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname").val(" ");
             }
         });
@@ -146,12 +146,12 @@
                 url: "/Helper/getarea",
                 data: { "id": ID },
                 success: function (result) {
-                    debugger
+                     
                     $("#Areaname").val(result.Name);
 
                 },
                 error: function () {
-                    debugger
+                     
                     $("#Areaname").val(" ");
                 }
             });
@@ -163,12 +163,12 @@
                     url: "/Helper/Getstate",
                     data: { "id": id },
                     success: function (result) {
-                        debugger
+                         
                         $("#statename").val(result.Name);
 
                     },
                     error: function () {
-                        debugger
+                         
                         $("#statename").val(" ");
                     }
                 });
@@ -176,7 +176,7 @@
         }
     });
     function CountryName() {
-        debugger
+         
         var id = $("#country").val();
        
         //$("#area").select2("val", "0");
@@ -190,26 +190,26 @@
             url: "/Helper/GetCountry",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#countryname").val(result.Name);
                 getallarea(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname").val(" ");
             }
         });
     }
     function getallarea(id) {
-        debugger
+         
         var countryname =
         $.ajax({
             type: "post",
             url: "/Helper/getareabycountry",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#area").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose area </option>";
                 $.each(result, function (key, value) {
@@ -219,7 +219,7 @@
                 $("#area").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#Area").val(" ");
             }
         });
@@ -227,7 +227,7 @@
     /////////////////////////////
     ////////////////////////////
     function areaName() {
-        debugger
+         
         var id = $("#area").val();
         $("#state").empty();
         //$("#state").select2("val", "");
@@ -237,25 +237,25 @@
             url: "/Helper/getarea",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#Areaname").val(result.Name);
                 getallstate(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#Areaname").val(" ");
             }
         });
     }
     function getallstate(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getstatebycountry",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#state").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose state </option>";
                 $.each(result, function (key, value) {
@@ -265,7 +265,7 @@
                 $("#state").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#state").val(" ");
             }
         });
@@ -273,19 +273,19 @@
     //////////////////////////
     /////////////////////////
     function getstate() {
-        debugger
+         
         var id = $("#state").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getstate",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#statename").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
                 $("#statename").val(" ");
             }
         });

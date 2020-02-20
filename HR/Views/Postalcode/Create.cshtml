@@ -186,7 +186,7 @@
 </div>
 <script>
     function CountryName() {
-        debugger
+         
         var id = $("#country").val();
         $("#area").empty();
         $("#state").empty();
@@ -205,27 +205,27 @@
             url: "/Helper/GetCountry",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                
                 $("#countryname").val(result.Name);
                 getallarea(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname").val(" ");
             }
         });
     }
     function getallarea(id)
     {
-        debugger
+         
        var countryname=
        $.ajax({
           type: "post",
           url: "/Helper/getareabycountry",
           data: { "id": id, "flag": "0" },
           success: function (result) {
-              debugger
+               
               $("#area").removeAttr("disabled");
               var finalresult = "<option value='0' > Choose area </option>";
               $.each(result, function (key, value) {
@@ -235,13 +235,13 @@
               $("#area").select2("val", "0");
           },
           error: function () {
-              debugger
+               
               $("#area").val(" ");
           }
       });
     }
     function areaName() {
-        debugger
+         
         var id = $("#area").val();
         $("#state").empty();
         $("#ter").empty();
@@ -258,27 +258,27 @@
             url: "/Helper/getarea",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
              
               
                 $("#areaname").val(result.Name);
                 getallstate(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#areaname").val(" ");
             }
         });
     }
     function getallstate(id)
     {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getstatebycountry",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#state").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose state </option>";
                 $.each(result, function (key, value) {
@@ -288,14 +288,14 @@
                 $("#state").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#state").val(" ");
             }
         });
     }
     function getstate()
     {
-        debugger
+         
         var id = $("#state").val();
         $("#ter").empty();
         $("#city").empty();
@@ -309,7 +309,7 @@
             url: "/Helper/Getstate",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                
               
                 $("#ter").removeAttr("disabled");
@@ -317,20 +317,20 @@
                 getallter(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#statename").val(" ");
             }
         });
     }
     function getallter(id)
     {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getallter",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#ter").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose ter </option>";
                 $.each(result, function (key, value) {
@@ -340,7 +340,7 @@
                 $("#ter").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#ter").val(" ");
             }
         });
@@ -348,7 +348,7 @@
     }
     function getter()
     {
-        debugger
+         
         var id = $("#ter").val();
         $("#city").empty();
         $("#city").select2("val", "0");
@@ -358,27 +358,27 @@
             url: "/Helper/Getter",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
              
               
                 $("#tername").val(result.Name);
                 getallcity(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#tername").val(" ");
             }
         });
     }
     function getallcity(id)
     {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getallCity",
             data: { "id": id},
             success: function (result) {
-                debugger
+                 
                 $("#city").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose City </option>";
                 $.each(result, function (key, value) {
@@ -388,27 +388,27 @@
                 $("#city").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#city").val(" ");
             }
         });
     }
     function getcity()
     {
-        debugger
+         
         var id = $("#city").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getcity",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#city").removeAttr("disabled");
                 $("#cityname").val(result.Name);
                 
             },
             error: function () {
-                debugger
+                 
                 $("#cityname").val(" ");
             }
         });
@@ -420,7 +420,7 @@
   });
 </script>
 <script>
-    debugger
+     
     var id = $("#country").val();
     if (id != null && id != "")
     {
@@ -431,15 +431,15 @@
         url: "/Helper/GetCountry",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
        
             $("#countryname").val(result.Name);
         },
         error: function () {
-            debugger
+             
             $("#countryname").val(" ");
         }
-    }); debugger
+    });  
     var id1 = $("#area").val();
     if (id1 != null && id1 != "")
     {
@@ -450,16 +450,16 @@
         url: "/Helper/getarea",
         data: { "id": id1 },
         success: function (result) {
-            debugger
+             
             $("#area").removeAttr("disabled");
             $("#areaname").val(result.Name);
           
         },
         error: function () {
-            debugger
+             
             $("#areaname").val(" ");
         }
-    }); debugger
+    });  
     var id2 = $("#state").val();
     if (id2 != null && id2 != "")
     {
@@ -470,16 +470,16 @@
         url: "/Helper/Getstate",
         data: { "id": id2 },
         success: function (result) {
-            debugger
+             
             $("#state").removeAttr("disabled");
             $("#statename").val(result.Name);
            
         },
         error: function () {
-            debugger
+             
             $("#statename").val(" ");
         }
-    }); debugger
+    });  
     var id3 = $("#ter").val();
     if (id3 != null && id3 != "")
     {
@@ -490,13 +490,13 @@
         url: "/Helper/Getter",
         data: { "id": id3 },
         success: function (result) {
-            debugger
+             
             $("#ter").removeAttr("disabled");
             $("#tername").val(result.Name);
            
         },
         error: function () {
-            debugger
+             
             $("#tername").val(" ");
         }
     });

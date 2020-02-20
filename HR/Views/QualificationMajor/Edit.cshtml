@@ -119,19 +119,19 @@
         $("#titlename2").empty();
         $("#name2").val(" ");
         $("#titlename2").select2("val", "");
-        debugger
+         
         var id = $("#titlename1").val();
         $.ajax({
             type: "post",
             url: "/Helper/Gettitle",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#name1").val(result.Name);
                 full_Qulification(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#name1").val(" ");
             }
         });
@@ -143,7 +143,7 @@
             url: "/Helper/getallQuli",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#titlename2").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose quli </option>";
                 $.each(result, function (key, value) {
@@ -154,25 +154,25 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#titlename2").val(" ");
             }
         });
     }
     function titlee2()
     {
-        debugger
+         
         var id = $("#titlename2").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getspacialquli",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#name2").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#name2").val(" ");
             }
         });
@@ -185,11 +185,11 @@
         url: "/Helper/Gettitle",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#name1").val(result.Name);
         },
         error: function () {
-            debugger
+             
             $("#name1").val(" ");
         }
     });
@@ -199,11 +199,11 @@
         url: "/Helper/Getspacialquli",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#name2").val(result.Name);
         },
         error: function () {
-            debugger
+             
             $("#name2").val(" ");
         }
     });

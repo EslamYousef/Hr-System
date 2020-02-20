@@ -23,7 +23,7 @@
 
     function getrequest()
     {
-        debugger
+         
         var from = $("#datefrom").val();
         var to = $("#dateto").val();
             $.ajax({
@@ -31,11 +31,11 @@
                 url: "/Helper/Getrequest",
                 data: { "from": from ,"to":to},
                 success: function (result) {
-                    debugger
+                     
                     $("#tbody11 tr").remove();
                     $.each(result, function (key, value) {
 
-                            debugger
+                             
                             var tr =
                   "<tr id='tr'><td>" + value.Request_number + "</td>" +
                  "<td class='col-md-0'>" + value.date + "</td>" +
@@ -54,23 +54,23 @@
 
                 },
                 error: function () {
-                    debugger
+                     
 
                 }
             });
         }
 
     function getallrequest() {
-        debugger
+         
 
         $.ajax({
             url: "/Helper/Getalllrequest",
             async:false,
             success: function (result) {
-                debugger
+                 
                 $("#tbody11 tr").remove();
                 $.each(result, function (key, value) {
-                    debugger
+                     
                     var tr =
           "<tr id='tr'><td>" + value.requestNumber + "</td>" +
          "<td class='col-md-0'>" + value.requestDate + "</td>" +
@@ -90,7 +90,7 @@
 
             },
             error: function () {
-                debugger
+                 
 
             }
         });
@@ -104,9 +104,9 @@
 
         window.open("/Check_Request/history?id=" + id);
     }
-    debugger
+     
     function deletee(id) {
-        debugger
+         
         window.open("/Check_Request/Delete/" + id);
     }
 </script>

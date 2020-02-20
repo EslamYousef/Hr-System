@@ -32,7 +32,7 @@
                     url: "/personnel_transaction/getallstatues",
                     data: {},
                     success: function (result) {
-                        debugger
+                         
                         $.each(result, function (key, value) {
                             ht += "<option  value='" + value + "'>" + value + "</option>";
 
@@ -43,7 +43,7 @@
         }
     function getrequest()
     {
-        debugger
+         
         var c = $("#filter").val();
         var from = $("#datefrom").val();
         var to = $("#dateto").val();
@@ -60,13 +60,13 @@
         if (c == null) {
             c = "all";
         }
-        debugger
+         
             $.ajax({
                 type: "post",
                 url: "/personnel_transaction/Getone",
                 data: { "from": from, "to": to, "status": c },
                 success: function (result) {
-                    debugger
+                     
                     $("#tbody11 tr").remove();
                     $.each(result, function (key, value) {
                         var d1;var d2;
@@ -80,7 +80,7 @@
                             d1 = "Empty";
                             d2 = "Empty";
                         }
-                            debugger
+                             
                             var tr =
                   "<tr id='tr'><td>" + value.Number + "</td>" +
                  "<td>" + d1 + "</td>" +
@@ -100,23 +100,23 @@
 
                 },
                 error: function () {
-                    debugger
+                     
 
                 }
             });
         }
     function getallrequest() {
-        debugger
+         
         var c = $("#filter").val();
         $.ajax({
             type: "post",
             url: "/personnel_transaction/Getalll",
             data: { "c": c },
             success: function (result) {
-                debugger
+                 
                 $("#tbody11 tr").remove();
                 $.each(result, function (key, value) {
-                    debugger
+                     
                     var d1; var d2;
 
                     if (value.Employee != null) {
@@ -127,7 +127,7 @@
                         d1 = "Empty";
                         d2 = "Empty";
                     }
-                    debugger
+                     
                     var tr =
           "<tr id='tr'><td>" + value.Number + "</td>" +
 
@@ -145,7 +145,7 @@
 
             },
             error: function () {
-                debugger
+                 
 
             }
         });
@@ -159,7 +159,7 @@
         window.open("/personnel_transaction/status?id=" + id);
     }
     function deletee(id) {
-        debugger
+         
         window.open("/personnel_transaction/Delete/" + id);
     }
 </script>

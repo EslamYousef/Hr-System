@@ -193,7 +193,7 @@
 
 <script>
     function CountryName() {
-        debugger
+         
         var id = $("#country").val();
         $("#area").empty();
         $("#state").empty();
@@ -215,26 +215,26 @@
             url: "/Helper/GetCountry",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#countryname").val(result.Name);
                 getallarea(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname").val(" ");
             }
         });
     }
     function getallarea(id) {
-        debugger
+         
         var countryname =
         $.ajax({
             type: "post",
             url: "/Helper/getareabycountry",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#area").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose area </option>";
                 $.each(result, function (key, value) {
@@ -244,13 +244,13 @@
                 $("#area").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#area").val(" ");
             }
         });
     }
     function areaName() {
-        debugger
+         
         var id = $("#area").val();
         $("#state").empty();
         $("#ter").empty();
@@ -269,26 +269,26 @@
             url: "/Helper/getarea",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
 
                 $("#areaname").val(result.Name);
                 getallstate(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#areaname").val(" ");
             }
         });
     }
     function getallstate(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getstatebycountry",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#state").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose state </option>";
                 $.each(result, function (key, value) {
@@ -298,13 +298,13 @@
                 $("#state").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#state").val(" ");
             }
         });
     }
     function getstate() {
-        debugger
+         
         var id = $("#state").val();
         $("#ter").empty();
         $("#citeid").empty();
@@ -320,20 +320,20 @@
             url: "/Helper/Getstate",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#ter").removeAttr("disabled");
                 $("#statename").val(result.Name);
                 getallter(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#statename").val(" ");
             }
         });
     }
     function getallter(id) {
-        debugger
+         
 
 
         $.ajax({
@@ -341,7 +341,7 @@
             url: "/Helper/getallter",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#ter").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose ter </option>";
                 $.each(result, function (key, value) {
@@ -351,14 +351,14 @@
                 $("#ter").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#ter").val(" ");
             }
         });
 
     }
     function getter() {
-        debugger
+         
         var id = $("#ter").val();
         $("#citeid").empty();
         $("#postal").empty();
@@ -371,7 +371,7 @@
             url: "/Helper/Getter",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#citeid").removeAttr("disabled");
                 $("#tername").val(result.Name);
@@ -379,19 +379,19 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#tername").val(" ");
             }
         });
     }
     function getallcite(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getcitybyTerritories",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#citeid").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Cite </option>";
                 $.each(result, function (key, value) {
@@ -401,14 +401,14 @@
                 $("#citeid").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#citeid").val(" ");
             }
         });
 
     }
     function getcite() {
-        debugger
+         
         var id = $("#citeid").val();
         $("#postal").empty();
         $("#postal").select2("val", "");
@@ -418,7 +418,7 @@
             url: "/Helper/Getcite",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#postal").removeAttr("disabled");
                 $("#cityname").val(result.Name);
@@ -426,19 +426,19 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#cityname").val(" ");
             }
         });
     }
     function getallpostal(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getallPost",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#postal").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Postal </option>";
                 $.each(result, function (key, value) {
@@ -448,46 +448,46 @@
                 $("#postal").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#postal").val(" ");
             }
         });
 
     }
     function getpostal() {
-        debugger
+         
         var id = $("#postal").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getpost",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
 
                 $("#postname").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
                 $("#postname").val(" ");
             }
         });
     }
 
-    debugger
+     
     var id = $("#country").val();
     $.ajax({
         type: "post",
         url: "/Helper/GetCountry",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#area").removeAttr("disabled");
             $("#countryname").val(result.Name);
         },
         error: function () {
-            debugger
+             
             $("#countryname").val(" ");
         }
     });
@@ -498,13 +498,13 @@
         url: "/Helper/getarea",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#state").removeAttr("disabled");
             $("#areaname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#areaname").val(" ");
         }
     });
@@ -515,13 +515,13 @@
         url: "/Helper/Getstate",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#ter").removeAttr("disabled");
             $("#statename").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#statename").val(" ");
         }
     });
@@ -531,13 +531,13 @@
         url: "/Helper/Getter",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#citeid").removeAttr("disabled");
             $("#tername").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#tername").val(" ");
         }
     });
@@ -547,13 +547,13 @@
         url: "/Helper/Getcite",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#postal").removeAttr("disabled");
             $("#cityname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#cityname").val(" ");
         }
     });
@@ -564,33 +564,33 @@
         url: "/Helper/Getpost",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
 
             $("#postname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#postname").val(" ");
         }
     });
 
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Address_Profile.Code);
                 $("#country").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
             //    $("#employeename").val(" ");
             //    $("#codeid").val("");
             }

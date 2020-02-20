@@ -30,21 +30,21 @@
             url: "/OrganizationChart/location",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#Loname").val(result.Name);
             }
         });
     }
     function CountryName2()
     {
-        debugger
+         
         var id= $("#Country2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetOrganization_unit_type",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#countryname2").val(result.Name);
                 $("#U_L_C").val(result.Organization_Unit_Level.Code);
                 $("#U_L_N").val(result.Organization_Unit_Level.Name);
@@ -52,7 +52,7 @@
                 $("#U_S_N").val(result.Organization_Unit_Schema.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname2").val(" ");
                 $("#U_L_C").val("");
                 $("#U_L_N").val("");
@@ -62,18 +62,18 @@
         });
     }
     function CountryName1() {
-        debugger
+         
         var id = $("#Country1").val();
         $.ajax({
             type: "post",
             url: "/Helper/Get_organization_unit_chart",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#countryname1").val(result.unit_Description);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname1").val(" ");
             }
         });

@@ -12,20 +12,20 @@
     QuestionsGroups();
     function QuestionsGroups()
     {
-        debugger
+         
         var id = $("#EOSInterviewQuestionsGroups").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEOSInterviewQuestionsGroups",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                                $("#EOSInterviewQuestionsGroups").select2("val",result.ID);
 
                 $("#QuestionsGroupsName2").val(result.Description_of);
             },
             error: function () {
-                debugger
+                 
                 $("#QuestionsGroupsName2").val(" ");
             }
         });

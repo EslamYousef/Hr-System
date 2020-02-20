@@ -400,18 +400,18 @@
 
 <script>
     function Nationality() {
-        debugger
+         
         var id = $("#nationality").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetNationality",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#NationalityName").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#NationalityName").val(" ");
             }
         });
@@ -419,14 +419,14 @@
     // Nationality();
 
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_family_profile.Code);
                 $("#employeeId").prop("readonly", true);
@@ -434,7 +434,7 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
@@ -443,14 +443,14 @@
     //employee();
 
     function employee2() {
-        debugger
+         
         var id = $("#employeeId2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename2").val(result.Name);
                 //        $("#codeid").val(result.Employee_Positions_Profile.Code);
                 //   $("#employeeId").prop("readonly", true);
@@ -458,7 +458,7 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
 
             }
@@ -467,7 +467,7 @@
     //employee();
 
     function areaName() {
-        debugger
+         
         var id = $("#area").val();
 
         $("#citeid").empty();
@@ -490,25 +490,25 @@
             url: "/Helper/GetEducateTitle",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#state").removeAttr("disabled");
                 $("#areaname").val(result.Name);
                 getNameeducationalbyEducatetitle(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#areaname").val(" ");
             }
         });
     }
     function getNameeducationalbyEducatetitle(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getNameeducationalbyEducatetitle",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#citeid").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Qualification name </option>";
                 $.each(result, function (key, value) {
@@ -518,14 +518,14 @@
                 $("#citeid").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#citeid").val(" ");
             }
         });
 
     }
     function getcite() {
-        debugger
+         
         var id = $("#citeid").val();
         $("#postal").empty();
         //   $("#GradeEducateId").empty();
@@ -539,7 +539,7 @@
             url: "/Helper/GetNameofeducationalqualification",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#postal").removeAttr("disabled");
                 $("#cityname").val(result.Name);
@@ -547,7 +547,7 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#cityname").val(" ");
             }
         });
@@ -559,13 +559,13 @@
         url: "/Helper/GetEducateTitle",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#state").removeAttr("disabled");
             $("#areaname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#areaname").val(" ");
         }
     });
@@ -575,35 +575,35 @@
         url: "/Helper/GetNameofeducationalqualification",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#postal").removeAttr("disabled");
             $("#cityname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#cityname").val(" ");
         }
     });
 
     function check(checkbox) {
         if (checkbox.checked == true) {
-            debugger
+             
             $("#employeeId2").removeAttr('disabled');
         }
         else {
             $("#employeeId2").attr('disabled', true);
 
-            debugger
+             
         }
     }
     function checkes(checkbox) {
         if (checkbox.checked == true) {
-            debugger
+             
             $("#emergeny").attr("disabled", false);
         }
         else {
-            debugger
+             
 
             $("#emergeny").attr("disabled", true);
         }

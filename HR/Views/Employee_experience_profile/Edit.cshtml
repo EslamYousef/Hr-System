@@ -199,14 +199,14 @@
 
 <script>
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_experience_profile.Code);
                 $("#employeeId").prop("readonly", true);
@@ -214,7 +214,7 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
@@ -222,38 +222,38 @@
     }
 
     function company() {
-        debugger
+         
         var id = $("#companyId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetExternalcompaines",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#Companyname").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
                 $("#Companyname").val(" ");
 
             }
         });
     }
     function Reasons() {
-        debugger
+         
         var id = $("#ReasonsId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetRejectionReasons",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#Reasonsname").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
                 $("#Reasonsname").val(" ");
 
             }

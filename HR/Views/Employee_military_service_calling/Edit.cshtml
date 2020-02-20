@@ -140,21 +140,21 @@
 
 <script>
     function employee() {
-        debugger
+         
         var id = $("#employeeId8").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
                 //$("#employeeId").attr("readonly", true);
                 //$("#employeeId").prop("readonly", true);
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
@@ -165,14 +165,14 @@
 
 
     function GetDataById() {
-        debugger
+         
         let x = window.location.href.split('/')[5];
         $.ajax({
             type: "post",
             url: "/Helper/GetDataByIdmilitary",
             data: { "id": x },
             success: function (result) {
-                debugger
+                 
                 if (result) {
                     var date = parseJsonDate(result.End_date)
                     month = date.getMonth() + 1;
@@ -191,7 +191,7 @@
                 }
             },
             error: function () {
-                debugger
+                 
 
             }
         });
@@ -202,14 +202,14 @@
     }
     ///////////////////////////////////
     function GetDataById2() {
-        debugger
+         
         let x = window.location.href.split('/')[5];
         $.ajax({
             type: "post",
             url: "/Helper/GetDataByIdmilitary",
             data: { "id": x },
             success: function (result) {
-                debugger
+                 
                 if (result) {
                     var date = parseJsonDate(result.Start_date)
                     month = date.getMonth() + 1;
@@ -228,7 +228,7 @@
                 }
             },
             error: function () {
-                debugger
+                 
 
             }
         });
@@ -242,7 +242,7 @@
 
 
     function Save() {
-        debugger
+         
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 
@@ -266,7 +266,7 @@
     };
 
     function Save2() {
-        debugger
+         
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 

@@ -65,7 +65,7 @@
             });
         }
         function getter(did) {
-            debugger
+             
             var oo = $("#employeeId").val();
             var id = $("#ter").val();
             $.ajax({
@@ -73,11 +73,11 @@
                 url: "/Helper/GetJobSolts",
                 data: { "id": did,"did":oo },
                 success: function (result) {
-                  debugger
+                   
                     var finalresult="";
                     finalresult = "<option value='0' > Choose Slot desc </option>";
                     $.each(result, function (key, value) {
-                        debugger
+                         
                         if (value.ID == parseInt(@Model.personnel_transaction.SlotdescId)) {
                             finalresult += "<option selected value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                         }
@@ -203,7 +203,7 @@
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 var idg = $("#country").val();
                 getter(idg);
                 $("#employeename").val(result.Name);

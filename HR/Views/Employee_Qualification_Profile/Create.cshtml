@@ -189,7 +189,7 @@
 
 <script>
     function CountryName() {
-        debugger
+         
         var id = $("#country").val();
     
         $("#ter").empty();
@@ -216,28 +216,28 @@
             url: "/Helper/GetEducatecategory",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#countryname").val(result.Name);
                 $("#area").removeAttr("disabled");
            //     getallarea(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname").val(" ");
             }
         });
     }
     //function getallarea(id)
     //{
-    //    debugger
+    //     
     //   var countryname=
     //   $.ajax({
     //      type: "post",
     //      url: "/Helper/getareabycountry",
     //      data: { "id": id, "flag": "0" },
     //      success: function (result) {
-    //          debugger
+    //           
     //          $("#area").removeAttr("disabled");
     //          var finalresult = "<option value='0' > Choose area </option>";
     //          $.each(result, function (key, value) {
@@ -247,13 +247,13 @@
     //          $("#area").select2("val", "0");
     //      },
     //      error: function () {
-    //          debugger
+    //           
     //          $("#area").val(" ");
     //      }
     //  });
     //}
     function areaName() {
-        debugger
+         
         var id = $("#area").val();
       
         $("#citeid").empty();
@@ -276,26 +276,26 @@
             url: "/Helper/GetEducateTitle",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#state").removeAttr("disabled");
                 $("#areaname").val(result.Name);
                 getNameeducationalbyEducatetitle(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#areaname").val(" ");
             }
         });
     }
     //function getallstate(id)
     //{
-    //    debugger
+    //     
     //    $.ajax({
     //        type: "post",
     //        url: "/Helper/getstatebycountry",
     //        data: { "id": id, "flag": "0" },
     //        success: function (result) {
-    //            debugger
+    //             
     //            $("#state").removeAttr("disabled");
     //            var finalresult = "<option value='0' > Choose state </option>";
     //            $.each(result, function (key, value) {
@@ -305,14 +305,14 @@
     //            $("#state").select2("val", "0");
     //        },
     //        error: function () {
-    //            debugger
+    //             
     //            $("#state").val(" ");
     //        }
     //    });
     //}
     function getstate()
     {
-        debugger
+         
         var id = $("#state").val();
         $("#ter").empty();
     //    $("#postal").empty();
@@ -330,7 +330,7 @@
             url: "/Helper/GetMainEducatebody",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 //        $("#ter").removeAttr("disabled");
                 $("#ter").removeAttr("disabled");
@@ -338,14 +338,14 @@
                 getSubeducationalbyMainEducate(result.ID);
             },
             error: function () {
-                debugger
+                 
                 $("#statename").val(" ");
             }
         });
     }
     function getSubeducationalbyMainEducate(id)
     {
-        debugger
+         
 
 
         $.ajax({
@@ -353,7 +353,7 @@
             url: "/Helper/getSubeducationalbyMainEducate",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#ter").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Sub Educational </option>";
                 $.each(result, function (key, value) {
@@ -363,7 +363,7 @@
                 $("#ter").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#ter").val(" ");
             }
         });
@@ -371,7 +371,7 @@
     }
     function getter()
     {
-        debugger
+         
         var id = $("#ter").val();
     //    $("#postal").empty();
    //     $("#GradeEducateId").empty();
@@ -387,26 +387,26 @@
             url: "/Helper/GetSubeducationalbody",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#citeid").removeAttr("disabled");
                 $("#tername").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
                 $("#tername").val(" ");
             }
         });
     }
     function getNameeducationalbyEducatetitle(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getNameeducationalbyEducatetitle",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#citeid").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Qualification name </option>";
                 $.each(result, function (key, value) {
@@ -416,14 +416,14 @@
                 $("#citeid").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#citeid").val(" ");
             }
         });
 
     }
     function getcite() {
-        debugger
+         
         var id = $("#citeid").val();
         $("#postal").empty();
      //   $("#GradeEducateId").empty();
@@ -437,7 +437,7 @@
             url: "/Helper/GetNameofeducationalqualification",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
 
                 $("#postal").removeAttr("disabled");
                 $("#cityname").val(result.Name);
@@ -445,19 +445,19 @@
 
             },
             error: function () {
-                debugger
+                 
                 $("#cityname").val(" ");
             }
         });
     }
     function getQualificationMajorbyNameofeducational(id) {
-        debugger
+         
         $.ajax({
             type: "post",
             url: "/Helper/getQualificationMajorbyNameofeducational",
             data: { "id": id, "flag": "0" },
             success: function (result) {
-                debugger
+                 
                 $("#postal").removeAttr("disabled");
                 var finalresult = "<option value='0' > Choose Qualification specialty </option>";
                 $.each(result, function (key, value) {
@@ -467,14 +467,14 @@
                 $("#postal").select2("val", "0");
             },
             error: function () {
-                debugger
+                 
                 $("#postal").val(" ");
             }
         });
 
     }
     function getpostal() {
-        debugger
+         
         var id = $("#postal").val();
    //    $("#GradeEducateId").empty();
       $("#GradeEducateId").select2("val", "");
@@ -484,29 +484,29 @@
             url: "/Helper/GetQualificationMajor",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#GradeEducateId").removeAttr("disabled");
                 $("#postname").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#postname").val(" ");
             }
         });
     }
     function GradeEducate() {
-        debugger
+         
         var id = $("#GradeEducateId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GradeEducate",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#GradeEducatename").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#GradeEducatename").val(" ");
             }
         });
@@ -517,19 +517,19 @@
 
 
 <script>
-    debugger
+     
     var id = $("#country").val();
     $.ajax({
         type: "post",
         url: "/Helper/GetEducatecategory",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#area").removeAttr("disabled");
             $("#countryname").val(result.Name);
         },
         error: function () {
-            debugger
+             
             $("#countryname").val(" ");
         }
     });
@@ -540,13 +540,13 @@
         url: "/Helper/GetEducateTitle",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#state").removeAttr("disabled");
             $("#areaname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#areaname").val(" ");
         }
     });
@@ -557,13 +557,13 @@
         url: "/Helper/GetMainEducatebody",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#ter").removeAttr("disabled");
             $("#statename").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#statename").val(" ");
         }
     });
@@ -573,13 +573,13 @@
         url: "/Helper/GetSubeducationalbody",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#citeid").removeAttr("disabled");
             $("#tername").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#tername").val(" ");
         }
     });
@@ -589,13 +589,13 @@
         url: "/Helper/GetNameofeducationalqualification",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#postal").removeAttr("disabled");
             $("#cityname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#cityname").val(" ");
         }
     });
@@ -606,13 +606,13 @@
         url: "/Helper/GetQualificationMajor",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#GradeEducateId").removeAttr("disabled");
             $("#postname").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#postname").val(" ");
         }
     });
@@ -622,12 +622,12 @@
         url: "/Helper/GradeEducate",
         data: { "id": id },
         success: function (result) {
-            debugger
+             
             $("#GradeEducatename").val(result.Name);
 
         },
         error: function () {
-            debugger
+             
             $("#GradeEducatename").val(" ");
         }
     });
@@ -635,19 +635,19 @@
 </script>
 <script>
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Qualification_ProfileCode);
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }

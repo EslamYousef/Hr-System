@@ -151,7 +151,7 @@
 
 
         function full_level() {
-            debugger
+             
             var id = $("#employeeId").val();
             if (id == "") {
                 $("#employee181").html("");
@@ -165,11 +165,11 @@
                 url: "/Helper/Getlevel",
                 data: { "id": id },
                 success: function (result) {
-                    debugger
+                     
                     var finalresult = "";
                     finalresult = "<option selected value='0' > @HR.Resource.organ.JobLevelSetup </option>";
                     $.each(result, function (key, value) {
-                        debugger
+                         
                         finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
 
                     });
@@ -177,7 +177,7 @@
                     $("#employee181").select2("val", "0")
                 },
                 error: function () {
-                    debugger
+                     
                     $("#employee181").html(" ");
                     //$("#codeid").val("");
                 }
@@ -190,7 +190,7 @@
     function add()
     {
 
-        debugger
+         
         var employee11 = $("#employee181").val();
         var it = $("#manpoweritems");
         if (it.length == 1)
@@ -231,7 +231,7 @@
                         success: function (result) {
 
 
-                            debugger
+                             
                             var tr =
                         "<div class ='form-control' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
                        "<input  class='col-md-2' style='margin-bottom: 1em;margin-left:4px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
@@ -274,7 +274,7 @@
                         success: function (result) {
 
 
-                            debugger
+                             
                             var tr =
                     "<div class ='form-control' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
                     "<input  class='col-md-2' style='margin-bottom: 1em;margin-left:4px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
@@ -305,11 +305,11 @@
     }
     function remove(thi)
     {
-        debugger
+         
         thi.parent().remove();
     }
     function ch() {
-        debugger
+         
         var it = $("#manpoweritems");
         if (it.length == 1) {
 

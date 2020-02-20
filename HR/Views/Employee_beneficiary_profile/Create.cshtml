@@ -8,11 +8,11 @@
 @Scripts.Render("~/bundles/jqueryval")
 <link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
 <script>
-    debugger
+     
     $(function () {
         $("#tb-family").hide();
         $("#ss").click(function () {
-            debugger
+             
             var Family_profile = $("#employeeId3").val();
             var Beneficiary=$("#employeeId2").val();
             $.ajax({
@@ -20,7 +20,7 @@
                 url: "/Helper/getfamilybyemployee",
                 data: { "id": Family_profile },
                 success: function (result) {
-                    debugger
+                     
 
                     if (Family_profile != "" && Beneficiary != "") {
                         $("#tb-family").show();
@@ -180,59 +180,59 @@
 
 <script>
     function employee() {
-        debugger
+         
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
                 $("#employeeId").attr("readonly", true);
                 $("#employeeId").prop("readonly", true);
             },
             error: function () {
-                debugger
+                 
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
     function employee2() {
-        debugger
+         
         var id = $("#employeeId2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetSubscriptionSyndicate",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
               //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
             //    $("#employeename").val(" ");
             }
         });
     }
    
     function employee3() {
-        debugger
+         
         var id = $("#employeeId3").val();
         $.ajax({
             type: "post",
             url: "/Helper/Employeefamilyprofile",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
               //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                debugger
+                 
             //    $("#employeename").val(" ");
             }
         });

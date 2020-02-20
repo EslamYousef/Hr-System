@@ -14,52 +14,52 @@
 
 <script>
     function CountryName1() {
-        debugger
+         
         var id = $("#country1").val();
         $.ajax({
             type: "post",
             url: "/Helper/getjobclass",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#countryname1").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname1").val(" ");
             }
         });
     }
     function CountryName2() {
-        debugger
+         
         var id = $("#country2").val();
         $.ajax({
             type: "post",
             url: "/Helper/getjobgrade",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#countryname2").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname2").val(" ");
             }
         });
     }
     function CountryName3() {
-        debugger
+         
         var id = $("#country3").val();
         $.ajax({
             type: "post",
             url: "/Helper/getjobreport",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#countryname3").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#countryname3").val(" ");
             }
         });
@@ -71,17 +71,17 @@
     function addd()
     {
 
-        debugger
+         
         var country = $("#country").val();
         var num = $("#num").val();
         if (country == ""  )
         {
-            debugger
+             
             alert("Please enter Education !");
 
         }
         else if ( num == "") {
-            debugger
+             
             alert("Please enter Number Of years !");
 
         }
@@ -96,12 +96,12 @@
                     if (result == false)
                     {
 
-                        debugger
+                         
 
                     }
                     else
                     {
-                        debugger
+                         
                         var tr =
                "<tr id='tr'>" + "<td hidden><input  style='margin-bottom: 1em;' name='codeid' value='" + result.ID + "' readonly='readonly' /></td>" +
                "<td class='col-md-0'><input  style='margin-bottom: 1em;' name='codeee' value='" + result.Code + "' readonly='readonly' /></td>" +
@@ -117,7 +117,7 @@
                 },
                 error: function()
                 {
-                    debugger
+                     
                 }
 
             });
@@ -128,7 +128,7 @@
     }
     function remove(thi)
     {
-        debugger
+         
         thi.parent().parent().remove();
         //thi.parent().parent().parent().remove(removed);
 
@@ -136,7 +136,7 @@
     }
 
     $("#min").keyup(function (e) {
-        debugger
+         
         var min = parseInt($("#min").val());
         var max = parseInt($("#max").val());
         var mid=( min+max)/2;
@@ -144,7 +144,7 @@
 
     });
     $("#max").keyup(function (e) {
-        debugger
+         
         var min = parseInt($("#min").val());
         var max = parseInt($("#max").val());
         var mid = (min + max) / 2;
@@ -153,14 +153,14 @@
     });
     function updateminplus(value)
     {
-        debugger
+         
         var min = parseInt($("#min").val()) + parseInt(value);
         var max = parseInt($("#max").val());
         var mid = (min + max) / 2;
         $("#mid").val(mid);
     }
     function updatemaxplus(value) {
-        debugger
+         
         var min = parseInt($("#min").val()) ;
         var max = parseInt($("#max").val()) + parseInt(value);
         var mid = (min + max) / 2;

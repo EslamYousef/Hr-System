@@ -84,18 +84,18 @@
 <script>
     function ContributionAllocations()
     {
-        debugger
+         
         var id = $("#ContributionAllocationsId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetMedicalContributionsAllocationsEntry",
             data: { "id": id },
             success: function (result) {
-                debugger
+                 
                 $("#ContributionAllocationsName").val(result.Name);
             },
             error: function () {
-                debugger
+                 
                 $("#ContributionAllocationsName").val(" ");
             }
         });
@@ -107,7 +107,7 @@
     var RTList = [];
     function Services()
     {
-        debugger
+         
         var id = $("#ClasslificationId").val();
         RTList = [];
         $.ajax({
@@ -119,13 +119,13 @@
                 $.each(result, function (key, value) {
                     finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                 });
-                debugger
+                 
                 $("#ServicesId").html(finalresult);
                 $("#ClasslificationName").val(result[0].my.Description);
 
             },
             error: function () {
-                debugger
+                 
                 $("#ServicesId").val(" ");
             }
         });
@@ -136,7 +136,7 @@
     var RTLists = [];
     function ServicesMedical()
     {
-        debugger
+         
         var id = $("#ServicesId").val();
         RTLists = [];
         $.ajax({
@@ -145,12 +145,12 @@
             data: { "id": id },
             success: function (result) {
                 
-                debugger
+                 
                 $("#ServicesName").val(result);
 
             },
             error: function () {
-                debugger
+                 
                 $("#ServicesId").val(" ");
             }
         });
