@@ -2392,6 +2392,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to margin-left:33px;.
+        /// </summary>
+        public static string margin {
+            get {
+                return ResourceManager.GetString("margin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to margin-left:66px;.
+        /// </summary>
+        public static string margin_2 {
+            get {
+                return ResourceManager.GetString("margin_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Marital Status.
         /// </summary>
         public static string MaritalStatus {
