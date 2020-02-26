@@ -30,8 +30,10 @@ namespace HR.Models
         public int Years { get; set; }
         public int Months { get; set; }
         [Display(Name = "Qualification category code")]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Educate_categoryId { get; set; }
         public virtual Educate_category Educate_category { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Educate level code")]
         public string Educate_TitleId { get; set; }
         public virtual Educate_Title Educate_Title { get; set; }

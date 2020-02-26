@@ -187,7 +187,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check_status.
+        ///   Looks up a localized string similar to check_status .
         /// </summary>
         public static string check_status {
             get {

@@ -178,7 +178,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check lists group.
+        ///   Looks up a localized string similar to check lists group .
         /// </summary>
         public static string check_lists_group {
             get {

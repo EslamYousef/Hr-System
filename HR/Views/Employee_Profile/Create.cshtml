@@ -7,16 +7,30 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 @Scripts.Render("~/bundles/jqueryval")
 <script>
     $(document).ready(function () {
         drop();
         dropAbility();
+
     });
 </script>
 <script>
     $(function () {
-           
+
         function CheckOnName() {
              
             var FullName = $("#full").val().split(' ');
@@ -98,605 +112,692 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                      
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.AddressProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command2" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeQualificationProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command3" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeePositionsProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command4" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeFamilyProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command5" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.Employeeexperienceprofile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command6" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeContactProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command7" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeContractProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command8" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeMilitaryServiceProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command9" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeMilitaryServiceCalling</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command10" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeBeneficiaryProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command11" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeSubscriptionProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command12" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeAttachmentProfile</button>
+                        </div>
+                        <div>
 
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#home" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@Personnel.Home</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#profile" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.Location</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Ability" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.HealthStatus</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#PersonnelInformation" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.PersonnelInformation</span>
+                                    </a>
+                                </li>
 
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.AddressProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;" >
-                                <button type="submit" id="btnSubmit" name="Command2" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeQualificationProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command3" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeePositionsProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command4" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeFamilyProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command5" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.Employeeexperienceprofile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command6" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeContactProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command7" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeContractProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command8" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeMilitaryServiceProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command9" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeMilitaryServiceCalling</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command10" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeBeneficiaryProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command11" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeSubscriptionProfile</button>
-                            </div>
-                            <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                                <button type="submit" id="btnSubmit" name="Command12" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeAttachmentProfile</button>
-                            </div>
-                            <div>
-                                <ul class="nav nav-tabs bordered">
-                                    <!-- available classes "bordered", "right-aligned" -->
-                                    <li class="active">
-                                        <a href="#home" data-toggle="tab">
-                                            <span class="visible-xs"><i class="entypo-home"></i></span>
-                                            <span class="hidden-xs">@Personnel.Home</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#profile" data-toggle="tab">
-                                            <span class="visible-xs"><i class="entypo-user"></i></span>
-                                            <span class="hidden-xs">@Personnel.Location</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#Ability" data-toggle="tab">
-                                            <span class="visible-xs"><i class="entypo-user"></i></span>
-                                            <span class="hidden-xs">@Personnel.HealthStatus</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#PersonnelInformation" data-toggle="tab">
-                                            <span class="visible-xs"><i class="entypo-user"></i></span>
-                                            <span class="hidden-xs">@Personnel.PersonnelInformation</span>
-                                        </a>
-                                    </li>
-                            
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.EmployeeNo</label>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.EmployeeNo</label>
 
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Employee_Profile.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Code, "", new { @class = "text-danger" })
-                                            </div>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Employee_Profile.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Code, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
 
 
-                                                <h3>@Personnel.LatinName</h3>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.Name</label>
+                                            <h3>@Personnel.LatinName</h3>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Name</label>
 
-                                                    <div class="col-md-2">
-                                                        @Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name", id = "name1" } })
-                                                        @*<input type="text"name="Name" class="form-control" />*@
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Name, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name2" } })*@
-                                                        <input type="text" id="name2" class="form-control" />
-
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Name, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name3" } })*@
-                                                        <input type="text" id="name3" class="form-control" />
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Name, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name4" } })*@
-                                                        <input type="text" id="name4" class="form-control" />
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name5" } })*@
-                                                        <input type="text" id="name5" class="form-control" />
-                                                    </div>
+                                                <div class="col-md-2">
+                                                    @Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name", id = "name1" } })
+                                                    @*<input type="text"name="Name" class="form-control" />*@
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Name, "", new { @class = "text-danger" })
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.FullName</label>
+                                                <div class="col-md-2">
+                                                    @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name2" } })*@
+                                                    <input type="text" id="name2" class="form-control" />
 
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Employee_Profile.Full_Name, new { htmlAttributes = new { @class = "form-control", @id = "full" } })
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Full_Name, "", new { @class = "text-danger" })
-                                                    </div>
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Name, "", new { @class = "text-danger" })
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.SurName</label>
-
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Employee_Profile.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Surname, "", new { @class = "text-danger" })
-                                                    </div>
+                                                <div class="col-md-2">
+                                                    @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name3" } })*@
+                                                    <input type="text" id="name3" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Name, "", new { @class = "text-danger" })
                                                 </div>
-                                                @*@style= "direction:ltr";margin - left:200px; text -align: left;**@
-
+                                                <div class="col-md-2">
+                                                    @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name4" } })*@
+                                                    <input type="text" id="name4" class="form-control" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @*@Html.EditorFor(model => model.Employee_Profile.Name, new { htmlAttributes = new { @class = "form-control name5" } })*@
+                                                    <input type="text" id="name5" class="form-control" />
+                                                </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.FullName</label>
 
-                                            <div class="col-lg-6" style="@Personnel.border">
-                                                <h3>@Personnel.ArabicName</h3>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.Arabic</label>
-
-                                                    <div class="col-md-2">
-                                                        @Html.EditorFor(model => model.Employee_Profile.Arabic, new { htmlAttributes = new { @class = "form-control", id = "arabic1" } })
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Arabic, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="text" id="arabic2" class="form-control" />
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Arabic, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="text" id="arabic3" class="form-control" />
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Arabic, "", new { @class = "text-danger" })
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="text" id="arabic4" class="form-control" />
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="text" id="arabic5" class="form-control" />
-                                                    </div>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Employee_Profile.Full_Name, new { htmlAttributes = new { @class = "form-control", @id = "full" } })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Full_Name, "", new { @class = "text-danger" })
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.FullName</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Employee_Profile.Full, new { htmlAttributes = new { @class = "form-control", @id = "full2" } })
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Full, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.SurName</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Employee_Profile.Sur_Name, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.Employee_Profile.Sur_Name, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
                                             </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.SurName</label>
+
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Employee_Profile.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Surname, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            @*@style= "direction:ltr";margin - left:200px; text -align: left;**@
+
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Gender</label>
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.Gender, new { @class = "select2" })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Gender, "", new { @class = "text-danger" })
+                                        <div class="col-lg-6" style="@Personnel.border">
+                                            <h3>@Personnel.ArabicName</h3>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Arabic</label>
+
+                                                <div class="col-md-2">
+                                                    @Html.EditorFor(model => model.Employee_Profile.Arabic, new { htmlAttributes = new { @class = "form-control", id = "arabic1" } })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Arabic, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic2" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Arabic, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic3" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Arabic, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic4" class="form-control" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic5" class="form-control" />
+                                                </div>
                                             </div>
-                                       
-                                            <label class="control-label col-md-2">@Personnel.MaritalStatus</label>
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.Marital_Status, new { @class = "select2" })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Marital_Status, "", new { @class = "text-danger" })
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.FullName</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Employee_Profile.Full, new { htmlAttributes = new { @class = "form-control", @id = "full2" } })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Full, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.SurName</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Employee_Profile.Sur_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Sur_Name, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Gender</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.Gender, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Gender, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.MaritalStatus</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.Marital_Status, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Marital_Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Religion</label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Employee_Profile.ReligionId, new SelectList(ViewBag.Religion, "ID", "Code"), Personnel.SelectReligion, new { @class = "select2", @onchange = "Religion()", @id = "religion" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.ReligionId, "", new { @class = "text-danger" })
+
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.Nationality</label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Employee_Profile.NationalityId, new SelectList(ViewBag.Nationality, "ID", "Code"), Personnel.SelectNationality, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.NationalityId, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Bloodgroup</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.Blood_group, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Blood_group, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.Citizen</label>
+                                        <div class="col-md-4">
+                                            @Html.CheckBoxFor(model => model.Employee_Profile.Citizen, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Citizen, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Birthdate</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Employee_Profile.Birth_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Birth_date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Country</label>
+                                            <div class="col-md-8">
+
+                                                @Html.DropDownListFor(m => m.Employee_Profile.Countryid, new SelectList(ViewBag.Country, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Countryid, "", new { @class = "text-danger" })
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Area</label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.Employee_Profile.Areaid, new SelectList(ViewBag.Area, "ID", "Code"), Personnel.SelectArea, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Areaid, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.StateGovernorate</label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.Employee_Profile.the_statesid, new SelectList(ViewBag.the_states, "ID", "Code"), Personnel.Selectstate, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                                @Html.ValidationMessageFor(model => model.Employee_Profile.the_statesid, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.County</label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.Employee_Profile.Territoriesid, new SelectList(ViewBag.Territories, "ID", "Code"), Personnel.SelectCounty, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Territoriesid, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Cite</label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.Employee_Profile.citiesid, new SelectList(ViewBag.cities, "ID", "Code"), Personnel.SelectCite, new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                                @Html.ValidationMessageFor(model => model.Employee_Profile.citiesid, "", new { @class = "text-danger" })
+
                                             </div>
                                         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Religion</label>
-                                            <div class="col-md-4">
-                                                @Html.DropDownListFor(m => m.Employee_Profile.ReligionId, new SelectList(ViewBag.Religion, "ID", "Code"), Personnel.SelectReligion, new { @class = "select2", @onchange = "Religion()", @id = "religion" })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.ReligionId, "", new { @class = "text-danger" })
-
-                                            </div>
-
-                                            <label class="control-label col-md-2">@Personnel.Nationality</label>
-                                            <div class="col-md-4">
-                                                @Html.DropDownListFor(m => m.Employee_Profile.NationalityId, new SelectList(ViewBag.Nationality, "ID", "Code"), Personnel.SelectNationality, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.NationalityId, "", new { @class = "text-danger" })
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Bloodgroup</label>
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.Blood_group, new { @class = "select2" })
-
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Blood_group, "", new { @class = "text-danger" })
-                                            </div>
-
-                                            <label class="control-label col-md-2">@Personnel.Citizen</label>
-                                            <div class="col-md-4">
-                                                @Html.CheckBoxFor(model => model.Employee_Profile.Citizen, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Citizen, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Birthdate</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Employee_Profile.Birth_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Birth_date, "", new { @class = "text-danger" })
-                                            </div>
-
                                             <label class="control-label col-md-2">@Personnel.IDnumberinattendancemachine</label>
                                             <div class="col-md-4">
                                                 @Html.EditorFor(model => model.Employee_Profile.ID_number_in_attendance_machine, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.Employee_Profile.ID_number_in_attendance_machine, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.IDtype</label>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.IDtype</label>
 
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.ID_type, new { @class = "select2" })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.ID_type, "", new { @class = "text-danger" })
-                                            </div>
-
-                                            <label class="control-label col-md-2">@Personnel.IDnumber</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Employee_Profile.ID_number, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.ID_number, "", new { @class = "text-danger" })
-                                            </div>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.ID_type, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.ID_type, "", new { @class = "text-danger" })
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Issuedate</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Employee_Profile.Issue_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Issue_date, "", new { @class = "text-danger" })
-                                            </div>
+                                        <label class="control-label col-md-2">@Personnel.IDnumber</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Employee_Profile.ID_number, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.ID_number, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
 
-                                            <label class="control-label col-md-2">@Personnel.Expiredate</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Employee_Profile.Expire_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Expire_date, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Issuedate</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Employee_Profile.Issue_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Issue_date, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.Expiredate</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Employee_Profile.Expire_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Expire_date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Currency</label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Service_Information.CurrencyId, new SelectList(ViewBag.Currency, "ID", "Code"), Personnel.SelectCurrency, new { @class = "select2", @onchange = "Currency()", @id = "CurrencyId" })
+                                            @Html.ValidationMessageFor(model => model.Service_Information.CurrencyId, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.HealthStatus</label>
+
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.Health_Status, new { @onclick = "dropAbility()", @class = "select2", @id = "ability" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Health_Status, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <table class="abilityshow">
+                                            <tr>
+                                                <td>
+                                                    <input  id="showme_button" href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default abilityshow" style="width:400px;" value="Reason, Description, Registration Number, Registration Date"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="modal-6">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">In-Ability Details</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.Inabilityreason</label>
+
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Ability.Inability_reason, new { htmlAttributes = new { @class = "form-control", id = "reason", @readonly = true } })
+                                                                @Html.ValidationMessageFor(model => model.Ability.Inability_reason, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.Inabilitydescription</label>
+
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Ability.Inability_description, new { htmlAttributes = new { @class = "form-control de", id = "descriptiony", @readonly = true } })
+                                                                @Html.ValidationMessageFor(model => model.Ability.Inability_description, "", new { @class = "text-danger" })
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.registrationnumber</label>
+
+                                                            <div class="form-group">
+                                                                <div class="col-md-4">
+                                                                    @Html.EditorFor(model => model.Ability.registration_number, new { htmlAttributes = new { id = "registration", @class = "form-control", @readonly = true, @type = "number", @min = 0 } })
+                                                                    @Html.ValidationMessageFor(model => model.Ability.registration_number, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.registrationdate</label>
+
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto" } })
+                                                                @Html.ValidationMessageFor(model => model.Ability.registration_date, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Save changes</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Currency</label>
-                                            <div class="col-md-4">
-                                                @Html.DropDownListFor(m => m.Service_Information.CurrencyId, new SelectList(ViewBag.Currency, "ID", "Code"), Personnel.SelectCurrency, new { @class = "select2", @onchange = "Currency()", @id = "CurrencyId" })
-                                                @Html.ValidationMessageFor(model => model.Service_Information.CurrencyId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
+
+
+                                <div class="tab-pane" id="profile">
+
+                                    <div class="row">
+
+                                        <div class="col-lg-6">
+                                            <div style="text-align:center">
+                                                <h3> @Personnel.BirthData</h3>
                                             </div>
+
+                                        </div>
+
+                                        <div class="col-lg-6" style="border-left:1px solid #000;">
+                                            <div style="text-align:center"><h3> @Personnel.Currentlocation</h3></div>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Country</label>
+                                                <div class="col-md-8">
+
+                                                    @Html.DropDownListFor(m => m.Employee_Profile.Countryaddressid, new SelectList(ViewBag.Country, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2", @onchange = "CountryNamea()", id = "countrya" })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Countryaddressid, "", new { @class = "text-danger" })
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Area</label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Employee_Profile.Areaaddressid, new SelectList(ViewBag.Area, "ID", "Code"), Personnel.SelectArea, new { @class = "select2", @onchange = "areaNamea()", id = "areaa", @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Areaaddressid, "", new { @class = "text-danger" })
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.StateGovernorate</label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Employee_Profile.the_statesaddressid, new SelectList(ViewBag.the_states, "ID", "Code"), Personnel.Selectstate, new { @class = "select2", @onchange = "getstatea()", id = "statea", @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.the_statesaddressid, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.County</label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Employee_Profile.Territoriesaddressid, new SelectList(ViewBag.Territories, "ID", "Code"), Personnel.SelectCounty, new { @class = "select2", @onchange = "gettera()", id = "tera", @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.Territoriesaddressid, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Cite</label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Employee_Profile.citiesaddressid, new SelectList(ViewBag.cities, "ID", "Code"), Personnel.SelectCite, new { @class = "select2", @onchange = "getcitea()", id = "citeida", @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.Employee_Profile.citiesaddressid, "", new { @class = "text-danger" })
+
+
+                                                </div>
+                                            </div>
+
+
                                         </div>
 
                                     </div>
+                                </div>
+
+                                <div class="tab-pane" id="Ability">
 
 
 
-                                            <div class="tab-pane" id="profile">
 
-                                                <div class="row">
 
-                                                <div class="col-lg-6">
-                                                <div style="text-align:center">
-                                                    <h3> @Personnel.BirthData</h3>
-                                                    </div>    
-                                                       
-                                                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.Country</label>
-                    <div class="col-md-8">
 
-                        @Html.DropDownListFor(m => m.Employee_Profile.Countryid, new SelectList(ViewBag.Country, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2", @onchange = "CountryName()", id = "country" })
-                        @Html.ValidationMessageFor(model => model.Employee_Profile.Countryid, "", new { @class = "text-danger" })
-                
 
-                    </div>
-                </div>
+
+
+
+
+
+
+
+
+
+                                </div>
+
+                                <div class="tab-pane" id="PersonnelInformation">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.MainStatus</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Personnel_Information.Main_Status, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Main_Status, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.SubStatus</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Personnel_Information.Sub_Status, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Sub_Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <ul class="nav nav-tabs bordered">
+
+                                            <li>
+                                                <a href="#HiringInformation">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.HiringInformation</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-pane" id="HiringInformation" style="margin-top:10px;">
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Area</label>
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.Employee_Profile.Areaid, new SelectList(ViewBag.Area, "ID", "Code"), Personnel.SelectArea, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
-                        @Html.ValidationMessageFor(model => model.Employee_Profile.Areaid, "", new { @class = "text-danger" })
-        
-                    </div>
-                </div>
+                                                <label class="control-label col-md-2">@Personnel.HireDate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Hire_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Hire_Date, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <label class="control-label col-md-2">@Personnel.JoinDate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Join_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Join_Date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.StateGovernorate</label>
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.Employee_Profile.the_statesid, new SelectList(ViewBag.the_states, "ID", "Code"), Personnel.Selectstate, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
-                        @Html.ValidationMessageFor(model => model.Employee_Profile.the_statesid, "", new { @class = "text-danger" })
-            
-                    </div>
-                </div>
+                                                <label class="control-label col-md-2">@Personnel.SectorJoinDate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Sector_Join_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Sector_Join_Date, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <label class="control-label col-md-2">@Personnel.Praticeprofessionoutofcompany</label>
+                                                <div class="col-md-4">
+                                                    @Html.CheckBoxFor(model => model.Personnel_Information.Pratice_profession_Out_Of_Company, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Pratice_profession_Out_Of_Company, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.County</label>
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.Employee_Profile.Territoriesid, new SelectList(ViewBag.Territories, "ID", "Code"), Personnel.SelectCounty, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
-                        @Html.ValidationMessageFor(model => model.Employee_Profile.Territoriesid, "", new { @class = "text-danger" })
+                                                <label class="control-label col-md-2">@Personnel.SocialInsurance</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Social_Insurance, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Social_Insurance, "", new { @class = "text-danger" })
+                                                </div>
 
-                    </div>
-                </div>
+                                                <label class="control-label col-md-2">@Personnel.SocialInsuranceDate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Social_Insurance_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Social_Insurance_Date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Cite</label>
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(m => m.Employee_Profile.citiesid, new SelectList(ViewBag.cities, "ID", "Code"), Personnel.SelectCite, new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
-                        @Html.ValidationMessageFor(model => model.Employee_Profile.citiesid, "", new { @class = "text-danger" })
+                                                <label class="control-label col-md-2">@Personnel.Serviceperiodins_Y</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Service_period_ins_Y, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Service_period_ins_Y, "", new { @class = "text-danger" })
+                                                </div>
 
-                    </div>
-                </div>
-                        </div>
-
-                                                    <div class="col-lg-6" style="border-left:1px solid #000;">
-                                                        <div style="text-align:center"><h3> @Personnel.Currentlocation</h3></div>
-
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2">@Personnel.Country</label>
-                                                            <div class="col-md-8">
-
-                                                                @Html.DropDownListFor(m => m.Employee_Profile.Countryaddressid, new SelectList(ViewBag.Country, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2", @onchange = "CountryNamea()", id = "countrya" })
-                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Countryaddressid, "", new { @class = "text-danger" })
-
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2">@Personnel.Area</label>
-                                                            <div class="col-md-8">
-                                                                @Html.DropDownListFor(m => m.Employee_Profile.Areaaddressid, new SelectList(ViewBag.Area, "ID", "Code"), Personnel.SelectArea, new { @class = "select2", @onchange = "areaNamea()", id = "areaa", @disabled = true })
-                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Areaaddressid, "", new { @class = "text-danger" })
-
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2">@Personnel.StateGovernorate</label>
-                                                            <div class="col-md-8">
-                                                                @Html.DropDownListFor(m => m.Employee_Profile.the_statesaddressid, new SelectList(ViewBag.the_states, "ID", "Code"), Personnel.Selectstate, new { @class = "select2", @onchange = "getstatea()", id = "statea", @disabled = true })
-                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.the_statesaddressid, "", new { @class = "text-danger" })
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2">@Personnel.County</label>
-                                                            <div class="col-md-8">
-                                                                @Html.DropDownListFor(m => m.Employee_Profile.Territoriesaddressid, new SelectList(ViewBag.Territories, "ID", "Code"), Personnel.SelectCounty, new { @class = "select2", @onchange = "gettera()", id = "tera", @disabled = true })
-                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Territoriesaddressid, "", new { @class = "text-danger" })
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2">@Personnel.Cite</label>
-                                                            <div class="col-md-8">
-                                                                @Html.DropDownListFor(m => m.Employee_Profile.citiesaddressid, new SelectList(ViewBag.cities, "ID", "Code"), Personnel.SelectCite, new { @class = "select2", @onchange = "getcitea()", id = "citeida", @disabled = true })
-                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.citiesaddressid, "", new { @class = "text-danger" })
-
-
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                    </div>
-                                                    </div>
-
-                                    <div class="tab-pane" id="Ability">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.HealthStatus</label>
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Employee_Profile.Health_Status, new { @onclick = "dropAbility()", @class = "select2" ,@id="ability" })
-                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Health_Status, "", new { @class = "text-danger" })
+                                                <label class="control-label col-md-2">@Personnel.Serviceperiodins_M</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Service_period_ins_M, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Service_period_ins_M, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
-                                            @*<a href="#Ability" data-toggle="tab" aria-expanded="true">     <div class="col-md-6" id="ability">Reason, Description, Regesrtation Number, Regesrtation Date</div></a>*@
 
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Boardingmembership</label>
+                                                <div class="col-md-4">
+                                                    @Html.EnumDropDownListFor(model => model.Personnel_Information.Boarding_membership, new { @onclick = "drop()", @class = "select2", @id = "membership" })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Boarding_membership, "", new { @class = "text-danger" })
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Inabilityreason</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Ability.Inability_reason, new { htmlAttributes = new { @class = "form-control",id="reason", @readonly = true } })
-                                                @Html.ValidationMessageFor(model => model.Ability.Inability_reason, "", new { @class = "text-danger" })
+                                                <label class="control-label col-md-2">@Personnel.BoardingDate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Personnel_Information.Boarding_Date, new { htmlAttributes = new { @class = "form-control datepicker boarder", @id = "dateto" } })
+                                                    @Html.ValidationMessageFor(model => model.Personnel_Information.Boarding_Date, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Inabilitydescription</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Ability.Inability_description, new { htmlAttributes = new { @class = "form-control de" ,id="descriptiony", @readonly = true} })
-                                                @Html.ValidationMessageFor(model => model.Ability.Inability_description, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.registrationnumber</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Ability.registration_number, new { htmlAttributes = new {id= "registration" ,@class = "form-control", @readonly = true, @type = "number", @min = 0 } })
-                                                @Html.ValidationMessageFor(model => model.Ability.registration_number, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.registrationdate</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto" } })
-                                                @Html.ValidationMessageFor(model => model.Ability.registration_date, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        </div>
-
-                                    <div class="tab-pane" id="PersonnelInformation" >
-                                    
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.MainStatus</label>
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Personnel_Information.Main_Status, new { @class = "select2"  })
-                                                @Html.ValidationMessageFor(model => model.Personnel_Information.Main_Status, "", new { @class = "text-danger" })
-                                            </div>
-
-                                            <label class="control-label col-md-2">@Personnel.SubStatus</label>
-                                            <div class="col-md-4">
-                                                @Html.EnumDropDownListFor(model => model.Personnel_Information.Sub_Status, new { @class = "select2"  })
-                                                @Html.ValidationMessageFor(model => model.Personnel_Information.Sub_Status, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
                                         <div>
                                             <ul class="nav nav-tabs bordered">
 
                                                 <li>
-                                                    <a href="#HiringInformation">
+                                                    <a href="#Pension">
                                                         <span class="visible-xs"><i class="entypo-user"></i></span>
-                                                        <span class="hidden-xs">@Personnel.HiringInformation</span>
+                                                        <span class="hidden-xs">@Personnel.Pensionandendofserviceinformation</span>
                                                     </a>
-                                                </li>                  
-                                                </ul>
+                                                </li>
+                                            </ul>
 
-                                                <div class="tab-pane" id="HiringInformation" style="margin-top:10px;">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.HireDate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Hire_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Hire_Date, "", new { @class = "text-danger" })
-                                                        </div>
-
-                                                        <label class="control-label col-md-2">@Personnel.JoinDate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Join_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Join_Date, "", new { @class = "text-danger" })
-                                                        </div>
+                                            <div class="tab-pane" id="Pension" style="margin-top:10px;">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">@Personnel.Pension</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.Service_Information.Pension, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.Pension, "", new { @class = "text-danger" })
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.SectorJoinDate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Sector_Join_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Sector_Join_Date, "", new { @class = "text-danger" })
-                                                        </div>
+                                                    <label class="control-label col-md-2">@Personnel.Havepension</label>
 
-                                                        <label class="control-label col-md-2">@Personnel.Praticeprofessionoutofcompany</label>
-                                                        <div class="col-md-4">
-                                                            @Html.CheckBoxFor(model => model.Personnel_Information.Pratice_profession_Out_Of_Company, new { htmlAttributes = new { @class = "form-control" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Pratice_profession_Out_Of_Company, "", new { @class = "text-danger" })
-                                                        </div>
+                                                    <div class="col-md-4">
+                                                        @Html.CheckBoxFor(model => model.Service_Information.Have_pension, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.Have_pension, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">@Personnel.Pensionsource</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.Service_Information.Pension_source, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.Pension_source, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">@Personnel.EOSdate</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.Service_Information.EOS_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.EOS_date, "", new { @class = "text-danger" })
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.SocialInsurance</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Social_Insurance, new { htmlAttributes = new { @class = "form-control" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Social_Insurance, "", new { @class = "text-danger" })
-                                                        </div>
-
-                                                        <label class="control-label col-md-2">@Personnel.SocialInsuranceDate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Social_Insurance_Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Social_Insurance_Date, "", new { @class = "text-danger" })
-                                                        </div>
+                                                    <label class="control-label col-md-2">@Personnel.RetiredExpectedEOS</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.Service_Information.Retired_expected_EOS, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.Retired_expected_EOS, "", new { @class = "text-danger" })
                                                     </div>
+                                                </div>
 
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.Serviceperiodins_Y</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Service_period_ins_Y, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Service_period_ins_Y, "", new { @class = "text-danger" })
-                                                        </div>
-
-                                                        <label class="control-label col-md-2">@Personnel.Serviceperiodins_M</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Service_period_ins_M, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Service_period_ins_M, "", new { @class = "text-danger" })
-                                                        </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">@Personnel.Lastworkingdate</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.Service_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.Last_working_date, "", new { @class = "text-danger" })
                                                     </div>
+                                                </div>
 
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.Boardingmembership</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EnumDropDownListFor(model => model.Personnel_Information.Boarding_membership, new { @onclick = "drop()", @class = "select2",@id= "membership" })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Boarding_membership, "", new { @class = "text-danger" })
-                                                        </div>
-
-                                                        <label class="control-label col-md-2">@Personnel.BoardingDate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Personnel_Information.Boarding_Date, new { htmlAttributes = new {  @class = "form-control datepicker boarder", @id = "dateto" } })
-                                                            @Html.ValidationMessageFor(model => model.Personnel_Information.Boarding_Date, "", new { @class = "text-danger" })
-                                                        </div>
-                                                        </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">@Personnel.IsmeritsThedateofdeath</label>
+                                                    <div class="col-md-4">
+                                                        @Html.CheckBoxFor(model => model.Service_Information.Is_merits_The_date_of_death, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Service_Information.Is_merits_The_date_of_death, "", new { @class = "text-danger" })
                                                     </div>
-
-                                            <div>
-                                                <ul class="nav nav-tabs bordered">
-
-                                                    <li>
-                                                        <a href="#Pension">
-                                                            <span class="visible-xs"><i class="entypo-user"></i></span>
-                                                            <span class="hidden-xs">@Personnel.Pensionandendofserviceinformation</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-
-                                                <div class="tab-pane" id="Pension" style="margin-top:10px;">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.Pension</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Service_Information.Pension, new { htmlAttributes = new { @class = "form-control" ,@readonly = true } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.Pension, "", new { @class = "text-danger" })
-                                                        </div>
-
-                                                        <label class="control-label col-md-2">@Personnel.Havepension</label>
-
-                                                        <div class="col-md-4">
-                                                            @Html.CheckBoxFor(model => model.Service_Information.Have_pension, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.Have_pension, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.Pensionsource</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Service_Information.Pension_source, new { htmlAttributes = new { @class = "form-control" , @readonly = true } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.Pension_source, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.EOSdate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Service_Information.EOS_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.EOS_date, "", new { @class = "text-danger" })
-                                                        </div>
-                                                      
-                                                        <label class="control-label col-md-2">@Personnel.RetiredExpectedEOS</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Service_Information.Retired_expected_EOS, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.Retired_expected_EOS, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.Lastworkingdate</label>
-                                                        <div class="col-md-4">
-                                                            @Html.EditorFor(model => model.Service_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.Last_working_date, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-2">@Personnel.IsmeritsThedateofdeath</label>
-                                                        <div class="col-md-4">
-                                                            @Html.CheckBoxFor(model => model.Service_Information.Is_merits_The_date_of_death, new { disabled = "disabled" ,htmlAttributes = new { @class = "form-control"  } })
-                                                            @Html.ValidationMessageFor(model => model.Service_Information.Is_merits_The_date_of_death, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-offset-2 col-md-10">
-                                                            <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                                            <a href="@Url.Action("index","Employee_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-offset-2 col-md-10">
+                                                        <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                                        <a href="@Url.Action("index","Employee_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
-                    }
+                    </div>
+                }
 
                 </div>
 
@@ -1411,9 +1512,12 @@
 
     function dropAbility()
     {
+        debugger
         var member = $("#ability").val();
         if (member == 1)
         {
+            
+            $("#showme_button").attr('disabled', 'disabled');
             $("#reason").attr("readonly", true);
             $(".de").attr("readonly", true);
             $("#registration").attr("readonly", true);
@@ -1421,6 +1525,7 @@
         }
         else if ((member == 2 || member == 3))
         {
+            $("#showme_button").removeAttr("disabled");
             $("#reason").removeAttr("readonly", true);
             $(".de").removeAttr("readonly", true);
             $("#registration").removeAttr("readonly", true);
@@ -1428,3 +1533,23 @@
         }    
     }
 </script>
+@*<script type="text/javascript">
+
+    $(function() {
+        $(".btnEnableDisable").click(function() {
+            if ($(this).val() == "Disable") {
+                $(this).val("Enable");
+                $("a").each(function() {
+                    $(this).attr("rel", $(this).attr("href"));
+                    $(this).attr("href", "javascript:;");
+                });
+            } else {
+                $(this).val("Disable");
+                $("a").each(function() {
+                    $(this).attr("href", $(this).attr("rel"));
+                    $(this).removeAttr("rel");
+                });
+            }
+        });
+    });
+</script>*@ 
