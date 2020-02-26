@@ -50,8 +50,8 @@ namespace HR.Controllers
          
             var ID = int.Parse(id);
             var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            DateTime statis = Convert.ToDateTime("1/1/1900");
-            var EmployeeQualification = new Employee_Qualification_Profile { Employee_Profile = emp, Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString(), Qualification_start_date = statis, Qualification_end_date = statis, Allowance_value = 0.0 };
+            DateTime statis = Convert.ToDateTime("1/1/1900");//emp.ID.ToString()
+            var EmployeeQualification = new Employee_Qualification_Profile { Employee_Profile = emp, Employee_ProfileId = id, Code = stru.Structure_Code + count.ToString(), Qualification_start_date = statis, Qualification_end_date = statis, Allowance_value = 0.0 };
             return View(EmployeeQualification);
 
         }
@@ -68,8 +68,8 @@ namespace HR.Controllers
                 ViewBag.Name_of_educational_qualification = dbcontext.Name_of_educational_qualification.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Qualification_Major = dbcontext.Qualification_Major.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
-                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+                var empId = int.Parse(model.Employee_ProfileId);
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID ==empId);
 
                 Employee_Qualification_Profile record = new Employee_Qualification_Profile();
                 var empid = EmpObj.Code + "------" + EmpObj.Name;
@@ -78,9 +78,9 @@ namespace HR.Controllers
                 record.Employee_Profile = EmpObj;
                 record.Code = model.Code;
 
-                //if (ModelState.IsValid)
-                //{
-                if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
+                if (ModelState.IsValid)
+                {
+                    if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
                     {
                         ModelState.AddModelError("", HR.Resource.Personnel.EducatecategoryCodemustenter);
                         return View(model);
@@ -165,10 +165,13 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
                     }
-                //  return RedirectToAction("Index");
-                //}
+                    return RedirectToAction("Index", new { id = model.Employee_ProfileId });
+                }
 
-                return RedirectToAction("Index", new { id = model.Employee_ProfileId });
+                else
+                {
+                    return View(model);
+                }
 
             }
             catch (DbUpdateException e)
@@ -325,6 +328,51 @@ namespace HR.Controllers
             }
             catch (Exception e)
             { return View(model); }
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+
+                var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+                if (record != null)
+                { return View(record); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
+                    return View();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+        }
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult Deletemethod(int id)
+        {
+
+            var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == id);
+            ViewBag.idemp = record.Employee_Profile.ID.ToString();
+            try
+            {
+                dbcontext.Employee_Qualification_Profile.Remove(record);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index", new { id = record.Employee_ProfileId });
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
+                return View(record);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
     }
 }

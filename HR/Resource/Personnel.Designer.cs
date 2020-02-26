@@ -196,7 +196,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add New Employee Contract Profile.
+        ///   Looks up a localized string similar to Add New Employee Contract Profile .
         /// </summary>
         public static string AddNewEmployeeContractProfile {
             get {

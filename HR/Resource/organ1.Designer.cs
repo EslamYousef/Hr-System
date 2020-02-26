@@ -187,7 +187,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add New job title class.
+        ///   Looks up a localized string similar to Add New job title class .
         /// </summary>
         public static string AddNewjobtitleclass {
             get {

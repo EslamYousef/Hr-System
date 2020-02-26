@@ -372,7 +372,91 @@
 
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.HealthStatus</label>
 
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.Health_Status, new { @onclick = "dropAbility()", @class = "select2", @id = "ability" })
+                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Health_Status, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <table class="abilityshow">
+                                            <tr>
+                                                <td>
+                                                    <input id="showme_button" href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default abilityshow" style="width:400px;" value="Reason, Description, Registration Number, Registration Date" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="modal-6">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">In-Ability Details</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.Inabilityreason</label>
+
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Ability.Inability_reason, new { htmlAttributes = new { @class = "form-control", id = "reason", @readonly = true } })
+                                                                @Html.ValidationMessageFor(model => model.Ability.Inability_reason, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.Inabilitydescription</label>
+
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Ability.Inability_description, new { htmlAttributes = new { @class = "form-control de", id = "descriptiony", @readonly = true } })
+                                                                @Html.ValidationMessageFor(model => model.Ability.Inability_description, "", new { @class = "text-danger" })
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.registrationnumber</label>
+
+                                                            <div class="form-group">
+                                                                <div class="col-md-4">
+                                                                    @Html.EditorFor(model => model.Ability.registration_number, new { htmlAttributes = new { id = "registration", @class = "form-control", @readonly = true, @type = "number", @min = 0 } })
+                                                                    @Html.ValidationMessageFor(model => model.Ability.registration_number, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">@Personnel.registrationdate</label>
+
+                                                            <div class="col-md-4">
+                                                                @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto" } })
+                                                                @Html.ValidationMessageFor(model => model.Ability.registration_date, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane" id="profile">
@@ -483,46 +567,9 @@
                                 </div>
 
                                 <div class="tab-pane" id="Ability">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.HealthStatus</label>
-                                        <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Employee_Profile.Health_Status, new { @onclick = "dropAbility()", @class = "select2",@id = "ability" })
-                                            @Html.ValidationMessageFor(model => model.Employee_Profile.Health_Status, "", new { @class = "text-danger" })
-                                        </div>
+                           
 
-                                        @*<a href="#Ability" data-toggle="tab" aria-expanded="true">     <div class="col-md-6" id="ability">Reason, Description, Regesrtation Number, Regesrtation Date</div></a>*@
 
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Inabilityreason</label>
-                                        <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Ability.Inability_reason, new { htmlAttributes = new { @class = "form-control", id = "reason", @readonly = true } })
-                                            @Html.ValidationMessageFor(model => model.Ability.Inability_reason, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Inabilitydescription</label>
-                                        <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Ability.Inability_description, new { htmlAttributes = new { @class = "form-control de", id = "descriptiony", @readonly = true } })
-                                            @Html.ValidationMessageFor(model => model.Ability.Inability_description, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.registrationnumber</label>
-                                        <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Ability.registration_number, new { htmlAttributes = new { id = "registration", @class = "form-control", @readonly = true, @type = "number", @min = 0 } })
-                                            @Html.ValidationMessageFor(model => model.Ability.registration_number, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.registrationdate</label>
-                                        <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto"} })
-                                            @Html.ValidationMessageFor(model => model.Ability.registration_date, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tab-pane" id="PersonnelInformation">
@@ -1395,12 +1442,14 @@
     function dropAbility() {
         var member = $("#ability").val();
         if (member == 1) {
+            $("#showme_button").attr('disabled', 'disabled');
             $("#reason").attr("readonly", true);
             $(".de").attr("readonly", true);
             $("#registration").attr("readonly", true);
             $(".nv").attr('disabled', true);
         }
         else if ((member == 2 || member == 3)) {
+            $("#showme_button").removeAttr("disabled");
             $("#reason").removeAttr("readonly", true);
             $(".de").removeAttr("readonly", true);
             $("#registration").removeAttr("readonly", true);

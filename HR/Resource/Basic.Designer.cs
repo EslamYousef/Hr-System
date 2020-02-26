@@ -304,7 +304,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to amount.
+        ///   Looks up a localized string similar to amount .
         /// </summary>
         public static string amount {
             get {
