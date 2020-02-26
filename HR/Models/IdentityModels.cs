@@ -162,5 +162,13 @@ namespace HR.Models
         public DbSet<Employee_attachment_profile> Employee_attachment_profile { get; set; }
         public DbSet<Roles> AddSpecificListOfRoles { get; set; }
 
+        public DbSet<EvaluationElements> EvaluationElements { get; set; }
+        public DbSet<EvaluationElementCompetenies> EvaluationElementCompetenies { get; set; }
+        public DbSet<Evalution_and_competencies> Evalution_and_competencies { get; set; }
+        public DbSet<EvaluationGrade> EvaluationGrade { get; set; }
+        public DbSet<EvaluationType> EvaluationType { get; set; }
+        public DbSet<EvaluationObjectives> EvaluationObjectives { get; set; }
+        public DbSet<EvaluationQuestionsandanswers> EvaluationQuestionsandanswers { get; set; }
+
     }
 }

@@ -18,11 +18,12 @@
             "autoWidth": false,
             "order" : 1
         });
+        filt();
+          
+        
     });
 
-    $(function () {
-        filt();
-    });
+   
     function filt() {
 
             var ht = "";
@@ -193,11 +194,11 @@
 
 
                         <div class="col-md-3">
-                            <input autocomplete="off" placeholder=@pers_2.fromdate value="" class="form-control datepicker" id="datefrom" />
+                            <input autocomplete="off" placeholder=@pers_2.fromdate value="" class="form-control" onfocus="(this.type='date')" id="datefrom" />
                         </div>
 
                         <div class="col-md-4">
-                            <input autocomplete="off" placeholder=@pers_2.todate class="form-control datepicker" id="dateto" />
+                            <input autocomplete="off" placeholder=@pers_2.todate class="form-control"  onfocus="(this.type='date')" id="dateto" />
                         </div>
 
                     </div>
@@ -236,7 +237,7 @@
                                     <td>@item.Transaction_type</td>
                                     <td>
                                         
-                                        <a href=@Url.Action("Edit","personnel_transaction",new {id=item.ID}) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@pers_2.change</a>
+                                        <a href=@Url.Action("Edit","personnel_transaction",new {id=item.ID}) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                         <a href=@Url.Action("Delete","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
                                         <a href=@Url.Action("status","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
 

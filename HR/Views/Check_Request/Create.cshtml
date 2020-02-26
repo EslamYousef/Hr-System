@@ -9,84 +9,110 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script>
-    function CountryName()
-    {
-         
-        var id= $("#Country").val();
+    $(function () {
+
+        CountryName();
+        CountryName1();
+        emp81();
+        emp82();
+        GetDataById2('@Model.check_Request.Request_date', "Request_date_D");
+        GetDataById2('@Model.check_request_change_status.Date', "Date_D");
+        GetDataById2('@Model.check_Request.Check_Due_date', "Check_Due_date_D");
+    });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function CountryName() {
+
+        var id = $("#Country").val();
         $.ajax({
             type: "post",
             url: "/Helper/Get_type_code",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#countryname").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#countryname").val(" ");
             }
         });
     }
     function CountryName1() {
-         
+
         var id = $("#Country1").val();
         $.ajax({
             type: "post",
             url: "/Helper/get_check_request_status",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#countryname1").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#countryname1").val(" ");
             }
         });
     }
-    function emp81()
-    {
+    function emp81() {
 
-             
-            var id = $("#emp1").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetEmployee",
-                data: { "id": id },
-                success: function (result) {
-                     
-                    $("#empname1").val(result.Full_Name);
-                },
-                error: function () {
-                     
-                    $("#empname1").val(" ");
-                }
-            });
+
+        var id = $("#emp1").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#empname1").val(result.Full_Name);
+            },
+            error: function () {
+
+                $("#empname1").val(" ");
+            }
+        });
 
     }
     function emp82() {
 
-         
+
         var id = $("#emp2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#empname2").val(result.Full_Name);
             },
             error: function () {
-                 
+
                 $("#empname2").val(" ");
             }
         });
 
     }
-    CountryName();
-    CountryName1();
-    emp81();
-    emp82();
+
 </script>
 <div class="content-wrapper">
 
@@ -139,7 +165,7 @@
                                 @Basic.Request_date
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.Request_date, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.EditorFor(model => model.check_Request.Request_date, new { htmlAttributes = new { @class = "form-control", @id = "Request_date_D", @type = "date", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.check_Request.Request_date, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-6">
@@ -181,7 +207,7 @@
                                 @Basic.Date
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_request_change_status.Date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @readonly = true } })
+                                @Html.EditorFor(model => model.check_request_change_status.Date, new { htmlAttributes = new { @class = "form-control", @id = "Date_D", @type= "date", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.check_request_change_status.Date, "", new { @class = "text-danger" })
                             </div>
                          </div>
@@ -243,7 +269,7 @@
                                 @Basic.Check_Due_date
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.check_Request.Check_Due_date, new { htmlAttributes = new { @class="form-control datepicker" ,@id="dateto", @readonly = true } })
+                                @Html.EditorFor(model => model.check_Request.Check_Due_date, new { htmlAttributes = new { @class="form-control" ,@id= "Check_Due_date_D", @type = "date", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.check_Request.Check_Due_date, "", new { @class = "text-danger" })
                             </div>
                         </div>

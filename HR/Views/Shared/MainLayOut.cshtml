@@ -92,6 +92,7 @@
                         <a href="#" class="with-animation">
                             <!-- add class "with-animation" to support animation -->
                             <i class="entypo-menu"></i>
+                           
                         </a>
                     </div>
                 </header>
@@ -105,10 +106,18 @@
                             <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                             <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                             <li class="active opened active has-sub">
-                                <a data-toggle="tab" href="@Url.Action("Index", "Home", new {area = ""})">
+                                <a data-toggle="tab" href="@Url.Action("Index", "Home")">
                                     <i class="entypo-gauge"></i>
                                     <span class="title">@mainlayout.Home</span>
                                 </a>
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")">
+                                            <i class="entypo-gauge"></i>
+                                            <span class="title">@mainlayout.Home</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li class="has-sub">
@@ -368,10 +377,6 @@
 
                                 </ul>
                             </li>
-
-
-
-
                             <li class="has-sub">
                                 <a href="#Basic" name="menubtn">
                                     <i class="entypo-monitor"></i>
@@ -892,32 +897,35 @@
 
                                     </ul>
                                 </li>
-                                <ul class="user-info  pull-left-xs pull-none-xsm">
+                                <li>
+                                    <ul class="user-info  pull-left-xs pull-none-xsm">
 
-                                    <!-- Raw Notifications -->
-                                    <li class="notifications dropdown">
+                                        <!-- Raw Notifications -->
+                                        <li class="notifications dropdown">
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                            <i class="entypo-help"></i>
-                                        </a>
-                                    </li>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                <i class="entypo-help"></i>
+                                            </a>
+                                        </li>
 
-                                    <!-- Message Notifications -->
-                                    <li class="notifications dropdown">
+                                        <!-- Message Notifications -->
+                                        <li class="notifications dropdown">
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                            <i class="entypo-cog"></i>
-                                        </a>
-                                    </li>
-                                    <li class="sep"></li>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                <i class="entypo-cog"></i>
+                                            </a>
+                                        </li>
+                                        <li class="sep"></li>
 
-                                    <li class="notifications dropdown">
+                                        <li class="notifications dropdown">
 
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                            <i class="entypo-chat"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                <i class="entypo-chat"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                              
                             </ul>
                         </div>
                     </div>
@@ -927,8 +935,8 @@
                     </div>
                 </div>
            
-                @*<div class="row" style="padding: 20px">
-                <div class="col-lg-2">
+                <div class="row" style="padding: 20px">
+                @*<div class="col-lg-2">
                     <div class="panel panel-primary panel-table">
                         <div class="panel-heading">
                             <div class="panel-title">
@@ -948,9 +956,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
-                <div class="col-lg-10">
+                @*<div class="col-lg-10">
                     <div class="row" style="padding: 10px">
                         <div class="col-lg-3">
                             <div class="tabal-home">
@@ -1216,7 +1224,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
 
                 <br />
@@ -1253,8 +1261,8 @@
 
 
 
-            </div>*@
-                @*<div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
+            </div>
+            <div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
 
                 <div class="chat-inner">
 
@@ -1299,10 +1307,28 @@
 
                 </div>
 
+                <!-- conversation template -->
+                <div class="chat-conversation">
 
-            </div>*@
-                <!-- Chat Histories -->
-                @*<ul class="chat-history" id="sample_history">
+                    <div class="conversation-header">
+                        <a href="#" class="conversation-close"><i class="entypo-cancel"></i></a>
+
+                        <span class="user-status"></span>
+                        <span class="display-name"></span>
+                        <small></small>
+                    </div>
+
+                    <ul class="conversation-body"></ul>
+
+                    <div class="chat-textarea">
+                        <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+               
+                <ul class="chat-history" id="sample_history">
                 <li>
                     <span class="user">Art Ramadani</span>
                     <p>Are you here?</p>
@@ -1326,7 +1352,7 @@
                     <p>Do you like it?</p>
                     <span class="time">09:27</span>
                 </li>
-            </ul>*@
+            </ul>
             <div class="container" style="width:95%;max-width:95%;" dir='@HR.Resource.mainlayout.d'>
                 <br />
                 @RenderBody()

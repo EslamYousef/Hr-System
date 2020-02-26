@@ -16,9 +16,9 @@ namespace HR.Models
         [Index(IsUnique = true)]
         public string Number { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
-        public DateTime transaction_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        public DateTime transaction_date { get; set; } = Convert.ToDateTime("01/01/2020").Date;
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
-        public DateTime Effective_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        public DateTime Effective_date { get; set; } = Convert.ToDateTime("01/01/2020").Date;
         public transaction_type Transaction_type { get; set; }
         public virtual Employee_Profile Employee { get; set; }
         public virtual status status { get; set; }

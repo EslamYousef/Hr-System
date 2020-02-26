@@ -206,7 +206,7 @@
                                                    <span> @organ.createdDate</span>
                                                </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control",@type="date", id = "CR" } })
                                                    @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
 
                                                </div>
@@ -225,7 +225,7 @@
                                                    <span>@organ.ReportasreadyDate</span>
                                                </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class="form-control datepicker", id="datefrom" } })
+                                                   @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class="form-control", @type = "date", id = "RE" } })
                                                    @Html.ValidationMessageFor(model => model.status.report_as_ready_bydate, "", new { @class = "text-danger" })
 
                                                </div>
@@ -246,7 +246,7 @@
                                                    <span> @organ.approvedDate</span>
                                                </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "AP" } })
                                                    @Html.ValidationMessageFor(model => model.status.approved_bydate, "", new { @class = "text-danger" })
 
                                                </div>
@@ -265,7 +265,7 @@
                                                    <span>@organ.RejectedDate</span>
                                                </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Rj" } })
                                                    @Html.ValidationMessageFor(model => model.status.Rejected_bydate, "", new { @class = "text-danger" })
 
                                                </div>
@@ -285,7 +285,7 @@
                                                    <span>@organ.cancaledDate</span>
                                                </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                                   @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CA" } })
                                                    @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
 
                                                </div>
@@ -312,6 +312,34 @@
         </div>
 @section scripts{}
 <script>
+    $(function () { 
+        GetDataById2('@Model.status.created_bydate', "CR");
+        GetDataById2('@Model.status.Rejected_bydate', "Rj");
+        GetDataById2('@Model.status.report_as_ready_bydate', "RE");
+        GetDataById2('@Model.status.approved_bydate', "AP");
+        GetDataById2('@Model.status.cancaled_bydate', "CA");
+    });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
     function org()
     {
          
@@ -513,7 +541,6 @@
         var value = $("#YT").val();
         $("#YF").val(parseInt(parseInt(value) - parseInt(1)));
     });
-    
 </script>
 <style>
     input::-webkit-outer-spin-button,
@@ -743,5 +770,4 @@ input::-webkit-inner-spin-button {
     var f=parseFloat($("#F").val());
     $("#RN").val(n);
     $("#RF").val(f);
-    
 </script>

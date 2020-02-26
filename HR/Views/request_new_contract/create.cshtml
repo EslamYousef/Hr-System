@@ -16,105 +16,131 @@
         employee3();
         employee4();
         employee5();
+        GetDataById2('@Model.Contract_start_date', "Contract_start_date_D");
+        GetDataById2('@Model.Contract_end_date', "Contract_end_date_D");
+        GetDataById2('@Model.Medical_date', "Medical_date_D");
+
+        GetDataById2('@Model.Approved_date', "Approved_date_D");
     });
 
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
     function employee() {
-         
+
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
                 $("#employeeId").attr("readonly", true);
                 $("#employeeId").prop("readonly", true);
             },
             error: function () {
-                 
+
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
     function employee2() {
-         
+
         var id = $("#employeeId2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                 
-              //  $("#employeename").val(result.Name);
+
+                //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                 
-            //    $("#employeename").val(" ");
+
+                //    $("#employeename").val(" ");
             }
         });
     }
     function employee3() {
-         
+
         var id = $("#employeeId3").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetContract_Type",
             data: { "id": id },
             success: function (result) {
-                 
-              //  $("#employeename").val(result.Name);
+
+                //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                 
-            //    $("#employeename").val(" ");
+
+                //    $("#employeename").val(" ");
             }
         });
     }
     function employee4() {
-         
+
         var id = $("#employeeId4").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetAirports",
             data: { "id": id },
             success: function (result) {
-                 
-              //  $("#employeename").val(result.Name);
+
+                //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                 
-            //    $("#employeename").val(" ");
+
+                //    $("#employeename").val(" ");
             }
         });
     }
     function employee5() {
-         
+
         var id = $("#employeeId5").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetAirports",
             data: { "id": id },
             success: function (result) {
-                 
-              //  $("#employeename").val(result.Name);
+
+                //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                 
-            //    $("#employeename").val(" ");
+
+                //    $("#employeename").val(" ");
             }
         });
     }
     function Save() {
-             
-            $(".yy").on('click', function () {
-           // var x = $(".name").val();
+
+        $(".yy").on('click', function () {
+            // var x = $(".name").val();
 
             var StartDate = new Date($(".StartDate").val());
             var EndDate = new Date($(".EndDate").val());
@@ -141,9 +167,9 @@
     }
     function Save2() {
 
-             
-            $(".yyy").on('click', function () {
-           // var x = $(".name").val();
+
+        $(".yyy").on('click', function () {
+            // var x = $(".name").val();
 
             var StartDate = new Date($(".StartDate").val());
             var EndDate = new Date($(".EndDate").val());
@@ -266,7 +292,7 @@
                                             @pers_2.Contractstartdate
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control datepicker StartDate yy", @id = "dateto", @onclick = "Save()" } })
+                                            @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_start_date_D", @onclick = "Save()" } })
                                             @Html.ValidationMessageFor(model => model.Contract_start_date, "", new { @class = "text-danger" })
                                         </div>
                                         <label class="control-label col-md-2">
@@ -284,7 +310,7 @@
                                             @pers_2.Contractenddate
                                         </label>
                                           <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control datepicker EndDate yyy", @id = "dateto", @onclick = "Save2()" } })
+                                            @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control EndDate yyy",@type="date", @id = "Contract_end_date_D", @onclick = "Save2()" } })
                                             @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
                                         </div>
                                        <label class="control-label col-md-2">
@@ -311,7 +337,7 @@
                                             @pers_2.Approveddate
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Approved_date_D" } })
                                             @Html.ValidationMessageFor(model => model.Approved_date, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -334,7 +360,7 @@
                                             @pers_2.Medicaldate
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control" ,@type="date",id= "Medical_date_D" } })
                                             @Html.ValidationMessageFor(model => model.Medical_date, "", new { @class = "text-danger" })
                                         </div>
                                     </div>

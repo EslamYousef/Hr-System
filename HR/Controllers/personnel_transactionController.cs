@@ -78,6 +78,7 @@ namespace HR.Controllers
                     count = te + 1;
                 }
                 DateTime statis = Convert.ToDateTime("1/1/1900").Date;
+                ViewBag.da = statis;
                var vm = new personnel_transaction {Number= stru.Structure_Code + count,End_of_service_date = statis,
                     Position_Transaction_number = stru.Structure_Code + count,
                     From_date = statis,Last_working_date = statis,To_date = statis,
