@@ -52,6 +52,7 @@ namespace HR.Models
         public virtual GradeEducate GradeEducate { get; set; }
         public int Extra_education_years { get; set; }
         public double Allowance_value { get; set; }
+        public virtual Employee_Profile Employee_Profile { get; set; }
 
     }
 }

@@ -547,6 +547,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to border-left:1px solid #000;.
+        /// </summary>
+        public static string border {
+            get {
+                return ResourceManager.GetString("border", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Branch.
         /// </summary>
         public static string Branch {
@@ -2392,7 +2401,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to margin-left:33px;.
+        ///   Looks up a localized string similar to margin-left:20px;.
         /// </summary>
         public static string margin {
             get {
@@ -2401,11 +2410,20 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to margin-left:66px;.
+        ///   Looks up a localized string similar to margin-left:40px;.
         /// </summary>
         public static string margin_2 {
             get {
                 return ResourceManager.GetString("margin_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to margin-left:60px;.
+        /// </summary>
+        public static string margin_3 {
+            get {
+                return ResourceManager.GetString("margin_3", resourceCulture);
             }
         }
         

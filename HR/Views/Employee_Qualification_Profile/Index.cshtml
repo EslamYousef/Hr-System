@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HR.Models.ViewModel.Employee_Qualification_VM>
+﻿@model IEnumerable<HR.Models.Employee_Qualification_Profile>
 @using HR.Resource;
 @{
     ViewBag.Title = "Index";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    @Personnel.EmployeeQualificationProfile
+                    <a href="@Url.Action("Create", "Employee_Qualification_Profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.EmployeeQualificationProfile </a>
                 </p>
             </div>
 
@@ -51,51 +51,51 @@
                         {
                             <tr>
                                 
-                                <td>@item.Employee_Qualification_Profile.Code</td>
-                                <td>@item.fullname</td>
+                                <td>@item.Code</td>
+                                <td>@item.Employee_Profile.Full_Name</td>
                          
-                                    @if (@item.Employee_Qualification_Profile.Educate_category != null )
-                                    { <td>@item.Employee_Qualification_Profile.Educate_category.Name </td> }
+                                    @if (@item.Educate_category != null )
+                                    { <td>@item.Educate_category.Name </td> }
                                     else
                                     { <td>Empty</td>}
                          
-                                    @if (@item.Employee_Qualification_Profile.Educate_Title != null)
+                                    @if (@item.Educate_Title != null)
                                     {
-                                <td> @item.Employee_Qualification_Profile.Educate_Title.Name </td> }
+                                <td> @item.Educate_Title.Name </td> }
                                     else
                                     {<td>Empty</td> }
                                
-                                    @if (@item.Employee_Qualification_Profile.Main_Educate_body != null)
+                                    @if (@item.Main_Educate_body != null)
                                     {
-                                <td> @item.Employee_Qualification_Profile.Main_Educate_body.Name </td> }
+                                <td> @item.Main_Educate_body.Name </td> }
                                     else
                                     {<td>Empty</td>}          
-                                    @if (@item.Employee_Qualification_Profile.Sub_educational_body != null)
+                                    @if (@item.Sub_educational_body != null)
                                     {
-                                <td> @item.Employee_Qualification_Profile.Sub_educational_body.Name</td> }
+                                <td> @item.Sub_educational_body.Name</td> }
                                     else
                                     {<td>Empty</td>}
-                                    @if (@item.Employee_Qualification_Profile.Name_of_educational_qualification != null)
+                                    @if (@item.Name_of_educational_qualification != null)
                                     {
-                                <td> @item.Employee_Qualification_Profile.Name_of_educational_qualification.Name </td>}
+                                <td> @item.Name_of_educational_qualification.Name </td>}
                                     else
                                     {<td>Empty</td>}
                                 
-                                    @if (@item.Employee_Qualification_Profile.Qualification_Major != null)
+                                    @if (@item.Qualification_Major != null)
                                     {
-                                <td> @item.Employee_Qualification_Profile.Qualification_Major.Name</td>}
+                                <td> @item.Qualification_Major.Name</td>}
                                     else
                                     {<td>Empty</td>}
                               
-                                    @if (@item.Employee_Qualification_Profile.GradeEducateId != null)
+                                    @if (@item.GradeEducateId != null)
                                     {
-                                <td>@item.Employee_Qualification_Profile.GradeEducate.Name </td> }
+                                <td>@item.GradeEducate.Name </td> }
                                     else
                                     {<td>Empty</td>}
                              
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_Qualification_Profile", new {id = item.Employee_Qualification_Profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
-                                    @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
+                                    <a href="@Url.Action("Edit", "Employee_Qualification_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit</a>
+                                    <a href="@Url.Action("delete", "Employee_Qualification_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }

@@ -16,20 +16,12 @@ namespace HR.Controllers
         ApplicationDbContext dbcontext = new ApplicationDbContext();
 
         // GET: Employee_Qualification_Profile
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var employee = dbcontext.Employee_Profile.ToList();
-            var qualification = dbcontext.Employee_Qualification_Profile.ToList();
-            var model = from a in employee
-                        join b in qualification on a.Employee_Qualification_Profile.ID equals b.ID
-                        select new Employee_Qualification_VM
-                        {
-                            fullname = a.Full_Name,
-                            code = a.Code,
-                            EmployeeId = a.ID,
-                            Employee_Qualification_Profile = b
-                        };
-            return View(model);
+            var ID = int.Parse(id);
+            var new_model = dbcontext.Employee_Qualification_Profile.Where(m => m.Employee_Profile.ID == ID).ToList();
+            ViewBag.idemp = id;
+            return View(new_model);
         }
         public ActionResult Create(string id)
         {
@@ -42,7 +34,7 @@ namespace HR.Controllers
             ViewBag.Qualification_Major = dbcontext.Qualification_Major.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
+            ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_Qualification_Profile.ToList();
             var count = 0;
@@ -55,16 +47,11 @@ namespace HR.Controllers
                 var te = model.LastOrDefault().ID;
                 count = te + 1;
             }
-            if (id != null)
-            {
-                var ID = int.Parse(id);
-                var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-                var x = emp.Employee_Qualification_Profile;
-                return View(x);
-            }
+         
+            var ID = int.Parse(id);
+            var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
             DateTime statis = Convert.ToDateTime("1/1/1900");
-            var EmployeeQualification = new Employee_Qualification_Profile { Code = stru.Structure_Code + count, Qualification_start_date = statis, Qualification_end_date = statis, Allowance_value = 0.0 };
-            //   var EmployeeQualification = new Employee_Qualification_Profile();
+            var EmployeeQualification = new Employee_Qualification_Profile { Employee_Profile = emp, Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString(), Qualification_start_date = statis, Qualification_end_date = statis, Allowance_value = 0.0 };
             return View(EmployeeQualification);
 
         }
@@ -73,8 +60,7 @@ namespace HR.Controllers
         {
             try
             {
-
-
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_category = dbcontext.Educate_category.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_Title = dbcontext.Educate_Title.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Main_Educate_body = dbcontext.Main_Educate_body.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -82,11 +68,19 @@ namespace HR.Controllers
                 ViewBag.Name_of_educational_qualification = dbcontext.Name_of_educational_qualification.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Qualification_Major = dbcontext.Qualification_Major.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
-                if (ModelState.IsValid)
-                {
-                    if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+
+                Employee_Qualification_Profile record = new Employee_Qualification_Profile();
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+                record.Code = model.Code;
+
+                //if (ModelState.IsValid)
+                //{
+                if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
                     {
                         ModelState.AddModelError("", HR.Resource.Personnel.EducatecategoryCodemustenter);
                         return View(model);
@@ -126,10 +120,11 @@ namespace HR.Controllers
                         ModelState.AddModelError("", HR.Resource.Personnel.EmployeeProfileCodemustenter);
                         return View(model);
                     }
-                    var prof = int.Parse(model.Employee_ProfileId);
-                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
-                    var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == emp.Employee_Qualification_Profile.ID);
-                    record.Related_to_job = model.Related_to_job;
+                //   var prof = int.Parse(model.Employee_ProfileId);
+                //     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+                //             var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == emp.Employee_Qualification_Profile.ID);
+         
+                record.Related_to_job = model.Related_to_job;
                     record.Qualification_start_date = model.Qualification_start_date;
                     record.Qualification_end_date = model.Qualification_end_date;
                     if (model.Qualification_start_date > model.Qualification_end_date)
@@ -141,8 +136,8 @@ namespace HR.Controllers
                     record.Months = model.Months;
                     record.Extra_education_years = model.Extra_education_years;
                     record.Allowance_value = model.Allowance_value;
-                    record.Employee_ProfileId = model.Employee_ProfileId;
-                    var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                    //record.Employee_ProfileId = model.Employee_ProfileId;
+                    //var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
                     record.Educate_categoryId = model.Educate_categoryId;
                     var Educate_categoryId = int.Parse(model.Educate_categoryId);
                     record.Educate_category = dbcontext.Educate_category.FirstOrDefault(m => m.ID == Educate_categoryId);
@@ -164,18 +159,17 @@ namespace HR.Controllers
                     record.GradeEducateId = model.GradeEducateId;
                     var GradeEducateId = int.Parse(model.GradeEducateId);
                     record.GradeEducate = dbcontext.GradeEducate.FirstOrDefault(m => m.ID == GradeEducateId);
-
-                    dbcontext.SaveChanges();
+                dbcontext.Employee_Qualification_Profile.Add(record);
+                dbcontext.SaveChanges();
                     if (command == "Submit")
                     {
                         return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
                     }
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(model);
-                }
+                //  return RedirectToAction("Index");
+                //}
+
+                return RedirectToAction("Index", new { id = model.Employee_ProfileId });
+
             }
             catch (DbUpdateException e)
             {
@@ -201,6 +195,8 @@ namespace HR.Controllers
                 ViewBag.Qualification_Major = dbcontext.Qualification_Major.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.GradeEducate = dbcontext.GradeEducate.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
                 if (record != null)
                 {
                     return View(record);
@@ -234,8 +230,9 @@ namespace HR.Controllers
 
                 var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == model.ID);
                 var empid = EmpObj.Code + "------" + EmpObj.Name;
-                var empl = record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
-
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
                 //if (model.Employee_ProfileId == "0" || model.Employee_ProfileId == null)
                 //{
                 //    ModelState.AddModelError("", "Employee Profile Code must enter");
@@ -317,9 +314,9 @@ namespace HR.Controllers
 
                 if (command == "Submit")
                 {
-                    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
                 }
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = EmpObj.ID });
             }
             catch (DbUpdateException)
             {

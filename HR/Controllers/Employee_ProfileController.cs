@@ -274,27 +274,27 @@ namespace HR.Controllers
                     //emp.Employee_Address_Profile = address_emp;
                     //dbcontext.SaveChanges();
                     ///////////////////////////////////////////////
-                    var addmodel1 = dbcontext.Employee_Qualification_Profile.ToList();
-                    var tr = 0;
+                    //var addmodel1 = dbcontext.Employee_Qualification_Profile.ToList();
+                    //var tr = 0;
 
-                    if (addmodel1.Count() == 0)
-                    {
-                        tr = 1;
-                    }
-                    else
-                    {
-                        var te = addmodel1.LastOrDefault().ID;
-                        tr = te + 1;
-                    }
-                    DateTime statis = Convert.ToDateTime("1/1/1900");
-                    var strus = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    var text = new Employee_Qualification_Profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus.Structure_Code + tr.ToString(), Qualification_start_date = statis, Qualification_end_date = statis };
-                    var e = dbcontext.Employee_Qualification_Profile.Add(text);
-                    dbcontext.SaveChanges();
+                    //if (addmodel1.Count() == 0)
+                    //{
+                    //    tr = 1;
+                    //}
+                    //else
+                    //{
+                    //    var te = addmodel1.LastOrDefault().ID;
+                    //    tr = te + 1;
+                    //}
+                    //DateTime statis = Convert.ToDateTime("1/1/1900");
+                    //var strus = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //var text = new Employee_Qualification_Profile
+                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus.Structure_Code + tr.ToString(), Qualification_start_date = statis, Qualification_end_date = statis };
+                    //var e = dbcontext.Employee_Qualification_Profile.Add(text);
+                    //dbcontext.SaveChanges();
 
-                    emp.Employee_Qualification_Profile = e;
-                    dbcontext.SaveChanges();
+                    //emp.Employee_Qualification_Profile = e;
+                    //dbcontext.SaveChanges();
                     //////////////////////////////////////////////////////////
                     //var addmodel2 = dbcontext.Position_Information.ToList();
                     //var tr2 = 0;
@@ -435,7 +435,7 @@ namespace HR.Controllers
                     }
                     if (command2 == "Submit")
                     {
-                        return RedirectToAction("Edit", "Employee_Qualification_Profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_Qualification_Profile", new { id = emp.ID });
                     }
                     if (command3 == "Submit")
                     {
@@ -686,7 +686,7 @@ namespace HR.Controllers
                 }
                 if (command2 == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_Qualification_Profile", new { id = record.Employee_Qualification_Profile.ID });
+                    return RedirectToAction("index", "Employee_Qualification_Profile", new { id = record.ID });
                 }
                 if (command3 == "Submit")
                 {
@@ -754,7 +754,7 @@ namespace HR.Controllers
             {
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
                 var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.ID);
-                var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.Employee_Qualification_Profile.ID);
+                var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.ID);
                 var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
                 var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
                 var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
@@ -782,7 +782,7 @@ namespace HR.Controllers
         {
             var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
             var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.ID);
-            var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.Employee_Qualification_Profile.ID);
+            var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.ID);
             var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
             var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
             var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
