@@ -13,7 +13,53 @@
         employe88en();
         CountryName();
         slot();
+        newcontract();
+
+       
+            GetDataById2('@Model.personnel_transaction.transaction_date', "transaction_D");
+            GetDataById2('@Model.personnel_transaction.Effective_date', "effective_D");
+            GetDataById2('@Model.personnel_transaction.From_date', "from_D");
+            GetDataById2('@Model.personnel_transaction.To_date', "to_D");
+            GetDataById2('@Model.personnel_transaction.Position_transaction', "Position_transaction_D");
+            GetDataById2('@Model.personnel_transaction.Resolution_date', "Resolution_D");
+            GetDataById2('@Model.personnel_transaction.Memo_date', "Memo_D");
+            GetDataById2('@Model.personnel_transaction.Approved_date', "Approved_D");
+      
+       
+
     });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+    function newcontract() {
+        var val = $("#requestcontract").val();
+        debugger
+        if (val == "8") {
+            $("#Div-Of-Contract").attr("hidden", false);
+        }
+        else {
+            $("#Div-Of-Contract").attr("hidden", true);
+        }
+    }
         function CountryName() {
              
             var id = $("#country").val();
@@ -270,7 +316,7 @@
                                 <span>@pers_2.TransactionDate </span>
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.personnel_transaction.transaction_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.personnel_transaction.transaction_date, new { htmlAttributes = new { @class = "form-control",@type="date", id = "transaction_D" } })
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.transaction_date, "", new { @class = "text-danger" })
 
                             </div>
@@ -278,7 +324,7 @@
                                 <span>@pers_2.EffectiveDate</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.personnel_transaction.Effective_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.personnel_transaction.Effective_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "effective_D" } })
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Effective_date, "", new { @class = "text-danger" })
 
                             </div>
@@ -289,9 +335,17 @@
                                 <span> @pers_2.Transactiontype</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(m => m.personnel_transaction.Transaction_type,pers_2.Transactiontype, new { @class = "select2" })
+                                @Html.EnumDropDownListFor(m => m.personnel_transaction.Transaction_type,pers_2.Transactiontype, new { id= "requestcontract", @onchange = "newcontract()", @class = "select2" })
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Transaction_type, "", new { @class = "text-danger" })
 
+                            </div>
+                            <div class="col-md-2"> </div>
+                            <div id="Div-Of-Contract" class="col-md-4" hidden>
+                                <a href="@Url.Action("index","request_new_contract")"
+                                   target="_blank"
+                                   class="btn btn-black col-md-4">
+                                    @pers_2.makenewcontract
+                                </a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -304,12 +358,12 @@
                                 <input type="text" value="" class="form-control" id="employeename" disabled />
                             </div>
                             <div class="col-md-2"></div>
-                            <div style="margin-top:25px" class="form-group">
-                                <div class="col-md-4">
-                                    <input id="btnSave" style="width:150px" class="btn btn-success" type="submit" onclick="ch()" value=@organ.edit/>
+                           
+                                <div class="col-md-4" style="margin-top:25px" >
+                                    <input id="btnSave" style="width:150px" class="btn btn-success" type="submit" onclick="ch()" value=@organ.Save/>
                                     <a style="width:150px" href="@Url.Action("index", "personnel_transaction")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
                                 </div>
-                            </div>
+                          
                         </div>
                         <a href="@Url.Action("Details", "Employee_Positions_Profile", new { emp_id = Model.selected_employee })"
                            target="_blank"
@@ -333,12 +387,12 @@
                                         <span class="hidden-xs">@pers_2.positiontransactioninformation</span>
                                     </a>
                                 </li>
-                                <li>
+                                @*<li>
                                     <a href="#contract" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-user"></i></span>
                                         <span class="hidden-xs">@pers_2.contract</span>
                                     </a>
-                                </li>
+                                </li>*@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
@@ -423,7 +477,7 @@
                                             @pers_2.fromdate
                                         </label>
                                          <div class="col-md-4">
-                                            @Html.EditorFor(model => model.personnel_transaction.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.personnel_transaction.From_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "from_D" } })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.From_date, "", new { @class = "text-danger" })
                                         </div>
 
@@ -442,7 +496,7 @@
                                             @pers_2.todate
                                         </label>
                                              <div class="col-md-4">
-                                            @Html.EditorFor(model => model.personnel_transaction.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                            @Html.EditorFor(model => model.personnel_transaction.To_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "to_D" } })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.To_date, "", new { @class = "text-danger" })
                                         </div>
 
@@ -534,7 +588,7 @@
                                                 @pers_2.PositionTransactionno
                                             </label>
                                               <div class="col-md-4">
-                                                @Html.EditorFor(model => model.personnel_transaction.Position_transaction, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                @Html.EditorFor(model => model.personnel_transaction.Position_transaction, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Position_transaction_D" } })
                                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Position_transaction, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -572,7 +626,7 @@
                                                 @pers_2.Resolutiondate
                                             </label>
                                                 <div class="col-md-4">
-                                                @Html.EditorFor(model => model.personnel_transaction.Resolution_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                @Html.EditorFor(model => model.personnel_transaction.Resolution_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Resolution_D" } })
                                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Resolution_date, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -602,7 +656,7 @@
                                                 @pers_2.Memodate
                                             </label>
                                               <div class="col-md-4">
-                                                @Html.EditorFor(model => model.personnel_transaction.Memo_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                @Html.EditorFor(model => model.personnel_transaction.Memo_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Memo_D" } })
                                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Memo_date, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -633,21 +687,21 @@
                                                 @pers_2.Approveddate
                                             </label>
                                              <div class="col-md-4">
-                                                @Html.EditorFor(model => model.personnel_transaction.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                                @Html.EditorFor(model => model.personnel_transaction.Approved_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Approved_D" } })
                                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Approved_date, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="tab-pane" id="contract">
+                                @*<div class="tab-pane" id="contract">
                                     <a href="@Url.Action("index","request_new_contract")"
                                        target="_blank"
                                        class="button Secondary">
                                         <h3 style="color:darkred"> @pers_2.makenewcontract </h3>
                                     </a>
 
-                                </div>
+                                </div>*@
 
                             </div>
 

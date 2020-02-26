@@ -495,8 +495,22 @@ namespace HR.Models.Infra
         [Display(Name = "Received by employee")]
         Received_by_employee = 3
     }
+    public enum Decisiontype
+    {
+       
+        Positive =1,
+       
+        Negative =2
+    }
+    public enum Periods
+    {
+        Monyhely=1,
+        Quarter=2,
+        [Display(Name = "Half year")]
+        Half_year =3,
+        Yearly=4
 
-
+    }
 
 
 }

@@ -51,11 +51,13 @@ namespace HR.Models
     {
       
         [Display(Name = "اسم المستخدم")]
+        [Required]
         public string UserName { get; set; }
 
       
         [DataType(DataType.Password)]
         [Display(Name = "كلمة المرور")]
+        [Required]
         public string Password { get; set; }
 
         [Display(Name = "تذكرني؟")]

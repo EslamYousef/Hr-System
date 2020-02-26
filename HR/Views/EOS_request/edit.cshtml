@@ -8,7 +8,36 @@
         CountryName1()
         CountryName2()
         CountryName3()
+        GetDataById2('@Model.EOS.Requset_date', "Requset_date_D");
+        GetDataById2('@Model.EOS.Date_of_EOS', "Date_of_EOS_D");
+        GetDataById2('@Model.EOS.last_Date_of_work_after_notice_period', "last_Date_of_work_after_notice_period_D");
+        GetDataById2('@Model.EOS.last_work_day_before_request', "last_work_day_before_request_D");
+        GetDataById2('@Model.EOS.date_of_settlement', "date_of_settlement_D");
+        GetDataById2('@Model.EOS.date_of_eos_interview', "date_of_eos_interview_D");
+
+
     });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
     function CountryName1()
     {
          
@@ -111,7 +140,7 @@
                                 <span> @pers_2.requestdate  </span>
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EOS.Requset_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.EOS.Requset_date, new { htmlAttributes = new { @class = "form-control",@type="date",id= "Requset_date_D" } })
                                 @Html.ValidationMessageFor(model => model.EOS.Requset_date, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-md-3" style="color:black">
@@ -139,33 +168,40 @@
                                 @Html.ValidationMessageFor(model => model.EOS.EOS_type, "", new { @class = "text-danger" })
 
                             </div>
+                            <div class="col-md-3" style="color:black">
+                                <input style="width:100px" type="submit" value=@organ.Save class="btn btn-success" />
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">
                                 <span>@pers_2.DateofEOS  </span>
                             </label> 
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EOS.Date_of_EOS, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.EOS.Date_of_EOS, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Date_of_EOS_D" } })
                                 @Html.ValidationMessageFor(model => model.EOS.Date_of_EOS, "", new { @class = "text-danger" })
                             </div>
+                            <div class="col-md-3" style="color:black">
+                                <a  style="width:100px" href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
 
+
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">
                                 <span>@pers_2.lastworkdaybeforerequest </span>
                             </label> 
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EOS.last_work_day_before_request, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.EOS.last_work_day_before_request, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "last_work_day_before_request_D" } })
                                 @Html.ValidationMessageFor(model => model.EOS.last_work_day_before_request, "", new { @class = "text-danger" })
                             </div>
-
+                            
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">
                                 <span>@pers_2.lastDateofworkafternoticeperiod </span>
                             </label> 
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EOS.last_Date_of_work_after_notice_period, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.EOS.last_Date_of_work_after_notice_period, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "last_Date_of_work_after_notice_period_D" } })
                                 @Html.ValidationMessageFor(model => model.EOS.last_Date_of_work_after_notice_period, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -204,7 +240,7 @@
                                 <span>@pers_2.dateofsettlement </span>
                             </label> 
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EOS.date_of_settlement, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.EOS.date_of_settlement, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "date_of_settlement_D" } })
                                 @Html.ValidationMessageFor(model => model.EOS.date_of_settlement, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -224,7 +260,7 @@
                                 <span>@pers_2.dateofeosinterview </span>
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EOS.date_of_eos_interview, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.EOS.date_of_eos_interview, new { htmlAttributes = new { @class = "form-control",@type="date",id= "date_of_eos_interview_D" } })
                                 @Html.ValidationMessageFor(model => model.EOS.date_of_eos_interview, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -247,13 +283,7 @@
                             </div>
 
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-4 col-md-10">
-                                <input type="submit" value=@pers_2.editEOSRequest class="btn btn-success" />
-                                <a href="@Url.Action("index","EOS_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-
-                            </div>
-                        </div>
+                      
                     </div>
                 }
 

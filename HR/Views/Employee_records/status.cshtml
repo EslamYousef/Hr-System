@@ -9,38 +9,58 @@
 <script>
     $(function () {
         close();
+        GetDataById2('@Model.status.created_bydate', "CR");
+        GetDataById2('@Model.status.Rejected_bydate', "Rj");
+        GetDataById2('@Model.status.report_as_ready_bydate', "RE");
+        GetDataById2('@Model.status.approved_bydate', "AP");
+        GetDataById2('@Model.status.cancaled_bydate', "CA");
     });
-    function go(input)
-    {
-         
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function go(input) {
+
 
         var value = input.val();
-        if(value==1)
-        {
+        if (value == 1) {
             close();
             $("#created1").attr("readonly", false);
             $("#created1d").attr("hidden", false);
 
         }
-        else if(value==2)
-        {
+        else if (value == 2) {
             close();
             $("#report1").prop("readonly", false);
             $("#report1d").prop("hidden", false);
         }
-        else if (value == 3)
-        {
+        else if (value == 3) {
             close();
             $("#approved1").prop("readonly", false);
             $("#approved1d").prop("hidden", false);
         }
-        else if (value == 4)
-        {
+        else if (value == 4) {
             close();
             $("#Rejected1").prop("readonly", false);
             $("#Rejected1d").prop("hidden", false);
-        } else if (value == 5)
-        {
+        } else if (value == 5) {
             close();
             $("#cancaled1").prop("readonly", false);
             $("#cancaled1d").prop("hidden", false);
@@ -49,14 +69,12 @@
             close();
 
         }
-        else if (value ==7) {
+        else if (value == 7) {
             close();
 
         }
     }
-
-    function close()
-    {
+    function close() {
         $("#cancaled1").attr("readonly", true);
         $("#Rejected1").attr("readonly", true);
         $("#approved1").attr("readonly", true);
@@ -71,7 +89,6 @@
         $("#created1d").attr("hidden", true);
         $("#report1d").attr("hidden", true);
     }
-
 </script>
 @using (Html.BeginForm("status", "Employee_records", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -117,7 +134,7 @@
                                                        <span> @organ.createdDate</span>
                                                    </label>
                                                    <div class="col-md-4">
-                                                       @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                       @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CR" } })
                                                        @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
 
                                                    </div>
@@ -138,7 +155,7 @@
                                                                 <span>@organ.ReportasreadyDate</span>
                                                             </label>
                                                             <div class="col-md-4">
-                                                                @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
+                                                                @Html.EditorFor(model => model.status.report_as_ready_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "RE" } })
                                                                 @Html.ValidationMessageFor(model => model.status.report_as_ready_bydate, "", new { @class = "text-danger" })
 
                                                             </div>
@@ -160,7 +177,7 @@
                                                     <span>@organ.approvedDate</span>
                                                                 </label>
                                                                 <div class="col-md-4">
-                                                                    @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                                    @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "AP" } })
                                                                     @Html.ValidationMessageFor(model => model.status.approved_bydate, "", new { @class = "text-danger" })
 
                                                                 </div>
@@ -182,7 +199,7 @@
                                                        <span>@organ.RejectedDate</span>
                                                    </label>
                                                    <div class="col-md-4">
-                                                       @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
+                                                       @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control" , @type = "date", id = "Rj" } })
                                                        @Html.ValidationMessageFor(model => model.status.Rejected_bydate, "", new { @class = "text-danger" })
 
                                                    </div>
@@ -204,7 +221,7 @@
                                                        <span>@organ.cancaledDate</span>
                                                    </label>
                                                    <div class="col-md-4">
-                                                       @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control datepicker"  } })
+                                                       @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control" ,@type="date",id="CA" } })
                                                        @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
 
                                                    </div>
@@ -215,7 +232,7 @@
       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value=@organ.submit class="btn btn-success" />
+                <input type="submit" value=@organ.Save class="btn btn-success" />
                 <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backtoindex</a>
             </div>
         </div>

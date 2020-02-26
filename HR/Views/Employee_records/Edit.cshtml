@@ -13,7 +13,31 @@
     $(function () {
         CountryName1();
         CountryName2();
+        GetDataById2('@Model.record.Record_date', "Record_date_D");
+        GetDataById2('@Model.record.Effictive_date', "Effictive_date_D");
+        GetDataById2('@Model.record.Record_expire_date', "Record_expire_date_D");
     });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
     function CountryName1()
     {
          
@@ -90,6 +114,19 @@
                                 @Html.EditorFor(model => model.record.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.record.Code, "", new { @class = "text-danger" })
                             </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <input style="width:200px" type="submit" value=@organ.Save class="btn btn-success" />
+
+                            </div>
+                            <div class="col-md-2">
+
+
+                                <a style="width:150px" href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+
+
+
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">
@@ -139,14 +176,14 @@
                                 @pers_2.Recorddate
                             </label>
                              <div class="col-md-4">
-                                @Html.EditorFor(model => model.record.Record_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.record.Record_date, new { htmlAttributes = new { @class = "form-control",@type="date",id= "Record_date_D" } })
                                 @Html.ValidationMessageFor(model => model.record.Record_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">
                                 @pers_2.EffectiveDate
                             </label>
                                 <div class="col-md-4">
-                                @Html.EditorFor(model => model.record.Effictive_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.record.Effictive_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Effictive_date_D" } })
                                 @Html.ValidationMessageFor(model => model.record.Effictive_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -155,7 +192,7 @@
                                 @pers_2.Recordexpiredate
                             </label>
                               <div class="col-md-4">
-                                @Html.EditorFor(model => model.record.Record_expire_date, new { htmlAttributes = new { @class = "form-control datepicker", id = "datefrom" } })
+                                @Html.EditorFor(model => model.record.Record_expire_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Record_expire_date_D" } })
                                 @Html.ValidationMessageFor(model => model.record.Record_expire_date, "", new { @class = "text-danger" })
                             </div>
 
@@ -178,13 +215,7 @@
                                 @Html.ValidationMessageFor(model => model.record.record_amount, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value=@organ.edit class="btn btn-success" />
-                                <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-
-                            </div>
-                        </div>
+                       
                     </div>
                 }
 
