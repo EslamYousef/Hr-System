@@ -209,7 +209,7 @@
             });
         }
         //getcite2(did)
-    function employe88en() {
+        function employe88en() {
 
         var id = $("#employeeId").val();
         $.ajax({
@@ -271,25 +271,18 @@
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Number, "", new { @class = "text-danger" })
 
                             </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span>@pers_2.TransactionDate</span>
-                            </label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.personnel_transaction.transaction_date, new { htmlAttributes = new { @class = "form-control",@type="date" ,id= "transaction_D" } })
-                                @Html.ValidationMessageFor(model => model.personnel_transaction.transaction_date, "", new { @class = "text-danger" })
-
-                            </div>
                             <label class="control-label col-md-2">
                                 <span>@pers_2.EffectiveDate</span>
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.personnel_transaction.Effective_date, new { htmlAttributes = new { @class = "form-control",@type="date" ,id = "effective_D" } })
+                                @Html.EditorFor(model => model.personnel_transaction.Effective_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "effective_D" } })
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Effective_date, "", new { @class = "text-danger" })
 
                             </div>
+                        </div>
+                        <div class="form-group">
+                          
+                         
                         </div>
 
                         <div class="form-group">
@@ -301,15 +294,6 @@
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.Transaction_type, "", new { @class = "text-danger" })
 
                             </div>
-                            <div class="col-md-2"> </div>
-                            <div  id="Div-Of-Contract" class="col-md-4" hidden>
-                                <a href="@Url.Action("Create","request_new_contract")"
-                                   target="_blank"
-                                   class="btn btn-black col-md-4"> @pers_2.makenewcontract 
-                                </a>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label col-md-2">
                                 <span>@pers_2.employee</span>
                             </label>
@@ -318,8 +302,26 @@
                                 @Html.ValidationMessageFor(model => model.selected_employee, "", new { @class = "text-danger" })
                                 <input type="text" value="" class="form-control" id="employeename" disabled />
                             </div>
-                            <div class="col-md-2"></div>
-                                <div style="margin-top:25px" class="col-md-4">
+                          
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span>@pers_2.TransactionDate</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.personnel_transaction.transaction_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "transaction_D" } })
+                                @Html.ValidationMessageFor(model => model.personnel_transaction.transaction_date, "", new { @class = "text-danger" })
+
+                            </div>
+                           
+                            <div  id="Div-Of-Contract" class="col-md-2" hidden>
+                                <a style="width:200px"  href="@Url.Action("Create","request_new_contract")"
+                                   target="_blank"
+                                   class="btn btn-black col-md-4">
+                                    @pers_2.makenewcontract
+                                </a>
+                            </div>
+                                <div  class="col-md-4">
                                     <input id="btnSave" style="width:150px" class="btn btn-success" type="submit" onclick="ch()" value=@pers_2.create />
                                     <a style="width:150px" href="@Url.Action("index", "personnel_transaction")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
                                 </div>
@@ -365,20 +367,19 @@
                                             <input type="text" value=" " class="form-control" id="countryname1" disabled />
 
                                         </div>
-                                    </div>
-                                </div>
-                                <div style="margin-top:15px" class="col-md-12">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.Defaultlocationdesc
-                                    </label>
-                                       <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.personnel_transaction.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), pers_2.Defaultlocationdesc, new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
-                                        @Html.ValidationMessageFor(model => model.personnel_transaction.Default_location_descId, "", new { @class = "text-danger" })
-                                        <input type="text" value=" " class="form-control" id="cityname" disabled />
+                                        <label class="control-label col-md-2">
+                                            @pers_2.Defaultlocationdesc
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.personnel_transaction.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), pers_2.Defaultlocationdesc, new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.personnel_transaction.Default_location_descId, "", new { @class = "text-danger" })
+                                            <input type="text" value=" " class="form-control" id="cityname" disabled />
+
+                                        </div>
 
                                     </div>
-
                                 </div>
+                               
                                 <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
                                         @pers_2.Locationdesc
@@ -389,19 +390,17 @@
                                         <input type="text" value=" " class="form-control" id="cityname2" disabled />
 
                                     </div>
-                                </div>
-                                <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
                                         @organ.slot
                                     </label>
-                                     <div class="col-md-4">
+                                    <div class="col-md-4">
                                         @Html.DropDownListFor(m => m.personnel_transaction.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), organ.slot, new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.SlotdescId, "", new { @class = "text-danger" })
                                         <input type="text" value=" " class="form-control" id="tername" disabled />
 
                                     </div>
-
                                 </div>
+                               
 
                                 <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
@@ -413,20 +412,19 @@
                                         <input type="text" value=" " class="form-control" id="areaname1" disabled />
 
                                     </div>
-                                </div>
-
-
-                                <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
                                         @organ.organizationchart
                                     </label>
-                                     <div class="col-md-4">
+                                    <div class="col-md-4">
                                         @Html.DropDownListFor(m => m.personnel_transaction.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.Organization_ChartId, "", new { @class = "text-danger" })
                                         <input type="text" value=" " class="form-control" id="statename" disabled />
 
                                     </div>
                                 </div>
+
+
+                               
 
                                 <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
@@ -472,16 +470,15 @@
                                         @Html.EnumDropDownListFor(model => model.personnel_transaction.working_system, new { @class = "select2" })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.working_system, "", new { @class = "text-danger" })
                                     </div>
-                                </div>
-                                <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
                                         @pers_2.Position_status
                                     </label>
-                                      <div class="col-md-4">
+                                    <div class="col-md-4">
                                         @Html.EnumDropDownListFor(model => model.personnel_transaction.Position_status, new { @class = "select2" })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.Position_status, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+                               
 
 
 
@@ -495,16 +492,15 @@
                                         @Html.EditorFor(model => model.personnel_transaction.End_of_service_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.End_of_service_date, "", new { @class = "text-danger" })
                                     </div>
-                                </div>
-                                <div style="margin-top:15px" class="col-md-12">
                                     <label class="control-label col-md-2">
                                         @pers_2.Lasworkingdate
                                     </label>
-                                       <div class="col-md-4">
+                                    <div class="col-md-4">
                                         @Html.EditorFor(model => model.personnel_transaction.Last_working_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.Last_working_date, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+                             
                                 <div style="margin-top:15px" class="col-md-12">
                                   
                                     <label class="control-label col-md-2">
@@ -514,9 +510,6 @@
                                         @Html.EnumDropDownListFor(model => model.personnel_transaction.EOS_reasons, new { @class = "select2" })
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.EOS_reasons, "", new { @class = "text-danger" })
                                     </div>
-                                </div>
-                                <div style="margin-top:15px" class="col-md-12">
-                                 
                                     <label class="control-label col-md-2">
                                         @pers_2.Commnets
                                     </label>  <div class="col-md-4">
@@ -524,7 +517,7 @@
                                         @Html.ValidationMessageFor(model => model.personnel_transaction.Commnets, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
+                               
 
 
 
