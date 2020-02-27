@@ -8,8 +8,10 @@ using System.Web.Mvc;
 namespace HR.Controllers
 {
     [Authorize]
+    [HandleError(View = "Error")]
     public class HomeController : MyController
     {
+     
         public ActionResult Index()
         {
            
