@@ -484,6 +484,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Birth Address.
+        /// </summary>
+        public static string BirthAddress {
+            get {
+                return ResourceManager.GetString("BirthAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birth Data.
         /// </summary>
         public static string BirthData {
@@ -583,6 +592,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check Code.
         /// </summary>
         public static string CheckCode {
@@ -633,6 +651,15 @@ namespace HR.Resource {
         public static string Citizen {
             get {
                 return ResourceManager.GetString("Citizen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City, Country ,State , Region ,Country.
+        /// </summary>
+        public static string CityCountryStateRegionCountry {
+            get {
+                return ResourceManager.GetString("CityCountryStateRegionCountry", resourceCulture);
             }
         }
         
@@ -1285,7 +1312,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Edit {
             get {
@@ -1308,6 +1335,15 @@ namespace HR.Resource {
         public static string Edit_Subscription_Syndicate {
             get {
                 return ResourceManager.GetString("Edit_Subscription_Syndicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit1 {
+            get {
+                return ResourceManager.GetString("Edit1", resourceCulture);
             }
         }
         
@@ -1564,11 +1600,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Annual Increase History.
+        /// </summary>
+        public static string EmployeeAnnualIncreaseHistory {
+            get {
+                return ResourceManager.GetString("EmployeeAnnualIncreaseHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee Attachment Profile.
         /// </summary>
         public static string EmployeeAttachmentProfile {
             get {
                 return ResourceManager.GetString("EmployeeAttachmentProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Basic Salary History.
+        /// </summary>
+        public static string EmployeeBasicSalaryHistory {
+            get {
+                return ResourceManager.GetString("EmployeeBasicSalaryHistory", resourceCulture);
             }
         }
         
@@ -1614,6 +1668,15 @@ namespace HR.Resource {
         public static string EmployeeFamilyProfile {
             get {
                 return ResourceManager.GetString("EmployeeFamilyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Leaves Balance.
+        /// </summary>
+        public static string EmployeeLeavesBalance {
+            get {
+                return ResourceManager.GetString("EmployeeLeavesBalance", resourceCulture);
             }
         }
         
@@ -1942,6 +2005,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Financial Contract.
+        /// </summary>
+        public static string FinancialContract {
+            get {
+                return ResourceManager.GetString("FinancialContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fixed basic salary by.
         /// </summary>
         public static string Fixedbasicsalaryby {
@@ -2095,6 +2167,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID Issue Address.
+        /// </summary>
+        public static string IDIssueAddress {
+            get {
+                return ResourceManager.GetString("IDIssueAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID number.
         /// </summary>
         public static string IDnumber {
@@ -2122,11 +2203,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Photo.
+        /// </summary>
+        public static string ImageUpload {
+            get {
+                return ResourceManager.GetString("ImageUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inability description.
         /// </summary>
         public static string Inabilitydescription {
             get {
                 return ResourceManager.GetString("Inabilitydescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In-Ability Details.
+        /// </summary>
+        public static string InAbilityDetails {
+            get {
+                return ResourceManager.GetString("InAbilityDetails", resourceCulture);
             }
         }
         
@@ -2410,6 +2509,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to margin-left: 10px;.
+        /// </summary>
+        public static string margin_10px {
+            get {
+                return ResourceManager.GetString("margin_10px", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to margin-left:40px;.
         /// </summary>
         public static string margin_2 {
@@ -2424,6 +2532,15 @@ namespace HR.Resource {
         public static string margin_3 {
             get {
                 return ResourceManager.GetString("margin_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to margin-left: 450px;.
+        /// </summary>
+        public static string margin_450px {
+            get {
+                return ResourceManager.GetString("margin_450px", resourceCulture);
             }
         }
         
@@ -2680,6 +2797,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payroll Information.
+        /// </summary>
+        public static string PayrollInformation {
+            get {
+                return ResourceManager.GetString("PayrollInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pay to entity.
         /// </summary>
         public static string Paytoentity {
@@ -2703,6 +2829,15 @@ namespace HR.Resource {
         public static string Pension {
             get {
                 return ResourceManager.GetString("Pension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pension and End Of Service.
+        /// </summary>
+        public static string PensionandEndOfService {
+            get {
+                return ResourceManager.GetString("PensionandEndOfService", resourceCulture);
             }
         }
         
@@ -3085,6 +3220,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reason, Description, Registration Number, Registration Date.
+        /// </summary>
+        public static string ReasonDescriptionRegistrationNumberRegistrationDate {
+            get {
+                return ResourceManager.GetString("ReasonDescriptionRegistrationNumberRegistrationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reason of leave.
         /// </summary>
         public static string Reasonofleave {
@@ -3432,6 +3576,15 @@ namespace HR.Resource {
         public static string SelectGradeEducate {
             get {
                 return ResourceManager.GetString("SelectGradeEducate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Image.
+        /// </summary>
+        public static string SelectImage {
+            get {
+                return ResourceManager.GetString("SelectImage", resourceCulture);
             }
         }
         

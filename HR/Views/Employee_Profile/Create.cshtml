@@ -143,6 +143,20 @@
                         <div class="col-md-3" style="color:black;margin-bottom:10px;">
                             <button type="submit" id="btnSubmit" name="Command12" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.EmployeeAttachmentProfile</button>
                         </div>
+
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="#" value="#" class="btn btn-success" style="width:200px;">@Personnel.FinancialContract</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="#" value="#" class="btn btn-success" style="width:200px;">@Personnel.EmployeeBasicSalaryHistory</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="#" value="#" class="btn btn-success" style="width:200px;">@Personnel.EmployeeAnnualIncreaseHistory</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="#" value="#" class="btn btn-success" style="width:200px;">@Personnel.EmployeeLeavesBalance</button>
+                        </div>
+
                         <div>
 
                             <ul class="nav nav-tabs bordered">
@@ -154,25 +168,34 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#profile" data-toggle="tab">
-                                        <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">@Personnel.Location</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#Ability" data-toggle="tab">
-                                        <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">@Personnel.HealthStatus</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="#PersonnelInformation" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-user"></i></span>
                                         <span class="hidden-xs">@Personnel.PersonnelInformation</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="#Ability" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.PensionandEndOfService</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#profile" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.PayrollInformation</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("index","Employee_Profile")" class="btn btn-danger btn-sm" style="@Personnel.margin_450px"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </li>
+
+                                <li>
+                                    <span>   <input type="submit" value="@Personnel.Create" class="btn btn-success" style="@Personnel.margin_10px"/></span>
+                                    </li>
+                              
 
                             </ul>
+
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
@@ -366,10 +389,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-1">@Personnel.Birthdate</label>
-                                        <div class="col-md-3">
+                                        <div class="col-sm-4">
                                             @Html.EditorFor(model => model.Employee_Profile.Birth_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
                                             @Html.ValidationMessageFor(model => model.Employee_Profile.Birth_date, "", new { @class = "text-danger" })
                                         </div>
@@ -379,7 +402,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <input href="javascript:;" onclick="jQuery('#modal-2').modal('show', {backdrop: 'static'});" class="btn btn-default " style="width:350px;" value="City, Country ,State , Region ,Country" />
+                                                    <input href="javascript:;" onclick="jQuery('#modal-2').modal('show', {backdrop: 'static'});" class="btn btn-default " style="width:300px;" value="@Personnel.CityCountryStateRegionCountry" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -389,7 +412,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title">Birth Address</h4>
+                                                    <h4 class="modal-title">@Personnel.BirthAddress</h4>
                                                 </div>
 
                                                 <div class="modal-body">
@@ -463,8 +486,8 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Save changes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -474,7 +497,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-1">@Personnel.IDtype</label>
 
-                                        <div class="col-md-3">
+                                        <div class="col-sm-4">
                                             @Html.EnumDropDownListFor(model => model.Employee_Profile.ID_type, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Employee_Profile.ID_type, "", new { @class = "text-danger" })
                                         </div>
@@ -482,7 +505,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <input href="javascript:;" onclick="jQuery('#modal-3').modal('show', {backdrop: 'static'});" class="btn btn-default" style="width:350px;" value="City, Country ,State , Region ,Country" />
+                                                    <input href="javascript:;" onclick="jQuery('#modal-3').modal('show', {backdrop: 'static'});" class="btn btn-default" style="width:300px;" value="@Personnel.CityCountryStateRegionCountry" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -493,7 +516,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title">ID Issue Address</h4>
+                                                    <h4 class="modal-title">@Personnel.IDIssueAddress</h4>
                                                 </div>
 
                                                 <div class="modal-body">
@@ -554,8 +577,8 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Save changes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -572,7 +595,7 @@
                                         <table class="abilityshow">
                                             <tr>
                                                 <td>
-                                                    <input  id="showme_button" href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default abilityshow" style="width:350px;" value="Reason, Description, Registration Number, Registration Date"/>
+                                                    <input  id="showme_button" href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default abilityshow" style="width:380px;" value="@Personnel.ReasonDescriptionRegistrationNumberRegistrationDate"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -582,7 +605,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title">In-Ability Details</h4>
+                                                    <h4 class="modal-title">@Personnel.InAbilityDetails</h4>
                                                 </div>
 
                                                 <div class="modal-body">
@@ -591,7 +614,7 @@
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2">@Personnel.Inabilityreason</label>
 
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-8">
                                                                 @Html.EditorFor(model => model.Ability.Inability_reason, new { htmlAttributes = new { @class = "form-control", id = "reason", @readonly = true } })
                                                                 @Html.ValidationMessageFor(model => model.Ability.Inability_reason, "", new { @class = "text-danger" })
                                                             </div>
@@ -605,7 +628,7 @@
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2">@Personnel.Inabilitydescription</label>
 
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-8">
                                                                 @Html.EditorFor(model => model.Ability.Inability_description, new { htmlAttributes = new { @class = "form-control de", id = "descriptiony", @readonly = true } })
                                                                 @Html.ValidationMessageFor(model => model.Ability.Inability_description, "", new { @class = "text-danger" })
                                                             </div>
@@ -617,7 +640,7 @@
                                                             <label class="control-label col-md-2">@Personnel.registrationnumber</label>
 
                                                             <div class="form-group">
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-8">
                                                                     @Html.EditorFor(model => model.Ability.registration_number, new { htmlAttributes = new { id = "registration", @class = "form-control", @readonly = true, @type = "number", @min = 0 } })
                                                                     @Html.ValidationMessageFor(model => model.Ability.registration_number, "", new { @class = "text-danger" })
                                                                 </div>
@@ -630,7 +653,7 @@
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2">@Personnel.registrationdate</label>
 
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-8">
                                                                 @Html.EditorFor(model => model.Ability.registration_date, new { htmlAttributes = new { @class = "form-control datepicker nv", @id = "dateto" } })
                                                                 @Html.ValidationMessageFor(model => model.Ability.registration_date, "", new { @class = "text-danger" })
                                                             </div>
@@ -640,16 +663,16 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Save changes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                           </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="col-md-1 control-label">Image Upload</label>
+                                            <label class="col-md-1 control-label">@Personnel.ImageUpload</label>
 
                                             <div class="col-sm-5">
 
@@ -660,11 +683,11 @@
                                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
                                                     <div>
                                                         <span class="btn btn-white btn-file">
-                                                            <span class="fileinput-new">Select image</span>
-                                                            <span class="fileinput-exists">Change</span>
+                                                            <span class="fileinput-new">@Personnel.SelectImage</span>
+                                                            <span class="fileinput-exists">@Personnel.Change</span>
                                                             <input type="file" name="MyItem">@*accept="image/*"*@
                                                         </span>
-                                                        <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">@Personnel.Delete</a>
                                                     </div>
                                                 </div>
 
@@ -679,44 +702,73 @@
 
 
 
-                                <div class="tab-pane" id="profile">
-
-                                    <div class="row">
-
-                                        <div class="col-lg-6">
-                                            <div style="text-align:center">
-                                                <h3> @Personnel.BirthData</h3>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-lg-6" style="border-left:1px solid #000;">
-                                            <div style="text-align:center"><h3> @Personnel.Currentlocation</h3></div>
-
-
-                                          
-
-                                        </div>
-
-                                    </div>
-                                </div>
 
                                 <div class="tab-pane" id="Ability">
 
+                                    <div>
+                                        <ul class="nav nav-tabs bordered">
 
+                                            <li>
+                                                <a href="#Pension">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.Pensionandendofserviceinformation</span>
+                                                </a>
+                                            </li>
+                                        </ul>
 
+                                        <div class="tab-pane" id="Pension" style="margin-top:10px;">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Pension</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Service_Information.Pension, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.Pension, "", new { @class = "text-danger" })
+                                                </div>
 
+                                                <label class="control-label col-md-2">@Personnel.Havepension</label>
 
+                                                <div class="col-md-4">
+                                                    @Html.CheckBoxFor(model => model.Service_Information.Have_pension, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.Have_pension, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Pensionsource</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Service_Information.Pension_source, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.Pension_source, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.EOSdate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Service_Information.EOS_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.EOS_date, "", new { @class = "text-danger" })
+                                                </div>
 
+                                                <label class="control-label col-md-2">@Personnel.RetiredExpectedEOS</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Service_Information.Retired_expected_EOS, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.Retired_expected_EOS, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
 
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Lastworkingdate</label>
+                                                <div class="col-md-4">
+                                                    @Html.EditorFor(model => model.Service_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.Last_working_date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
 
-
-
-
-
-
-
-
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.IsmeritsThedateofdeath</label>
+                                                <div class="col-md-4">
+                                                    @Html.CheckBoxFor(model => model.Service_Information.Is_merits_The_date_of_death, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Service_Information.Is_merits_The_date_of_death, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
 
@@ -818,78 +870,14 @@
                                             </div>
                                         </div>
 
-                                        <div>
-                                            <ul class="nav nav-tabs bordered">
+                                      
 
-                                                <li>
-                                                    <a href="#Pension">
-                                                        <span class="visible-xs"><i class="entypo-user"></i></span>
-                                                        <span class="hidden-xs">@Personnel.Pensionandendofserviceinformation</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-
-                                            <div class="tab-pane" id="Pension" style="margin-top:10px;">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.Pension</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Service_Information.Pension, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.Pension, "", new { @class = "text-danger" })
-                                                    </div>
-
-                                                    <label class="control-label col-md-2">@Personnel.Havepension</label>
-
-                                                    <div class="col-md-4">
-                                                        @Html.CheckBoxFor(model => model.Service_Information.Have_pension, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.Have_pension, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.Pensionsource</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Service_Information.Pension_source, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.Pension_source, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.EOSdate</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Service_Information.EOS_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.EOS_date, "", new { @class = "text-danger" })
-                                                    </div>
-
-                                                    <label class="control-label col-md-2">@Personnel.RetiredExpectedEOS</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Service_Information.Retired_expected_EOS, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.Retired_expected_EOS, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.Lastworkingdate</label>
-                                                    <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Service_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "dateto", @readonly = true } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.Last_working_date, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.IsmeritsThedateofdeath</label>
-                                                    <div class="col-md-4">
-                                                        @Html.CheckBoxFor(model => model.Service_Information.Is_merits_The_date_of_death, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.ValidationMessageFor(model => model.Service_Information.Is_merits_The_date_of_death, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-md-offset-2 col-md-10">
-                                                        <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                                        <a href="@Url.Action("index","Employee_Profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane" id="profile">
+
+                                </div>
+
                             </div>
                         </div>
                     </div>

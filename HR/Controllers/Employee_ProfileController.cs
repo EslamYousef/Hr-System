@@ -69,7 +69,6 @@ namespace HR.Controllers
             }
 
 
-
         }
         [HttpPost]
         public ActionResult Create(Employee_Profile_VM model, HttpPostedFileBase MyItem,  string command, string command2, string command3, string command4, string command5, string command6, string command7, string command8, string command9, string command10, string command11, string command12)
@@ -127,17 +126,25 @@ namespace HR.Controllers
                 if (ModelState.IsValid)
                 {
                     record.Code = model.Employee_Profile.Code;
-                    var code = record.Code;
                     // var fileId = 1;
                     //   var File =  Guid.NewGuid();
+                    if (MyItem == null)
+                    {
+                        record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
+                    }
+                    else if (MyItem.FileName != null)
+                    {
+                        var code = record.Code;
+                        string folderpath = Server.MapPath("~/EmpIMGFiles/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
+                        Directory.CreateDirectory(folderpath + code);
+                        string mypath = folderpath + code;
+                        string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                        MyItem.SaveAs(mypath + "/" + filename);
 
-                    string folderpath = Server.MapPath("~/EmpIMGFiles/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
-                    Directory.CreateDirectory(folderpath + code);
-                    string mypath = folderpath + code;
-                    string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
-                    MyItem.SaveAs(mypath + "/" + filename);
-                    model.Employee_Profile.EmpProfileIMG = filename;
-                    record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
+                        model.Employee_Profile.EmpProfileIMG = filename;
+                        record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
+                    }
+            
                     //if (model.Service_Information.CurrencyId == "0" || model.Service_Information.CurrencyId == null)
                     //{
                     //    ModelState.AddModelError("", "Currency Code must enter");
@@ -588,18 +595,23 @@ namespace HR.Controllers
                     AbilityRecode.registration_date = model.Ability.registration_date;
                 }
                 record.Code = model.Employee_Profile.Code;
-                var code = model.Employee_Profile.Code;
-                //var File = Guid.NewGuid();
+                if (MyItem != null)
+                {
+                    var code = model.Employee_Profile.Code;
+                    //var File = Guid.NewGuid();
 
-                string folderpath = Server.MapPath("~/EmpIMGFiles/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
-                Directory.CreateDirectory(folderpath + code);
-                string mypath = folderpath + code;
-                string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
-                MyItem.SaveAs(mypath + "/" + filename);
-                model.Employee_Profile.EmpProfileIMG = filename;
-                record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
+                    string folderpath = Server.MapPath("~/EmpIMGFiles/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
+                    Directory.CreateDirectory(folderpath + code);
+                    string mypath = folderpath + code;
+                    string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                    MyItem.SaveAs(mypath + "/" + filename);
+                    model.Employee_Profile.EmpProfileIMG = filename;
+                    record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
+                }
+               
+               
 
-                //      var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
+           //   var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
 
 
                 record.Name = model.Employee_Profile.Name;
