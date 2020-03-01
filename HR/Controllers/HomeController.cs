@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace HR.Controllers
 {
     [Authorize]
@@ -18,8 +19,6 @@ namespace HR.Controllers
             return View();
           
         }
-
-       
         public ActionResult ChangeLanguage(string lang)
         {
             new Langmanger().SetLanguage(lang);
