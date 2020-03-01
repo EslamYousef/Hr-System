@@ -126,24 +126,7 @@ namespace HR.Controllers
                 if (ModelState.IsValid)
                 {
                     record.Code = model.Employee_Profile.Code;
-                    // var fileId = 1;
-                    //   var File =  Guid.NewGuid();
-                    if (MyItem == null)
-                    {
-                        record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
-                    }
-                    else if (MyItem.FileName != null)
-                    {
-                        var code = record.Code;
-                        string folderpath = Server.MapPath("~/EmpIMGFiles/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
-                        Directory.CreateDirectory(folderpath + code);
-                        string mypath = folderpath + code;
-                        string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
-                        MyItem.SaveAs(mypath + "/" + filename);
-
-                        model.Employee_Profile.EmpProfileIMG = filename;
-                        record.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
-                    }
+                  
             
                     //if (model.Service_Information.CurrencyId == "0" || model.Service_Information.CurrencyId == null)
                     //{
@@ -271,7 +254,26 @@ namespace HR.Controllers
                     record.Service_Information = ser;
                     var emp = dbcontext.Employee_Profile.Add(record);
                     dbcontext.SaveChanges();
+                    // var fileId = 1;
+                    //   var File =  Guid.NewGuid();
+                    if (MyItem == null)
+                    {
+                        emp.EmpProfileIMG = null;
+                          
+                    }
+                    else if (MyItem.FileName != null)
+                    {
+                        var code = record.Code;
+                        string folderpath = Server.MapPath("~/EmpIMGFiles/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
+                        Directory.CreateDirectory(folderpath + code);
+                        string mypath = folderpath + code;
+                        string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                        MyItem.SaveAs(mypath + "/" + filename);
 
+                        model.Employee_Profile.EmpProfileIMG = filename;
+                        emp.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
+                    }
+                    dbcontext.SaveChanges();
                     ///////////////////////////////////////////////////////////////////////////
                     //var addmodel = dbcontext.Employee_Address_Profile.ToList();
                     //var couunt = 0;
@@ -343,7 +345,7 @@ namespace HR.Controllers
                     //dbcontext.SaveChanges();
                     //emp.Position_Transaction_Information = e22;
                     //dbcontext.SaveChanges();
-            
+
                     ///////////////////////////////////////////////
 
                     //var employeefamily = dbcontext.Employee_family_profile.ToList();

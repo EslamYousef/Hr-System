@@ -971,7 +971,12 @@ namespace HR.Controllers
             return Json(newmodel);
         }
 
-
+        public JsonResult GetDataByIdExperience(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
 
 
 

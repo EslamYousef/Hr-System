@@ -106,12 +106,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Issuedate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control @*datepicker*@", @id = "Issue_date", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.Expirydate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Expiry_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.EditorFor(model => model.Expiry_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control @*datepicker*@", @id = "Expiry_date", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Expiry_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -180,7 +180,8 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-
+        GetDataById5('@Model.Issue_date', "Issue_date");
+        GetDataById5('@Model.Expiry_date', "Expiry_date");
     });
 </script>
 
@@ -229,5 +230,25 @@
 
             }
         });
+    }
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
     }
 </script>

@@ -68,13 +68,13 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Qualificationstartdate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Qualification_start_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.EditorFor(model => model.Qualification_start_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Qualification_start_date", @type = "date", @onchange = "Save()" } })
                                 @Html.ValidationMessageFor(model => model.Qualification_start_date, "", new { @class = "text-danger" })
                             </div>
   
                             <label class="control-label col-md-2">@Personnel.Years</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
                                 @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -82,12 +82,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Qualificationenddate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Qualification_end_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto" } })
+                                @Html.EditorFor(model => model.Qualification_end_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Qualification_end_date", @type = "date", @onchange = "Save2()" } })
                                 @Html.ValidationMessageFor(model => model.Qualification_end_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.Months</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control" ,id = "months", @type = "number", @min = 0 } })
                                 @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -191,7 +191,8 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-
+        GetDataById5('@Model.Qualification_end_date', "Qualification_end_date");
+        GetDataById5('@Model.Qualification_start_date', "Qualification_start_date");
     });
 </script>
 
@@ -639,7 +640,66 @@
             $("#GradeEducatename").val(" ");
         }
     });
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function Save() {
+        var StartDate = new Date($("#Qualification_start_date").val());
+        var EndDate = new Date($("#Qualification_end_date").val());
 
+        var from = $("#Qualification_start_date").val();
+        var to = $("#Qualification_end_date").val();
+
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
+    function Save2() {
+        var StartDate = new Date($("#Qualification_start_date").val());
+        var EndDate = new Date($("#Qualification_end_date").val());
+
+        var from = $("#Qualification_start_date").val();
+        var to = $("#Qualification_end_date").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
 </script>
 <script>
     function employee() {
