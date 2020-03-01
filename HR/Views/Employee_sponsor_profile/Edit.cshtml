@@ -82,13 +82,13 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Issuedate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control", @id = "Issue_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
                             </div>
 
                             <label class="control-label col-md-2">@Personnel.Birthdate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Birth_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Birth_date, new { htmlAttributes = new { @class = "form-control", @id = "Birth_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Birth_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -128,8 +128,9 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
                                 <a href="@Url.Action("index","Employee_sponsor_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                              
                             </div>
                         </div>
                     </div>
@@ -146,42 +147,70 @@
 
 <script>
     function employee() {
-         
+
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
                 $("#employeeId").attr("readonly", true);
                 $("#employeeId").prop("readonly", true);
             },
             error: function () {
-                 
+
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
     function employee2() {
-         
+
         var id = $("#employeeId2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetSponsor",
             data: { "id": id },
             success: function (result) {
-                 
+
                 //  $("#employeename").val(result.Name);
 
             },
             error: function () {
-                 
+
 
             }
         });
     }
+  function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>
+
+<script>
+        $(document).ready(function () {
+
+            GetDataById5('@Model.Birth_date', "Birth_date");
+            GetDataById5('@Model.Issue_date', "Issue_date");
+                 });
 </script>

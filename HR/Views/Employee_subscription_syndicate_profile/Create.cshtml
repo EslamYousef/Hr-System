@@ -83,7 +83,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.Subscriptiondate</label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Subscription_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                            @Html.EditorFor(model => model.Subscription_date, new { htmlAttributes = new { @class = "form-control", @id = "Subscription_date", @autocomplete = "off", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Subscription_date, "", new { @class = "text-danger" })
                                         </div>                             
                                     </div>
@@ -145,7 +145,7 @@
                                                     <label class="control-label col-md-2">@Personnel.Lastdatepaid</label>
 
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Last_date_paid, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                                        @Html.EditorFor(model => model.Last_date_paid, new { htmlAttributes = new { @class = "form-control", @id = "Last_date_paid", @autocomplete = "off", @type = "date" } })
                                                         @Html.ValidationMessageFor(model => model.Last_date_paid, "", new { @class = "text-danger" })
                                                     </div>
                                                     <label class="control-label col-md-2">@Personnel.Balance</label>
@@ -227,13 +227,13 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-2">@Personnel.Boarderelectiondate</label>
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control datepicker boarder", @id = "dateto", @autocomplete = "off" } })
+                                                        @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control boarder", @id = "Boarder_election_date", @autocomplete = "off", @type = "date" } })
                    
                                                         @Html.ValidationMessageFor(model => model.Boarder_election_date, "", new { @class = "text-danger" })
                                                     </div>
                                                     <label class="control-label col-md-2">@Personnel.Headelectiondate</label>
                                                     <div class="col-md-4">
-                                                        @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control datepicker head", @id = "dateto", @autocomplete = "off"} })
+                                                        @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control head", @id = "Head_election_date", @autocomplete = "off", @type = "date" } })
                                                         @Html.ValidationMessageFor(model => model.Head_election_date, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
@@ -268,6 +268,10 @@
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
         drop();
+        GetDataById5('@Model.Boarder_election_date', "Boarder_election_date");
+        GetDataById5('@Model.Head_election_date', "Head_election_date");
+        GetDataById5('@Model.Last_date_paid', "Last_date_paid");
+        GetDataById5('@Model.Subscription_date', "Subscription_date");
     });
 </script>
 
@@ -330,6 +334,26 @@
             $(".boarder").attr('disabled', true);
 
         }
+    }
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
     }
 </script>
 

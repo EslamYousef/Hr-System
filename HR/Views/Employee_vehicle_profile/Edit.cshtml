@@ -82,14 +82,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Fromdate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control", @id = "From_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.From_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Todate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control", @id = "To_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.To_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -123,14 +123,14 @@
 
 <script>
     function employee() {
-         
+
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/CheckAddressEmployee",
             data: { "id": id },
             success: function (result) {
-                 
+
                 if (result.namex != 3 || result.nameb == "0") //3 = Car
                 {
                     alert("This Employee doesn't have a Car and a Address.");
@@ -153,4 +153,32 @@
             }
         });
     }
+ function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>
+<script>
+    $(document).ready(function () {
+
+        GetDataById5('@Model.From_date', "From_date");
+        GetDataById5('@Model.To_date', "To_date");
+
+    });
 </script>

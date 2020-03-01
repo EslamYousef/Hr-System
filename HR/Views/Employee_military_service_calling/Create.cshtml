@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.Startdate</label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "dateto", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
+                                            @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "Start_date", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
                                         </div>
                                         <label class="control-label col-md-2">@Personnel.Years</label>
@@ -84,16 +84,16 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.Enddate</label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "dateto", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
+                                            @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "End_date", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
                                         </div>
-                                        <label class="control-label col-md-2">@Personnel.Months</label>
+                                        <label class="control-label col-md-1">@Personnel.Months</label>
                                         <div class="col-md-2">
                                             @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                                         </div>
-                                        <label class="control-label col-md-2">@Personnel.Days</label>
+                                        <label class="control-label col-md-1">@Personnel.Days</label>
                                         <div class="col-md-2">
                                             @Html.EditorFor(model => model.Days, new { htmlAttributes = new {@readonly="true", @class = "form-control" ,id = "Days"} })
                                             @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
@@ -112,8 +112,9 @@
                                
                                     <div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="@Personnel.Create" class="btn btn-success" />
                                             <a href="@Url.Action("index","Employee_military_service_calling",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                            <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -134,6 +135,8 @@
     $(document).ready(function () {
 
         $("#employeeId8").attr("disabled", true);
+        GetDataById5('@Model.Start_date', "Start_date");
+        GetDataById5('@Model.End_date', "End_date");
         Save();
         Save2();
     });
@@ -208,7 +211,26 @@
            $("#Days").val("0");
             }
         };
-
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
 </script>
 
 

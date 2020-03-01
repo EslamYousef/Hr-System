@@ -97,7 +97,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Certificatedate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Certificate_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Certificate_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Certificate_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Certificate_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.BatchreferenceNo</label>
@@ -109,7 +109,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Fromdate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "From_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.From_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.IDnumber</label>
@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Todate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "To_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.To_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -271,7 +271,10 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-      
+        GetDataById5('@Model.Certificate_date', "Certificate_date");
+        GetDataById5('@Model.From_date', "From_date");
+        GetDataById5('@Model.To_date', "To_date");
+
     });
 </script>
 <script>
@@ -450,5 +453,25 @@
         var max3 = parseInt($("#max3").val()) + parseInt(value);
         var mid3 = (min222 + max3);
       $("#mid3").val(mid3);
+    }
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
     }
 </script>

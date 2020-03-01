@@ -70,14 +70,14 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">@Personnel.Fromdate</label>
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                    @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "From_date", @autocomplete = "off", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.From_date, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">@Personnel.Todate</label>
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                    @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "To_date", @autocomplete = "off", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.To_date, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -91,8 +91,9 @@
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
                                     <a href="@Url.Action("index","Employee_vehicle_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                   
 
                                 </div>
                             </div>
@@ -142,4 +143,32 @@
             }
         });
     }
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>
+<script>
+    $(document).ready(function () {
+      
+        GetDataById5('@Model.From_date', "From_date");
+        GetDataById5('@Model.To_date', "To_date");
+
+    });
 </script>
