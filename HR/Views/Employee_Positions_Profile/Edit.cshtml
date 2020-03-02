@@ -61,12 +61,12 @@
 
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.PositionprofileNo</label>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
              @Html.EditorFor(model => model.Position_Information.Code, new{  htmlAttributes = new { @class = "form-control"@*, id = "codeid" *@ ,  @readonly = true } })
                              @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.PrimaryPosition</label>
-                            <div class="col-md-4">
+                            <div class="col-md-1">
                                 @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
                             </div>
@@ -569,7 +569,7 @@
     
     function GetDataById()
     {
-         
+         debugger
         let x = window.location.href.split('/')[5];
         $.ajax({
             type: "post",
@@ -580,13 +580,21 @@
                 if (result) {
                     var date = parseJsonDate(result.To_date)
                     var month;
-                    if ((date.getMonth()+1)<10) {
-                        month ="0"+(date.getMonth()+1).toString();
+                    if ((date.getMonth() + 1) < 10) {
+                        month = "0" + (date.getMonth() + 1).toString();
+                    }
+                    if ((date.getDate()) < 10) {
+                        day = "0" + (date.getDate() ).toString();
                     }
                 }
-                else
-                    month =date.getMonth()+1;
-                var d =date.getFullYear()+ '-'+ month + '-' +date.getDate();
+
+               
+                else {
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                }
+
+                var d =date.getFullYear()+ '-'+ month + '-' +day;
                 $("#End").val(d);
                 Save();
                 Save2();
@@ -618,11 +626,17 @@
                     var month;
                     if ((date.getMonth() + 1) < 10) {
                         month = "0" + (date.getMonth() + 1).toString();
+                        day = date.getDate();
+                    }
+                    if ((date.getDate()) < 10) {
+                        day = "0" + (date.getDate() ).toString();
                     }
                 }
-                else
+                else{
                     month = date.getMonth() + 1;
-                var d = date.getFullYear() + '-' + month + '-' + date.getDate();
+                day = date.getDate();
+            }
+                var d = date.getFullYear() + '-' + month + '-' + day;
                 $("#Start").val(d);
                 GetDataById();
                 console.log(result);
@@ -710,6 +724,7 @@
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
         GetDataById2();
+     
         GetDataById5('@Model.Position_Information.End_of_service_date', "End_of_service_date");
         GetDataById5('@Model.Position_Information.Last_working_date', "Last_working_date");
         GetDataById5('@Model.Position_Transaction_Information.Position_transaction', "Position_transaction");

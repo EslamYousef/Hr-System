@@ -474,13 +474,18 @@
                 if (result) {
                     var date = parseJsonDate(result.Contract_end_date)
                     var month;
-                    if ((date.getMonth()+1)<10) {
-                        month ="0"+(date.getMonth()+1).toString();
+                    if ((date.getMonth() + 1) < 10) {
+                        month = "0" + (date.getMonth() + 1).toString();
+                    }
+                    if ((date.getDate()) < 10) {
+                        day = "0" + (date.getDate()).toString();
                     }
                 }
-                else
-                    month =date.getMonth()+1;
-                var d =date.getFullYear()+ '-'+ month + '-' +date.getDate();
+                else {
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                }
+                var d = date.getFullYear() + '-' + month + '-' + day;
                 $("#End").val(d);
                 Save();
                 Save2();
@@ -513,10 +518,15 @@
                     if ((date.getMonth() + 1) < 10) {
                         month = "0" + (date.getMonth() + 1).toString();
                     }
+                    if ((date.getDate()) < 10) {
+                        day = "0" + (date.getDate()).toString();
+                    }
                 }
-                else
+                else {
                     month = date.getMonth() + 1;
-                var d = date.getFullYear() + '-' + month + '-' + date.getDate();
+                    day = date.getDate();
+                }
+                var d = date.getFullYear() + '-' + month + '-' + day;
                 $("#Start").val(d);
                 GetDataById();
                 console.log(result);

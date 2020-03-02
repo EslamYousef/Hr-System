@@ -40,6 +40,8 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.Position_Information.Employee_ProfileId)
+                        @Html.HiddenFor(m => m.Position_Information.ID)
+
 
                         <div class="form-group">                  
                             <label class="control-label col-md-2">@Personnel.EmployeeName</label>
@@ -53,13 +55,13 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.PositionprofileNo</label>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 @Html.EditorFor(model => model.Position_Information.Code, new
                                    { htmlAttributes = new  {   @class = "form-control"@*, id = "codeid" *@ ,  @readonly = true   }  })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.PrimaryPosition</label>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
                             </div>
@@ -374,8 +376,7 @@
         $("#employeeId").attr("disabled", true);
         Save();
         Save2();
-        GetDataById5('@Model.Position_Information.From_date', "Start");
-        GetDataById5('@Model.Position_Information.To_date', "End");
+      
         GetDataById5('@Model.Position_Information.End_of_service_date', "End_of_service_date");
         GetDataById5('@Model.Position_Information.Last_working_date', "Last_working_date");
         GetDataById5('@Model.Position_Transaction_Information.Position_transaction', "Position_transaction");

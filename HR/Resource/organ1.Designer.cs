@@ -1618,6 +1618,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organization module.
+        /// </summary>
+        public static string Organizationmodule {
+            get {
+                return ResourceManager.GetString("Organizationmodule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organization unit.
         /// </summary>
         public static string Organizationunit {

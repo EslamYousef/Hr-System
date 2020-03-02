@@ -12,8 +12,6 @@ namespace HR.Models
         [Key]
         public int ID { get; set; }
         [Display(Name = "Position transaction no.")]
-        [StringLength(50)]
-        [Index(IsUnique = true)]
         public string Position_transaction_no { get; set; }
         [Display(Name = "Position transaction")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
