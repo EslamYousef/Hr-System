@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="~/Content/neon/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
 
@@ -20,6 +22,7 @@
 
     @if (Session["lang"] != null && Session["lang"].ToString() == "ar-EG")
     {
+        <link href="//db.onlinewebfonts.com/c/150ed9b2a009a71d2d819b5561167302?family=Segoe+UI+Symbol" rel="stylesheet" type="text/css" />
         <link rel="icon" href="~/Content/neon-rtl/assets/images/favicon.ico">
         <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
         <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/font-icons/entypo/css/entypo.css">
@@ -62,777 +65,112 @@
 
     }
 </head>
+
 <body class="page-body  page-left-in" data-url="http://neon.dev">
-   
-    <div class="page-container @HR.Resource.Personnel.sidebarcollapsed">// @*sidebar-collapsed right-sidebar*@
+
+    <div class="page-container @HR.Resource.Personnel.sidebarcollapsed">
+         @*sidebar-collapsed right-sidebar*@
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
-
         <div class="sidebar-menu">
-            <div class="sidebar-menu-inner">
+        <div class="sidebar-menu-inner">
 
-                <header class="logo-env" style="direction:rtl">
-                    <!-- logo -->
-                    <div class="logo">
-                        <a href="index.html">
-
-                            @*<img src="~/Content/neon/assets/css/logo-horizontal.png" />*@
-                            <img src="~/image010.jpg" style="width:139px;height:70px"/>
-                        </a>
-                    </div>
-                    <!-- logo collapse icon -->
-                    <div class="sidebar-collapse">
-                        <a href="#" class="sidebar-collapse-icon">
-                            <!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition -->
-                            <i class="entypo-menu"></i>
-                        </a>
-                    </div>
-
-                    <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
-                    <div class="sidebar-mobile-menu visible-xs">
-                        <a href="#" class="with-animation">
-                            <!-- add class "with-animation" to support animation -->
-                            <i class="entypo-menu"></i>
-                           
-                        </a>
-                    </div>
-                </header>
-
-
-                <div class="sidebar-menu" id="menubar" dir="@HR.Resource.mainlayout.d">
-
-                    <div class="multiple-expanded" dir="@HR.Resource.mainlayout.d">
-
-                        <ul id="main-menu" class="main-menu" dir="@HR.Resource.mainlayout.d">
-                            <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                            <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                            <li class="active opened active has-sub">
-                                <a data-toggle="tab" href="@Url.Action("Index", "Home")">
-                                    <i class="entypo-gauge"></i>
-                                    <span class="title">@mainlayout.Home</span>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="@Url.Action("Index", "Home")">
-                                            <i class="entypo-gauge"></i>
-                                            <span class="title">@mainlayout.Home</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="has-sub">
-                                <a href="#Basic" name="menubtn">
-                                    <i class="entypo-layout"></i>
-                                    <span class="title">@mainlayout.Basic</span>
-                                </a>
-                                <ul>
-                                    <li class="has-sub">
-                                        <a href="#Setup" name="menubtn"><span class="title">@mainlayout.Setup</span></a>
-                                        @*<a href="#Basic" name="menubtn">
-                                                <i class="entypo-layout"></i>
-                                                <span class="title">@mainlayout.Basic</span>
-                                            </a>*@
-                                        <ul>
-                                            <li class="has-sub">
-                                                <a class="has-sub" href="#Address" name="menubtn"><span>@mainlayout.Address</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Country")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title  auto-inherit-active-class">@mainlayout.Country</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Area")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Regions</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","State")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.state_government</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","territory")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.county</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Cities")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.city</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Postalcode")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @mainlayout.zip_postal</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Nationality"><span>@mainlayout.Nationality</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Nationality")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Nationality</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Religion" name="menubtn"><span>@mainlayout.Religion</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Religion")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Religion</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Qualifications" name="menubtn"><span>@mainlayout.Qulifaication </span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Educate_category")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Qulification_category</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Educate_title")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.education_title</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","EducateMainBody")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.qulification_main_provider</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Sub_educational_body")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.qulification_sub_providor</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Name_of_educational_qualification")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @mainlayout.qulification_name  </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","GradeEducate")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.qulification_degree </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","QualificationMajor")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.qulification_specialty </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Military" name="menubtn"><span>@mainlayout.milirty</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Military_Service_Status")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @mainlayout.miliraty_service_status  </span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Military_Service_Rank")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.miliraty_service_rank</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Documents" name="menubtn"><span>@mainlayout.documents</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Document_Group")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @mainlayout.documents_group</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Documents")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.document</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Currency" name="menubtn"><span>@mainlayout.Currency</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Currency")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Currency</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","ExchangeRate")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.exchange_rate</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#Requisition" name="menubtn"><span>@mainlayout.check_request</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Checktype")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.check_type</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","checkstatus")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.check_status</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Contact_methods")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.contact_method</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Rejection_Reasons")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Rejection_reasons</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","External_compaines")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Extrnal_companies</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Air_ports")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Air_ports</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Ticket_Prices")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Tickets_prices </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Sponsor")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Sponsor </span>
-                                                </a>
-                                            </li>
-
-
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" name="menubtn"><span> @mainlayout.Transactions</span></a>
-                                        <ul>
-                                            <li>
-                                                <a href="@Url.Action("Create","Check_Request")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.check_request</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" name="menubtn"><span> @mainlayout.Process</span></a>
-                                        <ul>
-                                            <li>
-                                                <a href="@Url.Action("Index","Check_Request")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.check_request_action</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                   
-
-                                </ul>
-                            </li>
-                            <li class="has-sub">
-                                <a href="#Basic" name="menubtn">
-                                    <i class="entypo-monitor"></i>
-                                    <span class="title">@mainlayout.organization</span>
-                                </a>
-                                <ul>
-                                    <li class="has-sub">
-                                        <a href="#Basic" name="menubtn">
-                                            <i class="entypo-layout"></i>
-                                            <span class="title">@mainlayout.Setup</span>
-                                        </a>
-                                        <ul>
-                                            <li class="has-sub">
-                                                <a href="#" name="menubtn"><span>@mainlayout.Authority</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Authority_Type")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Authority_type</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index", "Authorities")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Authorities</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.skills</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Skill_group")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.skills_group</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Skill")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.skill</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.Risk</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Risks_type")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Risk_type</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Risks")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.Risk</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Requirments")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.requirments</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Experience_group")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.experience_group</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Responsibilities")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.responsibilites </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","work_location")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title"> @mainlayout.worklocation </span>
-                                                </a>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.job_level</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Job_level_class")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.job_level_class</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Job_level_grade")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.job_level_grade</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.job_title</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","job_title_class")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.job_title_class</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Job_title_Sub_class")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.job_title_sub_class</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.organization_chart</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Organization_unit_schema")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.organization_unit_schema</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","OrganizationLevelUnit")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.organization_unit_level</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Organizationunittype")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.organization_unit_type</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.budget</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Budget_class")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.budget_class</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Budget_class_items")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.budget_class_items</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-sub">
-                                        <a href="#"><span>@mainlayout.cards</span></a>
-                                        <ul>
-                                            <li>
-                                                <a href="@Url.Action("Index","job_level_setup")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.job_level </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","job_title_card")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.job_title_card</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","OrganizationChart")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.organization_chart_card </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Budget")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.budget_card </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","manpower")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.mainpo </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-sub">
-                                        <a href="#"><span>@mainlayout.inquery</span></a>
-                                        <ul>
-                                            <li>
-                                                <a href="@Url.Action("View_jobs","OrganizationInquiry")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.view_jobs </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("organization_view_related_to_jobs","OrganizationInquiry")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.organization_view_related_to_jobs </span>
-                                                </a>
-                                            </li>
-
-                                        </ul>
-                                    </li>
-
-                                    <li class="has-sub">
-                                        <a href="#"><span>@organ.report</span></a>
-                                       
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("job_title","Reports_organization")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.job_title_card</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Chart", "Reports_organization")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.organization_chart</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                           
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-sub">
-                                <a href="#Basic" name="menubtn">
-                                    <i class="entypo-newspaper">
-
-                                    </i>
-                                    <span class="title">@mainlayout.personnel</span>
-                                </a>
-                                <ul>
-                                    <li class="has-sub">
-                                        <a href="#"><span>@mainlayout.Setup</span></a>
-                                        <ul>
-                                            <li>
-                                                <a href="@Url.Action("Index","Contract_Type")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.contract_type</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Subscription_Syndicate")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.subscription</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Employee_Recodes_Group")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.employee_recordes_type</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Employee_Profile_Groups")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title"> @mainlayout.employee_profile_group</span>
-                                                </a>
-                                            </li>
-
-
-                                            <li class="nav-parent">
-                                                <a href="#"><span>@mainlayout.check_lists</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Check_List_Item_Groups")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.check_lists_group</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index", "Check_Lists_Items")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.check_lists_items</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-parent">
-                                                <a href="#"><span>@mainlayout.EOS</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Index","EOS_Interview_Questions_Groups")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.EOS_questions_groups</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Definition_of_EOS_Interview_Questions")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.EOS_group</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-
-                                            </li>
-
-                                        </ul>
-                                    </li>
-
-
-
-                                    <li class="has-sub">
-                                        <a href="#"><span>@Personnel.Cards</span></a>
-                                        <ul>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@Personnel.EmployeeProfile</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_Profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@Personnel.EmployeeProfile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_Qualification_Profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@Personnel.QualificationProfile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_experience_profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@Personnel.Employeeexperienceprofile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_contact_profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @Personnel.ContactProfile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_military_service_profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @Personnel.MilitaryServiceProfile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_vehicle_profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @Personnel.VehicleProfile</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","Employee_sponsor_profile")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title"> @Personnel.SponsorProfile</span>
-                                                        </a>
-                                                    </li>
-
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-
-
-                                    <li class="has-sub">
-                                        <a href="#"><span>@mainlayout.Transactions</span></a>
-                                        <ul>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.employee_transactions</span></a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="@Url.Action("Create","personnel_transaction")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.personnel_transaction</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Create", "EOS_request")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.EOS_request</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Create","Employee_records")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Employee_record</span>
-                                                </a>
-                                            </li>
-                                           
-                                        </ul>
-                                    </li>
-                                    <li class="has-sub">
-                                        <a href="#"><span>@mainlayout.Process</span></a>
-                                        <ul>
-                                            <li class="has-sub">
-                                                <a href="#"><span>@mainlayout.employee_transactions</span></a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Index","personnel_transaction")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.employee_transactions_tran</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("Index", "EOS_request")">
-                                                            <i class="entypo-gauge"></i>
-                                                            <span class="title">@mainlayout.EOS_request_tran</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","Employee_records")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.Employee_record_tran</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="@Url.Action("Index","request_new_contract")">
-                                                    <i class="entypo-gauge"></i>
-                                                    <span class="title">@mainlayout.requestconter</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                   
-                                </ul>
-                            </li>
-
-
-                        </ul>
-                    </div>
+            <header class="logo-env" style="direction:rtl">
+                <!-- logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="~/image010.jpg" style="width:111px;height:60px"/>
+                    </a>
+                </div>
+                <!-- logo collapse icon -->
+                <div class="sidebar-collapse">
+                    <a href="#" class="sidebar-collapse-icon" onclick="myFunction()">
+                        <!-- add class "with-animation" if you want sidebar to have animation during expanding/collapsing transition -->
+                        <i class="entypo-menu"></i>
+                    </a>
                 </div>
 
+                <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+                <div class="sidebar-mobile-menu visible-xs">
+                    <a href="#" class="with-animation">
+                        <!-- add class "with-animation" to support animation -->
+                        <i class="entypo-menu"></i>
+
+                    </a>
+                </div>
+            </header>
 
 
+            <div class="sidebar-menu" id="menubar" dir="@HR.Resource.mainlayout.d">
 
+                <div class="multiple-expanded" dir="@HR.Resource.mainlayout.d">
+                    <ul id="myDIV" class="mn-vnavigation main-menu" style="display: none">
+                        <li class="dropdown-submenu active">
+                            <a tabindex="-1" href="#">Client Advice</a>
+                            <ul class="dropdown-menu ">
+                                <li class="dropdown-submenu active">
+                                    <a tabindex="-1" href="#">Pre-advice</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Strategy & Technical</a></li>
+                                        <li><a href="#">Research</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Strategy & Technical</a></li>
+                                <li><a href="#">Research</a></li>
+                                <li class="dropdown-submenu active">
+                                    <a href="#">APL & Products</a>
+                                </li>
+                                <li><a href="#">Implementation</a></li>
+                                <li><a href="#">Review</a></li>
+                                <li><a href="#">Execution Only</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Personal Development</a></li>
+                        <li><a href="#">Practice</a></li>
+                        <li><a href="#">News</a></li>
+                    </ul>
+                   
+                </div>
             </div>
+
+
+
+
         </div>
+    </div>
+        @*<div id="mn-wrapper">
+            <div class="mn-sidebar">
+                <div class="mn-toggle"><i class="fa fa-bars"></i></div>
+                <div class="mn-navblock">
+                    <ul class="mn-vnavigation">
+                        <li class="dropdown-submenu active">
+                            <a tabindex="-1" href="#">Client Advice</a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu active">
+                                    <a tabindex="-1" href="#">Pre-advice</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Strategy & Technical</a></li>
+                                        <li><a href="#">Research</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Strategy & Technical</a></li>
+                                <li><a href="#">Research</a></li>
+                                <li class="dropdown-submenu active">
+                                    <a href="#">APL & Products</a>
+                                </li>
+                                <li><a href="#">Implementation</a></li>
+                                <li><a href="#">Review</a></li>
+                                <li><a href="#">Execution Only</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Personal Development</a></li>
+                        <li><a href="#">Practice</a></li>
+                        <li><a href="#">News</a></li>
+                    </ul>
+                </div>
+            </div>*@
 
+            <div class="main-content">
 
-
-        <div class="main-content">
-         
                 <div class="row" style="background: #000;">
 
                     <div class="col-md-6 col-sm-4 clearfix hidden-xs">
@@ -864,543 +202,540 @@
                             </li>
                         </ul>
                     </div>
-                   
 
-                        <div class="col-md-6 col-sm-8 clearfix">
 
-                            <ul class="user-info  pull-none-xsm">
+                    <div class="col-md-6 col-sm-8 clearfix">
 
-                                <!-- Profile Info -->
-                                <li class="profile-info dropdown">
-                                    <!-- add class "pull-right" if you want to place this from right -->
+                        <ul class="user-info  pull-none-xsm">
 
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="~/Content/neon/assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
-                                    </a>
+                            <!-- Profile Info -->
+                            <li class="profile-info dropdown">
+                                <!-- add class "pull-right" if you want to place this from right -->
 
-                                    <ul class="dropdown-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="~/Content/neon/assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
+                                </a>
 
-                                        <!-- Reverse Caret -->
-                                        <li class="caret"></li>
+                                <ul class="dropdown-menu">
 
-                                        <!-- Profile sub-links -->
-                                        <li>
-                                            <a href="extra-timeline.html">
-                                                <i class="entypo-user"></i>
-                                                Edit Profile
-                                            </a>
-                                        </li>
+                                    <!-- Reverse Caret -->
+                                    <li class="caret"></li>
 
-                                        <li>
-                                            <a href="mailbox.html">
-                                                <i class="entypo-mail"></i>
-                                                Inbox
-                                            </a>
-                                        </li>
+                                    <!-- Profile sub-links -->
+                                    <li>
+                                        <a href="extra-timeline.html">
+                                            <i class="entypo-user"></i>
+                                            Edit Profile
+                                        </a>
+                                    </li>
 
-                                        <li>
-                                            <a href="extra-calendar.html">
-                                                <i class="entypo-calendar"></i>
-                                                Calendar
-                                            </a>
-                                        </li>
+                                    <li>
+                                        <a href="mailbox.html">
+                                            <i class="entypo-mail"></i>
+                                            Inbox
+                                        </a>
+                                    </li>
 
-                                        <li>
-                                            <a href="#">
-                                                <i class="entypo-clipboard"></i>
-                                                Tasks
-                                            </a>
-                                        </li>
+                                    <li>
+                                        <a href="extra-calendar.html">
+                                            <i class="entypo-calendar"></i>
+                                            Calendar
+                                        </a>
+                                    </li>
 
-                                    </ul>
-                                </li>
-                                <li>
-                                    <ul class="user-info  pull-left-xs pull-none-xsm">
+                                    <li>
+                                        <a href="#">
+                                            <i class="entypo-clipboard"></i>
+                                            Tasks
+                                        </a>
+                                    </li>
 
-                                        <!-- Raw Notifications -->
-                                        <li class="notifications dropdown">
+                                </ul>
+                            </li>
+                            <li>
+                                <ul class="user-info  pull-left-xs pull-none-xsm">
 
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                <i class="entypo-help"></i>
-                                            </a>
-                                        </li>
+                                    <!-- Raw Notifications -->
+                                    <li class="notifications dropdown">
 
-                                        <!-- Message Notifications -->
-                                        <li class="notifications dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <i class="entypo-help"></i>
+                                        </a>
+                                    </li>
 
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                <i class="entypo-cog"></i>
-                                            </a>
-                                        </li>
-                                        <li class="sep"></li>
+                                    <!-- Message Notifications -->
+                                    <li class="notifications dropdown">
 
-                                        <li class="notifications dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <i class="entypo-cog"></i>
+                                        </a>
+                                    </li>
+                                    <li class="sep"></li>
 
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                <i class="entypo-chat"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                              
-                            </ul>
-                        </div>
+                                    <li class="notifications dropdown">
+
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <i class="entypo-chat"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
                     </div>
+                </div>
                 <div class="row" style="padding: 83px;background-image: url(/1.jpg);background-size: 1533px 214px;">
                     <div col-lg-12>
                         <h3 style="color: #fff">Contoso company</h3>
                     </div>
                 </div>
-           
+
                 <div class="row" style="padding: 20px">
-                @*<div class="col-lg-2">
-                    <div class="panel panel-primary panel-table">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <h3>Events</h3>
-                                <span>This month's event calendar</span>
-                            </div>
+                    @*<div class="col-lg-2">
+                            <div class="panel panel-primary panel-table">
+                                <div class="panel-heading">
+                                    <div class="panel-title">
+                                        <h3>Events</h3>
+                                        <span>This month's event calendar</span>
+                                    </div>
 
-                           <div class="panel-options">
-                                <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
-                                <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
-                                <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
-                                <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
-                            </div>
-                        </div>
-                      <div class="panel-body">
-                            <div id="calendar" class="calendar-widget">
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
-
-                @*<div class="col-lg-10">
-                    <div class="row" style="padding: 10px">
-                        <div class="col-lg-3">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/aaa1.jpg" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Cash overview - current company
-                                        </div>
-                                    </a>
+                                   <div class="panel-options">
+                                        <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
+                                        <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                                        <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+                                        <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                                    </div>
+                                </div>
+                              <div class="panel-body">
+                                    <div id="calendar" class="calendar-widget">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
+                        </div>*@
 
-                                            <img src="~/icon/2.jpg" alt="" class="img-circle" width="40" />
+                    @*<div class="col-lg-10">
+                            <div class="row" style="padding: 10px">
+                                <div class="col-lg-3">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/aaa1.jpg" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Cash overview - current company
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/2.jpg" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/2.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Product readiness for process manufacturing
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/4.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Resource lifecycle management
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
+                            <div class="row" style="padding: 10px">
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
 
-                                            <img src="~/icon/2.png" alt="" class="img-circle" width="40" />
+                                                    <img src="~/icon/5.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="col-lg-10">
-                                            Product readiness for process manufacturing
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/6.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/7.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/8.jpg" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
+                            <div class="row" style="padding: 10px">
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
 
-                                            <img src="~/icon/4.png" alt="" class="img-circle" width="40" />
+                                                    <img src="~/icon/10.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="col-lg-10">
-                                            Resource lifecycle management
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/11.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/12.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/13.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row" style="padding: 10px">
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
+                            <div class="row" style="padding: 10px">
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
 
-                                            <img src="~/icon/5.png" alt="" class="img-circle" width="40" />
+                                                    <img src="~/icon/14.jpg" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/15.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/16.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
+
+                                                    <img src="~/icon/17.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
+                            <div class="row" style="padding: 10px">
+                                <div class="col-lg-3 ">
+                                    <div class="tabal-home">
+                                        <div class="row">
+                                            <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
+                                                <div class="col-lg-2">
 
-                                            <img src="~/icon/6.png" alt="" class="img-circle" width="40" />
+                                                    <img src="~/icon/18.png" alt="" class="img-circle" width="40" />
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    Financial period close
+                                                </div>
+                                            </a>
                                         </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/7.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/8.jpg" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="padding: 10px">
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/10.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/11.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/12.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/13.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="padding: 10px">
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/14.jpg" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/15.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/16.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/17.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="padding: 10px">
-                        <div class="col-lg-3 ">
-                            <div class="tabal-home">
-                                <div class="row">
-                                    <a href="#" class="dropdown-toggle f-c-home" data-toggle="dropdown">
-                                        <div class="col-lg-2">
-
-                                            <img src="~/icon/18.png" alt="" class="img-circle" width="40" />
-                                        </div>
-                                        <div class="col-lg-10">
-                                            Financial period close
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+                        </div>*@
 
 
-                <br />
+                    <br />
 
 
-                <br />
-                 <script type="text/javascript">
-            // Code used to add Todo Tasks
-            jQuery(document).ready(function($)
-            {
-                var $todo_tasks = $("#todo_tasks");
+                    <br />
+                    <script type="text/javascript">
+                        // Code used to add Todo Tasks
+                        jQuery(document).ready(function ($) {
+                            var $todo_tasks = $("#todo_tasks");
 
-                $todo_tasks.find('input[type="text"]').on('keydown', function(ev)
-                {
-                    if(ev.keyCode == 13)
-                    {
-                        ev.preventDefault();
+                            $todo_tasks.find('input[type="text"]').on('keydown', function (ev) {
+                                if (ev.keyCode == 13) {
+                                    ev.preventDefault();
 
-                        if($.trim($(this).val()).length)
-                        {
-                            var $todo_entry = $('<li><div class="checkbox checkbox-replace color-white"><input type="checkbox" /><label>'+$(this).val()+'</label></div></li>');
-                            $(this).val('');
+                                    if ($.trim($(this).val()).length) {
+                                        var $todo_entry = $('<li><div class="checkbox checkbox-replace color-white"><input type="checkbox" /><label>' + $(this).val() + '</label></div></li>');
+                                        $(this).val('');
 
-                            $todo_entry.appendTo($todo_tasks.find('.todo-list'));
-                            $todo_entry.hide().slideDown('fast');
-                            replaceCheckboxes();
-                        }
-                    }
-                });
-            });
-                </script>
-
-
-
-
-
-            </div>
-            <div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
-
-                <div class="chat-inner">
-
-
-                    <h2 class="chat-header">
-                        <a href="#" class="chat-close"><i class="entypo-cancel"></i></a>
-
-                        <i class="entypo-users"></i>
-                        Chat
-                        <span class="badge badge-success is-hidden">0</span>
-                    </h2>
-
-
-                    <div class="chat-group" id="group-1">
-                        <strong>Favorites</strong>
-
-                        <a href="#" id="sample-user-123" data-conversation-history="#sample_history"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
-                        <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
-                        <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
-                        <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
-                        <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
-                    </div>
-
-
-                    <div class="chat-group" id="group-2">
-                        <strong>Work</strong>
-
-                        <a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
-                        <a href="#" data-conversation-history="#sample_history_2"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
-                        <a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
-                    </div>
-
-
-                    <div class="chat-group" id="group-3">
-                        <strong>Social</strong>
-
-                        <a href="#"><span class="user-status is-busy"></span> <em>Velma G. Pearson</em></a>
-                        <a href="#"><span class="user-status is-offline"></span> <em>Margaret R. Dedmon</em></a>
-                        <a href="#"><span class="user-status is-online"></span> <em>Kathleen M. Canales</em></a>
-                        <a href="#"><span class="user-status is-offline"></span> <em>Tracy J. Rodriguez</em></a>
-                    </div>
-
-                </div>
-
-                <!-- conversation template -->
-                <div class="chat-conversation">
-
-                    <div class="conversation-header">
-                        <a href="#" class="conversation-close"><i class="entypo-cancel"></i></a>
-
-                        <span class="user-status"></span>
-                        <span class="display-name"></span>
-                        <small></small>
-                    </div>
-
-                    <ul class="conversation-body"></ul>
-
-                    <div class="chat-textarea">
-                        <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
-                    </div>
-
-                </div>
-
-            </div>
-               
-                <ul class="chat-history" id="sample_history">
-                <li>
-                    <span class="user">Art Ramadani</span>
-                    <p>Are you here?</p>
-                    <span class="time">09:00</span>
-                </li>
-
-                <li class="opponent">
-                    <span class="user">Catherine J. Watkins</span>
-                    <p>This message is pre-queued.</p>
-                    <span class="time">09:25</span>
-                </li>
-
-                <li class="opponent">
-                    <span class="user">Catherine J. Watkins</span>
-                    <p>Whohoo!</p>
-                    <span class="time">09:26</span>
-                </li>
-
-                <li class="opponent unread">
-                    <span class="user">Catherine J. Watkins</span>
-                    <p>Do you like it?</p>
-                    <span class="time">09:27</span>
-                </li>
-            </ul>
-            <div class="container" style="width:95%;max-width:95%;" dir='@HR.Resource.mainlayout.d'>
-                <br />
-                @RenderBody()
-                <script type="text/javascript">
-                    // Code used to add Todo Tasks
-                    jQuery(document).ready(function ($) {
-                        var $todo_tasks = $("#todo_tasks");
-
-                        $todo_tasks.find('input[type="text"]').on('keydown', function (ev) {
-                            if (ev.keyCode == 13) {
-                                ev.preventDefault();
-
-                                if ($.trim($(this).val()).length) {
-                                    var $todo_entry = $('<li><div class="checkbox checkbox-replace color-white"><input type="checkbox" /><label>' + $(this).val() + '</label></div></li>');
-                                    $(this).val('');
-
-                                    $todo_entry.appendTo($todo_tasks.find('.todo-list'));
-                                    $todo_entry.hide().slideDown('fast');
-                                    replaceCheckboxes();
+                                        $todo_entry.appendTo($todo_tasks.find('.todo-list'));
+                                        $todo_entry.hide().slideDown('fast');
+                                        replaceCheckboxes();
+                                    }
                                 }
-                            }
+                            });
                         });
-                    });
-                </script>
-                <!-- Footer -->
-                <footer class="main" dir="@HR.Resource.mainlayout.d">
-                    &copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
-                </footer>
+                    </script>
+
+
+
+
+
+                </div>
+                <div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
+
+                    <div class="chat-inner">
+
+
+                        <h2 class="chat-header">
+                            <a href="#" class="chat-close"><i class="entypo-cancel"></i></a>
+
+                            <i class="entypo-users"></i>
+                            Chat
+                            <span class="badge badge-success is-hidden">0</span>
+                        </h2>
+
+
+                        <div class="chat-group" id="group-1">
+                            <strong>Favorites</strong>
+
+                            <a href="#" id="sample-user-123" data-conversation-history="#sample_history"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
+                            <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
+                            <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
+                            <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
+                            <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
+                        </div>
+
+
+                        <div class="chat-group" id="group-2">
+                            <strong>Work</strong>
+
+                            <a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
+                            <a href="#" data-conversation-history="#sample_history_2"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
+                            <a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
+                        </div>
+
+
+                        <div class="chat-group" id="group-3">
+                            <strong>Social</strong>
+
+                            <a href="#"><span class="user-status is-busy"></span> <em>Velma G. Pearson</em></a>
+                            <a href="#"><span class="user-status is-offline"></span> <em>Margaret R. Dedmon</em></a>
+                            <a href="#"><span class="user-status is-online"></span> <em>Kathleen M. Canales</em></a>
+                            <a href="#"><span class="user-status is-offline"></span> <em>Tracy J. Rodriguez</em></a>
+                        </div>
+
+                    </div>
+
+                    <!-- conversation template -->
+                    <div class="chat-conversation">
+
+                        <div class="conversation-header">
+                            <a href="#" class="conversation-close"><i class="entypo-cancel"></i></a>
+
+                            <span class="user-status"></span>
+                            <span class="display-name"></span>
+                            <small></small>
+                        </div>
+
+                        <ul class="conversation-body"></ul>
+
+                        <div class="chat-textarea">
+                            <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <ul class="chat-history" id="sample_history">
+                    <li>
+                        <span class="user">Art Ramadani</span>
+                        <p>Are you here?</p>
+                        <span class="time">09:00</span>
+                    </li>
+
+                    <li class="opponent">
+                        <span class="user">Catherine J. Watkins</span>
+                        <p>This message is pre-queued.</p>
+                        <span class="time">09:25</span>
+                    </li>
+
+                    <li class="opponent">
+                        <span class="user">Catherine J. Watkins</span>
+                        <p>Whohoo!</p>
+                        <span class="time">09:26</span>
+                    </li>
+
+                    <li class="opponent unread">
+                        <span class="user">Catherine J. Watkins</span>
+                        <p>Do you like it?</p>
+                        <span class="time">09:27</span>
+                    </li>
+                </ul>
+                <div class="container" style="width:95%;max-width:95%;" dir='@HR.Resource.mainlayout.d'>
+                    <br />
+                    @RenderBody()
+                    <script type="text/javascript">
+                        // Code used to add Todo Tasks
+                        jQuery(document).ready(function ($) {
+                            var $todo_tasks = $("#todo_tasks");
+
+                            $todo_tasks.find('input[type="text"]').on('keydown', function (ev) {
+                                if (ev.keyCode == 13) {
+                                    ev.preventDefault();
+
+                                    if ($.trim($(this).val()).length) {
+                                        var $todo_entry = $('<li><div class="checkbox checkbox-replace color-white"><input type="checkbox" /><label>' + $(this).val() + '</label></div></li>');
+                                        $(this).val('');
+
+                                        $todo_entry.appendTo($todo_tasks.find('.todo-list'));
+                                        $todo_entry.hide().slideDown('fast');
+                                        replaceCheckboxes();
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                    <!-- Footer -->
+                    <footer class="main" dir="@HR.Resource.mainlayout.d">
+                        &copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
+                    </footer>
+                </div>
             </div>
         </div>
-    </div>
+   
     @if (Session["lang"] != null && Session["lang"].ToString() == "ar-EG")
             {
         <link rel="stylesheet" href="~/Content/neon-rtl/assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
@@ -1408,7 +743,7 @@
 
         <script src="~/Content/neon-rtl/assets/js/gsap/TweenMax.min.js"></script>
         <script src="~/Content/neon-rtl/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-                <script src="~/Content/neon-rtl/assets/js/bootstrap.js"></script>
+        <script src="~/Content/neon-rtl/assets/js/bootstrap.js"></script>
                 <script src="~/Content/neon-rtl/assets/js/joinable.js"></script>
                 <script src="~/Content/neon-rtl/assets/js/resizeable.js"></script>
                 <script src="~/Content/neon-rtl/assets/js/neon-api.js"></script>
@@ -1476,7 +811,7 @@
     {
         <script src="~/Content/neon/assets/js/gsap/TweenMax.min.js"></script>
         <script src="~/Content/neon/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-                <script src="~/Content/neon/assets/js/bootstrap.js"></script>
+        <script src="~/Content/neon/assets/js/bootstrap.js"></script>
                 <script src="~/Content/neon/assets/js/joinable.js"></script>
                 <script src="~/Content/neon/assets/js/resizeable.js"></script>
                 <script src="~/Content/neon/assets/js/neon-api.js"></script>
@@ -1523,6 +858,18 @@
                 <script src="~/Content/neon/assets/js/icheck/icheck.min.js"></script>
                 <script src="~/Content/neon/assets/js/neon-chat.js"></script>
     }
+    <script>
+        function myFunction() {
+            var x = document.getElementById('myDIV');
+            if (x.style.display === 'block') {
+                return x.style.display = 'none';
+            } else {
+                return x.style.display = 'block';
+            }
+        }
+        window.onload = init;
+    </script>
+
     <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">
     @RenderSection("scripts")
 </body>
