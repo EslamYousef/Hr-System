@@ -58,7 +58,7 @@
 
                             <div class="col-md-4">
                                
-                                <input class="form-control datepicker" autocomplete="off" id="datefrom"/>
+                                <input  class="form-control" autocomplete="off" id="datefrom" type="date"/>
 
 
                             </div>
@@ -67,7 +67,7 @@
                      
                             <div class="col-md-4">
 
-                                <input class="form-control datepicker" autocomplete="off" id="dateto" />
+                                <input class="form-control" autocomplete="off" id="dateto"  type="date"/>
     
                                   
                                
@@ -154,37 +154,62 @@
 
 
 <script>
+    $(function () {
+        GetDataById2('@DateTime.Now.Date', "datefrom");
+        GetDataById2('@DateTime.Now.Date', "dateto");
+    });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
     function CountryName()
     {
-         
+
         var id= $("#Country").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getairport",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#countryname").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#countryname").val(" ");
             }
         });
     }
     function CountryName1() {
-         
+
         var id = $("#Country1").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getairport",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#countryname1").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#countryname1").val(" ");
             }
         });

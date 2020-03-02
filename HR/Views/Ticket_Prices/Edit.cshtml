@@ -69,15 +69,15 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Basic.from_date</label>
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new {  @class = "form-control datepicker", @autocomplete = "off"   , id = "datefrom" } })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new {  @class = "form-control", @autocomplete = "off"   , id = "datefrom",@type="date" } })
                                 @Html.ValidationMessageFor(model => model.From_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Basic.to_date</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.TO_Date, new { htmlAttributes = new { @class = "form-control datepicker" , @autocomplete = "off", id="datefrom" } })
+                                @Html.EditorFor(model => model.TO_Date, new { htmlAttributes = new { @class = "form-control" , @autocomplete = "off", id="dateto", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.TO_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -107,27 +107,52 @@
 
 
 <script>
+    $(function(){
+      GetDataById2('@Model.From_Date', "datefrom");
+        GetDataById2('@Model.TO_Date', "dateto");
+    });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
     function CountryName()
     {
         $("#countryname").val(" ");
-         
+
         var id= $("#Country").val();
         $.ajax({
             type: "post",
             url: "/Helper/Getairport",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#countryname").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#countryname").val(" ");
             }
         });
     }
     function CountryName1() {
-         
+
         $("#countryname1").val(" ");
         var id = $("#Country1").val();
         $.ajax({
@@ -135,17 +160,18 @@
             url: "/Helper/Getairport",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#countryname1").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#countryname1").val(" ");
             }
         });
     }
     CountryName();
     CountryName1();
+
 </script>
 
 @section scripts{}

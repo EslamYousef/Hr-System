@@ -80,9 +80,16 @@
                             }
                             @if (Model.listDisplay[9])
                             {
-                                <th>@organ.numberofdirectpositions</th>
+                                <th style="width:30px">@organ.numberofdirectpositions</th>
                             }
-                          
+                            @if (Model.listDisplay[10])
+                            {
+                                <th>@organ.unitmail</th>
+                            }
+                            @if (Model.listDisplay[11])
+                            {
+                                <th>@organ.numberofchaild</th>
+                            }
                         </tr>
                     </thead>
                     <tbody style="margin-right:15px">
@@ -104,13 +111,13 @@
 
                                 @if (Model.listDisplay[3])
                                 {
-                                    if (@item.parent != null)
+                                    if (@item.parent != "0")
                                     {
                                         <td>@item.parent</td>
                                     }
                                     else
                                     {
-                                        <td>@organ.empty</td>
+                                        <td>@organ.master</td>
                                     }
                                 }
                                 @if (Model.listDisplay[4])
@@ -172,7 +179,7 @@
                                 {
                                     if (@item.number_of_direct_positions != null)
                                     {
-                                        <td>@item.number_of_direct_positions</td>
+                                        <td style="width:30px">@item.number_of_direct_positions</td>
                                     }
                                     else
                                     {
@@ -184,6 +191,17 @@
                                     if (@item.unit_mail != null)
                                     {
                                         <td>@item.unit_mail</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[11])
+                                {
+                                    if (@item.Childs != null)
+                                    {
+                                        <td>@item.Childs.Count()</td>
                                     }
                                     else
                                     {

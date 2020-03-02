@@ -63,7 +63,7 @@ namespace HR.Controllers
                 var working_system = model["working_system_List"].Split(char.Parse(","));
                 var chart = model["chart"].Split(char.Parse(","));
                 var parent = model["parent"].Split(char.Parse(","));
-                var gender = model["gender_list"].Split(char.Parse(","));
+                //var gender = model["gender_list"].Split(char.Parse(","));
                 ///     var sub_class = model["sub_class"].Split(char.Parse(","));///////
                 var parmanet = model["parmet_List"].Split(char.Parse(","));
                 var validity = model["validity_list"].Split(char.Parse(","));
@@ -165,18 +165,18 @@ namespace HR.Controllers
                     }
                 }
                 /////gender//////
-                foreach (var item in gender)
-                {
-                    if (item != "")
-                    {
-                        var genderID = int.Parse(item);
-                        var newRecord = Alljobs.FirstOrDefault(m => m.gender.GetHashCode() == genderID);
-                        if (newRecord != null && !jobForReport.Contains(newRecord))
-                        {
-                            jobForReport.Add(newRecord);
-                        }
-                    }
-                }
+                //foreach (var item in gender)
+                //{
+                //    if (item != "")
+                //    {
+                //        var genderID = int.Parse(item);
+                //        var newRecord = Alljobs.FirstOrDefault(m => m.gender.GetHashCode() == genderID);
+                //        if (newRecord != null && !jobForReport.Contains(newRecord))
+                //        {
+                //            jobForReport.Add(newRecord);
+                //        }
+                //    }
+                //}
                 ///////////fromage//////
                 var newRecord2 = Alljobs.FirstOrDefault(m => m.from_age== record.fromAge);
                 if (newRecord2 != null && !jobForReport.Contains(newRecord2))
@@ -211,6 +211,7 @@ namespace HR.Controllers
                 /////////////////////////
                 //////////////////////////
                 //////////////////////////
+                foreach (var item in jobForReport) { if (item.parent_job != null) { var id = int.Parse(item.parent_job); item.parent_job = Alljobs.FirstOrDefault(m => m.ID == id).name; } }
                 var report = new reportJobVm { jobs = jobForReport, my_list = flag1 };
                 return View("viewReport",report);
             }
@@ -277,7 +278,7 @@ namespace HR.Controllers
                 /////////////////////////////////////////////
                 ////////////////////////////////////////////
                 var organizationChartList = new List<Organization_Chart>();
-                var display = new Boolean[8];
+                var display = new Boolean[12];
                 var report = new reportVM ();
                 var userUnit = model["userUnit"].Split(char.Parse(","));
                 var unitDescription = model["unitDescription"].Split(char.Parse(","));
@@ -290,18 +291,19 @@ namespace HR.Controllers
                 var List_Display = model["List_Display"].Split(char.Parse(","));
                 /////////////////////////////////////////////
                 /////////////////////////////////////////////
-                for (var i=0;i<11;i++) { display[i] =false; }
+                for (var i=0;i<12;i++) { display[i] =false; }
                 foreach (var item in userUnit) { if (item != "") { var newRecord = Allchart.FirstOrDefault(m => m.User_unit_code == item);if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord);}}}
                 foreach (var item in unitDescription) { if (item != "") { var newRecord = Allchart.FirstOrDefault(m => m.unit_Description == item); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
-                foreach (var item in parent) { if (item != "") { var newRecord = Allchart.FirstOrDefault(m => m.parent == item); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
+                foreach (var item in parent) { if (item != "") {  var newRecord = Allchart.FirstOrDefault(m => m.parent == item); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
                 foreach (var item in UnitType) { if (item != "") { var id = int.Parse(item); var newRecord = Allchart.FirstOrDefault(m => m.unit_type_code.ID == id); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
                 foreach (var item in unitlevel) { if (item != "") { var newRecord = Allchart.FirstOrDefault(m => m.unit_type_code.unitLevelcode == item); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
                 foreach (var item in unitSchema) { if (item != "") { var newRecord = Allchart.FirstOrDefault(m => m.unit_type_code.unitschemacode == item); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
                 foreach (var item in loaction) { if (item != "") { var id = int.Parse(item); var newRecord = Allchart.FirstOrDefault(m => m.work_location.ID == id); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
                 foreach (var item in check_status) { if (item != "") { var id = int.Parse(item); var newRecord = Allchart.FirstOrDefault(m => m.unit_status.GetHashCode() == id); if (newRecord != null && !organizationChartList.Contains(newRecord)) { organizationChartList.Add(newRecord); } } }
                 foreach (var item in List_Display) { if (item != "") {var index = int.Parse(item);display[index] = true;}}
+                foreach (var item in organizationChartList) { if (item.parent != "0") { var id =int.Parse(item.parent); item.parent = Allchart.FirstOrDefault(m => m.ID == id).unit_Description; } }
                 report.listDisplay = display;report.Organization_Chart = organizationChartList;
-                return RedirectToAction("chartReport", report);
+                return View("chartReport", report);
             }
             catch(Exception)
             {

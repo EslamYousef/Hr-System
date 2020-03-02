@@ -1411,6 +1411,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to master chart.
+        /// </summary>
+        public static string master {
+            get {
+                return ResourceManager.GetString("master", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to max annual increase percentage.
         /// </summary>
         public static string max_annual_increase_percentage {
@@ -1569,6 +1578,15 @@ namespace HR.Resource {
         public static string num_slots {
             get {
                 return ResourceManager.GetString("num_slots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Num Chaild.
+        /// </summary>
+        public static string numberofchaild {
+            get {
+                return ResourceManager.GetString("numberofchaild", resourceCulture);
             }
         }
         
@@ -1798,6 +1816,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
+        public static string report {
+            get {
+                return ResourceManager.GetString("report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to report job level .
         /// </summary>
         public static string report_job_levelID {
@@ -1893,6 +1920,15 @@ namespace HR.Resource {
         public static string SelectBudgetclass {
             get {
                 return ResourceManager.GetString("SelectBudgetclass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select columns to Display.
+        /// </summary>
+        public static string selectcolumnstoDisplay {
+            get {
+                return ResourceManager.GetString("selectcolumnstoDisplay", resourceCulture);
             }
         }
         
