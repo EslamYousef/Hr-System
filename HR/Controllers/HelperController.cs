@@ -558,7 +558,6 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var modesl = dbcontext.EOS_Interview_Questions_Groups.FirstOrDefault(m => m.ID == ID);
             return Json(modesl);
-
         }
         public JsonResult GetCheck_List_Item_Groups(string id)
         {
@@ -977,7 +976,12 @@ namespace HR.Controllers
             var newmodel = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == ID);
             return Json(newmodel);
         }
-
+        public JsonResult GetShiftdaystatussetup(string id)
+        {
+            var ID = int.Parse(id);
+            var modesl = dbcontext.Shift_day_status_setup.FirstOrDefault(m => m.ID == ID);
+            return Json(modesl);
+        }
 
 
     }
