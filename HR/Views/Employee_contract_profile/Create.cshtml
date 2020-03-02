@@ -58,10 +58,18 @@
                                      
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.ContractNo</label>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                             @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                         </div>
+                                        <div class="col-md-5"></div>
+                                            <div class="col-md-2">
+                                                <a href="@Url.Action("index","Employee_contract_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                                <input type="submit" value="@Personnel.Create" class="btn btn-success" style="width:98px;"/>
+                                              
+                                            </div>
+                                   
+
                                     </div>
 
                                         @*<div class="form-group">
@@ -157,7 +165,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-2">@Personnel.Approveddate</label>
                                             <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                                @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control", @id = "Approved_date", @autocomplete = "off", @type = "date" } })
                                                 @Html.ValidationMessageFor(model => model.Approved_date, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -176,7 +184,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.Medicaldate</label>
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                                    @Html.EditorFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control ", @id = "Medical_date", @autocomplete = "off", @type = "date" } })
                                                     @Html.ValidationMessageFor(model => model.Medical_date, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -229,7 +237,7 @@
                                             </li>
                                         </ul>
 
-                                        <div class="form-group">
+                                        <div class="form-group"  style="margin-top:10px;">
                                             <label class="control-label col-md-2">@Personnel.DaysBalance</label>
                                             <div class="col-md-4">
                                                 @Html.EditorFor(model => model.Days_Balance, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
@@ -260,7 +268,7 @@
                                             </li>
                                         </ul>
 
-                                        <div class="form-group">
+                                        <div class="form-group"  style="margin-top:10px;">
                                             <label class="control-label col-md-2">@Personnel.TicketsNo</label>
                                             <div class="col-md-4">
                                                 @Html.EditorFor(model => model.Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
@@ -311,7 +319,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                        <div class="form-group">
+                                        <div class="form-group"  style="margin-top:10px;">
                                             <label class="control-label col-md-2">@Personnel.AdultTicketsNo</label>
                                             <div class="col-md-4">
                                                 @Html.EditorFor(model => model.Adult_Tickets_No, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @autocomplete = "off" } })
@@ -333,12 +341,6 @@
                                             <div class="col-md-4">
                                                 @Html.EnumDropDownListFor(model => model.Tickets_Class_Tpyefam, new { @class = "select2", @autocomplete = "off" })
                                                 @Html.ValidationMessageFor(model => model.Tickets_Class_Tpyefam, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-offset-2 col-md-10">
-                                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                                <a href="@Url.Action("index","Employee_contract_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                                             </div>
                                         </div>
                                     </div>
@@ -363,6 +365,11 @@
         $("#employeeId").attr("disabled", true);
         Save();
         Save2();
+        GetDataById5('@Model.Medical_date', "Medical_date");
+        GetDataById5('@Model.Approved_date', "Approved_date"); 
+        GetDataById5('@Model.Contract_start_date', "Start");
+        GetDataById5('@Model.Contract_end_date', "End");
+
     });
 </script>
 
@@ -500,7 +507,26 @@
                 $("#months").val("0");
             }
         };
-    
+            function GetDataById5(date, id) {
+                debugger
+                var valx = new Date(date);
+                var month;
+                if ((valx.getMonth() + 1) < 10) {
+                    month = "0" + (valx.getMonth() + 1).toString();
+                }
+                else {
+                    month = date.getMonth() + 1;
+                }
+                var day = parseInt(valx.getDate());
+                if (day < 10) {
+                    day = "0" + (valx.getDate()).toString();
+                }
+                else {
+                    day = valx.getDate();
+                }
+                var d = valx.getFullYear() + '-' + month + '-' + day;
+                $('#' + id).val(d);
+            }
 </script>
 
 
