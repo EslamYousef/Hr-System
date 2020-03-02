@@ -124,7 +124,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to budget.
+        ///   Looks up a localized string similar to Budget.
         /// </summary>
         public static string budget {
             get {
@@ -133,7 +133,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to budget card.
+        ///   Looks up a localized string similar to Budget card.
         /// </summary>
         public static string budget_card {
             get {
@@ -142,7 +142,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to budget class.
+        ///   Looks up a localized string similar to Budget class.
         /// </summary>
         public static string budget_class {
             get {
@@ -151,7 +151,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to budget class items.
+        ///   Looks up a localized string similar to Budget class items.
         /// </summary>
         public static string budget_class_items {
             get {
@@ -160,7 +160,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cards.
+        ///   Looks up a localized string similar to Cards.
         /// </summary>
         public static string cards {
             get {
@@ -169,7 +169,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check lists.
+        ///   Looks up a localized string similar to Check lists.
         /// </summary>
         public static string check_lists {
             get {
@@ -178,7 +178,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check lists group .
+        ///   Looks up a localized string similar to Check lists group.
         /// </summary>
         public static string check_lists_group {
             get {
@@ -187,7 +187,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check lists items.
+        ///   Looks up a localized string similar to Check lists items.
         /// </summary>
         public static string check_lists_items {
             get {
@@ -196,7 +196,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check request.
+        ///   Looks up a localized string similar to Check request.
         /// </summary>
         public static string check_request {
             get {
@@ -205,7 +205,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check request action.
+        ///   Looks up a localized string similar to Check request action.
         /// </summary>
         public static string check_request_action {
             get {
@@ -223,7 +223,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check status.
+        ///   Looks up a localized string similar to Check status.
         /// </summary>
         public static string check_status {
             get {
@@ -232,7 +232,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check type.
+        ///   Looks up a localized string similar to Check type.
         /// </summary>
         public static string check_type {
             get {
@@ -241,7 +241,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to city.
+        ///   Looks up a localized string similar to City.
         /// </summary>
         public static string city {
             get {
@@ -250,7 +250,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to contact method.
+        ///   Looks up a localized string similar to Contact method.
         /// </summary>
         public static string contact_method {
             get {
@@ -259,7 +259,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to contract type.
+        ///   Looks up a localized string similar to Contract type.
         /// </summary>
         public static string contract_type {
             get {
@@ -277,7 +277,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to county.
+        ///   Looks up a localized string similar to County.
         /// </summary>
         public static string county {
             get {
@@ -304,7 +304,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to document.
+        ///   Looks up a localized string similar to Document.
         /// </summary>
         public static string document {
             get {
@@ -313,7 +313,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to documents.
+        ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string documents {
             get {
@@ -322,7 +322,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to documents group.
+        ///   Looks up a localized string similar to Documents group.
         /// </summary>
         public static string documents_group {
             get {
@@ -331,7 +331,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to education level.
+        ///   Looks up a localized string similar to Education level.
         /// </summary>
         public static string education_level {
             get {
@@ -376,7 +376,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to employee recordes type.
+        ///   Looks up a localized string similar to Employee recordes type.
         /// </summary>
         public static string employee_recordes_type {
             get {
@@ -385,7 +385,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to employee transactions.
+        ///   Looks up a localized string similar to Employee transactions.
         /// </summary>
         public static string employee_transactions {
             get {
@@ -394,7 +394,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to employee transactions.
+        ///   Looks up a localized string similar to Employee transactions.
         /// </summary>
         public static string employee_transactions_tran {
             get {
@@ -448,7 +448,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to exchange rate.
+        ///   Looks up a localized string similar to Exchange rate.
         /// </summary>
         public static string exchange_rate {
             get {
@@ -457,7 +457,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to experience group.
+        ///   Looks up a localized string similar to Experience group.
         /// </summary>
         public static string experience_group {
             get {
@@ -493,7 +493,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to inquery.
+        ///   Looks up a localized string similar to Jnquery.
         /// </summary>
         public static string inquery {
             get {
@@ -502,7 +502,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job level.
+        ///   Looks up a localized string similar to Job level.
         /// </summary>
         public static string job_level {
             get {
@@ -511,7 +511,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job level card.
+        ///   Looks up a localized string similar to Job level card.
         /// </summary>
         public static string job_level_card {
             get {
@@ -520,7 +520,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job level class.
+        ///   Looks up a localized string similar to Job level class.
         /// </summary>
         public static string job_level_class {
             get {
@@ -529,7 +529,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job level grade.
+        ///   Looks up a localized string similar to Job level grade.
         /// </summary>
         public static string job_level_grade {
             get {
@@ -538,7 +538,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job title.
+        ///   Looks up a localized string similar to Job title.
         /// </summary>
         public static string job_title {
             get {
@@ -547,7 +547,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job title card.
+        ///   Looks up a localized string similar to Job title card.
         /// </summary>
         public static string job_title_card {
             get {
@@ -556,7 +556,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job title class.
+        ///   Looks up a localized string similar to Job title class.
         /// </summary>
         public static string job_title_class {
             get {
@@ -565,7 +565,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to job title sub class.
+        ///   Looks up a localized string similar to Job title sub class.
         /// </summary>
         public static string job_title_sub_class {
             get {
@@ -574,7 +574,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to logout.
+        ///   Looks up a localized string similar to Logout.
         /// </summary>
         public static string Logout {
             get {
@@ -601,7 +601,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to miliraty service rank.
+        ///   Looks up a localized string similar to Miliraty service rank.
         /// </summary>
         public static string miliraty_service_rank {
             get {
@@ -610,7 +610,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to miliraty service status.
+        ///   Looks up a localized string similar to Miliraty service status.
         /// </summary>
         public static string miliraty_service_status {
             get {
@@ -619,7 +619,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to milirty.
+        ///   Looks up a localized string similar to Milirty.
         /// </summary>
         public static string milirty {
             get {
@@ -646,7 +646,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to organization chart.
+        ///   Looks up a localized string similar to Organization chart.
         /// </summary>
         public static string organization_chart {
             get {
@@ -655,7 +655,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to organization chart card.
+        ///   Looks up a localized string similar to Organization chart card.
         /// </summary>
         public static string organization_chart_card {
             get {
@@ -664,7 +664,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to organization unit level.
+        ///   Looks up a localized string similar to Organization unit level.
         /// </summary>
         public static string organization_unit_level {
             get {
@@ -673,7 +673,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to organization unit schema.
+        ///   Looks up a localized string similar to Organization unit schema.
         /// </summary>
         public static string organization_unit_schema {
             get {
@@ -682,7 +682,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to organization unit type.
+        ///   Looks up a localized string similar to Organization unit type.
         /// </summary>
         public static string organization_unit_type {
             get {
@@ -691,7 +691,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to organization view related to jobs.
+        ///   Looks up a localized string similar to Organization view related to jobs.
         /// </summary>
         public static string organization_view_related_to_jobs {
             get {
@@ -745,7 +745,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to qulification degree.
+        ///   Looks up a localized string similar to Qulification degree.
         /// </summary>
         public static string qulification_degree {
             get {
@@ -754,7 +754,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to qulification main provider.
+        ///   Looks up a localized string similar to Qulification main provider.
         /// </summary>
         public static string qulification_main_provider {
             get {
@@ -763,7 +763,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to qulification name.
+        ///   Looks up a localized string similar to Qulification name.
         /// </summary>
         public static string qulification_name {
             get {
@@ -772,7 +772,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to qulification specialty.
+        ///   Looks up a localized string similar to Qulification specialty.
         /// </summary>
         public static string qulification_specialty {
             get {
@@ -781,7 +781,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to qulification sub providor.
+        ///   Looks up a localized string similar to Qulification sub providor.
         /// </summary>
         public static string qulification_sub_providor {
             get {
@@ -835,7 +835,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to requirments.
+        ///   Looks up a localized string similar to Requirments.
         /// </summary>
         public static string requirments {
             get {
@@ -844,7 +844,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to responsibilites.
+        ///   Looks up a localized string similar to Responsibilites.
         /// </summary>
         public static string responsibilites {
             get {
@@ -880,7 +880,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to skill.
+        ///   Looks up a localized string similar to Skill.
         /// </summary>
         public static string skill {
             get {
@@ -889,7 +889,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to skills.
+        ///   Looks up a localized string similar to Skills.
         /// </summary>
         public static string skills {
             get {
@@ -898,7 +898,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to skills group.
+        ///   Looks up a localized string similar to Skills group.
         /// </summary>
         public static string skills_group {
             get {
@@ -916,7 +916,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to state/government.
+        ///   Looks up a localized string similar to State/government.
         /// </summary>
         public static string state_government {
             get {
@@ -925,7 +925,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to subscription.
+        ///   Looks up a localized string similar to Subscription.
         /// </summary>
         public static string subscription {
             get {
@@ -961,7 +961,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to view jobs.
+        ///   Looks up a localized string similar to View jobs.
         /// </summary>
         public static string view_jobs {
             get {

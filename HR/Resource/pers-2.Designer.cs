@@ -70,7 +70,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to added Successfully.
+        ///   Looks up a localized string similar to Added Successfully.
         /// </summary>
         public static string addedSuccessfully {
             get {
@@ -88,7 +88,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add-EOS-request.
+        ///   Looks up a localized string similar to Add EOS request.
         /// </summary>
         public static string addEOSRequest {
             get {
@@ -97,7 +97,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add-personnel-transaction.
+        ///   Looks up a localized string similar to Add personnel transaction.
         /// </summary>
         public static string addpersonneltransaction {
             get {
@@ -115,7 +115,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All-record.
+        ///   Looks up a localized string similar to All record.
         /// </summary>
         public static string allrecord {
             get {
@@ -151,7 +151,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to are the employee has a loan or advanced.
+        ///   Looks up a localized string similar to Are The Employee Has A Loan OR Advanced.
         /// </summary>
         public static string aretheemployeehasloanoradvanced {
             get {
@@ -160,7 +160,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to are the settlement transferred to payroll.
+        ///   Looks up a localized string similar to Are The Settlement Transferred To Payroll.
         /// </summary>
         public static string arethesettlementtransferredtopayroll {
             get {
@@ -187,7 +187,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to check_status .
+        ///   Looks up a localized string similar to check_status.
         /// </summary>
         public static string check_status {
             get {
@@ -331,7 +331,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to date of eos interview.
+        ///   Looks up a localized string similar to Date of eos interview.
         /// </summary>
         public static string dateofeosinterview {
             get {
@@ -340,11 +340,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to date of settlement.
+        ///   Looks up a localized string similar to Date of settlement.
         /// </summary>
         public static string dateofsettlement {
             get {
                 return ResourceManager.GetString("dateofsettlement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decision Type.
+        /// </summary>
+        public static string Decisiontype {
+            get {
+                return ResourceManager.GetString("Decisiontype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Degree.
+        /// </summary>
+        public static string Defaultdegree {
+            get {
+                return ResourceManager.GetString("Defaultdegree", resourceCulture);
             }
         }
         
@@ -358,7 +376,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to delete.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string delete {
             get {
@@ -367,7 +385,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you want delete this data?.
+        ///   Looks up a localized string similar to You Want Delete This Data?.
         /// </summary>
         public static string deletemessage {
             get {
@@ -376,7 +394,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string edit {
             get {
@@ -394,7 +412,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to edit EOS Request.
+        ///   Looks up a localized string similar to Edit EOS Request.
         /// </summary>
         public static string editEOSRequest {
             get {
@@ -430,7 +448,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to employee.
+        ///   Looks up a localized string similar to Employee.
         /// </summary>
         public static string employee {
             get {
@@ -511,6 +529,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluation element.
+        /// </summary>
+        public static string Evaluationelement {
+            get {
+                return ResourceManager.GetString("Evaluationelement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faild.
         /// </summary>
         public static string Faild {
@@ -547,7 +574,16 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to group.
+        ///   Looks up a localized string similar to From Score.
+        /// </summary>
+        public static string Fromscore {
+            get {
+                return ResourceManager.GetString("Fromscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
         /// </summary>
         public static string group {
             get {
@@ -556,7 +592,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to interpolation.
+        ///   Looks up a localized string similar to Interpolation.
         /// </summary>
         public static string interpolation {
             get {
@@ -574,7 +610,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to items.
+        ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string items {
             get {
@@ -583,7 +619,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to title job .
+        ///   Looks up a localized string similar to Title job .
         /// </summary>
         public static string job_descId {
             get {
@@ -601,7 +637,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to last Date of work after notice period.
+        ///   Looks up a localized string similar to Last Date of work after notice period.
         /// </summary>
         public static string lastDateofworkafternoticeperiod {
             get {
@@ -610,7 +646,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to last work day before request.
+        ///   Looks up a localized string similar to Last work day before request.
         /// </summary>
         public static string lastworkdaybeforerequest {
             get {
@@ -637,7 +673,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make new contract.
+        ///   Looks up a localized string similar to Click To Make new contract.
         /// </summary>
         public static string makenewcontract {
             get {
@@ -709,7 +745,16 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to months.
+        ///   Looks up a localized string similar to Model Answer.
+        /// </summary>
+        public static string modelanswer {
+            get {
+                return ResourceManager.GetString("modelanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Months.
         /// </summary>
         public static string months {
             get {
@@ -718,7 +763,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to notes.
+        ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string notes {
             get {
@@ -759,6 +804,15 @@ namespace HR.Resource {
         public static string number {
             get {
                 return ResourceManager.GetString("number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Periods.
+        /// </summary>
+        public static string periods {
+            get {
+                return ResourceManager.GetString("periods", resourceCulture);
             }
         }
         
@@ -813,6 +867,15 @@ namespace HR.Resource {
         public static string Question {
             get {
                 return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Questionde Scription.
+        /// </summary>
+        public static string questiondescription {
+            get {
+                return ResourceManager.GetString("questiondescription", resourceCulture);
             }
         }
         
@@ -925,7 +988,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to checklist group.
+        ///   Looks up a localized string similar to Checklist group.
         /// </summary>
         public static string selectedchecklistgroup {
             get {
@@ -970,7 +1033,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to there is error in interview.
+        ///   Looks up a localized string similar to There Is Error In Interview.
         /// </summary>
         public static string thereiserrorininterview {
             get {
@@ -979,11 +1042,20 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to to.
+        ///   Looks up a localized string similar to To.
         /// </summary>
         public static string todate {
             get {
                 return ResourceManager.GetString("todate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Score.
+        /// </summary>
+        public static string Toscore {
+            get {
+                return ResourceManager.GetString("Toscore", resourceCulture);
             }
         }
         
@@ -1033,7 +1105,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to view current postion.
+        ///   Looks up a localized string similar to View Current Postion.
         /// </summary>
         public static string viewcurrentpostion {
             get {
@@ -1042,7 +1114,16 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to years.
+        ///   Looks up a localized string similar to With Competencies.
+        /// </summary>
+        public static string withcompetencies {
+            get {
+                return ResourceManager.GetString("withcompetencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Years.
         /// </summary>
         public static string years {
             get {
@@ -1051,7 +1132,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must choose employee.
+        ///   Looks up a localized string similar to You Must Choose Employee.
         /// </summary>
         public static string youmustchooseemployee {
             get {
@@ -1060,7 +1141,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you must choose group of chick list at first.
+        ///   Looks up a localized string similar to You Must Choose Group Of Chick List At First.
         /// </summary>
         public static string youmustchoosegroupofchicklistatfirst {
             get {
@@ -1069,7 +1150,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you must choose job title.
+        ///   Looks up a localized string similar to You Must Choose Job Title.
         /// </summary>
         public static string youmustchoosejobtitle {
             get {
@@ -1078,7 +1159,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you must choose slot.
+        ///   Looks up a localized string similar to You Must Choose Slot.
         /// </summary>
         public static string youmustchooseslot {
             get {

@@ -187,7 +187,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add New job title class .
+        ///   Looks up a localized string similar to Add New job title class.
         /// </summary>
         public static string AddNewjobtitleclass {
             get {
@@ -300,6 +300,15 @@ namespace HR.Resource {
         public static string addOrganizationunittype {
             get {
                 return ResourceManager.GetString("addOrganizationunittype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Age.
+        /// </summary>
+        public static string age {
+            get {
+                return ResourceManager.GetString("age", resourceCulture);
             }
         }
         
@@ -507,6 +516,15 @@ namespace HR.Resource {
         public static string cancaledDate {
             get {
                 return ResourceManager.GetString("cancaledDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string change {
+            get {
+                return ResourceManager.GetString("change", resourceCulture);
             }
         }
         
@@ -862,7 +880,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string edit {
             get {
@@ -1069,6 +1087,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty.
+        /// </summary>
+        public static string empty {
+            get {
+                return ResourceManager.GetString("empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exchanging ALLWANCE VALUE.
         /// </summary>
         public static string ExchangingALLWANCEVALUE {
@@ -1137,6 +1164,15 @@ namespace HR.Resource {
         public static string g {
             get {
                 return ResourceManager.GetString("g", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string gender {
+            get {
+                return ResourceManager.GetString("gender", resourceCulture);
             }
         }
         
@@ -1335,6 +1371,15 @@ namespace HR.Resource {
         public static string justification {
             get {
                 return ResourceManager.GetString("justification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to k.
+        /// </summary>
+        public static string kk {
+            get {
+                return ResourceManager.GetString("kk", resourceCulture);
             }
         }
         
@@ -1569,15 +1614,6 @@ namespace HR.Resource {
         public static string organizationchart {
             get {
                 return ResourceManager.GetString("organizationchart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Organization module.
-        /// </summary>
-        public static string Organizationmodule {
-            get {
-                return ResourceManager.GetString("Organizationmodule", resourceCulture);
             }
         }
         
@@ -1821,6 +1857,15 @@ namespace HR.Resource {
         public static string Root {
             get {
                 return ResourceManager.GetString("Root", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

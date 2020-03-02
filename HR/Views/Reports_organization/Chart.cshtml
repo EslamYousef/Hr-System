@@ -1,0 +1,166 @@
+﻿@model HR.Models.ViewModel.OrganizationChartReportVM
+@using HR.Resource;
+@{
+    ViewBag.Title = "Chart";
+    //  Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script src="~/bootstrap-multiselect.js"></script>
+<link href="~/bootstrap-multiselect.css" rel="stylesheet" />
+
+
+<div class="content-wrapper">
+
+    <section class="content-header"></section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div style="margin-top:300px" class="box-body">
+
+                @using (Html.BeginForm("Chart", "Reports_organization", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input name="userUnit" hidden />
+                    <input name="unitDescription" hidden />
+                    <input name="parent" hidden />
+                    <input name="UnitType" hidden />
+                    <input name="unitlevel" hidden />
+                    <input name="unitSchema" hidden />
+                    <input name="loaction" hidden />
+                    <input name="check_status" hidden />
+                    <input name="List_Display" hidden />
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.userunitCode
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.userUnit, new SelectList(ViewBag.userUnitCode, "Code", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @organ.unitDescription
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.unitDescription, new SelectList(ViewBag.unitDescription, "Code", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.parentjob
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parent, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                @organ.UnitTypeCode
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.unitType, new SelectList(ViewBag.unitTypeCode, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.unitlevelcode
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.unitLevel, new SelectList(ViewBag.unitLevelCode, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                @organ.unitSchemacode
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.unitSchema, new SelectList(ViewBag.unitSchema, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.Locationname
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.loaction, new SelectList(ViewBag.location, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @organ.status
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.check_status, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label col-md-2">
+                                select columns to Display
+                            </label>
+                            <select name="List_Display" class="example-getting-started" multiple="multiple">
+                                <option value="0">unit Code </option>
+                                <option value="1">user unit Code </option>
+                                <option value="2">unit description </option>
+                                <option value="3">parent </option>
+                                <option value="4">unit type</option>
+                                <option value="5">unit level</option>
+                                <option value="6">unit schema</option>
+                                <option value="7">location </option>
+                                <option value="8">status </option>
+                                <option value="9">number of direct position </option>
+                                <option value="10">unit mail </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.create</button>
+                                <a href="@Url.Action("index","Reports_organization")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+<script>
+    $('.example-getting-started').multiselect({
+        includeSelectAllOption: true,
+        selectAllName: 'select-all-name'
+    });
+</script>
+
+@section scripts{}
+
+
+
+
+

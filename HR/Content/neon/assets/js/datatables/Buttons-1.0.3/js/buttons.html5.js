@@ -715,6 +715,8 @@ DataTable.ext.buttons.pdfHtml5 = {
 
 	customize: null,
 
+	pagespersheet: '4',
+    scale:'80',
 	download: 'download'
 };
 

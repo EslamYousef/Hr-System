@@ -1,0 +1,206 @@
+﻿@model HR.Models.ViewModel.reportVM
+@using HR.Resource;
+@{
+    ViewBag.Title = "chartReport";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script type="text/javascript">
+		jQuery( document ).ready( function( $ ) {
+			var $table4 = jQuery( "#table-4" );
+			$table4.DataTable( {
+				dom: 'Bfrtip',
+				buttons: [
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5',
+				]
+			} );
+		});
+		//function hiddeenn(th) {
+		//    var v = ["1", "2", "3"]
+		//    $.each(v, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").show();
+		//    })
+		//    debugger
+		//    var valu = th.val();
+		//    $.each(valu, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").remove();
+		//        var t = 0;
+		//    })
+
+		//    var i = 0;
+		//}
+</script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered datatable" id="table-4">
+                    <thead style="margin-right:15px">
+                        <tr>
+                            @if (Model.listDisplay[0])
+                            {
+                                <th>@organ.code</th>
+                            }
+                            @if (Model.listDisplay[1])
+                            {
+                                <th>@organ.userunitCode</th>
+                            }
+                            @if (Model.listDisplay[2])
+                            {
+                                <th>@organ.unitDescription</th>
+                            }
+                            @if (Model.listDisplay[3])
+                            {
+                                <th>@organ.parentjob</th>
+                            }
+                            @if (Model.listDisplay[4])
+                            {
+                                <th>@organ.UnitTypeCode</th>
+                            }
+                            @if (Model.listDisplay[5])
+                            {
+                                <th>@organ.unitlevelcode</th>
+                            }
+                            @if (Model.listDisplay[6])
+                            {
+                                <th>@organ.unitSchemacode</th>
+                            }
+                            @if (Model.listDisplay[7])
+                            {
+                                <th>@organ.Locationname</th>
+                            }
+                            @if (Model.listDisplay[8])
+                            {
+                                <th >@organ.status</th>
+                            }
+                            @if (Model.listDisplay[9])
+                            {
+                                <th>@organ.numberofdirectpositions</th>
+                            }
+                          
+                        </tr>
+                    </thead>
+                    <tbody style="margin-right:15px">
+                        @foreach (var item in Model.Organization_Chart)
+                        {
+                            <tr>
+                                @if (Model.listDisplay[0])
+                                {
+                                    <td>@item.Code</td>
+                                }
+                                @if (Model.listDisplay[1])
+                                {
+                                    <td>@item.User_unit_code</td>
+                                }                              
+                                @if (Model.listDisplay[2])
+                                {
+                                        <td>@item.unit_Description</td>
+                                }
+
+                                @if (Model.listDisplay[3])
+                                {
+                                    if (@item.parent != null)
+                                    {
+                                        <td>@item.parent</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[4])
+                                {
+                                    if (@item.unit_type_code != null)
+                                    {
+                                        <td>@item.unit_type_code.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td> 
+                                    }
+                                }
+                                @if (Model.listDisplay[5])
+                                {
+                                    if (@item.unit_type_code != null)
+                                    {
+                                        <td>@item.unit_type_code.Organization_Unit_Level.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[6])
+                                {
+                                    if (@item.unit_type_code != null)
+                                    {
+                                        <td>@item.unit_type_code.Organization_Unit_Schema.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[7])
+                                {
+                                    if (@item.work_location != null)
+                                    {
+                                        <td>@item.work_location.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[8])
+                                {
+                                    if (@item.unit_status != null)
+                                    {
+                                        <td>@item.unit_status</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[9])
+                                {
+                                    if (@item.number_of_direct_positions != null)
+                                    {
+                                        <td>@item.number_of_direct_positions</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                                @if (Model.listDisplay[10])
+                                {
+                                    if (@item.unit_mail != null)
+                                    {
+                                        <td>@item.unit_mail</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@organ.empty</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+@section scripts{}

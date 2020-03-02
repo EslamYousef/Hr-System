@@ -26,19 +26,20 @@
         <div class="box">
 
             <!-- /.box-header -->
-            <div class="box-body">
+            <div style="margin-top:300px" class="box-body">
 
                 @using (Html.BeginForm("job_title", "Reports_organization", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <input name="nationality" hidden/>
                     <input name="job_setup" hidden />
-                    <input name="name" hidden />
-                    <input name="working_system" hidden />
+                    @*<input name="name" hidden />*@
+                    <input name="working_system_List" hidden />
                     <input name="chart" hidden />
                     <input name="parent" hidden />
-                    <input name="sub_class" hidden />
-                    <input name="parmanet" hidden />
-                    <input name="validity" hidden />
+                    @*<input name="sub_class" hidden />*@
+                    <input name="parmet_List" hidden />
+                    <input name="validity_list" hidden />
+                    <input name="gender_list" hidden />
                     <input name="List_Display" hidden />
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -53,18 +54,6 @@
                             </div>
                         }
                         <div class="form-group">
-
-
-                            
-                            <label class="control-label col-md-2">
-                                @organ.name
-                            </label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.name, new SelectList(ViewBag.names, "ID", "Code"), new { @class = "form-control example-getting-started", @multiple = "multiple" })
-                            </div>
-
-                        </div>
-                        <div class="form-group">
                             <label class="control-label col-md-2">
                                 @organ.parentjob
                             </label>
@@ -72,31 +61,13 @@
                                 @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parent, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
                             </div>
                             <label class="control-label col-md-2">
-                        @organ.JobLevelSetup
+                                @organ.JobLevelSetup
                             </label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.job_setup,new SelectList(ViewBag.job_setup,"ID","Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                                @Html.DropDownListFor(m => m.job_setup, new SelectList(ViewBag.job_setup, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
                             </div>
 
-                           
 
-                        </div>
-                       
-                        <div class="form-group">
-
-                            <label class="control-label col-md-2">
-                                @organ.nationality
-                            </label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.nationality, new SelectList(ViewBag.nationality, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
-                            </div>
-
-                            <label class="control-label col-md-2">
-                                @organ.jobtitleSubclass
-                            </label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.sub_class, new SelectList(ViewBag.sub_class, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
-                            </div>
 
                         </div>
                         <div class="form-group">
@@ -107,37 +78,103 @@
                                 @Html.DropDownListFor(m => m.chart, new SelectList(ViewBag.chart, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
                             </div>
 
-                        </div>
-                     
-
-
-
-
-                        <div class="col-md-12">
                             <label class="control-label col-md-2">
-                                select columns to hidden
+                                @organ.nationality
                             </label>
-                            <select name="List_Display" class = "example-getting-started" multiple = "multiple">
-                                <option value="1">Code </option>
-                                <option value="2">Name </option>
-                                <option value="3">Description </option>
-                                <option value="1">Job Summery </option>
-                                <option value="2">From age </option>
-                                <option value="3">To age </option>
-                                <option value="1">num slots </option>
-                                <option value="2">parent job </option>
-                                <option value="3">job level setup </option>
-                                <option value="2">From age </option>
-                                <option value="3">To age </option>
-                                <option value="1">num slots </option>
-                                <option value="2">parent job </option>
-                                <option value="3">job level setup </option>
-                            </select>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.nationality, new SelectList(ViewBag.nationality, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>
+
+                            @*<label class="control-label col-md-2">
+                                @organ.jobtitleSubclass
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.sub_class, new SelectList(ViewBag.sub_class, "ID", "Code"), new { @class = "example-getting-started", @multiple = "multiple" })
+                            </div>*@
+
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.working_system
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.working_system_List, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @organ.parment
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.parmet_List, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                               @organ.gender
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.gender_list, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @organ.validity
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.validity_list,new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.Toage
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(m => m.toAge, new { @class = "form-control" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @organ.Fromage
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(m => m.fromAge, new { @class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.num_slots
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(m => m.numSlot, new { @class = "form-control" })
+                            </div>
+                            @*<label class="control-label col-md-2">
+                                @organ.Fromage
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.validity_list, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>*@
+                        </div>
+                        <div class="col-md-12">
+                            <label class="control-label col-md-2">
+                                select columns to Display
+                            </label>
+                            <select name="List_Display" class = "example-getting-started" multiple = "multiple">
+                                <option value="0">Code </option>
+                                <option value="1">Name </option>
+                                @*<option value="2">Description </option>
+                                <option value="3">Job Summery </option>*@
+                                <option value="4">Age</option>
+                                <option value="6">Num slots </option>
+                                <option value="7">Parent job </option>
+                                <option value="8">Job level setup </option>
+                                <option value="9">Working system </option>
+                                <option value="10">Organizaion chart </option>
+                                <option value="11">Gender </option>
+                                @*<option value="12">nationlity</option>*@
+                                <option value="13">Validity </option>
+                                <option value="14">Type of worke </option>
+                            </select>
+                        </div>
+                            
+                        <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</button>
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.create</button>
                                 <a href="@Url.Action("index","Reports_organization")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
                             </div>
                         </div>
