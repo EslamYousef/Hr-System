@@ -493,7 +493,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jnquery.
+        ///   Looks up a localized string similar to inquery.
         /// </summary>
         public static string inquery {
             get {
