@@ -171,6 +171,6 @@ namespace HR.Models
         public DbSet<EvaluationQuestionsandanswers> EvaluationQuestionsandanswers { get; set; }
         public DbSet<Shift_day_status_setup> Shift_day_status_setup { get; set; }
         public DbSet<Public_Holiday_Events> Public_Holiday_Events { get; set; }
-
+        public DbSet<Weekend_setup> Weekend_setup { get; set; }
     }
 }

@@ -20,8 +20,16 @@ namespace HR.Models
         public string Alternative_Description { get; set; }
         [Display(Name = "TM Day status code")]
         [ForeignKey("Shift_day_status_setup")]
-        public string ShiftdaystatussetupId { get; set; }
+        public int ShiftdaystatussetupId { get; set; }
         public virtual Shift_day_status_setup Shift_day_status_setup { get; set; }
+          
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
 
     }
 }
