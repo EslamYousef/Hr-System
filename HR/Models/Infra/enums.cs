@@ -511,6 +511,11 @@ namespace HR.Models.Infra
         Yearly=4
 
     }
-
+    public enum Type_Holiday
+    {
+        [Display(Name = "PublicHoliday")]
+        Public_Holiday = 1,
+        Event = 2
+    }
 
 }

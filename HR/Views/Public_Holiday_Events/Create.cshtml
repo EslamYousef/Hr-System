@@ -1,0 +1,130 @@
+﻿@model HR.Models.Public_Holiday_Events
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    function Shiftdaystatussetup()
+    {
+
+        var id = $("#Shiftdaystatussetup").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetShiftdaystatussetup",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#Shiftdaystatussetup").select2("val", result.ID);
+
+                //$("#QuestionsGroupsName2").val(result.Description_of);
+            },
+            error: function () {
+
+                $("#Shiftdaystatussetup").val(" ");
+            }
+        });
+    }
+
+</script>
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+          Create Public Holiday Events
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Public_Holiday_Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Code</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Description</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">AlternativeDescription</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.AlternativeDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AlternativeDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Type</label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Type_Holiday, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Type_Holiday, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">TM Day status code</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.ShiftdaystatussetupId, new SelectList(ViewBag.Shift_day_status_setup, "ID", "Code"), "select Shift day status setup", new { @class = "select2", @onchange = "Shiftdaystatussetup()", @id = "Shiftdaystatussetup" })
+                                @Html.ValidationMessageFor(model => model.ShiftdaystatussetupId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
+                                <a href="@Url.Action("index","Public_Holiday_Events")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+
