@@ -1,7 +1,7 @@
 ﻿@model HR.Models.Public_Holiday_Events
 @using HR.Resource;
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = @Personnel.Create;
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
@@ -35,7 +35,7 @@
 
     <section class="content-header">
         <h1>
-          Create Public Holiday Events
+         @Personnel.CreatePublicHolidayEvents
         </h1>
     </section>
 
@@ -69,7 +69,7 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Code</label>
+                            <label class="control-label col-md-2">@Personnel.Code</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -79,7 +79,7 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Description</label>
+                            <label class="control-label col-md-2">@Personnel.Description</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -87,24 +87,24 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">AlternativeDescription</label>
+                            <label class="control-label col-md-2">@Personnel.DescriptionAlternative</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.AlternativeDescription, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.AlternativeDescription, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">Type</label>
+                            <label class="control-label col-md-2">@Personnel.Type</label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Type_Holiday, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EnumDropDownListFor(model => model.Type_Holiday, new {@class = "select2"  })
                                 @Html.ValidationMessageFor(model => model.Type_Holiday, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">TM Day status code</label>
+                            <label class="control-label col-md-2">@Personnel.TMDaySatus</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.ShiftdaystatussetupId, new SelectList(ViewBag.Shift_day_status_setup, "ID", "Code"), "select Shift day status setup", new { @class = "select2", @onchange = "Shiftdaystatussetup()", @id = "Shiftdaystatussetup" })
+                                @Html.DropDownListFor(m => m.ShiftdaystatussetupId, new SelectList(ViewBag.Shift_day_status_setup, "ID", "Code"), @Personnel.selectShiftdaystatussetup, new { @class = "select2", @onchange = "Shiftdaystatussetup()", @id = "Shiftdaystatussetup" })
                                 @Html.ValidationMessageFor(model => model.ShiftdaystatussetupId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -112,8 +112,9 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
                                 <a href="@Url.Action("index","Public_Holiday_Events")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
+
                             </div>
                         </div>
                     </div>

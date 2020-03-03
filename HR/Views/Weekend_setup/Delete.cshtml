@@ -3,12 +3,12 @@
 @using HR.Resource;
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = @Personnel.Delete;
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
 
-<h3>@Basic.message_delete</h3>
+<h3>@Personnel.message_delete</h3>
 @using (Html.BeginForm("Delete", "Weekend_setup", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">
-                @Basic.code
+                @Personnel.Code
             </label> <div class="col-md-3">
                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
@@ -35,7 +35,7 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">
-                @Basic.description
+                @Personnel.Description
             </label> <div class="col-md-3">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
@@ -43,8 +43,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-6">
                 <div class="col-md-8"></div>
-                <a href="@Url.Action("index","Weekend_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
-                <input type="submit" value=@Basic.Delete class="btn btn-success" />
+                <a href="@Url.Action("index","Weekend_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                <input type="submit" value=@Personnel.Delete class="btn btn-success" />
 
             </div>
         </div>
