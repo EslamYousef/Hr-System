@@ -517,5 +517,21 @@ namespace HR.Models.Infra
         Public_Holiday = 1,
         Event = 2
     }
-
+           
+    public enum LeavesType
+    {
+        Annual = 1,
+        [Display(Name = "Annual (Casual)")]
+        AnnualCasual = 2,
+        [Display(Name = "Leave without pay")]
+        Leavewithoutpay = 3,
+        [Display(Name = "Sick Leave")]
+        SickLeave = 4,
+        Others = 5,
+        Unlimited = 6,
+        [Display(Name = "Instead Of Overtime")]
+        InsteadOfOvertime = 7,
+        [Display(Name = "Lateness After Leave")]
+        LatenessAfterLeave = 8
+    }
 }

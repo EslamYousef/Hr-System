@@ -322,6 +322,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Vacations Setup.
+        /// </summary>
+        public static string AddNewVacationsSetup {
+            get {
+                return ResourceManager.GetString("AddNewVacationsSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add New Weekend Setup.
         /// </summary>
         public static string AddNewWeekendSetup {
@@ -1177,6 +1186,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Vacations Setup.
+        /// </summary>
+        public static string CreateVacationsSetup {
+            get {
+                return ResourceManager.GetString("CreateVacationsSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Weekend Setup.
         /// </summary>
         public static string CreateWeekendSetup {
@@ -1614,6 +1632,15 @@ namespace HR.Resource {
         public static string EditPublicHolidayEvents {
             get {
                 return ResourceManager.GetString("EditPublicHolidayEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Vacations Setup.
+        /// </summary>
+        public static string EditVacationsSetup {
+            get {
+                return ResourceManager.GetString("EditVacationsSetup", resourceCulture);
             }
         }
         
