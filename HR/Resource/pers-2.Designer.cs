@@ -304,6 +304,51 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation Element Competenies.
+        /// </summary>
+        public static string createEvaluationElementCompetenies1 {
+            get {
+                return ResourceManager.GetString("createEvaluationElementCompetenies1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation Grade.
+        /// </summary>
+        public static string createEvaluationgrade {
+            get {
+                return ResourceManager.GetString("createEvaluationgrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation Objective.
+        /// </summary>
+        public static string createEvaluationobjective {
+            get {
+                return ResourceManager.GetString("createEvaluationobjective", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation type.
+        /// </summary>
+        public static string createEvaluationtype1 {
+            get {
+                return ResourceManager.GetString("createEvaluationtype1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Evalution Questions and Answers.
+        /// </summary>
+        public static string createevaluitionquestionandanswer {
+            get {
+                return ResourceManager.GetString("createevaluitionquestionandanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Personnel Transaction.
         /// </summary>
         public static string CreatePersonnelTransaction {
@@ -538,6 +583,51 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluation Element Competenies.
+        /// </summary>
+        public static string EvaluationElementCompetenies {
+            get {
+                return ResourceManager.GetString("EvaluationElementCompetenies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluation Grade.
+        /// </summary>
+        public static string Evaluationgrade {
+            get {
+                return ResourceManager.GetString("Evaluationgrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluation type.
+        /// </summary>
+        public static string Evaluationtype {
+            get {
+                return ResourceManager.GetString("Evaluationtype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evalution Objective.
+        /// </summary>
+        public static string evaluitionobjective {
+            get {
+                return ResourceManager.GetString("evaluitionobjective", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evalution Questions and Answers.
+        /// </summary>
+        public static string evaluitionquestionandanswer {
+            get {
+                return ResourceManager.GetString("evaluitionquestionandanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faild.
         /// </summary>
         public static string Faild {
@@ -579,6 +669,15 @@ namespace HR.Resource {
         public static string Fromscore {
             get {
                 return ResourceManager.GetString("Fromscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Score.
+        /// </summary>
+        public static string fromscore1 {
+            get {
+                return ResourceManager.GetString("fromscore1", resourceCulture);
             }
         }
         
@@ -808,6 +907,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to period.
+        /// </summary>
+        public static string period {
+            get {
+                return ResourceManager.GetString("period", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Periods.
         /// </summary>
         public static string periods {
@@ -943,7 +1051,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove Successfully.
+        ///   Looks up a localized string similar to Remove successfully.
         /// </summary>
         public static string removesuccessfully {
             get {
@@ -1069,6 +1177,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To Score.
+        /// </summary>
+        public static string toscore1 {
+            get {
+                return ResourceManager.GetString("toscore1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction_Type_.
         /// </summary>
         public static string Transaction_Type_ {
@@ -1173,6 +1290,15 @@ namespace HR.Resource {
         public static string youmustchooseslot {
             get {
                 return ResourceManager.GetString("youmustchooseslot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.
+        /// </summary>
+        public static string ققق {
+            get {
+                return ResourceManager.GetString("ققق", resourceCulture);
             }
         }
     }

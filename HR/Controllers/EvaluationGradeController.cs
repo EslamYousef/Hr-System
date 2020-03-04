@@ -52,6 +52,7 @@ namespace HR.Controllers
                 {
                     model.Code = stru + (ALLList.LastOrDefault().ID + 1).ToString();
                 }
+                model.Decision_Type = Decisiontype.Positive;
                 return View(model);
             }
             catch(Exception)

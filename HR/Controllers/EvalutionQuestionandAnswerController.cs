@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class EvalutionQuestionandAnswerController : Controller
+    public class EvalutionQuestionandAnswerController : BaseController
     {
         // GET: EvalutionQuestionandAnswer
         private readonly IEvalutionQuestionandAnswer reposatoryEvalutionQuestionandAnswer;

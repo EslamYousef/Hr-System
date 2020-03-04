@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class EvaluationtypeController : Controller
+    public class EvaluationtypeController : BaseController
     {
         // GET: Evaluationtype
         private readonly IEvalutionType reposatoryType;
@@ -52,6 +52,7 @@ namespace HR.Controllers
                 {
                     model.Code = stru + (ALLList.LastOrDefault().ID + 1).ToString();
                 }
+                model.Periods = Periods.Monyhely;
                 return View(model);
             }
             catch (Exception)

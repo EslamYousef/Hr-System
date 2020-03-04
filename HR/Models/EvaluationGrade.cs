@@ -10,7 +10,7 @@ namespace HR.Models
     public class EvaluationGrade:BaseModel
     {
         public double FromScore { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public double ToScore { get; set; }
         [Display(Name = "Decision Type")]
         public Decisiontype Decision_Type { get; set; }

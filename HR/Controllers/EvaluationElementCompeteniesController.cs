@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class EvaluationElementCompeteniesController : Controller
+    public class EvaluationElementCompeteniesController : BaseController
     {
         // GET: EvaluationElementCompetenies
         private readonly IEvaluationElementCompetenies reposatoryEvaluationElementCompetenies;

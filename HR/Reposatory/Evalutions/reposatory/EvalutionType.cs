@@ -80,6 +80,7 @@ namespace HR.Reposatory.Evalutions.reposatory
             {
                 var model = context.EvaluationType.FirstOrDefault(m => m.ID == id);
                 context.EvaluationType.Remove(model);
+                context.SaveChanges();
                 return true;
             }
             catch (DbUpdateException)

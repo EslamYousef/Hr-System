@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class EvaluationObjectiveController : Controller
+    public class EvaluationObjectiveController : BaseController
     {
         // GET: EvaluationObjective
         // GET: Evaluationtype
