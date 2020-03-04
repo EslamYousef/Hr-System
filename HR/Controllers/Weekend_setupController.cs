@@ -10,7 +10,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
-    public class Weekend_setupController : Controller
+    public class Weekend_setupController : BaseController
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Weekend_setup

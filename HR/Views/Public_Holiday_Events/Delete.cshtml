@@ -3,12 +3,12 @@
 @using HR.Resource;
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = @Personnel.Delete;
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
 
-<h3>@Basic.message_delete</h3>
+<h3>@Personnel.message_delete</h3>
 @using (Html.BeginForm("Delete", "Public_Holiday_Events", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">
-                @Basic.code
+                @Personnel.Code
             </label> <div class="col-md-3">
                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control",@readonly=true } })
             </div>
