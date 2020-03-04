@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,11 @@ namespace HR.Reposatory.Evalutions.IReposatory
 {
     interface IEvaluationElementCompetenies
     {
-        //Roles Find(int ID);
-        //bool AddOne(Roles model);
-        //bool AddList(List<Roles> model);
-        //List<Roles> GetAll();
-        //bool Remove(Roles model);
+        EvaluationElementCompetenies Find(int ID);
+        bool AddOne(EvaluationElementCompetenies model);
+        bool AddList(List<EvaluationElementCompetenies> model);
+        List<EvaluationElementCompetenies> GetAll();
+        bool Remove(int id);
+        bool Editone(EvaluationElementCompetenies model);
     }
 }

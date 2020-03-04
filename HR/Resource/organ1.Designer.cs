@@ -304,15 +304,6 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Age.
-        /// </summary>
-        public static string age {
-            get {
-                return ResourceManager.GetString("age", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Allowance amount.
         /// </summary>
         public static string Allowanceamount {
@@ -1087,15 +1078,6 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empty.
-        /// </summary>
-        public static string empty {
-            get {
-                return ResourceManager.GetString("empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exchanging ALLWANCE VALUE.
         /// </summary>
         public static string ExchangingALLWANCEVALUE {
@@ -1164,15 +1146,6 @@ namespace HR.Resource {
         public static string g {
             get {
                 return ResourceManager.GetString("g", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gender.
-        /// </summary>
-        public static string gender {
-            get {
-                return ResourceManager.GetString("gender", resourceCulture);
             }
         }
         
@@ -1375,15 +1348,6 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to k.
-        /// </summary>
-        public static string kk {
-            get {
-                return ResourceManager.GetString("kk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Level Number.
         /// </summary>
         public static string LevelNumber {
@@ -1407,15 +1371,6 @@ namespace HR.Resource {
         public static string Locationname {
             get {
                 return ResourceManager.GetString("Locationname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to master chart.
-        /// </summary>
-        public static string master {
-            get {
-                return ResourceManager.GetString("master", resourceCulture);
             }
         }
         
@@ -1582,15 +1537,6 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Num Chaild.
-        /// </summary>
-        public static string numberofchaild {
-            get {
-                return ResourceManager.GetString("numberofchaild", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to number of direct positions.
         /// </summary>
         public static string numberofdirectpositions {
@@ -1632,15 +1578,6 @@ namespace HR.Resource {
         public static string organizationchart {
             get {
                 return ResourceManager.GetString("organizationchart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Organization module.
-        /// </summary>
-        public static string Organizationmodule {
-            get {
-                return ResourceManager.GetString("Organizationmodule", resourceCulture);
             }
         }
         
@@ -1816,15 +1753,6 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report.
-        /// </summary>
-        public static string report {
-            get {
-                return ResourceManager.GetString("report", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to report job level .
         /// </summary>
         public static string report_job_levelID {
@@ -1920,15 +1848,6 @@ namespace HR.Resource {
         public static string SelectBudgetclass {
             get {
                 return ResourceManager.GetString("SelectBudgetclass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to select columns to Display.
-        /// </summary>
-        public static string selectcolumnstoDisplay {
-            get {
-                return ResourceManager.GetString("selectcolumnstoDisplay", resourceCulture);
             }
         }
         

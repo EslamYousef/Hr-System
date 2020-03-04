@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,11 @@ namespace HR.Reposatory.Evalutions.IReposatory
 {
     interface IEvalutionGrade
     {
-        //Roles Find(int ID);
-        //bool AddOne(Roles model);
-        //bool AddList(List<Roles> model);
-        //List<Roles> GetAll();
-        //bool Remove(Roles model);
+        EvaluationGrade Find(int ID);
+        bool AddOne(EvaluationGrade model);
+        bool AddList(List<EvaluationGrade> model);
+        List<EvaluationGrade> GetAll();
+        bool Remove(int id);
+        bool Editone(EvaluationGrade model);
     }
 }

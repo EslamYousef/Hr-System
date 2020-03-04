@@ -943,6 +943,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Successfully.
+        /// </summary>
+        public static string removesuccessfully {
+            get {
+                return ResourceManager.GetString("removesuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request-date.
         /// </summary>
         public static string requestdate {
