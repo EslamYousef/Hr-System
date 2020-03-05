@@ -48,6 +48,6 @@ namespace HR.Models
         public int ShiftdaystatussetupId { get; set; }
         public virtual Shift_day_status_setup Shift_day_status_setup { get; set; }
 
-
+    
     }
 }

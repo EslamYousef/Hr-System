@@ -13,6 +13,7 @@ namespace HR.Reposatory.Evalutions.IReposatory
         bool AddOne(Vacations_Setup model);
         bool AddList(List<Vacations_Setup> model);
         List<Vacations_Setup> GetAll();
-        bool Remove(Vacations_Setup model);
+        bool Remove(int id);
+        bool EditOne(Vacations_Setup model);
     }
 }
