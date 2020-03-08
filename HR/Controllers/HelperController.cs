@@ -915,7 +915,6 @@ namespace HR.Controllers
 
         public JsonResult getfamilybyemployee(string id /*string flag*/)
         {
-            dbcontext.Configuration.ProxyCreationEnabled = false;
             int ID2 = int.Parse(id);
                 var family = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == ID2);
            
@@ -982,7 +981,14 @@ namespace HR.Controllers
             var modesl = dbcontext.Shift_day_status_setup.FirstOrDefault(m => m.ID == ID);
             return Json(modesl);
         }
+        public JsonResult GetPublic_Holiday_Events(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var ID = int.Parse(id);
+            var Public_Holiday_Events = dbcontext.Public_Holiday_Events.FirstOrDefault(m => m.ID == ID);
+            return Json(Public_Holiday_Events);
+        }
 
     }
 

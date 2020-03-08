@@ -22,12 +22,8 @@ namespace HR.Models
         public string Holiday_description { get; set; }
         [Display(Name = "Holiday alternative description")]
         public string Holiday_alternative_description { get; set; }
-        [ForeignKey("Public_Holiday_Events")]
-        [Display(Name = "Holiday / Event Code")]
-        public int PublicHolidayEventsId { get; set; }
-        public virtual Public_Holiday_Events Public_Holiday_Events { get; set; }
+     
         public virtual List<Append_Public_Holidays_Dates> Append_Public_Holidays_Dates { get; set; }
-
 
     }
 }

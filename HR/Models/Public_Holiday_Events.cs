@@ -25,5 +25,7 @@ namespace HR.Models
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int ShiftdaystatussetupId { get; set; }
         public virtual Shift_day_status_setup Shift_day_status_setup { get; set; }
+        public virtual List<Append_Public_Holidays_Dates> Append_Public_Holidays_Dates { get; set; }
+
     }
 }

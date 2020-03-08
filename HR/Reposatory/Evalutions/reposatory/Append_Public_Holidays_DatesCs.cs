@@ -1,27 +1,28 @@
-﻿using System;
+﻿using HR.Reposatory.Evalutions.IReposatory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HR.Models;
-using HR.Reposatory.Evalutions.IReposatory;
 using System.Data.Entity.Infrastructure;
 
 namespace HR.Reposatory.Evalutions.reposatory
 {
-    public class Public_Holidays_DatesCs : IPublic_Holidays_Dates
+    
+    public class Append_Public_Holidays_DatesCs : IAppend_Public_Holidays_Dates
     {
         private readonly ApplicationDbContext db;
-        public Public_Holidays_DatesCs(ApplicationDbContext newContext)
+        public Append_Public_Holidays_DatesCs(ApplicationDbContext newContext)
         {
             db = newContext;
         }
-        public bool AddList(List<Public_Holidays_Dates> model)
+        public bool AddList(List<Append_Public_Holidays_Dates> model)
         {
             try
             {
-                db.Public_Holidays_Dates.AddRange(model);
+           db.Append_Public_Holidays_Dates.AddRange(model);
                 db.SaveChanges();
-                return true;
+                return true ;
             }
             catch (DbUpdateException)
             {
@@ -33,11 +34,11 @@ namespace HR.Reposatory.Evalutions.reposatory
             }
         }
 
-        public Public_Holidays_Dates AddOne(Public_Holidays_Dates model)
+        public Append_Public_Holidays_Dates AddOne(Append_Public_Holidays_Dates model)
         {
             try
             {
-              var obj=  db.Public_Holidays_Dates.Add(model);
+                var obj = db.Append_Public_Holidays_Dates.Add(model);
                 db.SaveChanges();
                 return obj;
             }
@@ -51,22 +52,17 @@ namespace HR.Reposatory.Evalutions.reposatory
             }
         }
 
-        public bool EditOne(Public_Holidays_Dates model)
+        public bool EditOne(Append_Public_Holidays_Dates model)
         {
             try
             {
-                var recode = db.Public_Holidays_Dates.FirstOrDefault(a => a.ID == model.ID);
-                recode.Holidays_Code = model.Holidays_Code;
-                recode.Holiday_description = model.Holiday_description;
-                recode.Holiday_alternative_description = model.Holiday_alternative_description;
-                recode.Holidaysyear = model.Holidaysyear;
-                //recode.HolidayEventDescriptioned = model.HolidayEventDescriptioned;
-                //recode.HolidayEventDescription = model.HolidayEventDescription;
-                //recode.Fromdate = model.Fromdate;
-                //recode.Todate = model.Todate;
-                //recode.Notes = model.Notes;
+                var recode = db.Append_Public_Holidays_Dates.FirstOrDefault(a => a.ID == model.ID);
+                recode.Todate = model.Todate;
+                recode.Fromdate = model.Fromdate;
+                recode.Notes = model.Notes;
                 db.SaveChanges();
                 return true;
+
             }
             catch (DbUpdateException)
             {
@@ -78,24 +74,26 @@ namespace HR.Reposatory.Evalutions.reposatory
             }
         }
 
-        public Public_Holidays_Dates Find(int ID)
+        public Append_Public_Holidays_Dates Find(int ID)
         {
             try
             {
-                var model = db.Public_Holidays_Dates.Find(ID);
+                var model = db.Append_Public_Holidays_Dates.Find(ID);
                 return model;
             }
             catch (Exception)
             {
+
                 return null;
+                
             }
         }
 
-        public List<Public_Holidays_Dates> GetAll()
+        public List<Append_Public_Holidays_Dates> GetAll()
         {
             try
             {
-                var model = db.Public_Holidays_Dates.ToList();
+                var model = db.Append_Public_Holidays_Dates.ToList();
                 return model;
             }
             catch (Exception)
@@ -108,17 +106,19 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
-                var model = db.Public_Holidays_Dates.FirstOrDefault(a => a.ID == id);
-                db.Public_Holidays_Dates.Remove(model);
+                var model = db.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == id);
+                db.Append_Public_Holidays_Dates.Remove(model);
                 db.SaveChanges();
                 return true;
             }
             catch (DbUpdateException)
             {
+
                 return false;
             }
             catch (Exception)
             {
+
                 return false;
             }
         }
