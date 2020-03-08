@@ -23,9 +23,19 @@ namespace HR.Controllers
         // GET: Vacations_Setup
         public ActionResult Index()
         {
-            var models = model.GetAll();
-            return View(models);
+
+            try
+            {
+                var models = model.GetAll();
+            if (models != null) { return View(models); }
+            else { TempData["Message"] = HR.Resource.pers_2.Faild; return View(); }
         }
+            catch (Exception)
+            {
+                TempData["Message"] = HR.Resource.pers_2.Faild;
+                return View();
+    }
+}
         public ActionResult Add()
         {
 
@@ -57,26 +67,130 @@ namespace HR.Controllers
 
             try
             {
-              
-                // Models.Vacations_Setup recode = new Models.Vacations_Setup();
                 ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
 
-                if (Model.LeavesType == 0)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Please Choose from LeavesType");
+                    if (Model.LeavesType == 0)
+                    {
+                        ModelState.AddModelError("", "Please Choose from LeavesType");
+                        return View(Model);
+                    }
+
+                    var flag = model.AddOne(Model);
+                    if (flag)
+                    {
+                        TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;
+                        return RedirectToAction("index");
+                    }
+                    else
+                    {
+                        TempData["Message"] = HR.Resource.pers_2.Faild;
+                        return View(Model);
+                    }
+                }
+                else
+                {
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
                     return View(Model);
                 }
-
-                var flag = model.AddOne(Model);
-                if (flag) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully; return RedirectToAction("index"); }
-                else { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully; return View(Model); } 
-              
-
             }
-            catch (Exception e)
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                var modeled = model.Find(id);
+                if (modeled != null) { return View(modeled); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
+        public ActionResult Edit(Models.Vacations_Setup Model)
+        {
+         
+
+            try
+            {
+                ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+
+                if (ModelState.IsValid)
+                {
+               
+                      var flag = model.EditOne(Model);
+                    if (flag)
+                    {
+                        TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;
+                        return RedirectToAction("index");
+                    }
+                    else
+                    {
+                        TempData["Message"] = HR.Resource.pers_2.Faild;
+                        return View(model);
+                    }
+                }
+                else
+                {
+
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
+                    return View(model);
+                }
+            }
+            catch (Exception)
             {
                 TempData["Message"] = HR.Resource.pers_2.Faild;
-                return RedirectToAction("index");
+                return View(model);
+            }
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+
+                var modeldelete = model.Find(id);
+                if (modeldelete != null) { return View(modeldelete); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult Delete_method(int id)
+        {
+            try
+            {
+
+                var flag = model.Remove(id);
+                if (flag) { TempData["Message"] = HR.Resource.pers_2.removesuccessfully; return RedirectToAction("index"); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
+                    return View("index");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
             }
         }
     }

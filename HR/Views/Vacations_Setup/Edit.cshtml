@@ -1,0 +1,391 @@
+﻿@model HR.Models.Vacations_Setup
+
+@using HR.Resource;
+@{
+    ViewBag.Title = @Personnel.Edit1;
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    function Shiftdaystatussetup1()
+    {
+        debugger;
+        var id = $("#Shiftdaystatussetup").val();
+       
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetShiftdaystatussetup",
+                data: { "id": id },
+                success: function (result) {
+
+                    $("#Shiftdaystatussetup").select2("val", result.ID);
+
+                    //$("#QuestionsGroupsName2").val(result.Description_of);
+                },
+                error: function () {
+
+                    $("#Shiftdaystatussetup").val(" ");
+                }
+            });
+        
+    }
+    //function submito()
+    //{
+    //    debugger;
+    //    var id = $("#Shiftdaystatussetup").val();
+    //    if (id == null) {
+    //        alert("you must enter Shift day status setup");
+    //    }
+    //    else
+    //    {
+    //        $("#sub").submit();
+    //    }
+    //}
+
+</script>
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.EditVacationsSetup
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Vacations_Setup", FormMethod.Post, new { @*id="sub",*@ enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.LeaveTypeCode</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.LeaveTypeCode, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.LeaveTypeCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.LeaveTypeNameEnglish</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.LeaveTypeNameEnglish, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LeaveTypeNameEnglish, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.LeaveTypeNameArabic</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.LeaveTypeNameArabic, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LeaveTypeNameArabic, "", new { @class = "text-danger" })
+                            </div>
+                          
+                                <div class="col-md-offset-2 col-md-4">
+                                    <div class="col-md-2"></div>
+                                    <a href="@Url.Action("index","Vacations_Setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                     @*<input type="button"  onclick="submito()"  class="btn btn-success" value=@Personnel.Edit1 />*@
+                                    <input type="submit" value="@Personnel.Edit1" class="btn btn-success" />
+
+                                </div>             
+                        </div>
+
+
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#home" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@Personnel.Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#MedicalInformation" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                    <span class="hidden-xs">@Personnel.PayrollInformation</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#AnnualLeaveBalance" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                    <span class="hidden-xs">@Personnel.Formula</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">@Personnel.IncludeWeekEnd</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.IncludeWeekEnd, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.IncludeWeekEnd, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.FemaleOnly</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.FemaleOnly, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FemaleOnly, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.AcceptNegative</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.AcceptNegative, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AcceptNegative, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">@Personnel.IncludeHoliday</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.IncludeHoliday, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.IncludeHoliday, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.Show0Balance</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.Show0Balance, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Show0Balance, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.UnlimitedBalance</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.UnlimitedBalance, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.UnlimitedBalance, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">@Personnel.Proportional</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.Proportional, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Proportional, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.AbleToCash</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.AbleToCash, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AbleToCash, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.TrackMonthlyAccrualBalance</label>
+                                    <div class="col-md-2">
+                                        @Html.CheckBoxFor(model => model.TrackMonthlyAccrualBalance, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TrackMonthlyAccrualBalance, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <ul class="nav nav-tabs bordered">
+                                            <!-- available classes "bordered", "right-aligned" -->
+
+                                            <li class="tab-pane active">
+                                                <a href="#Ann" data-toggle="tab">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.RenewalRules</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+
+                                            <div id="Ann" style="overflow: hidden;width: auto;height: auto;">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.RenewBalance</label>
+                                                    <div class="col-md-4">
+                                                        @Html.CheckBoxFor(model => model.RenewBalance, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.RenewBalance, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.RenewBalanceevery</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.RenewBalanceevery, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.RenewBalanceevery, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Years</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.TimesPerLife</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.TimesPerLife, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.TimesPerLife, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="margin-top: 5px;">
+                                        <ul class="nav nav-tabs bordered">
+                                            <!-- available classes "bordered", "right-aligned" -->
+
+                                            <li class="tab-pane active">
+                                                <a href="#Ann2" data-toggle="tab">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.CasualDaysRules</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+
+                                            <div id="Ann2" style="overflow: hidden;width: auto;height: auto; margin-bottom: 12px;">
+
+                                                <div class="form-group" style="margin-top: 23px;">
+                                                    <label class="control-label col-md-4">@Personnel.MaxCasualDays</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.MaxCasualDays, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.MaxCasualDays, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Days</label>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.MaxContinousDays</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.MaxContinousDays, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.MaxContinousDays, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Days</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <ul class="nav nav-tabs bordered">
+                                            <!-- available classes "bordered", "right-aligned" -->
+
+                                            <li class="tab-pane active">
+                                                <a href="#An3" data-toggle="tab">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.TransferRules</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+
+                                            <div id="An3" style="overflow: hidden;width: auto;height: auto;">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.TotalDaysPerLife</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.TotalDaysPerLife, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.TotalDaysPerLife, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Days</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.MaxDaysToTransfer</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.MaxDaysToTransfer, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.MaxDaysToTransfer, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.MaxYearsToTransfer</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.MaxYearsToTransfer, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.MaxYearsToTransfer, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <ul class="nav nav-tabs bordered">
+                                            <!-- available classes "bordered", "right-aligned" -->
+
+                                            <li class="tab-pane active">
+                                                <a href="#An4" data-toggle="tab">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.LeaveDaysRules</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+
+                                            <div id="An4" style="overflow: hidden;width: auto;height: auto;">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.MaximumDaysContinous</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.MaximumDaysContinous, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.MaximumDaysContinous, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Days</label>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.MaximumDaysPerMonth</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.MaximumDaysPerMonth, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.MaximumDaysPerMonth, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Days</label>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">@Personnel.TakenAfterEmploymentDate</label>
+                                                    <div class="col-md-4">
+                                                        @Html.EditorFor(model => model.TakenAfterEmploymentDate, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                                                        @Html.ValidationMessageFor(model => model.TakenAfterEmploymentDate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <label class="control-label col-md-1">@Personnel.Months</label>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">@Personnel.LeavesType</label>
+                                    <div class="col-md-4">
+                                        @Html.EnumDropDownListFor(model => model.LeavesType, new { @class = "form-control selet2" })
+                                        @Html.ValidationMessageFor(model => model.LeavesType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="MedicalInformation">
+                            </div>
+
+                            <div class="tab-pane" id="AnnualLeaveBalance">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">@Personnel.TMDaySatus</label>
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.ShiftdaystatussetupId, new SelectList(ViewBag.Shift_day_status_setup, "ID", "Code"),  new { @class = "select2", @onchange = "Shiftdaystatussetup1()", @id = "Shiftdaystatussetup" })
+                                        @Html.ValidationMessageFor(model => model.ShiftdaystatussetupId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}

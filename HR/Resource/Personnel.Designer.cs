@@ -2302,6 +2302,60 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Holiday alternative description.
+        /// </summary>
+        public static string Holidayalternativedescription {
+            get {
+                return ResourceManager.GetString("Holidayalternativedescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holiday description.
+        /// </summary>
+        public static string Holidaydescription {
+            get {
+                return ResourceManager.GetString("Holidaydescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holiday / Event Code.
+        /// </summary>
+        public static string HolidayEventCode {
+            get {
+                return ResourceManager.GetString("HolidayEventCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holiday / Event Description.
+        /// </summary>
+        public static string HolidayEventDescription {
+            get {
+                return ResourceManager.GetString("HolidayEventDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holidays Code.
+        /// </summary>
+        public static string HolidaysCode {
+            get {
+                return ResourceManager.GetString("HolidaysCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holiday year.
+        /// </summary>
+        public static string Holidayyear {
+            get {
+                return ResourceManager.GetString("Holidayyear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
