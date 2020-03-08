@@ -11,6 +11,7 @@ namespace HR.Models
         [Required]
         [Display(Name = "Default Degree")]
         public double defaultDegree { get; set; }
+        public bool with_competencies { get; set; } = false;
 
         public virtual List<Evalution_and_competencies> Evalution_and_competencies { get; set; }
       

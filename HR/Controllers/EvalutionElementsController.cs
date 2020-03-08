@@ -10,23 +10,24 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class EvaluationElementCompeteniesController : BaseController
+    public class EvalutionElementsController : Controller
     {
-        // GET: EvaluationElementCompetenies
-        private readonly IEvaluationElementCompetenies reposatoryEvaluationElementCompetenies;
+        // GET: EvalutionElements
+        private readonly IEvalutionElements reposatoryelement;
+        private readonly IEvaluationElementCompetenies reposatorycomp;
         private readonly IStructure reposatorystructure;
-        public EvaluationElementCompeteniesController()
+        public EvalutionElementsController()
         {
-            reposatoryEvaluationElementCompetenies = new HR.Reposatory.Evalutions.reposatory.EvaluationElementCompetenies(new Models.ApplicationDbContext());
+            reposatoryelement = new EvalutionElements(new Models.ApplicationDbContext());
+            reposatorycomp = new HR.Reposatory.Evalutions.reposatory.EvaluationElementCompetenies(new Models.ApplicationDbContext());
+
             reposatorystructure = new Structure(new Models.ApplicationDbContext());
         }
-
         public ActionResult Index()
         {
             try
             {
-                var list = reposatoryEvaluationElementCompetenies.GetAll();
-             
+                var list = reposatoryelement.GetAll();
                 if (list != null) { return View(list); }
                 else { TempData["Message"] = HR.Resource.pers_2.Faild; return View(); }
             }
@@ -43,8 +44,8 @@ namespace HR.Controllers
 
                 /////////create code///////
                 var stru = reposatorystructure.find(ChModels.Basic).Structure_Code;
-                var ALLList = reposatoryEvaluationElementCompetenies.GetAll();
-                var model = new HR.Models.EvaluationElementCompetenies();
+                var ALLList = reposatoryelement.GetAll();
+                var model = new EvaluationElements();
                 if (ALLList.Count() == 0)
                 {
                     model.Code = stru + "1";
@@ -53,6 +54,8 @@ namespace HR.Controllers
                 {
                     model.Code = stru + (ALLList.LastOrDefault().ID + 1).ToString();
                 }
+                ViewBag.competitions = reposatorycomp.GetAll().Select(m=>new{Code=m.Code+"-->"+m.Name,ID=m.ID});
+                model.defaultDegree = 0;
                 return View(model);
             }
             catch (Exception)
@@ -61,15 +64,38 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(HR.Models.EvaluationElementCompetenies model)
+        public ActionResult Create(FormCollection form, EvaluationElements model)
         {
             try
             {
+                ViewBag.competitions = reposatorycomp.GetAll().Select(m => new { Code = m.Code + "-->" + m.Name, ID = m.ID });
+
                 if (ModelState.IsValid)
                 {
-                    var flag = reposatoryEvaluationElementCompetenies.AddOne(model);
-                    if (flag)
+                    var record = reposatoryelement.AddOne(model);
+                    if (record!=null)
                     {
+                        if (model.with_competencies)
+                        {
+                            var compID = form["ID"].Split(',');
+                            var compDegree = form["degree"].Split(',');
+                            for (var i = 0; i < compID.Count(); i++)
+                            {
+                                if (compID[i] != "")
+                                {
+                                    var comp = reposatorycomp.Find(int.Parse(compID[i]));
+                                    var elementAndComp = new Evalution_and_competencies
+                                    {
+                                        Default_degree = double.Parse(compDegree[i]),
+                                        EvaluationElementCompeteniesID = comp.ID,
+                                        EvaluationElementsID = record.ID,
+                                    };
+                                    var eva_comp = reposatoryelement.addavandcomp(elementAndComp);
+                                }
+
+                            }
+                        }
+                      
                         TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;
                         return RedirectToAction("index");
                     }
@@ -94,7 +120,8 @@ namespace HR.Controllers
         {
             try
             {
-                var model = reposatoryEvaluationElementCompetenies.Find(id);
+                ViewBag.competitions = reposatorycomp.GetAll().Select(m => new { Code = m.Code + "-->" + m.Name, ID = m.ID });
+                var model = reposatoryelement.Find(id);
                 if (model != null) { return View(model); }
                 else
                 {
@@ -108,13 +135,14 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(HR.Models.EvaluationElementCompetenies model)
+        public ActionResult Edit(FormCollection form, EvaluationElements model)
         {
             try
             {
+                ViewBag.competitions = reposatorycomp.GetAll().Select(m => new { Code = m.Code + "-->" + m.Name, ID = m.ID });
                 if (ModelState.IsValid)
                 {
-                    var flag = reposatoryEvaluationElementCompetenies.Editone(model);
+                    var flag = reposatoryelement.Editone(form,model);
                     if (flag)
                     {
                         TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;
@@ -144,7 +172,7 @@ namespace HR.Controllers
             try
             {
 
-                var model = reposatoryEvaluationElementCompetenies.Find(id);
+                var model = reposatoryelement.Find(id);
                 if (model != null) { return View(model); }
                 else
                 {
@@ -164,7 +192,7 @@ namespace HR.Controllers
             try
             {
 
-                var flag = reposatoryEvaluationElementCompetenies.Remove(id);
+                var flag = reposatoryelement.Remove(id);
                 if (flag) { TempData["Message"] = HR.Resource.pers_2.removesuccessfully; return RedirectToAction("index"); }
                 else
                 {
@@ -176,6 +204,14 @@ namespace HR.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+        public JsonResult getcomp(int id)
+        {
+            try {
+             
+                return Json(reposatorycomp.Find(id));
+            }
+            catch (Exception) { return Json(false); }
         }
     }
 }

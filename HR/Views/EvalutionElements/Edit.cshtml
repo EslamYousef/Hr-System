@@ -1,0 +1,221 @@
+﻿@model HR.Models.EvaluationElements
+@using HR.Resource;
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.Evalutionelement
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "EvalutionElements", FormMethod.Post, new { id = "submit", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2">
+                                @Basic.code
+                            </label>
+
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                @Basic.name
+                            </label>
+
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.description
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.Defaultdegree
+                            </label>
+                            <div class="col-md-2">
+                                @Html.EditorFor(model => model.defaultDegree, new { htmlAttributes = new { id = "defaultDegreeid", @class = "form-control", @type = "number" } })
+                                @Html.ValidationMessageFor(model => model.defaultDegree, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.withcompetencies
+                            </label>
+                            <div class="col-md-2">
+                                @*@Html.CheckBoxFor(model => model.with_competencies, new { @onchange = "cheeck(this)", htmlAttributes = new { @class = "icheck" ,id="valee" } })*@
+                            
+                          <input  name="with_competencies" onchange="cheeck(this)" class="icheck" type="checkbox" id="valeeo" />
+                            
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @pers_2.EvaluationElementCompetenies
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownList("comp_", new SelectList(ViewBag.competitions, "ID", "Code"), pers_2.EvaluationElementCompetenies, new { @name = "drop", @class = "select2", @id = "Country" })
+                            </div>
+                            <div class="col-md-1">
+
+                            </div>
+                            <input  type="button" id="drop1" class="btn btn-success" value='@pers_2.addnewevalutationcompetenies' onclick="add()" />
+
+
+                            <input type="button" onclick="check_sumtion()" id="btnSave" class="btn btn-success  " name="Command" value='@organ.edit' />
+                            <a href="@Url.Action("index","EvalutionElements")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+
+                        </div>
+                        <div class="form-group" id="div_comp">
+
+    @foreach (var item in Model.Evalution_and_competencies)
+    {
+        <div class ="col-md-12" id="manpoweritems" >
+           <input    id="class_type" style="margin-bottom: 1em;" hidden name="IDval"  value="@item.EvaluationElementCompetenies.ID" readonly="readonly" /> 
+           <input  class="col-md-2 custom-control-input" type="text" style="margin-bottom: 1em;margin-left:4px"  name="code"  value="@item.EvaluationElementCompetenies.Code" readonly="readonly" />
+           <input  class="col-md-6 custom-control-input" type="text"  style="margin-bottom: 1em;margin-left:4px"  name="name"  value="@item.EvaluationElementCompetenies.Name" readonly="readonly" />
+           <input  class="col-md-1 custom-control-input" required type="number" style="margin-bottom: 1em;margin-left:4px" name="degree"   value="@item.Default_degree"/>
+          <input type="button"  style="margin-left:3px;height:23px" value=@organ.remove class="col-md-1 remove btn btn-danger" onclick="remove($(this))" />
+        </div>
+    }
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+<script>
+    $(document).ready(function ()
+    {
+        debugger
+        var ch = document.getElementById("valeeo");
+        ch.checked=@Model.with_competencies.ToString().ToLower();
+        cheeck(ch);
+    });
+    function cheeck(input)
+    {
+        debugger
+        if (input.checked == true) {
+
+            $("#Country").removeAttr('disabled');
+            $("#drop1").removeAttr('disabled');
+            $("#div_comp").attr("hidden", false);
+            $("#valeeo").val('TRUE');
+        }
+        else
+        {
+
+            $("#Country").attr('disabled', true);
+            $("#drop1").attr('disabled', true);
+            $("#div_comp").attr("hidden", true);
+            
+            $("#valeeo").val('FALSE');
+        }
+    }
+    function remove(thi) {
+        thi.parent().remove();
+    }
+    function check_sumtion()
+    {
+        var pp = $("#div_comp").find("div");
+        var sum = parseFloat($("#defaultDegreeid").val());
+        var flag = 0;
+        for (var o = 0; o < pp.length; o++) {
+
+            var inputs = pp[o].children;
+            flag = parseInt(inputs[3].value) + flag;
+        }
+        if (sum < flag) {
+            alert("sumtion greater than default degree !");
+        }
+        else
+        {
+            $("#submit").submit();
+        }
+    }
+    function add()
+    {
+
+        var id = $("#Country").val();
+    if (id == "0" || id == "" || id == null) {
+
+            alter("you must choose organization unit then cadre")
+    }
+        else
+        {
+        var pp = $("#div_comp").find("div");
+        var sum =parseFloat($("#defaultDegreeid").val());
+        var flag = 0;
+        for (var o = 0; o < pp.length; o++)
+        {
+
+            var inputs = pp[o].children;
+            flag = parseInt(inputs[3].value)+flag;
+        }
+        if (sum < flag) {
+            alert("sumtion greater than default degree !");
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "/EvalutionElements/Getcomp",
+                async: false,
+                data: { "id": id },
+                success: function (result) {
+                                    var tr =
+                "<div class ='col-md-12' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='IDval'  value='" + result.ID + "' readonly='readonly' />" +
+               "<input  class='col-md-2 custom-control-input' type='text' style='margin-bottom: 1em;margin-left:4px'  name='code'  value='" + result.Code + "' readonly='readonly' />" +
+               "<input  class='col-md-6 custom-control-input' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'  name='name'  value='" + result.Name + "' readonly='readonly' />" +
+               "<input  class='col-md-1 custom-control-input' required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + 0 + "'  />" +
+
+              "<input type='button'   style='margin-left:3px;height:23px' value=@organ.remove class='col-md-1 remove btn btn-danger' onclick='remove($(this))' /></div>";
+                    $("#div_comp").append(tr);
+                    $("#Country").select2("val", "");
+
+                },
+                error: function () {
+                    alter("some error");
+                }
+
+            });
+
+        }
+        }
+
+    }
+</script>

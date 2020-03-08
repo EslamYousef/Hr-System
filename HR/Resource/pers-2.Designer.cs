@@ -97,6 +97,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Evalutation Competenies.
+        /// </summary>
+        public static string addnewevalutationcompetenies {
+            get {
+                return ResourceManager.GetString("addnewevalutationcompetenies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add personnel transaction.
         /// </summary>
         public static string addpersonneltransaction {
@@ -624,6 +633,24 @@ namespace HR.Resource {
         public static string evaluitionquestionandanswer {
             get {
                 return ResourceManager.GetString("evaluitionquestionandanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluation element.
+        /// </summary>
+        public static string Evalutionelement {
+            get {
+                return ResourceManager.GetString("Evalutionelement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation element.
+        /// </summary>
+        public static string Evalutionelement1 {
+            get {
+                return ResourceManager.GetString("Evalutionelement1", resourceCulture);
             }
         }
         
@@ -1290,15 +1317,6 @@ namespace HR.Resource {
         public static string youmustchooseslot {
             get {
                 return ResourceManager.GetString("youmustchooseslot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 0.
-        /// </summary>
-        public static string ققق {
-            get {
-                return ResourceManager.GetString("ققق", resourceCulture);
             }
         }
     }
