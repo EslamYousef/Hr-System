@@ -43,7 +43,7 @@ namespace HR.Controllers
             {
 
                 /////////create code///////
-                var stru = reposatorystructure.find(ChModels.Basic).Structure_Code;
+                var stru = reposatorystructure.find(ChModels.Personnel).Structure_Code;
                 var ALLList = reposatoryelement.GetAll();
                 var model = new EvaluationElements();
                 if (ALLList.Count() == 0)
