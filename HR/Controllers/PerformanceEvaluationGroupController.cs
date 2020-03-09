@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class PerformanceEvaluationGroupController : Controller
+    public class PerformanceEvaluationGroupController : BaseController
     {
         // GET: PerformanceEvaluationGroup
         private readonly IEvaluationperformanceGroup reposatoryEvaluationPerformance;
