@@ -11,13 +11,20 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Display(Name = "Holiday / Event Code")]
-        public string HolidayEventCode { get; set; }
-        [Display(Name = "Holiday / Event Description")]
-        public string HolidayEventDescriptioned { get; set; }  
+        //[ForeignKey("Public_Holiday_Events")]
+        //[Display(Name = "Holiday / Event Code")]
+        //public int PublicHolidayEventsId { get; set; }
+        //[ForeignKey("Public_Holiday_Events")]
+        //[Display(Name = "Holiday / Event Description")]
+        //public string HolidayEventDescriptionId { get; set; }
+
+
+        public virtual Public_Holiday_Events Public_Holiday_Events { get; set; }
         [Display(Name = "From date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Fromdate { get; set; }
         [Display(Name = "To date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Todate { get; set; }
         public string Notes { get; set; }
         public virtual Public_Holidays_Dates Public_Holidays_Dates { get; set; }

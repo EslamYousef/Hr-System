@@ -83,9 +83,7 @@ namespace HR.Controllers
                     {
                         if (Family_profile[i] != "" && Family_name[i] != "" && Percentage[i] != "" )
                         {
-                            items.Add(new Append_beneficiary_Family { Percentage = int.Parse(Percentage[i]), Family_name = Family_name[i], Family_profile = Family_profile[i] });
-                         
-                          
+                            items.Add(new Append_beneficiary_Family { Percentage = int.Parse(Percentage[i]), Family_name = Family_name[i], Family_profile = Family_profile[i] });      
                         }
                   
                     }

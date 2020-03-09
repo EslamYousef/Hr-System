@@ -11,7 +11,7 @@ namespace HR.Reposatory.Evalutions.IReposatory
     {
         Public_Holidays_Dates Find(int ID);
         List<Public_Holidays_Dates> GetAll();
-        bool AddOne(Public_Holidays_Dates model);
+        Public_Holidays_Dates AddOne(Public_Holidays_Dates model);
         bool AddList(List<Public_Holidays_Dates> model);
         bool EditOne(Public_Holidays_Dates model);
         bool Remove(int id);
