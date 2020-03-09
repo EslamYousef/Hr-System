@@ -1,0 +1,220 @@
+﻿@model HR.Models.PerformanceEvaluationGroup
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.PerformanceEvaluationGroup
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "PerformanceEvaluationGroup", FormMethod.Post, new { id = "submit", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2">
+                                @Basic.code
+                            </label>
+
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                @Basic.name
+                            </label>
+
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Basic.description
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @pers_2.Evalutionelement
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownList("comp_", new SelectList(ViewBag.elements, "ID", "Code"), pers_2.EvaluationElementCompetenies, new { @name = "drop", @class = "select2", @id = "Country" })
+                            </div>
+                            <div class="col-md-1">
+
+                            </div>
+                            <input  type="button" id="drop1" class="btn btn-success" value='@pers_2.addnewevalutationcompetenies' onclick="add()" />
+
+
+                            <input type="button" onclick="check_sumtion()" id="btnSave" class="btn btn-success  " name="Command" value='@Basic.Create' />
+                            <a href="@Url.Action("index","EvalutionElements")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+
+                        </div>
+                        <div class="form-group" id="div_comp">
+
+                                
+                        </div>
+
+                        <div class="form-group" id="div_comp2">
+
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+<script>
+    function getcompetiton(id) {
+        debugger
+        //var id = $(input).attr('value');
+        $("#div_comp2").empty();
+        $.ajax({
+            type: "post",
+            url: "/PerformanceEvaluationGroup/GetCompet",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (key, value) {
+                    debugger
+                    var tr =
+                         "<div class ='col-md-12' id='manpoweritems' >" +
+                        "<input  class='col-md-2 custom-control-input' type='text' style='margin-bottom: 1em;margin-left:4px'    value='" + value.code + "' readonly='readonly' />" +
+                        "<input  class='col-md-6 custom-control-input' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + value.Desc + "' readonly='readonly' />" +
+                        "<input  class='col-md-1 custom-control-input' required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + value.degeree + "' readonly='readonly' /></div>";
+                    $("#div_comp2").append(tr);
+                });
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+    //function cheeck(input)
+    //{
+
+    //    if (input.checked == true) {
+
+    //        $("#Country").removeAttr('disabled');
+    //        $("#drop1").removeAttr('disabled');
+    //        $("#div_comp").attr("hidden", false);
+    //    }
+    //    else
+    //    {
+
+    //        $("#Country").attr('disabled', true);
+    //        $("#drop1").attr('disabled', true);
+    //        $("#div_comp").attr("hidden", true);
+    //    }
+    //}
+    function remove(thi) {
+        thi.parent().remove();
+        $("#div_comp2").empty();
+    }
+    function check_sumtion()
+    {
+        var pp = $("#div_comp").find("div");
+        var sum = parseFloat($("#defaultDegreeid").val());
+        var flag = 0;
+        for (var o = 0; o < pp.length; o++) {
+
+            var inputs = pp[o].children;
+            flag = parseInt(inputs[3].value) + flag;
+        }
+        if (sum < flag) {
+            alert("sumtion greater than default degree !");
+        }
+        else
+        {
+            $("#submit").submit();
+        }
+    }
+    function add()
+    {
+    debugger
+        var id = $("#Country").val();
+        if (id == "0" || id == "" || id == null)
+        {
+            debugger
+                alter("you must choose Evaluation Element")
+        }
+        else
+        {
+        var pp = $("#div_comp").find("div");
+        var flag = 0;
+        for (var o = 0; o < pp.length; o++)
+        {
+
+            var inputs = pp[o].children;
+            ID_ = parseInt(inputs[0].value);
+            if (ID_ == result.ID) {
+                falg = 1;
+            }
+        }
+        //if (sum < flag) {
+        //    alert("sumtion greater than default degree !");
+        //}
+        //else {
+            $.ajax({
+                type: "post",
+                url: "/PerformanceEvaluationGroup/GetElement",
+                async: false,
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+           var tr =
+                "<div class ='col-md-12' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='ID'  value='" + result.ID + "' readonly='readonly' />" +
+               "<input  class='col-md-2 custom-control-input' type='text' style='margin-bottom: 1em;margin-left:4px' onclick='getcompetiton(this.value)'    value='" + result.ID + "' readonly='readonly' />" +
+               "<input  class='col-md-6 custom-control-input' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Name + "' readonly='readonly' />" +
+               "<input  class='col-md-1 custom-control-input' required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.defaultDegree + "' readonly='readonly' />" +
+              "<input type='button'   style='margin-left:3px;height:23px' value=@organ.remove class='col-md-1 remove btn btn-danger' onclick='remove($(this))' /></div>";
+                    $("#div_comp").append(tr);
+                    $("#Country").select2("val", "");
+                    getcompetiton(result.ID);
+                },
+                error: function () {
+                    debugger
+                    alter("some error");
+                }
+
+            });
+
+       // }
+        }
+
+    }
+</script>

@@ -19,5 +19,6 @@ namespace HR.Reposatory.Evalutions.IReposatory
         bool Editone(FormCollection form, EvaluationElements model);
         Evalution_and_competencies addavandcomp(Evalution_and_competencies model);
         void get();
+       List <Evalution_and_competencies> find_evaandcomp(int id);
     }
 }

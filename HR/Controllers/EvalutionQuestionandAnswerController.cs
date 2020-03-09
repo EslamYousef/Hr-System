@@ -41,7 +41,7 @@ namespace HR.Controllers
             {
 
                 /////////create code///////
-                var stru = reposatorystructure.find(ChModels.Basic).Structure_Code;
+                var stru = reposatorystructure.find(ChModels.Personnel).Structure_Code;
                 var ALLList = reposatoryEvalutionQuestionandAnswer.GetAll();
                 var model = new EvaluationQuestionsandanswers();
                 if (ALLList.Count() == 0)

@@ -22,5 +22,7 @@ namespace HR.Models
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Model Answer")]
         public string model_answer {get;set;}
+        public virtual PerformanceEvaluationGroup PerformanceEvaluationGroup { get; set; }
+
     }
 }

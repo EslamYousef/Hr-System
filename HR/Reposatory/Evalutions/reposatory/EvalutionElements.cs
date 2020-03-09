@@ -103,6 +103,7 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+                context.Configuration.ProxyCreationEnabled = false;
                 var model = context.EvaluationElements.Find(ID);
                 return model;
             }
@@ -156,6 +157,7 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+
                 var record = context.Evalution_and_competencies.Add(model);
                 context.SaveChanges();
                 return record;
@@ -168,6 +170,16 @@ namespace HR.Reposatory.Evalutions.reposatory
                 var record = context.Evalution_and_competencies.ToList();
                 
             
+        }
+        public List<Evalution_and_competencies> find_evaandcomp(int id)
+        {
+            try
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                var obj = context.Evalution_and_competencies.Where(m => m.EvaluationElementsID == id).ToList();
+                return obj;
+            }
+            catch (Exception) { return null; }
         }
     }
 }

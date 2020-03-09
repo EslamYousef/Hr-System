@@ -358,6 +358,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Performance Evaluation Group.
+        /// </summary>
+        public static string CreatePerformanceEvaluationGroup {
+            get {
+                return ResourceManager.GetString("CreatePerformanceEvaluationGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Personnel Transaction.
         /// </summary>
         public static string CreatePersonnelTransaction {
@@ -930,6 +939,15 @@ namespace HR.Resource {
         public static string number {
             get {
                 return ResourceManager.GetString("number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Performance Evaluation Group.
+        /// </summary>
+        public static string PerformanceEvaluationGroup {
+            get {
+                return ResourceManager.GetString("PerformanceEvaluationGroup", resourceCulture);
             }
         }
         

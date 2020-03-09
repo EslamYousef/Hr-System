@@ -14,7 +14,9 @@ namespace HR.Models
         public bool with_competencies { get; set; } = false;
 
         public virtual List<Evalution_and_competencies> Evalution_and_competencies { get; set; }
-      
+        public virtual List<PerformanceEvaluationGroup> PerformanceEvaluationGroup { get; set; }
+
+
 
 
     }

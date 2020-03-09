@@ -175,7 +175,9 @@ namespace HR.Models
         public DbSet<Vacations_Setup> Vacations_Setup { get; set; }
         public DbSet<Public_Holidays_Dates> Public_Holidays_Dates { get; set; }
         public DbSet<Append_Public_Holidays_Dates> Append_Public_Holidays_Dates { get; set; }
+        public DbSet<PerformanceEvaluationGroup> PerformanceEvaluationGroup { get; set; }
 
-        
+
+
     }
 }
