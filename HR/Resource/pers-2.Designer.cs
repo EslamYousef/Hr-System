@@ -79,6 +79,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Element.
+        /// </summary>
+        public static string addelement {
+            get {
+                return ResourceManager.GetString("addelement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add employee record.
         /// </summary>
         public static string addemployeerecord {
@@ -111,6 +120,15 @@ namespace HR.Resource {
         public static string addpersonneltransaction {
             get {
                 return ResourceManager.GetString("addpersonneltransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Questions.
+        /// </summary>
+        public static string addQ {
+            get {
+                return ResourceManager.GetString("addQ", resourceCulture);
             }
         }
         

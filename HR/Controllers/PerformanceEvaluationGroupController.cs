@@ -45,8 +45,8 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.QA = reposatoryQuestions.GetAll().Select(m=>new { ID=m.ID,Code=m.Code});
-                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
+                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Question });
+                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var stru = reposatorystructure.find(ChModels.Personnel).Structure_Code;
                 var ALLList = reposatoryEvaluationPerformance.GetAll();
                 var model = new PerformanceEvaluationGroup();
@@ -72,33 +72,36 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
-                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
+                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Question });
+                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
+                var obj = reposatoryEvaluationPerformance.AddOne(model);
+                var ID_Q = form["ID_Q"].Split(',');
+                for (var i = 0; i < ID_Q.Count(); i++)
+                {
+                    if (ID_Q[i] != "")
+                    {
+                        var id = int.Parse(ID_Q[i]);
+                        var q = reposatoryQuestions.Find(id);
+                        var F = reposatoryEvaluationPerformance.addManytoMantquestions(new Questions_Performance { EvaluationQuestionsandanswersID = q.ID, PerformanceEvaluationGroupID = obj.ID });
+
+                    }
+                }
                 var  ID_element =form["ID_Element"].Split(',');
-                    var ID_Q = form["ID_Q"].Split(',');
-                    List<EvaluationElements> EvaluationElements = new List<Models.EvaluationElements>();
+               
+                List<int> EvaluationElements = new List<int>();
                     for (var i = 0; i < ID_element.Count(); i++)
                     {
                         if (ID_element[i] != "")
                         {
                             var id = int.Parse(ID_element[i]);
                             var element = reposatoryElements.Find(id);
-                            EvaluationElements.Add(element);
+                            var F= reposatoryEvaluationPerformance.addManytoMantTable(new PerformanceEvaluationGroupEvaluationElements { EvaluationElementsID=element.ID,PerformanceEvaluationGroupID=obj.ID});
                         }
                     }
-                    List<EvaluationQuestionsandanswers> Q_List = new List<EvaluationQuestionsandanswers>();
-                    for (var i = 0; i < ID_Q.Count(); i++)
-                    {
-                        if (ID_Q[i] != "")
-                        {
-                            var id = int.Parse(ID_Q[i]);
-                            var element = reposatoryQuestions.Find(id);
-                            Q_List.Add(element);
-                        }
-                    }
-                    model.EvaluationElements = EvaluationElements;
-                    model.EvaluationQuestionsandanswers = Q_List;
-                    var obj = reposatoryEvaluationPerformance.AddOne(model);
+                    List<int> Q_List = new List<int>();
+       
+              
+               
                 if (obj != null) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;return RedirectToAction("index"); }
                 else { TempData["Message"] = HR.Resource.pers_2.Faild;return View(model);}
             }
@@ -113,9 +116,14 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
-                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
+                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Question });
+                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var obj = reposatoryEvaluationPerformance.Find(id);
+                foreach(var item in obj.EvaluationQuestionsandanswers)
+                {
+                    item.EvaluationQuestionsandanswers = reposatoryQuestions.Find(item.EvaluationQuestionsandanswersID);
+                }
+               
                 if (obj!=null) { return View(obj); }
                 else { return RedirectToAction("index"); }
             }
@@ -130,32 +138,32 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
-                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code });
+                ViewBag.QA = reposatoryQuestions.GetAll().Select(m => new { ID = m.ID, Code = m.Code+"->"+m.Question });
+                ViewBag.elements = reposatoryElements.GetAll().Select(m => new { ID = m.ID, Code = m.Code+"->"+m.Name });
                 var ID_element = form["ID_Element"].Split(',');
                 var ID_Q = form["ID_Q"].Split(',');
-                List<EvaluationElements> EvaluationElements = new List<Models.EvaluationElements>();
+                List<int> EvaluationElements = new List<int>();
                 for (var i = 0; i < ID_element.Count(); i++)
                 {
                     if (ID_element[i] != "")
                     {
                         var id = int.Parse(ID_element[i]);
                         var element = reposatoryElements.Find(id);
-                        EvaluationElements.Add(element);
+                        EvaluationElements.Add(element.ID);
                     }
                 }
                 List<EvaluationQuestionsandanswers> Q_List = new List<EvaluationQuestionsandanswers>();
-                for (var i = 0; i < ID_Q.Count(); i++)
-                {
-                    if (ID_Q[i] != "")
-                    {
-                        var id = int.Parse(ID_Q[i]);
-                        var element = reposatoryQuestions.Find(id);
-                        Q_List.Add(element);
-                    }
-                }
-                model.EvaluationElements = EvaluationElements;
-                model.EvaluationQuestionsandanswers = Q_List;
+                //for (var i = 0; i < ID_Q.Count(); i++)
+                //{
+                //    if (ID_Q[i] != "")
+                //    {
+                //        var id = int.Parse(ID_Q[i]);
+                //        var element = reposatoryQuestions.Find(id);
+                //        Q_List.Add(element);
+                //    }
+                //}
+              //  model. = EvaluationElements;
+            //    model.EvaluationQuestionsandanswers = Q_List;
                 var flag= reposatoryEvaluationPerformance.Editone(model);
                 if (flag) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully; return RedirectToAction("index"); }
                 else{ TempData["Message"] = HR.Resource.pers_2.Faild; return View(model); }
@@ -178,12 +186,13 @@ namespace HR.Controllers
             catch (Exception) { TempData["Message"] = HR.Resource.pers_2.Faild; return RedirectToAction("index"); }
         }
         [HttpPost]
+        [ActionName("Delete")]
         public ActionResult method_Delete(int id)
         {
             try
             {
                 var obj = reposatoryEvaluationPerformance.Remove(id);
-                if (obj) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully; return RedirectToAction("index"); }
+                if (obj) { TempData["Message"] = HR.Resource.organ.delete; return RedirectToAction("index"); }
                 else { TempData["Message"] = HR.Resource.pers_2.Faild; return View(); }
             }
             catch (Exception) { TempData["Message"] = HR.Resource.pers_2.Faild; return RedirectToAction("index"); }
@@ -208,6 +217,12 @@ namespace HR.Controllers
             var t = eva_And_Comp.ToList();
             return Json(t);
         }
+        public JsonResult Questions(int id)
+        {
+            return Json(reposatoryQuestions.Find(id));
+        }
+
+
 
     }
 }
