@@ -105,7 +105,7 @@ namespace HR.Controllers
                 if (obj != null) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;return RedirectToAction("index"); }
                 else { TempData["Message"] = HR.Resource.pers_2.Faild;return View(model);}
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 TempData["Message"] = HR.Resource.pers_2.Faild;
                 return View(model);
