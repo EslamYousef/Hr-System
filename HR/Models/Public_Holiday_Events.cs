@@ -27,5 +27,10 @@ namespace HR.Models
         public virtual Shift_day_status_setup Shift_day_status_setup { get; set; }
         public virtual List<Append_Public_Holidays_Dates> Append_Public_Holidays_Dates { get; set; }
 
+
+       
+
+
+
     }
 }

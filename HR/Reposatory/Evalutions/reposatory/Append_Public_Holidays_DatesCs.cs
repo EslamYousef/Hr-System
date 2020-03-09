@@ -46,7 +46,7 @@ namespace HR.Reposatory.Evalutions.reposatory
             {
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

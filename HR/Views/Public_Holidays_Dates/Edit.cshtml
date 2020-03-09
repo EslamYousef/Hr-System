@@ -7,54 +7,12 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 <link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
-@*<script>
-    debugger
-    //$(function () {
-        //$("#tb_Holidays").hide();
-    //$("#BtnAdd").click(function () {
-    function mysbtn(){
-            debugger
-            var Holidays_Event = $("#employeeId3").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetPublic_Holiday_Events",
-                data: { "id": Holidays_Event },
-                success: function (result) {
-                    debugger
-                    if (Holidays_Event != "") {
-                        $("#tb_Holidays").show();
-                        var T = "";
-                        T = "<tr> <td><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td>          <td><input type='text' readonly  value='" + result.Code + "'/></td>      <td><input type='text' readonly value='" + result.Description + "'/></td>            <td><input type='date' name='Fromdate' value='""'/></td>           <td><input type='date' name='Todate' value='""'/></td>         <td><input type='text' name='Notes' value='""'/></td>                 <td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
-                        $("#tb_Holidays").append(T)
-                    }
-                }
-            })
-            $("#tb_Holidays").on('click', '.del-btn', function () {
-               $(this).closest('tr').remove();
-
-                //var trcount = $(this).closest('tbody')[0].childElementCount;
-                //if (trcount > 0) {
-                //    $(this).closest('tr').remove();
-                //    // condition
-                //    trcount == 1 ? trcount-- : trcount;
-                //    // when trcount or row Equal 0 , Empty tfoot
-                //    if (trcount == 0) {
-                //        $("#fa")[0].innerText = "";
-                //        $("#na")[0].innerText = "";
-                //        $("#per")[0].innerText = "";
-                //        $("#De")[0].innerText = "";
-                //    }
-                //}
-            })
-        }
-    //});
-</script>*@
 
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-           Create Public Holidays Dates
+            Edit Public Holidays Dates
         </h1>
     </section>
 
@@ -63,7 +21,7 @@
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("Create", "Public_Holidays_Dates", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Edit", "Public_Holidays_Dates", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -79,15 +37,15 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    
-                            <input name="ID_5" hidden />
+
+                        <input name="ID_5" hidden />
                         <input name="Fromdate" hidden />
                         <input name="Todate" hidden />
                         <input name="Notes" hidden />
 
                         <div>
 
-                  
+
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">Holidays Code</label>
@@ -97,16 +55,16 @@
                                 </div>
                                 <label class="control-label col-md-2">Holidays year</label>
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Holidaysyear, new { htmlAttributes = new { @class = "form-control",@number=true } })
+                                    @Html.EditorFor(model => model.Holidaysyear, new { htmlAttributes = new { @class = "form-control", @number = true } })
                                     @Html.ValidationMessageFor(model => model.Holidaysyear, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Holiday Description</label>
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Holiday_description, new { htmlAttributes = new { @class = "form-control"} })
+                                    @Html.EditorFor(model => model.Holiday_description, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Holiday_description, "", new { @class = "text-danger" })
-                                </div>                         
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Holiday Alternative Description</label>
@@ -125,13 +83,13 @@
                                     @Html.DropDownList("fd", new SelectList(ViewBag.Public_Holiday_Events, "ID", "Code"), Personnel.SelectFamilyProfile, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="button" onclick="myibtn()" value="@Personnel.Add" class="btn"/>
+                                    <input type="button" onclick="myibtn()" value="@Personnel.Add" class="btn" />
                                 </div>
                             </div>
                             <table id="tb_Holidays" border="1" style="display: table; width:400px;" hidden>
-                                <thead id="thead" hidden>
+                                <thead id="thead">
                                     <tr>
-                                        <th></th>
+                                        @*<th></th>*@
                                         <th id="fa">Holidays / Event Code</th>
                                         <th id="na">Holidays / Event Description</th>
                                         <th id="per">From date</th>
@@ -140,16 +98,50 @@
                                         <th id="dele">@Personnel.Delete</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    @for (var i = 0; i < Model.Append_Public_Holidays_Dates.Count(); i++)
+                                    {
+                                        @*@Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_profile);
+                   @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_name);
+                   @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Percentage);
+                @Html.HiddenFor(m => m.Append_beneficiary_Family[i].ID);*@
+                                        <tr>
+
+                                            <td>
+                                                <input name="ID_5" type="text" value="@Model.Append_Public_Holidays_Dates[i].ID" readonly/>
+                                            </td>
+                                            <td>
+                                         <input  type="text" value="@Model.Append_Public_Holidays_Dates[i].Public_Holiday_Events.Code" readonly />
+                                            </td>
+                                            <td>
+                                                <input  type="text" value="@Model.Append_Public_Holidays_Dates[i].Public_Holiday_Events.Description" readonly />
+                                            </td>
+                                            <td>
+                                                <input name="Fromdate" type="date" value="@Model.Append_Public_Holidays_Dates[i].Fromdate" />
+                                            </td>
+                                            <td>
+                                                <input name="Todate" type="date" value="@Model.Append_Public_Holidays_Dates[i].Todate" />
+                                            </td>
+                                            <td>
+                                      <input name="Notes" type="text" value="@Model.Append_Public_Holidays_Dates[i].Notes" />
+                                            </td>
+                                            <td>
+                                                <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove()" id="tt" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                             <div class="form-group" style="margin-top:10px;">
                                 <div class="col-md-offset-2 col-md-6">
                                     <div class="col-md-8"></div>
-                                    <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
                                     <a href="@Url.Action("index","Public_Holidays_Dates")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                   </div>
-                                </div>
+                                    <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Edit1</button>
 
+                                </div>
                             </div>
+
+                        </div>
 
                     </div>
 
@@ -165,7 +157,13 @@
 @section scripts{}
 
 <script>
+    function Remove() {
 
+        //$("#tt").click (function () {
+        //   $(this).closest('tr').remove();
+        $("#tt").closest('tr').remove();
+        //})
+    }
     function myibtn()
     {
         debugger
@@ -183,21 +181,19 @@
 
                     var trcount = table;
                     if (Holidays_Event != trcount) {
-                       
-                                            
+
+
                     }
-
-
                 }
                 if (result.ID = result.ID) {
                     $("#tb_Holidays").show();
                     $("#thead").show();
 
                     var T = "";
-                    T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
+                    T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "'/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
                     $("#tb_Holidays").append(T)
                 }
-                
+
 
             },
             error: function ()
@@ -208,8 +204,8 @@
         });
         $("#tb_Holidays").on('click', '.del-btn', function () {
             $(this).closest('tr').remove();
-   
-       
+
+
         })
     }
     function employee3() {

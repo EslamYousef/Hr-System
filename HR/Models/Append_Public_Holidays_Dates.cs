@@ -13,10 +13,10 @@ namespace HR.Models
         public int ID { get; set; }
         //[ForeignKey("Public_Holiday_Events")]
         //[Display(Name = "Holiday / Event Code")]
-        //public int PublicHolidayEventsId { get; set; }
+        public int Public_Holidays_DatesId { get; set; }
         //[ForeignKey("Public_Holiday_Events")]
         //[Display(Name = "Holiday / Event Description")]
-        //public string HolidayEventDescriptionId { get; set; }
+        public int Public_Holiday_EventsId { get; set; }
 
 
         public virtual Public_Holiday_Events Public_Holiday_Events { get; set; }
