@@ -20,6 +20,7 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+                context.Configuration.ProxyCreationEnabled = false;
                 var model = context.EvaluationQuestionsandanswers.Find(ID);
                 return model;
             }

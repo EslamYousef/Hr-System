@@ -61,6 +61,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 0.
+        /// </summary>
+        public static string _0 {
+            get {
+                return ResourceManager.GetString("0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity number.
         /// </summary>
         public static string Activitynumber {
@@ -75,6 +84,15 @@ namespace HR.Resource {
         public static string addedSuccessfully {
             get {
                 return ResourceManager.GetString("addedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Element.
+        /// </summary>
+        public static string addelement {
+            get {
+                return ResourceManager.GetString("addelement", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace HR.Resource {
         public static string addpersonneltransaction {
             get {
                 return ResourceManager.GetString("addpersonneltransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Questions.
+        /// </summary>
+        public static string addQ {
+            get {
+                return ResourceManager.GetString("addQ", resourceCulture);
             }
         }
         

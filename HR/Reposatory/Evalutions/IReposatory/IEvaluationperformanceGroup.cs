@@ -15,5 +15,7 @@ namespace HR.Reposatory.Evalutions.IReposatory
         List<PerformanceEvaluationGroup> GetAll();
         bool Remove(int id);
         bool Editone(PerformanceEvaluationGroup model);
+        bool addManytoMantTable(PerformanceEvaluationGroupEvaluationElements model);
+       bool  addManytoMantquestions(Questions_Performance model);
     }
 }

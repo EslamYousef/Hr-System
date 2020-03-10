@@ -33,14 +33,14 @@ namespace HR.Reposatory.Evalutions.reposatory
             try
             {
               var obj=  context.PerformanceEvaluationGroup.Add(model);
-                context.SaveChanges();
+                        context.SaveChanges();
                 return obj;
             }
             catch (DbUpdateException)
             {
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
@@ -92,18 +92,17 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return false;
             }
         }
-
         public bool Editone(PerformanceEvaluationGroup model)
         {
             try
             {
                 var record = context.PerformanceEvaluationGroup.FirstOrDefault(m => m.ID == model.ID);
-                record.EvaluationElements = null;
+              
                 record.EvaluationQuestionsandanswers = null;
 
                 record.Description = model.Description;
                 record.Name = model.Name;
-                record.EvaluationElements = model.EvaluationElements;
+              
                 record.EvaluationQuestionsandanswers = model.EvaluationQuestionsandanswers;
                 context.SaveChanges();
                 return true;
@@ -116,6 +115,26 @@ namespace HR.Reposatory.Evalutions.reposatory
             {
                 return false;
             }
+        }
+        public bool addManytoMantTable(PerformanceEvaluationGroupEvaluationElements model)
+        {
+            try
+            {
+                context.PerformanceEvaluationGroupEvaluationElements.Add(model);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception) { return false; }
+        }
+        public bool addManytoMantquestions(Questions_Performance model)
+        {
+            try
+            {
+                context.Questions_Performance.Add(model);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception) { return false; }
         }
     }
 }

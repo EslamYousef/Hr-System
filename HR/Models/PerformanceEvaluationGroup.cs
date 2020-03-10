@@ -7,7 +7,9 @@ namespace HR.Models
 {
     public class PerformanceEvaluationGroup:BaseModel
     {
-        public virtual List<EvaluationElements> EvaluationElements { get; set; }
-        public virtual List<EvaluationQuestionsandanswers> EvaluationQuestionsandanswers { get; set; }
+        public virtual List<PerformanceEvaluationGroupEvaluationElements> PerformanceEvaluationGroupEvaluationElements { get; set; }
+      
+        public virtual List<Questions_Performance> EvaluationQuestionsandanswers { get; set; }
+     
     }
 }

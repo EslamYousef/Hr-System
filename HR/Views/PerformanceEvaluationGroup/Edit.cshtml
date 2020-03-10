@@ -1,9 +1,11 @@
 ﻿@model HR.Models.PerformanceEvaluationGroup
 @using HR.Resource;
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+
+
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -11,16 +13,16 @@
             @pers_2.PerformanceEvaluationGroup
         </h1>
     </section>
-  
+
 
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary" data-collapsed="0">
                 <div class="panel-body">
-                  @using (Html.BeginForm("Create", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                  {
-                      <input  name="ID_Q" value="" hidden/>
-                    <input name="ID_Element" value="" hidden />
+                    @using (Html.BeginForm("Create", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input name="ID_Q" value="" hidden />
+                        <input name="ID_Element" value="" hidden />
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">
                             <hr />
@@ -49,10 +51,10 @@
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
                                 </div>
-                              
-                               
+
+
                             </div>
-                           
+
                             <div class="form-group">
                                 <label class="control-label col-md-2">
                                     @organ.description
@@ -63,16 +65,16 @@
 
                                 </div>
                                 <label class="control-label col-md-2">
-                                 
+
                                 </label>
-                                <div class="col-md-2"> <button type="submit" style="width:100%" id="btnSave" class="btn btn-success" name="Command" value='@Basic.Create'>@Basic.Create</button></div>
-                                <div  class="col-md-2">
-                                    <a  href="@Url.Action("index", "PerformanceEvaluationGroup")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                <div class="col-md-2"> <button type="submit" style="width:100%" id="btnSave" class="btn btn-success  " name="Command" value='@Basic.Create'>@organ.edit</button></div>
+                                <div class="col-md-2">
+                                    <a href="@Url.Action("index", "PerformanceEvaluationGroup")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
 
                                 </div>
-                                
+
                             </div>
-                          
+
                             <div class="col-md-12">
                                 <ul class="nav nav-tabs bordered">
                                     <!-- available classes "bordered", "right-aligned" -->
@@ -92,7 +94,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
 
-                                      
+
 
 
                                         <div class="form-group">
@@ -104,7 +106,7 @@
                                                     @Html.DropDownList("comp_", new SelectList(ViewBag.elements, "ID", "Code"), pers_2.Evalutionelement, new { @name = "drop", @class = "select2", @id = "Country" })
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="button" id="drop1" class="btn btn-success" value='@pers_2.addelement' onclick="add()" />
+                                                    <input type="button" id="drop1" class="btn btn-success"  value='@pers_2.addelement' onclick="add()" />
                                                 </div>
                                             </div>
                                         </div>
@@ -115,40 +117,41 @@
                                                     <th hidden>
 
                                                     </th>
-                                                    <th class="control-label col-md-2">
-                                                        <label >@Basic.code </label>
+                                                    <th align="center" class="control-label col-md-2">
+                                                        <label>@Basic.code </label>
                                                     </th>
-                                                    <th class="control-label col-md-6">
-                                                        <label>@Basic.name</label>
-                                                    </th >
-                                                    <th class="control-label col-md-1">
-                                                        <label>@pers_2.Defaultdegree</label>
+                                                    <th align="center" class="control-label col-md-6">
+                                                        <label align="center">@Basic.name</label>
                                                     </th>
-                                                 
+                                                    <th align="center" class="control-label col-md-1">
+                                                        <label align="center">@pers_2.Defaultdegree</label>
+                                                    </th>
+
                                                     <th>
 
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody id="ad3d1">
-                                                @*@if (Model.Job_Details != null)
+                                                @if (Model.PerformanceEvaluationGroupEvaluationElements != null)
                                                 {
-                                                    if (Model.Job_Details.qulification_job != null)
+
+                                                    foreach (var item in Model.PerformanceEvaluationGroupEvaluationElements)
                                                     {
-                                                        foreach (var item in Model.Job_Details.qulification_job)
+                                                        if (item.EvaluationElements != null)
                                                         {
                                                             <tr>
-                                                                <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
-                                                                <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
-                                                                <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
-                                                                <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
-                                                                <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
-                                                                <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
-                                                                <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                <td hidden><input name="ID_Element" class="form-control" value=@item.EvaluationElements.ID /></td>
+                                                                <td class="col-md-2"><input class="form-control" type="text" style="margin-bottom: 1em;margin-left:4px" onclick="getcompetiton(@item.EvaluationElements.ID)" value=@item.EvaluationElements.Code readonly /></td>
+                                                                <td  class="col-md-6"><input class="form-control" type="text" style="margin-bottom: 1em;margin-left:4px" onclick="getcompetiton(@item.EvaluationElements.ID)" value=@item.EvaluationElements.Name readonly /></td>
+                                                                <td class="col-md-2"><input class="form-control" type="text" style="margin-bottom: 1em;margin-left:4px" onclick="getcompetiton(@item.EvaluationElements.ID)" value=@item.EvaluationElements.defaultDegree readonly /></td>
+                                                                <td  class="col-md-2"><input value=@organ.remove type="button" style="margin-left:3px" class="form-control remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                
                                                             </tr>
                                                         }
                                                     }
-                                                }*@
+
+                                                }
                                             </tbody>
                                         </table>
 
@@ -168,28 +171,11 @@
                                                         <label>@pers_2.Defaultdegree</label>
                                                     </th>
 
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody id="ad31d1">
-                                                @*@if (Model.Job_Details != null)
-                {
-                    if (Model.Job_Details.qulification_job != null)
-                    {
-                        foreach (var item in Model.Job_Details.qulification_job)
-                        {
-                            <tr>
-                                <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
-                                <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
-                                <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
-                                <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
-                            </tr>
-                        }
-                    }
-                }*@
+                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -222,36 +208,35 @@
                                                         <label class="control-label col-md-3">@pers_2.answer</label>
                                                     </th>
                                                     <th>
-                                                        
+
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody id="ad8d2">
-                                                @*@if (Model.Job_Details != null)
-                {
-                    if (Model.Job_Details.qulification_job != null)
-                    {
-                        foreach (var item in Model.Job_Details.qulification_job)
-                        {
-                            <tr>
-                                <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
-                                <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
-                                <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
-                                <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
-                            </tr>
-                        }
-                    }
-                }*@
+                                                @if (Model.EvaluationQuestionsandanswers != null)
+                                                {
+                                                    foreach (var item in Model.EvaluationQuestionsandanswers)
+                                                    {
+                                                        if (item.EvaluationQuestionsandanswers != null)
+                                                        {
+                                                                <tr>
+                                                                    <td hidden><input name="ID_Q" class="form-control" value=@item.EvaluationQuestionsandanswers.ID/></td>
+                                                                    <td class="col-md-3"><input class="form-control" type="text" readonly style="margin-bottom: 1em;margin-left:4px"  value=@item.EvaluationQuestionsandanswers.Question /></td>
+                                                                    <td class="col-md-3"><input class="form-control" type="text" readonly style="margin-bottom: 1em;margin-left:4px" value=@item.EvaluationQuestionsandanswers.model_answer /></td>
+                                                                    <td class="col-md-3"><input style="margin-left:3px" value=@organ.remove type="button" class="form-control remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                </tr>
+                                                            
+                                                        }
+                                                    }
+                                                }
+                                                   
                                             </tbody>
                                         </table>
-                                       
+
                                     </div>
-                                 
-                            
-                                 
+
+
+
 
                                 </div>
                             </div>
@@ -268,7 +253,7 @@
     function getcompetiton(id) {
         debugger
         //var id = $(input).attr('value');
-      
+
         $("#ad31d1").empty();
         $.ajax({
             type: "post",
@@ -287,7 +272,7 @@
 
 
 
-                      
+
                     $("#ad31d1").append(tr);
                 });
             },
@@ -336,7 +321,7 @@
     //{
     //        $("#submit").submit();
     //}
-    
+
     function add()
     {
     debugger
@@ -371,9 +356,9 @@
 
                             "<tr> <td hidden>" +"<input    id='class_type' style='margin-bottom: 1em;' hidden name='ID_Element'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-2'> " + "<input class = 'form-control' ID='result.Code'   type='text' style='margin-bottom: 1em;margin-left:4px' onclick='getcompetiton("+result.ID+")'    value='" + result.Code + "' readonly='readonly' />" + "</td>" +
-                           "<td class='col-md-6'> " + "<input   class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Name + "' readonly='readonly' />" + "</td>" +
-                           "<td class='col-md-2'> " + "<input class = 'form-control'  required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.defaultDegree + "' readonly='readonly' />" + "</td>" +
-                           "<td class='col-md-2'>" + "<input type='button'   style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+                           "<td class='col-md-6'> " + "<input   class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px' onclick='getcompetiton(" + result.ID + ")'    value='" + result.Name + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input class = 'form-control'  required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree' onclick='getcompetiton(" + result.ID + ")'  value='" + result.defaultDegree + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input type='button'   style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
 
 
                         $("#ad3d1").append(tr);
