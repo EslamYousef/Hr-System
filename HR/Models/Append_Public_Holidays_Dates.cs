@@ -21,9 +21,12 @@ namespace HR.Models
 
         public virtual Public_Holiday_Events Public_Holiday_Events { get; set; }
         [Display(Name = "From date")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Fromdate { get; set; }
-        [Display(Name = "To date")]
+        //[Display(Name = "To date")]
+        [Display(Name = "To date"), DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Todate { get; set; }
         public string Notes { get; set; }

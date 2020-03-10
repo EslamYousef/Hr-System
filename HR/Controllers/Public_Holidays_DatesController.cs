@@ -140,10 +140,12 @@ namespace HR.Controllers
         {
             try
             {
+              
                 ViewBag.Public_Holiday_Events = db.Public_Holiday_Events.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
                 var recode = db.Public_Holidays_Dates.FirstOrDefault(a => a.ID == id);
                 if (recode != null)
                 {
+                    ViewBag.f = recode.Append_Public_Holidays_Dates.Count();
                     return View(recode);
                 }
                 else

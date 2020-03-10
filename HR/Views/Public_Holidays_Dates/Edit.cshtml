@@ -107,7 +107,7 @@
                 @Html.HiddenFor(m => m.Append_beneficiary_Family[i].ID);*@
                                         <tr>
 
-                                            <td>
+                                            <td hidden>
                                                 <input name="ID_5" type="text" value="@Model.Append_Public_Holidays_Dates[i].ID" readonly/>
                                             </td>
                                             <td>
@@ -117,10 +117,10 @@
                                                 <input  type="text" value="@Model.Append_Public_Holidays_Dates[i].Public_Holiday_Events.Description" readonly />
                                             </td>
                                             <td>
-                                                <input name="Fromdate" type="date" value="@Model.Append_Public_Holidays_Dates[i].Fromdate" />
+                                                <input name="Fromdate" class="@Model.Append_Public_Holidays_Dates[i].ID" type="date" value="@Model.Append_Public_Holidays_Dates[i].Fromdate" />
                                             </td>
                                             <td>
-                                                <input name="Todate" type="date" value="@Model.Append_Public_Holidays_Dates[i].Todate" />
+                                                <input name="Todate" id="@Model.Append_Public_Holidays_Dates[i].ID" type="date" value="@Model.Append_Public_Holidays_Dates[i].Todate" class="End" />
                                             </td>
                                             <td>
                                       <input name="Notes" type="text" value="@Model.Append_Public_Holidays_Dates[i].Notes" />
@@ -155,6 +155,17 @@
 </div>
 
 @section scripts{}
+<script>
+    $(document).ready(function () {
+        GetDataById2();
+        GetDataById();
+       
+   
+    });
+
+
+    
+</script>
 
 <script>
     function Remove() {
@@ -190,7 +201,7 @@
                     $("#thead").show();
 
                     var T = "";
-                    T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "'/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
+                    T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "'/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate' class='Start'/></td><td><input type='date' name='Todate' class='End' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
                     $("#tb_Holidays").append(T)
                 }
 
@@ -226,24 +237,91 @@
             }
         });
     }
-    function GetDataById2(date, id) {
+    function GetDataById() {
         debugger
-        var valx = new Date(date);
-        var month;
-        if ((valx.getMonth() + 1) < 10) {
-            month = "0" + (valx.getMonth() + 1).toString();
-        }
-        else {
-            month = date.getMonth() + 1;
-        }
-        var day = parseInt(valx.getDate());
-        if (day < 10) {
-            day = "0" + (valx.getDate()).toString();
-        }
-        else {
-            day = valx.getDate();
-        }
-        var d = valx.getFullYear() + '-' + month + '-' + day;
-        $('#' + id).val(d);
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdAppendPublicHolidays",
+            data: { "id": x },
+            success: function (result) {
+
+             
+                debugger
+                if (result) {
+                    $.each(result, function (i, r) {
+                        debugger
+                        var date = parseJsonDate(r.todate)
+                        month = date.getMonth() + 1;
+                        if (parseInt(month) < 10) {
+                            month = '0' + month;
+                        }
+                        day = date.getDate();
+                        if (parseInt(day) < 10) {
+                            day = '0' + day;
+                        }
+
+
+                        //     month = date.getMonth() + 1;
+                        var d = date.getFullYear() + '-' + month + '-' + day;
+                        var T = $('#' + r.id);
+                        $('#' + r.id).val(d);
+                    });
+                    debugger
+                   
+                  
+                    console.log(result);
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //   GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdAppendPublicHolidays",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    $.each(result, function (i, r) {
+                        debugger
+                        var date = parseJsonDate(r.fromdate)
+                        month = date.getMonth() + 1;
+                        if (parseInt(month) < 10) {
+                            month = '0' + month;
+                        }
+                        day = date.getDate();
+                        if (parseInt(day) < 10) {
+                            day = '0' + day;
+                        }
+
+
+                        //     month = date.getMonth() + 1;
+                        var d = date.getFullYear() + '-' + month + '-' + day;
+                        var t = $('.' + r.id);
+                        $('.' + r.id).val(d);
+                    });
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
     }
 </script>
