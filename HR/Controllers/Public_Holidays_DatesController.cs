@@ -315,11 +315,13 @@ namespace HR.Controllers
                 var Locations = form["locationdown"].Split(char.Parse(","));
                 var items = new Append_Public_Holidays_Dates();
                 var locations = db.work_location.Where(m => m.Public_Holidays_DatesID == record.ID);
-                foreach(var item in locations)
-                {
-                    item.Public_Holidays_DatesID = null;
-                    db.SaveChanges();
-                }
+                record.work_location = null;
+                db.SaveChanges();
+                //foreach (var item in locations)
+                //{
+                //    item.Public_Holidays_DatesID = null;
+                //    db.SaveChanges();
+                //}
                 for (var i = 0; i < Locations.Count(); i++)
                 {
                     if (Locations[i] != "")
