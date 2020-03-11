@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace HR.Models
 {
@@ -24,6 +25,9 @@ namespace HR.Models
         public string Holiday_alternative_description { get; set; }
      
         public virtual List<Append_Public_Holidays_Dates> Append_Public_Holidays_Dates { get; set; }
+     
+        public  virtual List<work_location> work_location { get; set; }
+        public IEnumerable<SelectListItem> selectedlocations { get; set; }
 
     }
 }

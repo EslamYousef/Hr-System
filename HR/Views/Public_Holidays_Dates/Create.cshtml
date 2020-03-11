@@ -7,48 +7,7 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 <link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
-@*<script>
-    debugger
-    //$(function () {
-        //$("#tb_Holidays").hide();
-    //$("#BtnAdd").click(function () {
-    function mysbtn(){
-            debugger
-            var Holidays_Event = $("#employeeId3").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetPublic_Holiday_Events",
-                data: { "id": Holidays_Event },
-                success: function (result) {
-                    debugger
-                    if (Holidays_Event != "") {
-                        $("#tb_Holidays").show();
-                        var T = "";
-                        T = "<tr> <td><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td>          <td><input type='text' readonly  value='" + result.Code + "'/></td>      <td><input type='text' readonly value='" + result.Description + "'/></td>            <td><input type='date' name='Fromdate' value='""'/></td>           <td><input type='date' name='Todate' value='""'/></td>         <td><input type='text' name='Notes' value='""'/></td>                 <td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
-                        $("#tb_Holidays").append(T)
-                    }
-                }
-            })
-            $("#tb_Holidays").on('click', '.del-btn', function () {
-               $(this).closest('tr').remove();
 
-                //var trcount = $(this).closest('tbody')[0].childElementCount;
-                //if (trcount > 0) {
-                //    $(this).closest('tr').remove();
-                //    // condition
-                //    trcount == 1 ? trcount-- : trcount;
-                //    // when trcount or row Equal 0 , Empty tfoot
-                //    if (trcount == 0) {
-                //        $("#fa")[0].innerText = "";
-                //        $("#na")[0].innerText = "";
-                //        $("#per")[0].innerText = "";
-                //        $("#De")[0].innerText = "";
-                //    }
-                //}
-            })
-        }
-    //});
-</script>*@
 
 <div class="content-wrapper">
 
@@ -84,7 +43,7 @@
                         <input name="Fromdate" hidden />
                         <input name="Todate" hidden />
                         <input name="Notes" hidden />
-
+                        <input name="locationdown" value="" hidden />
                         <div>
 
                   
@@ -106,7 +65,17 @@
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.Holiday_description, new { htmlAttributes = new { @class = "form-control"} })
                                     @Html.ValidationMessageFor(model => model.Holiday_description, "", new { @class = "text-danger" })
-                                </div>                         
+                                </div>    
+                                @*<div class="col-md-3" style="color:black">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Link to locations</button>
+                                </div>*@          
+                                
+                                <label class="control-label col-md-2">
+                                    <span>locations</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("locationdown", new SelectList(ViewBag.locations, "ID", "Code"),  new { @multiple = "multiple", @required = "required", @class = "select2",@name= "locationdown", @onchange = "employee3()", id = "employeeId3" })
+                                </div>           
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Holiday Alternative Description</label>
@@ -140,6 +109,9 @@
                                         <th id="dele">@Personnel.Delete</th>
                                     </tr>
                                 </thead>
+                                <tbody id="bodyappend">
+
+                                </tbody>
                             </table>
                             <div class="form-group" style="margin-top:10px;">
                                 <div class="col-md-offset-2 col-md-6">
@@ -179,34 +151,49 @@
             success: function (result)
             {
                 debugger
-                for (var i = 0; i < table.length; i++) {
+                //for (var i = 0; i < table.length; i++)
+                //{
 
-                    var trcount = table;
-                    if (Holidays_Event != trcount) {
-                       
-                                            
+                //    var trcount = table;
+                //    if (Holidays_Event != trcount) {  }
+                //}
+
+
+                var pp = $("#bodyappend").find("tr");
+                var flag = 0;
+                for (var o = 0; o < pp.length; o++) {
+                    debugger
+                    var inputs = pp[o].children;
+                    ID_ = inputs[0].children;
+                    if (parseInt(ID_[0].value) == result.ID) {
+                        flag = 1;
+                    }
+                }
+
+               
+              
+                    if (flag == 0)
+                    {
+                        $("#tb_Holidays").show();
+                        $("#thead").show();
+
+                        var T = "";
+                        T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
+                        $("#tb_Holidays").append(T)
                     }
 
-
-                }
-                if (result.ID = result.ID) {
-                    $("#tb_Holidays").show();
-                    $("#thead").show();
-
-                    var T = "";
-                    T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
-                    $("#tb_Holidays").append(T)
-                }
+                
                 
 
-            },
-            error: function ()
-            {
+                },
+                error: function ()
+                {
 
-                //    $("#employeename").val(" ");
-            }
+                    //    $("#employeename").val(" ");
+                }
+           
         });
-        $("#tb_Holidays").on('click', '.del-btn', function () {
+        $("#bodyappend").on('click', '.del-btn', function () {
             $(this).closest('tr').remove();
    
        

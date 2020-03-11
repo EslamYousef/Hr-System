@@ -1,0 +1,63 @@
+﻿@model HR.Models.ViewModel.Work_Location_Public_Holiday_VM
+@using HR.Resource;
+
+@{
+    ViewBag.Title = "link";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-primary" data-collapsed="0">
+
+            <div class="panel-body">
+
+                @Html.AntiForgeryToken()
+                <div class="container">
+                    @using (Html.BeginForm("link", "Public_Holidays_Dates"))
+                    {
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @Html.HiddenFor(m => m.nameID);
+                                @foreach (var item in Model.AvailableFruits)
+                                {
+                                    if (item.Selected == false)
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="SelectedFruits" value="@item.Value" /> @item.Text
+                                            </label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="SelectedFruits" checked value="@item.Value" /> @item.Text
+                                            </label>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="@Url.Action("index","Public_Holidays_Dates")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+
+                            <input type="submit" class="btn btn-primary" value=@organ.submit />
+                        </div>
+                    }
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+@section scripts{}

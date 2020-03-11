@@ -22,8 +22,6 @@ namespace HR.Models
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int Main_Educate_bodyid { get; set; }
         public virtual Main_Educate_body Main_Educate_body { get; set; }
-
-
         public virtual Name_of_educational_qualification Name_of_educational_qualification { get; set; }
 
         public string Name_of_educational_qualification_IDD { get; set; }

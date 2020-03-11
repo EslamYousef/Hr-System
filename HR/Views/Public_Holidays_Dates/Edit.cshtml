@@ -65,6 +65,14 @@
                                     @Html.EditorFor(model => model.Holiday_description, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Holiday_description, "", new { @class = "text-danger" })
                                 </div>
+
+                                <label class="control-label col-md-2">
+                                    <span>locations</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("model", Model.selectedlocations ,new { @multiple = "multiple", @required = "required", @class = "select2", @name = "locationdown", @onchange = "employee3()", id = "employeeId3" })
+                                 
+                                </div>  
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">Holiday Alternative Description</label>
@@ -98,7 +106,7 @@
                                         <th id="dele">@Personnel.Delete</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="bodyappend">
                                     @for (var i = 0; i < Model.Append_Public_Holidays_Dates.Count(); i++)
                                     {
                                         @*@Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_profile);
@@ -108,7 +116,7 @@
                                         <tr>
 
                                             <td hidden>
-                                                <input name="ID_5" type="text" value="@Model.Append_Public_Holidays_Dates[i].ID" readonly/>
+                                                <input name="ID_5" type="text" value="@Model.Append_Public_Holidays_Dates[i].Public_Holiday_Events.ID" readonly/>
                                             </td>
                                             <td>
                                          <input  type="text" value="@Model.Append_Public_Holidays_Dates[i].Public_Holiday_Events.Code" readonly />
@@ -187,24 +195,26 @@
             data: { "id": Holidays_Event },
             success: function (result)
             {
-                debugger
-                for (var i = 0; i < table.length; i++) {
-
-                    var trcount = table;
-                    if (Holidays_Event != trcount) {
-
-
+                var pp = $("#bodyappend").find("tr");
+                var flag = 0;
+                for (var o = 0; o < pp.length; o++) {
+                    debugger
+                    var inputs = pp[o].children;
+                    ID_ = inputs[0].children;
+                    if (parseInt(ID_[0].value) == result.ID) {
+                        flag = 1;
                     }
                 }
-                if (result.ID = result.ID) {
-                    $("#tb_Holidays").show();
-                    $("#thead").show();
+                if (flag == 0) {
+                    if (result.ID = result.ID) {
+                        $("#tb_Holidays").show();
+                        $("#thead").show();
 
-                    var T = "";
-                    T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "'/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate' class='Start'/></td><td><input type='date' name='Todate' class='End' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
-                    $("#tb_Holidays").append(T)
+                        var T = "";
+                        T = "<tr><td hidden><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate' class='Start'/></td><td><input type='date' name='Todate' class='End' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
+                        $("#tb_Holidays").append(T)
+                    }
                 }
-
 
             },
             error: function ()

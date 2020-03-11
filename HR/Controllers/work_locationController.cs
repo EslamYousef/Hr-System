@@ -47,6 +47,7 @@ namespace HR.Controllers
                 if (ModelState.IsValid)
                 {
                     work_location record = new work_location();
+                   
                     record.Name = model.Name;
                     record.Description = model.Description;
                     record.Code = model.Code;
@@ -60,7 +61,7 @@ namespace HR.Controllers
                     return View(model);
                 }
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
                 TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
