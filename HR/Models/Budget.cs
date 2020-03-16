@@ -10,7 +10,7 @@ namespace HR.Models
 {
     public class Budget
     {
-        public int ID { get; set; }
+        public int ID { get; set; } 
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [StringLength(50)]
         [Index(IsUnique = true)]
