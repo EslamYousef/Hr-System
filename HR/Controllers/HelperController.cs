@@ -652,7 +652,16 @@ namespace HR.Controllers
             return Json(emps);
 
         }
-
+        public JsonResult GetDataByIdAppendPublicHolidays(string id)
+        {
+            var ID = int.Parse(id);
+            dbcontext.Append_Public_Holidays_Dates.Where(a => a.Public_Holidays_DatesId == ID);
+            var AppendPublicHoliday = (from AppendHoilday in dbcontext.Append_Public_Holidays_Dates
+                                       join PublicHoliday in dbcontext.Public_Holidays_Dates on AppendHoilday.Public_Holidays_DatesId equals PublicHoliday.ID
+                                       where AppendHoilday.Public_Holidays_DatesId == ID select new {id= AppendHoilday.ID, fromdate = AppendHoilday.Fromdate , todate = AppendHoilday.Todate });
+                //dbcontext.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == ID);
+            return Json(AppendPublicHoliday);
+        }
         public JsonResult GetEmployeeRecodes(string id)
         {
             var ID = int.Parse(id);
@@ -989,6 +998,16 @@ namespace HR.Controllers
             var Public_Holiday_Events = dbcontext.Public_Holiday_Events.FirstOrDefault(m => m.ID == ID);
             return Json(Public_Holiday_Events);
         }
+
+     
+
+
+
+
+
+
+
+
 
     }
 

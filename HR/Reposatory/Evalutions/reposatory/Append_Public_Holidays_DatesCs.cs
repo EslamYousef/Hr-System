@@ -38,6 +38,7 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+
                 var obj = db.Append_Public_Holidays_Dates.Add(model);
                 db.SaveChanges();
                 return obj;
@@ -78,7 +79,7 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
-                var model = db.Append_Public_Holidays_Dates.Find(ID);
+                var model = db.Append_Public_Holidays_Dates.FirstOrDefault(m=>m.ID==ID);
                 return model;
             }
             catch (Exception)
