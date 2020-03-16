@@ -179,6 +179,9 @@ namespace HR.Models
         public DbSet<PerformanceEvaluationGroupEvaluationElements> PerformanceEvaluationGroupEvaluationElements { get; set; }
 
         public DbSet<Questions_Performance> Questions_Performance { get; set; }
+        public DbSet<PlaneSchedule> PlaneSchedule { get; set; }
+        public DbSet<EvaluationPlan> EvaluationPlan { get; set; }
+        
 
     }
 }
