@@ -1,0 +1,48 @@
+﻿@model HR.Models.Public_Holidays_Dates
+@using HR.Resource;
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<h3>@Personnel.message_delete</h3>
+@using (Html.BeginForm("Delete", "Public_Holidays_Dates", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+        <div>
+
+            @Html.HiddenFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+
+            @*@Html.HiddenFor(model => model.Public_Holidays_Dates.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            @Html.HiddenFor(model => model.Public_Holiday_Events.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })*@
+
+
+
+
+            @*@Html.HiddenFor(model => model.Employee_family_profile.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })*@
+
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("index","Public_Holidays_Dates")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                <input type="submit" value="@Personnel.Delete" class="btn btn-success" />
+
+            </div>
+        </div>
+    </div>
+}@section scripts{}

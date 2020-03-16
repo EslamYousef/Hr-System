@@ -372,8 +372,70 @@ namespace HR.Controllers
             }
         }
 
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var Public_Holidays_Dates = db.Public_Holidays_Dates.FirstOrDefault(m => m.ID == id);
+                var Append_Public_Holidays_Dates = db.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == Public_Holidays_Dates.ID);
+                var work_location = db.work_location.FirstOrDefault(m => m.Public_Holidays_DatesID == Public_Holidays_Dates.ID);
 
-    
+                var model = reposatoryPublicHolidaysDates.Find(id);
+                if (Public_Holidays_Dates != null)
+                { return View(Public_Holidays_Dates); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
+                    return RedirectToAction("index");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult Delete_method(int id)
+        {
+            try
+            {
+                var Public_Holidays_Dates = db.Public_Holidays_Dates.FirstOrDefault(m => m.ID == id);
+                var Append_Public_Holidays_Dates = db.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == Public_Holidays_Dates.ID);
+                //var flags = reposatoryPublicHolidaysDates.Remove(id);
+                for (int i = 0; i < Public_Holidays_Dates.work_location.Count; i++)
+                {
+                    var work_location = db.work_location.FirstOrDefault(m => m.Public_Holidays_DatesID == Public_Holidays_Dates.ID);
+                    work_location.Public_Holidays_DatesID = null;
+                    db.SaveChanges();
+                }
+               
+
+          
+                var flag = db.Public_Holidays_Dates.Remove(Public_Holidays_Dates);
+                
+                db.SaveChanges();
+
+                if (Append_Public_Holidays_Dates != null)
+                {
+                    db.Append_Public_Holidays_Dates.Remove(Append_Public_Holidays_Dates);
+                }
+               
+                db.SaveChanges();
+
+                if (flag != null) { TempData["Message"] = HR.Resource.pers_2.removesuccessfully; return RedirectToAction("index"); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.pers_2.Faild;
+                    return View("index");
+                }
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
 
     }
 }
