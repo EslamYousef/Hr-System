@@ -36,7 +36,7 @@ namespace HR.Controllers
               Code = stru + (modelll.LastOrDefault().ID + 1).ToString();
             }
 
-            ViewBag.Skill_group = dbcontext.Skill_group.ToList();
+            ViewBag.Skill_group = dbcontext.Skill_group.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
             if (id != null)
             {
                 var ID = int.Parse(id);
@@ -53,7 +53,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Skill_group = dbcontext.Skill_group.ToList();
+                ViewBag.Skill_group = dbcontext.Skill_group.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 if (ModelState.IsValid)
                 {
                     Skill record = new Skill();
@@ -88,7 +88,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Skill_group = dbcontext.Skill_group.ToList();
+                ViewBag.Skill_group = dbcontext.Skill_group.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var record = dbcontext.Skill.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -107,7 +107,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Skill_group = dbcontext.Skill_group.ToList();
+                ViewBag.Skill_group = dbcontext.Skill_group.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var record = dbcontext.Skill.FirstOrDefault(m => m.ID == model.ID);
                 record.Name = model.Name;
                 record.Description = model.Description;

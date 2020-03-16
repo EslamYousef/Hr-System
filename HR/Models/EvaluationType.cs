@@ -9,5 +9,6 @@ namespace HR.Models
     public class EvaluationType:BaseModel
     {
         public Periods Periods { get; set; }
+        public virtual List<EvaluationPlan> EvaluationPlan { get; set; }
     }
 }

@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Create"; Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+
 @using HR.Resource; 
 <script>
-
     function remove(thi) {
-         
+
         thi.parent().parent().remove();
         //thi.parent().parent().parent().remove(removed);
         var t =parseInt($("#number").val());
@@ -20,125 +20,140 @@
     }
     function generat3e()
     {
-         
+
         var slot_code = $("#code").val();
         var slot_desc = $("#name").val();
         var level = $("#level_setup").val();
         var org = $("#chart1").val();
         if (slot_code != "0" && slot_desc != "" && level != "" && org != "")
         {
+            var div5 = $("#add1").find("tr");
+            var num = (parseInt($("#number").val()) + 1) - (div5.length);
+            for (var i = 1; i < (num) ; i++)
+            {
+                var current_slot_ID = slot_code + "_" + i;
 
-            var num =(parseInt($("#number").val())+1);
-            for (var i = 1; i < (num); i++) {
-                 
-                var div = "<div><div class='form-group'>" +
-                              "<div class='col-md-3'>" +
-                                 "<input value='" + slot_code + "_" + i + "' class='form-control' name='slotcode__' readonly />" +
-                              "</div>" +
-                              "<div class='col-md-3'>" +
-                                 "<select id='drop1' name='job_level' class='form-control d1' />" +
-                              "</div>" +
-                              "<div class='col-md-3'>" +
-                                 "<select id='enum1' name='type' class='form-control e1' />" +
-                              "</div>" +
-                         "</div>"+
-                         "<div class='form-group'>" +
-                           "<div class='col-md-3'>" +
-                              "<input value='" + slot_desc + "'  class='form-control' readonly />" +
-                           "</div>" +
-                           "<div class='col-md-3'>" +
-                              "<select id='drop2' name='organization' class='form-control d2' />" +
-                           "</div>" +
-                           "<div class='col-md-3'>" +
-                              "<select id='enum2' name='status'  class='form-control e2' />" +
-                          "</div>" +
-                          "<input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' />"+
-                         "</div><hr/><hr/></div>"
-                ;
-                $("#add1").append(div);
-            }
-            var firstdrop = " ";
-            $.ajax
-                ({
-                    type: "post",
-                    url: "/Helper/ALL_job_level_setup",
-                    data: {  },
-                    success: function (result)
-                    {
-                        var ii = $("#level_setup").val();
-                         
-                        $.each(result, function (key, value) {
-                            if (value.ID == ii)
-                            {
-                                firstdrop += "<option value='" + value.ID + "' selected>" + "[  " + value.Code + " ]</option>";
-                            }
-                            else
-                            {
-                                firstdrop += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-                            }
-                        })
-                        $(".d1").html(firstdrop);
+                var div = $("#add1").find("tr");
 
+                var flag = 0;
+                for (var o = 0; o < div.length; o++) {
+                    var inputs = div[o].children;
+                    var first = inputs[0].children;
+                    debugger
+                    var f = first[0].value;
+                    if (f == current_slot_ID) {
+                        flag = 1;
+                        num = num + 1;
+                        break;
                     }
-                });
-            var seconddrop = " ";
-            $.ajax
-                ({
-                    type: "post",
-                    url: "/Helper/all_organization_chart",
-                    data: {},
-                    success: function (result) {
-                        var ii = $("#chart1").val();
-                         
-                        $.each(result, function (key, value) {
-                            if (value.ID == ii)
-                            {
-                                seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Code + " ]</option>";
-                            }
-                            else
-                            {
-                                seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-                            }
+                }
 
-                        })
-                        $(".d2").html(seconddrop);
+                if (flag == 0)
+                {
+                    var t =
+                    "<tr><td><input value='" + slot_code + "_" + i + "' class='form-control' name='slotcode__' readonly /></td>" +
+                    "<td><select id='drop1' name='job_level' class='form-control d1' /></td>" +
+                    "<td><select id='enum1' name='type' class='form-control e1' /></td>" +
+                    "<td><input value='" + slot_desc + "'  class='form-control' readonly /></td>" +
+                    "<td><select id='drop2' name='organization' class='form-control d2' /></td>" +
+                    "<td><select id='enum2' name='status'  class='form-control e2' /></td>" +
+                    "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
+                    "</tr>"
 
-                    }
-                });
-            var seconddrop1 = "<option value='" + 1 + "' >" + "[  " + "active" + " ]</option>";
-            var seconddrop2 = "<option value='" + 2 + "' >" + "[  " + "Inactive" + " ]</option>";
-            $(".e1").append(seconddrop1);
-            $(".e1").append(seconddrop2);
-            var seconddrop1 = "<option value='" + 1 + "' >" + "[  " + "created" + " ]</option>";
-            var seconddrop2 = "<option value='" + 2 + "' >" + "[  " + "Report_as_ready" + " ]</option>";
-            var seconddrop3 = "<option value='" + 3 + "' >" + "[  " + "Approved" + " ]</option>";
-            var seconddrop4 = "<option value='" + 4 + "' >" + "[  " + "Rejected" + " ]</option>";
-            var seconddrop5 = "<option value='" + 5 + "' >" + "[  " + "Canceled" + " ]</option>";
-            var seconddrop6 = "<option value='" + 6 + "' >" + "[  " + "Recervied" + " ]</option>";
-            var seconddrop7 = "<option value='" + 7 + "' >" + "[  " + "Closed" + " ]</option>";
-            $(".e2").append(seconddrop1);
-            $(".e2").append(seconddrop2);
-            $(".e2").append(seconddrop3);
-            $(".e2").append(seconddrop4);
-            $(".e2").append(seconddrop5);
-            $(".e2").append(seconddrop6);
-            $(".e2").append(seconddrop7);
-            if (num > 1) {
-                $("#generateenum").prop('disabled', true);
-                $("#number").readOnly = true;
 
-                $("#clearenum11").attr('disabled', false);
+
+
+
+
+
+
+
+                    $("#add1").append(t);
+                }
             }
-    }
-    else
+            if (flag == 0)
+            {
+                var firstdrop = " ";
+                $.ajax
+                    ({
+                        type: "post",
+                        url: "/Helper/ALL_job_level_setup",
+                        data: {},
+                        success: function (result) {
+                            var ii = $("#level_setup").val();
+
+                            $.each(result, function (key, value) {
+                                if (value.ID == ii) {
+                                    firstdrop += "<option value='" + value.ID + "' selected>" + "[  " + value.Code + " ]</option>";
+                                }
+                                else {
+                                    firstdrop += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                                }
+                            })
+                            $(".d1").html(firstdrop);
+
+                        }
+                    });
+                var seconddrop = " ";
+                $.ajax
+                    ({
+                        type: "post",
+                        url: "/Helper/all_organization_chart",
+                        data: {},
+                        success: function (result) {
+                            var ii = $("#chart1").val();
+
+                            $.each(result, function (key, value) {
+                                if (value.ID == ii) {
+                                    seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Code + " ]</option>";
+                                }
+                                else {
+                                    seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                                }
+
+                            })
+                            $(".d2").html(seconddrop);
+
+                        }
+                    });
+                var seconddrop1 = "<option value='" + 1 + "' >" + "[  " + "active" + " ]</option>";
+                var seconddrop2 = "<option value='" + 2 + "' >" + "[  " + "Inactive" + " ]</option>";
+                $(".e1").append(seconddrop1);
+                $(".e1").append(seconddrop2);
+                var seconddrop1 = "<option value='" + 1 + "' >" + "[  " + "created" + " ]</option>";
+                var seconddrop2 = "<option value='" + 2 + "' >" + "[  " + "Report_as_ready" + " ]</option>";
+                var seconddrop3 = "<option value='" + 3 + "' >" + "[  " + "Approved" + " ]</option>";
+                var seconddrop4 = "<option value='" + 4 + "' >" + "[  " + "Rejected" + " ]</option>";
+                var seconddrop5 = "<option value='" + 5 + "' >" + "[  " + "Canceled" + " ]</option>";
+                var seconddrop6 = "<option value='" + 6 + "' >" + "[  " + "Recervied" + " ]</option>";
+                var seconddrop7 = "<option value='" + 7 + "' >" + "[  " + "Closed" + " ]</option>";
+                $(".e2").append(seconddrop1);
+                $(".e2").append(seconddrop2);
+                $(".e2").append(seconddrop3);
+                $(".e2").append(seconddrop4);
+                $(".e2").append(seconddrop5);
+                $(".e2").append(seconddrop6);
+                $(".e2").append(seconddrop7);
+                if (num > 1) {
+                    //  $("#generateenum").prop('disabled', true);
+                    $("#number").readOnly = true;
+
+                    $("#clearenum11").attr('disabled', false);
+                }
+            }
+           
+        }
+
+        else
         {
             alert(" all input must enter at first ");
+        }
+            
+
     }
-     
-}
     function level()
     {
-         
+
 
         var id = $("#level_setup").val();
         $.ajax({
@@ -146,35 +161,35 @@
             url: "/Helper/job_level_setup",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#levelname").val(result.Name);
             }
         });
     }
     function p11arent()
     {
-         
+
         var id = $("#parent").val();
         $.ajax({
             type: "post",
             url: "/Helper/job_title_card",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#parentname").val(result.name);
             }
         });
     }
     function nationality11()
     {
-         
+
         var id = $("#nationality").val();
         $.ajax({
             type: "post",
             url: "/Helper/nationality",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#nationalityname").val(result.Name);
             }
         });
@@ -195,14 +210,14 @@
     }
     function chart11()
     {
-         
+
         var id = $("#chart1").val();
         $.ajax({
             type: "post",
             url: "/job_title_card/getchart",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#chartname").val(result.unit_Description);
 
             }
@@ -210,16 +225,17 @@
     }
     function clearnum()
     {
-         
+
             $("#add1").empty();
             $("#generateenum").attr('disabled', false);
             $("#number").readOnly = false;
             $("#clearenum11").prop('disabled', true);
+            $("#number").val(0);
         }
     $("#clearenum11").prop('disabled', true);
 
 
-         
+
         var num = (parseInt($("#number").val()));
         var id = $("#parent").val();
         $.ajax({
@@ -227,7 +243,7 @@
             url: "/Helper/job_title_card",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#parentname").val(result.name);
             }
         });
@@ -247,7 +263,7 @@
             url: "/Helper/nationality",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#nationalityname").val(result.Name);
             }
         });
@@ -267,7 +283,7 @@
             url: "/Helper/job_level_setup",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#levelname").val(result.Name);
             }
         });
@@ -297,7 +313,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                            
-                            <label class = "control-label col-md-2">
+                            <label style="color:red" class = "control-label col-md-2">
                                 @organ.code
                             </label>
                             <div class="col-md-4">
@@ -305,17 +321,23 @@
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
 
                             </div>
+                            <div class="col-md-4">
+                                <button type="submit" style="width:100%" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@organ.jobtitlelinkedtomultisubclasses</button>
+                            </div>
 
                         </div>
                         <div class="form-group">
                           
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 @organ.name
                             </label>
                              <div class="col-md-4">
                                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
                                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
 
+                            </div>
+                            <div class="col-md-4" >
+                                <button type="submit" style="width:100%" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">@organ.jobtitledetails</button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -328,6 +350,14 @@
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
                             </div>
+                          
+                                <div class="col-md-2">
+                                    <button type="submit" id="btnSave" style="width:100%" class="btn btn-success" name="Command" value="Save">@organ.create</button>
+                                </div>
+                                    <div class="col-md-2">
+                                        <a href="@Url.Action("index", "job_title_card")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                    </div>
+                           
                         </div>
                         <div class="col-md-12">
                             <ul class="nav nav-tabs bordered">
@@ -350,38 +380,27 @@
                                 <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
+                                        <label style="color:red" class="control-label col-md-2">
                                             <span>@organ.JobLevelSetup</span>
                                         </label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.joblevelsetupID, new SelectList(ViewBag.level_Set_up, "ID", "Code"), organ.JobLevelSetup, new { @class = "select2", @onchange = "level()", @id = "level_setup" })
                                             @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
-                                            <input type="text" value="" class="form-control" id="levelname" disabled />
+                                          
                                         </div>
-                                        <div class="col-md-2">
-                                        </div>
-                                        <div class="col-md-3" style="color:black">
-                                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@organ.jobtitlelinkedtomultisubclasses</button>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="form-group">
-                                       <label class="control-label col-md-2">
+                                      
+                                        <label style="color:red" class="control-label col-md-1">
                                             <span>@organ.working_system</span>
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(m => m.working_system, new { @class = "select2"})
+                                            @Html.EnumDropDownListFor(m => m.working_system, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-md-2">
-                                        </div>
-
-                                        <div class="col-md-4" style="color:black">
-                                            <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">@organ.jobtitledetails</button>
-                                        </div>
+                                       
                                     </div>
+                                   
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
+                                        <label style="color:red" class="control-label col-md-2">
                                             <span>@organ.organizationchart</span>
                                         </label>
 
@@ -389,7 +408,14 @@
                                             @Html.DropDownListFor(m => m.Organization_unit_codeID, new SelectList(ViewBag.chart, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "chart11()", @id = "chart1" })
                                             @Html.ValidationMessageFor(model => model.Organization_unit_codeID, "", new { @class = "text-danger" })
                                          
-                                               <input type="text" value="" class="form-control" id="chartname" disabled />
+                                            
+                                        </div>
+                                        <label style="color:red" class="control-label col-md-1">
+                                            <span>@Basic.jobtitle1</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(m => m.statuss, new { @class = "select2", @id = "job_system" })
+                                            @Html.ValidationMessageFor(model => model.statuss, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -399,47 +425,47 @@
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.parent_job, new SelectList(ViewBag.parent_jobbb, "ID", "Code"),organ.parentjob, new { @class = "select2", @onchange = "p11arent()", @id = "parent" })
                                             @Html.ValidationMessageFor(model => model.parent_job, "", new { @class = "text-danger" })
-                                            <input type="text" value="" class="form-control" id="parentname" disabled />
+                                       
                                         </div>
-                                        <label class="control-label col-md-2">
+                                        <label class="control-label col-md-1">
                                             <span>@organ.nationality</span>
                                         </label>
 
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.nationalityID, new SelectList(ViewBag.nationality, "ID", "Code"), organ.nationality, new { @class = "select2", @onchange = "nationality11()", @id = "nationality" })
                                             @Html.ValidationMessageFor(model => model.nationalityID, "", new { @class = "text-danger" })
-                                            <input type="text" value="" class="form-control" id="nationalityname" disabled />
+                                          
                                         </div>
 
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
+                                        <label style="color:red" class="control-label col-md-2">
                                             <span> @organ.Defaultjobtitlesubclass</span>
                                         </label>
 
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Default_job_title_sub_classID, new SelectList(ViewBag.subclass, "ID", "Code"), organ.Defaultjobtitlesubclass, new { @class = "select2", @onchange = "defaultt11()", @id = "defaultt" })
                                             @Html.ValidationMessageFor(model => model.Default_job_title_sub_classID, "", new { @class = "text-danger" })
-                                            <input type="text" value="" class="form-control" id="defaultname" disabled />
+                                            
                                         </div>
                                       
                                         <label class="control-label col-md-1">
                                             <span>@organ.Fromage </span>
                                         </label>
 
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             @Html.EditorFor(model => model.from_age, new { htmlAttributes = new { @min = "1", @class = "form-control" } })
                                         </div>
                                         <label class="control-label col-md-1">
                                             <span> @organ.Toage </span>
                                         </label>   
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             @Html.EditorFor(model => model.to_age, new { htmlAttributes = new {  @min = "1", @class = "form-control" } })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            <span>@organ.parment</span>
+                                        <label style="color:red" class="control-label col-md-2">
+                                            <span>@Basic.jobtitle</span>
                                         </label>
                                         <div class="col-md-4">
                                             @Html.EnumDropDownListFor(m => m.parment, new { @class = "select2", @id = "job_system" })
@@ -447,7 +473,7 @@
                                         </div>
 
 
-                                        <label class="control-label col-md-2">
+                                        <label style="color:red" class="control-label col-md-1">
                                             <span>@organ.validity</span>
                                         </label>
                                         <div class="col-md-4">
@@ -456,33 +482,62 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
+                                        <label style="color:red" class="control-label col-md-2">
                                             <span>@organ.num_slots</span>
                                         </label>
                                         <div class="col-md-4">
                                             @Html.EditorFor(model => model.num_slots, new { htmlAttributes = new { type="number", id = "number", min = "0", @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.num_slots, "", new { @class = "text-danger" })
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                         </div>
-                                        <input type="button" value=@organ.generteslot onclick="generat3e()" class="col-md-2 btn btn-success" id="generateenum"/>
-                                        <input type="button" value=@organ.clear onclick="clearnum()"  class="col-md-1 btn btn-success" style="margin-right:10px" id="clearenum11" />
+                                  <div class="col-md-2">
+                                     
+                                       <input type="button" style="width:100%" value=@organ.generteslot onclick="generat3e()" class="btn btn-success" id="generateenum" />
+
+                                      
+                                       </div>
+                                        <div class="col-md-2">
+                                            <input type="button"  value=@organ.clear onclick="clearnum()" class="btn btn-success" style="width:100%;margin-right:10px" id="clearenum11" />
+
+                                        </div>   
+                                     </div>
+                                    <div class="form-group">
+                                        <label style="color:red" class="control-label col-md-2">
+                                            <span>@organ.gender</span>
+                                        </label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(m => m.gender, new { @class = "select2", @id = "job_system" })
+                                            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                                        </div>
+                                        <label   class="control-label col-md-1">
+                                        
+                                            <span>
+                                                shift
+                                            </span>
+                                        </label>
+                                        <div  class="col-md-4">
+                                            <input disabled class="form-control"/>
+                                            @*@Html.EnumDropDownListFor(m => m.gender, new { vaule="", @disabled = "disabled", @class = "select2", @id = "job_system" })*@
+                                            @*@Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })*@
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">
                                             <span>@organ.job_Summery</span>
                                         </label>
                                         <div class="col-md-10">
-                                            @Html.TextAreaFor(model => model.job_Summery, 6, 500, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.TextAreaFor(model => model.job_Summery, 6, 67, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.job_Summery, "", new { @class = "text-danger" })
                                         </div>
+                                        
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">
                                             <span>@organ.Job_alt_summery</span>
                                         </label>
                                         <div class="col-md-10">
-                                            @Html.TextAreaFor(model => model.Job_alt_summery, 6, 500, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.TextAreaFor(model => model.Job_alt_summery, 6, 67, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Job_alt_summery, "", new { @class = "text-danger" })
                                           
                                         </div>
@@ -491,9 +546,36 @@
                                 </div>
                                 <div class="tab-pane" id="profile">
 
-                                    
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <label class="control-label col-md-3">@Basic.code </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">@Basic.joblevel</label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">@Basic.slottyupe</label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">@organ.description </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">@Basic.unit</label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-3">@organ.status</label>
+                                                </th>
+                                            <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="add1">
+                                         
+                                        </tbody>
+                                    </table>
                                        
-                                        <div id="add1"></div>
+                                      
                                    
 
                                 </div>
@@ -501,12 +583,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.create</button>
-                                <a href="@Url.Action("index", "job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                            </div>
-                        </div>
+                      
                     </div>
                 }
             </div>
@@ -514,3 +591,8 @@
     </div>
 </div>
 @section scripts{}
+
+<script>
+
+    $("#number").val(0);
+</script>

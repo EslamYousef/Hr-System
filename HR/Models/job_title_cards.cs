@@ -36,7 +36,7 @@ namespace HR.Models
         public string joblevelsetupID { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Default_job_title_sub_classID { get; set; }
-        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+       
         public string nationalityID { get; set; }
         //public virtual List<Organization_Unit_Type> Organization_Unit_Type { get; set; }
         //public List<string> Organization_Unit_TypeID { get; set; }
@@ -66,6 +66,10 @@ namespace HR.Models
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Organization unit code")]
         public string Organization_unit_codeID { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        public check_status statuss { get; set; }
+      
 
     }
 }

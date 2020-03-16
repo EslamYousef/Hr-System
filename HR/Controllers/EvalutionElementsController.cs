@@ -77,23 +77,23 @@ namespace HR.Controllers
                     {
                         if (model.with_competencies)
                         {
-                            var compID = form["ID"].Split(',');
-                            var compDegree = form["degree"].Split(',');
-                            for (var i = 0; i < compID.Count(); i++)
-                            {
-                                if (compID[i] != "")
+                                var compID = form["ID"].Split(',');
+                                var compDegree = form["degree"].Split(',');
+                                for (var i = 0; i < compID.Count(); i++)
                                 {
-                                    var comp = reposatorycomp.Find(int.Parse(compID[i]));
-                                    var elementAndComp = new Evalution_and_competencies
+                                    if (compID[i] != "")
                                     {
-                                        Default_degree = double.Parse(compDegree[i]),
-                                        EvaluationElementCompeteniesID = comp.ID,
-                                        EvaluationElementsID = record.ID,
-                                    };
-                                    var eva_comp = reposatoryelement.addavandcomp(elementAndComp);
-                                }
+                                        var comp = reposatorycomp.Find(int.Parse(compID[i]));
+                                        var elementAndComp = new Evalution_and_competencies
+                                        {
+                                            Default_degree = double.Parse(compDegree[i]),
+                                            EvaluationElementCompeteniesID = comp.ID,
+                                            EvaluationElementsID = record.ID,
+                                        };
+                                        var eva_comp = reposatoryelement.addavandcomp(elementAndComp);
+                                    }
 
-                            }
+                                }
                         }
                       
                         TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;
@@ -121,7 +121,7 @@ namespace HR.Controllers
             try
             {
                 ViewBag.competitions = reposatorycomp.GetAll().Select(m => new { Code = m.Code + "-->" + m.Name, ID = m.ID });
-                var model = reposatoryelement.Find(id);
+                var model = reposatoryelement.Find2(id);
                 if (model != null) { return View(model); }
                 else
                 {
@@ -140,6 +140,7 @@ namespace HR.Controllers
             try
             {
                 ViewBag.competitions = reposatorycomp.GetAll().Select(m => new { Code = m.Code + "-->" + m.Name, ID = m.ID });
+                model.Evalution_and_competencies = reposatoryelement.Find2(model.ID).Evalution_and_competencies;
                 if (ModelState.IsValid)
                 {
                     var flag = reposatoryelement.Editone(form,model);

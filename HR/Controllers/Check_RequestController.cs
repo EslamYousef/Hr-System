@@ -135,6 +135,10 @@ namespace HR.Controllers
                     check_request_record.Checktype = dbcontext.Checktype.FirstOrDefault(m => m.ID == ID_);
                     check_request_record.check_request_change_statusID = check_request_change_status.ID.ToString();
                     check_request_record.check_request_change_status = check_request_change_status;
+                    check_request_record.Sourcedocumentdescription = model.check_Request.Sourcedocumentdescription;
+                    check_request_record.Sourcedocumentnotes = model.check_Request.Sourcedocumentnotes;
+                    check_request_record.Sourcedocumentreference = model.check_Request.Sourcedocumentreference;
+
                     dbcontext.check_Request.Add(check_request_record);
                     dbcontext.SaveChanges();
                     return RedirectToAction("index");
@@ -147,7 +151,7 @@ namespace HR.Controllers
             }
             catch (Exception e)
             {
-                return View();
+                return View(model);
             }
            
         }
@@ -222,7 +226,10 @@ namespace HR.Controllers
                     check_request_record.Check_Due_date = model.check_Request.Check_Due_date;
                     check_request_record.Description = model.check_Request.Description;
                     check_request_record.Comment = model.check_Request.Comment;
-                    check_request_record.Request_number = model.check_Request.Request_number;
+                check_request_record.Sourcedocumentdescription = model.check_Request.Sourcedocumentdescription;
+                check_request_record.Sourcedocumentnotes = model.check_Request.Sourcedocumentnotes;
+                check_request_record.Sourcedocumentreference = model.check_Request.Sourcedocumentreference;
+                check_request_record.Request_number = model.check_Request.Request_number;
                     var ID_ = int.Parse(model.check_Request.ChecktypeID);
                     check_request_record.ChecktypeID = model.check_Request.ChecktypeID;
                     check_request_record.Checktype = dbcontext.Checktype.FirstOrDefault(m => m.ID == ID_);

@@ -113,5 +113,18 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return false;
             }
         }
+        public EvaluationType Find2(int ID)
+        {
+            try
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                var model = context.EvaluationType.Find(ID);
+                return model;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

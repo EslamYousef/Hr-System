@@ -5,13 +5,53 @@
 @model IEnumerable<HR.Models.Organization_Chart>
 @using System.Web.UI.WebControls
 @using HR.Models;
+
 @using HR.Resource;
 
 
 <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
-<script src="~/Scripts/jsTree3/jstree.min.js"></script>
-<script>
-         
+
+<div class="form-group">
+
+    <link href="~/Content/print.css" rel="stylesheet" media="print" />
+
+
+    <p>
+        <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue" style="color:white;background-color:forestgreen" value=@organ.printalltree />
+     
+
+    </p>
+    <div class="form-body">
+        <div id="jstree" style="margin-left:200px; text-align: left;direction:ltr" class="b">
+            @(Html.TreeView(Model)
+                          .EmptyContent("Root")
+                          .Children(m => m.Childs)
+                          .HtmlAttributes(new { id = "tree" })
+                          .ChildrenHtmlAttributes(new { @class = "subItem" })
+                          .ItemText(m => m.unit_Description)
+                           .ItemTemplate(
+            @<a href="@Url.Action("special_organization_view_related_to_jobs", "OrganizationInquiry", new{id=@item.ID})">
+                @item.unit_Description
+
+            </a>
+        )
+
+
+
+
+            )
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jsTree3/jstree.min.js">
+
+    </script>
+    <script>
+
         $("#jstree").jstree("open_all");
         $(function () {
             var selectedData;
@@ -37,40 +77,8 @@
                 "plugins": ["dnd", "state", "types", "sort", "checkbox"]
             });
         });
-</script>
-
-<div class="form-group">
-
-    <link href="~/Content/print.css" rel="stylesheet" media="print" />
-
-    <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
-    <p>
-        <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue" style="color:white;background-color:forestgreen" value=@organ.printalltree />
-    </p>
-    <div class="form-body">
-        <div id="jstree" style="margin-left:200px; text-align: left;direction:ltr" class="b">
-            @(Html.TreeView(Model)
-                          .EmptyContent("Root")
-                          .Children(m => m.Childs)
-                          .HtmlAttributes(new { id = "tree" })
-                          .ChildrenHtmlAttributes(new { @class = "subItem" })
-                          .ItemText(m => m.unit_Description)
-                           .ItemTemplate(
-            @<a href="@Url.Action("special_organization_view_related_to_jobs", "OrganizationInquiry", new{id=@item.ID})">
-                @item.unit_Description
-            
-            </a>
-        )
-
-
-
-                          
-            )
-        </div>
-    </div>
-</div>
-
-@section scripts{
-
-  
+    </script>
 }
+
+
+

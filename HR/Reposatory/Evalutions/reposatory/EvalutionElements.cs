@@ -112,6 +112,19 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return null;
             }
         }
+        public EvaluationElements Find2(int ID)
+        {
+            try
+            {
+               
+                var model = context.EvaluationElements.Find(ID);
+                return model;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public bool Remove(int id)
         {
             try

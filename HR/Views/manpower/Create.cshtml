@@ -71,7 +71,7 @@
                             <div class="col-md-2"></div>
                             <div style="margin-top:25px" class="form-group">
                                 <div class="col-md-4">
-                                    <input id="btnSave" style="width:150px" class="btn btn-success"  onclick="ch()" value=@organ.create/>
+                                    <input id="btnSave" style="width:150px" class="btn btn-success"  onclick="ch()" value=@organ.create />
                                     <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                                 </div>
                             </div>
@@ -98,9 +98,47 @@
                        
                         <div class="tab-content">
                            
-                            <div id="Budgetdetails">
-                               
-                            </div>
+
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th hidden>
+
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@Basic.code </label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.item</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.Currentjobs</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.newjobs</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.quarter1</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.quarter2</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.quarter3</label>
+                                        </th>
+                                        <th>
+                                            <label class="control-label col-md-3">@organ.quarter4</label>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="Budgetdetails">
+
+                                </tbody>
+                            </table>
+
+                          
                         </div>
                     </div>
 
@@ -130,7 +168,7 @@
 
 
         function full_level() {
-             
+
             var id = $("#employeeId").val();
             if (id == "") {
                 $("#employee181").html("");
@@ -144,11 +182,11 @@
                 url: "/Helper/Getlevel",
                 data: { "id": id },
                 success: function (result) {
-                     
+
                     var finalresult = "";
                     finalresult = "<option selected value='0' > Choose cadre </option>";
                     $.each(result, function (key, value) {
-                         
+
                         finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
 
                     });
@@ -156,41 +194,84 @@
                     $("#employee181").select2("val", "0")
                 },
                 error: function () {
-                     
+
                     $("#employee181").html(" ");
                     //$("#codeid").val("");
                 }
             });
         }
         function add() {
-
-             
+            debugger;
             var employee11 = $("#employee181").val();
             var it = $("#manpoweritems");
-            if (it.length == 1) {
+                if (it.length == 1) {
 
-                var pp = $("#Budgetdetails").find("div");
-
-                var flag = 0;
-                for (var o = 0; o < pp.length; o++) {
-                    var inputs = pp[o].children;
-                    var first = parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value) + parseInt(inputs[8].value);
-                    var second = parseInt(inputs[4].value) + parseInt(inputs[3].value);
-                    if (second < first) {
-                        flag = 1;
-                        break;
+                    var pp = $("#Budgetdetails").find("tr");
+                    var flag = 0;
+                    for (var o = 0; o < pp.length; o++) {
+                        var inputs = pp[o].children;
+                        var first = parseInt(inputs[5].children[0].value) + parseInt(inputs[6].children[0].value) + parseInt(inputs[7].children[0].value) + parseInt(inputs[8].children[0].value);
+                        var second = parseInt(inputs[4].children[0].value) + parseInt(inputs[3].children[0].value);
+                        if (second < first) {
+                            flag = 1;
+                            break;
+                        }
                     }
-                }
-                if (flag == 1) {
+                    if (flag == 1) {
 
-                    alert("sumtion greater than total !");
+                        alert("sumtion greater than total !");
+                    }
+                    else {
+                        if (employee11 == "0" || employee11 == "" || employee11 == " ") {
+
+                            alter("you must choose organization unit then cadre")
+                        }
+                        else {
+                            var id = $("#employee181").val();
+                            $.ajax({
+                                type: "post",
+                                url: "/Helper/get_num_of_free_jobs",
+                                data: { "id": id },
+                                success: function (result) {
+
+                                    var tr = "<tr id='manpoweritems'><td hidden><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' /></td>" +
+                      "<td><input  class='form-control'   name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' /></td>" +
+                      "<td><input  class='form-control'   name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' /></td>" +
+                      "<td><input  class='form-control'  name='count'   value='" + result.count + "' readonly='readonly' /></td>" +
+                      "<td><input  class='form-control'  name='new' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                      "<td><input  class='form-control'  name='q1' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                      "<td><input  class='form-control'  name='q2' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                      "<td><input  class='form-control'  name='q3' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                      "<td><input  class='form-control' name='q4' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                      "<td><input type='button'    value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
+                      "</tr>"
+
+
+
+
+                                    $("#Budgetdetails").append(tr);
+                                    $("#employee181").select2("val", "0");
+
+                                },
+                                error: function () {
+                                    alter("some error");
+                                }
+
+                            });
+
+
+                        }
+                    }
+
                 }
                 else {
+                    debugger
                     if (employee11 == "0" || employee11 == "" || employee11 == " ") {
 
                         alter("you must choose organization unit then cadre")
                     }
                     else {
+                        debugger
                         var id = $("#employee181").val();
                         $.ajax({
                             type: "post",
@@ -198,19 +279,18 @@
                             data: { "id": id },
                             success: function (result) {
 
-
-                                 
-                                var tr =
-                            "<div class ='form-control' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
-                           "<input  class='col-md-2' style='margin-bottom: 1em;margin-left:4px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
-                           "<input  class='col-md-2' style='margin-bottom: 1em;margin-left:4px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
-                           "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='count'   value='" + result.count + "' readonly='readonly' />" +
-                           "<input   class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='new' type='number'  min='0'  value='" + 0 + "'  />" +
-                          "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q1' type='number'  min='0'  value='" + 0 + "'  />" +
-                          "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q2' type='number'  min='0'  value='" + 0 + "'  />" +
-                          "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q3' type='number'  min='0'value='" + 0 + "'  />" +
-                          "<input   class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q4' type='number'  min='0'  value='" + 0 + "'  />" +
-                          "<input type='button'   style='margin-left:1px' value=@organ.remove class='col-md-1 remove btn btn-danger' onclick='remove($(this))' /></div>";
+                                debugger
+                                var tr = "<tr id='manpoweritems'><td hidden><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' /></td>" +
+                     "<td><input  class='form-control' name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' /></td>" +
+                     "<td><input  class='form-control' name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' /></td>" +
+                     "<td><input  class='form-control' name='count'   value='" + result.count + "' readonly='readonly' /></td>" +
+                     "<td><input  class='form-control' name='new' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                     "<td><input  class='form-control' name='q1' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                     "<td><input  class='form-control' name='q2' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                     "<td><input  class='form-control' name='q3' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                     "<td><input  class='form-control' name='q4' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                     "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
+                     "</tr>"
                                 $("#Budgetdetails").append(tr);
                                 $("#employee181").select2("val", "0");
 
@@ -225,65 +305,28 @@
                     }
                 }
 
-            }
-            else {
-                if (employee11 == "0" || employee11 == "" || employee11 == " ") {
 
-                    alter("you must choose organization unit then cadre")
-                }
-                else {
-                    var id = $("#employee181").val();
-                    $.ajax({
-                        type: "post",
-                        url: "/Helper/get_num_of_free_jobs",
-                        data: { "id": id },
-                        success: function (result) {
-
-
-                             
-                            var tr =
-                      "<div class ='form-control' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' />" +
-                      "<input  class='col-md-2' style='margin-bottom: 1em;margin-left:4px'  name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' />" +
-                      "<input  class='col-md-2' style='margin-bottom: 1em;margin-left:4px'  name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' />" +
-                      "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='count'   value='" + result.count + "' readonly='readonly' />" +
-                      "<input   class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='new' type='number'  min='0'  value='" + 0 + "'  />" +
-                      "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q1' type='number'  min='0'  value='" + 0 + "'  />" +
-                      "<input   class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q2' type='number'  min='0'  value='" + 0 + "'  />" +
-                      "<input  class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q3' type='number'  min='0'value='" + 0 + "'  />" +
-                      "<input   class='col-md-1' style='margin-bottom: 1em;margin-left:4px' name='q4' type='number'  min='0'  value='" + 0 + "'  />" +
-                      "<input type='button'  style='margin-left:1px' value='Cancel' class='col-md-1 remove btn btn-danger' onclick='remove($(this))' /></div>";
-
-                            $("#Budgetdetails").append(tr);
-                            $("#employee181").select2("val", "0");
-
-                        },
-                        error: function () {
-                            alter("some error");
-                        }
-
-                    });
-
-
-                }
-            }
-
-
+            
         }
-        function remove(thi) {
-             
-            thi.parent().remove();
+
+    function remove(thi)
+            {
+
+
+        thi.parent().parent().remove();
         }
-        function ch() {
-             
+        function ch()
+        {
+            debugger
             var it = $("#manpoweritems");
             if (it.length == 1) {
 
-                var pp = $("#Budgetdetails").find("div");
+                var pp = $("#Budgetdetails").find("tr");
                 var flag = 0;
                 for (var o = 0; o < pp.length; o++) {
                     var inputs = pp[o].children;
-                    var first = parseInt(inputs[5].value) + parseInt(inputs[6].value) + parseInt(inputs[7].value) + parseInt(inputs[8].value);
-                    var second = parseInt(inputs[4].value) + parseInt(inputs[3].value);
+                    var first = parseInt(inputs[5].children[0].value) + parseInt(inputs[6].children[0].value) + parseInt(inputs[7].children[0].value) + parseInt(inputs[8].children[0].value);
+                    var second = parseInt(inputs[4].children[0].value) + parseInt(inputs[3].children[0].value);
                     if (second < first) {
                         flag = 1;
                         break;
@@ -298,7 +341,7 @@
             }
 
         }
-   
+
 </script>
 
 <style>

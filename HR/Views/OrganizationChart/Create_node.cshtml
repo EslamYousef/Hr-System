@@ -214,14 +214,27 @@
                                 @Html.EditorFor(model => model.number_of_direct_positions, new { htmlAttributes = new { type = "number",min="0", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.number_of_direct_positions, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label col-md-2">
                                 @organ.Refrencenumber
                             </label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.refrence_number, new { htmlAttributes = new {type="number", @class = "form-control" } })
+                                @Html.EditorFor(model => model.refrence_number, new { htmlAttributes = new { type = "number", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.refrence_number, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <label class="control-label col-md-2">
+                                cost center
+                            </label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" disabled />
+                            </div>
+                            <label class="control-label col-md-2">
+                                shift code
+                            </label>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" disabled />
                             </div>
                         </div>
                         <div class="form-group">
@@ -232,7 +245,19 @@
                                 @Html.EditorFor(model => model.unit_mail, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.unit_mail, "", new { @class = "text-danger" })
                             </div>
+                            <label class="control-label col-md-2">
+                                @organ.unitmanger
+                            </label>
+
+
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.empl, "ID", "Code"), pers_2.employee, new { @class = "select2", @id = "Lo" })
+                                @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
+                              
+                            </div>
+                           
                         </div>
+
 
                         @Html.HiddenFor(m=>m.master_node ,new { id = "mas" })
 

@@ -27,14 +27,15 @@ namespace HR.Controllers
             {
                 ////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////
-                ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
-                ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "->" + m.name, ID = m.ID });
+                ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "->" + m.unit_Description, ID = m.ID });
                 var model = new job_title_cards();
                 model.check_status = Models.Infra.check_status.created;
-                model.gender = Models.Infra.gender.Both;
+                model.gender = Models.Infra.gender.male;
+                model.statuss = check_status.created;
                 model.validity = Models.Infra.validity.valid;
                 model.working_system = Models.Infra.working_system.Day;
                 model.parment = Models.Infra.parment.permanent;
@@ -74,11 +75,11 @@ namespace HR.Controllers
             {
                 ////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////
-                ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
-                ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name , ID = m.ID });
+                ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "->" + m.name , ID = m.ID });
+                ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "->" + m.Name , ID = m.ID });
+                ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "->" + m.Name , ID = m.ID });
+                ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "->" + m.unit_Description , ID = m.ID });
                 ////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////
                 if (ModelState.IsValid)
@@ -97,6 +98,8 @@ namespace HR.Controllers
                     record.Job_alt_summery = model.Job_alt_summery;
                     record.from_age = model.from_age;
                     record.to_age = model.to_age;
+                    record.gender = model.gender;
+                    record.statuss = model.statuss;
                     if (model.from_age > model.to_age)
                     {
                         TempData["Message"] = HR.Resource.organ.Fromeagebiggerthantoage;
@@ -124,9 +127,18 @@ namespace HR.Controllers
                     record.job_level_setup = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
                     ///////////////////
                     ///////////////////
-                    var IDD = int.Parse(model.nationalityID);
-                    record.nationalityID = model.nationalityID;
-                    record.Nationality = dbcontext.Nationality.FirstOrDefault(m => m.ID == IDD);
+                    if (model.nationalityID != null)
+                    {
+                        var IDD = int.Parse(model.nationalityID);
+                        record.nationalityID = model.nationalityID;
+                        record.Nationality = dbcontext.Nationality.FirstOrDefault(m => m.ID == IDD);
+                    }
+                    else
+                    {
+                        record.nationalityID = null;
+                        record.Nationality = null;
+                    }
+                   
 
                     //////////////////
                     //var jobdetails = new Job_Details();
@@ -248,11 +260,11 @@ namespace HR.Controllers
             {
                 ////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////
-                ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
-                ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "->" + m.name, ID = m.ID });
+                ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "->" + m.unit_Description, ID = m.ID });
                 var li = new List<string>();
                 li.Add("select");
                 ViewBag.act = li;
@@ -273,20 +285,22 @@ namespace HR.Controllers
         public ActionResult edit(FormCollection form, job_title_cards model, string command)
         {
             ////////////////////////////////////////////////////////////////////////
-            ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
-            ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-            ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+            ViewBag.level_Set_up = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+            ViewBag.parent_jobbb = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "->" + m.name, ID = m.ID });
+            ViewBag.subclass = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+            ViewBag.nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+            ViewBag.chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "->" + m.unit_Description, ID = m.ID });
             ViewBag.act = new slot_type();
             ////////////////////////////////////////////////////////////////////////
             ////////////////////////////////////////////////////////////////////////
             try
             {
+              
                 var old_d = form["ID"].Split(char.Parse(","));
                 ViewBag.num = model.num_slots;
                 var record = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == model.ID);
-                record.Code = model.Code;
+                var n_s = record.num_slots;
+              record.Code = model.Code;
                 record.name = model.name;
                 record.Description = model.Description;
                 record.gender = model.gender;
@@ -299,6 +313,8 @@ namespace HR.Controllers
                 record.Job_alt_summery = model.Job_alt_summery;
                 record.from_age = model.from_age;
                 record.to_age = model.to_age;
+                record.gender = model.gender;
+                record.statuss = model.statuss;
                 if (model.from_age > model.to_age)
                 {
                     TempData["Message"] = HR.Resource.organ.Fromeagebiggerthantoage;
@@ -363,9 +379,19 @@ namespace HR.Controllers
                 record.job_level_setup = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
                 ///////////////////
                 ///////////////////
-                var IDD = int.Parse(model.nationalityID);
-                record.nationalityID = model.nationalityID;
-                record.Nationality = dbcontext.Nationality.FirstOrDefault(m => m.ID == IDD);
+              
+                if (model.nationalityID != null)
+                {
+                    var IDD = int.Parse(model.nationalityID);
+                    record.nationalityID = model.nationalityID;
+                    record.Nationality = dbcontext.Nationality.FirstOrDefault(m => m.ID == IDD);
+                }
+                else
+                {
+                    record.nationalityID = null;
+                    record.Nationality = null;
+                }
+
                 ///////////////////
                 /////////////////////
                 record.Organization_unit_codeID = model.Organization_unit_codeID;
@@ -956,6 +982,12 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var m = dbcontext.Organization_Chart.FirstOrDefault(mM=>mM.ID==ID);
             return Json(m);
+        }
+        public JsonResult get_num_slots(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == id).Count();
+            return Json(slots);
         }
     }
    

@@ -340,6 +340,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string amount {
+            get {
+                return ResourceManager.GetString("amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount native.
         /// </summary>
         public static string amountnative {
@@ -817,6 +826,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Jobs.
+        /// </summary>
+        public static string Currentjobs {
+            get {
+                return ResourceManager.GetString("Currentjobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dedicated allowence.
         /// </summary>
         public static string dedicated_allowence {
@@ -1083,6 +1101,24 @@ namespace HR.Resource {
         public static string Editworklocation {
             get {
                 return ResourceManager.GetString("Editworklocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emp_ID.
+        /// </summary>
+        public static string empID {
+            get {
+                return ResourceManager.GetString("empID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emp_Name.
+        /// </summary>
+        public static string empname {
+            get {
+                return ResourceManager.GetString("empname", resourceCulture);
             }
         }
         
@@ -1564,6 +1600,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Jobs.
+        /// </summary>
+        public static string newjobs {
+            get {
+                return ResourceManager.GetString("newjobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string Notes {
@@ -1749,6 +1794,42 @@ namespace HR.Resource {
         public static string QualificationMajor {
             get {
                 return ResourceManager.GetString("QualificationMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quarter1.
+        /// </summary>
+        public static string quarter1 {
+            get {
+                return ResourceManager.GetString("quarter1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quarter2.
+        /// </summary>
+        public static string quarter2 {
+            get {
+                return ResourceManager.GetString("quarter2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quarter3.
+        /// </summary>
+        public static string quarter3 {
+            get {
+                return ResourceManager.GetString("quarter3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quarter4.
+        /// </summary>
+        public static string quarter4 {
+            get {
+                return ResourceManager.GetString("quarter4", resourceCulture);
             }
         }
         
@@ -2176,11 +2257,20 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unit type.
+        ///   Looks up a localized string similar to unit mail.
         /// </summary>
         public static string unitmail {
             get {
                 return ResourceManager.GetString("unitmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit Mangaer.
+        /// </summary>
+        public static string unitmanger {
+            get {
+                return ResourceManager.GetString("unitmanger", resourceCulture);
             }
         }
         
@@ -2190,6 +2280,15 @@ namespace HR.Resource {
         public static string unitSchemacode {
             get {
                 return ResourceManager.GetString("unitSchemacode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit Schema Color.
+        /// </summary>
+        public static string unitschemacolor {
+            get {
+                return ResourceManager.GetString("unitschemacolor", resourceCulture);
             }
         }
         

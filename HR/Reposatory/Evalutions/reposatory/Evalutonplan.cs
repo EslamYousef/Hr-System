@@ -8,19 +8,19 @@ using System.Web;
 
 namespace HR.Reposatory.Evalutions.reposatory
 {
-    public class EvaluationperformanceGroup: IEvaluationperformanceGroup
+    public class Evalutonplan: IEvalutonplan
     {
         private readonly ApplicationDbContext context;
 
-        public EvaluationperformanceGroup(ApplicationDbContext newcontext)
+        public Evalutonplan(ApplicationDbContext newcontext)
         {
             context = newcontext;
         }
-        public PerformanceEvaluationGroup Find(int ID)
+        public EvaluationPlan Find(int ID)
         {
             try
             {
-                var model = context.PerformanceEvaluationGroup.Find(ID);
+                var model = context.EvaluationPlan.Find(ID);
                 return model;
             }
             catch (Exception)
@@ -28,28 +28,28 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return null;
             }
         }
-        public PerformanceEvaluationGroup AddOne(PerformanceEvaluationGroup model)
+        public EvaluationPlan AddOne(EvaluationPlan model)
         {
             try
             {
-              var obj=  context.PerformanceEvaluationGroup.Add(model);
-                        context.SaveChanges();
+               var obj= context.EvaluationPlan.Add(model);
+                context.SaveChanges();
                 return obj;
             }
             catch (DbUpdateException)
             {
                 return null;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
         }
-        public bool AddList(List<PerformanceEvaluationGroup> model)
+        public bool AddList(List<EvaluationPlan> model)
         {
             try
             {
-                context.PerformanceEvaluationGroup.AddRange(model);
+                context.EvaluationPlan.AddRange(model);
                 context.SaveChanges();
                 return true;
             }
@@ -62,11 +62,11 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return false;
             }
         }
-        public List<PerformanceEvaluationGroup> GetAll()
+        public List<EvaluationPlan> GetAll()
         {
             try
             {
-                var model = context.PerformanceEvaluationGroup.ToList();
+                var model = context.EvaluationPlan.ToList();
                 return model;
             }
             catch (Exception)
@@ -78,8 +78,8 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
-                var model = context.PerformanceEvaluationGroup.FirstOrDefault(m => m.ID == id);
-                context.PerformanceEvaluationGroup.Remove(model);
+                var model = context.EvaluationPlan.FirstOrDefault(m => m.ID == id);
+                context.EvaluationPlan.Remove(model);
                 context.SaveChanges();
                 return true;
             }
@@ -92,15 +92,37 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return false;
             }
         }
-        public PerformanceEvaluationGroup Editone(PerformanceEvaluationGroup model)
+
+        public bool Editone(EvaluationPlan model)
         {
             try
             {
-                var record = context.PerformanceEvaluationGroup.FirstOrDefault(m => m.ID == model.ID);
+                var record = context.EvaluationPlan.FirstOrDefault(m => m.ID == model.ID);
                 record.Description = model.Description;
+                record.Year = model.Year;
                 record.Name = model.Name;
+                record.previous_apprisal_to_review = model.previous_apprisal_to_review;
+             
                 context.SaveChanges();
-                return record;
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public PlaneSchedule AddOneschedule(PlaneSchedule model)
+        {
+            try
+            {
+                var obj = context.PlaneSchedule.Add(model);
+                context.SaveChanges();
+                return obj;
             }
             catch (DbUpdateException)
             {
@@ -111,45 +133,41 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return null;
             }
         }
-        public bool addManytoMantTable(PerformanceEvaluationGroupEvaluationElements model)
+        public bool reomveplanescedule(int id)
         {
             try
             {
-                context.PerformanceEvaluationGroupEvaluationElements.Add(model);
+
+                var obj = context.PlaneSchedule.Where(m=>m.EvaluationPlanID==id);
+                context.PlaneSchedule.RemoveRange(obj);
                 context.SaveChanges();
                 return true;
             }
-            catch (Exception) { return false; }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public bool addManytoMantquestions(Questions_Performance model)
+        public List<PlaneSchedule> findplanescedule(int id)
         {
             try
             {
-                context.Questions_Performance.Add(model);
-                context.SaveChanges();
-                return true;
+                context.Configuration.ProxyCreationEnabled = false;
+                var obj = context.PlaneSchedule.Where(m => m.EvaluationPlanID == id).ToList();
+                return obj;
             }
-            catch (Exception e) { return false; }
-        }
-        public bool removeTableQUES(List<Questions_Performance> model)
-        {
-            try
+            catch (DbUpdateException)
             {
-                context.Questions_Performance.RemoveRange(model);
-                context.SaveChanges();
-                return true;
+                return null;
             }
-            catch (Exception) { return false; }
-        }
-        public bool removeManytomanyTable(List<PerformanceEvaluationGroupEvaluationElements> model)
-        {
-            try
+            catch (Exception)
             {
-                context.PerformanceEvaluationGroupEvaluationElements.RemoveRange(model);
-                context.SaveChanges();
-                return true;
+                return null;
             }
-            catch (Exception) { return false; }
         }
     }
 }

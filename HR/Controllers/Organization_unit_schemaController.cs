@@ -49,7 +49,7 @@ namespace HR.Controllers
                     Organization_Unit_Schema record = new Organization_Unit_Schema();
                     record.Name = model.Name;
                     record.Description = model.Description;
-                    record.color = "#4444";
+                    record.color =model.color;
                     record.Code = model.Code;
                     dbcontext.Organization_Unit_Schema.Add(record);
                     dbcontext.SaveChanges();
@@ -96,7 +96,7 @@ namespace HR.Controllers
                 record.Name = model.Name;
                 record.Description = model.Description;
                 record.Code = model.Code;
-                record.color = "#fkjdfkdjf";
+                record.color = model.color;
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }

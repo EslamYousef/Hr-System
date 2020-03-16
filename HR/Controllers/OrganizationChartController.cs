@@ -25,7 +25,7 @@ namespace HR.Controllers
             {
                 ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 ViewBag.location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
-
+                ViewBag.empl=dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "->" + m.Name , ID = m.ID });
                 var parent = dbcontext.Organization_Chart.ToList();
                 ViewBag.parenttt = parent.Select(m => new { Code = m.Code + "--[" + m.unit_Description + ']', ID = m.ID });
                 var model = new Organization_Chart();
@@ -70,7 +70,7 @@ namespace HR.Controllers
             {
                 ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code =m.Code + "--[" + m.Name + ']', ID = m.ID });
                 ViewBag.location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
-
+                ViewBag.empl = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
                 var parent = dbcontext.Organization_Chart.ToList();
                 ViewBag.parenttt = parent.ToList().Select(m => new { Code = m.Code + "--[" + m.unit_Description + ']', ID = m.ID });
                 model.Childs = new List<Organization_Chart>();
@@ -88,6 +88,7 @@ namespace HR.Controllers
                 model.unit_type_code = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == model.unit_type_codeID);
                 var oi = int.Parse(model.worklocationid);
                 model.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == oi);
+                if (model.Employee_ProfileID == 0) model.Employee_ProfileID = null;
                 var new_node = dbcontext.Organization_Chart.Add(model);
                 dbcontext.SaveChanges();
                 if(new_node.parent!="0")
@@ -117,7 +118,7 @@ namespace HR.Controllers
                 var ID = int.Parse(id);
                 var model = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
                 ViewBag.location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
-
+                ViewBag.empl = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
                 ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 var parent = dbcontext.Organization_Chart.Where(m=>m.ID!=model.ID&&m.parent!=id).ToList();
                 ViewBag.parenttt = parent.ToList().Select(m => new { Code = m.Code + "--[" + m.unit_Description + ']', ID = m.ID });
@@ -136,7 +137,7 @@ namespace HR.Controllers
             {
                 var model = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == record.ID);
                 ViewBag.location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
-
+                ViewBag.empl = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
                 ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 var parentt = dbcontext.Organization_Chart.Where(m => m.ID != model.ID && m.parent != model.ID.ToString()).ToList();
                 ViewBag.parenttt = parentt.ToList().Select(m => new { Code = m.Code + "--[" + m.unit_Description + ']', ID = m.ID });
@@ -172,6 +173,8 @@ namespace HR.Controllers
                 model.unit_mail = record.unit_mail;
                 model.unit_status = record.unit_status;
                 model.User_unit_code = record.User_unit_code;
+                if (model.Employee_ProfileID == 0) model.Employee_ProfileID = null;
+                else model.Employee_ProfileID = record.Employee_ProfileID;
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
@@ -247,6 +250,7 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var model = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
             ViewBag.location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
+            ViewBag.empl = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
 
             ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
             var parentt = dbcontext.Organization_Chart.Where(m => m.ID != model.ID && m.parent != model.ID.ToString()).ToList();

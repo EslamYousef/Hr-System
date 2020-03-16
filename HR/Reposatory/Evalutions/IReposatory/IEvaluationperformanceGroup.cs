@@ -14,8 +14,10 @@ namespace HR.Reposatory.Evalutions.IReposatory
         bool AddList(List<PerformanceEvaluationGroup> model);
         List<PerformanceEvaluationGroup> GetAll();
         bool Remove(int id);
-        bool Editone(PerformanceEvaluationGroup model);
+        PerformanceEvaluationGroup Editone(PerformanceEvaluationGroup model);
         bool addManytoMantTable(PerformanceEvaluationGroupEvaluationElements model);
        bool  addManytoMantquestions(Questions_Performance model);
+        bool removeTableQUES(List<Questions_Performance> model);
+        bool removeManytomanyTable(List<PerformanceEvaluationGroupEvaluationElements> model);
     }
 }

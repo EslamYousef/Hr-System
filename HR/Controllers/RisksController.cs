@@ -37,7 +37,7 @@ namespace HR.Controllers
 
 
 
-            ViewBag.Risks_Type = dbcontext.Risks_Type.ToList();
+            ViewBag.Risks_Type = dbcontext.Risks_Type.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
             if (id != null)
             {
                 var ID = int.Parse(id);
@@ -54,7 +54,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Risks_Type = dbcontext.Risks_Type.ToList();
+                ViewBag.Risks_Type = dbcontext.Risks_Type.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 if (ModelState.IsValid)
                 {
                     Risks record = new Risks();
@@ -89,7 +89,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Risks_Type = dbcontext.Risks_Type.ToList();
+                ViewBag.Risks_Type = dbcontext.Risks_Type.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var record = dbcontext.Risks.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -108,7 +108,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Risks_Type = dbcontext.Risks_Type.ToList();
+                ViewBag.Risks_Type = dbcontext.Risks_Type.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var record = dbcontext.Risks.FirstOrDefault(m => m.ID == model.ID);
                 record.Name = model.Name;
                 record.Description = model.Description;

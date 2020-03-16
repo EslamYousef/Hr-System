@@ -19,7 +19,7 @@ namespace HR.Models
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Request_date { get; set; }
-        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+      
         public string check_number { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int month { get; set; }
@@ -41,6 +41,11 @@ namespace HR.Models
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string ChecktypeID { get; set; }
         public string date { get; set; }
+
+
+        public string Sourcedocumentreference { get; set; }
+        public string Sourcedocumentdescription { get; set; }
+        public string Sourcedocumentnotes { get; set; }
 
         //public status status { get; set; }
         //public check_status check_status { get; set; }

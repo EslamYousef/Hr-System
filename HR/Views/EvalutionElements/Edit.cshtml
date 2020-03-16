@@ -20,6 +20,7 @@
             <div class="box-body">
                 @using (Html.BeginForm("Edit", "EvalutionElements", FormMethod.Post, new { id = "submit", enctype = "multipart/form-data" }))
                 {
+                    <input name="IDval" hidden/>                    <input name="degree" hidden />
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         <hr />
@@ -87,29 +88,59 @@
                             <div class="col-md-1">
 
                             </div>
-                            <input  type="button" id="drop1" class="btn btn-success" value='@pers_2.addnewevalutationcompetenies' onclick="add()" />
+                            <div class="col-md-2">
+                                <input type="button" id="drop1" class="btn btn-success" style="width:100%" value='@pers_2.addnewevalutationcompetenies' onclick="add()" /></div>
+                            <div class="col-md-2">
+                                <input type="button" onclick="check_sumtion()" style="width:100%" id="btnSave" class="btn btn-success  " name="Command" value='@organ.edit' /></div>
 
+                            <div class="col-md-1">
+                                <a href="@Url.Action("index", "EvalutionElements")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a></div>
 
-                            <input type="button" onclick="check_sumtion()" id="btnSave" class="btn btn-success  " name="Command" value='@organ.edit' />
-                            <a href="@Url.Action("index","EvalutionElements")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                            </div>
+                      
 
+                            <table class="table table-bordered">
+                               
+                                <thead>
+                                    <tr>
+                                        <th hidden>
+
+                                        </th>
+                                        <th class="control-label col-md-2">
+                                            <label>@Basic.code </label>
+                                        </th>
+                                        <th class="control-label col-md-6">
+                                            <label>@Basic.name</label>
+                                        </th>
+                                        <th class="control-label col-md-1">
+                                            <label>@pers_2.Defaultdegree</label>
+                                        </th>
+
+                                        <th>
+
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="div_comp">
+                                    @if (Model.Evalution_and_competencies != null)
+                                    {
+                                        foreach (var item in Model.Evalution_and_competencies)
+                                        {
+                                                <tr>
+                                                    <td hidden><input name="IDval" class="form-control" value=@item.EvaluationElementCompetenies.ID /></td>
+                                                    <td class="col-md-2"><input class="form-control" type="text" style="margin-bottom: 1em;margin-left:4px" value=@item.EvaluationElementCompetenies.Code readonly /></td>
+                                                    <td class="col-md-6"><input class="form-control" type="text" style="margin-bottom: 1em;margin-left:4px"  value=@item.EvaluationElements.Name readonly /></td>
+                                                    <td class="col-md-2"><input class="form-control" name="degree" type="number" style="margin-bottom: 1em;margin-left:4px"  value=@item.Default_degree  /></td>
+                                                    <td class="col-md-2"><input value=@organ.remove type="button" style="margin-left:3px" class="form-control remove btn btn-danger" onclick="remove($(this))" /> </td>
+
+                                                </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="form-group" id="div_comp">
 
-    @foreach (var item in Model.Evalution_and_competencies)
-    {
-        <div class ="col-md-12" id="manpoweritems" >
-           <input    id="class_type" style="margin-bottom: 1em;" hidden name="IDval"  value="@item.EvaluationElementCompetenies.ID" readonly="readonly" /> 
-           <input  class="col-md-2 custom-control-input" type="text" style="margin-bottom: 1em;margin-left:4px"  name="code"  value="@item.EvaluationElementCompetenies.Code" readonly="readonly" />
-           <input  class="col-md-6 custom-control-input" type="text"  style="margin-bottom: 1em;margin-left:4px"  name="name"  value="@item.EvaluationElementCompetenies.Name" readonly="readonly" />
-           <input  class="col-md-1 custom-control-input" required type="number" style="margin-bottom: 1em;margin-left:4px" name="degree"   value="@item.Default_degree"/>
-          <input type="button"  style="margin-left:3px;height:23px" value=@organ.remove class="col-md-1 remove btn btn-danger" onclick="remove($(this))" />
-        </div>
-    }
-
-                        </div>
-
-                    </div>
                 }
 
             </div>
@@ -143,24 +174,28 @@
             $("#Country").attr('disabled', true);
             $("#drop1").attr('disabled', true);
             $("#div_comp").attr("hidden", true);
-            
+
             $("#valeeo").val('FALSE');
         }
     }
     function remove(thi) {
-        thi.parent().remove();
+        thi.parent().parent().remove();
     }
     function check_sumtion()
     {
-        var pp = $("#div_comp").find("div");
-        var sum = parseFloat($("#defaultDegreeid").val());
+        var pp = $("#div_comp").find("tr");
+        var sum =parseFloat($("#defaultDegreeid").val());
         var flag = 0;
-        for (var o = 0; o < pp.length; o++) {
-
+        for (var o = 0; o < pp.length; o++)
+        {
+            debugger
             var inputs = pp[o].children;
-            flag = parseInt(inputs[3].value) + flag;
+            ID_ = inputs[3].children;
+            flag=parseInt(ID_[0].value)+flag;
+           
         }
-        if (sum < flag) {
+        if (sum < flag)
+        {
             alert("sumtion greater than default degree !");
         }
         else
@@ -174,20 +209,24 @@
         var id = $("#Country").val();
     if (id == "0" || id == "" || id == null) {
 
-            alter("you must choose organization unit then cadre")
+            alter("you must choose element")
     }
         else
-        {
-        var pp = $("#div_comp").find("div");
+    {
+
+        var pp = $("#div_comp").find("tr");
         var sum =parseFloat($("#defaultDegreeid").val());
         var flag = 0;
         for (var o = 0; o < pp.length; o++)
         {
-
+            debugger
             var inputs = pp[o].children;
-            flag = parseInt(inputs[3].value)+flag;
+            ID_ = inputs[3].children;
+            flag=parseInt(ID_[0].value)+flag;
+           
         }
-        if (sum < flag) {
+        if (sum < flag)
+        {
             alert("sumtion greater than default degree !");
         }
         else {
@@ -197,16 +236,16 @@
                 async: false,
                 data: { "id": id },
                 success: function (result) {
-                                    var tr =
-                "<div class ='col-md-12' id='manpoweritems' ><input    id='class_type' style='margin-bottom: 1em;' hidden name='IDval'  value='" + result.ID + "' readonly='readonly' />" +
-               "<input  class='col-md-2 custom-control-input' type='text' style='margin-bottom: 1em;margin-left:4px'  name='code'  value='" + result.Code + "' readonly='readonly' />" +
-               "<input  class='col-md-6 custom-control-input' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'  name='name'  value='" + result.Name + "' readonly='readonly' />" +
-               "<input  class='col-md-1 custom-control-input' required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + 0 + "'  />" +
+                    var tr =
 
-              "<input type='button'   style='margin-left:3px;height:23px' value=@organ.remove class='col-md-1 remove btn btn-danger' onclick='remove($(this))' /></div>";
+                           "<tr> <td hidden>" +"<input    id='class_type' style='margin-bottom: 1em;' hidden name='IDval'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input class = 'form-control' ID='result.Code'   type='text' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Code + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-6'> " + "<input   class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Name + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input class = 'form-control'  required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree' type='number' value='" + 0 + "'  />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input type='button'   style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+
                     $("#div_comp").append(tr);
                     $("#Country").select2("val", "");
-
                 },
                 error: function () {
                     alter("some error");
