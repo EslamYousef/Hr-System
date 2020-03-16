@@ -20,5 +20,6 @@ namespace HR.Reposatory.Evalutions.IReposatory
         Evalution_and_competencies addavandcomp(Evalution_and_competencies model);
         void get();
        List <Evalution_and_competencies> find_evaandcomp(int id);
+        EvaluationElements Find2(int ID);
     }
 }

@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary" data-collapsed="0">
                 <div class="panel-body">
-                    @using (Html.BeginForm("Create", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Edit", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <input name="ID_Q" value="" hidden />
                         <input name="ID_Element" value="" hidden />
@@ -95,7 +95,7 @@
                                     <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
 
 
-
+                                     
 
                                         <div class="form-group">
                                             <div class="form-group">
@@ -113,6 +113,17 @@
 
                                         <table class="table table-bordered">
                                             <thead>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <label style="font-size:medium">
+                                                            @pers_2.Evaluationelement
+                                                        </label>
+                                                    </td>
+                                                  
+                                                </tr>
+                                            </thead>
+                                            <thead>
+
                                                 <tr>
                                                     <th hidden>
 
@@ -158,6 +169,17 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
+                                                    <td colspan="3">
+                                                        <label style="font-size:medium">
+                                                            @pers_2.EvaluationElementCompetenies
+                                                        </label>
+                                                    </td>
+                                                   
+                                                 
+                                                </tr>
+                                            </thead>
+                                            <thead>
+                                                <tr>
                                                     <th hidden>
 
                                                     </th>
@@ -194,7 +216,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -220,10 +242,10 @@
                                                         if (item.EvaluationQuestionsandanswers != null)
                                                         {
                                                                 <tr>
-                                                                    <td hidden><input name="ID_Q" class="form-control" value=@item.EvaluationQuestionsandanswers.ID/></td>
-                                                                    <td class="col-md-3"><input class="form-control" type="text" readonly style="margin-bottom: 1em;margin-left:4px"  value=@item.EvaluationQuestionsandanswers.Question /></td>
-                                                                    <td class="col-md-3"><input class="form-control" type="text" readonly style="margin-bottom: 1em;margin-left:4px" value=@item.EvaluationQuestionsandanswers.model_answer /></td>
-                                                                    <td class="col-md-3"><input style="margin-left:3px" value=@organ.remove type="button" class="form-control remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                    <td hidden><input name="ID_Q" class="form-control" value='@item.EvaluationQuestionsandanswers.ID' /></td>
+                                                                    <td class="col-md-3"><input class="form-control" type="text"  style="margin-bottom: 1em;margin-left:4px"  value='@item.EvaluationQuestionsandanswers.Question'readonly /></td>
+                                                                    <td class="col-md-5"><input class="form-control" type="text"  style="margin-bottom: 1em;margin-left:4px" value='@item.EvaluationQuestionsandanswers.model_answer' readonly /></td>
+                                                                    <td class="col-md-1"><input style="margin-left:3px" value=@organ.remove type="button" class="form-control remove btn btn-danger" onclick="remove($(this))" /> </td>
                                                                 </tr>
                                                             
                                                         }
@@ -408,8 +430,8 @@
 
                            "<tr> <td hidden>" + "<input  class='col-md-12 custom-control-input' required type='number' style='margin-bottom: 1em;margin-left:4px' name='ID_Q'   value='" + result.ID + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-3'> " + "<input class = 'form-control'  required type='text' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.Question + "' readonly='readonly' />" + "</td>" +
-                           "<td class='col-md-3'> " + "<input class = 'form-control'   required type='text' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.model_answer + "' readonly='readonly' />" + "</td>" +
-                           "<td class='col-md-3'>" + "<input type='button'  style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+                           "<td class='col-md-5'> " + "<input class = 'form-control'   required type='text' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.model_answer + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-1'>" + "<input type='button'  style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
 
 
                         $("#ad8d2").append(tr);

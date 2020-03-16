@@ -15,5 +15,6 @@ namespace HR.Reposatory.Evalutions.IReposatory
         List<EvaluationType> GetAll();
         bool Remove(int id);
         bool Editone(EvaluationType model);
+        EvaluationType Find2(int ID);
     }
 }
