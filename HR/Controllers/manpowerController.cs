@@ -84,7 +84,7 @@ namespace HR.Controllers
                                 quarter1= int.Parse(q1[i]),
                                 quarter2= int.Parse(q2[i]),
                                 quarter3= int.Parse(q3[i]),
-                                quarter4= int.Parse(q3[i]),
+                                quarter4= int.Parse(q4[i]),
                                 
                             };
 
@@ -183,7 +183,7 @@ namespace HR.Controllers
                                 quarter1 = int.Parse(q1[i]),
                                 quarter2 = int.Parse(q2[i]),
                                 quarter3 = int.Parse(q3[i]),
-                                quarter4 = int.Parse(q3[i]),
+                                quarter4 = int.Parse(q4[i]),
 
                             };
 

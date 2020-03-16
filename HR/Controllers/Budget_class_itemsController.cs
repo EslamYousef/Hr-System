@@ -39,7 +39,7 @@ namespace HR.Controllers
             }
 
 
-            ViewBag.Budget_class = dbcontext.Budget_class.ToList();
+            ViewBag.Budget_class = dbcontext.Budget_class.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
             if (id != null)
             {
                 var ID = int.Parse(id);
@@ -56,7 +56,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Budget_class = dbcontext.Budget_class.ToList();
+                ViewBag.Budget_class = dbcontext.Budget_class.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 if (ModelState.IsValid)
                 {
                     Budget_class_items record = new Budget_class_items();
@@ -91,7 +91,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Budget_class = dbcontext.Budget_class.ToList();
+                ViewBag.Budget_class = dbcontext.Budget_class.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var record = dbcontext.Budget_class_items.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -110,7 +110,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Budget_class = dbcontext.Budget_class.ToList();
+                ViewBag.Budget_class = dbcontext.Budget_class.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 var record = dbcontext.Budget_class_items.FirstOrDefault(m => m.ID == model.ID);
                 record.Name = model.Name;
                 record.Description = model.Description;

@@ -46,6 +46,10 @@ namespace HR.Models
         public virtual ICollection<Organization_Chart> Childs { get; set; }
         public List<Slots> Slots { get; set; }
 
+        public virtual Employee_Profile Employee_Profile { get; set; }
+      
+        public int? Employee_ProfileID { get; set; } 
+
 
     }
 }

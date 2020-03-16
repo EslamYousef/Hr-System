@@ -385,6 +385,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to check Request Status.
+        /// </summary>
+        public static string checkrequeststatus {
+            get {
+                return ResourceManager.GetString("checkrequeststatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checktype ID.
         /// </summary>
         public static string ChecktypeID {
@@ -1150,6 +1159,33 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Job Level.
+        /// </summary>
+        public static string joblevel {
+            get {
+                return ResourceManager.GetString("joblevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job Title.
+        /// </summary>
+        public static string jobtitle {
+            get {
+                return ResourceManager.GetString("jobtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job Title.
+        /// </summary>
+        public static string jobtitle1 {
+            get {
+                return ResourceManager.GetString("jobtitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Education body.
         /// </summary>
         public static string MainEducatebody {
@@ -1438,6 +1474,60 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direction to.
+        /// </summary>
+        public static string Sendto {
+            get {
+                return ResourceManager.GetString("Sendto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign By.
+        /// </summary>
+        public static string signby {
+            get {
+                return ResourceManager.GetString("signby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slot Type.
+        /// </summary>
+        public static string slottyupe {
+            get {
+                return ResourceManager.GetString("slottyupe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Document Description.
+        /// </summary>
+        public static string Sourcedocumentdescription {
+            get {
+                return ResourceManager.GetString("Sourcedocumentdescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Document Notes.
+        /// </summary>
+        public static string Sourcedocumentnotes {
+            get {
+                return ResourceManager.GetString("Sourcedocumentnotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Document Reference.
+        /// </summary>
+        public static string Sourcedocumentreference {
+            get {
+                return ResourceManager.GetString("Sourcedocumentreference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Special Request.
         /// </summary>
         public static string specialrequest {
@@ -1569,6 +1659,15 @@ namespace HR.Resource {
         public static string to_date {
             get {
                 return ResourceManager.GetString("to_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string unit {
+            get {
+                return ResourceManager.GetString("unit", resourceCulture);
             }
         }
         

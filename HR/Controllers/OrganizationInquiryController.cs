@@ -45,6 +45,7 @@ namespace HR.Controllers
             {
                 var list = dbcontext.Organization_Chart.ToList();
                 var i =0;
+                var j = 0;
                 if (list.Count() > 0) { i = list.LastOrDefault().ID+1; }
                 foreach(var item1 in list)
                 {
@@ -54,9 +55,28 @@ namespace HR.Controllers
                     
                     var jobs = dbcontext.job_title_cards.Where(m => m.Organization_unit_codeID == item1.ID.ToString());
                     
-                    foreach(var item2 in jobs)
+                    foreach(var item2 in jobs.ToList())
                     {
-                        job_node.Add(new Organization_Chart { ID = i, Childs=new List<Organization_Chart>(), unit_Description =item2.name + " ,Hired [" + item2.number_hired + " ]   ,vacant[ " + item2.number_vacant + " ]"});
+                        var list_slot_details = new List<Organization_Chart>();
+                        var slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == item2.ID).ToList();
+                        if (slots != null)
+                        {
+                            foreach (var item3 in slots)
+                            {
+                                j++;
+                                if (item3.EmployeeID == null||item3.EmployeeID=="0")
+                                {
+                                    list_slot_details.Add(new Organization_Chart { Childs = new List<Organization_Chart>(), ID = (j + 1000), unit_Description = item3.slot_description + " , " + item3.check_status+" , "+item3.slot_type + " , " + "[ Free Slot ]" });
+
+                                }
+                                else
+                                {
+                                    list_slot_details.Add(new Organization_Chart { Childs = new List<Organization_Chart>(), ID = (j + 1000), unit_Description = item3.slot_description + " , " + item3.check_status  + " , " + item3.slot_type+" ,  [ "+ item3.EmployeeID + "->" + item3.EmployeeName +" ] "});
+
+                                }
+                            }
+                        }   
+                        job_node.Add(new Organization_Chart { ID = i, Childs= list_slot_details, unit_Description =item2.name + " ,Hired [" + item2.number_hired + " ]   ,vacant[ " + item2.number_vacant + " ]"});
                         i++;
                     }
                     if (jobs.Count() > 0)
@@ -117,6 +137,56 @@ namespace HR.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult organization_view_related_to_jobs2()
+        {
+            var master_node = new List<Organization_Chart>();
+            try
+            {
+                var job_node = new List<Organization_Chart>();
+                var list = dbcontext.Organization_Chart.ToList();
+                var i = 0;
+                var j = 0;
+                if (list.Count() > 0)
+                { i = list.LastOrDefault().ID + 1; }
+                var jobs = dbcontext.job_title_cards.ToList();
+
+                foreach (var item in jobs)
+                {
+                    var list_slot_details = new List<Organization_Chart>();
+                    if (item.Slots != null)
+                    {
+                        foreach (var item3 in item.Slots)
+                        {
+                            j++;
+                            if (item3.EmployeeID == null || item3.EmployeeID == "0")
+                            {
+                                list_slot_details.Add(new Organization_Chart { Childs = new List<Organization_Chart>(), ID = (j + 1000), unit_Description = item3.slot_description + " , " + item3.check_status + " , " + item3.slot_type + " , " + "[ Free Slot ]" });
+
+                            }
+                            else
+                            {
+                                list_slot_details.Add(new Organization_Chart { Childs = new List<Organization_Chart>(), ID = (j + 1000), unit_Description = item3.slot_description + " , " + item3.check_status + " , " + item3.slot_type + " ,  [ " + item3.EmployeeID + "->" + item3.EmployeeName + " ] " });
+
+                            }
+                        }
+                      
+                    }
+                    job_node.Add(new Organization_Chart { ID = i, parent = "1", Childs = list_slot_details, unit_Description = item.name + " ,Hired [" + item.number_hired + " ]   ,vacant[ " + item.number_vacant + " ]" });
+                    i++;
+                }
+               
+                master_node.Add(new Organization_Chart{unit_Description="ARADO",Childs=job_node,ID=0});
+                return View("organization_view_related_to_jobs",master_node);
+            }
+            catch (Exception e)
+            {
+                return View("organization_view_related_to_jobs", master_node);
+            }
+
+
+          
+           
         }
 
     }
