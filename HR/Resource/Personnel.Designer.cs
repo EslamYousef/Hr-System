@@ -178,7 +178,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add New Definition of EOS Interview Question.
+        ///   Looks up a localized string similar to Add New EOS Questions.
         /// </summary>
         public static string AddNewDefinitionofEOSInterviewQuestion {
             get {
@@ -1006,7 +1006,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Definition of EOS Interview Questions.
+        ///   Looks up a localized string similar to Create EOS Questions.
         /// </summary>
         public static string CreateDefinitionofEOSInterviewQuestions {
             get {
@@ -1456,7 +1456,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Definition of EOS Interview Questions.
+        ///   Looks up a localized string similar to Edit EOS Questions.
         /// </summary>
         public static string EditDefinitionofEOSInterviewQuestions {
             get {
@@ -2734,6 +2734,42 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Linked to another payment.
+        /// </summary>
+        public static string Linkedtoanotherpayment {
+            get {
+                return ResourceManager.GetString("Linkedtoanotherpayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked to basic payment.
+        /// </summary>
+        public static string Linkedtobasicpayment {
+            get {
+                return ResourceManager.GetString("Linkedtobasicpayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked to payroll.
+        /// </summary>
+        public static string Linkedtopayroll {
+            get {
+                return ResourceManager.GetString("Linkedtopayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link options.
+        /// </summary>
+        public static string Linkoptions {
+            get {
+                return ResourceManager.GetString("Linkoptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List Item Groups.
         /// </summary>
         public static string ListItemGroups {
@@ -2775,6 +2811,15 @@ namespace HR.Resource {
         public static string MainStatus {
             get {
                 return ResourceManager.GetString("MainStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual payment code.
+        /// </summary>
+        public static string Manualpaymentcode {
+            get {
+                return ResourceManager.GetString("Manualpaymentcode", resourceCulture);
             }
         }
         
@@ -3828,6 +3873,15 @@ namespace HR.Resource {
         public static string RetiredExpectedEOS {
             get {
                 return ResourceManager.GetString("RetiredExpectedEOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salary code id.
+        /// </summary>
+        public static string Salarycodeid {
+            get {
+                return ResourceManager.GetString("Salarycodeid", resourceCulture);
             }
         }
         

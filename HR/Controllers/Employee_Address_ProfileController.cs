@@ -77,9 +77,20 @@ namespace HR.Controllers
                     //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
 
                     var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+                var list = dbcontext.Employee_Address_Profile.ToList();
 
-                    Employee_Address_Profile record = new Employee_Address_Profile();
-                record.Resident = model.Resident;
+                Employee_Address_Profile record = new Employee_Address_Profile();
+                if (list.Count()==0) 
+                {
+                    record.Resident = true;
+                }
+                else
+                {
+                    var te = list.LastOrDefault();
+                    te.Resident = false;
+                    record.Resident = true;
+                }
+             
                 record.Code = model.Code;
                 record.Streetname = model.Streetname;
                 record.Streetnumber = model.Streetnumber;
@@ -183,13 +194,23 @@ namespace HR.Controllers
                 ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-           //     ViewBag.idemp = model.Employee_ProfileId;
+         //     ViewBag.idemp = model.Employee_ProfileId;
                 var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == model.ID);
-           //     var emp = record.Employee_Profile;
+                var list = dbcontext.Employee_Address_Profile.Where(a=>a.Resident ==true).ToList();
+                //     var emp = record.Employee_Profile;
                 record.Code = model.Code;
-                record.Resident = model.Resident;
+                if (list != null)
+                {
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+                        list[i].Resident = false;
+                    }
+                    record.Resident = true;
+                }
+
+
                 record.Streetname = model.Streetname;
                 record.Streetnumber = model.Streetnumber;
                 record.Pobox = model.Pobox;
@@ -201,7 +222,7 @@ namespace HR.Controllers
                 ViewBag.idemp = model.Employee_ProfileId;
                 record.Employee_Profile = EmpObj;
 
-                //                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
+           //   record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
                 record.countryid = model.countryid;
                 var Countryid = int.Parse(model.countryid);
                 record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);

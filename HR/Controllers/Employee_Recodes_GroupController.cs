@@ -48,6 +48,9 @@ namespace HR.Controllers
                     record.Record_Group_Code = model.Record_Group_Code;
                     record.Record_Group_Description = model.Record_Group_Description;
                     record.Record_Group_Alternative = model.Record_Group_Alternative;
+                    record.Linkedtopayroll = model.Linkedtopayroll;
+                    record.Linkedtobasicpayment = model.Linkedtobasicpayment;
+                    record.Linkedtoanotherpayment = model.Linkedtoanotherpayment;
                     dbcontext.Employee_Recodes_Group.Add(record);
                     dbcontext.SaveChanges();
                     return RedirectToAction("Index");
@@ -98,6 +101,9 @@ namespace HR.Controllers
                 record.Record_Group_Code = model.Record_Group_Code;
                 record.Record_Group_Description = model.Record_Group_Description;
                 record.Record_Group_Alternative = model.Record_Group_Alternative;
+                record.Linkedtopayroll = model.Linkedtopayroll;
+                record.Linkedtobasicpayment = model.Linkedtobasicpayment;
+                record.Linkedtoanotherpayment = model.Linkedtoanotherpayment;
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
