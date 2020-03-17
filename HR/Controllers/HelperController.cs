@@ -1060,32 +1060,44 @@ namespace HR.Controllers
         {
             try
             {
-                List<SelectListItem> items = new List<SelectListItem>();
-                var list = new List<Position_Information>();
-                var list2 = new List<Employee_Profile>();
-              
+            
+            
+              var  y = new List<uoi>();
+                var em = new List<Employee_Profile>();
                 if (type == 2) 
                 {
                     foreach(var item in id)
                     {
 
-                        list.AddRange(dbcontext.Position_Information.Where(m => m.Organization_ChartId == item).ToList());
-                     
+                        var i = dbcontext.Position_Information.Where(m => m.Organization_ChartId == item).ToList();
+                        foreach(var item2 in i)
+                        {
+                            int ID = int.Parse(item2.Employee_ProfileId);
+                            em.Add(dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID));
+                        }
+                        var ii=em.Distinct().ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct();
+                        em = new List<Employee_Profile>();
+                       foreach(var o in ii)
+                        {
+                            y.Add(new uoi { Name = o.Name, ID = o.ID, code = o.code });
+                        }
                       
                     }
-                    var t = list.Select(m => new { m.Employee_Profile }).ToList();
-                    var y=t.Select(m => new { Name = m.Employee_Profile.Name, code = m.Employee_Profile.Code, ID = m.Employee_Profile.ID }).ToList().Distinct();
 
-                    return Json(t);
+                    return Json(y);
                 }
                 else if (type == 3)
                 {
                     foreach (var item in id)
                     {
 
-                        list2.AddRange(dbcontext.Employee_Profile.Where(m => m.NationalityId == item).ToList());
-                        return Json(list2.Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                       var i=(dbcontext.Employee_Profile.Where(m => m.NationalityId == item).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                        foreach (var o in i)
+                        {
+                            y.Add(new uoi { Name = o.Name, ID = o.ID, code = o.code });
+                        }
                     }
+                    return Json(y);
 
                 }
                 //else if (type == 3)
