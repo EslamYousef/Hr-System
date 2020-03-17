@@ -54,6 +54,7 @@ namespace HR.Models
         [Display(Name = "Approval_date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Approval_date { get; set; }
-        
+        public virtual Employee_Profile Employee_Profile { get; set; }
+
     }
 }

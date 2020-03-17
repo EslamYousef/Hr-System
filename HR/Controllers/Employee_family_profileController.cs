@@ -97,21 +97,21 @@ namespace HR.Controllers
 
                     record.Birth_date = model.Birth_date;
                     record.Death_date = model.Death_date;
-                    if (model.Birth_date > model.Death_date)
-                    {
-                        TempData["Message"] = HR.Resource.Personnel.BirthdatebiggerDeathdate;
-                        return View(model);
-                    }
-                    if (model.Start_relation_date > model.End_relation_date)
-                    {
-                        TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerEndrelationdate;
-                        return View(model);
-                    }
-                    if (model.Start_relation_date > model.Birth_date)
-                    {
-                        TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerBirthdate;
-                        return View(model);
-                    }
+                    //if (model.Birth_date > model.Death_date)
+                    //{
+                    //    TempData["Message"] = HR.Resource.Personnel.BirthdatebiggerDeathdate;
+                    //    return View(model);
+                    //}
+                    //if (model.Start_relation_date > model.End_relation_date)
+                    //{
+                    //    TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerEndrelationdate;
+                    //    return View(model);
+                    //}
+                    //if (model.Start_relation_date > model.Birth_date)
+                    //{
+                    //    TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerBirthdate;
+                    //    return View(model);
+                    //}
                     record.Marital_Status = model.Marital_Status;
                     record.Id_type = model.Id_type;
                     record.Id_number = model.Id_number;
@@ -215,21 +215,21 @@ namespace HR.Controllers
                 record.NationalityId = model.NationalityId;
                 record.Birth_date = model.Birth_date;
                 record.Death_date = model.Death_date;
-                if (model.Birth_date > model.Death_date)
-                {
-                    TempData["Message"] = HR.Resource.Personnel.BirthdatebiggerDeathdate;
-                    return View(model);
-                }
-                if (model.Start_relation_date > model.End_relation_date)
-                {
-                    TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerEndrelationdate;
-                    return View(model);
-                }
-                if (model.Start_relation_date > model.Birth_date)
-                {
-                    TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerBirthdate;
-                    return View(model);
-                }
+                //if (model.Birth_date > model.Death_date)
+                //{
+                //    TempData["Message"] = HR.Resource.Personnel.BirthdatebiggerDeathdate;
+                //    return View(model);
+                //}
+                //if (model.Start_relation_date > model.End_relation_date)
+                //{
+                //    TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerEndrelationdate;
+                //    return View(model);
+                //}
+                //if (model.Start_relation_date > model.Birth_date)
+                //{
+                //    TempData["Message"] = HR.Resource.Personnel.StartrelationdatebiggerBirthdate;
+                //    return View(model);
+                //}
                 record.Marital_Status = model.Marital_Status;
                 record.Id_type = model.Id_type;
                 record.Id_number = model.Id_number;

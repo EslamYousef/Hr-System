@@ -25,6 +25,7 @@
                 @using (Html.BeginForm("Create", "Employee_experience_profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Employee_ProfileId);
                     <div class="form-horizontal">
                         <hr />
                         @if (TempData["Message"] != null)
@@ -80,10 +81,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-
                             <label class="control-label col-md-2">@Personnel.Startdate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control datepicker StartDate yy dt", @id = "dateto", @onchange = "Save()", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control StartDate", @id = "Start", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
                             </div>
 
@@ -98,16 +98,16 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Enddate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control datepicker EndDate yyy dt ", @id = "dateto", @onchange = "Save2()", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control EndDate", @id = "End", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
                             </div>
-                            <label class="control-label col-md-2">@Personnel.Months</label>
+                            <label class="control-label col-md-1">@Personnel.Months</label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
                                 @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                             </div>
-                            <label class="control-label col-md-2">@Personnel.Days</label>
+                            <label class="control-label col-md-1">@Personnel.Days</label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Days" } })
                                 @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
@@ -173,7 +173,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Employee_experience_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <a href="@Url.Action("index","Employee_experience_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
                                 </div>
                             </div>
@@ -190,7 +190,8 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-
+        GetDataById2();
+        GetDataById5('@Model.Approval_date', "Approval_date ");
     });
 </script>
 <script>
@@ -255,49 +256,165 @@
             }
         });
     }
+    function GetDataById() {
+
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdExperience",
+            data: { "id": x },
+            success: function (result) {
+
+                if (result) {
+                    var date = parseJsonDate(result.End_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+
+
+                    //     month = date.getMonth() + 1;
+                    var d = date.getFullYear() + '-' + month + '-' + day;
+                    $("#End").val(d);
+                    Save();
+                    Save2();
+                    console.log(result);
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //   GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdExperience",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    var date = parseJsonDate(result.Start_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+
+
+                    //      month = date.getMonth() + 1;
+                    var d = date.getFullYear() + '-' + month + '-' + day;
+                    $("#Start").val(d);
+                    GetDataById();
+                    console.log(result);
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
     function Save() {
+        debugger
+
+
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
 
-        var from = $(".StartDate").val();
-        var to = $(".EndDate").val();
-
-        if (to > from) {
-            var diffTime = Math.abs(EndDate - StartDate);
-            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-            var months = Math.floor(Days / 31);
-            var years = Math.floor(months / 12);
-            $("#Yearr").val(years);
-            $("#months").val(months - (years * 12));
-            $("#Days").val(Days - (months * 31) - (years * 12));
-        }
-        else {
-            $("#Yearr").val("0");
-            $("#months").val("0");
-            $("#Days").val("0");
-        }
+        //   var from = $(".StartDate").val();
+        //   var to = $(".EndDate").val();
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        //if (to > from) {
+        var diffTime = Math.abs(EndDate - StartDate);
+        var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        var years = Math.floor(Days / 365);
+        var months = Math.floor((Days / (31)) - (years * 12));
+        var cday = (years * 365) + (months * 31);
+        var lastday = Days - cday;
+        var newmonth = parseInt((lastday / 30));
+        $("#Days").val((lastday) - (newmonth * 30));
+        $("#months").val(months + newmonth);
+        $("#Yearr").val(years);
+        //}
+        //else {
+        //    $("#Yearr").val("0");
+        //    $("#months").val("0");
+        //    $("#Days").val("0");
+        //}
     };
-
     function Save2() {
+        debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
+        //   var x = $(".StartDate").val().split('/');
+        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
+        //    var EndDate = new Date($(".EndDate").val());
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        //   var from = $(".StartDate").val();
+        //     var to = $(".EndDate").val();
+        //if (to > from) {
+        var diffTime = Math.abs(EndDate - StartDate);
+        var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-        var from = $(".StartDate").val();
-        var to = $(".EndDate").val();
-        if (to > from) {
-            var diffTime = Math.abs(EndDate - StartDate);
-            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-            var months = Math.floor(Days / 31);
-            var years = Math.floor(months / 12);
-            $("#Yearr").val(years);
-            $("#months").val(months - (years * 12));
-            $("#Days").val(Days - (months * 31) - (years * 12));
+        var years = Math.floor(Days / 365);
+        var months = Math.floor((Days / (31)) - (years * 12));
+        var cday = (years * 365) + (months * 31);
+        var lastday = Days - cday;
+        var newmonth = parseInt((lastday / 30));
+        $("#Days").val((lastday) - (newmonth * 30));
+        $("#months").val(months + newmonth);
+        $("#Yearr").val(years);
+
+
+
+        //}
+        //else {
+        //    $("#Yearr").val("0");
+        //    $("#months").val("0");
+        //    $("#Days").val("0");
+        //}
+    };
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
         }
         else {
-            $("#Yearr").val("0");
-            $("#months").val("0");
-            $("#Days").val("0");
+            month = date.getMonth() + 1;
         }
-    };
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
 
 </script>

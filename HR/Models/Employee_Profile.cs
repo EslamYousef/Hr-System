@@ -103,7 +103,6 @@ namespace HR.Models
         public virtual List<Position_Information>  Employee_Positions_Profile { get; set; }
         public virtual Position_Transaction_Information Position_Transaction_Information { get; set; }
         public virtual List<Employee_family_profile> Employee_family_profile { get; set; }
-        public virtual Employee_experience_profile Employee_experience_profile { get; set; }
         public virtual Employee_contact_profile Employee_contact_profile { get; set; }
         public bool Active { get; set; }
         public string EmpProfileIMG { get; set; }
@@ -116,7 +115,8 @@ namespace HR.Models
         public virtual List<Employee_subscription_syndicate_profile> Employee_subscription_syndicate_profile { get; set; }
         public virtual List<Employee_attachment_profile> Employee_attachment_profile { get; set; }
         public virtual List<per_emp> per_emp { get; set; }
-      
+        public virtual List<Employee_experience_profile> Employee_experience_profile { get; set; }
+
 
 
         //public string tab { get; set; }

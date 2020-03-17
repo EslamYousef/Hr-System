@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HR.Models.ViewModel.Employee_Experience_VM>
+﻿@model IEnumerable<HR.Models.Employee_experience_profile>
 @using HR.Resource;
 @{
     ViewBag.Title = "Index";
@@ -12,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    @Personnel.Employeeexperienceprofile
+                    <a href="@Url.Action("Create", "Employee_experience_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.Employeeexperienceprofile </a>                    
                 </p>
             </div>
 
@@ -47,38 +47,38 @@
                         {
                             <tr>
 
-                                <td>@item.Employee_experience_profile.Code</td>
-                                <td>@item.fullname</td>
-                                @if (@item.Employee_experience_profile.External_compaines !=null)
+                                <td>@item.Code</td>
+                                <td>@item.Employee_Profile.Full_Name</td>
+                                @if (@item.External_compaines !=null)
                                 {
-                                    <td>@item.Employee_experience_profile.External_compaines.Name</td>
+                                    <td>@item.External_compaines.Name</td>
                                 }
                                 else
                                 {
                                     <td>Empty</td>
                                 }
-                                @if (@item.Employee_experience_profile.Company_type != null)
+                                @if (@item.Company_type != null)
                                 {
-                                <td>@item.Employee_experience_profile.Company_type</td>
+                                <td>@item.Company_type</td>
                                 }
                                 else{<td>Empty</td>}
-                                @if (@item.Employee_experience_profile.Job_title != null)
+                                @if (@item.Job_title != null)
                                 {
-                                    <td>@item.Employee_experience_profile.Job_title</td>
+                                    <td>@item.Job_title</td>
                                 }
                                 else
                                 {
                                 <td>Empty</td>
                                 }
-                                @if (@item.Employee_experience_profile.Rejection_Reasons != null)
+                                @if (@item.Rejection_Reasons != null)
                                 {
-                                    <td>@item.Employee_experience_profile.Rejection_Reasons.Name</td> }
+                                    <td>@item.Rejection_Reasons.Name</td> }
                                 else
                                 {
                                     <td>Empty</td> }
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_experience_profile", new {id = item.Employee_experience_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
-                                    @*<a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.Employee_Address_Profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>*@
+                                    <a href="@Url.Action("Edit", "Employee_experience_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Employee_experience_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
                                 </td>
                             </tr>
                         }

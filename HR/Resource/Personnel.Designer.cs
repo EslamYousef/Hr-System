@@ -1879,6 +1879,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Sponsor Profile.
+        /// </summary>
+        public static string EmployeeSponsorProfile {
+            get {
+                return ResourceManager.GetString("EmployeeSponsorProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee Subscription Profile.
         /// </summary>
         public static string EmployeeSubscriptionProfile {
@@ -1893,6 +1902,15 @@ namespace HR.Resource {
         public static string EmployeeTickets {
             get {
                 return ResourceManager.GetString("EmployeeTickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Vehicle Profile.
+        /// </summary>
+        public static string EmployeeVehicleProfile {
+            get {
+                return ResourceManager.GetString("EmployeeVehicleProfile", resourceCulture);
             }
         }
         

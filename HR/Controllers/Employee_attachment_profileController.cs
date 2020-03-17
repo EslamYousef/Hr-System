@@ -103,12 +103,10 @@ namespace HR.Controllers
                     record.Document_status = model.Document_status;
                     record.Comments = model.Comments;
 
-                    var fileId = 1;
-                     var  File = fileId + 1;
-
+                    var code = record.Code;
                     string folderpath = Server.MapPath("~/files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
-                    Directory.CreateDirectory(folderpath + File);
-                    string mypath = folderpath + File;
+                    Directory.CreateDirectory(folderpath + code);
+                    string mypath = folderpath + code;
                     string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
                     MyItem.SaveAs(mypath + "/" + filename);
                     model.Attachmentfile = filename;
@@ -162,7 +160,7 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(Employee_attachment_profile model, string command)
+        public ActionResult Edit(Employee_attachment_profile model, string command, HttpPostedFileBase MyItem)
         {
             try
             {
@@ -199,16 +197,19 @@ namespace HR.Controllers
                 record.Document_status = model.Document_status;
                 record.Comments = model.Comments;
 
-                //var fileId = 1;
-                //var File = fileId + 1;
 
-                //string folderpath = Server.MapPath("~/files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
-                //Directory.CreateDirectory(folderpath + File);
-                //string mypath = folderpath + File;
-                //string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
-                //MyItem.SaveAs(mypath + "/" + filename);
-                //model.Attachmentfile = filename;
-                //record.Attachmentfile = model.Attachmentfile;
+
+                if (MyItem != null)
+                {
+                    var code = record.Code;
+                    string folderpath = Server.MapPath("~/files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
+                    Directory.CreateDirectory(folderpath + code);
+                    string mypath = folderpath + code;
+                    string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                    MyItem.SaveAs(mypath + "/" + filename);
+                    model.Attachmentfile = filename;
+                    record.Attachmentfile = model.Attachmentfile;
+                }
 
                 dbcontext.SaveChanges();
 

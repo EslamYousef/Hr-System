@@ -369,26 +369,26 @@ namespace HR.Controllers
                     //emp.Employee_family_profile = e3;
                     //dbcontext.SaveChanges();
                     ///////////////////////////////////////////////////////////////
-                    var employeeexperience = dbcontext.Employee_experience_profile.ToList();
-                    var expcount = 0;
+                    //var employeeexperience = dbcontext.Employee_experience_profile.ToList();
+                    //var expcount = 0;
 
-                    if (employeeexperience.Count() == 0)
-                    {
-                        expcount = 1;
-                    }
-                    else
-                    {
-                        var te5 = employeeexperience.LastOrDefault().ID;
-                        expcount = te5 + 1;
-                    }
-                    DateTime statis5 = Convert.ToDateTime("1/1/1900");
-                    var strus5 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    var text5 = new Employee_experience_profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus5.Structure_Code + expcount.ToString(), Approval_date = statis5, Start_date = statis5, End_date = statis5 ,Rejection_ReasonsId="0",External_compainesId="0"};
-                    var e5 = dbcontext.Employee_experience_profile.Add(text5);
-                    dbcontext.SaveChanges();
-                    emp.Employee_experience_profile = e5;
-                    dbcontext.SaveChanges();
+                    //if (employeeexperience.Count() == 0)
+                    //{
+                    //    expcount = 1;
+                    //}
+                    //else
+                    //{
+                    //    var te5 = employeeexperience.LastOrDefault().ID;
+                    //    expcount = te5 + 1;
+                    //}
+                    //DateTime statis5 = Convert.ToDateTime("1/1/1900");
+                    //var strus5 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //var text5 = new Employee_experience_profile
+                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus5.Structure_Code + expcount.ToString(), Approval_date = statis5, Start_date = statis5, End_date = statis5 ,Rejection_ReasonsId="0",External_compainesId="0"};
+                    //var e5 = dbcontext.Employee_experience_profile.Add(text5);
+                    //dbcontext.SaveChanges();
+ 
+                    //dbcontext.SaveChanges();
                     ////////////////////////////////////////////////
                     var employeecontact= dbcontext.Employee_contact_profile.ToList();
                     var contactcount = 0;
@@ -468,7 +468,7 @@ namespace HR.Controllers
                     }
                     if (command5 == "Submit")
                     {
-                        return RedirectToAction("Edit", "Employee_experience_profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_experience_profile", new { id = emp.ID });
                     }
                     if (command6 == "Submit")
                     {
@@ -497,6 +497,14 @@ namespace HR.Controllers
                     if (command12 == "Submit")
                     {
                         return RedirectToAction("index", "Employee_attachment_profile", new { id = emp.ID });
+                    }
+                    if (command == "Submit2")
+                    {
+                        return RedirectToAction("index", "Employee_vehicle_profile");
+                    }
+                    if (command == "Submit3")
+                    {
+                        return RedirectToAction("index", "Employee_sponsor_profile");
                     }
                     return RedirectToAction("Index");
                 }
@@ -733,7 +741,7 @@ namespace HR.Controllers
                 }
                 if (command5 == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_experience_profile", new { id = record.Employee_experience_profile.ID });
+                    return RedirectToAction("index", "Employee_experience_profile", new { id = record.ID });
                 }
                 if (command6 == "Submit")
                 {
@@ -773,6 +781,14 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("index", "Employee_attachment_profile", new { id = record.ID });
                 }
+                if (command == "Submit2")
+                {
+                    return RedirectToAction("index", "Employee_vehicle_profile");
+                }
+                if (command == "Submit3")
+                {
+                    return RedirectToAction("index", "Employee_sponsor_profile");
+                }
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -796,6 +812,7 @@ namespace HR.Controllers
                 var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
                 var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
                 var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.ID);
+                var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.ID);
 
                 if (record != null)
                 { return View(record); }
@@ -825,7 +842,7 @@ namespace HR.Controllers
            
             var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
             var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.ID);
-            var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.Employee_experience_profile.ID);
+            var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.ID);
             try
             {
 

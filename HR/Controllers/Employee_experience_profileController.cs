@@ -15,20 +15,12 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_experience_profile
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var employee = dbcontext.Employee_Profile.ToList();
-            var empexperience = dbcontext.Employee_experience_profile.ToList();
-            var model = from a in employee
-                        join b in empexperience on a.Employee_experience_profile.ID equals b.ID
-                        select new Employee_Experience_VM
-                        {
-                            fullname = a.Full_Name,
-                            code = a.Code,
-                            EmployeeId = a.ID,
-                            Employee_experience_profile = b
-                        };
-            return View(model);
+            var ID = int.Parse(id);
+            var new_model = dbcontext.Employee_experience_profile.Where(m => m.Employee_Profile.ID == ID).ToList();
+            ViewBag.idemp = id;
+            return View(new_model);
         }
         public ActionResult Create(string id)
         {
@@ -36,6 +28,7 @@ namespace HR.Controllers
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m=>m.purpose==reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_experience_profile.ToList();
             var count = 0;
@@ -48,15 +41,14 @@ namespace HR.Controllers
                 var te = model.LastOrDefault().ID;
                 count = te + 1;
             }
-            if (id != null)
-            {
-                var ID = int.Parse(id);
+            DateTime statis = Convert.ToDateTime("1/1/1900");
+            var ID = int.Parse(id);
                 var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-                var x = emp.Employee_experience_profile;
-                return View(x);
-            }
+             
+              
+          
 
-            var EmployeeExperience = new Employee_experience_profile();
+            var EmployeeExperience = new Employee_experience_profile { Employee_Profile=emp,Employee_ProfileId=emp.ID.ToString(),Code=stru.Structure_Code +count.ToString(), Approval_date = statis, Start_date = statis, End_date = statis, Rejection_ReasonsId = "0", External_compainesId = "0" };
             return View(EmployeeExperience);
 
         }
@@ -69,9 +61,17 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                if (ModelState.IsValid)
-                {
-                    if (model.External_compainesId == "0" || model.External_compainesId == null)
+                //if (ModelState.IsValid)
+                //{
+                var emp = int.Parse(model.Employee_ProfileId);
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp);
+
+                Employee_experience_profile record = new Employee_experience_profile();
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+                if (model.External_compainesId == "0" || model.External_compainesId == null)
                     {
                         ModelState.AddModelError("", HR.Resource.Personnel.CompanyCodemustenter);
                         return View(model);
@@ -81,12 +81,14 @@ namespace HR.Controllers
                         ModelState.AddModelError("", HR.Resource.Personnel.ReasonofleaveCodemustenter);
                         return View(model);
                     }
-                    var experience = int.Parse(model.Employee_ProfileId);
-                    var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == experience);
-                    var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == emp.Employee_experience_profile.ID);
-
+            
+                //var experience = int.Parse(model.Employee_ProfileId);
+                //var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == experience);
+                    record.Code = model.Code;
                     record.External_compainesId = model.External_compainesId;
                     record.Rejection_ReasonsId = model.Rejection_ReasonsId;
+                
+                
                     record.Company_type = model.Company_type;
                     record.Job_title = model.Job_title;
                     record.Start_date = model.Start_date;
@@ -106,19 +108,19 @@ namespace HR.Controllers
                     record.Added_years = model.Added_years;
                     record.Approval_date = model.Approval_date;
                     record.Considered_period = model.Considered_period;
-                   
 
+                dbcontext.Employee_experience_profile.Add(record);
                     dbcontext.SaveChanges();
                     if (command == "Submit")
                     {
-                        return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                        return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
                     }
-                    return RedirectToAction("Index");
-                }
-                else
-                {
+                    return RedirectToAction("Index", new { id = EmpObj.ID });
+                //}
+                //else
+                //{
                     return View(model);
-                }
+                //}
             }
             catch (DbUpdateException e)
             {
@@ -131,15 +133,16 @@ namespace HR.Controllers
             }
 
         }
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                var ID = int.Parse(id);
-                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.Employee_ProfileId == ID.ToString());
+                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
                 if (record != null)
                 {
                     return View(record);
@@ -162,6 +165,7 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.External_compaines = dbcontext.External_compaines.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Rejection_Reasons = dbcontext.Rejection_Reasons.Where(m => m.purpose == reject_purpose.Job_experience).ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                var record = dbcontext.Employee_experience_profile.FirstOrDefault(a => a.ID == model.ID);
                 //if (model.External_compainesId == "0" || model.External_compainesId == null)
                 //{
                 //    ModelState.AddModelError("", "Company Code must enter");
@@ -172,11 +176,12 @@ namespace HR.Controllers
                 //    ModelState.AddModelError("", "Reason of leave Code must enter");
                 //    return View(model);
                 //}
-                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
-
-                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.Employee_ProfileId == model.ID.ToString());
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
                 var empid = EmpObj.Code + "------" + EmpObj.Name;
-                 record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+
                 record.Code = model.Code;
                 record.Rejection_ReasonsId = model.Rejection_ReasonsId;
                 if (model.Rejection_ReasonsId == null)
@@ -198,8 +203,8 @@ namespace HR.Controllers
                     var External_compainesId = int.Parse(model.External_compainesId);
                     record.External_compaines = dbcontext.External_compaines.FirstOrDefault(m => m.ID == External_compainesId);
                 }
-            
-             
+
+                record.Code = model.Code;
                 record.Company_type = model.Company_type;
                 record.Job_title = model.Job_title;
                 record.Start_date = model.Start_date;
@@ -209,6 +214,7 @@ namespace HR.Controllers
                     TempData["Message"] = HR.Resource.Personnel.FromdatebiggerTodate;
                     return View(model);
                 }
+           
                 record.Years = model.Years;
                 record.Months = model.Months;
                 record.Days = model.Days;
@@ -224,17 +230,62 @@ namespace HR.Controllers
 
                 if (command == "Submit")
                 {
-                    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
                 }
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = EmpObj.ID });
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
                 TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
                 return View(model);
             }
             catch (Exception e)
             { return View(model); }
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
+                if (record != null)
+                { return View(record); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
+                    return View();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+        }
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult Deletemethod(int id)
+        {
+            var record = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == id);
+            ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
+            try
+            {
+                dbcontext.Employee_experience_profile.Remove(record);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index", new { id = record.Employee_ProfileId });
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
+                return View(record);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
     }
 }

@@ -148,24 +148,24 @@
                             </div>
                         </div>
 
-                        @*<span>Attachments : </span> <input type="file" name="MyItem" required /><br />*@
+                        @*<span>Attachments :<a href="~/files/@Model.Code/@Model.Attachmentfile" />The Link </span> <input type="file" name="MyItem" required /><br />*@
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Comments</label>
-                            <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                        <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                    </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Comments</label>
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                                 </div>
-
                             </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </div>
+                            </div>
+
+                        </div>
 
                 }
 
@@ -177,6 +177,7 @@
 </div>
 
 @section scripts{}
+
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
