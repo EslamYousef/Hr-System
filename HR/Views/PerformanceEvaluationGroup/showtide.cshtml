@@ -1,0 +1,116 @@
+﻿@model HR.Models.ViewModel.per_em
+@{
+    ViewBag.Title = "Tide_Emp_With_performance";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+
+}
+@using HR.Resource
+@*@Scripts.Render("~/bundles/jqueryval")*@
+<div class="content-wrapper">
+
+  
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("editTide_Emp_With_performance", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input name="ID_emp" value="" hidden />
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.PER_id)
+                       
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6 split right">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>code</td>
+                                        <td>name</td>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody id="emp2">
+                                    @for (var i = 0; i < Model.emp.Count(); i++)
+                                    {
+
+                                        <tr>
+                                            <td hidden>
+
+                                                <input hidden class='form-control' required type='number' name='ID_emp' value='@Model.emp[i].ID' />
+                                            </td>
+
+                                            <td>
+
+                                                <input class='form-control' required value='@Model.emp[i].Code' readonly='readonly' />
+                                            </td>
+
+                                            <td>
+
+                                                <input class='form-control' required value='@Model.emp[i].Name' readonly='readonly' />
+                                            </td>
+
+                                            
+
+
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-2">
+                           
+                                <a style="width:100%" href="@Url.Action("Edit","PerformanceEvaluationGroup", new RouteValueDictionary(new { id =Model.PER_id    }))" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+
+@section scripts{}
+
+
+
+
+

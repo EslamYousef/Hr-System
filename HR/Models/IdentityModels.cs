@@ -181,7 +181,9 @@ namespace HR.Models
         public DbSet<Questions_Performance> Questions_Performance { get; set; }
         public DbSet<PlaneSchedule> PlaneSchedule { get; set; }
         public DbSet<EvaluationPlan> EvaluationPlan { get; set; }
-        
+        public DbSet<per_emp> per_emp { get; set; }
+
+
 
     }
 }

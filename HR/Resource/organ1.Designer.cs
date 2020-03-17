@@ -2023,6 +2023,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Employees.
+        /// </summary>
+        public static string Selectemployee {
+            get {
+                return ResourceManager.GetString("Selectemployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to select-job-level-class.
         /// </summary>
         public static string selectjoblevelclass {
@@ -2100,6 +2109,15 @@ namespace HR.Resource {
         public static string selectunittypecode {
             get {
                 return ResourceManager.GetString("selectunittypecode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Employees Assign To Plan.
+        /// </summary>
+        public static string showemployeesassigntoplan {
+            get {
+                return ResourceManager.GetString("showemployeesassigntoplan", resourceCulture);
             }
         }
         

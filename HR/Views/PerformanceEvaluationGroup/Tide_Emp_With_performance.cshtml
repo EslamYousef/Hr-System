@@ -1,0 +1,340 @@
+﻿@model HR.Models.ViewModel.per_em
+@{
+    ViewBag.Title = "Tide_Emp_With_performance";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+
+}
+@using HR.Resource
+@*@Scripts.Render("~/bundles/jqueryval")*@
+<div class="content-wrapper">
+
+    
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Tide_Emp_With_performance", "PerformanceEvaluationGroup", FormMethod.Post, new {per=1,  enctype = "multipart/form-data" }))
+                {
+                    <input name="ID_emp" value="" hidden/>
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m=>m.PER_id)
+                    <div class="split left">
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2">@Basic.category</label>
+                            <div class="col-md-4">
+
+                                @Html.DropDownList("category", new SelectList(ViewBag.Object, "Value", "Text"), @Basic.category, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@pers_2.items</label>
+                            <div class="col-md-4">
+                                <select multiple id="ter" class="select2" disabled></select>
+
+                            </div>
+                            <div class="form-group">
+                               <div class="col-md-2"><input style="width:100%" class="btn btn-success" type="button" value="Get employee" onclick="getemp()" /></div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                   <div class="col-md-2"></div>
+                        <div class="col-md-6 split right">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                     
+                                        <td>code</td>
+                                        <td>name</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody id="emp2"></tbody>
+                            </table>
+                          
+                        </div>
+                      
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                            </div>
+                        </div>
+                      <div class="form-group">
+                          <div class="col-md-2">
+
+                          </div>
+                          <div class="col-md-2">
+
+                              <button type="submit" style="width:100%" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</button>
+
+                          </div>
+                          <div class="col-md-2">
+
+                              <a style="width:100%" href="@Url.Action("Edit","PerformanceEvaluationGroup", new RouteValueDictionary(new { id =Model.PER_id }))" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+
+                          </div>    
+                      </div>
+                        
+                        
+                         
+                            
+
+                       
+
+
+                      
+                     
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+<script>
+    function CountryName() {
+        var ID = $("#country").val();
+        $("#ter").select2("val", "0");
+        var finalresult = "";
+        debugger
+        if (ID == '1')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Helper/getallemp",
+                data: {  },
+                success: function (result) {
+                 
+                    $.each(result, function (key, value) {
+                        var pp = $("#emp2").find("tr");
+                        var flag = 0;
+                        for (var o = 0; o < pp.length; o++) {
+
+                            var inputs = pp[o].children;
+                            ID_ = parseInt(inputs[0].children[0].value);
+                            if (ID_ == parseInt(value.ID)) {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if (flag == 0) {
+                            debugger
+                            finalresult +=
+                                "<tr>" +
+                                "<td hidden><input hidden  class = 'form-control' required type='number'  name='ID_emp'   value='" + value.ID + "' /></td>" +
+                                "<td><input class = 'form-control' required   value='" + value.code + "'  readonly='readonly'/></td>" +
+                                "<td><input class = 'form-control' required   value='" + value.Name + "'  readonly='readonly'/></td>" +
+                                "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        }
+                    });
+                    $("#emp2").removeAttr("disabled");
+                    $("#emp2").append(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+
+        }
+        else if (ID == '2')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Helper/getempbyunit",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+
+       }
+       // else if (ID == '3')
+       // {
+       //     debugger
+       //     $.ajax({
+       //         type: "post",
+       //         url: "/Helper/getempbylevel",
+       //         data: { "id": ID },
+       //         success: function (result) {
+       //             debugger
+       //             $("#ter").empty();
+       //             $.each(result, function (key, value) {
+       //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+       //             });
+       //             $("#ter").removeAttr("disabled");
+       //             $("#ter").html(finalresult);
+       //         },
+       //         error: function () {
+
+       //             $("#countryname").val(" ");
+       //         }
+       //     });
+
+       //}
+        else if (ID == '3')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Helper/getempbynationality",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+        }
+
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+    
+    }
+    function getemp()
+    {
+        var finalresult = "";
+        var type = $("#country").val();
+        var value = $("#ter").val();
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getemp",
+            data: { "type": type, "id": value },
+            success: function (result) {
+      
+
+                $.each(result, function (key, value) {
+                    var pp = $("#emp2").find("tr");
+                    var flag = 0;
+                    for (var o = 0; o < pp.length; o++) {
+                       
+                        var inputs = pp[o].children;
+                        ID_ = parseInt(inputs[0].children[0].value);
+                        if (ID_ == parseInt(value.ID)) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 0) {
+                        debugger
+                        finalresult +=
+                            "<tr>" +
+                            "<td hidden><input hidden  class = 'form-control' required type='number'  name='ID_emp'   value='" + value.ID + "' /></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.code + "'  readonly='readonly'/></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.Name + "'  readonly='readonly'/></td>" +
+                            "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                    }
+                });
+                $("#emp2").removeAttr("disabled");
+                $("#emp2").append(finalresult);
+            },
+            error: function () {
+
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function getallarea(id)
+    {
+       var countryname=
+       $.ajax({
+          type: "post",
+          url: "/PerformanceEvaluationGroup/getareabycountry",
+          data: { "id": id, "flag": "0" },
+          success: function (result) {
+
+              $("#area").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+                  
+                  finalresult +="<tr><td>" + value.ID + "</td><td>" + value.Code + "</td></tr>"
+              });
+              $("#area").html(emp2);
+              $("#area").select2("val", "0");
+          },
+          error: function () {
+
+              $("#area").val(" ");
+          }
+      });
+    }
+    function addanother() {
+        debugger
+
+        $("#ter").select2("val", "0");
+    }
+    @*function addanother() {
+
+        debugger
+        var u= "<div class='split left'><div class='form-group'>"+
+                                    "<label class='control-label col-md-2'>@Basic.category</label>"+
+                                    "<div class='col-md-4'>"+
+                                    "<select  onchange ='CountryName()' class='drop'  id ='country1' > </select>" +
+                                   "</div></div>"+
+                                   "<div class='form-group'>"+
+                                   "<label class='control-label col-md-2'>@pers_2.items</label>"+
+                                   "<div class='col-md-4'>"+
+                                   "<select  multiple id='ter' class='drop2' ></select></div></div></div>";
+
+        $("#anotherfilter").append(u);
+        $(".drop").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+        $(".drop2").select2({
+            allowClear: true,
+
+        });
+
+    }*@
+
+</script>
+
+
+
+
+@section scripts{}
+

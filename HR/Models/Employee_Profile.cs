@@ -115,6 +115,9 @@ namespace HR.Models
         public virtual List<Employee_beneficiary_profile> Employee_beneficiary_profile { get; set; }
         public virtual List<Employee_subscription_syndicate_profile> Employee_subscription_syndicate_profile { get; set; }
         public virtual List<Employee_attachment_profile> Employee_attachment_profile { get; set; }
+        public virtual List<per_emp> per_emp { get; set; }
+      
+
 
         //public string tab { get; set; }
 

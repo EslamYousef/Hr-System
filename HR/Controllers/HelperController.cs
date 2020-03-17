@@ -998,14 +998,131 @@ namespace HR.Controllers
             var Public_Holiday_Events = dbcontext.Public_Holiday_Events.FirstOrDefault(m => m.ID == ID);
             return Json(Public_Holiday_Events);
         }
+        
 
-     
+        public JsonResult getempbyunit(int id)
+        {
+            try
+            {
 
+                var list = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "->" + m.unit_Description, ID = m.ID }).ToList();
+                
+                //var list = dbcontext.Position_Information.Where(m => m.Organization_ChartId == id.ToString()).Select(m=>new { m.Employee_Profile}).ToList().Select(m => new { Code = m.Employee_Profile.Code, ID = m.Employee_Profile.ID }).ToList();
+               
+                return Json(list);
+            }
+            catch (Exception)
+            {
+                return Json(null);
+            }
+        }
+        public JsonResult getempbylevel(int id)
+        {
+            try
+            {
+                var list = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID }).ToList();
+                //var list = dbcontext.Position_Information.Where(m => m.job_level_setup.ID == id).Select(m => new { m.Employee_Profile }).ToList().Select(m => new { Code = m.Employee_Profile.Code, ID = m.Employee_Profile.ID }).ToList();
 
+                return Json(list);
+             
+            }
+            catch (Exception)
+            {
+                return Json(null);
+            }
+        }
+        public JsonResult getempbynationality(int id)
+        {
+            try
+            {
+                var list = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID }).ToList();
+                //var LIST = dbcontext.Employee_Profile.Where(m=>m.NationalityId==id.ToString()).ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+                return Json(list);
+            }
+            catch (Exception)
+            {
+                return Json(null);
+            }
+        }
+        public JsonResult getallemp()
+        {
+            try
+            {
+                var LIST = dbcontext.Employee_Profile.ToList().Select(m => new { code = m.Code,Name= m.Name, ID = m.ID }).ToList();
+                return Json(LIST);
+            }
+            catch (Exception)
+            {
+                return Json(null);
+            }
+        }
+        public JsonResult getemp(int type,string[]id)
+        {
+            try
+            {
+                List<SelectListItem> items = new List<SelectListItem>();
+                var list = new List<Position_Information>();
+                var list2 = new List<Employee_Profile>();
+              
+                if (type == 2) 
+                {
+                    foreach(var item in id)
+                    {
 
+                        list.AddRange(dbcontext.Position_Information.Where(m => m.Organization_ChartId == item).ToList());
+                     
+                      
+                    }
+                    var t = list.Select(m => new { m.Employee_Profile }).ToList();
+                    var y=t.Select(m => new { Name = m.Employee_Profile.Name, code = m.Employee_Profile.Code, ID = m.Employee_Profile.ID }).ToList().Distinct();
 
+                    return Json(t);
+                }
+                else if (type == 3)
+                {
+                    foreach (var item in id)
+                    {
 
+                        list2.AddRange(dbcontext.Employee_Profile.Where(m => m.NationalityId == item).ToList());
+                        return Json(list2.Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                    }
 
+                }
+                //else if (type == 3)
+                //{
+                //    foreach (var item in id)
+                //    {
+                //        var ID = int.Parse(item);
+                //        var units = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID).Organization_Unit_TypeID.ToList() ;
+
+                //        var list = dbcontext.Position_Information.Where(m => m.job_level_setup.ID == ID).Select(m => new { m.Employee_Profile }).ToList().Select(m => new { Code = m.Employee_Profile.Code+"->"+m.Employee_Profile.Name, ID = m.Employee_Profile.ID }).ToList().Distinct();
+                //        foreach(var i in units)
+                //        {i.
+
+                //            var list = dbcontext.Position_Information.Where(m => m.Organization_ChartId == i.).Select(m => new { m.Employee_Profile }).ToList().Select(m => new { Code = m.Employee_Profile.Code + "->" + m.Employee_Profile.Name, ID = m.Employee_Profile.ID }).ToList().Distinct();
+
+                //        }
+                //        foreach (var item2 in list)
+                //        {
+                //            items.Insert(0, (new SelectListItem
+                //            {
+                //                Text = item2.Code,
+                //                Value = item2.ID.ToString(),
+
+                //            }));
+                //        }
+                //    }
+
+                //}
+
+                return Json(null);
+            }
+            catch(Exception e)
+            {
+                return Json(null);
+            }
+          
+        }
 
 
 

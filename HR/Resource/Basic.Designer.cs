@@ -331,6 +331,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string category {
+            get {
+                return ResourceManager.GetString("category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check due date.
         /// </summary>
         public static string Check_Due_date {
@@ -1146,6 +1155,15 @@ namespace HR.Resource {
         public static string FromDateLaterthanTodate {
             get {
                 return ResourceManager.GetString("FromDateLaterthanTodate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Employee.
+        /// </summary>
+        public static string getemp {
+            get {
+                return ResourceManager.GetString("getemp", resourceCulture);
             }
         }
         

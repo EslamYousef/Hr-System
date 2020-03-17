@@ -35,7 +35,7 @@ namespace HR.Controllers
             {
                 ViewBag.airport = dbcontext.Air_ports.ToList();
                 if (ModelState.IsValid)
-                {
+                {   
                   
                     var fromair = form["from"].Split(char.Parse(","));
                     var to = form["to"].Split(char.Parse(","));
