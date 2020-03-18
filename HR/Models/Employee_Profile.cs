@@ -116,7 +116,7 @@ namespace HR.Models
         public virtual List<Employee_attachment_profile> Employee_attachment_profile { get; set; }
         public virtual List<per_emp> per_emp { get; set; }
         public virtual List<Employee_experience_profile> Employee_experience_profile { get; set; }
-
+        public virtual List<EvaluationTransaction> EvaluationTransaction { get; set; }
 
 
         //public string tab { get; set; }

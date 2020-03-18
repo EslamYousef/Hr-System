@@ -284,19 +284,19 @@ namespace HR.Controllers
                 var check_type = dbcontext.Checktype.ToList();
                 var checkRequestStatues = dbcontext.check_request_change_status.ToList();
 
-                var employeeRecord = from e in request
-                                     join d in check_type on e.ChecktypeID equals d.ID.ToString()
-                                     join i in checkRequestStatues on e.check_request_change_statusID equals i.ID.ToString()
-                                     select new CheckRequestVM
-                                     {
-                                         iD = e.ID,
-                                         amount = e.amount,
-                                         checkNumber = e.check_number,
-                                         requestDate = e.Request_date.ToString("dd/MM/yyyy"),
-                                         requestNumber = e.Request_number,
-                                         checkType = d.Name,
+                    var employeeRecord = from e in request
+                                         join d in check_type on e.ChecktypeID equals d.ID.ToString()
+                                         join i in checkRequestStatues on e.check_request_change_statusID equals i.ID.ToString()
+                                         select new CheckRequestVM
+                                         {
+                                             iD = e.ID,
+                                             amount = e.amount,
+                                             checkNumber = e.check_number,
+                                             requestDate = e.Request_date.ToString("dd/MM/yyyy"),
+                                             requestNumber = e.Request_number,
+                                             checkType = d.Name,
 
-                                     };
+                                         };
                 var t = employeeRecord.ToList();
                 return Json(employeeRecord, JsonRequestBehavior.AllowGet);
             }

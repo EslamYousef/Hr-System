@@ -10,7 +10,7 @@ namespace HR.Models
         public int ID { get; set; }
         public int? PerformanceEvaluationGroupID { get; set; }
         public int? Employee_ProfileID { get; set; }
-        public virtual PerformanceEvaluationGroup PerformanceEvaluationGroup { get; set; }
+        public virtual EvaluationPlan PerformanceEvaluationGroup { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
     }
 }

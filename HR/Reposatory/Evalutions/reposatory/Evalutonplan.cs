@@ -93,7 +93,7 @@ namespace HR.Reposatory.Evalutions.reposatory
             }
         }
 
-        public bool Editone(EvaluationPlan model)
+        public EvaluationPlan Editone(EvaluationPlan model)
         {
             try
             {
@@ -104,15 +104,15 @@ namespace HR.Reposatory.Evalutions.reposatory
                 record.previous_apprisal_to_review = model.previous_apprisal_to_review;
              
                 context.SaveChanges();
-                return true;
+                return record;
             }
             catch (DbUpdateException)
             {
-                return false;
+                return null;
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
         }
 

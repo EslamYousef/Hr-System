@@ -14,7 +14,7 @@ namespace HR.Reposatory.Evalutions.IReposatory
         bool AddList(List<EvaluationPlan> model);
         List<EvaluationPlan> GetAll();
         bool Remove(int id);
-        bool Editone(EvaluationPlan model);
+        EvaluationPlan Editone(EvaluationPlan model);
         PlaneSchedule AddOneschedule(PlaneSchedule model);
         bool reomveplanescedule(int id);
         List<PlaneSchedule> findplanescedule(int id);

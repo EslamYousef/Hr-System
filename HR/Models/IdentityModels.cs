@@ -183,7 +183,11 @@ namespace HR.Models
         public DbSet<EvaluationPlan> EvaluationPlan { get; set; }
         public DbSet<per_emp> per_emp { get; set; }
 
+        public DbSet<EvaluationTransaction> EvaluationTransaction { get;set;}
 
+        public DbSet<groupevaluation_evaluation_transaction> groupevaluation_evaluation_transaction { get;set;}
+
+        public DbSet<QuestionsANDAnswers_EvaluationTransaction> QuestionsANDAnswers_EvaluationTransaction { get;set;}
 
     }
 }

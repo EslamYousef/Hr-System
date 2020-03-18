@@ -15,6 +15,8 @@ namespace HR.Models
         public int EvaluationTypeID { get; set; }
         public int previous_apprisal_to_review { get; set; }
         public virtual List<PlaneSchedule> PlaneSchedule { get; set; }
+        public virtual List<EvaluationTransaction> EvaluationTransaction { get; set; }
+        public virtual List<per_emp> per_emp { get; set; }
 
     }
 }

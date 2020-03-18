@@ -5,7 +5,7 @@
 
 }
 @using HR.Resource
-@*@Scripts.Render("~/bundles/jqueryval")*@
+@Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
     
@@ -18,7 +18,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                @using (Html.BeginForm("Tide_Emp_With_performance", "PerformanceEvaluationGroup", FormMethod.Post, new {per=1,  enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Tide_Emp_With_performance", "EvaluationPlan", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <input name="ID_emp" value="" hidden/>
                     @Html.AntiForgeryToken()
@@ -88,7 +88,7 @@
                           </div>
                           <div class="col-md-2">
 
-                              <a style="width:100%" href="@Url.Action("Edit","PerformanceEvaluationGroup", new RouteValueDictionary(new { id =Model.PER_id }))" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                              <a style="width:100%" href="@Url.Action("Edit","EvaluationPlan", new RouteValueDictionary(new { id =Model.PER_id }))" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
 
                           </div>    
                       </div>

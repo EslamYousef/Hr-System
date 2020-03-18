@@ -97,10 +97,7 @@ namespace HR.Controllers
                             var F= reposatoryEvaluationPerformance.addManytoMantTable(new PerformanceEvaluationGroupEvaluationElements { EvaluationElementsID=element.ID,PerformanceEvaluationGroupID=obj.ID});
                         }
                     }
-                if (Command == "tide")
-                {
-                    return RedirectToAction("Tide_Emp_With_performance", "PerformanceEvaluationGroup", new { performance_ID = obj.ID });
-                }
+              
                 if (obj != null) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully;return RedirectToAction("index"); }
                 else { TempData["Message"] = HR.Resource.pers_2.Faild;return View(model);}
             }
@@ -189,10 +186,7 @@ namespace HR.Controllers
 
                     }
                 }
-                if (Command == "tide")
-                {
-                    return RedirectToAction("editTide_Emp_With_performance", "PerformanceEvaluationGroup", new { ID = edit_obj.ID });
-                }
+              
                 if (edit_obj!=null) { TempData["Message"] = HR.Resource.pers_2.addedSuccessfully; return RedirectToAction("index"); }
                 else
                 {
@@ -253,215 +247,7 @@ namespace HR.Controllers
         {
             return Json(reposatoryQuestions.Find(id));
         }
-        public ActionResult Tide_Emp_With_performance(int performance_ID)
-        {
-            try
-            {
-                List<SelectListItem> items = new List<SelectListItem>();
-                items.Insert(0, (new SelectListItem
-                {
-                    Text = "All employee",
-                    Value = "1",
-                   
-                }));
-                items.Insert(1, (new SelectListItem
-                {
-                    Text = "unit",
-                    Value = "2",
-
-                }));
-                items.Insert(2, (new SelectListItem
-                {
-                    Text = "nationality",
-                    Value = "3",
-
-                }));
-               ViewBag.Object = new SelectList(items, "Value", "Text");
-                ViewBag.performance_ID = performance_ID;
-                var pe = new per_em();
-                pe.PER_id = performance_ID;
-                return View(pe);
-            }
-            catch (Exception)
-            {
-                return View();
-            }
-        }
-
      
-        [HttpPost]
-        public ActionResult Tide_Emp_With_performance(FormCollection form, per_em model)
-        {
-            try
-            {
-                List<SelectListItem> items = new List<SelectListItem>();
-                items.Insert(0, (new SelectListItem
-                {
-                    Text = "employee",
-                    Value = "1",
-
-                }));
-                items.Insert(1, (new SelectListItem
-                {
-                    Text = "unit",
-                    Value = "2",
-
-                }));
-                items.Insert(2, (new SelectListItem
-                {
-                    Text = "nationality",
-                    Value = "3",
-
-                }));
-                ViewBag.Object = new SelectList(items, "Value", "Text");
-
-                var context = new ApplicationDbContext();
-                var ID_emp = form["ID_emp"].Split(',');
-                var per = reposatoryEvaluationPerformance.Find(model.PER_id);
-             
-                foreach (var item in ID_emp)
-                {
-                    if(item!="")
-                    {
-                        var ID = int.Parse(item);
-                        var per_em = new per_emp();
-                        var emp = context.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-                        per_em.PerformanceEvaluationGroupID = per.ID;
-                        per_em.Employee_ProfileID = emp.ID;
-                        var record = context.per_emp.Add(per_em);
-                        context.SaveChanges();
-                    }
-                  
-                }
-                return RedirectToAction("Edit",new { id= per.ID});
-            }
-            catch(Exception)
-            {
-                return View();
-            }
-        }
-
-
-
-
-        public ActionResult editTide_Emp_With_performance(int ID)
-        {
-            try
-            {
-                var context = new ApplicationDbContext();
-                List<SelectListItem> items = new List<SelectListItem>();
-                items.Insert(0, (new SelectListItem
-                {
-                    Text = "employee",
-                    Value = "1",
-
-                }));
-                items.Insert(1, (new SelectListItem
-                {
-                    Text = "unit",
-                    Value = "2",
-
-                }));
-                items.Insert(2, (new SelectListItem
-                {
-                    Text = "nationality",
-                    Value = "3",
-
-                }));
-                ViewBag.Object = new SelectList(items, "Value", "Text");
-
-                var model = context.per_emp.Where(m => m.PerformanceEvaluationGroupID == ID).ToList();
-               
-                var pe = new per_em();
-                pe.PER_id = ID;
-                var em = new List<Employee_Profile>();
-                foreach(var item in  model)
-                {
-                    var emp = context.Employee_Profile.FirstOrDefault(m => m.ID == item.Employee_ProfileID);
-                    em.Add(emp);
-                }
-                pe.emp = em;
-                return View(pe);
-            }
-            catch (Exception)
-            {
-                return View();
-            }
-        }
-        [HttpPost]
-        public ActionResult editTide_Emp_With_performance(FormCollection form, per_em model)
-        {
-            try
-            {
-                var context = new ApplicationDbContext();
-                List<SelectListItem> items = new List<SelectListItem>();
-                items.Insert(0, (new SelectListItem
-                {
-                    Text = "employee",
-                    Value = "1",
-
-                }));
-                items.Insert(1, (new SelectListItem
-                {
-                    Text = "unit",
-                    Value = "2",
-
-                }));
-                items.Insert(2, (new SelectListItem
-                {
-                    Text = "nationality",
-                    Value = "3",
-
-                }));
-                ViewBag.Object = new SelectList(items, "Value", "Text");
-
-                var per = reposatoryEvaluationPerformance.Find(model.PER_id);
-                var per_em1 = context.per_emp.Where(m => m.PerformanceEvaluationGroupID == model.PER_id).ToList();
-                context.per_emp.RemoveRange(per_em1);
-                context.SaveChanges();
-
-                //var model = context.per_emp.Where(m => m.PerformanceEvaluationGroupID == ID).ToList();
-                
-                
-                var ID_emp = form["ID_emp"].Split(',');
-                var per2 = reposatoryEvaluationPerformance.Find(model.PER_id);
-                foreach (var item in ID_emp)
-                {
-                    if (item != "")
-                    {
-                        var ID = int.Parse(item);
-                        var per_em = new per_emp();
-                        var emp = context.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-                        per_em.PerformanceEvaluationGroupID = per.ID;
-                        per_em.Employee_ProfileID = emp.ID;
-                        var record = context.per_emp.Add(per_em);
-                        context.SaveChanges();
-
-                    }
-                }
-                    
-                return RedirectToAction("Edit", new { id = per.ID });
-            }
-            catch (Exception)
-            {
-                return View();
-            }
-        }
-        public ActionResult showtide(int ID)
-        {
-            var context = new ApplicationDbContext();
-            var model = context.per_emp.Where(m => m.PerformanceEvaluationGroupID == ID).ToList();
-            var pe = new per_em();
-            pe.PER_id = ID;
-            var em = new List<Employee_Profile>();
-            foreach (var item in model)
-            {
-                var emp = context.Employee_Profile.FirstOrDefault(m => m.ID == item.Employee_ProfileID);
-                em.Add(emp);
-            }
-            pe.emp = em;
-            return View(pe);
-        }
 
     }
 }
