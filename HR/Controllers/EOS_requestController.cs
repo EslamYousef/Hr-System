@@ -1,6 +1,7 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
 using HR.Models.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -87,7 +88,8 @@ namespace HR.Controllers
                 record.check_status = check_status.Report_as_ready;
                 record.sss = record.check_status.GetTypeCode().ToString();
                 var Date = Convert.ToDateTime("1/1/1900");
-                var s = new status {statu=check_status.Report_as_ready, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = Date, Rejected_bydate = Date, report_as_ready_bydate = Date };
+                var s = new status {statu=check_status.created, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, report_as_ready_bydate = Date };
+                s.created_by = User.Identity.GetUserName();
                 var st = dbcontext.status.Add(s);
                 dbcontext.SaveChanges();
                 record.status = st;
@@ -527,7 +529,7 @@ namespace HR.Controllers
             var sta = record.status;
             if (model.check_status == check_status.Approved)
             {
-                sta.approved_by = model.status.approved_by;
+                sta.approved_by =User.Identity.GetUserName();
                 sta.approved_bydate = model.status.approved_bydate;
                 sta.statu = check_status.Approved;
                 record.check_status = check_status.Approved;
@@ -560,29 +562,29 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
          
             }
-            else if (model.check_status == check_status.Canceled)
-            {
-                sta.cancaled_by = model.status.cancaled_by;
-                sta.cancaled_bydate = model.status.cancaled_bydate;
-                sta.statu = check_status.Canceled;
-                record.check_status = check_status.Canceled;
-                record.sss = record.check_status.GetType().ToString();
-                record.name_state = nameof(check_status.Canceled);
-                dbcontext.SaveChanges();
-            }
-            else if (model.check_status == check_status.created)
-            {
-                sta.created_by = model.status.created_by;
-                sta.created_bydate = model.status.created_bydate;
-                sta.statu = check_status.created;
-                record.check_status = check_status.created;
-                record.sss = record.check_status.GetType().ToString();
-                record.name_state = nameof(check_status.created);
-                dbcontext.SaveChanges();
-            }
+            //else if (model.check_status == check_status.Canceled)
+            //{
+            //    sta.cancaled_by = model.status.cancaled_by;
+            //    sta.cancaled_bydate = model.status.cancaled_bydate;
+            //    sta.statu = check_status.Canceled;
+            //    record.check_status = check_status.Canceled;
+            //    record.sss = record.check_status.GetType().ToString();
+            //    record.name_state = nameof(check_status.Canceled);
+            //    dbcontext.SaveChanges();
+            //}
+            //else if (model.check_status == check_status.created)
+            //{
+            //    sta.created_by = model.status.created_by;
+            //    sta.created_bydate = model.status.created_bydate;
+            //    sta.statu = check_status.created;
+            //    record.check_status = check_status.created;
+            //    record.sss = record.check_status.GetType().ToString();
+            //    record.name_state = nameof(check_status.created);
+            //    dbcontext.SaveChanges();
+            //}
             else if (model.check_status == check_status.Rejected)
             {
-                sta.Rejected_by = model.status.Rejected_by;
+                sta.Rejected_by = User.Identity.GetUserName();
                 sta.Rejected_bydate = model.status.Rejected_bydate;
                 sta.statu = check_status.Rejected;
                 record.check_status = check_status.Rejected;
@@ -590,16 +592,16 @@ namespace HR.Controllers
                 record.name_state = nameof(check_status.Rejected);
                 dbcontext.SaveChanges();
             }
-            else if (model.check_status == check_status.Report_as_ready)
-            {
-                sta.report_as_ready_by = model.status.report_as_ready_by;
-                sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
-                sta.statu = check_status.Report_as_ready;
-                record.check_status = check_status.Report_as_ready;
-                record.sss = record.check_status.GetHashCode().ToString();
-                record.name_state = nameof(check_status.Report_as_ready);
-                dbcontext.SaveChanges();
-            }
+            //else if (model.check_status == check_status.Report_as_ready)
+            //{
+            //    sta.report_as_ready_by = model.status.report_as_ready_by;
+            //    sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
+            //    sta.statu = check_status.Report_as_ready;
+            //    record.check_status = check_status.Report_as_ready;
+            //    record.sss = record.check_status.GetHashCode().ToString();
+            //    record.name_state = nameof(check_status.Report_as_ready);
+            //    dbcontext.SaveChanges();
+            //}
 
             return RedirectToAction("index");
         }

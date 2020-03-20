@@ -1,6 +1,7 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
 using HR.Models.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -68,8 +69,9 @@ namespace HR.Controllers
                     return View(model);
                 }
                 var Date = Convert.ToDateTime("1/1/1900");
-                var s = new status { statu = check_status.Report_as_ready, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = Date, Rejected_bydate = Date, report_as_ready_bydate = Date };
-                s.statu = check_status.Report_as_ready;
+                var s = new status { statu = check_status.created, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, report_as_ready_bydate = Date };
+                s.statu = check_status.created;
+                s.created_by = User.Identity.GetUserName();
                 var st = dbcontext.status.Add(s);
                 dbcontext.SaveChanges();
                 model.status = st;
@@ -230,7 +232,7 @@ namespace HR.Controllers
             var record = dbcontext.new_contrct.FirstOrDefault(m => m.ID == model.opertion_id);
             if (model.check_status == check_status.Approved)
             {
-                sta.approved_by = model.status.approved_by;
+                sta.approved_by = User.Identity.GetUserName();
                 sta.approved_bydate = model.status.approved_bydate;
                 sta.statu = check_status.Approved;
                 dbcontext.SaveChanges();
@@ -248,35 +250,35 @@ namespace HR.Controllers
                 }
 
             }
-            else if (model.check_status == check_status.Canceled)
-            {
+            //else if (model.check_status == check_status.Canceled)
+            //{
 
-                sta.cancaled_by = model.status.cancaled_by;
-                sta.cancaled_bydate = model.status.cancaled_bydate;
-                sta.statu = check_status.Canceled;
-                dbcontext.SaveChanges();
-            }
-            else if (model.check_status == check_status.created)
-            {
-                sta.created_by = model.status.created_by;
-                sta.created_bydate = model.status.created_bydate;
-                sta.statu = check_status.created;
-                dbcontext.SaveChanges();
-            }
+            //    sta.cancaled_by = model.status.cancaled_by;
+            //    sta.cancaled_bydate = model.status.cancaled_bydate;
+            //    sta.statu = check_status.Canceled;
+            //    dbcontext.SaveChanges();
+            //}
+            //else if (model.check_status == check_status.created)
+            //{
+            //    sta.created_by = model.status.created_by;
+            //    sta.created_bydate = model.status.created_bydate;
+            //    sta.statu = check_status.created;
+            //    dbcontext.SaveChanges();
+            //}
             else if (model.check_status == check_status.Rejected)
             {
-                sta.Rejected_by = model.status.Rejected_by;
+                sta.Rejected_by = User.Identity.GetUserName();
                 sta.Rejected_bydate = model.status.Rejected_bydate;
                 sta.statu = check_status.Rejected;
                 dbcontext.SaveChanges();
             }
-            else if (model.check_status == check_status.Report_as_ready)
-            {
-                sta.report_as_ready_by = model.status.report_as_ready_by;
-                sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
-                sta.statu = check_status.Report_as_ready;
-                dbcontext.SaveChanges();
-            }
+            //else if (model.check_status == check_status.Report_as_ready)
+            //{
+            //    sta.report_as_ready_by = model.status.report_as_ready_by;
+            //    sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
+            //    sta.statu = check_status.Report_as_ready;
+            //    dbcontext.SaveChanges();
+            //}
 
             return RedirectToAction("index");
         }
