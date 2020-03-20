@@ -32,6 +32,9 @@ namespace HR.Models
         /////////////////////////////////////////////////////////
 
 
+        public virtual List<special_allowance_job_level_class> special_allowance_job_level_class { get; set; }
+
+
 
     }
 }

@@ -574,6 +574,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Courses.
+        /// </summary>
+        public static string courses {
+            get {
+                return ResourceManager.GetString("courses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string create {
@@ -1141,6 +1150,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Experience group.
+        /// </summary>
+        public static string Experiencegroup {
+            get {
+                return ResourceManager.GetString("Experiencegroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to f.
         /// </summary>
         public static string f {
@@ -1429,6 +1447,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Required Licenses.
+        /// </summary>
+        public static string licenses {
+            get {
+                return ResourceManager.GetString("licenses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Link.
         /// </summary>
         public static string Link {
@@ -1497,6 +1524,15 @@ namespace HR.Resource {
         public static string max_monthly_allowance {
             get {
                 return ResourceManager.GetString("max_monthly_allowance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mental.
+        /// </summary>
+        public static string mental {
+            get {
+                return ResourceManager.GetString("mental", resourceCulture);
             }
         }
         

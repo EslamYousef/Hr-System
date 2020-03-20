@@ -63,16 +63,16 @@ namespace HR.Controllers
                   var Job_level_grade=  dbcontext.Job_level_gradee.Add(record);
                     dbcontext.SaveChanges();
                     //////
-                    var special = new Special_Allwonce_History();
-                    special.selectedID = Job_level_grade.ID;
-                    special.Job_level_grade = Job_level_grade;
-                    special.type_allowance = type_allowance.job_levle_grade;
-                    var spe = dbcontext.Special_Allwonce_History.Add(special);
-                    dbcontext.SaveChanges();
+                    //var special = new Special_Allwonce_History();
+                    //special.selectedID = Job_level_grade.ID;
+                    //special.Job_level_grade = Job_level_grade;
+                    //special.type_allowance = type_allowance.job_levle_grade;
+                    //var spe = dbcontext.Special_Allwonce_History.Add(special);
+                    //dbcontext.SaveChanges();
                     /////
                     if (command == "Submit")
                     {
-                        return RedirectToAction("allowance", "Job_level_class", new { id = spe.ID,type=type_allowance.job_levle_grade });
+                        return RedirectToAction("allowance", "Job_level_class", new { id = record.ID,type=type_allowance.job_levle_grade });
                     };
                     return RedirectToAction("Index");
                 }
@@ -132,7 +132,7 @@ namespace HR.Controllers
                 var spe = dbcontext.Special_Allwonce_History.FirstOrDefault(m => m.selectedID == record.ID&&m.type_allowance==type_allowance.job_levle_grade);
                 if (command == "Submit")
                 {
-                    return RedirectToAction("allowance", "Job_level_class", new { id = spe.ID,type=type_allowance.job_levle_grade });
+                    return RedirectToAction("allowance", "Job_level_class", new { id = record.ID,type=type_allowance.job_levle_grade });
                 };
                 return RedirectToAction("index");
             }

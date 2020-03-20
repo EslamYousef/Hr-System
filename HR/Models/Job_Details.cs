@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,7 +23,11 @@ namespace HR.Models
 
         public virtual List<Requirments> Requirments { get; set; }
         public List<string> requirmentID { get; set; }
-      
+        public virtual List<exper_jobdetails> exper_jobdetails { get; set; }
+        public virtual List<mental> mental { get; set; }
+        public virtual List<Required_Licenses> Required_Licenses { get; set; }
+
+
     }
     public class skills_job
     {
@@ -42,6 +47,22 @@ namespace HR.Models
         public virtual Qualification_Major Qualification_Major { get; set; }
         public bool required { get; set; }
 
+    }
+    public class mental
+    {
+        public int ID { get; set; }
+        public string Description { get; set; }
+        public string Alt_Description { get; set; }
+        public virtual Job_Details Job_Details { get; set; }
+        public int Job_DetailsID { get; set; }
+    }
+    public class Required_Licenses
+    {
+        public int ID { get; set; }
+        public string Description { get; set; }
+        public string Alt_Description { get; set; }
+        public virtual Job_Details Job_Details { get; set; }
+        public int Job_DetailsID { get; set; }
     }
 
 }

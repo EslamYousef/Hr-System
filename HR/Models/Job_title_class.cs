@@ -24,5 +24,7 @@ namespace HR.Models
 
         [Display(Name = "Description")]
         public string Description { get; set; }
+        
+        public virtual List<special_allowance_job_level_class> special_allowance_job_level_class { get; set; }
     }
 }

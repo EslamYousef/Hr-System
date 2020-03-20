@@ -65,16 +65,16 @@ namespace HR.Controllers
                     var Job_level_class= dbcontext.Job_level_class.Add(record);
                     dbcontext.SaveChanges();
                     //////
-                    var special = new Special_Allwonce_History();
-                    special.selectedID = Job_level_class.ID;
-                    special.Job_level_class = Job_level_class;
-                    special.type_allowance = type_allowance.job_level_class;
-                    var spe = dbcontext.Special_Allwonce_History.Add(special);
-                    dbcontext.SaveChanges();
+                    //var special = new Special_Allwonce_History();
+                    //special.selectedID = Job_level_class.ID;
+                    //special.Job_level_class = Job_level_class;
+                    //special.type_allowance = type_allowance.job_level_class;
+                    //var spe = dbcontext.Special_Allwonce_History.Add(special);
+                    //dbcontext.SaveChanges();
                     /////
                     if (command == "Submit")
                     {
-                        return RedirectToAction("allowance", new { id = spe.ID ,type=type_allowance.job_level_class});
+                        return RedirectToAction("allowance", new { id = Job_level_class.ID ,type=type_allowance.job_level_class});
                     };
                     return RedirectToAction("Index");
                 }
@@ -134,7 +134,7 @@ namespace HR.Controllers
                 var spe = dbcontext.Special_Allwonce_History.FirstOrDefault(m => m.selectedID == record.ID&&m.type_allowance==type_allowance.job_level_class);
                 if (command == "Submit")
                 {
-                    return RedirectToAction("allowance", new { id = spe.ID,type=type_allowance.job_level_class });
+                    return RedirectToAction("allowance", new { id = record.ID,type=1 });
                 };
                 return RedirectToAction("index");
             }
@@ -232,8 +232,38 @@ namespace HR.Controllers
             try
             {
                 var ID = int.Parse(id);
-                var model = dbcontext.Special_Allwonce_History.FirstOrDefault(m =>m.ID==ID &&m.type_allowance==type);
-                return View(model);
+                var list = new List<special_allowance_job_level_class>();
+                if((int)type==2)
+                {
+                    var model1 = dbcontext.special_allowance_job_level_grade.Where(m => m.Job_level_gradeID == ID).ToList();
+                    foreach(var item in model1)
+                    {
+                        list.Add(new special_allowance_job_level_class { Year = item.Year, Allowance_amount = item.Allowance_amount, Month = item.Month, Percentage = item.Percentage, new_basic_sallary = item.new_basic_sallary, pervious_basic = item.pervious_basic });
+                    }
+                   
+                }
+               else if ((int)type == 1)
+                {
+                    var model1 = dbcontext.special_allowance_job_level_class.Where(m => m.Job_level_classID == ID).ToList();
+                    foreach (var item in model1)
+                    {
+                        list.Add(new special_allowance_job_level_class { Year = item.Year, Allowance_amount = item.Allowance_amount, Month = item.Month, Percentage = item.Percentage, new_basic_sallary = item.new_basic_sallary, pervious_basic = item.pervious_basic });
+                    }
+
+                }
+                else if ((int)type == 3)
+                {
+                    var model1 = dbcontext.special.Where(m => m.job_level_setupID == ID).ToList();
+                    foreach (var item in model1)
+                    {
+                        list.Add(new special_allowance_job_level_class { Year = item.Year, Allowance_amount = item.Allowance_amount, Month = item.Month, Percentage = item.Percentage, new_basic_sallary = item.new_basic_sallary, pervious_basic = item.pervious_basic });
+                    }
+
+                }
+
+                TempData["TYPE"] = (int)type;
+                TempData["ID"] = ID;
+                return View(list);
             }
             catch(Exception e)
             {
@@ -241,42 +271,101 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult allowance(Special_Allwonce_History record)
+        public ActionResult allowance(FormCollection form,int type,int ID)
         {
             try
             {
-               
-                    var model = dbcontext.Special_Allwonce_History.FirstOrDefault(m => m.ID == record.ID&&m.type_allowance==record.type_allowance);
-                    model.Year = record.Year;
-                    model.Month = record.Month;
-                    model.new_basic_sallary = record.new_basic_sallary;
-                    model.pervious_basic = record.pervious_basic;
-                    model.Percentage = record.Percentage;
-                    model.Allowance_amount = record.Allowance_amount;
-                    if(record.type_allowance==type_allowance.job_level_class)
+                TempData["TYPE"] = type;
+                TempData["ID"] = ID;
+                if (type == 1)
+                {
+                    var specialold = dbcontext.special_allowance_job_level_class.Where(m => m.Job_level_classID == ID);
+                    dbcontext.special_allowance_job_level_class.RemoveRange(specialold);
+                    dbcontext.SaveChanges();
+                }
+                else if (type == 2)
+                {
+                    var specialold = dbcontext.special_allowance_job_level_grade.Where(m => m.Job_level_gradeID == ID);
+                    dbcontext.special_allowance_job_level_grade.RemoveRange(specialold);
+                    dbcontext.SaveChanges();
+                }
+                else if (type == 3)
+                {
+                    var specialold = dbcontext.special.Where(m => m.job_level_setupID == ID);
+                    dbcontext.special.RemoveRange(specialold);
+                    dbcontext.SaveChanges();
+                }
+                var Year = form["Year"].Split(char.Parse(","));
+                var Month = form["Month"].Split(char.Parse(","));
+                var Percentage = form["Percentage"].Split(char.Parse(","));
+                var Allowance_amount = form["Allowance_amount1"].Split(char.Parse(","));
+                var pervious_basic = form["pervious_basic"].Split(char.Parse(","));
+                var new_basic_sallary = form["new_basic_sallary"].Split(char.Parse(","));
+                for(var i=0;i<Year.Count();i++)
+                {
+                    if (type == 1)
                     {
-                        model.Job_level_class = dbcontext.Job_level_class.FirstOrDefault(m => m.ID == model.selectedID);
+                        var new_record = new special_allowance_job_level_class();
+                        if (Year[i] != "" || Month[i] != "" || Percentage[i] != "" || pervious_basic[i] != "" || new_basic_sallary[i] != "")
+                        {
+                            new_record.Year = float.Parse(Year[i]);
+                            new_record.Month = float.Parse(Month[i]);
+                            new_record.Percentage = float.Parse(Percentage[i]);
+                            new_record.pervious_basic = float.Parse(pervious_basic[i]);
+                            new_record.new_basic_sallary = float.Parse(new_basic_sallary[i]);
+                            new_record.Allowance_amount = float.Parse(Allowance_amount[i]);
+                            new_record.Job_level_classID = ID;
+                            dbcontext.special_allowance_job_level_class.Add(new_record);
+                            dbcontext.SaveChanges();
+                        }
                     }
-                    else if (record.type_allowance == type_allowance.job_levle_grade)
+                    else if (type == 2)
                     {
-                    model.Job_level_grade = dbcontext.Job_level_gradee.FirstOrDefault(m => m.ID == model.selectedID);
+                        var new_record = new special_allowance_job_level_grade();
+                        if (Year[i] != "" || Month[i] != "" || Percentage[i] != "" || pervious_basic[i] != "" || new_basic_sallary[i] != "")
+                        {
+                            new_record.Year = float.Parse(Year[i]);
+                            new_record.Month = float.Parse(Month[i]);
+                            new_record.Percentage = float.Parse(Percentage[i]);
+                            new_record.pervious_basic = float.Parse(pervious_basic[i]);
+                            new_record.new_basic_sallary = float.Parse(new_basic_sallary[i]);
+                            new_record.Allowance_amount = float.Parse(Allowance_amount[i]);
+                            new_record.Job_level_gradeID = ID;
+                            dbcontext.special_allowance_job_level_grade.Add(new_record);
+                            dbcontext.SaveChanges();
+                        }
+                    }
+                    else if (type == 3)
+                    {
+                        var new_record = new special();
+                        if (Year[i] != "" || Month[i] != "" || Percentage[i] != "" || pervious_basic[i] != "" || new_basic_sallary[i] != "")
+                        {
+                            new_record.Year = float.Parse(Year[i]);
+                            new_record.Month = float.Parse(Month[i]);
+                            new_record.Percentage = float.Parse(Percentage[i]);
+                            new_record.pervious_basic = float.Parse(pervious_basic[i]);
+                            new_record.new_basic_sallary = float.Parse(new_basic_sallary[i]);
+                            new_record.Allowance_amount = float.Parse(Allowance_amount[i]);
+                            new_record.job_level_setupID = ID;
+                            dbcontext.special.Add(new_record);
+                            dbcontext.SaveChanges();
+                        }
+                    }
+                }
 
-                    }
-                    else  if (record.type_allowance == type_allowance.job_level_card)
-                    {
-                        model.job_level_setup = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == model.selectedID);
-                    }
-                dbcontext.SaveChanges();
-              if(record.type_allowance==type_allowance.job_levle_grade)
+               
+              if(type==2)
                     return RedirectToAction("index", "Job_level_grade");
-              else if (record.type_allowance == type_allowance.job_level_card)
+              else if (type==3)
                     return RedirectToAction("index", "job_level_setup");
               else
                 return RedirectToAction("index");
             }
             catch (Exception e)
             {
-                return View(record);
+                TempData["TYPE"] = type;
+                TempData["ID"] = ID;
+                return View();
             }
         }
 

@@ -610,8 +610,6 @@ namespace HR.Controllers
                 return RedirectToAction("link");
             }
         }
-
-
         public ActionResult Details(int id)
         {
             try
@@ -625,6 +623,7 @@ namespace HR.Controllers
                 ViewBag.risk = dbcontext.Risks.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.respon = dbcontext.Responsibilities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.requi = dbcontext.Requirments.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.exper=dbcontext.Experience_group.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record =model.Job_Details ;
                // record.job_title_cards = model;
               //  record.job_title_cardsID = model.ID.ToString();
@@ -647,17 +646,12 @@ namespace HR.Controllers
                 ViewBag.risk = dbcontext.Risks.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.respon = dbcontext.Responsibilities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.requi = dbcontext.Requirments.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.exper = dbcontext.Experience_group.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
                 ViewBag.id = id;
                 var ID = int.Parse(id);
                 var model = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == ID);
-                //ViewBag.quliname = dbcontext.Name_of_educational_qualification.ToList();
-                //ViewBag.qulispeci = dbcontext.Qualification_Major.ToList();
-                //ViewBag.qulidegree = dbcontext.GradeEducate.ToList();
-                //ViewBag.skill = dbcontext.Skill.ToList();
-                //ViewBag.risk = dbcontext.Risks.ToList();
-                //ViewBag.respon = dbcontext.Responsibilities.ToList();
-                //ViewBag.requi = dbcontext.Requirments.ToList();
+              
                 ////////////////////////
                 ////////////////////////
                 var record1 = model.Job_Details;
@@ -734,7 +728,24 @@ namespace HR.Controllers
                     record1.Requirments = null;
                     record1.requirmentID = null;
                     dbcontext.SaveChanges();
+                   
+                   
+
                 }
+                /////exper
+                var allexper = dbcontext.exper_jobdetails.Where(m => m.Job_DetailsID == model.ID);
+                dbcontext.exper_jobdetails.RemoveRange(allexper);
+                dbcontext.SaveChanges();
+                /////mental
+                var mental = dbcontext.mental.Where(m => m.Job_DetailsID == model.ID);
+                dbcontext.mental.RemoveRange(mental);
+                dbcontext.SaveChanges();
+                ////lice
+                var lic = dbcontext.Required_Licenses.Where(m => m.Job_DetailsID == model.ID);
+                dbcontext.Required_Licenses.RemoveRange(lic);
+                dbcontext.SaveChanges();
+
+
                 List<qulification_job> qulification_job = new List<qulification_job>();
                 List<string> qulification_job_id = new List<string>();
               
@@ -877,11 +888,47 @@ namespace HR.Controllers
                 record.requirmentID = Requirments_id;
                 dbcontext.SaveChanges();
                 /////////////////////////////////
-                /////////////////////////////////
-                ////////////////////////////////
+                
+                ///////////////////////////////add_job_Details
                 var rec=  dbcontext.Job_Details.Add(record);
                 dbcontext.SaveChanges();
-              
+                /////////////////////////////////
+                ////////////////////////////////add new experinces
+                var ex = form["exper"].Split(char.Parse(","));
+                for (var item = 0; item < ex.Count(); item++)
+                {
+                    if (ex[item] != "")
+                    {
+                        var IDd = int.Parse(ex[item]);
+                        var X = dbcontext.Experience_group.FirstOrDefault(m => m.ID == IDd);
+                        var ex_job = new exper_jobdetails { Experience_groupID = X.ID, Job_DetailsID = record.ID };
+                        dbcontext.exper_jobdetails.Add(ex_job);
+                        dbcontext.SaveChanges();
+                    }
+                }
+                ////////////////////////////////add new mental
+                var M1=form["M1"].Split(char.Parse(","));
+                for (var item = 0; item < M1.Count(); item++)
+                {
+                    if (M1[item] != "")
+                    {
+                        var Mental = new mental { Job_DetailsID = record.ID, Description = M1[item]};
+                        dbcontext.mental.Add(Mental);
+                        dbcontext.SaveChanges();
+                    }
+                }
+                ////////////////////////////////add new experinces
+                var L1 = form["L1"].Split(char.Parse(","));
+                for (var item = 0; item < L1.Count(); item++)
+                {
+                    if (L1[item] != "")
+                    {
+                        var LI = new Required_Licenses { Job_DetailsID = record.ID, Description = L1[item] };
+                        dbcontext.Required_Licenses.Add(LI);
+                        dbcontext.SaveChanges();
+                    }
+                }
+
                 model.Job_Details = rec;
                 model.Job_DetailsID = rec.ID.ToString();
                 dbcontext.SaveChanges();
@@ -989,6 +1036,13 @@ namespace HR.Controllers
             var slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == id).Count();
             return Json(slots);
         }
+        public JsonResult exper(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var exp = dbcontext.Experience_group.FirstOrDefault(m => m.ID == id);
+            return Json(exp);
+        }
     }
+
    
 }

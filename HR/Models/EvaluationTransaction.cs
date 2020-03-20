@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Models.Infra;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,7 +20,7 @@ namespace HR.Models
         public int EvaluationPlanID { get; set; }
         public status status { get; set; }
         public int statusID { get; set; }
-
+        public check_status check_status { get; set; }
 
         public virtual List<groupevaluation_evaluation_transaction> groupevaluation_evaluation_transaction { get; set; }
         public virtual List<QuestionsANDAnswers_EvaluationTransaction> QuestionsANDAnswers_EvaluationTransaction { get; set; }

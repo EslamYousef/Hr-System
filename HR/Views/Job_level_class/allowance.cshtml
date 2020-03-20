@@ -1,4 +1,4 @@
-﻿@model HR.Models.Special_Allwonce_History
+﻿@model List<HR.Models.special_allowance_job_level_class>
 @using HR.Resource;
 @{
     ViewBag.Title = "allowance";
@@ -27,6 +27,42 @@
             }
         });
     }
+    function add() {
+        var year = parseFloat($("#year").val());
+        var month = parseFloat($("#month").val());
+        var percentage = parseFloat($("#percentage").val());
+        var Allowanceamount = parseFloat($("#Allowance_amount").val());
+        var perviousbasicsallary = parseFloat($("#pervious_basic").val());
+        var newbasicsallary = parseFloat($("#new_basic_sallary").val());
+
+        debugger
+
+        finalresult =
+            "<tr id='tr'>" +
+          "<td ><input type='number' min='0' class = 'form-control' id='class_type_n' value='" + year + "'  name='year'  /></td>" +
+           "<td ><input type='number' min='0' class = 'form-control' id='class_type_n' value='" + month + "' name='month'  /></td>" +
+            "<td ><input type='number' min='0' class = 'form-control' id='class_type_n' value='" + percentage + "' name='percentage'  /></td>" +
+             "<td ><input type='number' min='0' class = 'form-control' id='class_type_n' value='" + Allowanceamount + "' name='Allowance_amount1'  /></td>" +
+              "<td ><input type='number' min='0' class = 'form-control' id='class_type_n' value='" + perviousbasicsallary + "' name='pervious_basic'  /></td>" +
+               "<td ><input  type='number' min='0' class = 'form-control' id='class_type_n' value='" + newbasicsallary + "' name='new_basic_sallary'  /></td>" +
+          "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+        $("#ad1d6").append(finalresult);
+
+      $("#year").val(0);
+      $("#month").val(0);
+      $("#percentage").val(0);
+      $("#Allowance_amount").val(0);
+      $("#pervious_basic").val(0);
+      $("#new_basic_sallary").val(0);
+
+    }
+    function remove(thi) {
+
+        thi.parent().parent().remove();
+        //thi.parent().parent().parent().remove(removed);
+
+
+    }
 </script>
 
 <div class="content-wrapper">
@@ -45,7 +81,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                @using (Html.BeginForm("allowance", "Job_level_class", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("allowance", "Job_level_class",new { type = @TempData["TYPE"], ID = @TempData["ID"]}, FormMethod.Post, new {  enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -59,11 +95,34 @@
                                 @TempData["Message"]
                             </div>
                         }
-
+                        <input hidden name="Year" value="" />
+                        <input hidden name="Month" value="" />
+                        <input hidden name="Percentage" value="" />
+                        <input hidden name="Allowance_amount1" value="" />
+                        <input hidden name="pervious_basic" value="" />
+                        <input hidden name="new_basic_sallary" value="" />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.ID)
-                        @Html.HiddenFor(m => m.type_allowance)
-                        @Html.HiddenFor(m => m.selectedID)
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <buttont style="width:100%" type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</buttont>
+
+                            </div>
+                            <div class="col-md-2">
+                                @if ((int)TempData["TYPE"] == 1)
+                                {
+
+                                    <a style="width:100%" href="@Url.Action("index", "Job_level_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                }
+                                else if ((int)TempData["TYPE"] == 2)
+                                {
+                                    <a style="width:100%" href="@Url.Action("index", "Job_level_grade")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                }
+                                else if ((int)TempData["TYPE"] == 3)
+                                {
+                                    <a style="width:100%" href="@Url.Action("index", "job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                }
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class = "control-label col-md-3">
                                 @organ.Year
@@ -72,10 +131,10 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
-                                    @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control size-1", value = "0", @min = "0" } })
+                                  
 
-                                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
-                              
+                              <input id="year" class = "form-control size-1" value="0" min="0" />
+
                                     <button type="button" class="btn btn-default">+</button>
                                 </div>
                             </div>
@@ -89,9 +148,10 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
-                                    @Html.EditorFor(model => model.Month, new { htmlAttributes = new { @class = "form-control size-1", value = "0", @min = "0" } })
+                                    <input id="month" class="form-control size-1" value="0" min="0" />
 
-                                    @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
+
+                                  
                               
                                     <button type="button" class="btn btn-default">+</button>
                                 </div>
@@ -104,9 +164,9 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
-                                    @Html.EditorFor(model => model.Percentage, new { htmlAttributes = new { @class = "form-control size-1", value = "0", @min = "0" } })
+                                    <input id="percentage" class="form-control size-1" value="0" min="0" />
 
-                                    @Html.ValidationMessageFor(model => model.Percentage, "", new { @class = "text-danger" })
+                                 
 
                                     <button type="button" class="btn btn-default">+</button>
                                 </div>
@@ -120,10 +180,9 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
-                                    @Html.EditorFor(model => model.Allowance_amount, new { htmlAttributes = new { @class = "form-control size-1", value = "0", @min = "0" } })
-                                    @Html.ValidationMessageFor(model => model.Allowance_amount, "", new { @class = "text-danger" })
+                                    <input id="Allowance_amount" class="form-control size-1" value="0" min="0" />
 
-
+                                
                                     <button type="button" class="btn btn-default">+</button>
 
                                 </div>
@@ -137,9 +196,8 @@
                                     <!-- Spinner Markup -->
                                     <div class="input-spinner">
                                         <button type="button" class="btn btn-default">-</button>
-                                        @Html.EditorFor(model => model.pervious_basic, new { htmlAttributes = new { @class = "form-control size-1", value = "0", @min = "0" } })
-
-                                        @Html.ValidationMessageFor(model => model.pervious_basic, "", new { @class = "text-danger" })
+                                      
+                                        <input id="pervious_basic" class="form-control size-1" value="0" min="0" />
                               
                                         <button type="button" class="btn btn-default">+</button>
                                     </div>
@@ -149,36 +207,72 @@
 
                             <label class="control-label col-md-3">
                                 @organ.newbasicsallary
-                            </label> <div class="col-sm-3">
+                            </label> 
+                            <div class="col-sm-3">
                                     <!-- Spinner Markup -->
                                     <div class="input-spinner">
                                         <button type="button" class="btn btn-default">-</button>
-                                        @Html.EditorFor(model => model.new_basic_sallary, new { htmlAttributes = new { @class = "form-control size-1", value = "0", @min = "0" } })
-                                        @Html.ValidationMessageFor(model => model.new_basic_sallary, "", new { @class = "text-danger" })
+                                     
+                                        <input id="new_basic_sallary" class="form-control size-1" value="0" min="0" />
                                    
                                         <button type="button" class="btn btn-default">+</button>
                                     </div>
                                 </div>
                          </div>
+                       
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</button>
-                               @if (Model.type_allowance == HR.Models.Infra.type_allowance.job_level_class)
-                               {
-                                    <a href="@Url.Action("index", "Job_level_class")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                               }
-                               else if (Model.type_allowance == HR.Models.Infra.type_allowance.job_levle_grade)
-                                {
-                                    <a href="@Url.Action("index", "Job_level_grade")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                }
-                                else if (Model.type_allowance == HR.Models.Infra.type_allowance.job_level_card)
-                                {
-                                    <a href="@Url.Action("index", "job_level_setup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                }
-                            </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            <input type="button" style="width:100%" value=@pers_2.addelement class="btn btn-success" onclick="add()" />
                         </div>
-                    </div>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                   
+                                        <th >@organ.Year</th>
+                                        <th >@organ.Month</th>
+                                        <th >@organ.Percentage</th>
+                                        <th >@organ.Allowanceamount</th>
+                                        <th >@organ.perviousbasicsallary</th>
+                                        <th >@organ.newbasicsallary</th>
+                                 
+                                   
+                                    <th>
+
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="ad1d6">
+                                @if (Model != null)
+                                {
+                              
+
+                                    foreach (var item in Model)
+                                    {
+                                            <tr>
+                                                <td ><input min="0" type="number" name="Year" class="form-control" value=@item.Year /></td>
+                                                <td><input min="0" type="number" name="Month" class="form-control" value=@item.Month /></td>
+                                                <td><input min="0" type="number" name="Percentage" class="form-control" value=@item.Percentage /></td>
+                                                <td><input min="0" type="number" name="Allowance_amount1" class="form-control"  value=@item.Allowance_amount /></td>
+                                                <td><input min="0" type="number" name="pervious_basic" class="form-control" value=@item.pervious_basic /></td>
+                                                <td><input min="0" type="number" name="new_basic_sallary" class="form-control" value=@item.new_basic_sallary /></td>
+                                                <td><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                            </tr>
+                                        }
+                                    
+                                }
+                            </tbody>
+                        </table>
+
+
+
+                       
+                     </div>
+
+
+                  
                 }
 
             </div>

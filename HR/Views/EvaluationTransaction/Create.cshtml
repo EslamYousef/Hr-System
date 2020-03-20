@@ -41,7 +41,7 @@
                                     @organ.empname
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.employee, "ID", "Code"), Basic.Country, new { @class = "select2", @onchange = "emp2()", id = "emp" })
+                                    @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.employee, "ID", "Code"), pers_2.employee, new { @class = "select2", @onchange = "emp2()", id = "emp" })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
 
                                 </div>
@@ -61,13 +61,20 @@
                                     @Html.EditorFor(model => model.AppraisalDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
                                     @Html.ValidationMessageFor(model => model.AppraisalDate, "", new { @class = "text-danger" })
                                 </div>
+                                <label class="control-label col-md-2">
+                                    <span> @pers_2.status </span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-2">
                                     <span> @pers_2.evaluationplan </span>
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.DropDownListFor(m => m.EvaluationPlanID, new SelectList(ViewBag.plancode, "ID", "Code"), Basic.Country, new { @class = "select2", @onchange = "getdate()", id = "plan" })
+                                    @Html.DropDownListFor(m => m.EvaluationPlanID, new SelectList(ViewBag.plancode, "ID", "Code"), pers_2.evaluationplan, new { @class = "select2", @onchange = "getdate()", id = "plan", @disabled = true })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
 
                                 </div>
@@ -75,7 +82,7 @@
                                     @pers_2.group
                                 </label>
                                 <div class="col-md-4">
-                                    @Html.DropDownList("oi", new SelectList(ViewBag.groupcode, "ID", "Code"), pers_2.group, new { @class = "select2", @onchange = "getdate()", id = "group" })
+                                    @Html.DropDownList("oi", new SelectList(ViewBag.groupcode, "ID", "Code"), pers_2.PerformanceEvaluationGroup, new { @class = "select2", @onchange = "getdate()", id = "group", @disabled = true })
 
                                 </div>
                             </div>
@@ -270,20 +277,46 @@
     {
         debugger
         var id = $("#plan").val();
+        var date = $("#Requset_date_D").val();
+        var emp_id = $("#emp").val();
         $.ajax({
             type: "post",
             url: "/EvaluationTransaction/getdate",
             async: false,
-            data: { "id": id },
+            data: { "id": id, "emp_id": emp_id,"date2":date },
             success: function (result) {
                 debugger
-                GetDataById2(result.from_date, "from");
-                GetDataById2(result.to_date, "to");
-              
+                if (result.flag_emp == false)
+                {
+                    alert("this employee not assign to this plan");
+                    $("#plan").select2("val", "");
+                    $("#from").val("");
+                    $("#to").val("");
+                    $("#line").val("");
+                    $("#Code").val("");
+
+                }
+                if (result.flag_date == false) {
+                    alert("this plan not assign to this year");
+                    $("#plan").select2("val", 0);
+                    $("#from").val("");
+                    $("#to").val("");
+                    $("#line").val("");
+                    $("#Code").val("");
+
+                }
+                else
+                {
+                    debugger
+                    $("#line").val(result.line);
+                    $("#Code").val(result.code);
+                    GetDataById2(result.from_date, "from");
+                    GetDataById2(result.to_date, "to");
+                   
+                }
             },
             error: function () {
-                debugger
-                alter("some error");
+             
             }
 
         });
@@ -314,7 +347,12 @@
         debugger
         var id = $("#emp").val();
         $("#plancode2").empty();
+        $("#from").val("");
+        $("#to").val("");
+        $("#line").val("");
+        $("#Code").val("");
         $("#plancode2").select2("val", "");
+        $("#plan").select2("val", "");
         var t="";
         $.ajax({
             type: "post",
@@ -329,6 +367,8 @@
                 });
                 $("#plancode2").append(t);
                 $("#plancode2").removeAttr("disabled");
+                $("#plan").removeAttr("disabled");
+                $("#group").removeAttr("disabled");
             },
             error: function () {
                 debugger
@@ -338,7 +378,16 @@
         });
 
     }
+    function clear()
+    {
+        debugger
+        $("#from").val("");
+        $("#to").val("");
+        $("#line").val("");
+        $("#Code").val("");
+        $("#plan").select2("val", "");
 
+    }
 
     @*function getcompetiton(id) {
         debugger

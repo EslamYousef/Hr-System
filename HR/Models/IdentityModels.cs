@@ -188,6 +188,14 @@ namespace HR.Models
         public DbSet<groupevaluation_evaluation_transaction> groupevaluation_evaluation_transaction { get;set;}
 
         public DbSet<QuestionsANDAnswers_EvaluationTransaction> QuestionsANDAnswers_EvaluationTransaction { get;set;}
+        public DbSet<exper_jobdetails> exper_jobdetails { get; set; }
+        public DbSet<mental> mental { get; set; }
+        public DbSet<Required_Licenses> Required_Licenses { get; set; }
+
+
+        public DbSet<special_allowance_job_level_grade> special_allowance_job_level_grade { get; set; }
+        public DbSet<special_allowance_job_level_class> special_allowance_job_level_class { get; set; }
+        public DbSet<special> special { get; set; }
 
     }
 }

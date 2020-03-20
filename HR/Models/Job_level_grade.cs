@@ -30,5 +30,7 @@ namespace HR.Models
         public double max_annual_increase_percentage { get; set; } = 0.0;
         public double representation_allowance_value { get; set; } = 0.0;
         /////////////////////////////////////////////////////////   
+
+        public virtual List<special_allowance_job_level_grade> special_allowance_job_level_grade { get; set; }
     }
 }

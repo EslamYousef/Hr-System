@@ -207,6 +207,66 @@
 
         }
     }
+    function addquli6() {
+
+        var ID = $("#Country8").val();
+
+        
+        
+        if ($("#minimal-checkbox-1").checked == true)
+        {
+            req = "true";
+        }
+        else if ($("#minimal-checkbox-1").checked == false)
+        {
+            req = "false";
+        }
+        if (ID != "") {
+            $.ajax({
+                type: "post",
+                url: "/job_title_card/exper",
+                data: { "ID": ID },
+                success: function (result) {
+
+                    finalresult =
+                        "<tr id='tr'><td hidden ><input id='class_type' style='margin-bottom: 1em;' name='exper' hidden value='" + result.ID + "' readonly='readonly' /></td>" +
+                      "<td class='col-md-3'><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='class_type_n' value='" + result.Code + "' readonly='readonly' /></td>" +
+                      "<td  class='col-md-3'><input id='codefrom'  class = 'form-control' name='codefrom'  value='" + result.Name + "' readonly='readonly' /></td>" +
+                      "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#ad1d6").append(finalresult);
+
+                },
+                error: function () {
+
+
+                }
+
+            });
+        }
+
+        else {
+
+        }
+    }
+    function addquli7() {
+                    finalresult =
+                        "<tr id='tr'>"+
+                      "<td ><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='L1'  /></td>" +
+                      "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                    $("#ad1d7").append(finalresult);
+
+                }
+                
+    function addquli8() {
+        finalresult =
+            "<tr id='tr'>" +
+          "<td ><input class = 'form-control' id='class_type_n' style='margin-bottom: 1em;' name='M1'  /></td>" +
+          "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+        $("#ad1d8").append(finalresult);
+
+    }
+
+
     function remove(thi)
     {
          
@@ -276,6 +336,9 @@
                     <input value="" name="s1" hidden/>
                     <input value="" name="s11" hidden />
                     <input value="" name="s111" hidden />
+                    <input value="" name="M1" hidden /> 
+                    <input value="" name="L1" hidden />
+                    <input value="" name="exper" hidden />
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         <hr />
@@ -364,8 +427,31 @@
                                         <span class="hidden-xs">@organ.specialrequirment</span>
                                     </a>
                                 </li>
-
-                                
+                                <li>
+                                    <a href="#ex" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@organ.Experiencegroup</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#mental" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@organ.mental</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#licen" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@organ.licenses</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="#cours" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@organ.courses</span>
+                                    </a>
+                                </li> 
+                               
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
@@ -659,13 +745,7 @@
                                                 @Html.DropDownList("o", new SelectList(ViewBag.requi, "ID", "Code"), organ.specialrequirment, new { @class = "select2", @id = "Country7" })
                                             </div>
                                         </div>
-                                    </div>
-                                    @*<div class="form-group">
-                                            <label class="control-label col-md-2"><span>Required</span></label>
-                                            <div class="col-md-4">
-                                                <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
-                                            </div>
-                                        </div>*@
+                                    </div>                                 
                                     <div class="form-group">
                                         <div class="col-md-3">
 
@@ -710,7 +790,142 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="tab-pane" id="ex">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                @organ.Experiencegroup
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("o", new SelectList(ViewBag.exper, "ID", "Code"), organ.Experiencegroup, new { @class = "select2", @id = "Country8" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value=@organ.addanotherrow id="add6" class="btn btn-success" onclick="addquli6()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    <label class="control-label col-md-2">@organ.code </label>
+                                                </th>
+                                                <th>
+                                                    <label class="control-label col-md-2">@organ.name</label>
+                                                </th>
+                                                <th>
+
+                                                </th>
+                 
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ad1d6">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                if (Model.Job_Details.exper_jobdetails != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.exper_jobdetails)
+                                                    {
+                                                        <tr>
+                                                            <td hidden><input name="exper" value=@item.Experience_groupID /></td>
+                                                            <td><input class="form-control" value=@item.Experience_group.Code /></td>
+                                                            <td><input class="form-control" value=@item.Experience_group.Name /></td>
+                                                            <td><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="licen">
+                                    
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value=@organ.addanotherrow id="add6" class="btn btn-success" onclick="addquli7()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    <label class="control-label col-md-2">@organ.description </label>
+                                                </th>
+                                               
+                                                <th>
+
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ad1d7">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                if (Model.Job_Details.Required_Licenses != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.Required_Licenses)
+                                                    {
+                                                        <tr>
+                                                            <td><input class="form-control" name="L1" value=@item.Description></td>
+                                                            <td><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="mental">
+
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value=@organ.addanotherrow id="add6" class="btn btn-success" onclick="addquli8()" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    <label class="control-label col-md-2">@organ.description </label>
+                                                </th>
+                                                <th>
+
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ad1d8">
+                                            @if (Model.Job_Details != null)
+                                            {
+                                                if (Model.Job_Details.Required_Licenses != null)
+                                                {
+                                                    foreach (var item in Model.Job_Details.mental)
+                                                    {
+                                                        <tr>
+                                                           
+                                                            <td><input class="form-control" name="M1" value=@item.Description /></td>
+                                                            <td><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

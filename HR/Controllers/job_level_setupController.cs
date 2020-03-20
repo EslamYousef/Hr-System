@@ -124,13 +124,13 @@ namespace HR.Controllers
                     record.Organization_Unit_TypeID = new List<string>();
                    var modelll=dbcontext.job_level_setup.Add(record);
                     dbcontext.SaveChanges();
-                    //////
-                    var special = new Special_Allwonce_History();
-                    special.selectedID = modelll.ID;
-                    special.job_level_setup = modelll;
-                    special.type_allowance = type_allowance.job_level_card;
-                    var spe = dbcontext.Special_Allwonce_History.Add(special);
-                    dbcontext.SaveChanges();
+                    ////////
+                    //var special = new Special_Allwonce_History();
+                    //special.selectedID = modelll.ID;
+                    //special.job_level_setup = modelll;
+                    //special.type_allowance = type_allowance.job_level_card;
+                    //var spe = dbcontext.Special_Allwonce_History.Add(special);
+                    //dbcontext.SaveChanges();
                     /////
                     if (command== "Submit")
                     {
@@ -139,7 +139,7 @@ namespace HR.Controllers
                     }
                     if (command == "Submit2")
                     {
-                        return RedirectToAction("allowance", "Job_level_class", new { id = spe.ID, type = type_allowance.job_level_card });
+                        return RedirectToAction("allowance", "Job_level_class", new { id = modelll.ID, type = type_allowance.job_level_card });
                     };
                     return RedirectToAction("index");
                 }
@@ -262,10 +262,10 @@ namespace HR.Controllers
                         return RedirectToAction("Link", new { id = model.ID });
                     }
 
-                    var spe = dbcontext.Special_Allwonce_History.FirstOrDefault(m => m.selectedID == record.ID&& m.type_allowance==type_allowance.job_level_card);
+                    //var spe = dbcontext.Special_Allwonce_History.FirstOrDefault(m => m.selectedID == record.ID&& m.type_allowance==type_allowance.job_level_card);
                     if (command == "Submit2")
                     {
-                        return RedirectToAction("allowance", "Job_level_class", new { id = spe.ID, type = type_allowance.job_level_card });
+                        return RedirectToAction("allowance", "Job_level_class", new { id = record.ID, type = type_allowance.job_level_card });
                     };
                     return RedirectToAction("index");
                 
