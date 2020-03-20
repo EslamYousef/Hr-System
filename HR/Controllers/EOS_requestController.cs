@@ -159,6 +159,7 @@ namespace HR.Controllers
                 {
                     record.name_type = t.ToString();
                 }
+                record.note = model.EOS.note;
                 dbcontext.EOS_Request.Add(record);
                 dbcontext.SaveChanges();
                 ///////////////click EOS interview/////////
@@ -269,7 +270,7 @@ namespace HR.Controllers
                 record.Notice_period = model.EOS.Notice_period;
                 record.Notice_period_type = model.EOS.Notice_period_type;
                 record.Requset_date = model.EOS.Requset_date;
-           
+                record.note = model.EOS.note;
                 //////////////////////checklist/////////////////////////
                 if (model.selected_EOS_group_checklist == 0)
                 {
@@ -450,7 +451,7 @@ namespace HR.Controllers
                 }
 
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("edit", new { id = model.ID.ToString() });
             }
             catch (Exception e)
             {
@@ -495,7 +496,7 @@ namespace HR.Controllers
                 }
             
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("edit",new { id=model.ID.ToString()});
             }
             catch(Exception e)
             {

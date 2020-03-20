@@ -17,6 +17,8 @@ namespace HR.Models
         public string number { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Requset_date { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+
+
         public virtual Employee_Profile Employee { get; set; }
         public EOS_type EOS_type { get; set; }
         public Notice_period_type Notice_period_type { get; set; }

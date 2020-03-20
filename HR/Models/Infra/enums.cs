@@ -291,7 +291,7 @@ namespace HR.Models.Infra
     {
         [Display(Name = "Working date only")]
         Working_date_only = 1,
-        [Display(Name = "Days work")]
+        [Display(Name = "Days work/official holiday")]
         Days_work = 2
 
     }
