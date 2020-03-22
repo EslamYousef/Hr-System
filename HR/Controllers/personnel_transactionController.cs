@@ -138,17 +138,17 @@ namespace HR.Controllers
                    mymodel = model.personnel_transaction;
 
                     ///////////////status////////////////////////
-                    mymodel.check_status = check_status.Report_as_ready;
+                    mymodel.check_status = check_status.created;
                     mymodel.ss = mymodel.check_status.GetTypeCode().ToString();
                     var Date = Convert.ToDateTime("1/1/1900");
-                    var s = new status { statu = check_status.created, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, report_as_ready_bydate = Date };
+                    var s = new status { statu = check_status.created, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, return_to_reviewdate = Date };
                     s.created_by = User.Identity.GetUserName();
                     var st = dbcontext.status.Add(s);
                     dbcontext.SaveChanges();
                     mymodel.status = st;
                     mymodel.date = mymodel.transaction_date.ToShortDateString();
 
-                    mymodel.name_state =nameof(check_status.Report_as_ready);
+                    mymodel.name_state =nameof(check_status.created);
 
                     var tt = (int)mymodel.Transaction_type;
                     var t = (transaction_type)(int)mymodel.Transaction_type;
@@ -210,7 +210,7 @@ namespace HR.Controllers
                         mymodel.Organization_Chart = null;
                         mymodel.Organization_ChartId = "0";
                     }
-                    mymodel.name_state = nameof(check_status.Report_as_ready);
+                    mymodel.name_state = nameof(check_status.created);
                   
                     dbcontext.personnel_transaction.Add(mymodel);
                     //var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == emp.Employee_Positions_Profile.ID);
@@ -572,14 +572,14 @@ namespace HR.Controllers
                 record.name_state = nameof(check_status.Rejected);
                 dbcontext.SaveChanges();
             }
-            //else if (model.check_status == check_status.Report_as_ready)
-            //{
-            //    sta.report_as_ready_by = model.status.report_as_ready_by;
-            //    sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
-            //    record.check_status = check_status.Report_as_ready;
-            //    record.name_state = nameof(check_status.Report_as_ready);
-            //    dbcontext.SaveChanges();
-            //}
+            else if (model.check_status == check_status.Return_To_Review)
+            {
+                sta.return_to_reviewby = User.Identity.GetUserName();
+                sta.return_to_reviewdate = model.status.return_to_reviewdate;
+                record.check_status = check_status.Return_To_Review;
+                record.name_state = nameof(check_status.Return_To_Review);
+                dbcontext.SaveChanges();
+            }
 
             return RedirectToAction("index");
         }

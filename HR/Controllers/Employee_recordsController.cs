@@ -92,12 +92,12 @@ namespace HR.Controllers
                 record.check_status = check_status.created;
                
                 var Date = Convert.ToDateTime("1/1/1900");
-                var s = new status {statu=check_status.created, created_by=username,Type = Models.Infra.Type.employee_record,approved_bydate=Date,cancaled_bydate=Date,created_bydate=DateTime.Now.Date,Rejected_bydate=Date,report_as_ready_bydate=Date};
+                var s = new status {statu=check_status.created, created_by=username,Type = Models.Infra.Type.employee_record,approved_bydate=Date,cancaled_bydate=Date,created_bydate=DateTime.Now.Date,Rejected_bydate=Date,return_to_reviewdate=Date};
                 var st= dbcontext.status.Add(s);
                 dbcontext.SaveChanges();
                 record.status = st;
                 record.sss = record.Record_date.ToShortDateString();
-                record.name_state = nameof(check_status.Report_as_ready);
+                record.name_state = nameof(check_status.created);
                 dbcontext.Employee_records.Add(record);
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
@@ -297,15 +297,15 @@ namespace HR.Controllers
                 record.name_state = nameof(check_status.Rejected);
                 dbcontext.SaveChanges();
             }
-            //else if (model.check_status == check_status.Report_as_ready)
-            //{
-            //    sta.report_as_ready_by = model.status.report_as_ready_by;
-            //    sta.report_as_ready_bydate = model.status.report_as_ready_bydate;
-            //    record.check_status = check_status.Report_as_ready;
-            //    record.name_state = nameof(check_status.Report_as_ready);
-            //    dbcontext.SaveChanges();
-            //}
-          
+            else if (model.check_status == check_status.Return_To_Review)
+            {
+                sta.return_to_reviewby = User.Identity.GetUserName();
+                sta.return_to_reviewdate = model.status.return_to_reviewdate;
+                record.check_status = check_status.Return_To_Review;
+                record.name_state = nameof(check_status.Return_To_Review);
+                dbcontext.SaveChanges();
+            }
+
             return RedirectToAction("index");
         }
         public JsonResult Getalll(List<string> c)

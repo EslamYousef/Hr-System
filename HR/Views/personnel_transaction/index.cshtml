@@ -181,9 +181,12 @@
                         @TempData["Message"]
                     </div>
                     }
-                    <div class="form-group" id="buttons">
-                        
+                    <div class="row">
                         <a href="@Url.Action("Create","personnel_transaction")" style="width:140px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> @pers_2.addpersonneltransaction</a>
+
+                    </div>
+                    <div style="margin-top:15px" class="form-group" id="buttons">
+                        
                         <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
                         <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
                         <div class="col-sm-7">
@@ -236,9 +239,11 @@
                                     <td>@item.check_status</td>
                                     <td>@item.Transaction_type</td>
                                     <td>
-                                        
-                                        <a href=@Url.Action("Edit","personnel_transaction",new {id=item.ID}) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
-                                        <a href=@Url.Action("Delete","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
+                                  @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
+                                  {
+                                        <a href=@Url.Action("Edit", "personnel_transaction", new { id = item.ID }) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                  }
+                                              <a href=@Url.Action("Delete","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
                                         <a href=@Url.Action("status","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
 
                                     </td>

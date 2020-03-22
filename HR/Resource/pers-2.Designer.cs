@@ -151,7 +151,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All record.
+        ///   Looks up a localized string similar to All-record.
         /// </summary>
         public static string allrecord {
             get {

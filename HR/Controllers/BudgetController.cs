@@ -47,7 +47,7 @@ namespace HR.Controllers
                     model.Code = stru + (modell.LastOrDefault().ID + 1).ToString();
                 }
                 /////
-                var st = new status { statu = check_status.created ,created_bydate=DateTime.Now,report_as_ready_bydate=DateTime.Now,approved_bydate=DateTime.Now,Rejected_bydate=DateTime.Now,cancaled_bydate=DateTime.Now};
+                var st = new status { statu = check_status.created ,created_bydate=DateTime.Now,return_to_reviewdate=DateTime.Now,approved_bydate=DateTime.Now,Rejected_bydate=DateTime.Now,cancaled_bydate=DateTime.Now};
                 var reco = new budgetVM { status = st, justification = new justification(), Budget = model };
                 return View(reco);
             }
@@ -265,8 +265,8 @@ namespace HR.Controllers
                 status.created_bydate = model.status.created_bydate;
                 status.Rejected_by = model.status.Rejected_by;
                 status.Rejected_bydate = model.status.Rejected_bydate;
-                status.report_as_ready_by = model.status.report_as_ready_by;
-                status.report_as_ready_bydate = model.status.report_as_ready_bydate;
+                status.return_to_reviewby = model.status.return_to_reviewby;
+                status.return_to_reviewdate = model.status.return_to_reviewdate;
                 status.statu = model.status.statu;
                 dbcontext.SaveChanges();
                 just.justifiaction = model.justification.justifiaction;

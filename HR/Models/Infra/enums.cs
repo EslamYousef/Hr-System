@@ -29,8 +29,7 @@ namespace HR.Models.Infra
     public enum check_status
     {
         created = 1,
-        [Display(Name = "Report as ready")]
-        Report_as_ready = 2,
+        Return_To_Review = 2,
         Approved = 3,
         Rejected = 4,
         Canceled = 5,
