@@ -14,15 +14,20 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_sponsor_profile
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var model = dbcontext.Employee_sponsor_profile.ToList();
-            return View(model);
+            var ID = int.Parse(id);
+            var new_model = dbcontext.Employee_sponsor_profile.Where(m => m.Employee_Profile.ID == ID).ToList();
+            var record = dbcontext.Employee_sponsor_profile.FirstOrDefault(m => m.ID == ID);
+            ViewBag.idemp = id;
+
+            return View(new_model);
         }
         public ActionResult Create(string id)
         {
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Sponsor = dbcontext.Sponsor.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            ViewBag.idemp = id;
 
             //var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             //var model = dbcontext.Employee_sponsor_profile.ToList();
@@ -44,12 +49,14 @@ namespace HR.Controllers
             //    return View(x);
             //}
             DateTime statis2 = Convert.ToDateTime("1/1/1900");
-            var EmployeeSponsor = new Employee_sponsor_profile { Birth_date=statis2,Issue_date=statis2};
+            var ID = int.Parse(id);
+            var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
+            var EmployeeSponsor = new Employee_sponsor_profile { Employee_Profile = emp, Employee_ProfileId = emp.ID/*, Code = stru.Structure_Code + count.ToString()*/, Birth_date =statis2,Issue_date=statis2};
             return View(EmployeeSponsor);
 
         }
         [HttpPost]
-        public ActionResult Create(Employee_sponsor_profile model)
+        public ActionResult Create(Employee_sponsor_profile model , string command)
         {
             try
             {
@@ -57,9 +64,12 @@ namespace HR.Controllers
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Sponsor = dbcontext.Sponsor.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
+                ViewBag.idemp = model.Employee_ProfileId;
 
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+                //{
+                    var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+
                     var prof = model.Employee_ProfileId;
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                     //           var record = dbcontext.Employee_sponsor_profile.FirstOrDefault(m => m.ID == emp.spon.ID);
@@ -84,13 +94,16 @@ namespace HR.Controllers
 
                     dbcontext.Employee_sponsor_profile.Add(record);
                     dbcontext.SaveChanges();
-                  
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(model);
-                }
+                    if (command == "Submit")
+                    {
+                        return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });//int.Parse(record.Employee_ProfileId)
+                    }
+                    return RedirectToAction("Index", new { id = EmpObj.ID });
+                //}
+                //else
+                //{
+                //    return View(model);
+                //}
             }
             catch (DbUpdateException e)
             {
@@ -113,7 +126,8 @@ namespace HR.Controllers
 
 
                 var record = dbcontext.Employee_sponsor_profile.FirstOrDefault(m => m.ID == id);
-                
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
 
 
                 if (record != null)
@@ -131,12 +145,14 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(Employee_sponsor_profile model)
+        public ActionResult Edit(Employee_sponsor_profile model ,string command)
         {
             try
             {
+                ViewBag.idemp = model.Employee_ProfileId;
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
-           //     var prof = int.Parse(model.Employee_ProfileId);
+                //     var prof = int.Parse(model.Employee_ProfileId);
                 //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Employee_sponsor_profile.FirstOrDefault(m => m.ID == model.ID);
                 var emp = record.Employee_Profile;
@@ -158,8 +174,11 @@ namespace HR.Controllers
                 record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_ProfileId);
                 record.Sponsor = dbcontext.Sponsor.FirstOrDefault(m => m.ID == model.SponsorId);
                 dbcontext.SaveChanges();
-
-                return RedirectToAction("index");
+                if (command == "Submit")
+                {
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
+                }
+                return RedirectToAction("index", new { id = EmpObj.ID });
             }
             catch (DbUpdateException e)
             {
@@ -175,7 +194,8 @@ namespace HR.Controllers
             {
 
                 var record = dbcontext.Employee_sponsor_profile.FirstOrDefault(m => m.ID == id);
-           
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
                 if (record != null)
                 { return View(record); }
                 else
@@ -197,12 +217,13 @@ namespace HR.Controllers
         {
 
             var record = dbcontext.Employee_sponsor_profile.FirstOrDefault(m => m.ID == id);
-            
+            ViewBag.idemp = record.Employee_Profile.ID.ToString();
+
             try
             {
                 dbcontext.Employee_sponsor_profile.Remove(record);
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = record.Employee_ProfileId });
             }
             catch (DbUpdateException)
             {

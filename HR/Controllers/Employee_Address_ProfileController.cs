@@ -17,9 +17,12 @@ namespace HR.Controllers
         {
             var ID = int.Parse(id);
             var new_model = dbcontext.Employee_Address_Profile.Where(m => m.Employee_Profile.ID == ID).ToList();
+            var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == ID);
             ViewBag.idemp = id;
+           
             return View(new_model);
         }
+   
         public ActionResult Create(string id)
         {
 

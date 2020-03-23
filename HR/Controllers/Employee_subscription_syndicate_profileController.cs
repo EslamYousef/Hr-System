@@ -30,7 +30,7 @@ namespace HR.Controllers
             ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.Where(a => a.Type == Models.Infra.Type.Subscription).ToList().Select(m => new { Code = m.Subscription_Code + "-----[" + m.Subscription_Description + ']', ID = m.ID });
             ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-            var model = dbcontext.Employee_family_profile.ToList();
+            var model = dbcontext.Employee_subscription_syndicate_profile.ToList();
             var count = 0;
             if (model.Count() == 0)
             {

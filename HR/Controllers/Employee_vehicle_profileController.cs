@@ -13,14 +13,19 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_vehicle_profile
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var model = dbcontext.Employee_vehicle_profile.ToList();
-            return View(model);
+            var ID = int.Parse(id);
+            var new_model = dbcontext.Employee_vehicle_profile.Where(m => m.Employee_Profile.ID == ID).ToList();
+            var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == ID);
+            ViewBag.idemp = id;
+
+            return View(new_model);
         }
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            ViewBag.idemp = id;
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
             var model = dbcontext.Employee_vehicle_profile.ToList();
             var count = 0;
@@ -34,22 +39,24 @@ namespace HR.Controllers
                 count = te + 1;
             }
             DateTime statis = Convert.ToDateTime("1/1/1900");
-         //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeVehicle = new Employee_vehicle_profile {/* Employee_ProfileId = emp.ID.ToString(),*/ Code = stru.Structure_Code + count.ToString(), From_date= statis, To_date= statis };
+            var ID = int.Parse(id);
+            var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
+            var EmployeeVehicle = new Employee_vehicle_profile { Employee_Profile = emp, Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString(), From_date= statis, To_date= statis };
 
             return View(EmployeeVehicle);
         }
         [HttpPost]
-        public ActionResult Create(Employee_vehicle_profile model )
+        public ActionResult Create(Employee_vehicle_profile model,string command)
         {
             try
             {   
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-              
 
-                if (ModelState.IsValid)
-                {
-                                  
+                ViewBag.idemp = model.Employee_ProfileId;
+
+                //if (ModelState.IsValid)
+                //{
+                    var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
                     Employee_vehicle_profile record = new Employee_vehicle_profile();
                  
                     record.Code = model.Code;
@@ -69,13 +76,16 @@ namespace HR.Controllers
                                 
                     dbcontext.Employee_vehicle_profile.Add(record);
                     dbcontext.SaveChanges();
-                  
-                    return RedirectToAction("Index");
-                }
-                else
+                if (command == "Submit")
                 {
-                    return View(model);
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });//int.Parse(record.Employee_ProfileId)
                 }
+                return RedirectToAction("Index", new { id = EmpObj.ID }); //model.Employee_ProfileId 
+                //}
+                //else
+                //{
+                //    return View(model);
+                //}
             }
             catch (DbUpdateException e)
             {
@@ -94,6 +104,7 @@ namespace HR.Controllers
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
 
                 if (record != null)
                 {
@@ -110,21 +121,24 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(Employee_vehicle_profile model)
+        public ActionResult Edit(Employee_vehicle_profile model,string command)
         {
             try
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-
                 var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == model.ID);
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+
                 //    var emp = record.Employee_Profile;
                 record.Code = model.Code;
                 record.Vehicle_plate_number = model.Vehicle_plate_number;
                 record.Vehicle_model = model.Vehicle_model;
                 record.Comments = model.Comments;
-                record.Employee_ProfileId = model.Employee_ProfileId;
-                var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+
                 record.From_date = model.From_date;
                 record.To_date = model.To_date;
                 if (model.From_date > model.To_date)
@@ -134,9 +148,11 @@ namespace HR.Controllers
                 }
 
                 dbcontext.SaveChanges();
-
-               
-                return RedirectToAction("index");
+                if (command == "Submit")
+                {
+                    return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });
+                }
+                return RedirectToAction("index", new { id = EmpObj.ID });
             }
             catch (DbUpdateException)
             {
@@ -151,6 +167,7 @@ namespace HR.Controllers
             try
             {
                 var record = dbcontext.Employee_vehicle_profile.FirstOrDefault(m => m.ID == id);
+                ViewBag.idemp = record.Employee_Profile.ID.ToString();
 
                 if (record != null)
                 { return View(record); }
@@ -178,7 +195,7 @@ namespace HR.Controllers
             {
                 dbcontext.Employee_vehicle_profile.Remove(record);
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("index", new { id = record.Employee_ProfileId });
             }
             catch (DbUpdateException)
             {

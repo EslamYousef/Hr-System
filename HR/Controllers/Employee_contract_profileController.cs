@@ -72,6 +72,23 @@ namespace HR.Controllers
                     var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
 
                     Employee_contract_profile record = new Employee_contract_profile();
+                    var list = dbcontext.Employee_contract_profile.ToList();
+
+                    if (list.Count() == 0)
+                    {
+                        record.Active = true;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < list.Count(); i++)
+                        {
+                            list[i].Active = false;
+                        }
+                        record.Active = true;
+                        //var te = list.LastOrDefault();
+                        //te.Active = false;
+                        //record.Active = true;
+                    }
                     record.Code = model.Code;
                //     record.Contract = model.Contract;
                     record.Employment_type = model.Employment_type;
@@ -182,12 +199,24 @@ namespace HR.Controllers
                 ViewBag.Contract_Type = dbcontext.Contract_Type.ToList().Select(m => new { Code = m.Contract_Type_Code + "------[" + m.Contract_Type_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Approved_date = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                ViewBag.idemp = model.Employee_ProfileId;
-                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.ID);
-
-                var prof = int.Parse(model.Employee_ProfileId);
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+              
                 //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Employee_contract_profile.FirstOrDefault(m => m.ID == model.ID);
+                var list = dbcontext.Employee_contract_profile.Where(a => a.Active == true).ToList();
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                ViewBag.idemp = model.Employee_ProfileId;
+                record.Employee_Profile = EmpObj;
+
+                if (list != null)
+                {
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+                        list[i].Active = false;
+                    }
+                    record.Active = true;
+                }
                 var emp = record.Employee_Profile;
                 record.Code = model.Code;
              //   record.Contract = model.Contract;
@@ -220,12 +249,7 @@ namespace HR.Controllers
                 record.Adult_Tickets_No = model.Adult_Tickets_No;
                 record.Child_Tickets_No = model.Child_Tickets_No;
                 record.Tickets_Class_Tpyefam = model.Tickets_Class_Tpyefam;
-                var empid = EmpObj.Code + "------" + EmpObj.Name;
-                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = empid : model.Employee_ProfileId;
-                record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
-                //record.Employee_ProfileId = model.Employee_ProfileId;
-                //var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                //record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
+               
                 record.ContractTypeId = model.ContractTypeId;
                 record.ApprovedbyId = model.ApprovedbyId;
                 dbcontext.SaveChanges();

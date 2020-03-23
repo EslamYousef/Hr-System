@@ -4,72 +4,85 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-
+<div class="form-group">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-6">
+        <h1>@Personnel.EmployeeAttachmentProfile</h1>
+    </div>
+</div>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
         <div class="box">
             <div class="box-header">
-                <p class="lead">
-                    <a href="@Url.Action("Create", "Employee_attachment_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeAttachmentProfile </a>
-                </p>
-            </div>
-
-
-            <!-- /.box-header -->
-            <div class="box-body">
-                @if (TempData["Message"] != null)
-                {
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @TempData["Message"]
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <p class="lead">
+                            <a href="@Url.Action("Create", "Employee_attachment_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeAttachmentProfile </a>
+                        </p>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="@Url.Action("Edit", "Employee_Profile", new {id = @ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.BackToEmployeeProfile</a>
+                        </div>
                     </div>
-                }
-
-                <table id="categories" class="table table-bordered table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th>@Personnel.AttachmentprofileNo</th>
-                            <th>@Personnel.EmployeeName</th>
-                            <th>@Personnel.Documentcode</th>
-                            <th>@Personnel.Documentgroup</th>
-                            <th>@Personnel.Relatedto </th>
-                            <th> @Personnel.Iscopy </th>
-                            <th>@Personnel.Isrequired  </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                </div>
 
 
+                <!-- /.box-header -->
+                <div class="box-body">
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
 
-
-                        @foreach (var item in Model)
-                        {
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
                             <tr>
-
-                                <td>@item.Code</td>
-                                <td>@item.Employee_Profile.Full_Name</td>
-                                <td>@item.Documents.Name</td>
-                                <td>@item.Documents.Document_Group.Name</td>
-                                <td>@item.Related_to</td>
-                                <td>@item.Is_copy</td>
-                                <td>@item.Is_required</td>
-
-
-                                <td>
-                                    <a href="@Url.Action("Edit", "Employee_attachment_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
-                                    <a href="@Url.Action("delete", "Employee_attachment_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
-                                </td>
+                                <th>@Personnel.AttachmentprofileNo</th>
+                                <th>@Personnel.EmployeeName</th>
+                                <th>@Personnel.Documentcode</th>
+                                <th>@Personnel.Documentgroup</th>
+                                <th>@Personnel.Relatedto </th>
+                                <th> @Personnel.Iscopy </th>
+                                <th>@Personnel.Isrequired  </th>
+                                <th></th>
                             </tr>
-                        }
+                        </thead>
+                        <tbody>
 
 
-                    </tbody>
-               
-                </table>
+
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>@item.Code</td>
+                                    <td>@item.Employee_Profile.Full_Name</td>
+                                    <td>@item.Documents.Name</td>
+                                    <td>@item.Documents.Document_Group.Name</td>
+                                    <td>@item.Related_to</td>
+                                    <td>@item.Is_copy</td>
+                                    <td>@item.Is_required</td>
+
+
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Employee_attachment_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                        <a href="@Url.Action("delete", "Employee_attachment_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
-        </div>
 
     </section>
 

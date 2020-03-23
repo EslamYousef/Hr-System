@@ -4,134 +4,147 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+<div class="form-group">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-6">
+    <h1>@Personnel.AddressProfile</h1>    
+    </div>
+    </div>
+        <div class="content-wrapper">
+            <!-- Main content -->
 
-<div class="content-wrapper">
-    <!-- Main content -->
-    <section class="content">
+            <section class="content">
 
-        <div class="box">
-            <div class="box-header">
-                <p class="lead">
-  <a href="@Url.Action("Create", "Employee_Address_Profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeAddressProfile </a>
-                </p>
-            </div>
-      
-
-                <!-- /.box-header -->
-                <div class="box-body">
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
+                <div class="box">
+                    <div class="box-header">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <p class="lead">
+                                    <a href="@Url.Action("Create", "Employee_Address_Profile", new { id = @ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewEmployeeAddressProfile </a>
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="@Url.Action("Edit", "Employee_Profile", new {id = @ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.BackToEmployeeProfile</a>
+                            </div>
                         </div>
-                    }
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
 
-                    <table id="categories" class="table table-bordered table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th>@Personnel.AddressprofileNo</th>
-                                <th>@Personnel.EmployeeName </th>
-                                <th>@Personnel.Country</th>
-                                <th>@Personnel.Regionname</th>
-                                <th>@Personnel.Statename</th>
-                                <th>@Personnel.County</th>
-                                <th>@Personnel.Cityname</th>
-                                <th>@Personnel.Postalname</th>
-                                <th>@Personnel.Resident</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-
-                        
-
-
-                            @foreach (var item in Model)
-                            {
+                        <table id="categories" class="table table-bordered table-striped text-center">
+                            <thead>
                                 <tr>
-                                    <td>@item.Code</td>
-                                    <td>@item.Employee_Profile.Full_Name</td>
-                                    
-                                    @if (@item.Country != null)
-                                    {
-                                        <td>@item.Country.Name </td>
-                                    }
-                                    else
-                                    {
-                                        <td>Empty</td>}
-                                    @if (@item.Area != null)
-                                    {
-                                        <td>@item.Area.Name</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Empty</td>}
-                                    @if (@item.the_states != null)
-                                    {
-                                        <td>@item.the_states.Name </td>
-                                    }
-                                    else
-                                    {
-                                        <td>Empty</td>}
-                                    @if (@item.Territories != null)
-                                    {
-                                        <td>@item.Territories.Name</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Empty</td>}
-                                    @if (@item.cities != null)
-                                    {
-                                        <td>@item.cities.Name </td>
-                                    }
-                                    else
-                                    {
-                                        <td>Empty</td>}
-                                    @if (@item.postcode != null)
-                                    {
-                                        <td>@item.postcode.Name  </td>
-                                    }
-                                    else
-                                    {
-                                        <td>Empty</td>}
-                                    <td>@item.Resident</td>
-
-
-                                    <td>
-                                        <a href="@Url.Action("Edit", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
-                                        <a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
-                                    </td>
+                                    <th>@Personnel.AddressprofileNo</th>
+                                    <th>@Personnel.EmployeeName </th>
+                                    <th>@Personnel.Country</th>
+                                    <th>@Personnel.Regionname</th>
+                                    <th>@Personnel.Statename</th>
+                                    <th>@Personnel.County</th>
+                                    <th>@Personnel.Cityname</th>
+                                    <th>@Personnel.Postalname</th>
+                                    <th>@Personnel.Resident</th>
+                                    <th></th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
 
 
-                        </tbody>
-                  
-                    </table>
+
+
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Code</td>
+                                        <td>@item.Employee_Profile.Full_Name</td>
+
+                                        @if (@item.Country != null)
+                                        {
+                                            <td>@item.Country.Name </td>
+                                        }
+                                        else
+                                        {
+                                            <td>Empty</td>}
+                                        @if (@item.Area != null)
+                                        {
+                                            <td>@item.Area.Name</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Empty</td>}
+                                        @if (@item.the_states != null)
+                                        {
+                                            <td>@item.the_states.Name </td>
+                                        }
+                                        else
+                                        {
+                                            <td>Empty</td>}
+                                        @if (@item.Territories != null)
+                                        {
+                                            <td>@item.Territories.Name</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Empty</td>}
+                                        @if (@item.cities != null)
+                                        {
+                                            <td>@item.cities.Name </td>
+                                        }
+                                        else
+                                        {
+                                            <td>Empty</td>}
+                                        @if (@item.postcode != null)
+                                        {
+                                            <td>@item.postcode.Name  </td>
+                                        }
+                                        else
+                                        {
+                                            <td>Empty</td>}
+                                        <td>@item.Resident</td>
+
+
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                            <a href="@Url.Action("delete", "Employee_Address_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
-            </div>
 
-</section>
+            </section>
 
-</div>
+        </div>
 
-<!-- page script -->
-<script>
-    var $ = jQuery;
+        <!-- page script -->
+        <script>
+            var $ = jQuery;
 
-    $(document).ready(function () {
-        $('#categories').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-            "order" : 1
-        });
-    });
-</script>
+            $(document).ready(function () {
+                $('#categories').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "order": 1
+                });
+            });
+        </script>
 
-@section scripts{}
+        @section scripts{}

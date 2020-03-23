@@ -73,6 +73,7 @@ namespace HR.Models
         public int Adult_Tickets_No { get; set; }
         [Display(Name = "Child Tickets No.")]
         public int Child_Tickets_No { get; set; }
+        public bool Active { get; set; }
         [Display(Name = "Tickets Class Tpye")]
         public Tickets_Class_Tpye Tickets_Class_Tpyefam { get; set; } = Tickets_Class_Tpye.Economy;
         public virtual Employee_Profile Employee_Profile { get; set; }

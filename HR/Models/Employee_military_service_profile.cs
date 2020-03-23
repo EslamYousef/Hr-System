@@ -65,7 +65,7 @@ namespace HR.Models
         [Display(Name = "The number of days ")]
         public double Total_Service_period_The_number_of_days { get; set; }
         public string Comments { get; set; }
-    //    public virtual Employee_Profile Employee_Profile { get; set; }
+        public virtual Employee_Profile Employee_Profile { get; set; }
 
 
     }

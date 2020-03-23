@@ -45,9 +45,6 @@ namespace HR.Controllers
             var ID = int.Parse(id);
                 var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
              
-              
-          
-
             var EmployeeExperience = new Employee_experience_profile { Employee_Profile=emp,Employee_ProfileId=emp.ID.ToString(),Code=stru.Structure_Code +count.ToString(), Approval_date = statis, Start_date = statis, End_date = statis, Rejection_ReasonsId = "0", External_compainesId = "0" };
             return View(EmployeeExperience);
 

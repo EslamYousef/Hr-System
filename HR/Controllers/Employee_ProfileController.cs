@@ -18,7 +18,7 @@ namespace HR.Controllers
         // GET: Employee_Profile
         public ActionResult Index()
         {
-            var model = dbcontext.Employee_Profile.ToList();
+            var model = dbcontext.Employee_Profile.Where(a=>a.Active == true).Select(a=>a).ToList();
             return View(model);
         }
         public ActionResult Create(string id)
@@ -162,7 +162,7 @@ namespace HR.Controllers
                     record.Citizen = model.Employee_Profile.Citizen;
                     record.Blood_group = model.Employee_Profile.Blood_group;
                     record.ID_type = model.Employee_Profile.ID_type;
-                   
+                    record.Active = true;
 
                     record.Birth_date = model.Employee_Profile.Birth_date;
 
@@ -390,51 +390,49 @@ namespace HR.Controllers
  
                     //dbcontext.SaveChanges();
                     ////////////////////////////////////////////////
-                    var employeecontact= dbcontext.Employee_contact_profile.ToList();
-                    var contactcount = 0;
+                    //var employeecontact= dbcontext.Employee_contact_profile.ToList();
+                    //var contactcount = 0;
 
-                    if (employeecontact.Count() == 0)
-                    {
-                        contactcount = 1;
-                    }
-                    else
-                    {
-                        var te6 = employeecontact.LastOrDefault().ID;
-                        contactcount = te6 + 1;
-                    }
-                    var strus6 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    var text6 = new Employee_contact_profile
-                    { Employee_ProfileId = emp.ID.ToString(), Code = strus6.Structure_Code + contactcount.ToString() };
-                    var e6 = dbcontext.Employee_contact_profile.Add(text6);
-                    dbcontext.SaveChanges();
-                    emp.Employee_contact_profile = e6;
-                    dbcontext.SaveChanges();
+                    //if (employeecontact.Count() == 0)
+                    //{
+                    //    contactcount = 1;
+                    //}
+                    //else
+                    //{
+                    //    var te6 = employeecontact.LastOrDefault().ID;
+                    //    contactcount = te6 + 1;
+                    //}
+                    //var strus6 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //var text6 = new Employee_contact_profile
+                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus6.Structure_Code + contactcount.ToString() };
+                    //var e6 = dbcontext.Employee_contact_profile.Add(text6);
+                    //dbcontext.SaveChanges();
+                    //dbcontext.SaveChanges();
                     /////////////////////////////////////////
-                    if (record.Gender==Gender.male /*&& command8 == "Submit"*/)
-                    {
-                        var employeemilitary = dbcontext.Employee_military_service_profile.ToList();
-                        var militarycount = 0;
+                    //if (record.Gender==Gender.male /*&& command8 == "Submit"*/)
+                    //{
+                    //    var employeemilitary = dbcontext.Employee_military_service_profile.ToList();
+                    //    var militarycount = 0;
 
-                        if (employeemilitary.Count() == 0)
-                        {
-                            militarycount = 1;
-                        }
-                        else
-                        {
-                            var te8 = employeemilitary.LastOrDefault().ID;
-                            militarycount = te8 + 1;
-                        }
-                        DateTime statis8 = Convert.ToDateTime("1/1/1900");
-                        var strus8 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                        var text8 = new Employee_military_service_profile
-                        { Employee_ProfileId = emp.ID.ToString(), Code = strus8.Structure_Code + militarycount.ToString(), Certificate_date = statis8, From_date = statis8, To_date = statis8 };
-                        var e8 = dbcontext.Employee_military_service_profile.Add(text8);
-                        dbcontext.SaveChanges();
-                        emp.Employee_military_service_profile = e8;
-                        dbcontext.SaveChanges();
+                    //    if (employeemilitary.Count() == 0)
+                    //    {
+                    //        militarycount = 1;
+                    //    }
+                    //    else
+                    //    {
+                    //        var te8 = employeemilitary.LastOrDefault().ID;
+                    //        militarycount = te8 + 1;
+                    //    }
+                    //    DateTime statis8 = Convert.ToDateTime("1/1/1900");
+                    //    var strus8 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                    //    var text8 = new Employee_military_service_profile
+                    //    { Employee_ProfileId = emp.ID.ToString(), Code = strus8.Structure_Code + militarycount.ToString(), Certificate_date = statis8, From_date = statis8, To_date = statis8 };
+                    //    var e8 = dbcontext.Employee_military_service_profile.Add(text8);
+                    //    dbcontext.SaveChanges();
+                    //    dbcontext.SaveChanges();
 
-                    }
-                    else if (record.Gender == Gender.female && command8 == "Submit")
+                    //}
+                     if (record.Gender == Gender.female && command8 == "Submit")
                     {
                         TempData["Message"] = HR.Resource.Personnel.Youmustchooseamalefromthegender;
                         return View(model);
@@ -472,7 +470,7 @@ namespace HR.Controllers
                     }
                     if (command6 == "Submit")
                     {
-                        return RedirectToAction("Edit", "Employee_contact_profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_contact_profile", new { id = emp.ID });
                     }
                     if (command7 == "Submit")
                     {
@@ -480,7 +478,7 @@ namespace HR.Controllers
                     }
                     if (command8 == "Submit")
                     {
-                        return RedirectToAction("Edit", "Employee_military_service_profile", new { id = emp.ID });
+                        return RedirectToAction("index", "Employee_military_service_profile", new { id = emp.ID });
                     }
                     if (command9 == "Submit")
                     {
@@ -500,11 +498,11 @@ namespace HR.Controllers
                     }
                     if (command == "Submit2")
                     {
-                        return RedirectToAction("index", "Employee_vehicle_profile");
+                        return RedirectToAction("index", "Employee_vehicle_profile", new { id = emp.ID });
                     }
                     if (command == "Submit3")
                     {
-                        return RedirectToAction("index", "Employee_sponsor_profile");
+                        return RedirectToAction("index", "Employee_sponsor_profile", new { id = emp.ID });
                     }
                     return RedirectToAction("Index");
                 }
@@ -684,6 +682,8 @@ namespace HR.Controllers
                 record.citiesaddressid = model.Employee_Profile.citiesaddressid;
                 var citiesaddressid = int.Parse(model.Employee_Profile.citiesaddressid);
                 record.cities = dbcontext.cities.FirstOrDefault(m => m.ID == citiesaddressid);
+                record.Active = true;
+
                 dbcontext.SaveChanges();
 
           //    var AbilityRecode = dbcontext.Ability.FirstOrDefault(m => m.ID == model.Employee_Profile.Ability.ID);
@@ -745,7 +745,7 @@ namespace HR.Controllers
                 }
                 if (command6 == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_contact_profile", new { id = record.Employee_contact_profile.ID });
+                    return RedirectToAction("index", "Employee_contact_profile", new { id = record.ID });
                 }
                 if (command7 == "Submit")
                 {
@@ -753,7 +753,7 @@ namespace HR.Controllers
                 }
                 if (record.Gender == Gender.male && command8 == "Submit")
                 {
-                    return RedirectToAction("Edit", "Employee_military_service_profile", new { id = record.Employee_military_service_profile.ID });
+                    return RedirectToAction("index", "Employee_military_service_profile", new { id = record.ID });
                 }
                 else if (record.Gender == Gender.female && command8 == "Submit")
                 {
@@ -783,11 +783,11 @@ namespace HR.Controllers
                 }
                 if (command == "Submit2")
                 {
-                    return RedirectToAction("index", "Employee_vehicle_profile");
+                    return RedirectToAction("index", "Employee_vehicle_profile", new { id = record.ID });
                 }
                 if (command == "Submit3")
                 {
-                    return RedirectToAction("index", "Employee_sponsor_profile");
+                    return RedirectToAction("index", "Employee_sponsor_profile", new { id = record.ID });
                 }
                 return RedirectToAction("index");
             }
@@ -806,9 +806,9 @@ namespace HR.Controllers
                 var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
                 var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.ID);
                 var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.ID);
-                var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
-                var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
-                var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
+                //var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
+                //var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
+                //var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
                 var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
                 var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == record.Position_Transaction_Information.ID);
                 var Employee_family_profile = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == record.ID);
@@ -821,7 +821,6 @@ namespace HR.Controllers
                     TempData["Message"] = HR.Resource.Basic.thereisnodata;
                     return View();
                 }
-
             }
             catch (Exception e)
             {
@@ -835,9 +834,9 @@ namespace HR.Controllers
             var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
             var Employee_Address_Profile = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == record.ID);
             var Employee_Qualification_Profile = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == record.ID);
-            var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
-            var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
-            var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
+            //var Ability = dbcontext.Ability.FirstOrDefault(m => m.ID == record.Ability.ID);
+            //var Service_Information = dbcontext.Service_Information.FirstOrDefault(m => m.ID == record.Service_Information.ID);
+            //var Personnel_Information = dbcontext.Personnel_Information.FirstOrDefault(m => m.ID == record.Personnel_Information.ID);
             var Position_Information = dbcontext.Position_Information.Where(m => m.Employee_Profile.ID == record.ID);
            
             var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
@@ -845,7 +844,6 @@ namespace HR.Controllers
             var Employee_experience_profile = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == record.ID);
             try
             {
-
                 var old_slot = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == record.ID);
                 if (old_slot != null)
                 {
@@ -853,21 +851,22 @@ namespace HR.Controllers
                     dbcontext.SaveChanges();
                 }
 
+                //var emp = dbcontext.Employee_Profile.Remove(record);
+                record.Active = false;
 
-                var emp = dbcontext.Employee_Profile.Remove(record);
                 dbcontext.SaveChanges();
-                if (Ability != null)
-                {
-                    dbcontext.Ability.Remove(Ability);
-                }
-                if (Service_Information != null)
-                {
-                    dbcontext.Service_Information.Remove(Service_Information);
-                }
-                if (Personnel_Information != null)
-                {
-                    dbcontext.Personnel_Information.Remove(Personnel_Information);
-                }
+                //if (Ability != null)
+                //{
+                //    dbcontext.Ability.Remove(Ability);
+                //}
+                //if (Service_Information != null)
+                //{
+                //    dbcontext.Service_Information.Remove(Service_Information);
+                //}
+                //if (Personnel_Information != null)
+                //{
+                //    dbcontext.Personnel_Information.Remove(Personnel_Information);
+                //}
                 if (Employee_Address_Profile != null)
                 {
                     dbcontext.Employee_Address_Profile.Remove(Employee_Address_Profile);
@@ -899,6 +898,52 @@ namespace HR.Controllers
             {
                 TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
                 return View(record);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+        public ActionResult History()
+        {
+
+            var data = dbcontext.Employee_Profile.Where(a => a.Active == false).Select(a => a).ToList();
+            return View(data);
+
+        }
+        public ActionResult HistoryUpdate(int Id)
+        {
+            try
+            { 
+
+            var data = dbcontext.Employee_Profile.Find(Id);
+            if (data != null)
+            { return View(data); }
+            else
+            {
+                TempData["Message"] = HR.Resource.Basic.thereisnodata;
+                return View();
+            }
+        }
+            catch (Exception e)
+            {
+                return View();
+    }
+}
+        [HttpPost]
+        public ActionResult HistoryUpdate(Employee_Profile obj)
+        {
+            try
+            {
+                var data = dbcontext.Employee_Profile.Find(obj.ID);
+                data.Active = true;
+                dbcontext.SaveChanges();
+                return RedirectToAction("History");
+            }
+            catch (DbUpdateException e)
+            {
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
+                return View();
             }
             catch (Exception e)
             {

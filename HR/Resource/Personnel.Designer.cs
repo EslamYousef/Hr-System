@@ -88,6 +88,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity number.
         /// </summary>
         public static string Activitynumber {
@@ -480,6 +489,15 @@ namespace HR.Resource {
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back To Employee Profile.
+        /// </summary>
+        public static string BackToEmployeeProfile {
+            get {
+                return ResourceManager.GetString("BackToEmployeeProfile", resourceCulture);
             }
         }
         
@@ -2320,6 +2338,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        public static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Holiday alternative description.
         /// </summary>
         public static string Holidayalternativedescription {
@@ -2410,7 +2437,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID number in attendance machine.
+        ///   Looks up a localized string similar to TM ID Number.
         /// </summary>
         public static string IDnumberinattendancemachine {
             get {
@@ -4651,6 +4678,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The employee will be returned to work.
+        /// </summary>
+        public static string Theemployeewillbereturnedtowork {
+            get {
+                return ResourceManager.GetString("Theemployeewillbereturnedtowork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of days.
         /// </summary>
         public static string Thenumberofdays {
@@ -4692,6 +4728,15 @@ namespace HR.Resource {
         public static string Thisemployeenothaveprimaryposition {
             get {
                 return ResourceManager.GetString("Thisemployeenothaveprimaryposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This employee will be deleted.
+        /// </summary>
+        public static string Thisemployeewillbedeleted {
+            get {
+                return ResourceManager.GetString("Thisemployeewillbedeleted", resourceCulture);
             }
         }
         
@@ -4872,6 +4917,15 @@ namespace HR.Resource {
         public static string UnlimitedBalance {
             get {
                 return ResourceManager.GetString("UnlimitedBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

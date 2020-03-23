@@ -65,9 +65,7 @@ namespace HR.Controllers
                 var z = new Employee_Positions_Profile_VM
                 { Position_Information = x, Position_Transaction_Information = y };
                 return View(z);
-            
-
-
+           
         }
         [HttpPost]
         public ActionResult Create(Employee_Positions_Profile_VM model, string command)
@@ -97,8 +95,7 @@ namespace HR.Controllers
                     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                     //   var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID == emp.Employee_Positions_Profile.ID);
 
-                    emp.Active = true;
-                    dbcontext.SaveChanges();
+                    
                     ///////
                     Position_Transaction_Information information = new Position_Transaction_Information();
                     information.Position_transaction = model.Position_Transaction_Information.Position_transaction;
@@ -118,8 +115,20 @@ namespace HR.Controllers
                     ///////
 
                     Position_Information record = new Position_Information();
+                    var list = dbcontext.Position_Information.ToList();
+                    if (list.Count() == 0)
+                    {
+                        record.Primary_Position = true;
+                    }
+                    else
+                    {
+                        var te = list.LastOrDefault();
+                        te.Primary_Position = false;
+                        record.Primary_Position = true;
+                    }
+                    dbcontext.SaveChanges();
                     record.Code = model.Position_Information.Code;
-                    record.Primary_Position = model.Position_Information.Primary_Position;
+                    //record.Primary_Position = model.Position_Information.Primary_Position;
                     record.From_date = model.Position_Information.From_date;
                     record.To_date = model.Position_Information.To_date;
                     if (model.Position_Information.From_date > model.Position_Information.To_date)
@@ -255,8 +264,18 @@ namespace HR.Controllers
              //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
                 var record = dbcontext.Position_Information.FirstOrDefault(m => m.ID ==model.Position_Information.ID);
                 var emp = record.Employee_Profile;
+
+                var list = dbcontext.Position_Information.Where(a => a.Primary_Position == true).ToList();
+                if (list != null)
+                {
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+                        list[i].Primary_Position = false;
+                    }
+                    record.Primary_Position = true;
+                }
                 record.Code = model.Position_Information.Code;
-                record.Primary_Position = model.Position_Information.Primary_Position;
+                //record.Primary_Position = model.Position_Information.Primary_Position;
           //      model.Position_Information.From_date = record.From_date;
         //        model.Position_Information.To_date = record.To_date;
                 record.From_date = model.Position_Information.From_date;
@@ -305,7 +324,7 @@ namespace HR.Controllers
                 {
                     var IDslot = int.Parse(model.Position_Information.SlotdescId);
                     var new_slot = dbcontext.Slots.FirstOrDefault(m => m.ID == IDslot);
-                    if (new_slot.Employee_Profile == null)
+                    if (new_slot.EmployeeID == null)
                     {
                         ///remove from old
                         if (record.SlotdescId != "0")
@@ -432,6 +451,65 @@ namespace HR.Controllers
             catch
             (Exception e)
             { return RedirectToAction("index", "personnel_transaction"); }
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var Position_Information = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id);
+                var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == id);
+
+                ViewBag.idemp = Position_Information.Employee_Profile.ID.ToString();
+
+                if (Position_Information != null)
+                { return View(Position_Information); }
+                else
+                {
+                    TempData["Message"] = HR.Resource.Basic.thereisnodata;
+                    return View();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+        }
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult Deletemethod(int id)
+        {
+            var Position_Information = dbcontext.Position_Information.FirstOrDefault(m => m.ID == id);
+            var Position_Transaction_Information = dbcontext.Position_Transaction_Information.FirstOrDefault(m => m.ID == id);
+            var solt = dbcontext.Slots.FirstOrDefault(m => m.Employee_Profile.ID == Position_Information.ID);
+
+            ViewBag.idemp = Position_Information.Employee_Profile.ID.ToString();
+
+            try
+            {
+                var old_slot = dbcontext.Slots.FirstOrDefault(m => m.EmployeeID == Position_Information.Employee_Profile.ID.ToString());
+                if (old_slot != null && old_slot.EmployeeID!=null)
+                {
+                    old_slot.Employee_Profile = null;
+                    old_slot.EmployeeID = null;
+                    old_slot.EmployeeName = null;
+                    dbcontext.SaveChanges();
+                }
+                dbcontext.Position_Transaction_Information.Remove(Position_Transaction_Information);
+                dbcontext.Position_Information.Remove(Position_Information);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index", new { id = Position_Information.Employee_ProfileId });
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Message"] = HR.Resource.Basic.youcannotdeletethisRow;
+                return View(Position_Information);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
     }
 }

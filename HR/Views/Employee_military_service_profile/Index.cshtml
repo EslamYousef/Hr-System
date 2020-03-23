@@ -1,19 +1,32 @@
-﻿@model IEnumerable<HR.Models.ViewModel.EmployeeMilitary_VM>
+﻿@model IEnumerable<HR.Models.Employee_military_service_profile>
 @using HR.Resource;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-
+<div class="form-group">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-6">
+        <h1>@Personnel.EmployeeMilitaryServiceProfile</h1>
+    </div>
+</div>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
 
         <div class="box">
             <div class="box-header">
-                <p class="lead">
-                    @Personnel.EmployeeMilitaryServiceProfile
-                </p>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <p class="lead">
+                            <a href="@Url.Action("Create", "Employee_military_service_profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.EmployeeMilitaryServiceProfile </a>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Edit", "Employee_Profile", new {id = @ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.BackToEmployeeProfile</a>
+                    </div>
+                </div>
             </div>
 
             <!-- /.box-header -->
@@ -47,30 +60,30 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                               <td>@item.Employee_military_service_profile.Code</td>
-                                <td>@item.fullname</td>
-                              @if (@item.Employee_military_service_profile.Military_Service_Rank != null)
+                               <td>@item.Code</td>
+                                <td>@item.Employee_Profile.Full_Name</td>
+                              @if (@item.Military_Service_Rank != null)
                                 {
-                                    <td>@item.Employee_military_service_profile.Military_Service_Rank.Name </td>
+                                    <td>@item.Military_Service_Rank.Name </td>
                                 }
                                 else
                                 {
                                     <td>Empty</td>}
-                                @if (@item.Employee_military_service_profile.Rejection_Reasons != null)
+                                @if (@item.Rejection_Reasons != null)
                                 {
-                                    <td>@item.Employee_military_service_profile.Rejection_Reasons.Name</td>
+                                    <td>@item.Rejection_Reasons.Name</td>
                                 }
                                 else
                                 {
                                     <td>Empty</td>}
-                           <td>@item.Employee_military_service_profile.Military_service_status</td>
-                                <td>@item.Employee_military_service_profile.Level</td>
+                           <td>@item.Military_service_status</td>
+                                <td>@item.Level</td>
 
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Employee_military_service_profile", new {id = item.Employee_military_service_profile.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
-                                    <a href="@Url.Action("delete", "Employee_military_service_profile", new {id = item.Employee_military_service_profile.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                    <a href="@Url.Action("Edit", "Employee_military_service_profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Employee_military_service_profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }

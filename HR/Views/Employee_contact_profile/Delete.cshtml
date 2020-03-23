@@ -1,12 +1,11 @@
-﻿@model HR.Models.Employee_military_service_profile
+﻿@model HR.Models.Employee_contact_profile
 @using HR.Resource;
-
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 <h3>@Personnel.message_delete</h3>
-@using (Html.BeginForm("Delete", "Employee_military_service_profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Delete", "Employee_contact_profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -21,14 +20,18 @@
             </div>
         }
 
-        @Html.HiddenFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Code, new { htmlattributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>*@
 
-        
-           
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="@Personnel.Delete" class="btn btn-success" />
-                <a href="@Url.Action("index","Employee_military_service_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                <a href="@Url.Action("index","Employee_contact_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
             </div>
         </div>

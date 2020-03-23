@@ -1,0 +1,49 @@
+﻿@model HR.Models.Position_Information
+@using HR.Resource;
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<h3>@Personnel.message_delete</h3>
+@using (Html.BeginForm("Delete", "Employee_Positions_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+
+        @Html.HiddenFor(a => a.ID);
+
+        @Html.HiddenFor(a => a.Position_Transaction_Information.ID);
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Doctor_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Doctor_Name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Doctor_TName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Doctor_TName, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
+            </div>*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=" @Personnel.Delete " class="btn btn-success" />
+                <a href="@Url.Action("index","Employee_Positions_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+
+            </div>
+        </div>
+    </div>
+}@section scripts{}

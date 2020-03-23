@@ -35,6 +35,7 @@
                             </div>
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.Employee_ProfileId);
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                             <div class="col-md-3">
@@ -252,7 +253,7 @@
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value=" @Personnel.Create" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Employee_military_service_profile")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <a href="@Url.Action("index","Employee_military_service_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
 
                                 </div>
                             </div>

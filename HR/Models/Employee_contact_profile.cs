@@ -27,5 +27,7 @@ namespace HR.Models
         [Display(Name = "Contact method detail")]
         public string Contact_method_detail { get; set; }
         public string Comments { get; set; }
+        public virtual Employee_Profile Employee_Profile { get; set; }
+
     }
 }
