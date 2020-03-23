@@ -60,9 +60,11 @@
                                     <td>@item.status.statu</td>
                                   
                                     <td>
-
-                                        <a href=@Url.Action("Edit", "request_new_contract", new {id=item.ID}) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
-                                        <a href=@Url.Action("Delete", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
+@if (item.status.statu != HR.Models.Infra.check_status.Approved && item.status.statu != HR.Models.Infra.check_status.Rejected)
+{
+                                        <a href=@Url.Action("Edit", "request_new_contract", new { id = item.ID }) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+}
+                                          <a href=@Url.Action("Delete", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
                                         <a href=@Url.Action("status", "request_new_contract", new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
 
                                     </td>

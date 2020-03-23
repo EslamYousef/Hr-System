@@ -655,7 +655,7 @@ namespace HR.Controllers
             list.Add("Canceled");
             list.Add("Rejected");
             list.Add("Approved");
-            list.Add("Report_as_ready");
+            list.Add("Return_To_Review");
             return Json(list);
         }
 

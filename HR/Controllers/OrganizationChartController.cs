@@ -176,7 +176,7 @@ namespace HR.Controllers
                 if (model.Employee_ProfileID == 0) model.Employee_ProfileID = null;
                 else model.Employee_ProfileID = record.Employee_ProfileID;
                 dbcontext.SaveChanges();
-                return RedirectToAction("index");
+                return RedirectToAction("Details",new { id = model.ID.ToString() });
             }
             catch (DbUpdateException)
             {

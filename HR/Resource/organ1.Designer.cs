@@ -1951,7 +1951,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report as ready by.
+        ///   Looks up a localized string similar to Return to review by.
         /// </summary>
         public static string Reportasreadyby {
             get {
@@ -1960,7 +1960,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report as ready Date.
+        ///   Looks up a localized string similar to Return to review Date.
         /// </summary>
         public static string ReportasreadyDate {
             get {
