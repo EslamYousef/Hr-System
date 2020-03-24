@@ -294,7 +294,32 @@ namespace HR.Controllers
 
                 /////
                 Employee_contract_profile record = new Employee_contract_profile();
-                record.Code = model.Code;
+                var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+                var list = dbcontext.Employee_contract_profile.ToList();
+                var count = 0;
+                if (list.Count() == 0)
+                {
+                    count = 1;
+                }
+                else
+                {
+                    var te = list.LastOrDefault().ID;
+                    count = te + 1;
+                }
+           var  Code = stru.Structure_Code + count;
+                record.Code = Code;
+                if (list.Count() == 0)
+                {
+                    record.Active = true;
+                }
+                else
+                {
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+                        list[i].Active = false;
+                    }
+                    record.Active = true;
+                }
                 //     record.Contract = model.Contract;
                 record.Employment_type = model.Employment_type;
                 record.Contract_start_date = model.Contract_start_date;
