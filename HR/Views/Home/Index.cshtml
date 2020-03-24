@@ -7,11 +7,20 @@
 <script>
     function allBasic() {
         var T = "";
-        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetup()'>" + " <div style='@Personnel.margin'>@mainlayout.Setup</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin'><a href='@Url.Action("Create","Check_Request")' style=color:#373e4a;>@mainlayout.Transactions</div></a></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin'><a href='@Url.Action("Index","Check_Request")' style=color:#373e4a;>@mainlayout.Process</div></a></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetup()'>" + " <div style='@Personnel.margin'>@mainlayout.Setup</div></div></a></div></div></div> </div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allcardsbas()'> <div style='@Personnel.margin'>@mainlayout.cards</div></div></a></div></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllTransactions()'><div style='@Personnel.margin'>@mainlayout.Transactions</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllProcess()'> <div style='@Personnel.margin'>@mainlayout.Process</div></div></a></div></div></div>       <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allinquerybas()'> <div style='@Personnel.margin'>@mainlayout.inquery</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allreportbas()'> <div style='@Personnel.margin'>@organ.report</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
         $("#AllOrganization").empty();
         $("#AllSetupOrganization").empty();
         $("#CardsOrganization").empty();
         $("#Inquery").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Authorities").empty();
         $("#Risk").empty();
         $("#Skills").empty();
@@ -19,6 +28,12 @@
         $("#EOS").empty();
         $("#Checklists").empty();
         $("#AllSetupPersonnel").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
         $("#AllPersonnel").empty();
         $("#EmployeeProfile").empty();
         $("#Employee_Profile").empty();
@@ -26,6 +41,8 @@
         $("#PersonnelTransaction").empty();
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
         $("#ReportOrg").empty();
         $("#Joblevel").empty();
         $("#Jobtitle").empty();
@@ -37,25 +54,43 @@
     function AllOrganization() {
 
         var T = "";
-        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/18.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetupOrganization()'>" + "<div style='@Personnel.margin'>@mainlayout.Setup</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/18.png' alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllCardsOrganization()'><div style='@Personnel.margin'>@mainlayout.cards</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/18.png' alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllInquery()'> <div style='@Personnel.margin'>@mainlayout.inquery</div></div></a></div></div></div>             <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/18.png' alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllReportOrg()'> <div style='@Personnel.margin'>@organ.report</div></div></a></div></div></div>"
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/18.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetupOrganization()'>" + "<div style='@Personnel.margin'>@mainlayout.Setup</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/18.png' alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllCardsOrganization()'><div style='@Personnel.margin'>@mainlayout.cards</div></div></a></div></div></div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/18.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllTransactionsOrg()'> <div style='@Personnel.margin'>@mainlayout.Transactions</div></div></a></div></div></div></div><div class='col-lg-3' style=width:100%;></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/18.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllProcessOrg()'> <div style='@Personnel.margin'>@mainlayout.Process</div></div></a></div></div></div></div>     <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/18.png' alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllInquery()'> <div style='@Personnel.margin'>@mainlayout.inquery</div></div></a></div></div></div>             <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/18.png' alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllReportOrg()'> <div style='@Personnel.margin'>@organ.report</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
         $("#EOS").empty();
         $("#Checklists").empty();
         $("#AllSetupPersonnel").empty();
         $("#AllPersonnel").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
         $("#EmployeeProfile").empty();
         $("#Employee_Profile").empty();
         $("#TransactionsEmployee").empty();
         $("#PersonnelTransaction").empty();
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
         $("#bas").empty();
         $("#SetupBas").empty();
         $("#Qulifaication").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Address").empty();
         $("#Milirty").empty();
         $("#Documents").empty();
         $("#Currency").empty();
         $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
         $("#AllOrganization").empty();
         $("#AllOrganization").append(T)
     };
@@ -64,10 +99,20 @@
     function AllPersonnel() {
 
         var T = "";
-        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/7.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetupPersonnel()'>" + "<div style='@Personnel.margin'>@mainlayout.Setup</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/7.png' alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllEmployeeProfile()'><div style='@Personnel.margin'>@mainlayout.cards</div></div></a></div></div></div>  <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/7.png' alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllTransactionsEmployee()'><div style='@Personnel.margin'> @mainlayout.Transactions</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/7.png' alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllProcessEmployee()'> <div style='@Personnel.margin'>@mainlayout.Process</div></div></a></div></div></div>"
-        $("#bas").empty();
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/7.png alt='' class='img-circle' width='40' style='@Personnel.margin'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSetupPersonnel()'>" + "<div style='@Personnel.margin'>@mainlayout.Setup</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/7.png' alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllEmployeeProfile()'><div style='@Personnel.margin'>@mainlayout.cards</div></div></a></div></div></div>  <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/7.png' alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllTransactionsEmployee()'><div style='@Personnel.margin'> @mainlayout.Transactions</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/7.png' alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllProcessEmployee()'> <div style='@Personnel.margin'>@mainlayout.Process</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/7.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllinqueryEmployee()'> <div style='@Personnel.margin'>@mainlayout.inquery</div></div></a></div></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/7.png alt='' class='img-circle' width='40' style='@Personnel.margin' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllreportEmployee()'> <div style='@Personnel.margin'>@organ.report</div></div></a></div></div></div></div><div class='col-lg-3' style=width:100%;></div>"
+        $("#bas").empty(); 
         $("#SetupBas").empty();
         $("#Qulifaication").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Address").empty();
         $("#Milirty").empty();
         $("#Documents").empty();
@@ -76,7 +121,16 @@
         $("#ReportOrg").empty();
         $("#AllSetupOrganization").empty();
         $("#CardsOrganization").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Inquery").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
         $("#Authorities").empty();
         $("#Risk").empty();
         $("#Skills").empty();
@@ -92,21 +146,27 @@
     function AllSetup() {
 
         var T = "";
-        T = " <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllAddress()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Address</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>  <div style='@Personnel.margin_2'><a href='@Url.Action("Index","Nationality")' style=color:#373e4a;>@mainlayout.Nationality</div></a></div></a></div></div></div>   <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'> <a href='@Url.Action("Index","Religion")' style=color:#373e4a;>@mainlayout.Religion</div></a></div></a></div></div></div> <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllQulifaication()'><div style='@Personnel.margin_2'>@mainlayout.Qulifaication</div></div></a></div></div></div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllMilirty()'>" + "<div style='@Personnel.margin_2'>@mainlayout.milirty</div></div></a></div></div></div> </div>  <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'onclick='AllDocuments()'>" + "<div style='@Personnel.margin_2'>@mainlayout.documents</div></div></a></div></div></div> </div>  <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllCurrency()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Currency</div></div></a></div></div></div> </div>   <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllCheckrequest()'>" + "<div style='@Personnel.margin_2'>@mainlayout.check_request</div></div></a></div></div></div> </div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","Contact_methods")' style=color:#373e4a;>@mainlayout.contact_method</div></a></div></a></div></div></div> </div>  <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","Rejection_Reasons")' style=color:#373e4a;>@mainlayout.Rejection_reasons</div></a></div></a></div></div></div> </div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","External_compaines")' style=color:#373e4a;>@mainlayout.Extrnal_companies</div></a></div></a></div></div></div> </div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","Air_ports")' style=color:#373e4a;>@mainlayout.Air_ports</div></a></div></a></div></div></div> </div>    <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","Ticket_Prices")' style=color:#373e4a;>@mainlayout.Tickets_prices</div></a></div></a></div></div></div> </div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","Sponsor")' style=color:#373e4a;>@mainlayout.Sponsor</div></a></div></a></div></div></div> </div><div class='col-lg-6' style=width:100%;></div>"
+        T = " <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllAddress()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Address</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllNationality()'>  <div style='@Personnel.margin_2'>@mainlayout.Nationality</div></div></a></div></div></div>   <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllReligion()'><div style='@Personnel.margin_2'> @mainlayout.Religion</div></div></a></div></div></div> <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllQulifaication()'><div style='@Personnel.margin_2'>@mainlayout.Qulifaication</div></div></a></div></div></div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllMilirty()'>" + "<div style='@Personnel.margin_2'>@mainlayout.milirty</div></div></a></div></div></div> </div>  <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'onclick='AllDocuments()'>" + "<div style='@Personnel.margin_2'>@mainlayout.documents</div></div></a></div></div></div> </div>  <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllCurrency()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Currency</div></div></a></div></div></div> </div>   <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllCheckrequest()'>" + "<div style='@Personnel.margin_2'>@mainlayout.check_request</div></div></a></div></div></div> </div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allcontact_method()'>" + "<div style='@Personnel.margin_2'>@mainlayout.contact_method</div></a</div></a></div></div></div> </div>  <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllRejection_reasons()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Rejection_reasons</div></div></a></div></div></div> </div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllExtrnal_companies()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Extrnal_companies</div></div></a></div></div></div> </div> <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllAir_ports()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Air_ports</div></div></a></div></div></div> </div>    <div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllTickets_prices()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Tickets_prices</div></a></div></div></div></div> </div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/12.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSponsor()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Sponsor</div></div></a></div></div></div> </div><div class='col-lg-6' style=width:100%;></div>"
         $("#SetupBas").empty();
         $("#Checkrequest").empty();
         $("#Milirty").empty();
-
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#SetupBas").append(T)
     };
     ///////////</div>//////////////
     function AllSetupOrganization() {
 
         var T = "";
-        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllAuthorities()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Authority</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSkills()'><div style='@Personnel.margin_2'>@mainlayout.skills</div></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllRisk()'><div style='@Personnel.margin_2'> @mainlayout.Risk</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","Requirments")' style=color:#373e4a;>@mainlayout.requirments</div></a></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","Experience_group")' style=color:#373e4a;>@mainlayout.experience_group</div></a></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_2'><a href='@Url.Action("Index","Responsibilities")' style=color:#373e4a;>@mainlayout.responsibilites</div></a></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_2'><a href='@Url.Action("Index","work_location")' style=color:#373e4a;>@mainlayout.worklocation</div></a></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllJoblevel()'><div style='@Personnel.margin_2'>@mainlayout.job_level</div></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllJobtitle()'><div style='@Personnel.margin_2'> @mainlayout.job_title</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllOrganizationchart()'>" + "<div style='@Personnel.margin_2'>@mainlayout.organization_chart</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allbudget()'><div style='@Personnel.margin_2'>@mainlayout.budget</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllAuthorities()'>" + "<div style='@Personnel.margin_2'>@mainlayout.Authority</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllSkills()'><div style='@Personnel.margin_2'>@mainlayout.skills</div></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllRisk()'><div style='@Personnel.margin_2'> @mainlayout.Risk</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allrequirmentsorg()'>" + "<div style='@Personnel.margin_2'>@mainlayout.requirments</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allexperience_grouporg()'><div style='@Personnel.margin_2'>@mainlayout.experience_group</div></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allresponsibilitesorg()'> <div style='@Personnel.margin_2'>@mainlayout.responsibilites</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allworklocationorg()'>" + "<div style='@Personnel.margin_2'>@mainlayout.worklocation</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllJoblevel()'><div style='@Personnel.margin_2'>@mainlayout.job_level</div></div></a></div></div></div>    <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllJobtitle()'><div style='@Personnel.margin_2'> @mainlayout.job_title</div></div></a></div></div></div><div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/10.png alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllOrganizationchart()'>" + "<div style='@Personnel.margin_2'>@mainlayout.organization_chart</div></div></a></div></div></div> </div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Allbudget()'><div style='@Personnel.margin_2'>@mainlayout.budget</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
         $("#CardsOrganization").empty();
         $("#Inquery").empty();
         $("#ReportOrg").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
         $("#AllSetupOrganization").empty();
         $("#AllSetupOrganization").append(T)
     };
@@ -114,13 +174,17 @@
     function AllSetupPersonnel() {
 
         var T = "";
-        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","Contract_Type")'style=color:#373e4a;> @mainlayout.contract_type</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_2'> <a href='@Url.Action("Index","Subscription_Syndicate")'style=color:#373e4a;>@mainlayout.subscription</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","Employee_Recodes_Group")'style=color:#373e4a;> @mainlayout.employee_recordes_type</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_2'> <a href='@Url.Action("Index","Employee_Profile_Groups")'style=color:#373e4a;>@mainlayout.employee_profile_group</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllChecklists()'> <div style='@Personnel.margin_2'>@mainlayout.check_lists</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllEOS()'><div style='@Personnel.margin_2'>@mainlayout.EOS</div></div></a></div></div></div><div class='col-lg-6' style=width:100%;></div>"
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='contract_typePer()'><div style='@Personnel.margin_2'> @mainlayout.contract_type</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='subscriptionPer()'> <div style='@Personnel.margin_2'> @mainlayout.subscription</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='employee_recordes_typePer()'><div style='@Personnel.margin_2'>@mainlayout.employee_recordes_type</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='employee_profile_groupPer()'> <div style='@Personnel.margin_2'>@mainlayout.employee_profile_group</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllChecklists()'> <div style='@Personnel.margin_2'>@mainlayout.check_lists</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllEOS()'><div style='@Personnel.margin_2'>@mainlayout.EOS</div></div></a></div></div></div><div class='col-lg-6' style=width:100%;></div>"
         $("#EmployeeProfile").empty();
         $("#Employee_Profile").empty();
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
         $("#TransactionsEmployee").empty();
         $("#PersonnelTransaction").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
         $("#AllSetupPersonnel").empty();
         $("#AllSetupPersonnel").append(T)
 
@@ -139,9 +203,178 @@
         $("#Milirty").empty();
         $("#Qulifaication").empty();
         $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Address").append(T)
     };
-
+    function AllNationality() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Nationality")' style=color:#373e4a;>@mainlayout.Nationality</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Nationality").append(T)
+    }
+    function AllReligion() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Religion")' style=color:#373e4a;>@mainlayout.Religion</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Religion").append(T)
+    }
+    function Allcontact_method() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Contact_methods")' style=color:#373e4a;>@mainlayout.contact_method</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Contact_methods").append(T)
+    }
+    function AllRejection_reasons() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Rejection_Reasons")' style=color:#373e4a;>@mainlayout.Rejection_reasons</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Rejection_reasons").append(T)
+    }
+    function AllExtrnal_companies() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "External_compaines")' style=color:#373e4a;>@mainlayout.Extrnal_companies</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Extrnal_companies").append(T)
+    }
+    function AllAir_ports() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Air_ports")' style=color:#373e4a;>@mainlayout.Air_ports</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Air_ports").append(T)
+    }
+    function AllTickets_prices() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Ticket_Prices")' style=color:#373e4a;>@mainlayout.Tickets_prices</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Tickets_prices").empty();
+        $("#Sponsor").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Tickets_prices").append(T)
+    }
+    function AllSponsor() {
+        var T = "";
+        T = "<div class='col-lg-3'><div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'><img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>" + "<div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Sponsor")' style=color:#373e4a;>@mainlayout.Sponsor</div></a></div></div></div></div> </div>"
+        $("#Address").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Qulifaication").empty();
+        $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Tickets_prices").empty();
+        $("#Sponsor").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#Sponsor").append(T)
+    }
     function AllQulifaication() {
         var T = "";
         T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Educate_category")'style=color:#373e4a;> @mainlayout.Qulification_category</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'>  <div style='@Personnel.margin_3'><a href='@Url.Action("Index","Educate_title")'style=color:#373e4a;>@mainlayout.education_title</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'> <a href='@Url.Action("Index","EducateMainBody")'style=color:#373e4a;> @mainlayout.qulification_main_provider</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Sub_educational_body")'style=color:#373e4a;>@mainlayout.qulification_sub_providor</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'> <a href='@Url.Action("Index","Name_of_educational_qualification")'style=color:#373e4a;> @mainlayout.qulification_name</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_3'><a href='@Url.Action("Index","GradeEducate")'style=color:#373e4a;> @mainlayout.qulification_degree</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_3'><a href='@Url.Action("Index","QualificationMajor")'style=color:#373e4a;> @mainlayout.qulification_specialty</div></a></div></a></div></div></div>"
@@ -150,6 +383,16 @@
         $("#Milirty").empty();
         $("#Checkrequest").empty();
         $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Qulifaication").append(T)
     };
 
@@ -163,6 +406,16 @@
         $("#Documents").empty();
         $("#Checkrequest").empty();
         $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Milirty").append(T)
     };
     function AllDocuments() {
@@ -174,6 +427,16 @@
         $("#Checkrequest").empty();
         $("#Currency").empty();
         $("#Documents").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Documents").append(T)
     };
 
@@ -186,6 +449,16 @@
         $("#Documents").empty();
         $("#Checkrequest").empty();
         $("#Currency").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Currency").append(T)
     };
 
@@ -198,23 +471,238 @@
         $("#Documents").empty();
         $("#Currency").empty();
         $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
         $("#Checkrequest").append(T)
     };
+    function AllTransactions() {
+        var T = "";
+        T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Create", "Check_Request")'style=color:#373e4a;> @mainlayout.check_request</div></a></div></a></div></div></div>"
+        $("#Qulifaication").empty();
+        $("#Address").empty();
+        $("#Milirty").empty();
+        $("#Documents").empty();
+        $("#Currency").empty();
+        $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#SetupBas").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#check_request").append(T)
+    };
+    function AllProcess() {
+        var T = "";
+        T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/16.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Check_Request")'style=color:#373e4a;> @mainlayout.check_request_action</div></a></div></a></div></div></div>"
+        $("#Qulifaication").empty();
+        $("#Address").empty();
+        $("#Milirty").empty();
+        $("#Documents").empty();
+        $("#Currency").empty();
+        $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#SetupBas").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#check_request_action").append(T)
+    };
 
+    function Allcardsbas() {
+
+        $("#Qulifaication").empty();
+        $("#Address").empty();
+        $("#Milirty").empty();
+        $("#Documents").empty();
+        $("#Currency").empty();
+        $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#SetupBas").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Allcardsbas").empty();
+    };
+    function Allinquerybas() {
+
+        $("#Qulifaication").empty();
+        $("#Address").empty();
+        $("#Milirty").empty();
+        $("#Documents").empty();
+        $("#Currency").empty();
+        $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#SetupBas").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Allcardsbas").empty();
+        $("#Allinquerybas").empty();
+    };
+    function Allreportbas() {
+
+        $("#Qulifaication").empty();
+        $("#Address").empty();
+        $("#Milirty").empty();
+        $("#Documents").empty();
+        $("#Currency").empty();
+        $("#Checkrequest").empty();
+        $("#Nationality").empty();
+        $("#Religion").empty();
+        $("#Contact_methods").empty();
+        $("#Rejection_reasons").empty();
+        $("#Extrnal_companies").empty();
+        $("#Air_ports").empty();
+        $("#Sponsor").empty();
+        $("#Tickets_prices").empty();
+        $("#check_request").empty();
+        $("#check_request_action").empty();
+        $("#SetupBas").empty();
+        $("#Checkrequest").empty();
+        $("#Milirty").empty();
+        $("#Allcardsbas").empty();
+        $("#Allreportbas").empty();
+    };
     function AllAuthorities() {
         var T = "";
         T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Authority_Type")'style=color:#373e4a;> @mainlayout.Authority_type</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'>  <a href='@Url.Action("Index", "Authorities")'style=color:#373e4a;>@mainlayout.Authorities</div></a></div></a></div></div></div>"
-        $("#Risk").empty();
-        $("#Skills").empty();
         $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Authorities").append(T)
+    };
+    function Allrequirmentsorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Requirments")'style=color:#373e4a;> @mainlayout.requirments</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#requirments").append(T)
+    };
+    function Allexperience_grouporg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Experience_group")'style=color:#373e4a;> @mainlayout.experience_group</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#experience_group").append(T)
+    };
+    function Allresponsibilitesorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Responsibilities")'style=color:#373e4a;> @mainlayout.responsibilites</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#responsibilites").append(T)
+    };
+    function Allworklocationorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "work_location")'style=color:#373e4a;> @mainlayout.worklocation</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#worklocation").append(T)
     };
     function AllSkills() {
         var T = "";
         T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/11.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Skill_group")'style=color:#373e4a;> @mainlayout.skills_group</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/11.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_3'> <a href='@Url.Action("Index","Skill")'style=color:#373e4a;>@mainlayout.skill</div></a></div></a></div></div></div>"
         $("#Authorities").empty();
-        $("#Risk").empty();
         $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Skills").append(T)
     };
     function AllRisk() {
@@ -223,6 +711,15 @@
         $("#Authorities").empty();
         $("#Skills").empty();
         $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Risk").append(T)
     };
 
@@ -237,6 +734,10 @@
         $("#Jobtitle").empty();
         $("#Joblevel").empty();
         $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Joblevel").append(T)
     };
     function AllJobtitle() {
@@ -250,6 +751,10 @@
         $("#Joblevel").empty();
         $("#ReportOrg").empty();
         $("#Jobtitle").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Jobtitle").append(T)
     };
     function AllOrganizationchart() {
@@ -263,6 +768,10 @@
         $("#Jobtitle").empty();
         $("#ReportOrg").empty();
         $("#Organizationchart").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Organizationchart").append(T)
     };
     function Allbudget() {
@@ -276,13 +785,17 @@
         $("#Jobtitle").empty();
         $("#Budget").empty();
         $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Budget").append(T)
     };
 
 
     function AllCardsOrganization() {
         var T = "";
-        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","job_level_setup")'style=color:#373e4a;> @mainlayout.job_level</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'> <div style='@Personnel.margin_2'> <a href='@Url.Action("Index","job_title_card")'style=color:#373e4a;>@mainlayout.job_title_card</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","OrganizationChart")'style=color:#373e4a;> @mainlayout.organization_chart_card</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'>  <a href='@Url.Action("Index","Budget")'style=color:#373e4a;>@mainlayout.budget_card</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","manpower")'style=color:#373e4a;> @mainlayout.Mainpower</div></a></div></a></div></div></div>"
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='job_levelorg()'><div style='@Personnel.margin_2'> @mainlayout.job_level</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='job_title_cardorg()'> <div style='@Personnel.margin_2'>@mainlayout.job_title_card</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'  onclick='organization_chart_cardorg()'><div style='@Personnel.margin_2'> @mainlayout.organization_chart_card</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='budget_cardorg()'><div style='@Personnel.margin_2'> @mainlayout.budget_card</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Mainpowerorg()'><div style='@Personnel.margin_2'> @mainlayout.Mainpower</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
         $("#AllSetupOrganization").empty();
         $("#Authorities").empty();
         $("#Skills").empty();
@@ -292,11 +805,172 @@
         $("#Jobtitle").empty();
         $("#Budget").empty();
         $("#Inquery").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#ReportOrg").empty();
         $("#ReportOrg").empty();
         $("#CardsOrganization").empty();
         $("#CardsOrganization").append(T)
     };
+    function job_levelorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "job_level_setup")'style=color:#373e4a;> @mainlayout.job_level</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#job_level").append(T)
+    };
+    function job_title_cardorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "job_title_card")'style=color:#373e4a;> @mainlayout.job_title_card</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#job_title_card").append(T)
+    };
+    function organization_chart_cardorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "OrganizationChart")'style=color:#373e4a;> @mainlayout.organization_chart_card</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#organization_chart_card").append(T)
+    };
+    function budget_cardorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Budget")'style=color:#373e4a;> @mainlayout.budget_card</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#budget_card").append(T)
+    };
+    function Mainpowerorg() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src=/icon/11.png alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "manpower")'style=color:#373e4a;> @mainlayout.Mainpower</div></a></div></a></div></div></div>"
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#ReportOrg").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#mainpo").append(T)
+    }
+
+    function AllTransactionsOrg() {
+
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#AllSetupOrganization").empty();
+        $("#CardsOrganization").empty();
+        $("#ReportOrg").empty();
+        $("#Inquery").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+    }
+    function AllProcessOrg() {
+
+        $("#Authorities").empty();
+        $("#Skills").empty();
+        $("#Risk").empty();
+        $("#Organizationchart").empty();
+        $("#Joblevel").empty();
+        $("#Jobtitle").empty();
+        $("#Budget").empty();
+        $("#AllSetupOrganization").empty();
+        $("#CardsOrganization").empty();
+        $("#ReportOrg").empty();
+        $("#Inquery").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
+    }
     function AllInquery() {
         var T = "";
         T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("View_jobs","OrganizationInquiry")'style=color:#373e4a;> @mainlayout.view_jobs</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/10.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'>  <a href='@Url.Action("organization_view_related_to_jobs","OrganizationInquiry")'style=color:#373e4a;>@mainlayout.organization_view_related_to_jobs</div></a></div></a></div></div></div>"
@@ -311,6 +985,15 @@
         $("#CardsOrganization").empty();
         $("#ReportOrg").empty();
         $("#Inquery").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#Inquery").append(T);
     };
     function AllReportOrg() {
@@ -325,8 +1008,17 @@
         $("#Budget").empty();
         $("#AllSetupOrganization").empty();
         $("#CardsOrganization").empty();
-        $("#Inquery").empty(); 
+        $("#Inquery").empty();
+        $("#requirments").empty();
+        $("#experience_group").empty();
+        $("#responsibilites").empty();
+        $("#worklocation").empty();
         $("#ReportOrg").empty();
+        $("#job_level").empty();
+        $("#job_title_card").empty();
+        $("#organization_chart_card").empty();
+        $("#budget_card").empty();
+        $("#mainpo").empty();
         $("#ReportOrg").append(T);
     };
     function AllChecklists() {
@@ -340,6 +1032,10 @@
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
         $("#Checklists").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
         $("#Checklists").append(T);
     };
 
@@ -355,26 +1051,109 @@
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
         $("#EOS").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
         $("#EOS").append(T);
     };
+    function contract_typePer() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Contract_Type")'style=color:#373e4a;> @mainlayout.contract_type</div></a></div></a></div></div></div>"
 
+        $("#Checklists").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessEmployee").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#EOS").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+        $("#contract_type").append(T);
+    };
+    function subscriptionPer() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Subscription_Syndicate")'style=color:#373e4a;> @mainlayout.subscription</div></a></div></a></div></div></div>"
+
+        $("#Checklists").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessEmployee").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#EOS").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+        $("#subscription").append(T);
+    };
+    function employee_recordes_typePer() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Employee_Recodes_Group")'style=color:#373e4a;> @mainlayout.employee_recordes_type</div></a></div></a></div></div></div>"
+
+        $("#Checklists").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessEmployee").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#EOS").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+        $("#employee_recordes_type").append(T);
+    };
+    function employee_profile_groupPer() {
+        var T = "";
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Employee_Profile_Groups")'style=color:#373e4a;> @mainlayout.employee_profile_group</div></a></div></a></div></div></div>"
+
+        $("#Checklists").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessEmployee").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#EOS").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+        $("#employee_profile_group").append(T);
+    };
     function AllEmployeeProfile() {
         var T = "";
         T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllEmployee_Profile()'><div style='@Personnel.margin_2'>@Personnel.EmployeeProfile</div></div></a></div></div></div><div class='col-lg-9' style=width:100%;></div>"
         $("#AllSetupPersonnel").empty();
         $("#Checklists").empty();
         $("#EOS").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
         $("#TransactionsEmployee").empty();
         $("#PersonnelTransaction").empty();
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
         $("#EmployeeProfile").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
         $("#EmployeeProfile").append(T);
     };
 
     function AllEmployee_Profile() {
         var T = "";
-        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Employee_Profile")' style=color:#373e4a;>@Personnel.EmployeeProfile</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Employee_Qualification_Profile")' style=color:#373e4a;>@Personnel.QualificationProfile</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div><a href='@Url.Action("Index","Employee_experience_profile")' style=color:#373e4a;>@Personnel.Employeeexperienceprofile</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' /></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><a href='@Url.Action("Index","Employee_contact_profile")' style=color:#373e4a;>@Personnel.ContactProfile</a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Employee_military_service_profile")' style=color:#373e4a;>@Personnel.MilitaryServiceProfile</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Employee_vehicle_profile")' style=color:#373e4a;>@Personnel.VehicleProfile</div></a></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Employee_sponsor_profile")' style=color:#373e4a;>@Personnel.SponsorProfile</div></a></div></a></div></div></div>"
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","Employee_Profile")' style=color:#373e4a;>@Personnel.EmployeeProfile</div></a></div></a></div></div></div>"
 
         $("#Checklists").empty();
         $("#EOS").empty();
@@ -387,7 +1166,7 @@
     };
     function AllTransactionsEmployee() {
         var T = "";
-        T = "<div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllPersonnelTransaction()'><div style='@Personnel.margin_2'>@mainlayout.personnel_transaction</div></div></a></div></div></div><div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Create","Employee_records")' style=color:#373e4a;>@mainlayout.Employee_record</div></a></div></a></div></div></div><div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' ><div style='@Personnel.margin_2'><a href='@Url.Action("Create","request_new_contract")' style=color:#373e4a;>@mainlayout.requestconter</div></a></div></a></div></div></div>"
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllPersonnelTransaction()'><div style='@Personnel.margin_2'>@mainlayout.personnel_transaction</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Employee_recordPer()'><div style='@Personnel.margin_2'>@mainlayout.Employee_record</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'  onclick='requestconterPer()'><div style='@Personnel.margin_2'>@mainlayout.requestconter</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
 
         $("#AllSetupPersonnel").empty();
         $("#Checklists").empty();
@@ -398,6 +1177,12 @@
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
         $("#TransactionsEmployee").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
         $("#TransactionsEmployee").append(T);
     };
 
@@ -414,14 +1199,49 @@
         $("#ProcessEmployee").empty();
         $("#ProcessPersonnelTransaction").empty();
         $("#PersonnelTransaction").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
         $("#PersonnelTransaction").append(T);
     };
-
+    function Employee_recordPer() {
+        var T = "";
+        T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Create", "Employee_records")'style=color:#373e4a;> @mainlayout.Employee_record</div></a></div></a></div></div></div>"
+        $("#AllSetupPersonnel").empty();
+        $("#Checklists").empty();
+        $("#EOS").empty();
+        $("#EmployeeProfile").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#ProcessEmployee").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#PersonnelTransaction").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
+        $("#Employee_record").append(T);
+    };
+    function requestconterPer() {
+        var T = "";
+        T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Create", "request_new_contract")'style=color:#373e4a;> @mainlayout.requestconter</div></a></div></a></div></div></div>"
+        $("#AllSetupPersonnel").empty();
+        $("#Checklists").empty();
+        $("#EOS").empty();
+        $("#EmployeeProfile").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#ProcessEmployee").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#PersonnelTransaction").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
+        $("#requestconter").append(T);
+    };
     function AllProcessEmployee() {
         var T = "";
-        T = "<div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllProcessPersonnelTransaction()'><div style='@Personnel.margin_2'>@mainlayout.personnel_transaction</div></div></a></div></div></div><div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_2'><a href='@Url.Action("Index","Employee_records")' style=color:#373e4a;>@mainlayout.Employee_record</div></a></div></a></div></div></div><div class='col-lg-4'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' ><div style='@Personnel.margin_2'><a href='@Url.Action("Index","request_new_contract")' style=color:#373e4a;>@mainlayout.requestconter</div></a></div></a></div></div></div>"
+        T = "<div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='AllProcessPersonnelTransaction()'><div style='@Personnel.margin_2'>@mainlayout.personnel_transaction</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='Employee_recordPers()'><div style='@Personnel.margin_2'>@mainlayout.Employee_record</div></div></a></div></div></div><div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/13.png' alt='' class='img-circle' width='40' style='@Personnel.margin_2'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d' onclick='requestconterPers()'><div style='@Personnel.margin_2'>@mainlayout.requestconter</div></div></a></div></div></div><div class='col-lg-3' style=width:100%;></div>"
 
         $("#AllSetupPersonnel").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
         $("#Checklists").empty();
         $("#EOS").empty();
         $("#EmployeeProfile").empty();
@@ -429,6 +1249,10 @@
         $("#TransactionsEmployee").empty();
         $("#PersonnelTransaction").empty();
         $("#ProcessEmployee").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
         $("#ProcessEmployee").append(T);
     };
 
@@ -445,9 +1269,77 @@
         $("#TransactionsEmployee").empty();
         $("#PersonnelTransaction").empty();
         $("#ProcessPersonnelTransaction").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
         $("#ProcessPersonnelTransaction").append(T);
     };
+    function Employee_recordPers() {
+        var T = "";
+        T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index", "Employee_records")'style=color:#373e4a;> @mainlayout.Employee_record</div></a></div></a></div></div></div>"
+        $("#AllSetupPersonnel").empty();
+        $("#Checklists").empty();
+        $("#EOS").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").empty();
+        $("#Employee_records").append(T);
+    };
+    function requestconterPers() {
+        var T = "";
+        T = " <div class='col-lg-3'> <div class='tabal-home'><div class='row'><a href='#' class='dropdown-toggle f-c-home' data-toggle='dropdown'><div class='col-lg-2'> <img src='/icon/15.png' alt='' class='img-circle' width='40' style='@Personnel.margin_3'/></div><div class='col-lg-10' dir='@HR.Resource.mainlayout.d'><div style='@Personnel.margin_3'><a href='@Url.Action("Index","request_new_contract")'style=color:#373e4a;> @mainlayout.requestconter</div></a></div></a></div></div></div>"
+        $("#AllSetupPersonnel").empty();
+        $("#Checklists").empty();
+        $("#EOS").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessPersonnelTransaction").empty();
+        $("#requestconters").empty();
+        $("#Employee_records").empty();
+        $("#requestconters").append(T);
+    };
+    function AllinqueryEmployee() {
+       
 
+        $("#AllSetupPersonnel").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
+        $("#Checklists").empty();
+        $("#EOS").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessEmployee").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+    };
+    function AllreportEmployee() {
+     
+
+        $("#AllSetupPersonnel").empty();
+        $("#Employee_record").empty();
+        $("#requestconter").empty();
+        $("#Checklists").empty();
+        $("#EOS").empty();
+        $("#EmployeeProfile").empty();
+        $("#Employee_Profile").empty();
+        $("#TransactionsEmployee").empty();
+        $("#PersonnelTransaction").empty();
+        $("#ProcessEmployee").empty();
+        $("#contract_type").empty();
+        $("#subscription").empty();
+        $("#employee_recordes_type").empty();
+        $("#employee_profile_group").empty();
+    };
+     
 </script>
 
 <div class="right_col" role="main">
@@ -543,6 +1435,16 @@
             <div id="bas"></div>
             <div id="SetupBas"></div>
             <div id="Address"></div>
+            <div id="Nationality"></div>
+            <div id="Contact_methods"></div>
+            <div id="Rejection_reasons"></div>
+            <div id="Religion"></div>
+            <div id="Extrnal_companies"></div>
+            <div id="Air_ports"></div>
+            <div id="Tickets_prices"></div>
+            <div id="Sponsor"></div>
+            <div id="check_request"></div>
+            <div id="check_request_action"></div>
             <div id="Qulifaication"></div>
             <div id="Milirty"></div>
             <div id="Documents"></div>
@@ -557,19 +1459,37 @@
             <div id="Jobtitle"></div>
             <div id="Organizationchart"></div>
             <div id="Budget"></div>
-            <div id="CardsOrganization"></div>
+            <div id="CardsOrganization"></div>        
+            <div id="job_level"></div>
+            <div id="job_title_card"></div>
+            <div id="organization_chart_card"></div>
+            <div id="budget_card"></div>
+            <div id="mainpo"></div>
             <div id="Inquery"></div>
+            <div id="requirments"></div>
+            <div id="experience_group"></div>
+            <div id="responsibilites"></div>
+            <div id="worklocation"></div>
             <div id="AllPersonnel"></div>
             <div id="AllSetupPersonnel"></div>
+            <div id="contract_type"></div>
+            <div id="subscription"></div>
+            <div id="employee_recordes_type"></div>
+            <div id="employee_profile_group"></div>
             <div id="Checklists"></div>
             <div id="EOS"></div>
             <div id="EmployeeProfile"></div>
             <div id="Employee_Profile"></div>
             <div id="TransactionsEmployee"></div>
+            <div id="Employee_record"></div>
+            <div id="requestconter"></div>
             <div id="PersonnelTransaction"></div> 
+      
             <div id="ProcessEmployee"></div>
             <div id="ProcessPersonnelTransaction"></div>
             <div id="ReportOrg"></div>
+            <div id="Employee_records"></div>
+            <div id="requestconters"></div>
 
                 @*<div class="row" style="padding: 10px">
                 <div class="col-lg-3 ">
