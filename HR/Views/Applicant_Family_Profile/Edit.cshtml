@@ -1,0 +1,640 @@
+﻿@model HR.Models.Applicant_Family_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.EditApplicantFamilyProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Edit", "Applicant_Family_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.ApplicantName</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                    @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-4" style="color:black">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
+                                </div>
+
+                                <div class="col-md-offset-2 ">
+                                    <a href="@Url.Action("index","Applicant_Family_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <input type="submit" value="@Personnel.Edit" class="btn btn-success" style="width:98px;" />
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.FamilyprofileNo</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+
+                                <label class="control-label col-md-2">@Personnel.Name</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#home" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@Personnel.PersonalInformation</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#PersonnelInformation" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.JobInformation</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#Pensionss" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@Personnel.EmergencyInformation</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.IsReliable</label>
+                                        <div class="col-md-8">
+                                            @Html.CheckBoxFor(model => model.Is_Reliable, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Is_Reliable, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Familymembertype</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Family_member_type, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Family_member_type, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.Gender</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Gender, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Degreeofkinship</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Degree_of_kinship, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Degree_of_kinship, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-2">@Personnel.Status</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Status, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Startrelationdate</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Start_relation_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Start_relation_date", @autocomplete = "off", @type = "date" } })
+                                            @Html.ValidationMessageFor(model => model.Start_relation_date, "", new { @class = "text-danger" })
+                                        </div>
+                                        <label class="control-label col-md-2">@Personnel.Endrelationdate</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.End_relation_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "End_relation_date", @autocomplete = "off", @type = "date" } })
+                                            @Html.ValidationMessageFor(model => model.End_relation_date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Nationality</label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationality, "ID", "Code"), Personnel.SelectNationality, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
+                                            @Html.ValidationMessageFor(model => model.NationalityId, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                    <div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Birthdate</label>
+                                            <div class="col-md-4">
+                                                @Html.EditorFor(model => model.Birth_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Birth_date", @autocomplete = "off", @type = "date" } })
+                                                @Html.ValidationMessageFor(model => model.Birth_date, "", new { @class = "text-danger" })
+                                            </div>
+                                            <label class="control-label col-md-2">@Personnel.Deathdate</label>
+                                            <div class="col-md-4">
+                                                @Html.EditorFor(model => model.Death_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Death_date", @autocomplete = "off", @type = "date" } })
+                                                @Html.ValidationMessageFor(model => model.Death_date, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.MaritalStatus</label>
+                                            <div class="col-md-4">
+                                                @Html.EnumDropDownListFor(model => model.Marital_Status, new { @class = "select2" })
+
+                                                @Html.ValidationMessageFor(model => model.Marital_Status, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.IDtype</label>
+                                            <div class="col-md-4">
+                                                @Html.EnumDropDownListFor(model => model.Id_type, new { @class = "select2" })
+
+                                                @Html.ValidationMessageFor(model => model.Id_type, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.IDnumber</label>
+                                            <div class="col-md-4">
+                                                @Html.EditorFor(model => model.Id_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                                @Html.ValidationMessageFor(model => model.Id_number, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Fathername</label>
+                                            <div class="col-md-4">
+                                                @Html.EditorFor(model => model.Father_name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                                @Html.ValidationMessageFor(model => model.Father_name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Mothername</label>
+                                            <div class="col-md-4">
+                                                @Html.EditorFor(model => model.Mother_name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                                @Html.ValidationMessageFor(model => model.Mother_name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <ul class="nav nav-tabs bordered">
+
+                                            <li>
+                                                <a href="#Pension">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.Educationinformation</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-pane" id="Pension" style="margin-top:10px;">
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Educatelevel</label>
+
+                                                <div class="col-md-3">
+                                                    @Html.DropDownListFor(m => m.Educate_TitleId, new SelectList(ViewBag.Educate_Title, "ID", "Code"), Personnel.SelectEducateTitle, new { @class = "select2", @onchange = "areaName()", id = "area" })
+                                                    @Html.ValidationMessageFor(model => model.Educate_TitleId, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Qualificationname</label>
+
+                                                <div class="col-md-3">
+                                                    @Html.DropDownListFor(m => m.Name_of_educational_qualificationId, new SelectList(ViewBag.Name_of_educational_qualification, "ID", "Code"), Personnel.SelectNameofeducationalqualification, new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationId, "", new { @class = "text-danger" })
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <ul class="nav nav-tabs bordered">
+
+                                            <li>
+                                                <a href="#Pensions">
+                                                    <span class="visible-xs"><i class="entypo-user"></i></span>
+                                                    <span class="hidden-xs">@Personnel.Medicalinformation </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-pane" id="Pensions" style="margin-top:10px;">
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Subscribed</label>
+                                                <div class="col-md-4">
+                                                    @Html.CheckBoxFor(model => model.Subscribed, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Subscribed, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <label class="control-label col-md-2">@Personnel.HealthStatus</label>
+
+                                                <div class="col-md-4">
+                                                    @Html.EnumDropDownListFor(model => model.Health_Status2, new { @class = "select2" })
+
+                                                    @Html.ValidationMessageFor(model => model.Health_Status2, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="tab-pane" id="PersonnelInformation">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Workingstatus</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Working_status, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Working_status, "", new { @class = "text-danger" })
+                                        </div>
+                                        @*@Html.LabelFor(model => model.Working_in_oil_sector, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-4">
+                                                @Html.CheckBoxFor(model => model.Working_in_oil_sector, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Working_in_oil_sector, "", new { @class = "text-danger" })
+                                            </div>*@
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Positiontitle</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_title, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.Position_title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Companyname</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Company_name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.Company_name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Companyaddress</label>
+                                        <div class="col-md-4">
+                                            @Html.TextAreaFor(model => model.Company_address, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.Company_address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Workingincompany</label>
+                                        <div class="col-md-4">
+                                            @Html.CheckBoxFor(m => m.Working_in_company, new { @class = "icheck", id = "minimal-checkbox-1", @onchange = "check(this)" })
+                                            @Html.ValidationMessageFor(model => model.Working_in_company, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.EmployeeName</label>
+                                        <div class="col-md-4">
+                                            @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                            @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="tab-pane" id="Pensionss">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Isemergencycontactperson</label>
+
+                                        <div class="col-md-4">
+                                            @Html.CheckBoxFor(m => m.Is_emergency_contact_person, new { @class = "icheck", id = "minimal-checkbox-1", @onchange = "checkes(this)" })
+                                            @Html.ValidationMessageFor(model => model.Is_emergency_contact_person, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Emergencylevel</label>
+                                        <div class="col-md-4">
+                                            @Html.EnumDropDownListFor(model => model.Emergency_level, new { @readonly = "true", @class = "select2", id = "emergeny" })
+                                            @Html.ValidationMessageFor(model => model.Emergency_level, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Homephonenumber</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Home_phone_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.Home_phone_number, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Mobilphonenumber</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Mobil_phone_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.Mobil_phone_number, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Address</label>
+                                        <div class="col-md-4">
+                                            @Html.TextAreaFor(model => model.Address, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+
+<script>
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+        GetDataById5('@Model.Start_relation_date', "Start_relation_date");
+        GetDataById5('@Model.End_relation_date', "End_relation_date");
+        GetDataById5('@Model.Birth_date', "Birth_date");
+        GetDataById5('@Model.Death_date', "Death_date");
+    });
+</script>
+
+
+<script>
+    function Nationality() {
+
+        var id = $("#nationality").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetNationality",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#NationalityName").val(result.Name);
+            },
+            error: function () {
+
+                $("#NationalityName").val(" ");
+            }
+        });
+    }
+    // Nationality();
+
+    function employee() {
+
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplicant",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Applicant_Family_Profile.Code);
+                $("#employeeId").prop("readonly", true);
+                $("#employeeId").attr("readonly", true);
+
+            },
+            error: function () {
+
+                $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    //employee();
+
+    function employee2() {
+
+        var id = $("#employeeId2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplicant",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename2").val(result.Name);
+                //        $("#codeid").val(result.Employee_Positions_Profile.Code);
+                //   $("#employeeId").prop("readonly", true);
+                //     $("#employeeId").attr("readonly", true);
+
+            },
+            error: function () {
+
+                $("#employeename").val(" ");
+
+            }
+        });
+    }
+    //employee();
+
+    function areaName() {
+
+        var id = $("#area").val();
+
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#ter").empty();
+        //    $("#GradeEducateId").empty();
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+        //     $("#GradeEducateId").select2("val", "");
+        $("#statename").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postname").val(" ");
+        //     $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEducateTitle",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#state").removeAttr("disabled");
+                $("#areaname").val(result.Name);
+                getNameeducationalbyEducatetitle(result.ID);
+            },
+            error: function () {
+
+                $("#areaname").val(" ");
+            }
+        });
+    }
+    function getNameeducationalbyEducatetitle(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getNameeducationalbyEducatetitle",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#citeid").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Qualification name </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#citeid").html(finalresult);
+                $("#citeid").select2("val", "0");
+            },
+            error: function () {
+
+                $("#citeid").val(" ");
+            }
+        });
+
+    }
+    function getcite() {
+
+        var id = $("#citeid").val();
+        $("#postal").empty();
+        //   $("#GradeEducateId").empty();
+        $("#postal").select2("val", "");
+        //  $("#GradeEducateId").select2("val", "");
+        $("#postname").val(" ");
+        //   $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetNameofeducationalqualification",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#postal").removeAttr("disabled");
+                $("#cityname").val(result.Name);
+                getQualificationMajorbyNameofeducational(result.ID);
+
+            },
+            error: function () {
+
+                $("#cityname").val(" ");
+            }
+        });
+    }
+
+    var id = $("#area").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetEducateTitle",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#state").removeAttr("disabled");
+            $("#areaname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#areaname").val(" ");
+        }
+    });
+    var id = $("#citeid").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetNameofeducationalqualification",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#postal").removeAttr("disabled");
+            $("#cityname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#cityname").val(" ");
+        }
+    });
+
+    function check(checkbox) {
+        if (checkbox.checked == true) {
+
+            $("#employeeId2").removeAttr('disabled');
+        }
+        else {
+            $("#employeeId2").attr('disabled', true);
+
+
+        }
+    }
+    function checkes(checkbox) {
+        if (checkbox.checked == true) {
+
+            $("#emergeny").attr("disabled", false);
+        }
+        else {
+
+
+            $("#emergeny").attr("disabled", true);
+        }
+    }
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>

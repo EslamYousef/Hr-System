@@ -1,0 +1,34 @@
+﻿@model HR.Models.Applicant_Attachment_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<h3>@Personnel.message_delete</h3>
+@using (Html.BeginForm("Delete", "Applicant_Attachment_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Personnel.Delete" class="btn btn-success" />
+                <a href="@Url.Action("index","Applicant_Attachment_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+
+            </div>
+        </div>
+    </div>
+}@section scripts{}

@@ -1,0 +1,501 @@
+﻿@model HR.Models.Applicant_Address_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateApplicantAddressProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Applicant_Address_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.Applicant_Profile.ID)
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.ApplicantName</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId88" })
+                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="col-md-4" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.AddressprofileNo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">@Personnel.Resident</label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Resident, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Resident, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Countryname</label>
+                            <div class="col-md-4">
+
+                                @Html.DropDownListFor(m => m.countryid, new SelectList(ViewBag.Country, "ID", "Code"), @Personnel.SelectCountry, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.ValidationMessageFor(model => model.countryid, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Area</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.areaid, new SelectList(ViewBag.Area, "ID", "Code"), @Personnel.SelectArea, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.areaid, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Statename</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.stateid, new SelectList(ViewBag.the_states, "ID", "Code"), @Personnel.Selectstate, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.stateid, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Regionname</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.Territories, "ID", "Code"), @Personnel.SelectRegion, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Territoriesid, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Cityname</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.citiesid, new SelectList(ViewBag.cities, "ID", "Code"), @Personnel.SelectCite, new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.citiesid, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Postalname</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.postcodeId, new SelectList(ViewBag.postcode, "ID", "Code"), @Personnel.SelectPostal, new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.postcodeId, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Streetname</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Streetname, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Streetname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Streetnumber</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Streetnumber, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Streetnumber, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">@Personnel.Pobox</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Pobox, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Pobox, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Distancetoworklocationkm</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Distancetoworklocationkm, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Distancetoworklocationkm, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Transportationmethod</label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Transportation_method, new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Transportation_method, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.DistancefromMeetingpointtoworklocationkm</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.DistancefromMeetingpointtoworklocationkm, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.DistancefromMeetingpointtoworklocationkm, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                <a href="@Url.Action("index","Applicant_Address_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+<script>
+    $(document).ready(function () {
+        $("#employeeId88").attr("disabled", true);
+
+    });
+</script>
+
+<script>
+    function employee() {
+
+        var id = $("#employeeId88").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplicant",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Applicant_Address_Profile.Code);
+           //     $("#employeeId2").prop("readonly", true);
+             //   $("#employeeId2").attr("readonly", true);
+
+            },
+            error: function () {
+
+          //      $("#employeeId88").val();
+                $("#codeid").val("");
+            }
+        });
+    }
+
+    function CountryName() {
+
+        var id = $("#country").val();
+        $("#area").empty();
+        $("#state").empty();
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#area").select2("val", "");
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+        $("#statename").val(" ");
+        $("#areaname").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postal").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCountry",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#countryname").val(result.Name);
+                getallarea(result.ID);
+            },
+            error: function () {
+
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function getallarea(id)
+    {
+
+       var countryname=
+       $.ajax({
+          type: "post",
+          url: "/Helper/getareabycountry",
+          data: { "id": id, "flag": "0" },
+          success: function (result) {
+
+              $("#area").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+                   finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+              });
+              $("#area").html(finalresult);
+              $("#area").select2("val", "0");
+          },
+          error: function () {
+
+              $("#area").val(" ");
+          }
+      });
+    }
+    function areaName() {
+
+        var id = $("#area").val();
+        $("#state").empty();
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+        $("#statename").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postal").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/getarea",
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                $("#areaname").val(result.Name);
+                getallstate(result.ID);
+            },
+            error: function () {
+
+                $("#areaname").val(" ");
+            }
+        });
+    }
+    function getallstate(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getstatebycountry",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#state").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose state </option>";
+                $.each(result, function (key, value) {
+                     finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#state").html(finalresult);
+                $("#state").select2("val", "0");
+            },
+            error: function () {
+
+                $("#state").val(" ");
+            }
+        });
+    }
+    function getstate()
+    {
+
+        var id = $("#state").val();
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postal").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getstate",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#ter").removeAttr("disabled");
+                $("#statename").val(result.Name);
+                getallter(result.ID);
+            },
+            error: function () {
+
+                $("#statename").val(" ");
+            }
+        });
+    }
+    function getallter(id)
+    {
+
+
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallter",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#ter").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose ter </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#ter").html(finalresult);
+                $("#ter").select2("val", "0");
+            },
+            error: function () {
+
+                $("#ter").val(" ");
+            }
+        });
+
+    }
+    function getter()
+    {
+
+        var id = $("#ter").val();
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+        $("#cityname").val(" ");
+        $("#postal").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getter",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#citeid").removeAttr("disabled");
+                $("#tername").val(result.Name);
+                getallcite(result.ID);
+
+            },
+            error: function () {
+
+                $("#tername").val(" ");
+            }
+        });
+    }
+    function getallcite(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getcitybyTerritories",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#citeid").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Cite </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#citeid").html(finalresult);
+                $("#citeid").select2("val", "0");
+            },
+            error: function () {
+
+                $("#citeid").val(" ");
+            }
+        });
+
+    }
+    function getcite() {
+
+        var id = $("#citeid").val();
+        $("#postal").empty();
+        $("#postal").select2("val", "");
+        $("#postal").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getcite",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#postal").removeAttr("disabled");
+                $("#cityname").val(result.Name);
+                getallpostal(result.ID);
+
+            },
+            error: function () {
+
+                $("#cityname").val(" ");
+            }
+        });
+    }
+    function getallpostal(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallPost",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#postal").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Postal </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#postal").html(finalresult);
+                $("#postal").select2("val", "0");
+            },
+            error: function () {
+
+                $("#postal").val(" ");
+            }
+        });
+
+    }
+    function getpostal() {
+
+        var id = $("#postal").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getpost",
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                $("#postname").val(result.Name);
+
+            },
+            error: function () {
+
+                $("#postname").val(" ");
+            }
+        });
+    }
+
+
+</script>

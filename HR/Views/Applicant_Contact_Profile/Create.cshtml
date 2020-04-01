@@ -1,0 +1,161 @@
+﻿@model HR.Models.Applicant_Contact_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateApplicantContactProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Applicant_Contact_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Employee_ProfileId);
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.ApplicantName</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                @*<input type="text" value=" " class="form-control" id="employeename" disabled />*@
+                            </div>
+                            <div class="col-md-4" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.ContactprofileNo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2">@Personnel.Primary</label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Primary, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Primary, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Contact_Methods_Code</label>
+                            <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.ContactmethodsId, new SelectList(ViewBag.Contactmethods, "ID", "Code"), Personnel.Select_Contact_Methods, new { @class = "select2", @onchange = "Contact()", id = "ContactId" })
+                                @Html.ValidationMessageFor(model => model.ContactmethodsId, "", new { @class = "text-danger" })
+                                @*<input type="text" value=" " class="form-control" id="Contactname" disabled />*@
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Contactmethoddetail</label>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Contact_method_detail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Comments</label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                <a href="@Url.Action("index","Applicant_Contact_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+
+
+<script>
+    function employee() {
+
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplicant",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Applicant_Contact_Profile.Code);
+            },
+            error: function () {
+
+                $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    //employee();
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+
+    });
+
+    function Contact() {
+
+        var id = $("#ContactId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetContactmethods",
+            data: { "id": id },
+            success: function (result) {
+
+        //        $("#Contactname").val(result.Description);
+
+            },
+            error: function () {
+
+              //  $("#Contactname").val(" ");
+
+            }
+        });
+    }
+    //employee();
+</script>

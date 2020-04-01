@@ -1,0 +1,359 @@
+﻿@model HR.Models.Applicant_Subscription_Syndicate_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateApplicantSubscriptionProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Applicant_Subscription_Syndicate_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(m => m.Employee_ProfileId);
+
+                        <div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.ApplicantName</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                    @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-6" style="color:black">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.SubscriptionprofileNo</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.SubscriptionNo</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.Subscription_SyndicateId, new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), @Personnel.SelectSubscription, new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                    @Html.ValidationMessageFor(model => model.Subscription_SyndicateId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Subscriptiontype</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="Subscription_type" value="Subscription" readonly />
+                                    @*@Html.EditorFor(model => model.Subscription_type, new { @value = "Subscription", htmlAttributes = new {@readonly="true", @class = "form-control", } })*@
+                                    @Html.ValidationMessageFor(model => model.Subscription_type, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Subscriptiondate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Subscription_date, new { htmlAttributes = new { @class = "form-control", @id = "Subscription_date", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Subscription_date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Employeepay</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Employee_pay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Employee_pay, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Companypay</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Company_pay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Company_pay, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Startyearofdeduction</label>
+
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Start_year_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Start_year_of_deduction, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Startmonthofdeduction</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Start_month_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Start_month_of_deduction, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Endyearofdeduction</label>
+
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.End_year_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.End_year_of_deduction, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Endmonthofdeduction</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.End_month_of_deduction, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.End_month_of_deduction, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Benefittypecode</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Beneficiary_period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Beneficiary_period, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Referancenumber</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Referance_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Referance_number, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Lastdatepaid</label>
+
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Last_date_paid, new { htmlAttributes = new { @class = "form-control", @id = "Last_date_paid", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Last_date_paid, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Balance</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control ", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Balance, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Paytoentity</label>
+
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Pay_to_entity, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Pay_to_entity, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Paytoentitytype</label>
+
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Pay_to_entity_type, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+
+                                    @Html.ValidationMessageFor(model => model.Pay_to_entity_type, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Subscriptionvaluetype</label>
+                                <div class="col-md-4">
+                                    @Html.EnumDropDownListFor(model => model.Subscription_value_type, new { @class = "select2" })
+
+                                    @Html.ValidationMessageFor(model => model.Subscription_value_type, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Membership</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Membership, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Membership, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Subscriptionfees</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Subscription_fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Subscription_fees, "", new { @class = "text-danger" })
+                                </div>
+
+                                <label class="control-label col-md-2">@Personnel.Subscriptioninhouse</label>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.Subscription_in_house, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Subscription_in_house, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Isfamilysubscribed</label>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.Is_family_subscribed, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Is_family_subscribed, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Familysubscriptionfees</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Family_subscription_fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Family_subscription_fees, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Membershiptype</label>
+
+                                <div class="col-md-4">
+                                    @Html.EnumDropDownListFor(model => model.Membership_type, new { @class = "select2", id = "membership", onclick = "drop()" })
+                                    @Html.ValidationMessageFor(model => model.Membership_type, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Boarderelectiondate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Boarder_election_date, new { htmlAttributes = new { @class = "form-control boarder", @id = "Boarder_election_date", @autocomplete = "off", @type = "date" } })
+
+                                    @Html.ValidationMessageFor(model => model.Boarder_election_date, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.Headelectiondate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Head_election_date, new { htmlAttributes = new { @class = "form-control head", @id = "Head_election_date", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Head_election_date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Contactdetail</label>
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.Contact_detail, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.Contact_detail, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Applicant_Subscription_Syndicate_Profile",new {id=ViewBag.idemp })" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+
+
+<script>
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+        drop();
+        GetDataById5('@Model.Boarder_election_date', "Boarder_election_date");
+        GetDataById5('@Model.Head_election_date', "Head_election_date");
+        GetDataById5('@Model.Last_date_paid', "Last_date_paid");
+        GetDataById5('@Model.Subscription_date', "Subscription_date");
+    });
+</script>
+
+<script>
+    function employee() {
+
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplicant",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Applicant_Subscription_Syndicate_Profile.Code);
+                $("#employeeId").prop("readonly", true);
+                $("#employeeId").attr("readonly", true);
+
+            },
+            error: function () {
+
+                $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    function employee2() {
+
+        var id = $("#employeeId2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSubscriptionSyndicate",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename2").val(result.Name);
+
+            },
+            error: function () {
+
+               $("#employeename").val(" ");
+
+            }
+        });
+    }
+    function drop() {
+
+        var member = $("#membership").val();
+        if (member == 1) {
+            $(".boarder").attr('disabled', true);
+            $(".head").attr('disabled', true);
+        }
+        else if (member == 2) {
+
+            $(".boarder").removeAttr('disabled');
+            $(".head").attr('disabled', true);
+        }
+        else if (member == 3) {
+            $(".head").removeAttr('disabled');
+            $(".boarder").attr('disabled', true);
+
+        }
+    }
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>
+

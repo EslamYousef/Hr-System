@@ -1,0 +1,120 @@
+﻿@model IEnumerable<HR.Models.Applicant_Subscription_Syndicate_Profile>
+@using HR.Resource;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-6">
+        <h1>@Personnel.ApplicantSubscriptionProfile</h1>
+    </div>
+</div>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <div class="box-header">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <p class="lead">
+                            <a href="@Url.Action("Create", "Applicant_Subscription_Syndicate_Profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewApplicantSubscriptionProfile </a>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Edit", "Applicant_Profile", new {id = @ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.BackToApplicantProfile</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>@Personnel.SubscriptionprofileNo</th>
+                            <th>@Personnel.ApplicantName</th>
+                            <th>@Personnel.Subscription_Description</th>
+                            <th>@Personnel.Subscriptiondate</th>
+                            <th>@Personnel.Paytoentity</th>
+                            <th>@Personnel.Paytoentitytype</th>
+                            <th>@Personnel.Subscriptioninhouse</th>
+                            <th>@Personnel.Isfamilysubscribed</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.Code</td>
+                                <td>@item.Applicant_Profile.Full_Name</td>
+                                <td>@item.Subscription_Syndicate.Subscription_Description</td>
+                                <td>@item.Subscription_date.ToShortDateString()</td>
+                                @if (@item.Pay_to_entity != null)
+                                {
+                                    <td>@item.Pay_to_entity</td>}
+                                else
+                                {
+                                    <td> Empty </td> }
+                                @if (@item.Pay_to_entity_type != null)
+                                {
+                                    <td>@item.Pay_to_entity_type</td>}
+                                else
+                                {
+                                    <td> Empty </td> }
+                                <td>@item.Subscription_in_house</td>
+                                <td>@item.Is_family_subscribed</td>
+
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "Applicant_Subscription_Syndicate_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Applicant_Subscription_Syndicate_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}

@@ -640,7 +640,14 @@ namespace HR.Controllers
             return Json(Employee);
             
         }
+        public JsonResult GetApplicant(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var ID = int.Parse(id);
+            var Employee = dbcontext.Applicant_Profile.FirstOrDefault(m => m.ID == ID);
+            return Json(Employee);
 
+        }
         public JsonResult CheckAddressEmployee(string id)
         {
             var ID = int.Parse(id);
@@ -963,7 +970,12 @@ namespace HR.Controllers
             var newmodel = dbcontext.Employee_subscription_syndicate_profile.FirstOrDefault(m => m.ID == ID);
             return Json(newmodel);
         }
-
+        public JsonResult GetDataByIdsubscriptions(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Applicant_Subscription_Syndicate_Profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
 
         public JsonResult GetDataByIdmilitary(string id)
         {
@@ -977,11 +989,22 @@ namespace HR.Controllers
             var newmodel = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(newmodel);
         }
-
+        public JsonResult GetDataByIdQualificationApp(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Applicant_Qualification_Profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
         public JsonResult GetDataByIdExperience(string id)
         {
             var ID = int.Parse(id);
             var newmodel = dbcontext.Employee_experience_profile.FirstOrDefault(m => m.ID == ID);
+            return Json(newmodel);
+        }
+        public JsonResult GetDataByIdExperiences(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Applicant_Previous_Experiences_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(newmodel);
         }
         public JsonResult GetShiftdaystatussetup(string id)

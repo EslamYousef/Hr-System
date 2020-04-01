@@ -192,10 +192,19 @@ namespace HR.Models
         public DbSet<mental> mental { get; set; }
         public DbSet<Required_Licenses> Required_Licenses { get; set; }
 
-
         public DbSet<special_allowance_job_level_grade> special_allowance_job_level_grade { get; set; }
         public DbSet<special_allowance_job_level_class> special_allowance_job_level_class { get; set; }
-        public DbSet<special> special { get; set; }
+        public DbSet<special> special { get; set; }       
+        public DbSet<Applicant_Profile> Applicant_Profile { get; set; }     
+        public DbSet<Applicant_Address_Profile> Applicant_Address_Profile { get; set; }
+        public DbSet<Applicant_Attachment_Profile> Applicant_Attachment_Profile { get; set; }
+        public DbSet<Applicant_Qualification_Profile> Applicant_Qualification_Profile { get; set; }
+
+        public DbSet<Applicant_Family_Profile> Applicant_Family_Profile { get; set; }
+        public DbSet<Applicant_Previous_Experiences_Profile> Applicant_Previous_Experiences_Profile { get; set; }
+        public DbSet<Applicant_Contact_Profile> Applicant_Contact_Profile { get; set; }
+        public DbSet<Applicant_Military_Service_Profile> Applicant_Military_Service_Profile { get; set; }
+        public DbSet<Applicant_Subscription_Syndicate_Profile> Applicant_Subscription_Syndicate_Profile { get; set; }
 
     }
 }

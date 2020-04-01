@@ -1,0 +1,783 @@
+﻿@model HR.Models.Applicant_Qualification_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.EditApplicantQualificationProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Edit", "Applicant_Qualification_Profile", new { ID2 = ViewBag.iod }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.ApplicantName</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="col-md-4" style="color:black">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.QualificationprofileNo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2">@Personnel.Relatedtojob</label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(model => model.Related_to_job, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Related_to_job, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationstartdate</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Qualification_start_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Qualification_start_date, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2">@Personnel.Years</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
+
+                                @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationenddate</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Qualification_end_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Qualification_end_date, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2">@Personnel.Months</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+
+                                @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationcategorycode</label>
+                            <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.Educate_categoryId, new SelectList(ViewBag.Educate_category, "ID", "Code"), Personnel.SelectEducatecategory, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.ValidationMessageFor(model => model.Educate_categoryId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Educatelevelcode</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Educate_TitleId, new SelectList(ViewBag.Educate_Title, "ID", "Code"), Personnel.SelectEducateTitle, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Educate_TitleId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationmainprovidercode</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Main_Educate_bodyId, new SelectList(ViewBag.Main_Educate_body, "ID", "Code"), Personnel.SelectMainEducatebody, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Main_Educate_bodyId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationsubprovidercode</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Sub_educational_bodyId, new SelectList(ViewBag.Sub_educational_body, "ID", "Code"), Personnel.SelectSubeducationalbody, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Sub_educational_bodyId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationnamecode</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Name_of_educational_qualificationId, new SelectList(ViewBag.Name_of_educational_qualification, "ID", "Code"), Personnel.SelectNameofeducationalqualification, new { @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Name_of_educational_qualificationId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationspecialtycode</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Qualification_MajorId, new SelectList(ViewBag.Qualification_Major, "ID", "Code"), Personnel.SelectQualificationMajor, new { @class = "select2", @onchange = "getpostal()", id = "postal", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.Qualification_MajorId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Qualificationdegreecode</label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.GradeEducateId, new SelectList(ViewBag.GradeEducate, "ID", "Code"), Personnel.SelectGradeEducate, new { @class = "select2", @onchange = "GradeEducate()", id = "GradeEducateId", @disabled = true })
+                                @Html.ValidationMessageFor(model => model.GradeEducateId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Extraeducationyears</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Extra_education_years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Extra_education_years, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Allowancevalue</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Allowance_value, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                @Html.ValidationMessageFor(model => model.Allowance_value, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Applicant_Qualification_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+
+<script>
+    $(document).ready(function () {
+        $("#employeeId").attr("disabled", true);
+        GetDataById2();
+
+        //Save();
+        //Save2();
+    });
+</script>
+
+
+
+<script>
+    function CountryName() {
+
+        var id = $("#country").val();
+
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#postal").empty();
+
+        $("#area").select2("val", "");
+        $("#state").select2("val", " ");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", " ");
+        $("#postal").select2("val", " ");
+
+        $("#GradeEducateId").select2("val", " ");
+        $("#statename").val(" ");
+        $("#areaname").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postname").val(" ");
+        $("#GradeEducatename").val(" ");
+
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEducatecategory",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#countryname").val(result.Name);
+                $("#area").removeAttr("disabled");
+           //     getallarea(result.ID);
+            },
+            error: function () {
+
+                $("#countryname").val(" ");
+            }
+        });
+    }
+
+    function areaName() {
+
+        var id = $("#area").val();
+
+        $("#citeid").empty();
+        $("#postal").empty();
+        $("#ter").empty();
+        //    $("#GradeEducateId").empty();
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+   //     $("#GradeEducateId").select2("val", "");
+        $("#statename").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $("#postname").val(" ");
+        //     $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEducateTitle",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#state").removeAttr("disabled");
+                $("#areaname").val(result.Name);
+                getNameeducationalbyEducatetitle(result.ID);
+            },
+            error: function () {
+
+                $("#areaname").val(" ");
+            }
+        });
+    }
+
+    function getstate()
+    {
+
+        var id = $("#state").val();
+        $("#ter").empty();
+    //    $("#postal").empty();
+  //   $("#GradeEducateId").empty();
+        $("#ter").select2("val", "");
+   //     $("#citeid").select2("val", "");
+        $("#postal").select2("val", "");
+    //    $("#GradeEducateId").select2("val", "");
+        $("#tername").val(" ");
+ //       $("#cityname").val(" ");
+        $("#postname").val(" ");
+        $("#GradeEducatename").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetMainEducatebody",
+            data: { "id": id },
+            success: function (result) {
+
+
+                //        $("#ter").removeAttr("disabled");
+                $("#ter").removeAttr("disabled");
+                $("#statename").val(result.Name);
+                getSubeducationalbyMainEducate(result.ID);
+            },
+            error: function () {
+
+                $("#statename").val(" ");
+            }
+        });
+    }
+    function getSubeducationalbyMainEducate(id)
+    {
+
+
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getSubeducationalbyMainEducate",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#ter").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Sub Educational </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#ter").html(finalresult);
+                $("#ter").select2("val", "0");
+            },
+            error: function () {
+
+                $("#ter").val(" ");
+            }
+        });
+
+    }
+    function getter()
+    {
+
+        var id = $("#ter").val();
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSubeducationalbody",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#citeid").removeAttr("disabled");
+                $("#tername").val(result.Name);
+
+            },
+            error: function () {
+
+                $("#tername").val(" ");
+            }
+        });
+    }
+    function getNameeducationalbyEducatetitle(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getNameeducationalbyEducatetitle",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#citeid").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Qualification name </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#citeid").html(finalresult);
+                $("#citeid").select2("val", "0");
+            },
+            error: function () {
+
+                $("#citeid").val(" ");
+            }
+        });
+
+    }
+    function getcite() {
+
+        var id = $("#citeid").val();
+        $("#postal").empty();
+     //   $("#GradeEducateId").empty();
+        $("#postal").select2("val", "");
+      //  $("#GradeEducateId").select2("val", "");
+        $("#postname").val(" ");
+     //   $("#GradeEducateId").val(" ");
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetNameofeducationalqualification",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#postal").removeAttr("disabled");
+                $("#cityname").val(result.Name);
+                getQualificationMajorbyNameofeducational(result.ID);
+
+            },
+            error: function () {
+
+                $("#cityname").val(" ");
+            }
+        });
+    }
+    function getQualificationMajorbyNameofeducational(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getQualificationMajorbyNameofeducational",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#postal").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Qualification specialty </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#postal").html(finalresult);
+                $("#postal").select2("val", "0");
+            },
+            error: function () {
+
+                $("#postal").val(" ");
+            }
+        });
+
+    }
+    function getpostal() {
+
+        var id = $("#postal").val();
+   //    $("#GradeEducateId").empty();
+      $("#GradeEducateId").select2("val", "");
+      $("#GradeEducatename").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetQualificationMajor",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#GradeEducateId").removeAttr("disabled");
+                $("#postname").val(result.Name);
+            },
+            error: function () {
+
+                $("#postname").val(" ");
+            }
+        });
+    }
+    function GradeEducate() {
+
+        var id = $("#GradeEducateId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GradeEducate",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#GradeEducatename").val(result.Name);
+            },
+            error: function () {
+
+                $("#GradeEducatename").val(" ");
+            }
+        });
+    }
+
+
+    var id = $("#country").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetEducatecategory",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#area").removeAttr("disabled");
+            $("#countryname").val(result.Name);
+        },
+        error: function () {
+
+            $("#countryname").val(" ");
+        }
+    });
+
+    var id = $("#area").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetEducateTitle",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#state").removeAttr("disabled");
+            $("#areaname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#areaname").val(" ");
+        }
+    });
+
+    var id = $("#state").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetMainEducatebody",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#ter").removeAttr("disabled");
+            $("#statename").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#statename").val(" ");
+        }
+    });
+    var id = $("#ter").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetSubeducationalbody",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#citeid").removeAttr("disabled");
+            $("#tername").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#tername").val(" ");
+        }
+    });
+    var id = $("#citeid").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetNameofeducationalqualification",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#postal").removeAttr("disabled");
+            $("#cityname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#cityname").val(" ");
+        }
+    });
+
+    var id = $("#postal").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetQualificationMajor",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#GradeEducateId").removeAttr("disabled");
+            $("#postname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#postname").val(" ");
+        }
+    });
+    var id = $("#GradeEducateId").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GradeEducate",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#GradeEducatename").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#GradeEducatename").val(" ");
+        }
+    });
+
+
+    function employee() {
+
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Employee_Qualification_Profile.Code);
+                $("#employeeId").attr('readonly', true);
+                $("#employeeId").prop('readonly', true);
+
+            },
+            error: function () {
+
+       //         $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    function GetDataById() {
+
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdQualificationApp",
+            data: { "id": x },
+            success: function (result) {
+
+                if (result) {
+                    var date = parseJsonDate(result.Qualification_end_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+
+
+               //     month = date.getMonth() + 1;
+                var d = date.getFullYear() + '-' + month + '-' + day;
+                $("#End").val(d);
+                Save();
+                Save2();
+                console.log(result);
+            }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //   GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+    debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdQualificationApp",
+            data: { "id": x },
+            success: function (result) {
+
+                if (result) {
+                    var date = parseJsonDate(result.Qualification_start_date)
+                    month = date.getMonth() + 1;
+                    if (parseInt(month) < 10) {
+                        month = '0' + month;
+                    }
+                    day = date.getDate();
+                    if (parseInt(day) < 10) {
+                        day = '0' + day;
+                    }
+
+
+              //      month = date.getMonth() + 1;
+                var d = date.getFullYear() + '-' + month + '-' + day;
+                $("#Start").val(d);
+                GetDataById();
+                console.log(result);
+            }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    function Save() {
+
+
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        //   var from = $(".StartDate").val();
+        //   var to = $(".EndDate").val();
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+    function Save2() {
+
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+        //   var x = $(".StartDate").val().split('/');
+        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
+        //    var EndDate = new Date($(".EndDate").val());
+        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
+        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
+        //   var from = $(".StartDate").val();
+        //     var to = $(".EndDate").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
+</script>
+
+@*function Save() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };
+
+    function Save2() {
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to > from) {
+            var diffTime = Math.abs(EndDate - StartDate);
+            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            var months = Math.floor(Days / 31);
+            var years = Math.floor(months / 12);
+            $("#Yearr").val(years);
+            $("#months").val(months - (years * 12));
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+        }
+    };*@

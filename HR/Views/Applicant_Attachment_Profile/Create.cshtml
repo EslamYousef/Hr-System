@@ -1,29 +1,29 @@
-﻿@model HR.Models.Employee_attachment_profile
+﻿@model HR.Models.Applicant_Attachment_Profile
 @using HR.Resource;
+
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-
-
 @Scripts.Render("~/bundles/jqueryval")
+
+
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-            @Personnel.EditEmployeeAttachmentProfile
+            @Personnel.CreateApplicantAttachmentProfile
         </h1>
     </section>
 
     <!-- Main content -->
     <section class="content">
-
         <div class="box">
 
             <!-- /.box-header -->
             <div class="box-body">
 
-                @using (Html.BeginForm("Edit", "Employee_attachment_profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Applicant_Attachment_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -39,19 +39,19 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.Employee_Profile.ID)
-                        @Html.HiddenFor(m => m.Employee_Profile.Name)
-                        @Html.HiddenFor(m => m.Employee_Profile.Full_Name)
-                        @Html.HiddenFor(m => m.Employee_Profile.Code)
+                        @Html.HiddenFor(m => m.Applicant_Profile.ID)
+                        @Html.HiddenFor(m => m.Applicant_Profile.Name)
+                        @Html.HiddenFor(m => m.Applicant_Profile.Full_Name)
+                        @Html.HiddenFor(m => m.Applicant_Profile.Code)
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.EmployeeName</label>
+                            <label class="control-label col-md-2">@Personnel.ApplicantName</label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-md-6" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -65,7 +65,8 @@
                                 @Html.CheckBoxFor(model => model.Is_copy, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Is_copy, "", new { @class = "text-danger" })
                             </div>
-                        </div>    
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Documentcode</label>
                             <div class="col-md-4">
@@ -88,7 +89,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Relatedto</label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Related_to, new { @class = "select2" })
+                                @Html.EnumDropDownListFor(model => model.Related_to, new { @class = "select2", @autocomplete = "off" })
 
                                 @Html.ValidationMessageFor(model => model.Related_to, "", new { @class = "text-danger" })
                             </div>
@@ -142,32 +143,30 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Documentstatus</label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Document_status, new { @class = "select2" })
+                                @Html.EnumDropDownListFor(model => model.Document_status, new { @class = "select2", @autocomplete = "off" })
 
                                 @Html.ValidationMessageFor(model => model.Document_status, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        @*<span>Attachments :<a href="~/files/@Model.Code/@Model.Attachmentfile" />The Link </span> <input type="file" name="MyItem" required /><br />*@
-                        <div>
-                            <span onclick="GetClientReport()">sa</span>
-                        </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.Comments</label>
-                                <div class="col-md-4">
-                                    @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                        <strong class="control-label col-md-2">Attachments : </strong> <input type="file" name="MyItem" required /><br />
 
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Comments</label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
-
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                <a href="@Url.Action("index","Applicant_Attachment_Profile",new {id=ViewBag.idemp })" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            </div>
+                        </div>
+                    </div>
+
 
                 }
 
@@ -187,40 +186,38 @@
         GetDataById5('@Model.Expiry_date', "Expiry_date");
     });
 </script>
-
-
 <script>
     function employee() {
-         
+
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
-            url: "/Helper/GetEmployee",
+            url: "/Helper/GetApplicant",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#employeename").val(result.Name);
-                $("#codeid").val(result.Employee_family_profile.Code);
+                $("#codeid").val(result.Applicant_Attachment_Profile.Code);
                 $("#employeeId").prop("readonly", true);
                 $("#employeeId").attr("readonly", true);
 
             },
             error: function () {
-                 
+
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
     function employee2() {
-         
+
         var id = $("#employeeId2").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetDocuments",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#groupdocument").val(result.Document_Group.Name);
                 //        $("#codeid").val(result.Employee_Positions_Profile.Code);
                 //   $("#employeeId").prop("readonly", true);
@@ -228,7 +225,7 @@
 
             },
             error: function () {
-                 
+
                 $("#groupdocument").val(" ");
 
             }
@@ -254,10 +251,4 @@
         var d = valx.getFullYear() + '-' + month + '-' + day;
         $('#' + id).val(d);
     }
-
-    function GetClientReport() {  
-        window.open('/Employee_attachment_profile/GetReport')
-    };
-
-   
 </script>

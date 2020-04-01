@@ -1,0 +1,152 @@
+﻿@model IEnumerable<HR.Models.Applicant_Qualification_Profile>
+@using HR.Resource;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-6">
+        <h1>@Personnel.ApplicantQualificationProfile</h1>
+    </div>
+</div>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <p class="lead">
+                            <a href="@Url.Action("Create", "Applicant_Qualification_Profile", new { id=@ViewBag.idemp })" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewApplicantQualificationProfile </a>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Edit", "Applicant_Profile", new {id = @ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.BackToApplicantProfile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+
+                            <th>@Personnel.QualificationprofileNo</th>
+                            <th>@Personnel.ApplicantName </th>
+                            <th>@Personnel.Qualificationcategorycode</th>
+                            <th>@Personnel.Educatelevel</th>
+                            <th>@Personnel.Qualificationmainprovidercode</th>
+                            <th>@Personnel.Qualificationsubprovidercode</th>
+                            <th>@Personnel.Qualificationname</th>
+                            <th>@Personnel.Qualificationspecialtycode</th>
+                            <th>@Personnel.Qualificationdegreecode</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.Code</td>
+                                <td>@item.Applicant_Profile.Full_Name</td>
+
+                                @if (@item.Educate_category != null)
+                                {
+                                <td>@item.Educate_category.Name </td> }
+                                else
+                                {
+                                <td>Empty</td>}
+
+                                @if (@item.Educate_Title != null)
+                                {
+                                    <td> @item.Educate_Title.Name </td> }
+                                else
+                                {
+                                <td>Empty</td> }
+
+                                @if (@item.Main_Educate_body != null)
+                                {
+                                    <td> @item.Main_Educate_body.Name </td> }
+                                else
+                                {
+                                <td>Empty</td>}
+                                @if (@item.Sub_educational_body != null)
+                                {
+                                    <td> @item.Sub_educational_body.Name</td> }
+                                else
+                                {
+                                <td>Empty</td>}
+                                @if (@item.Name_of_educational_qualification != null)
+                                {
+                                    <td> @item.Name_of_educational_qualification.Name </td>}
+                                else
+                                {
+                                <td>Empty</td>}
+
+                                @if (@item.Qualification_Major != null)
+                                {
+                                    <td> @item.Qualification_Major.Name</td>}
+                                else
+                                {
+                                <td>Empty</td>}
+
+                                @if (@item.GradeEducateId != null)
+                                {
+                                    <td>@item.GradeEducate.Name </td> }
+                                else
+                                {
+                                <td>Empty</td>}
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "Applicant_Qualification_Profile", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Applicant_Qualification_Profile", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}

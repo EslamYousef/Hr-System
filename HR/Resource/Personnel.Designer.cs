@@ -169,6 +169,87 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Address Profile.
+        /// </summary>
+        public static string AddNewApplicantAddressProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantAddressProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Attachment Profile.
+        /// </summary>
+        public static string AddNewApplicantAttachmentProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantAttachmentProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Contact Profile.
+        /// </summary>
+        public static string AddNewApplicantContactProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantContactProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Family Profile.
+        /// </summary>
+        public static string AddNewApplicantFamilyProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantFamilyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Military Service Profile.
+        /// </summary>
+        public static string AddNewApplicantMilitaryServiceProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantMilitaryServiceProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Experiences Profile.
+        /// </summary>
+        public static string AddNewApplicantPreviousExperiencesProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantPreviousExperiencesProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Profile.
+        /// </summary>
+        public static string AddNewApplicantProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Qualification Profile.
+        /// </summary>
+        public static string AddNewApplicantQualificationProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantQualificationProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Applicant Subscription Profile.
+        /// </summary>
+        public static string AddNewApplicantSubscriptionProfile {
+            get {
+                return ResourceManager.GetString("AddNewApplicantSubscriptionProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add New Check List Items.
         /// </summary>
         public static string AddNewCheckListItems {
@@ -412,6 +493,105 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applicant Address Profile.
+        /// </summary>
+        public static string ApplicantAddressProfile {
+            get {
+                return ResourceManager.GetString("ApplicantAddressProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Attachment Profile.
+        /// </summary>
+        public static string ApplicantAttachmentProfile {
+            get {
+                return ResourceManager.GetString("ApplicantAttachmentProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Contact Profile.
+        /// </summary>
+        public static string ApplicantContactProfile {
+            get {
+                return ResourceManager.GetString("ApplicantContactProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Family Profile.
+        /// </summary>
+        public static string ApplicantFamilyProfile {
+            get {
+                return ResourceManager.GetString("ApplicantFamilyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Military Service Profile.
+        /// </summary>
+        public static string ApplicantMilitaryServiceProfile {
+            get {
+                return ResourceManager.GetString("ApplicantMilitaryServiceProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Name.
+        /// </summary>
+        public static string ApplicantName {
+            get {
+                return ResourceManager.GetString("ApplicantName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant No..
+        /// </summary>
+        public static string ApplicantNo {
+            get {
+                return ResourceManager.GetString("ApplicantNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Experiences Profile.
+        /// </summary>
+        public static string ApplicantPreviousExperiencesProfile {
+            get {
+                return ResourceManager.GetString("ApplicantPreviousExperiencesProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Profile.
+        /// </summary>
+        public static string ApplicantProfile {
+            get {
+                return ResourceManager.GetString("ApplicantProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Qualification Profile.
+        /// </summary>
+        public static string ApplicantQualificationProfile {
+            get {
+                return ResourceManager.GetString("ApplicantQualificationProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applicant Subscription Profile.
+        /// </summary>
+        public static string ApplicantSubscriptionProfile {
+            get {
+                return ResourceManager.GetString("ApplicantSubscriptionProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approval date.
         /// </summary>
         public static string Approvaldate {
@@ -489,6 +669,15 @@ namespace HR.Resource {
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back To Applicant Profile.
+        /// </summary>
+        public static string BackToApplicantProfile {
+            get {
+                return ResourceManager.GetString("BackToApplicantProfile", resourceCulture);
             }
         }
         
@@ -1006,6 +1195,87 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Address Profile.
+        /// </summary>
+        public static string CreateApplicantAddressProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantAddressProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Attachment Profile.
+        /// </summary>
+        public static string CreateApplicantAttachmentProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantAttachmentProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Contact Profile.
+        /// </summary>
+        public static string CreateApplicantContactProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantContactProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Family Profile.
+        /// </summary>
+        public static string CreateApplicantFamilyProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantFamilyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Military Service Profile.
+        /// </summary>
+        public static string CreateApplicantMilitaryServiceProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantMilitaryServiceProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Experiences Profile.
+        /// </summary>
+        public static string CreateApplicantPreviousExperiencesProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantPreviousExperiencesProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Profile.
+        /// </summary>
+        public static string CreateApplicantProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Qualification Profile.
+        /// </summary>
+        public static string CreateApplicantQualificationProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantQualificationProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Applicant Subscription Profile.
+        /// </summary>
+        public static string CreateApplicantSubscriptionProfile {
+            get {
+                return ResourceManager.GetString("CreateApplicantSubscriptionProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Check List Item Groups.
         /// </summary>
         public static string CreateCheckListItemGroups {
@@ -1452,6 +1722,87 @@ namespace HR.Resource {
         public static string Edit1 {
             get {
                 return ResourceManager.GetString("Edit1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Address Profile.
+        /// </summary>
+        public static string EditApplicantAddressProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantAddressProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Attachment Profile.
+        /// </summary>
+        public static string EditApplicantAttachmentProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantAttachmentProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Contact Profile.
+        /// </summary>
+        public static string EditApplicantContactProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantContactProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Family Profile.
+        /// </summary>
+        public static string EditApplicantFamilyProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantFamilyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Military Service Profile.
+        /// </summary>
+        public static string EditApplicantMilitaryServiceProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantMilitaryServiceProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Experiences Profile.
+        /// </summary>
+        public static string EditApplicantPreviousExperiencesProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantPreviousExperiencesProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Profile.
+        /// </summary>
+        public static string EditApplicantProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Qualification Profile.
+        /// </summary>
+        public static string EditApplicantQualificationProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantQualificationProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Applicant Subscription Profile.
+        /// </summary>
+        public static string EditApplicantSubscriptionProfile {
+            get {
+                return ResourceManager.GetString("EditApplicantSubscriptionProfile", resourceCulture);
             }
         }
         
@@ -2658,6 +3009,15 @@ namespace HR.Resource {
         public static string Jobtitle {
             get {
                 return ResourceManager.GetString("Jobtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job title card.
+        /// </summary>
+        public static string Jobtitlecard {
+            get {
+                return ResourceManager.GetString("Jobtitlecard", resourceCulture);
             }
         }
         
@@ -4116,6 +4476,15 @@ namespace HR.Resource {
         public static string SelectJobleveldesc {
             get {
                 return ResourceManager.GetString("SelectJobleveldesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Job title card.
+        /// </summary>
+        public static string SelectJobtitlecard {
+            get {
+                return ResourceManager.GetString("SelectJobtitlecard", resourceCulture);
             }
         }
         

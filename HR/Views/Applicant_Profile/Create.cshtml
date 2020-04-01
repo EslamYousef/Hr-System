@@ -1,0 +1,1441 @@
+﻿
+@model HR.Models.Applicant_Profile
+ @using HR.Resource;
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        drop();
+        dropAbility();
+        GetDataById2('@Model.Issue_date', "Issuedate_date");
+        GetDataById2('@Model.Expire_date', "Expiredate_date");
+        GetDataById2('@Model.Birth_date', "Birth_date");
+        GetDataById2('@Model.registration_date', "registration_date");
+         });
+</script>
+<script>
+    $(function () {
+
+        function CheckOnName() {
+
+            var FullName = $("#full").val().split(' ');
+
+            if (FullName.length > 0)
+            {
+                $("#name1").val(FullName[0]);
+                $("#name2").val(FullName[1]);
+                $("#name3").val(FullName[2]);
+                $("#name4").val(FullName[3]);
+                $("#name5").val(FullName[4]);
+            }
+        }
+        CheckOnName();
+        function CheckOnName2() {
+
+            var FullName2 = $("#full2").val().split(' ');
+
+            if (FullName2.length > 0) {
+                $("#arabic1").val(FullName2[0]);
+                $("#arabic2").val(FullName2[1]);
+                $("#arabic3").val(FullName2[2]);
+                $("#arabic4").val(FullName2[3]);
+                $("#arabic5").val(FullName2[4]);
+            }
+        }
+        CheckOnName2();
+        $("#name1,#name2,#name3,#name4,#name5").keyup(function (w) {
+            var x = $("#name1").val();
+            var y = $("#name2").val();
+            var q = $("#name3").val();
+            var w = $("#name4").val();
+            var e = $("#name5").val();
+            $("#full").val(x + " " + y+ " " +q+ " " +w+ " " +e);
+        });
+
+
+        $("#arabic1,#arabic2,#arabic3,#arabic4,#arabic5").keyup(function (w) {
+            var x = $("#arabic1").val();
+            var y = $("#arabic2").val();
+            var z = $("#arabic3").val();
+            var a = $("#arabic4").val();
+            var b = $("#arabic5").val();
+            $("#full2").val(x + " " + y + " " + z + " " + a + " " + b);
+        });
+    });
+</script>
+
+<div class="content-wrapper">
+
+
+    @*<strong class="control-label col-md-2">IMG : </strong> <input type="file" name="MyItem"  /><br />*@
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateApplicantProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Applicant_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(a=>a.ID)
+                        @Html.HiddenFor(a => a.Area.ID)
+
+
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.ApplicantAddressProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success" style="width:200px;">@Personnel.ApplicantAttachmentProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit3" class="btn btn-success" style="width:200px;">@Personnel.ApplicantQualificationProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit4" class="btn btn-success" style="width:200px;">@Personnel.ApplicantFamilyProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit5" class="btn btn-success" style="width:200px;">@Personnel.ApplicantPreviousExperiencesProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit6" class="btn btn-success" style="width:200px;">@Personnel.ApplicantContactProfile</button>
+                        </div>                        
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit7" class="btn btn-success" style="width:200px;">@Personnel.ApplicantMilitaryServiceProfile</button>
+                        </div>
+
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit8" class="btn btn-success" style="width:200px;">@Personnel.ApplicantSubscriptionProfile</button>
+                        </div>
+
+
+                        <div class="col-md-9" style="color:black;margin-bottom:10px;">
+                        </div>
+
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <a href="@Url.Action("index","Applicant_Profile")" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            <input type="submit" value="@Personnel.Create" class="btn btn-success" style="width:98px;" />
+                        </div>
+
+                        <div>
+
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#home" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@Personnel.Home</span>
+                                    </a>
+                                </li>
+                              
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">@Personnel.EmployeeNo</label>
+
+                                        <div class="col-md-1">
+                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+
+                                            <h3>@Personnel.LatinName</h3>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Name</label>
+
+                                                <div class="col-md-2">
+                                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control name", id = "name1" } })
+                                                    @*<input type="text"name="Name" class="form-control" />*@
+                                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="name2" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Full_Name, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="name3" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Full_Name, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="name4" class="form-control" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="name5" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.FullName</label>
+
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Full_Name, new { htmlAttributes = new { @class = "form-control", @id = "full" } })
+                                                    @Html.ValidationMessageFor(model => model.Full_Name, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.SurName</label>
+
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            @*@style= "direction:ltr";margin - left:200px; text -align: left;**@
+
+                                        </div>
+
+                                        <div class="col-lg-6" style="@Personnel.border">
+                                            <h3>@Personnel.ArabicName</h3>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.Arabic</label>
+
+                                                <div class="col-md-2">
+                                                    @Html.EditorFor(model => model.Arabic, new { htmlAttributes = new { @class = "form-control", id = "arabic1" } })
+                                                    @Html.ValidationMessageFor(model => model.Arabic, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic2" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Arabic, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic3" class="form-control" />
+                                                    @Html.ValidationMessageFor(model => model.Arabic, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic4" class="form-control" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="arabic5" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.FullName</label>
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Full, new { htmlAttributes = new { @class = "form-control", @id = "full2" } })
+                                                    @Html.ValidationMessageFor(model => model.Full, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">@Personnel.SurName</label>
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Sur_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Sur_Name, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">@Personnel.Gender</label>
+                                        <div class="col-md-3">
+                                            @Html.EnumDropDownListFor(model => model.Gender, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-1">@Personnel.MaritalStatus</label>
+                                        <div class="col-md-3">
+                                            @Html.EnumDropDownListFor(model => model.Marital_Status, new { @class = "select2" })
+                                            @Html.ValidationMessageFor(model => model.Marital_Status, "", new { @class = "text-danger" })
+                                        </div>
+                                        <label class="control-label col-md-1">@Personnel.Citizen</label>
+                                        <div class="col-md-3">
+                                            @Html.CheckBoxFor(model => model.Citizen, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Citizen, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">@Personnel.Religion</label>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(m => m.ReligionId, new SelectList(ViewBag.Religion, "ID", "Code"), Personnel.SelectReligion, new { @class = "select2", @onchange = "Religion()", @id = "religion" })
+                                            @Html.ValidationMessageFor(model => model.ReligionId, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <label class="control-label col-md-1">@Personnel.Nationality</label>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(m => m.NationalityId, new SelectList(ViewBag.Nationality, "ID", "Code"), Personnel.SelectNationality, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
+                                            @Html.ValidationMessageFor(model => model.NationalityId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <label class="control-label col-md-1">@Personnel.Bloodgroup</label>
+                                        <div class="col-md-3">
+                                            @Html.EnumDropDownListFor(model => model.Blood_group, new { @class = "select2" })
+
+                                            @Html.ValidationMessageFor(model => model.Blood_group, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                   <label class="control-label col-sm-1" style="width: 14.333%; margin: inherit;" >@Personnel.IDtype</label>
+
+                                                <div class="col-sm-4">
+                                                    @Html.EnumDropDownListFor(model => model.ID_type, new { @class = "select2" })
+                                                    @Html.ValidationMessageFor(model => model.ID_type, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input href="javascript:;" onclick="jQuery('#modal-3').modal('show', {backdrop: 'static'});" class="btn btn-default" style="width:300px;" value="@Personnel.CityCountryStateRegionCountry" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                            <div class="modal fade" id="modal-3">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title">@Personnel.IDIssueAddress</h4>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Country</label>
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.Countryaddressid, new SelectList(ViewBag.Country, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2-search", @onchange = "CountryNamea()", id = "countrya" })
+                                                                        @Html.ValidationMessageFor(model => model.Countryaddressid, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Area</label>
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.Areaaddressid, new SelectList(ViewBag.Area, "ID", "Code"), Personnel.SelectArea, new { @class = "select2-search", @onchange = "areaNamea()", id = "areaa", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.Areaaddressid, "", new { @class = "text-danger" })
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.StateGovernorate</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.the_statesaddressid, new SelectList(ViewBag.the_states, "ID", "Code"), Personnel.Selectstate, new { @class = "select2-search", @onchange = "getstatea()", id = "statea", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.the_statesaddressid, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.County</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.Territoriesaddressid, new SelectList(ViewBag.Territories, "ID", "Code"), Personnel.SelectCounty, new { @class = "select2-search", @onchange = "gettera()", id = "tera", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.Territoriesaddressid, "", new { @class = "text-danger" })
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Cite</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.citiesaddressid, new SelectList(ViewBag.cities, "ID", "Code"), Personnel.SelectCite, new { @class = "select2-search", @onchange = "getcitea()", id = "citeida", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.citiesaddressid, "", new { @class = "text-danger" })
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                            <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1"  style="width: 14.333%; margin:inherit">@Personnel.IDnumber</label>
+                                                <div class="col-md-2">
+                                                    @Html.EditorFor(model => model.ID_number, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.ID_number, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <label class="control-label col-md-1">@Personnel.Issuedate</label>
+                                                <div class="col-md-3">
+                                                    @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @type = "date", @id = "Issuedate_date" } })
+                                                    @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <label class="control-label col-md-1">@Personnel.Expiredate</label>
+                                                <div class="col-md-3">
+                                                    @Html.EditorFor(model => model.Expire_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @type = "date", @id = "Expiredate_date" } })
+                                                    @Html.ValidationMessageFor(model => model.Expire_date, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-1" style="width: 14.333%; margin:inherit">@Personnel.Birthdate</label>
+                                                <div class="col-sm-3">
+                                                    @Html.EditorFor(model => model.Birth_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @type = "date", @id = "Birth_date" } })
+                                                    @Html.ValidationMessageFor(model => model.Birth_date, "", new { @class = "text-danger" })
+                                                </div>
+
+
+
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <input href="javascript:;" onclick="jQuery('#modal-2').modal('show', {backdrop: 'static'});" class="btn btn-default " style="width:300px;" value="@Personnel.CityCountryStateRegionCountry" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal fade" id="modal-2">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title">@Personnel.BirthAddress</h4>
+                                                        </div>
+
+                                                        <div class="modal-body">
+
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Country</label>
+
+                                                                    <div class="col-md-8">
+
+                                                                        @Html.DropDownListFor(m => m.Countryid, new SelectList(ViewBag.Country, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2-search", @onchange = "CountryName()", id = "country" })
+                                                                        @Html.ValidationMessageFor(model => model.Countryid, "", new { @class = "text-danger" })
+
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="row">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Area</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.Areaid, new SelectList(ViewBag.Area, "ID", "Code"), Personnel.SelectArea, new { @class = "select2-search", @onchange = "areaName()", id = "area", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.Areaid, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.StateGovernorate</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.the_statesid, new SelectList(ViewBag.the_states, "ID", "Code"), Personnel.Selectstate, new { @class = "select2-search", @onchange = "getstate()", id = "state", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.the_statesid, "", new { @class = "text-danger" })
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.County</label>
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.Territoriesid, new SelectList(ViewBag.Territories, "ID", "Code"), Personnel.SelectCounty, new { @class = "select2-search", @onchange = "getter()", id = "ter", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.Territoriesid, "", new { @class = "text-danger" })
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Cite</label>
+                                                                    <div class="col-md-8">
+                                                                        @Html.DropDownListFor(m => m.citiesid, new SelectList(ViewBag.cities, "ID", "Code"), Personnel.SelectCite, new { @class = "select2-search", @onchange = "getcite()", id = "citeid", @disabled = true })
+                                                                        @Html.ValidationMessageFor(model => model.citiesid, "", new { @class = "text-danger" })
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                            <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1" style="width: 14.333%; margin:inherit">@Personnel.HealthStatus</label>
+
+                                                <div class="col-md-4">
+                                                    @Html.EnumDropDownListFor(model => model.Health_Status, new { @onclick = "dropAbility()", @class = "select2", @id = "ability" })
+                                                    @Html.ValidationMessageFor(model => model.Health_Status, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <table class="abilityshow">
+                                                    <tr>
+                                                        <td>
+                                                            <input id="showme_button" href="javascript:;" onclick="jQuery('#modal-6').modal('show', {backdrop: 'static'});" class="btn btn-default abilityshow" style="width:290px;" value="@Personnel.ReasonDescriptionRegistrationNumberRegistrationDate" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal fade" id="modal-6">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title">@Personnel.InAbilityDetails</h4>
+                                                        </div>
+
+                                                        <div class="modal-body">
+
+                                                            <div class="row">
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Inabilityreason</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.EditorFor(model => model.Inability_reason, new { htmlAttributes = new { @class = "form-control", id = "reason", @readonly = true } })
+                                                                        @Html.ValidationMessageFor(model => model.Inability_reason, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="row">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.Inabilitydescription</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.EditorFor(model => model.Inability_description, new { htmlAttributes = new { @class = "form-control de", id = "descriptiony", @readonly = true } })
+                                                                        @Html.ValidationMessageFor(model => model.Inability_description, "", new { @class = "text-danger" })
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.registrationnumber</label>
+
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-8">
+                                                                            @Html.EditorFor(model => model.registration_number, new { htmlAttributes = new { id = "registration", @class = "form-control", @readonly = true, @type = "number", @min = 0 } })
+                                                                            @Html.ValidationMessageFor(model => model.registration_number, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <div class="form-group">
+                                                                    <label class="control-label col-md-2">@Personnel.registrationdate</label>
+
+                                                                    <div class="col-md-8">
+                                                                        @Html.EditorFor(model => model.registration_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ nv", @id = "registration_date", @type = "date" } })
+                                                                        @Html.ValidationMessageFor(model => model.registration_date, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                            <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="col-sm-1 control-label">@Personnel.ImageUpload</label>
+                                                </div>
+                                                <div class="col-md-7">
+
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
+                                                            <img src="http://placehold.it/200x150" alt="...">
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
+                                                        <div>
+                                                            <span class="btn btn-white btn-file">
+                                                                <span class="fileinput-new">@Personnel.SelectImage</span>
+                                                                <span class="fileinput-exists">@Personnel.Change</span>
+                                                                <input type="file" name="MyItem">@*accept="image/*"*@
+                                                            </span>
+                                                            <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">@Personnel.Delete</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">@Personnel.Jobtitlecard</label>
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.job_title_cardsId, new SelectList(ViewBag.job_title_cards, "ID", "Code"), Personnel.SelectJobtitlecard, new { @class = "select2", @onchange = "Currency()", @id = "CurrencyId" })
+                                        @Html.ValidationMessageFor(model => model.job_title_cardsId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-1">@Personnel.Pension</label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.Pension, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                        @Html.ValidationMessageFor(model => model.Pension, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <label class="control-label col-md-1">@Personnel.Pensionsource</label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.Pension_source, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                        @Html.ValidationMessageFor(model => model.Pension_source, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-1">@Personnel.Havepension</label>
+                                    <div class="col-md-1">
+                                        @Html.CheckBoxFor(model => model.Have_pension, new { disabled = "disabled", htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Have_pension, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+
+
+
+
+<script>
+    function Religion()
+    {
+
+        var id = $("#religion").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetReligion",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#ReligionName").val(result.Name);
+            },
+            error: function () {
+
+                $("#ReligionName").val(" ");
+            }
+        });
+    }
+
+
+    function Nationality()
+    {
+
+        var id = $("#nationality").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetNationality",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#NationalityName").val(result.Name);
+            },
+            error: function () {
+
+                $("#NationalityName").val(" ");
+            }
+        });
+    }
+
+
+    function CountryName() {
+
+        var id = $("#country").val();
+        $("#area").empty();
+        $("#state").empty();
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#area").select2("val", "");
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#statename").val(" ");
+        $("#areaname").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCountry",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#countryname").val(result.Name);
+                getallarea(result.ID);
+            },
+            error: function () {
+
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function getallarea(id)
+    {
+
+       var countryname=
+       $.ajax({
+          type: "post",
+          url: "/Helper/getareabycountry",
+          data: { "id": id, "flag": "0" },
+          success: function (result) {
+
+              $("#area").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+                   finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+              });
+              $("#area").html(finalresult);
+              $("#area").select2("val", "0");
+          },
+          error: function () {
+
+              $("#area").val(" ");
+          }
+      });
+    }
+    function areaName() {
+
+        var id = $("#area").val();
+        $("#state").empty();
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#statename").val(" ");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/getarea",
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                $("#areaname").val(result.Name);
+                getallstate(result.ID);
+            },
+            error: function () {
+
+                $("#areaname").val(" ");
+            }
+        });
+    }
+    function getallstate(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getstatebycountry",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#state").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose state </option>";
+                $.each(result, function (key, value) {
+                     finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#state").html(finalresult);
+                $("#state").select2("val", "0");
+            },
+            error: function () {
+
+                $("#state").val(" ");
+            }
+        });
+    }
+    function getstate()
+    {
+
+        var id = $("#state").val();
+        $("#ter").empty();
+        $("#citeid").empty();
+        $("#ter").select2("val", "");
+        $("#citeid").select2("val", "");
+        $("#tername").val(" ");
+        $("#cityname").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getstate",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#ter").removeAttr("disabled");
+                $("#statename").val(result.Name);
+                getallter(result.ID);
+            },
+            error: function () {
+
+                $("#statename").val(" ");
+            }
+        });
+    }
+    function getallter(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallter",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#ter").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose ter </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#ter").html(finalresult);
+                $("#ter").select2("val", "0");
+            },
+            error: function () {
+
+                $("#ter").val(" ");
+            }
+        });
+
+    }
+    function getter()
+    {
+
+        var id = $("#ter").val();
+        $("#citeid").empty();
+        $("#citeid").select2("val", "");
+        $("#cityname").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getter",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#citeid").removeAttr("disabled");
+                $("#tername").val(result.Name);
+                getallcite(result.ID);
+
+            },
+            error: function () {
+
+                $("#tername").val(" ");
+            }
+        });
+    }
+
+    function getallcite(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getcitybyTerritories",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#citeid").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Cite </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#citeid").html(finalresult);
+                $("#citeid").select2("val", "0");
+            },
+            error: function () {
+
+                $("#citeid").val(" ");
+            }
+        });
+
+    }
+
+    function getcite() {
+
+        var id = $("#citeid").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getcite",
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                $("#cityname").val(result.Name);
+
+            },
+            error: function () {
+
+                $("#cityname").val(" ");
+            }
+        });
+    }
+
+     ////////////////return funtion//////////////////
+    var id = $("#country").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetCountry",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#area").removeAttr("disabled");
+            $("#countryname").val(result.Name);
+        },
+        error: function () {
+
+            $("#countryname").val(" ");
+        }
+    });
+
+    var id = $("#area").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/getarea",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#state").removeAttr("disabled");
+            $("#areaname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#areaname").val(" ");
+        }
+    });
+
+    var id = $("#state").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getstate",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#ter").removeAttr("disabled");
+            $("#statename").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#statename").val(" ");
+        }
+    });
+    var id = $("#ter").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getter",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#tername").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#tername").val(" ");
+        }
+    });
+    var id = $("#citeid").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getcite",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#citeid").removeAttr("disabled");
+            $("#cityname").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#cityname").val(" ");
+        }
+    });
+    ////////////////////////////
+    function CountryNamea() {
+
+        var id = $("#countrya").val();
+        $("#areaa").empty();
+        $("#statea").empty();
+        $("#tera").empty();
+        $("#citeida").empty();
+        $("#areaa").select2("val", "");
+        $("#statea").select2("val", "");
+        $("#tera").select2("val", "");
+        $("#citeida").select2("val", "");
+        $("#statenamea").val(" ");
+        $("#areanamea").val(" ");
+        $("#ternamea").val(" ");
+        $("#citynamea").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCountry",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#countrynamea").val(result.Name);
+                getallareaa(result.ID);
+            },
+            error: function () {
+
+                $("#countrynamea").val(" ");
+            }
+        });
+    }
+    function getallareaa(id)
+    {
+
+       var countryname=
+       $.ajax({
+          type: "post",
+          url: "/Helper/getareabycountry",
+          data: { "id": id, "flag": "0" },
+          success: function (result) {
+
+              $("#areaa").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+                   finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+              });
+              $("#areaa").html(finalresult);
+              $("#areaa").select2("val", "0");
+          },
+          error: function () {
+
+              $("#areaa").val(" ");
+          }
+      });
+    }
+    function areaNamea() {
+
+        var id = $("#areaa").val();
+        $("#statea").empty();
+        $("#tera").empty();
+        $("#citeida").empty();
+        $("#statea").select2("val", "");
+        $("#tera").select2("val", "");
+        $("#citeida").select2("val", "");
+        $("#statenamea").val(" ");
+        $("#ternamea").val(" ");
+        $("#citynamea").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/getarea",
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                $("#areanamea").val(result.Name);
+                getallstatea(result.ID);
+            },
+            error: function () {
+
+                $("#areanamea").val(" ");
+            }
+        });
+    }
+    function getallstatea(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getstatebycountry",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#statea").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose state </option>";
+                $.each(result, function (key, value) {
+                     finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#statea").html(finalresult);
+                $("#statea").select2("val", "0");
+            },
+            error: function () {
+
+                $("#statea").val(" ");
+            }
+        });
+    }
+    function getstatea()
+    {
+
+        var id = $("#statea").val();
+        $("#tera").empty();
+        $("#citeida").empty();
+        $("#tera").select2("val", "");
+        $("#citeida").select2("val", "");
+        $("#ternamea").val(" ");
+        $("#citynamea").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getstate",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#tera").removeAttr("disabled");
+                $("#statenamea").val(result.Name);
+                getalltera(result.ID);
+            },
+            error: function () {
+
+                $("#statenamea").val(" ");
+            }
+        });
+    }
+    function getalltera(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallter",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#tera").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose ter </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#tera").html(finalresult);
+                $("#tera").select2("val", "0");
+            },
+            error: function () {
+
+                $("#tera").val(" ");
+            }
+        });
+
+    }
+    function gettera()
+    {
+
+        var id = $("#tera").val();
+        $("#citeida").empty();
+        $("#citeida").select2("val", "");
+        $("#citynamea").val(" ");
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getter",
+            data: { "id": id },
+            success: function (result) {
+
+
+                $("#citeida").removeAttr("disabled");
+                $("#ternamea").val(result.Name);
+                getallcitea(result.ID);
+
+            },
+            error: function () {
+
+                $("#ternamea").val(" ");
+            }
+        });
+    }
+
+    function getallcitea(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getcitybyTerritories",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#citeida").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose Cite </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#citeida").html(finalresult);
+                $("#citeida").select2("val", "0");
+            },
+            error: function () {
+
+                $("#citeida").val(" ");
+            }
+        });
+
+    }
+
+    function getcitea() {
+
+        var id = $("#citeida").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getcite",
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                $("#citynamea").val(result.Name);
+
+            },
+            error: function () {
+
+                $("#citynamea").val(" ");
+            }
+        });
+    }
+
+
+    ////////////////return funtion//////////////////
+
+    var id = $("#countrya").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/GetCountry",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#areaa").removeAttr("disabled");
+            $("#countrynamea").val(result.Name);
+        },
+        error: function () {
+
+            $("#countrynamea").val(" ");
+        }
+    });
+
+    var id = $("#areaa").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/getarea",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#statea").removeAttr("disabled");
+            $("#areanamea").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#areanamea").val(" ");
+        }
+    });
+
+    var id = $("#statea").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getstate",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#tera").removeAttr("disabled");
+            $("#statenamea").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#statenamea").val(" ");
+        }
+    });
+    var id = $("#tera").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getter",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#ternamea").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#ternamea").val(" ");
+        }
+    });
+    var id = $("#citeida").val();
+    $.ajax({
+        type: "post",
+        url: "/Helper/Getcite",
+        data: { "id": id },
+        success: function (result) {
+
+            $("#citeida").removeAttr("disabled");
+            $("#citynamea").val(result.Name);
+
+        },
+        error: function () {
+
+            $("#citynamea").val(" ");
+        }
+    });
+///////////////////////////////////
+    function Currency()
+    {
+
+        var id = $("#CurrencyId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/job_title_card",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#CurrencyName").val(result.Name);
+            },
+            error: function () {
+
+                $("#CurrencyName").val(" ");
+            }
+        });
+    }
+
+
+    function drop()
+    {
+
+        var member = $("#membership").val();
+        if (member == 1)
+        {
+            $(".boarder").attr('disabled', true);
+        }
+        else if ((member == 2 || member == 3))
+        {
+            $(".boarder").removeAttr('disabled');
+        }
+    }
+
+    function dropAbility()
+    {
+        debugger
+        var member = $("#ability").val();
+        if (member == 1)
+        {
+
+            $("#showme_button").attr('disabled', 'disabled');
+            $("#reason").attr("readonly", true);
+            $(".de").attr("readonly", true);
+            $("#registration").attr("readonly", true);
+            $(".nv").attr('disabled', true);
+        }
+        else if ((member == 2 || member == 3))
+        {
+            $("#showme_button").removeAttr("disabled");
+            $("#reason").removeAttr("readonly", true);
+            $(".de").removeAttr("readonly", true);
+            $("#registration").removeAttr("readonly", true);
+            $(".nv").removeAttr('disabled');
+        }
+    }
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>
+@*<script type="text/javascript">
+
+        $(function() {
+            $(".btnEnableDisable").click(function() {
+                if ($(this).val() == "Disable") {
+                    $(this).val("Enable");
+                    $("a").each(function() {
+                        $(this).attr("rel", $(this).attr("href"));
+                        $(this).attr("href", "javascript:;");
+                    });
+                } else {
+                    $(this).val("Disable");
+                    $("a").each(function() {
+                        $(this).attr("href", $(this).attr("rel"));
+                        $(this).removeAttr("rel");
+                    });
+                }
+            });
+        });
+    </script>*@
+<link href="~/Content/neon/assets/js/dropzone/dropzone.css" rel="stylesheet" />
+<script src="~/Content/neon/assets/js/fileinput.js"></script>
+<script src="~/Content/neon/assets/js/dropzone/dropzone.js"></script>

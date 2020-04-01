@@ -40,7 +40,7 @@ namespace HR.Controllers
             DateTime statis2 = Convert.ToDateTime("1/1/1900");
             var ID = int.Parse(id);
             var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var Employee_military_service_calling = new Employee_military_service_calling { Code = stru.Structure_Code + count, Employee_ProfileId = emp.ID.ToString(), Start_date = statis2, End_date = statis2,Employee_Profile=emp };
+            var Employee_military_service_calling = new Employee_military_service_calling { Code = stru.Structure_Code + count, Employee_ProfileId = emp.ID.ToString(), Start_date = DateTime.Now, End_date = DateTime.Now, Employee_Profile=emp };
 
             return View(Employee_military_service_calling);
         }
