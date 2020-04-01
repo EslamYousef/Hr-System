@@ -37,7 +37,7 @@
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 <span> @organ.code </span>
                             </label>
                             <div class="col-md-4">
@@ -48,7 +48,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 <span> @organ.fromyear </span>
                             </label>
                             <div class="col-md-2">
@@ -72,13 +72,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 <span> @organ.Organizationunit </span>
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Budget.Organization_unitid, new SelectList(ViewBag.organization, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "org()", @id = "orgid" })
                                 @Html.ValidationMessageFor(model => model.Budget.Organization_unitid, "", new { @class = "text-danger" })
-                                <input type="text" value="" class="form-control" id="orgname" disabled />
+                                <input type="hidden" value="" class="form-control" id="orgname" disabled />
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Budget.sign_native, new SelectList(ViewBag.sign, "ID", "Code"), organ.currency, new { @class = "select2", @onchange = "curN('N')", @id = "curNid" })
                                 @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
-                                <input type="text" value="" class="form-control" id="curNname" disabled />
+                                <input type="hidden" value="" class="form-control" id="curNname" disabled />
                             </div>
                             <label class="control-label col-md-2">
                                 <span> @organ.Forigncurrency </span>
@@ -98,7 +98,7 @@
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Budget.sign_forign, new SelectList(ViewBag.sign, "ID", "Code"), organ.currency, new { @class = "select2", @onchange = "curF('F')", @id = "curFid" })
                                 @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
-                                <input type="text" value="" class="form-control" id="curFname" disabled />
+                                <input type="hidden" value="" class="form-control" id="curFname" disabled />
                             </div>
                         </div>
                         <div class="form-group">

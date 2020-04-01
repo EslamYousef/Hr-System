@@ -140,7 +140,7 @@ namespace HR.Controllers
                     if (command == "Submit2")
                     {
                         return RedirectToAction("allowance", "Job_level_class", new { id = modelll.ID, type = type_allowance.job_level_card });
-                    };
+                    }
                     return RedirectToAction("index");
                 }
                 else
@@ -442,6 +442,19 @@ namespace HR.Controllers
 
             var record = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
             return View(record);
+        }
+
+        [HttpPost]
+        public ActionResult Details(job_level_setup model, string command)
+        {
+            if (command == "Submit2")
+            {
+                return RedirectToAction("allowance", "Job_level_class", new { id = model.ID, type = type_allowance.job_level_card });
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

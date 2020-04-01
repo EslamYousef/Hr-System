@@ -7,14 +7,62 @@
 @using System.Web.UI.WebControls
 @using HR.Models;
 @using HR.Resource;
-<link href="~/Content/print.css" rel="stylesheet" media="print"/>
 
 <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
 
-<script src="~/Scripts/jsTree3/jstree.min.js"></script>
-<script>
+<div class="form-group">
 
-        $("#jstree").jstree("close_all");
+    <link href="~/Content/print.css" rel="stylesheet" media="print" />
+
+
+    <p>
+        <input type="button" onclick="$('#specialpart').print();" class="NonPrintable btn btn-blue" style="color:white;background-color:forestgreen" value=@organ.printalltree />
+        <a href="@Url.Action("Details","OrganizationChart",new { id = Model.First().ID.ToString() })" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backtoindex</a>
+        <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index2", "OrganizationChart",new { id =ViewBag.io })'" class="btn btn-success col-md-2" value='@organ.hier' />
+
+    </p>
+    <div class="form-body" id="specialpart">
+        <div id="jstree" style="margin-left:200px; text-align: left;direction:ltr" class="b">
+            @(Html.TreeView(Model)
+                          .EmptyContent(@organ.Root)
+                          .Children(m => m.Childs)
+                          .HtmlAttributes(new { id = "tree" })
+                          .ChildrenHtmlAttributes(new { @class = "subItem" })
+                          .ItemText(m => m.unit_Description)
+                           .ItemTemplate(
+            @<a href="@Url.Action("Details", "OrganizationChart",new{id=@item.ID})">
+                @item.unit_Description
+            </a>
+        )
+
+            )
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jsTree3/jstree.min.js">
+
+    </script>
+    <script>
+      
+        $.fn.extend({
+            print: function () {
+                $("#jstree").jstree("open_all");
+                var frameName = 'printIframe';
+                var doc = window.frames[frameName];
+                if (!doc) {
+                    $('<iframe>').hide().attr('name', frameName).appendTo(document.body);
+                    doc = window.frames[frameName];
+                }
+                doc.document.body.innerHTML = this.html();
+                doc.window.print();
+                return this;
+            }
+        });
+
+      
         $(function () {
             var selectedData;
             $('#jstree').jstree({
@@ -39,28 +87,9 @@
                 "plugins": ["dnd", "state", "types", "sort", "checkbox"]
             });
         });
-</script>
-<p>
-    <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue"  value=@organ.PrintCurrentTree/>
-</p>
-<div class="form-group">
-    <div class="form-body">
-        <div id="jstree" style="text-align: left;direction:ltr" class="b">
-            @(Html.TreeView(Model)
-                          .EmptyContent(@organ.Root)
-                          .Children(m => m.Childs)
-                          .HtmlAttributes(new { id = "tree" })
-                          .ChildrenHtmlAttributes(new { @class = "subItem" })
-                          .ItemText(m => m.unit_Description)
-                          .ItemTemplate(
-            @<a  href="@Url.Action("Details", "OrganizationChart",new{id=@item.ID})">
-                @item.unit_Description
-            </a>
-        )
-            )
-        </div>
-    </div>
-</div>
+    </script>
+}
 
-@section scripts{}
+
+
 

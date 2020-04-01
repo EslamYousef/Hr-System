@@ -19,6 +19,7 @@ namespace HR.Controllers
         private readonly IEvalutionQuestionandAnswer reposatoryQuestions;
         private readonly IEvalutionElements reposatoryElements;
         private readonly IEvaluationElementCompetenies reposatoryElementComp;
+        private readonly IEvalutionGrade reposatorygrade;
         public PerformanceEvaluationGroupController()
         {
             reposatoryEvaluationPerformance = new EvaluationperformanceGroup(new ApplicationDbContext());
@@ -26,6 +27,7 @@ namespace HR.Controllers
             reposatoryQuestions = new EvalutionQuestionandAnswer(new Models.ApplicationDbContext());
             reposatoryElements = new EvalutionElements(new Models.ApplicationDbContext());
             reposatoryElementComp = new HR.Reposatory.Evalutions.reposatory.EvaluationElementCompetenies(new Models.ApplicationDbContext());
+            reposatorygrade= new HR.Reposatory.Evalutions.reposatory.EvalutionGrade(new Models.ApplicationDbContext());
         }
         public ActionResult Index()
         {
@@ -247,7 +249,66 @@ namespace HR.Controllers
         {
             return Json(reposatoryQuestions.Find(id));
         }
-     
+        public JsonResult Getplan(int id)
+        {
 
+            var plan = reposatoryEvaluationPerformance.getfromManytoMantTable(id);
+            var elements = reposatoryElements.GetAll();
+            var ELE = new  List<elementswithdegree>();
+            var my_element = from e in plan
+                             join d in elements on e.EvaluationElementsID equals d.ID
+                                                select new elementswithdegree
+                                                {
+                                               EvalutionElements=d
+                                                };
+            return Json(my_element);
+        }
+
+        public JsonResult getdesc(float grade)
+        {
+            try
+            {
+                var des = reposatorygrade.Findbygrade(grade);
+                if (des != null)
+                    return Json(des);
+                else
+                    return Json(null);
+            }
+            catch(Exception)
+            {
+                return Json(null);
+            }
+        }
+
+        public JsonResult getQ(int id)
+        {
+            
+            var plan = reposatoryEvaluationPerformance.getfromManytoMantquestions(id);
+            var Q = reposatoryQuestions.GetAll2();
+
+            var my_element = from e in plan
+                             join qew in Q on e.EvaluationQuestionsandanswersID equals qew.ID
+                             select new eval_qu_trans
+                             {
+                                 Q= qew
+                             };
+            return Json(my_element);
+        }
+
+    }
+    public class elementswithdegree
+    {
+        public HR.Models.EvaluationElements EvalutionElements { get; set; }
+        public double head { get; set; } = 0.0;
+        public double sector { get; set; } = 0.0;
+        public double average { get; set; } = 0.0;
+        public double final { get; set; } = 0;
+    }
+    public class eval_qu_trans
+    {
+        public int ID { get; set; }
+        public HR.Models.EvaluationQuestionsandanswers Q { get; set; }
+        public string answer { get; set; }
+      
     }
 }

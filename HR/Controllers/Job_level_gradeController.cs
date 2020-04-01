@@ -73,7 +73,7 @@ namespace HR.Controllers
                     if (command == "Submit")
                     {
                         return RedirectToAction("allowance", "Job_level_class", new { id = record.ID,type=type_allowance.job_levle_grade });
-                    };
+                    }
                     return RedirectToAction("Index");
                 }
                 else
@@ -217,6 +217,10 @@ namespace HR.Controllers
             else if(command=="back")
             {
                 return RedirectToAction("index");
+            }
+            if (command == "Submit")
+            {
+                return RedirectToAction("allowance", "Job_level_class", new { id = model.ID, type = type_allowance.job_levle_grade });
             }
             else
             {

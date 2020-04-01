@@ -86,8 +86,12 @@ namespace HR.Controllers
                     model.parent = "0";
                 }
                 model.unit_type_code = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == model.unit_type_codeID);
-                var oi = int.Parse(model.worklocationid);
-                model.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == oi);
+                if (model.worklocationid != null&&model.worklocationid!="0")
+                {
+                    var oi = int.Parse(model.worklocationid);
+                    model.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == oi);
+                }
+                
                 if (model.Employee_ProfileID == 0) model.Employee_ProfileID = null;
                 var new_node = dbcontext.Organization_Chart.Add(model);
                 dbcontext.SaveChanges();
@@ -161,8 +165,11 @@ namespace HR.Controllers
                 }
                 model.unit_type_codeID = model.unit_type_codeID;
                 model.unit_type_code = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == record.unit_type_codeID);
-                var oi = int.Parse(record.worklocationid);
-                model.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == oi);
+                if (record.worklocationid != null && record.worklocationid != "0")
+                {
+                    var oi = int.Parse(record.worklocationid);
+                    model.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == oi);
+                }
                 model.alter_unit_Description = record.alter_unit_Description;
                // model.Code = record.Code;
                 model.master_node = record.master_node;
@@ -265,6 +272,7 @@ namespace HR.Controllers
             var model = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
             var list = new List<Organization_Chart>();
             list.Add(model);
+            ViewBag.io = id;
             return View(list);
         }
         public JsonResult location(string id)
@@ -274,7 +282,88 @@ namespace HR.Controllers
             return Json(model);
 
         }
-        
+        [HttpPost]
+        public JsonResult ge(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var li = new List<node>();
+            if (id != 0)
+                {
+                
+                var first_level = dbcontext.Organization_Chart.Where(m=>m.ID==id || m.parent==id.ToString()).ToList();
+                var list = new List<Organization_Chart>();
+                list.AddRange(first_level);
+                var len = 0;
+                while (true)
+                {
+                    len = first_level.Count();
+                   
+                    for(var iff=0;iff<first_level.Count;iff++)
+                    {
+                        var t = first_level[iff].ID.ToString();
+                        list.AddRange(dbcontext.Organization_Chart.Where(m => m.parent ==t).ToList());
+                        list = list.Distinct().ToList();
+                    }
+                    first_level.Clear();
+                    first_level.AddRange(list);
+                    if(first_level.Count() == len)
+                    {
+                        break;
+                    }
+                    
+                }
 
+                    first_level.FirstOrDefault(m => m.ID == id).parent = "0";
+            
+                foreach(var item in first_level)
+                {
+                    var unit = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == item.unit_type_codeID);
+                    var tt = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID==unit.Organization_Unit_SchemaID);
+                        var col= tt.color;
+                    if (col != null)
+                    {
+                        item.unit_mail = col;
+                    }
+                    else
+                        item.unit_mail = "0000";
+                    li.Add(new node { ID = item.ID, parent = item.parent, unit_Description = item.unit_Description, color = item.unit_mail });
+                }
+                return Json(li);
+            }
+
+            var i = dbcontext.Organization_Chart.ToList();
+            foreach (var item in i)
+            {
+                var unit = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == item.unit_type_codeID);
+                var tt = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID == unit.Organization_Unit_SchemaID);
+                var col = tt.color;
+                if (col != null)
+                {
+                    item.unit_mail = col;
+                }
+                else
+                    item.unit_mail = "0000";
+                li.Add(new node { ID = item.ID, parent = item.parent, unit_Description = item.unit_Description, color = item.unit_mail });
+            }
+            return Json(li);
+        }
+        public ActionResult Index1()
+        {
+                return View();
+            
+        }
+        public ActionResult Index2(int id)
+        {
+            ViewBag.io1 = id;
+            return View();
+
+        }
+        public class node
+        {
+            public int ID { get; set; }
+            public string parent { get; set; }
+            public string unit_Description { get; set; }
+            public string color { get; set; }
+        }
     }
 }

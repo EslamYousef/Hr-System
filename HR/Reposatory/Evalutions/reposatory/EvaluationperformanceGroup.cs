@@ -121,6 +121,15 @@ namespace HR.Reposatory.Evalutions.reposatory
             }
             catch (Exception) { return false; }
         }
+        public List<PerformanceEvaluationGroupEvaluationElements> getfromManytoMantTable(int id)
+        {
+            try
+            {
+               var elemetns= context.PerformanceEvaluationGroupEvaluationElements.Where(m=>m.PerformanceEvaluationGroupID==id).ToList();
+                return elemetns;
+            }
+            catch (Exception) { return null; }
+        }
         public bool addManytoMantquestions(Questions_Performance model)
         {
             try
@@ -130,6 +139,16 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return true;
             }
             catch (Exception e) { return false; }
+        }
+        public List<Questions_Performance> getfromManytoMantquestions(int id)
+        {
+            try
+            {
+             context.Configuration.ProxyCreationEnabled = false;
+                var elemetns = context.Questions_Performance.Where(m => m.PerformanceEvaluationGroupID == id).ToList();
+                return elemetns;
+            }
+            catch (Exception) { return null; }
         }
         public bool removeTableQUES(List<Questions_Performance> model)
         {

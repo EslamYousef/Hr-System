@@ -171,6 +171,7 @@ namespace HR.Controllers
                     var organization = form["organization"].Split(char.Parse(","));
                     var type = form["type"].Split(char.Parse(","));
                     var status = form["status"].Split(char.Parse(","));
+                    var des = form["des5"].Split(char.Parse(","));
                     var slots = new List<Slots>();
                     var hir = 0;
                    
@@ -190,7 +191,7 @@ namespace HR.Controllers
                                 EmployeeID = "0",
                                 EmployeeName = "em",
                                 slot_code = slotcode__[iii],
-                                slot_description = record.Description,
+                                slot_description = des[iii],
                                 job_level_setup = le,
                                 joblevelsetupID = le.ID.ToString(),
                                 Organization_Chart__ = organization2,
@@ -423,6 +424,7 @@ namespace HR.Controllers
                 var type = form["type"].Split(char.Parse(","));
                 var job_level = form["job_level"].Split(char.Parse(","));
                 var organization = form["organization"].Split(char.Parse(","));
+                var des = form["des5"].Split(char.Parse(","));
                 int co = 0;
                 var count=0;
                 if(model.Slots!=null)
@@ -459,6 +461,7 @@ namespace HR.Controllers
                                 var IDorganization = int.Parse(organization[index]);
                                 var organization2 = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == IDorganization);
                                 slot.Organization_Chart__ = organization2;
+                                slot.slot_description = des[index];
                                 dbcontext.SaveChanges();
                             }
                     }

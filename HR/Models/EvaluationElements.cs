@@ -17,6 +17,10 @@ namespace HR.Models
         public virtual List<PerformanceEvaluationGroupEvaluationElements> PerformanceEvaluationGroupEvaluationElements { get; set; }
 
 
+        ////
+        public virtual List<Evalu_Element_Tran> Evalu_Element_Tran { get; set; }
+
+
 
 
     }

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class EvalutionElementsController : Controller
+    public class EvalutionElementsController : BaseController
     {
         // GET: EvalutionElements
         private readonly IEvalutionElements reposatoryelement;
@@ -41,7 +41,6 @@ namespace HR.Controllers
         {
             try
             {
-
                 /////////create code///////
                 var stru = reposatorystructure.find(ChModels.Personnel).Structure_Code;
                 var ALLList = reposatoryelement.GetAll();
@@ -77,7 +76,7 @@ namespace HR.Controllers
                     {
                         if (model.with_competencies)
                         {
-                                var compID = form["ID"].Split(',');
+                                var compID = form["IDv"].Split(',');
                                 var compDegree = form["degree"].Split(',');
                                 for (var i = 0; i < compID.Count(); i++)
                                 {
@@ -102,18 +101,22 @@ namespace HR.Controllers
                     else
                     {
                         TempData["Message"] = HR.Resource.pers_2.Faild;
+                        model.with_competencies = false;
                         return View(model);
                     }
                 }
                 else
                 {
                     TempData["Message"] = HR.Resource.pers_2.Faild;
+                    model.with_competencies = false;
                     return View(model);
                 }
             }
             catch (Exception)
             {
-                return RedirectToAction("Index");
+                TempData["Message"] = HR.Resource.pers_2.Faild;
+                model.with_competencies = false;
+                return View(model);
             }
         }
         public ActionResult Edit(int id)

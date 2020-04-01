@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Threading;
 namespace HR.Controllers
 {
+    [HandleError]
     public class BaseController : Controller
     {
         // GET: Base

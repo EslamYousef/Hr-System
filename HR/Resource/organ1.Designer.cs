@@ -61,7 +61,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add new  job title.
+        ///   Looks up a localized string similar to Add new  job title card.
         /// </summary>
         public static string add_new_job_title {
             get {
@@ -1249,6 +1249,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to unit chart Mood.
+        /// </summary>
+        public static string hier {
+            get {
+                return ResourceManager.GetString("hier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hired.
         /// </summary>
         public static string hired {
@@ -2289,6 +2298,15 @@ namespace HR.Resource {
         public static string toyear {
             get {
                 return ResourceManager.GetString("toyear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unit Tree Mood.
+        /// </summary>
+        public static string tree {
+            get {
+                return ResourceManager.GetString("tree", resourceCulture);
             }
         }
         

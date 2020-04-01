@@ -158,6 +158,7 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+                context.Configuration.ProxyCreationEnabled = false;
                 var model = context.EvaluationElements.ToList();
                 return model;
             }

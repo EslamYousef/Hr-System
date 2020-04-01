@@ -301,7 +301,7 @@
                         @Html.HiddenFor(m => m.personnel_transaction.ID);
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <label class = "control-label col-md-2">
+                            <label style="color:red" class = "control-label col-md-2">
                                 @pers_2.number
                             </label>
                             <div class="col-md-4">
@@ -312,7 +312,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 <span>@pers_2.TransactionDate </span>
                             </label>
                             <div class="col-md-4">
@@ -320,7 +320,7 @@
                                 @Html.ValidationMessageFor(model => model.personnel_transaction.transaction_date, "", new { @class = "text-danger" })
 
                             </div>
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 <span>@pers_2.EffectiveDate</span>
                             </label>
                             <div class="col-md-4">
@@ -340,22 +340,16 @@
 
                             </div>
                             <div class="col-md-2"> </div>
-                            <div id="Div-Of-Contract" class="col-md-4" hidden>
-                                <a href="@Url.Action("index","request_new_contract")"
-                                   target="_blank"
-                                   class="btn btn-black col-md-4">
-                                    @pers_2.makenewcontract
-                                </a>
-                            </div>
+                           
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 <span>@pers_2.employee</span>
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.selected_employee, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employe88en()", @id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.selected_employee, "", new { @class = "text-danger" })
-                                <input type="text" value="" class="form-control" id="employeename" disabled />
+                                <input type="hidden" value="" class="form-control" id="employeename" disabled />
                             </div>
                             <div class="col-md-2"></div>
                            
@@ -406,7 +400,7 @@
 
                                                 @Html.DropDownListFor(m => m.personnel_transaction.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), pers_2.job_descId, new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                                 @Html.ValidationMessageFor(model => model.personnel_transaction.job_descId, "", new { @class = "text-danger" })
-                                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
+                                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
 
                                             </div>
                                         </div>
@@ -418,7 +412,7 @@
                                           <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.personnel_transaction.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"),pers_2.Defaultlocationdesc, new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.Default_location_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="cityname" disabled />
+                                            <input type="hidden" value=" " class="form-control" id="cityname" disabled />
 
                                         </div>
 
@@ -430,7 +424,7 @@
                                           <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.personnel_transaction.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), pers_2.Locationdesc, new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.Location_descId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="cityname2" disabled />
+                                            <input type="hidden" value=" " class="form-control" id="cityname2" disabled />
 
                                         </div>
                                     </div>
@@ -441,7 +435,7 @@
                                           <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.personnel_transaction.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), organ.slot, new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.SlotdescId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="tername" disabled />
+                                            <input type="hidden" value=" " class="form-control" id="tername" disabled />
 
                                         </div>
 
@@ -454,7 +448,7 @@
                                            <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.personnel_transaction.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"),organ.Job_level_gradeI__D, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.Job_level_gradeId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="areaname1" disabled />
+                                            <input type="hidden" value=" " class="form-control" id="areaname1" disabled />
 
                                         </div>
                                     </div>
@@ -467,7 +461,7 @@
                                          <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.personnel_transaction.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"),organ.organizationchart, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.Organization_ChartId, "", new { @class = "text-danger" })
-                                            <input type="text" value=" " class="form-control" id="statename" disabled />
+                                            <input type="hidden " value=" " class="form-control" id="statename" disabled />
 
                                         </div>
                                     </div>

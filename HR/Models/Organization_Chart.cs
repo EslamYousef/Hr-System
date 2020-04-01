@@ -41,7 +41,7 @@ namespace HR.Models
         [Display(Name = "Refrence number")]
         public int refrence_number { get; set; }
         public virtual work_location work_location { get; set; }
-        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        //[Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string worklocationid { get; set; }
         public virtual ICollection<Organization_Chart> Childs { get; set; }
         public List<Slots> Slots { get; set; }

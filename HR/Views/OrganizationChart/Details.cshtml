@@ -30,10 +30,10 @@
             success: function (result) {
                  
                 $("#countryname2").val(result.Name);
-                $("#U_L_C").val(result.Organization_Unit_Level.Code);
-                $("#U_L_N").val(result.Organization_Unit_Level.Name);
-                $("#U_S_C").val(result.Organization_Unit_Schema.Code);
-                $("#U_S_N").val(result.Organization_Unit_Schema.Name);
+                $("#U_L_C").val(result.code1);
+                $("#U_L_N").val(result.name1);
+                $("#U_S_C").val(result.code2);
+                $("#U_S_N").val(result.name2);
             },
             error: function () {
                  
@@ -107,11 +107,12 @@
                         }
                           @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <div class="col-md-2"></div>
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("edit_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-3" value=@organ.change />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("Delete", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-3" value=@organ.delete />
-                            @*<input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.viewchart />*@
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-3" value=@organ.backtoindex />
+                           
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("edit_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.change />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("Delete", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.delete />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value='@organ.tree' />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.backtoindex />
+                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index2", "OrganizationChart",new { id =Model.ID })'" class="btn btn-success col-md-2" value='@organ.hier' />
 
                         </div>
                         <div class="form-group">
@@ -157,7 +158,7 @@
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.unit_type_codeID, new SelectList(ViewBag.unit_type, "ID", "Code"),organ.UnitTypeCode, new { @disabled=true, @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
                                 @Html.ValidationMessageFor(model => model.unit_type_codeID, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname2" disabled />
+                                <input type="hidden" value={} " class="form-control" id="countryname2" disabled />
                             </div>
                             <label class="control-label col-md-2">
                                 @organ.parentunitcode
@@ -165,7 +166,7 @@
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parenttt, "ID", "Code"), organ.parentunitcode, new { @disabled = true, @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
                                 @Html.ValidationMessageFor(model => model.parent, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
+                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
                             </div>
                         </div>
                         <div class="form-group">
@@ -193,7 +194,7 @@
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.worklocationid, new SelectList(ViewBag.location, "ID", "Code"), organ.worklocationid , new { @class = "select2", @id = "Lo" ,@disabled = true })
                                 @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="Loname" disabled />
+                                <input type="hidden" value=" " class="form-control" id="Loname" disabled />
                             </div>
                         </div>
                         <div class="form-group">

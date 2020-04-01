@@ -73,12 +73,12 @@
                     debugger
                     var t=
                     "<tr><td><input value='" + slot_code + "_" + i + "' class='form-control' name='slotcode__' readonly /></td>" +
-                    "<td><select id='drop1' name='job_level' class='form-control d1' /></td>"+
+                    "<td><select id='drop1' style='font-size:initial' name='job_level' class='form-control d1' /></td>"+
                     "<td><select id='enum1' name='type' class='form-control e1' /></td>" +
-                    "<td><input value='" + slot_desc + "'  class='form-control' readonly /></td>" +
+                    "<td><input value=''  class='form-control'  /></td>" +
                     "<td><select id='drop2' name='organization' class='form-control d2' /></td>" +
                     "<td><select id='enum2' name='status'  class='form-control e2' /></td>"+
-                     "<td>Empty</td><td>Empty</td>"+
+                     "<td>empty</td><td>empty</td>"+
                     "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
               
                     "</tr>"
@@ -343,6 +343,8 @@
                     <input name="type" value="" hidden />
                     <input name="status" value="" hidden />
                     <input name="slotcode__" value="" hidden />
+
+                        <input name="des5" value="" hidden />
                     @Html.HiddenFor(m => m.ID ,new {htmlAttributes = new { id= "id_job_card" } })
                     
                     @Html.AntiForgeryToken()
@@ -688,7 +690,9 @@
                                                                   }
                                                         </script>
 
-                                                        <td><select id=@Model.Slots[item].ID name="job_level" class="select2"></select></td>
+                                                        <td><select id=@Model.Slots[item].ID  name="job_level" class="form-control select2">
+                                                            </select>
+                                                    </td>
                                                     }
                                                     else
                                                     {
@@ -700,16 +704,16 @@
                                                     @if (Model.Slots[item].EmployeeID == null || Model.Slots[item].EmployeeID == "0")
                                                     {
                                                         <td>
-                                                            <select id="oppo" name="type" class="select2">
+                                                            <select id="oppo" name="type" class="form-control select2">
                                                                 @if (Model.Slots[item].slot_type == HR.Models.Infra.slot_type.Active)
                                                                 {
-                                                                    <option value="1" selected>Active </option>
-                                                                    <option value="2">Dis-ctive </option>
+                                                                    <option value="1" selected>[active]</option>
+                                                                    <option value="2">[Inactive]</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="1">Active </option>
-                                                                    <option value="2" selected>Dis-Active </option>
+                                                                    <option value="1">[active]</option>
+                                                                    <option value="2" selected>[Inactive]</option>
                                                                 }
                                                             </select>
                                                         </td>
@@ -725,9 +729,18 @@
                                                             <input class="form-control" name='type' value="@Model.Slots[item].slot_type" readonly />
                                                         </td>
                                                     }
+                                                    @if (Model.Slots[item].EmployeeID == null || Model.Slots[item].EmployeeID == "0")
+                                                    {
                                                     <td>
-                                                        <input class="form-control" value="@Model.Slots[item].slot_description" readonly />
+                                                        <input class="form-control" name='des5'  value="@Model.Slots[item].slot_description"  />
                                                     </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            <input class="form-control" name="des5"  value="@Model.Slots[item].slot_description" readonly />
+                                                        </td>
+                                                    }
 
 
 

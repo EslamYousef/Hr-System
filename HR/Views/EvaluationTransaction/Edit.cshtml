@@ -1,0 +1,1196 @@
+﻿@model HR.Models.EvaluationTransaction
+@using HR.Resource
+@{
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.evaluationtransaction
+        </h1>
+    </section>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary" data-collapsed="0">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Edit", "EvaluationTransaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <hr />
+                            @if (TempData["Message"] != null)
+                            {
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    @TempData["Message"]
+                                </div>
+                            }
+
+
+                            <input hidden value=@Model.ID id="id_tran"/>
+
+                            <input value="" name="num" hidden /><input value="" name="D" hidden /><input value="" name="DH" hidden /><input value="" name="DM" hidden />
+                            <input value="" name="DAV" hidden /><input value="" name="DF" hidden /><input value="" name="tot" hidden />
+
+                            <input value="" name="ID_ELEM" hidden /><input value="" name="degree_head" hidden /><input value="" name="degree_ector" hidden /><input value="" name="ID_Q" hidden />
+                            <input value="" name="degree_average" hidden /><input value="" name="degreeo_final" hidden /><input value="" name="descID" hidden /><input value="" name="ans" hidden />
+
+                            <input value="" name="ID_O" hidden /><input value="" name="Date_O" hidden /><input value="" name="Head_O" hidden />
+                            <input value="" name="Mnamger_O" hidden /><input value="" name="average_O" hidden /><input value="" name="final_O" hidden />
+                            <input value="" name="ID_S" hidden /><input value="" name="job_rate" hidden /><input value="" name="employee_rate" hidden />
+                            <input value="" name="GAP" hidden />
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    @organ.empname
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.employee, "ID", "Code"), pers_2.employee, new { @class = "select2", @onchange = "emp2()", id = "emp" })
+                                    @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <input style="width:100px" type="submit" value=@pers_2.ssave class="btn btn-success" />
+                                </div>
+                                <div>
+                                    <a style="width:100px" href="@Url.Action("index","EvaluationTransaction")" class="col-md-2 btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
+
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span> @pers_2.requestdate </span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.AppraisalDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
+                                    @Html.ValidationMessageFor(model => model.AppraisalDate, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">
+                                    @organ.code
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "Code", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span> @pers_2.plan </span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.EvaluationPlanID, new SelectList(ViewBag.plancode, "ID", "Code"), pers_2.plan, new { @class = "select2", @onchange = "getdate()", id = "plan", @disabled = true })
+                                    @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
+
+                                </div>
+                                <label class="control-label col-md-2">
+                                    @pers_2.group
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.PerformanceEvaluationGroupID, new SelectList(ViewBag.groupcode, "ID", "Code"), pers_2.group, new { @class = "select2", @onchange = "getgroup()", id = "group", @disabled = true })
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-2">
+                                    <span> @Basic.from_date</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.FromeDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "from", @readonly = true } })
+
+                                </div>
+                                <label class="control-label col-md-2">
+                                    <span> @Basic.to_date</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "to", @readonly = true } })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="control-label col-md-2">
+                                    <span> @pers_2.line</span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.planLine, new { htmlAttributes = new { @class = "form-control", @type = "text", id = "line", @readonly = true } })
+
+                                </div>
+                                <label class="control-label col-md-2">
+                                    <span> @pers_2.status </span>
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.check_status, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.check_status, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <ul class="nav nav-tabs bordered">
+                                    <!-- available classes "bordered", "right-aligned" -->
+                                    <li class="active">
+                                        <a href="#Qulifications" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-home"></i></span>
+                                            <span class="hidden-xs">@pers_2.EVA</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Risks" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">@pers_2.Question</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#obj" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">@pers_2.evaluitionobjective</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#skill" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">@organ.skills</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#v" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">vacation</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#p" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">punshment</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#prev" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">@pers_2.previousevalution</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>
+
+                                                    </th>
+                                                    <th>
+                                                        <label>@Basic.code </label>
+                                                    </th>
+                                                    <th class="control-label col-md-3">
+                                                        <label>@Basic.description</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Defaultdegree</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Directheadevaluation</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Sectormanagerevaluation</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Averagescore</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Finalscore</label>
+                                                    </th>
+                                                    <th class="control-label col-md-3">
+                                                        <label>@pers_2.Degreesec</label>
+
+                                                    </th>
+                                                    <th hidden></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ad3d1"></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th hidden><input class="form-control" value="total" type="text" readonly /></th>
+                                                    <th><input class="form-control" value=@pers_2.total type="text" readonly /></th>
+                                                    <th><input id="lenght" class="form-control col-md-4" name="num" value=@Model.num type="number" readonly /></th>
+                                                    <th><input id="default" class="form-control" value=@Model.def name="D" type="number" readonly /></th>
+                                                    <th><input id="head" class="form-control" value=@Model.H_degree name="DH" type="number" readonly /></th>
+                                                    <th><input id="manager" class="form-control" value=@Model.M_degree name="DM" type="number" readonly /></th>
+                                                    <th><input id="average" class="form-control" value=@Model.average name="DAV" type="number" readonly /></th>
+                                                    <th><input id="final" class="form-control" value=@Model.final name="DF" type="number" readonly /></th>
+                                                    <th><input class="form-control" readonly /></th>
+                                                    <th hidden></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+
+
+                                        <table class="table table-bordered">
+
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>
+
+                                                    </th>
+                                                    <th class="control-label col-md-2">
+                                                        <label>@Basic.code </label>
+                                                    </th>
+                                                    <th class="control-label col-md-6">
+                                                        <label>@Basic.name</label>
+                                                    </th>
+                                                    <th class="control-label col-md-1">
+                                                        <label>@pers_2.Defaultdegree</label>
+                                                    </th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ad31d1"></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th class="col-md-2"><input class="form-control" value=@pers_2.degree type="text" readonly /></th>
+                                                    <th class="col-md-10"><input id="de" class="form-control col-md-4" value=@Model.total name="tot" type="text" readonly /></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="Risks">
+
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>
+
+                                                    </th>
+                                                    <th>
+                                                        <label class="control-label col-md-1">@pers_2.code </label>
+                                                    </th>
+                                                    <th>
+                                                        <label class="control-label col-md-3">@pers_2.Question</label>
+                                                    </th>
+                                                    <th>
+                                                        <label class="control-label col-md-4">@pers_2.modelanswer</label>
+                                                    </th>
+                                                    <th>
+                                                        <label class="control-label col-md-4">@pers_2.answer</label>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ad8d2"></tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="tab-pane" id="skill">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                <span> @organ.skills </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("sko", new SelectList(ViewBag.skk, "ID", "Code"), organ.skills, new { @class = "select2", id = "sk" })
+
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-3">
+                                                <input type="button" style="width:100%" onclick="getskill()" class="btn btn-success" value=@pers_2.addelement />
+                                            </div>
+                                        </div>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>
+
+                                                    </th>
+                                                    <th>
+                                                        <label>@Basic.code </label>
+                                                    </th>
+                                                    <th class="control-label col-md-3">
+                                                        <label>@Basic.description</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.jobrate</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.emplrate</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.GAP</label>
+                                                    </th>
+
+                                                    <th>
+
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ad9"></tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="obj">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">
+                                                <span> @pers_2.evaluitionobjective </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownList("o", new SelectList(ViewBag.obj, "ID", "Code"), pers_2.evaluitionobjective, new { @class = "select2", id = "obj1" })
+
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-3">
+                                                <input type="button" style="width:100%" onclick="getobjective()" class="btn btn-success" value=@pers_2.addelement />
+                                            </div>
+                                        </div>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>
+
+                                                    </th>
+                                                    <th>
+                                                        <label>@Basic.code </label>
+                                                    </th>
+                                                    <th class="control-label col-md-3">
+                                                        <label>@Basic.description</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@Basic.Date</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Directheadevaluation</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Sectormanagerevaluation</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Averagescore</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Finalscore</label>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ad3d12"></tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="prev">
+
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>
+                                                        <label>@pers_2.numberreq </label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.apprisaldate</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.plancode  </label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.plandes</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.fromdate</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.todate</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.degree</label>
+                                                    </th>
+                                                    <th>
+                                                        <label>@pers_2.Finalscore</label>
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ad3d5"></tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{}
+<script>
+
+
+    $(function () {
+        GetDataById2('@Model.AppraisalDate', "Requset_date_D");
+        $("#plancode2").click(function () {
+            debugger
+            var plan_value = $("#plancode2").val();
+            $("#line").val(plan_value);
+        });
+        emp2();
+        getdate();
+        getgroup();
+        getval();
+        getans();
+        getobj();
+        getskillforedit();
+        getfooter();
+    });
+    function getfooter()
+    {
+        var id = $("#id_tran").val();
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/getfooter",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                 debugger  
+                
+                 $("#head").val(result.H_degree);
+                $("#manger").val(result.M_degree);
+                $("#average").val(result.average);
+                $("#final").val(result.final);
+                $("#de").val(result.total);
+
+
+                
+
+
+            }
+        })
+    }
+
+    function getval() {
+
+        debugger
+        var id = $("#id_tran").val();
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/Getvalueforedit",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+               debugger
+
+                    var tr = $("#ad3d1 tr")
+                    for(var i=0;i<tr.length;i++)
+                    {
+                        debugger
+                        tr[i].children[4].children[0].value = result[i].h;
+                        tr[i].children[5].children[0].value = result[i].m;
+                        tr[i].children[6].children[0].value = result[i].a;
+                        tr[i].children[7].children[0].value = result[i].f;
+                        tr[i].children[8].children[0].value = result[i].dsc_n;
+                        tr[i].children[9].children[0].value = result[i].dsc_id;
+
+
+                    }
+
+
+            }
+        })
+
+    }
+    function getans() {
+        debugger
+        var id = $("#id_tran").val();
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/Getans",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                debugger
+                var tr = $("#ad8d2 tr")
+                for (var i = 0; i < tr.length; i++) {
+                    debugger
+                    tr[i].children[4].children[0].value = result[i].actual_answer;
+
+
+                }
+
+
+            }
+        })
+
+    }
+    function getobj()
+    {
+        debugger
+        var id = $("#id_tran").val();
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/getobjforedit",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (key, value) {
+                    debugger
+                    var valx = new Date(value.D);
+                    var month;
+                    if ((valx.getMonth() + 1) < 10) {
+                        month = "0" + (valx.getMonth() + 1).toString();
+                    }
+                    else {
+                        month = valx.getMonth() + 1;
+                    }
+                    var day = parseInt(valx.getDate());
+                    if (day < 10) {
+                        day = "0" + (valx.getDate()).toString();
+                    }
+                    else {
+                        day = valx.getDate();
+                    }
+                    var d = valx.getFullYear() + '-' + month + '-' + day;
+
+                    var tr =
+                           "<tr>" +
+                           "<td hidden>" + "<input hidden class = 'form-control' type='int' name='ID_O'    value='" + value.id + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' type='text' form-control'   value='" + value.code + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'      value='" + value.name + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='date'  value='" + d + "'   name='Date_O'   />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' min='0'    name='Head_O'  onKeyDown='return false'  value='" + value.H + "' onchange='change2($(this))'  />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' min='0'  name='Mnamger_O' onKeyDown='return false'  value='" + value.M + "' onchange='change2($(this))' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number'  name='average_O' onKeyDown='return false'  value='" + value.V +"' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number'  name='final_O' onKeyDown='return false'   value='0' readonly='readonly' /> </td>" +
+                           "<td>" + "<input type='button'  value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+                    $("#ad3d12").append(tr);
+                });
+
+
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+    function getdate()
+    {
+        $("#lenght").val(0);
+        $("#default").val(0);
+        $("#head").val(0);
+        $("#manager").val(0);
+        $("#average").val(0);
+        $("#final").val(0);
+        $("#de").val("");
+        $("#ad3d1").empty();
+        $("#ad8d2").empty();
+        $("#ad3d12").empty();
+        $("#group").select2("val", "");
+
+        $("#from").val("");
+        $("#to").val("");
+        $("#line").val("");
+        $("#Code").val("");
+
+
+        $("#group").select2("val", "");
+        var id = $("#plan").val();
+        var date = $("#Requset_date_D").val();
+        var emp_id = $("#emp").val();
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/getdate",
+            async: false,
+            data: { "id": id, "emp_id": emp_id,"date2":date },
+            success: function (result) {
+
+                if (result.flag_emp == false)
+                {
+                    alert("this employee not assign to this plan");
+                    $("#plan").select2("val", "");
+                    $("#from").val("");
+                    $("#to").val("");
+                    $("#line").val("");
+                    $("#Code").val("");
+
+                }
+                if (result.flag_date == false) {
+                    alert("this plan not assign to this year");
+                    $("#plan").select2("val", 0);
+                    $("#from").val("");
+                    $("#to").val("");
+                    $("#line").val("");
+                    $("#Code").val("");
+
+                }
+                else
+                {
+
+                    $("#line").val(result.line);
+                    $("#Code").val(result.code);
+                    GetDataById2(result.from_date, "from");
+                    GetDataById2(result.to_date, "to");
+
+                }
+            },
+            error: function () {
+
+            }
+
+        });
+    }
+    function getgroup()
+    {
+        $("#lenght").val(0);
+        $("#default").val(0);
+        $("#head").val(0);
+        $("#manager").val(0);
+        $("#average").val(0);
+        $("#final").val(0);
+        $("#de").val("");
+        $("#ad3d1").empty();
+        $("#ad8d2").empty();
+        $("#ad3d12").empty();
+        var def = 0;
+        var id = $("#group").val();
+        $.ajax({
+            type: "post",
+            url: "/PerformanceEvaluationGroup/Getplan",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+                $.each(result, function (key, value) {
+
+                    var tr =
+                           "<tr>" +
+                           "<td hidden>" + "<input hidden class = 'form-control' type='text' name='ID_ELEM' onclick='getcompetiton(" + value.EvalutionElements.ID + ")'   value='" + value.EvalutionElements.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' type='text' form-control' name='code_elem' onclick='getcompetiton(" + value.EvalutionElements.ID + ")'   value='" + value.EvalutionElements.Code + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'  name='name_eleme' onclick='getcompetiton(" + value.EvalutionElements.ID + ")'   value='" + value.EvalutionElements.Name + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number'    name='def_eleme'     value='" + value.EvalutionElements.defaultDegree + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' min='0' max='" + value.EvalutionElements.defaultDegree + "'   name='degree_head'  onKeyDown='return false'  value='" + value.head + "' onchange='change($(this))'  />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' min='0' max='" + value.EvalutionElements.defaultDegree + "' name='degree_ector' onKeyDown='return false'  value='" + value.sector + "' onchange='change($(this))' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number'  name='degree_average' onKeyDown='return false' onclick='getcompetiton(" + value.EvalutionElements.ID + ")'  value='" + value.average + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number'  name='degreeo_final' onKeyDown='return false' onclick='getcompetiton(" + value.EvalutionElements.ID + ")'   value='" + value.final + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'  name='desc'   value='' readonly='readonly' /> </td>"+
+                           "<td hidden>" + "<input hidden class = 'form-control' required type='text'  name='descID'   value='' readonly='readonly' /> </td></tr>"
+                    $("#ad3d1").append(tr);
+                    def += value.EvalutionElements.defaultDegree;
+
+                });
+                var len = $("#ad3d1").find("tr").length;
+                $("#lenght").val(len);
+                $("#default").val(def);
+
+
+
+
+
+
+
+
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+        getquestions();
+    }
+    function getskill() {
+        var tr = "";
+        var id = $("#sk").val();
+
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/Getskill",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                debugger
+                var tr =
+                       "<tr>" +
+                       "<td hidden>" + "<input hidden class = 'form-control' type='int' name='ID_S'    value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                       "<td>" + "<input  class = 'form-control' type='text' form-control'   value='" + result.Code + "' readonly='readonly' />" + "</td>" +
+                       "<td>" + "<input  class = 'form-control' required type='text'      value='" + result.Name + "' readonly='readonly' /> </td>" +
+                       "<td>" + "<input  class = 'form-control' required type='number' onKeyDown='return false' min='0'    name='job_rate'   value='0'  />" + "</td>" +
+                       "<td>" + "<input  class = 'form-control' required type='number' onKeyDown='return false' min='0'  name='employee_rate'  value='0' /> </td>" +
+                       "<td>" + "<input  class = 'form-control' required type='text'  name='GAP'   value='' /> </td>" +
+                       "<td>" + "<input type='button'  value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+                $("#ad9").append(tr);
+                $("#sk").select2("val", "");
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+
+    function getskillforedit() {
+        var tr = "";
+        var id = $("#id_tran").val();
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/get_skill_edit",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (key, value) {
+                    debugger
+                    var tr =
+                           "<tr>" +
+                           "<td hidden>" + "<input hidden class = 'form-control' type='int' name='ID_S'    value='" + value.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' type='text' form-control'   value='" + value.code + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'      value='" + value.name + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' onKeyDown='return false' min='0'    name='job_rate'    value='" + value.J + "'  />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' onKeyDown='return false' min='0'  name='employee_rate'   value='" + value.E + "' /> </td>" +
+                           "<td>" + "<input  class = 'form-control'  type='text'  name='GAP'    value='" + value.GAP + "' /> </td>" +
+                           "<td>" + "<input type='button'  value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+                    $("#ad9").append(tr);
+                });
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+    function getobjective()
+    {
+        var tr = "";
+        var id = $("#obj1").val();
+        var d = $("#Requset_date_D").val();
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/Getobj",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+
+
+                    var tr =
+                           "<tr>" +
+                           "<td hidden>" + "<input hidden class = 'form-control' type='int' name='ID_O'    value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' type='text' form-control'   value='" + result.Code + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'      value='" + result.Name + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='date'    name='Date_O' value='"+d+"'   />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' min='0'    name='Head_O'  onKeyDown='return false'  value='0' onchange='change2($(this))'  />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number' min='0'  name='Mnamger_O' onKeyDown='return false'  value='0' onchange='change2($(this))' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='number'  name='average_O' onKeyDown='return false'  value='0' readonly='readonly' /> </td>" +
+                             "<td>" + "<input  class = 'form-control' required type='number'  name='final_O' onKeyDown='return false'   value='0' readonly='readonly' /> </td>" +
+                           "<td>" + "<input type='button'  value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+                    $("#ad3d12").append(tr);
+
+                    $("#obj1").select2("val","");
+
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+    function getquestions() {
+
+        $("#ad8d2").empty();
+        var def = 0;
+        var id = $("#group").val();
+        $.ajax({
+            type: "post",
+            url: "/PerformanceEvaluationGroup/getQ",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+                $.each(result, function (key, value) {
+
+                    var tr =
+                           "<tr>" +
+                           "<td hidden>" + "<input hidden class = 'form-control' type='number' name='ID_Q'  value='" + value.Q.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' type='text' form-control'   value='" + value.Q.Code + "' readonly='readonly' />" + "</td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'     value='" + value.Q.Question + "' readonly='readonly' /> </td>" +
+                           "<td>" + "<input  class = 'form-control' required type='text'       value='" + value.Q.model_answer + "' readonly='readonly' />" + "</td>" +
+                            "<td>" + "<input  class = 'form-control'  type='text'    name='ans'     value='' />" + "</td></tr>"
+                          $("#ad8d2").append(tr);
+
+
+                });
+
+
+
+
+
+
+
+
+
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+    function GetDataById2(date, id) {
+
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = valx.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function change(input)
+    {
+
+        var inp = input.value;
+        var deafault = parseFloat(input.parent().parent().children()[3].children[0].value);
+
+        var head = parseFloat(input.parent().parent().children()[4].children[0].value);
+        var manager =parseFloat( input.parent().parent().children()[5].children[0].value);
+        var average = ((head + manager) / 2);
+        input.parent().parent().children()[6].children[0].value=average;
+        input.parent().parent().children()[7].children[0].value=((average * 100) / deafault);
+        input.parent().parent().children()[8].children[0].value = "empty";
+
+        var t = parseFloat(((average * 100) / deafault));
+
+        $.ajax({
+            type: "post",
+            url: "/PerformanceEvaluationGroup/getdesc",
+            async: false,
+            data: { "grade": t },
+            success: function (result) {
+
+                input.parent().parent().children()[8].children[0].value = result.Name;
+                input.parent().parent().children()[9].children[0].value = result.ID;
+            }
+        })
+
+        var head = parseFloat(0);
+        var manager = parseFloat(0);
+        var average = parseFloat(0);
+        var final = parseFloat(0);
+
+        var len = $("#ad3d1").find("tr");
+        $.each(len, function (key, value) {
+            head += parseFloat(value.children[4].children[0].value);
+            manager += parseFloat(value.children[5].children[0].value);
+            average += parseFloat(value.children[6].children[0].value);
+            final += parseFloat(value.children[7].children[0].value);
+        });
+        $("#final").val(final/len.length);
+        $("#head").val(head);
+        $("#manager").val(manager);
+        $("#average").val(average);
+        $("#de").val("empty");
+        var t = parseFloat(final/len.length);
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/PerformanceEvaluationGroup/getdesc",
+            async: false,
+            data: { "grade": t },
+            success: function (result) {
+                debugger
+
+                $("#de").val(result.Name);
+            }
+        })
+
+    }
+    function change2(input) {
+
+        var inp = input.value;
+
+        var head = parseFloat(input.parent().parent().children()[4].children[0].value);
+        var manager = parseFloat(input.parent().parent().children()[5].children[0].value);
+        var average = ((head + manager) / 2);
+        input.parent().parent().children()[6].children[0].value = average;
+    }
+    function emp2()
+    {
+
+        $("#ad3d5 tr").empty();
+
+                                                   $("#lenght").val(0);
+                                                   $("#default").val(0);
+                                                   $("#head").val(0);
+                                                   $("#manager").val(0);
+                                                   $("#average").val(0);
+                                                   $("#final").val(0);
+                                                   $("#de").val("");
+
+
+
+        $("#ad3d1").empty();
+        $("#ad8d2").empty();
+        $("#ad3d12").empty();
+        var id = $("#emp").val();
+        $("#plancode2").empty();
+        $("#from").val("");
+        $("#to").val("");
+        $("#line").val("");
+        $("#Code").val("");
+        $("#plancode2").select2("val", "");
+        $("#plan").select2("val", "");
+        $("#group").select2("val", "");
+        var t="";
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/getemp",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+                $.each(result, function (key, value) {
+
+                    t += "<option onclick='tttt()' value='" + value.ID + "'>" + value.code + "</option>"
+                });
+                $("#plancode2").append(t);
+                $("#plancode2").removeAttr("disabled");
+                $("#plan").removeAttr("disabled");
+                $("#group").removeAttr("disabled");
+            },
+            error: function () {
+                debugger
+                alter("some error");
+            }
+
+        });
+        //////
+        debugger
+        var old = "";
+
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/oldeval",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (key, value) {
+                    debugger
+                    old = "<tr>" +
+                "<td>" + "<input  class = 'form-control' type='text'    value='" + value.number + "' readonly='readonly' />" + "</td>" +
+                "<td>" + "<input  class = 'form-control' type='text'    value='" + value.apprisaldate + "' readonly='readonly' />" + "</td>" +
+                "<td>" + "<input  class = 'form-control'  type='text'   value='" + value.plancode + "' readonly='readonly' /> </td>" +
+                "<td>" + "<input  class = 'form-control'  type='text'   value='" + value.plansed + "'  readonly='readonly'  />" + "</td>" +
+                "<td>" + "<input  class = 'form-control'  type='text'   value='" + value.from + "'  readonly='readonly'  />" + "</td>" +
+                "<td>" + "<input  class = 'form-control'  type='text'   value='" + value.to + "' readonly='readonly' /> </td>" +
+                "<td>" + "<input  class = 'form-control'  type='number' value='" + value.degree + "' readonly='readonly' /> </td>" +
+                "<td>" + "<input  class = 'form-control'  type='text'   value='" + value.final + "'  readonly='readonly' /> </td></tr>"
+                    $("#ad3d5").append(old);
+
+                });
+
+            },
+            error: function () {
+                debugger
+                alter("some error");
+            }
+
+        });
+    }
+    function clear()
+    {
+        debugger
+        $("#from").val("");
+        $("#to").val("");
+        $("#line").val("");
+        $("#Code").val("");
+        $("#plan").select2("val", "");
+
+    }
+    $("[type='number']").keypress(function (evt) {
+        evt.preventDefault();
+    });
+    function getcompetiton(id) {
+
+        //var id = $(input).attr('value');
+
+        $("#ad31d1").empty();
+        $.ajax({
+            type: "post",
+            url: "/PerformanceEvaluationGroup/GetCompet",
+            async: false,
+            data: { "id": id },
+            success: function (result) {
+
+                $.each(result, function (key, value) {
+
+                    var tr =
+                           "<tr>"+
+                           "<td class='col-md-2'> " + "<input  class = 'form-control' type='text' style='margin-bottom: 1em;margin-left:4px'    value='" + value.code + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-6'> " + "<input  class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + value.Desc + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-1'>" + "<input  class = 'form-control' required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + value.degeree + "' readonly='readonly' /> </td></tr>"
+
+
+
+
+                    $("#ad31d1").append(tr);
+                });
+            },
+            error: function () {
+                alter("some error");
+            }
+
+        });
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+
+    }
+
+
+    function add()
+    {
+    debugger
+        var id = $("#Country").val();
+        if (id == "0" || id == "" || id == null)
+        {
+            debugger
+                alter("you must choose Evaluation Element")
+        }
+        else
+        {
+            $.ajax({
+                type: "post",
+                url: "/PerformanceEvaluationGroup/GetElement",
+                async: false,
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+                    var pp = $("#ad3d1").find("tr");
+                    var flag = 0;
+                    for (var o = 0; o < pp.length; o++)
+                    {
+                        debugger
+                        var inputs = pp[o].children;
+                        ID_ = inputs[0].children;
+                        if (parseInt(ID_[0].value) == result.ID) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 0) {
+                        var tr =
+
+                            "<tr> <td hidden>" +"<input    id='class_type' style='margin-bottom: 1em;' hidden name='ID_Element'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input class = 'form-control' ID='result.Code'   type='text' style='margin-bottom: 1em;margin-left:4px' onclick='getcompetiton("+result.ID+")'    value='" + result.Code + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-6'> " + "<input   class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Name + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input class = 'form-control'  required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.defaultDegree + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'>" + "<input type='button'   style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+
+
+                        $("#ad3d1").append(tr);
+                        $("#Country").select2("val", "");
+                        getcompetiton(result.ID);
+                    }
+
+                },
+                error: function () {
+                    debugger
+                    alter("some error");
+                }
+
+            });
+
+       // }
+        }
+
+    }
+    function add2()
+    {
+        debugger
+        var id = $("#Country2").val();
+        if (id == "0" || id == "" || id == null) {
+            debugger
+            alter("you must choose Question Code")
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "/PerformanceEvaluationGroup/Questions",
+                async: false,
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+                    var pp = $("#div_comp2").find("div");
+                    var flag = 0;
+                    for (var o = 0; o < pp.length; o++) {
+                        debugger
+                        var inputs = pp[o].children;
+                        ID_ = parseInt(inputs[0].value);
+                        if (ID_ == result.ID) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 0) {
+                        var tr =
+
+                           "<tr> <td hidden>" + "<input  class='col-md-12 custom-control-input' required type='number' style='margin-bottom: 1em;margin-left:4px' name='ID_Q'   value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-3'> " + "<input class = 'form-control'  required type='text' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.Question + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-5'> " + "<input class = 'form-control'   required type='text' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.model_answer + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-1'>" + "<input type='button'  style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
+
+
+                        $("#ad8d2").append(tr);
+                        $("#Country2").select2("val", "");
+
+                    }
+
+                },
+                error: function () {
+                    debugger
+                    alter("some error");
+                }
+
+            });
+
+            // }
+        }
+
+    }
+</script>

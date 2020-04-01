@@ -67,6 +67,20 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+              
+                var model = context.EvaluationQuestionsandanswers.ToList();
+                return model;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public List<EvaluationQuestionsandanswers> GetAll2()
+        {
+            try
+            {
+                context.Configuration.ProxyCreationEnabled = false; ;
                 var model = context.EvaluationQuestionsandanswers.ToList();
                 return model;
             }

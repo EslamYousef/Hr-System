@@ -15,5 +15,6 @@ namespace HR.Reposatory.Evalutions.IReposatory
         List<EvaluationGrade> GetAll();
         bool Remove(int id);
         bool Editone(EvaluationGrade model);
+        EvaluationGrade Findbygrade(float grade);
     }
 }

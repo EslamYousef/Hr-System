@@ -11,16 +11,16 @@
             @pers_2.PerformanceEvaluationGroup
         </h1>
     </section>
-  
+
 
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary" data-collapsed="0">
                 <div class="panel-body">
-                  @using (Html.BeginForm("Create", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                  {
-                      <input  name="ID_Q" value="" hidden/>
-                    <input name="ID_Element" value="" hidden />
+                    @using (Html.BeginForm("Create", "PerformanceEvaluationGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input name="ID_Q" value="" hidden />
+                        <input name="ID_Element" value="" hidden />
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">
                             <hr />
@@ -49,10 +49,10 @@
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
                                 </div>
-                              
-                               
+
+
                             </div>
-                           
+
                             <div class="form-group">
                                 <label class="control-label col-md-2">
                                     @organ.description
@@ -63,26 +63,26 @@
 
                                 </div>
                                 <label class="control-label col-md-2">
-                                 
+
                                 </label>
                                 <div class="col-md-2"> <button type="submit" style="width:100%" id="btnSave" class="btn btn-success" name="Command" value='@Basic.Create'>@Basic.Create</button></div>
-                                <div  class="col-md-2">
-                                    <a  href="@Url.Action("index", "PerformanceEvaluationGroup")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                <div class="col-md-2">
+                                    <a href="@Url.Action("index", "PerformanceEvaluationGroup")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
 
                                 </div>
-                                
-                            </div>
-                          
-                          
 
-                          
+                            </div>
+
+
+
+
                             <div class="col-md-12">
                                 <ul class="nav nav-tabs bordered">
                                     <!-- available classes "bordered", "right-aligned" -->
                                     <li class="active">
                                         <a href="#Qulifications" data-toggle="tab">
                                             <span class="visible-xs"><i class="entypo-home"></i></span>
-                                            <span class="hidden-xs">@pers_2.Evalutionelement</span>
+                                            <span class="hidden-xs">@pers_2.EVA</span>
                                         </a>
                                     </li>
                                     <li>
@@ -95,16 +95,16 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
 
-                                      
+
 
 
                                         <div class="form-group">
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">
-                                                    @pers_2.Evalutionelement
+                                                    @pers_2.EVA
                                                 </label>
                                                 <div class="col-md-4">
-                                                    @Html.DropDownList("comp_", new SelectList(ViewBag.elements, "ID", "Code"), pers_2.Evalutionelement, new { @name = "drop", @class = "select2", @id = "Country" })
+                                                    @Html.DropDownList("comp_", new SelectList(ViewBag.elements, "ID", "Code"), pers_2.EVA  , new { @name = "drop", @class = "select2", @id = "Country" })
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input type="button" id="drop1" class="btn btn-success" value='@pers_2.addelement' onclick="add()" />
@@ -117,7 +117,7 @@
                                                 <tr>
                                                     <td colspan="4">
                                                         <label style="font-size:medium">
-                                                            @pers_2.Evaluationelement
+                                                            @pers_2.EVA
                                                         </label>
                                                     </td>
 
@@ -129,15 +129,15 @@
 
                                                     </th>
                                                     <th class="control-label col-md-2">
-                                                        <label >@Basic.code </label>
+                                                        <label>@Basic.code </label>
                                                     </th>
                                                     <th class="control-label col-md-6">
                                                         <label>@Basic.name</label>
-                                                    </th >
+                                                    </th>
                                                     <th class="control-label col-md-1">
                                                         <label>@pers_2.Defaultdegree</label>
                                                     </th>
-                                                 
+
                                                     <th>
 
                                                     </th>
@@ -145,23 +145,23 @@
                                             </thead>
                                             <tbody id="ad3d1">
                                                 @*@if (Model.Job_Details != null)
-                                                {
-                                                    if (Model.Job_Details.qulification_job != null)
                                                     {
-                                                        foreach (var item in Model.Job_Details.qulification_job)
+                                                        if (Model.Job_Details.qulification_job != null)
                                                         {
-                                                            <tr>
-                                                                <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
-                                                                <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
-                                                                <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
-                                                                <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
-                                                                <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
-                                                                <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
-                                                                <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
-                                                            </tr>
+                                                            foreach (var item in Model.Job_Details.qulification_job)
+                                                            {
+                                                                <tr>
+                                                                    <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
+                                                                    <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
+                                                                    <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
+                                                                    <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                </tr>
+                                                            }
                                                         }
-                                                    }
-                                                }*@
+                                                    }*@
                                             </tbody>
                                         </table>
 
@@ -192,28 +192,28 @@
                                                         <label>@pers_2.Defaultdegree</label>
                                                     </th>
 
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody id="ad31d1">
                                                 @*@if (Model.Job_Details != null)
-                {
-                    if (Model.Job_Details.qulification_job != null)
-                    {
-                        foreach (var item in Model.Job_Details.qulification_job)
-                        {
-                            <tr>
-                                <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
-                                <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
-                                <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
-                                <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
-                            </tr>
-                        }
-                    }
-                }*@
+                                                    {
+                                                        if (Model.Job_Details.qulification_job != null)
+                                                        {
+                                                            foreach (var item in Model.Job_Details.qulification_job)
+                                                            {
+                                                                <tr>
+                                                                    <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
+                                                                    <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
+                                                                    <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
+                                                                    <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }*@
                                             </tbody>
                                         </table>
                                     </div>
@@ -246,36 +246,36 @@
                                                         <label class="control-label col-md-3">@pers_2.answer</label>
                                                     </th>
                                                     <th>
-                                                        
+
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody id="ad8d2">
                                                 @*@if (Model.Job_Details != null)
-                {
-                    if (Model.Job_Details.qulification_job != null)
-                    {
-                        foreach (var item in Model.Job_Details.qulification_job)
-                        {
-                            <tr>
-                                <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
-                                <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
-                                <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
-                                <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
-                                <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
-                            </tr>
-                        }
-                    }
-                }*@
+                                                    {
+                                                        if (Model.Job_Details.qulification_job != null)
+                                                        {
+                                                            foreach (var item in Model.Job_Details.qulification_job)
+                                                            {
+                                                                <tr>
+                                                                    <td hidden><input name="s1" class="form-control" value=@item.Name_of_educational_qualification.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.Name_of_educational_qualification.Name /></td>
+                                                                    <td hidden><input name="s11" class="form-control" value=@item.Qualification_Major.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.Qualification_Major.Name /></td>
+                                                                    <td hidden><input name="s111" class="form-control" value=@item.GradeEducate.ID /></td>
+                                                                    <td class="col-md-3"><input class="form-control" value=@item.GradeEducate.Name /></td>
+                                                                    <td class="col-md-3"><input value=@organ.remove type="button" class="remove btn btn-danger" onclick="remove($(this))" /> </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }*@
                                             </tbody>
                                         </table>
-                                       
+
                                     </div>
-                                 
-                            
-                                 
+
+
+
 
                                 </div>
                             </div>
@@ -292,7 +292,7 @@
     function getcompetiton(id) {
         debugger
         //var id = $(input).attr('value');
-      
+
         $("#ad31d1").empty();
         $.ajax({
             type: "post",
@@ -304,14 +304,14 @@
                 $.each(result, function (key, value) {
                     debugger
                     var tr =
-                           "<tr>"+
+                           "<tr>" +
                            "<td class='col-md-2'> " + "<input  class = 'form-control' type='text' style='margin-bottom: 1em;margin-left:4px'    value='" + value.code + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-6'> " + "<input  class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + value.Desc + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-1'>" + "<input  class = 'form-control' required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + value.degeree + "' readonly='readonly' /> </td></tr>"
 
 
 
-                      
+
                     $("#ad31d1").append(tr);
                 });
             },
@@ -360,18 +360,15 @@
     //{
     //        $("#submit").submit();
     //}
-    
-    function add()
-    {
-    debugger
+
+    function add() {
+        debugger
         var id = $("#Country").val();
-        if (id == "0" || id == "" || id == null)
-        {
+        if (id == "0" || id == "" || id == null) {
             debugger
-                alter("you must choose Evaluation Element")
+            alter("you must choose Evaluation Element")
         }
-        else
-        {
+        else {
             $.ajax({
                 type: "post",
                 url: "/PerformanceEvaluationGroup/GetElement",
@@ -381,8 +378,7 @@
                     debugger
                     var pp = $("#ad3d1").find("tr");
                     var flag = 0;
-                    for (var o = 0; o < pp.length; o++)
-                    {
+                    for (var o = 0; o < pp.length; o++) {
                         debugger
                         var inputs = pp[o].children;
                         ID_ = inputs[0].children;
@@ -393,8 +389,8 @@
                     if (flag == 0) {
                         var tr =
 
-                            "<tr> <td hidden>" +"<input    id='class_type' style='margin-bottom: 1em;' hidden name='ID_Element'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
-                           "<td class='col-md-2'> " + "<input class = 'form-control' ID='result.Code'   type='text' style='margin-bottom: 1em;margin-left:4px' onclick='getcompetiton("+result.ID+")'    value='" + result.Code + "' readonly='readonly' />" + "</td>" +
+                            "<tr> <td hidden>" + "<input    id='class_type' style='margin-bottom: 1em;' hidden name='ID_Element'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                           "<td class='col-md-2'> " + "<input class = 'form-control' ID='result.Code'   type='text' style='margin-bottom: 1em;margin-left:4px' onclick='getcompetiton(" + result.ID + ")'    value='" + result.Code + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-6'> " + "<input   class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Name + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-2'> " + "<input class = 'form-control'  required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree'   value='" + result.defaultDegree + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-2'>" + "<input type='button'   style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /> </td></tr>"
@@ -413,7 +409,7 @@
 
             });
 
-       // }
+            // }
         }
 
     }

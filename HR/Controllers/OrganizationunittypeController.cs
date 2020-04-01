@@ -22,8 +22,8 @@ namespace HR.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.ToList();
-            ViewBag.Organization_Unit_Level = dbcontext.Organization_Unit_Level.ToList();
+            ViewBag.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.ToList().Select(m=>new {ID=m.ID, Code = m.Code+"->"+m.Name});
+            ViewBag.Organization_Unit_Level = dbcontext.Organization_Unit_Level.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
 
             //////
             var modell = new Organization_Unit_Type();
@@ -46,20 +46,17 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.ToList();
-                ViewBag.Organization_Unit_Level = dbcontext.Organization_Unit_Level.ToList();
+                ViewBag.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
+                ViewBag.Organization_Unit_Level = dbcontext.Organization_Unit_Level.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
                 if (ModelState.IsValid)
                 {
                     Organization_Unit_Type record = new Organization_Unit_Type();
                     record.Name = model.Name;
                     record.Description = model.Description;
                     record.Code = model.Code;
-                    record.unitLevelcode = model.unitLevelcode;
-                    record.unitschemacode = model.unitschemacode;
-                    var ID1 = int.Parse(model.unitLevelcode);
-                    var ID2 = int.Parse(model.unitschemacode);
-                    record.Organization_Unit_Level = dbcontext.Organization_Unit_Level.FirstOrDefault(m => m.ID == ID1);
-                    record.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID == ID2);
+                    record.Organization_Unit_LevelID =model.Organization_Unit_LevelID;
+                    record.Organization_Unit_SchemaID = model.Organization_Unit_SchemaID;
+                  
                     dbcontext.Organization_Unit_Type.Add(record);
                     dbcontext.SaveChanges();
 
@@ -85,8 +82,8 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.ToList();
-                ViewBag.Organization_Unit_Level = dbcontext.Organization_Unit_Level.ToList();
+                ViewBag.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
+                ViewBag.Organization_Unit_Level = dbcontext.Organization_Unit_Level.ToList().Select(m => new { ID = m.ID, Code = m.Code + "->" + m.Name });
 
                 var record = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == id);
                 if (record != null)
@@ -113,12 +110,9 @@ namespace HR.Controllers
                 record.Name = model.Name;
                 record.Description = model.Description;
                 record.Code = model.Code;
-                record.unitLevelcode = model.unitLevelcode;
-                record.unitschemacode = model.unitschemacode;
-                var ID1 = int.Parse(model.unitLevelcode);
-                var ID2 = int.Parse(model.unitschemacode);
-                record.Organization_Unit_Level = dbcontext.Organization_Unit_Level.FirstOrDefault(m => m.ID == ID1);
-                record.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID == ID2);
+                record.Organization_Unit_LevelID = model.Organization_Unit_LevelID;
+                record.Organization_Unit_SchemaID = model.Organization_Unit_SchemaID;
+
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }

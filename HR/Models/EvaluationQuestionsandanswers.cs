@@ -24,7 +24,8 @@ namespace HR.Models
         public string model_answer {get;set;}
         public virtual  List<Questions_Performance> Questions_Performance { get; set; }
 
-        public virtual List<QuestionsANDAnswers_EvaluationTransaction> QuestionsANDAnswers_EvaluationTransaction { get; set; }
+        //public virtual List<QuestionsANDAnswers_EvaluationTransaction> QuestionsANDAnswers_EvaluationTransaction { get; set; }
+        public virtual List<A_Q> A_Q { get; set; }
 
     }
 }

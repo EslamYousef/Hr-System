@@ -19,5 +19,7 @@ namespace HR.Reposatory.Evalutions.IReposatory
        bool  addManytoMantquestions(Questions_Performance model);
         bool removeTableQUES(List<Questions_Performance> model);
         bool removeManytomanyTable(List<PerformanceEvaluationGroupEvaluationElements> model);
+        List<PerformanceEvaluationGroupEvaluationElements> getfromManytoMantTable(int id);
+        List<Questions_Performance> getfromManytoMantquestions(int id);
     }
 }

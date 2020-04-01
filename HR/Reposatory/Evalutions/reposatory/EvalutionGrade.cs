@@ -115,5 +115,18 @@ namespace HR.Reposatory.Evalutions.reposatory
                 return false;
             }
         }
+        public EvaluationGrade Findbygrade(float grade)
+        {
+            try
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                var model = context.EvaluationGrade.FirstOrDefault(m=>m.FromScore<=grade&&m.ToScore>=grade);
+                return model;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

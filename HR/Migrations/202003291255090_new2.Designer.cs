@@ -7,13 +7,13 @@ namespace HR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class fsfk : IMigrationMetadata
+    public sealed partial class new2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(fsfk));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(new2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002171354538_fsfk"; }
+            get { return "202003291255090_new2"; }
         }
         
         string IMigrationMetadata.Source

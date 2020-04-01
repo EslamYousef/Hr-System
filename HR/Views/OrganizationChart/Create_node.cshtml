@@ -47,10 +47,10 @@
             success: function (result) {
                  
                 $("#countryname2").val(result.Name);
-                $("#U_L_C").val(result.Organization_Unit_Level.Code);
-                $("#U_L_N").val(result.Organization_Unit_Level.Name);
-                $("#U_S_C").val(result.Organization_Unit_Schema.Code);
-                $("#U_S_N").val(result.Organization_Unit_Schema.Name);
+                $("#U_L_C").val(result.code1);
+                $("#U_L_N").val(result.name1);
+                $("#U_S_C").val(result.code2);
+                $("#U_S_N").val(result.name2);
             },
             error: function () {
                  
@@ -116,7 +116,7 @@
                       
                         <div class="form-group">
                            
-                            <label class = "control-label col-md-2" >
+                            <label style="color:red" class = "control-label col-md-2" >
                                 @organ.code
                             </label>
                             <div class="col-md-4">
@@ -133,7 +133,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 @organ.unitDescription
                             </label>
                             <div class="col-md-4">
@@ -152,21 +152,21 @@
                         </div>
                         <div class="form-group">
                            
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 @organ.UnitTypeCode
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.unit_type_codeID, new SelectList(ViewBag.unit_type, "ID", "Code"), organ.UnitTypeCode, new { @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
                                 @Html.ValidationMessageFor(model => model.unit_type_codeID, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname2" disabled />
+                                <input type="hidden" value=" " class="form-control" id="countryname2" disabled />
                             </div>
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 @organ.parentunitcode
                             </label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parenttt, "ID", "Code"), organ.parentunitcode, new { @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
                                 @Html.ValidationMessageFor(model => model.parent, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="countryname1" disabled />
+                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
                             </div>
                         </div>
                         <div class="form-group  col-md-12">
@@ -193,12 +193,12 @@
 
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.worklocationid, new SelectList(ViewBag.location, "ID", "Code"),organ.worklocationid, new { @class = "select2", @onchange = "location87()", @id = "Lo" })
-                                @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="Loname" disabled />
+                             
+                                <input type="hidden" value=" " class="form-control" id="Loname" disabled />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 @organ.unitstate
                             </label>
                             <div class="col-md-4">
@@ -207,7 +207,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-2">
                                 @organ.numberofdirectpositions
                             </label>
                             <div class="col-md-4">

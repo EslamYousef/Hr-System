@@ -529,15 +529,25 @@ namespace HR.Controllers
 
         public JsonResult GetOrganization_unit_type(string id)
         {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
             var ID = int.Parse(id);
             var model = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == ID);
-            int ID_unitlevel = int.Parse(model.unitLevelcode);
-            model.Organization_Unit_Level = dbcontext.Organization_Unit_Level.FirstOrDefault(m => m.ID == ID_unitlevel);
-            int ID_unitschema = int.Parse(model.unitschemacode);
-            model.Organization_Unit_Schema = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID == ID_unitschema);
-            return Json(model);
+
+            var le = dbcontext.Organization_Unit_Level.FirstOrDefault(m => m.ID == model.Organization_Unit_LevelID);
+
+            var sc = dbcontext.Organization_Unit_Schema.FirstOrDefault(m => m.ID == model.Organization_Unit_SchemaID);
+            var m1 = new unvm { code1 = le.Code, name1 = le.Name, code2 = sc.Code, name2 = sc.Name };
+            return Json(m1);
 
         }
+        public class unvm
+        {
+            public string code1 { get; set; }
+            public string name1 { get; set; }
+            public string code2 { get; set; }
+            public string name2 { get; set; }
+        }
+
         public JsonResult Get_organization_unit_chart(string id)
         {
             var ID = int.Parse(id);

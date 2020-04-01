@@ -1,0 +1,103 @@
+﻿
+
+@{
+    ViewBag.Title = "index";
+    Layout = null;
+}
+@model IEnumerable<HR.Models.Organization_Chart>
+@using System.Web.UI.WebControls
+@using HR.Models;
+
+@using HR.Resource;
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="~/jspdf.min.js"></script>
+<script src="~/html2canvas.js"></script>
+
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+</style>
+<body>
+    <div class="form-group">
+
+        <link href="~/Content/print.css" rel="stylesheet" media="print" />
+        <p id="top" style="margin-top:25px">
+            <input type="button" onclick="getpdf();" class="NonPrintable btn btn-blue" style="color:white;background-color:forestgreen" value=@organ.printalltree />
+            <input type="button" style="margin-left:10px" onclick="location.href='@Url.Action("Create_node", "OrganizationChart")'" class="btn btn-success col-md-2" value=@organ.Createnewnode />
+            <input type="button" style="margin-left:10px" onclick="location.href='@Url.Action("Details", "OrganizationChart",new { id=ViewBag.io1})'" class="btn btn-success col-md-2" value=@organ.details />
+
+            <input  type="button" style="margin-left:10px;" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new { id=ViewBag.io1})'" class="btn btn-success col-md-2" value='@organ.tree' />
+
+        </p>
+
+    </div>
+
+    <div style="margin-top:50px;margin-right:1000px" id="empChart">
+    </div>
+</body>
+
+
+@section scripts{}
+
+<script type="text/javascript">
+
+        google.load("visualization", "1", { packages: ["orgchart"] });
+        $(function () {
+            drawEmpChart();
+        });
+        function drawEmpChart()
+        {
+           
+            var y= @ViewBag.io1;
+            $.ajax({
+                type: "post",
+                url: "/OrganizationChart/ge",
+                data: { "id":y },
+                dataType: "json",
+                success: function (empData) {
+                    var chartData = new google.visualization.DataTable();
+
+                    chartData.addColumn('string', 'Name');
+                    chartData.addColumn('string', 'ParentEntity');
+
+                    $.each(empData, function (index, row) {
+                        debugger
+                        var reportID = row.parent == '0' ? '' : row.parent;
+                        var t=row.color;
+                        chartData.addRows([[{
+                            v: row.ID.toString(),
+                            f: row.unit_Description
+                        }, reportID]]);
+                        chartData.setRowProperty(index, 'style', 'background:'+t);
+                    
+                     });
+                     debugger
+                    var chart = new google.visualization.OrgChart(document.getElementById('empChart'));
+
+                    chart.draw(chartData, {'allowHtml':true});
+                },
+
+            });
+        }
+</script>
+
+<script>
+    function getpdf()
+    {
+        $("#top").attr('hidden',true);
+        debugger;
+        html2canvas(document.body).then(function (canvas){
+            debugger
+         
+                var img=canvas.toDataURL('image/png');
+                var doc=new jsPDF();
+                doc.addImage(img,'JPEG',0,0);
+                doc.save('te.pdf');
+        })
+        $("#top").attr('hidden',false);
+    }
+</script>

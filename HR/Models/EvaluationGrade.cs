@@ -14,5 +14,9 @@ namespace HR.Models
         public double ToScore { get; set; }
         [Display(Name = "Decision Type")]
         public Decisiontype Decision_Type { get; set; }
+
+
+        public virtual List<Evalu_Element_Tran> Evalu_Element_Tran { get; set; }
+        //public virtual List<EvaluationTransaction> EvaluationTransaction { get; set; }
     }
 }

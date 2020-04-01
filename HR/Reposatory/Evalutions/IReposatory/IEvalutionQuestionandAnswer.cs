@@ -15,5 +15,6 @@ namespace HR.Reposatory.Evalutions.IReposatory
         List<EvaluationQuestionsandanswers> GetAll();
         bool Remove(int id);
         bool Editone(EvaluationQuestionsandanswers model);
+        List<EvaluationQuestionsandanswers> GetAll2();
     }
 }

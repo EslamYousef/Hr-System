@@ -4,6 +4,169 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+<script>
+
+
+    $(function () {
+        filt();
+    })
+    function filt() {
+        var ht = "";
+        $.ajax
+            ({
+                type: "post",
+                url: "/EvaluationTransaction/getallstatues",
+                data: {},
+                success: function (result) {
+
+                    $.each(result, function (key, value) {
+                        ht += "<option  value='" + value + "'>" + value + "</option>";
+
+                    });
+                    $("#filter").html(ht);
+                }
+            });
+    }
+    function getrequest() {
+        debugger
+        $("#mydata tr").remove();
+        var status = $("#filter").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        if (from == "") {
+            from = "1/1/1900";
+        }
+        if (to == "") {
+            to = "1/1/3000"
+        }
+        if (status == null) {
+            status = "all";
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/Getone",
+            data: { "from": from, "to": to, "status": status},
+            success: function (result) {
+                debugger
+                $("#mydata tr").remove();
+
+                $.each(result, function (key, value) {
+                    var d1; var d2; var d3;
+                    debugger
+                    if (value.status != 3 && value.status != 4) {
+                        var tr =
+   "<tr id='tr'><td>" + value.Code + "</td>" +
+   "<td>" + d1 + "</td>" +
+   "<td>" + d2 + "</td>" +
+   "<td>" + value.app_date + "</td>" +
+   "<td>" + value.plan + "</td>" +
+   "<td>" + value.group + "</td>" +
+   "<td>" + value.s + "</td>" +
+   "<td> <input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")'/>" + " " +
+        "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+        "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+                        $("#mydata").append(tr);
+
+                    }
+                    else {
+                        var tr =
+         "<tr id='tr'><td>" + value.Code + "</td>" +
+         "<td>" + d1 + "</td>" +
+         "<td>" + d2 + "</td>" +
+         "<td>" + value.app_date + "</td>" +
+         "<td>" + value.plan + "</td>" +
+         "<td>" + value.group + "</td>" +
+         "<td>" + value.s + "</td>" +
+         "<td>" +
+              "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+              "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+                        $("#mydata").append(tr);
+                    }
+          });
+
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    function getallrequest() {
+
+        var status = $("#filter").val();
+
+        $.ajax({
+            type: "post",
+            url: "/EvaluationTransaction/Getalll",
+            data: {},
+            success: function (result) {
+
+                $("#mydata tr").remove();
+                $.each(result, function (key, value) {
+                    var d1; var d2; var d3;
+                    debugger
+                   
+                    if (value.empID != null) {
+                        d1 = value.empID;
+                        d2 = value.Emp;
+                    }
+                    else {
+                        d1 = "Empty";
+                        d2 = "Empty";
+                    }
+                    if (value.status != 3 && value.status != 4) {
+                        var tr =
+   "<tr id='tr'><td>" + value.Code + "</td>" +
+   "<td>" + d1 + "</td>" +
+   "<td>" + d2 + "</td>" +
+   "<td>" + value.app_date + "</td>" +
+   "<td>" + value.plan + "</td>" +
+   "<td>" + value.group + "</td>" +
+   "<td>" + value.s + "</td>" +
+   "<td> <input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")'/>"+" "+
+        "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+        "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+                        $("#mydata").append(tr);
+
+                    }
+                    else {
+                        var tr =
+         "<tr id='tr'><td>" + value.Code + "</td>" +
+         "<td>" + d1 + "</td>" +
+         "<td>" + d2 + "</td>" +
+         "<td>" + value.app_date + "</td>" +
+         "<td>" + value.plan + "</td>" +
+         "<td>" + value.group + "</td>" +
+         "<td>" + value.s + "</td>" +
+         "<td>"+
+              "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+              "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+                        $("#mydata").append(tr);
+                    }
+                  
+
+                });
+
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    function change(id) {
+        window.open("/EvaluationTransaction/Edit?id=" + id);
+    }
+    function history(id) {
+
+        window.open("/EvaluationTransaction/status?id=" + id);
+    }
+    function deletee(id) {
+
+        window.open("/EvaluationTransaction/delete/" + id);
+    }
+</script>
 @using HR.Resource;
 <div class="content-wrapper">
     <!-- Main content -->
@@ -12,9 +175,40 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "EvaluationTransaction")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@organ.addnewbudget</a>
-                </p>
+                    <div class="row form-group">
+
+                        <div class="col-md-3">
+                            <a href="@Url.Action("Create", "EvaluationTransaction")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.addevaluationtransaction</a>
+
+                        </div>
+                    </div>
+                    <div class="form-group" id="buttons">
+                        <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
+                        <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
+                        <div class="col-sm-7">
+                            <select name="test" class="select2" placeholder=@pers_2.status id="filter" multiple></select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:20px;margin-bottom:50px">
+
+                      
+                        <div class="col-md-3">
+                            <input autocomplete="off" value="" class="form-control" onfocus="(this.type='date')" id="datefrom" placeholder=@pers_2.fromdate />
+                        </div>
+                        <div class="col-md-2">
+                            <input autocomplete="off" class="form-control" onfocus="(this.type='date')" id="dateto" placeholder=@pers_2.todate />
+                        </div>
+
+
+
+                    </div>
+                  </p>
             </div>
+
+
+
+           
+
 
             <!-- /.box-header -->
             <div class="box-body">
@@ -26,41 +220,46 @@
                     </div>
                 }
 
-                <table id="categories" class="table table-bordered table-striped text-center">
+                <table id="categories" class="table table-bordered table-striped text-center" style="margin-top:50px">
                     <thead>
                         <tr>
-                            <th>@organ.code</th>
-                            <th>@organ.organizationchart</th>
-                            <th>@organ.fromyear</th>
-                            <th>@organ.toyear</th>
+                            <th>@pers_2.code</th>
+                            <th>@organ.empID</th>
+                            <th>@organ.empname</th>
+                            <th>@pers_2.apprisaldate</th>
+                            <th>@pers_2.plan</th>
+                            <th>@pers_2.group</th>
+                            <th>@organ.status</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @*@foreach (var item in Model)
+                    <tbody id="mydata">
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>@item.Code</td>
-                                <td>@item.organization_unit.unit_Description</td>
-                                <td>@item.Year_From</td>
-                                <td>@item.Year_To</td>
+                                <td>@item.Employee_ProfileID</td>
+                                <td>@item.Employee_Profile.Name</td>
+                                <td>@item.AppraisalDate.ToShortDateString()</td>
+                                <td>@item.planLine</td>
+                                <td>@item.PerformanceEvaluationGroup.Name</td>
+                                <td>@item.check_status</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Budget", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
-                                    <a href="@Url.Action("delete", "Budget", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
-                                </td>
-                            </tr>
-                        }*@
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>@organ.code</th>
-                            <th>@organ.organizationchart</th>
-                            <th>@organ.fromyear</th>
-                            <th>@organ.toyear</th>
+                                    @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
+                                    {
+                                        <a href="@Url.Action("Edit", "EvaluationTransaction", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    }
+                                    <a href="@Url.Action("delete", "EvaluationTransaction", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
 
-                            <th></th>
-                        </tr>
-                    </tfoot>
+                                      <a href="@Url.Action("status", "EvaluationTransaction" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+
+
+                                </td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                  
                 </table>
             </div>
         </div>

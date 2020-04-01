@@ -25,5 +25,6 @@ namespace HR.Models
         [Display(Name = "Skill_group")]
         public string Skill_groupId { get; set; }
         public virtual Skill_group Skill_group { get; set; } 
+        public List<skill_eval> skill_eval { get; set; }
     }
 }

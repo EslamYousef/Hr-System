@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            @pers_2.Evalutionelement
+            @pers_2.EVA
         </h1>
     </section>
     <!-- Main content -->
@@ -20,7 +20,7 @@
             <div class="box-body">
                 @using (Html.BeginForm("Create", "EvalutionElements", FormMethod.Post, new { id = "submit", enctype = "multipart/form-data" }))
                 {
-                    <input name="IDval" hidden />           
+                    <input name="IDv" hidden />           
                     <input name="degree" hidden />
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -87,7 +87,7 @@
                             <div class="col-md-1">
 
                             </div>
-                            <input disabled  type="button"  id="drop1" class="btn btn-success" value='@pers_2.addnewevalutationcompetenies' onclick="add()"/> 
+                            <input disabled  type="button"  id="drop1" class="btn btn-success" value='@pers_2.addnewevacom' onclick="add()"/> 
                             
                               
                                     <input type="button" onclick="check_sumtion()" id="btnSave" class="btn btn-success  " name="Command" value='@Basic.Create' />
@@ -203,7 +203,7 @@
                 data: { "id": id },
                 success: function (result) {
                                     var tr =
-                 "<tr> <td hidden>" + "<input    id='class_type' style='margin-bottom: 1em;' hidden name='ID'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
+                 "<tr> <td hidden>" + "<input    id='class_type' style='margin-bottom: 1em;' hidden name='IDv'  value='" + result.ID + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-2'> " + "<input class = 'form-control' ID='result.Code'   type='text' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Code + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-6'> " + "<input   class = 'form-control' type='text' form-control' style='margin-bottom: 1em;margin-left:4px'    value='" + result.Name + "' readonly='readonly' />" + "</td>" +
                            "<td class='col-md-2'> " + "<input class = 'form-control'  required type='number' style='margin-bottom: 1em;margin-left:4px' name='degree' type='number' value='" + 0 + "'  />" + "</td>" +

@@ -217,6 +217,10 @@ namespace HR.Controllers
             {
                 return RedirectToAction("Delete", new { id = model.ID });
             }
+            if (command == "Submit")
+            {
+                return RedirectToAction("allowance", new { id = model.ID, type = type_allowance.job_level_class });
+            }
             else if (command == "back")
             {
                 return RedirectToAction("index");

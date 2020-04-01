@@ -115,6 +115,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Evaluation Transaction.
+        /// </summary>
+        public static string addevaluationtransaction {
+            get {
+                return ResourceManager.GetString("addevaluationtransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new Evaluation Competenies.
+        /// </summary>
+        public static string addnewevacom {
+            get {
+                return ResourceManager.GetString("addnewevacom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add New Evalutation Competenies.
         /// </summary>
         public static string addnewevalutationcompetenies {
@@ -178,6 +196,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apprisall Date.
+        /// </summary>
+        public static string apprisaldate {
+            get {
+                return ResourceManager.GetString("apprisaldate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appraisall Taype.
+        /// </summary>
+        public static string Apprisalltype {
+            get {
+                return ResourceManager.GetString("Apprisalltype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approved by.
         /// </summary>
         public static string Approvedby {
@@ -210,6 +246,15 @@ namespace HR.Resource {
         public static string arethesettlementtransferredtopayroll {
             get {
                 return ResourceManager.GetString("arethesettlementtransferredtopayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Average Score.
+        /// </summary>
+        public static string Averagescore {
+            get {
+                return ResourceManager.GetString("Averagescore", resourceCulture);
             }
         }
         
@@ -349,6 +394,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation Element.
+        /// </summary>
+        public static string createeva {
+            get {
+                return ResourceManager.GetString("createeva", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Evaluation Element Competenies.
         /// </summary>
         public static string createEvaluationElementCompetenies1 {
@@ -399,6 +453,15 @@ namespace HR.Resource {
         public static string createevaluitionquestionandanswer {
             get {
                 return ResourceManager.GetString("createevaluitionquestionandanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Evaluation Question and Answer.
+        /// </summary>
+        public static string createevaq {
+            get {
+                return ResourceManager.GetString("createevaq", resourceCulture);
             }
         }
         
@@ -484,6 +547,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Degree.
+        /// </summary>
+        public static string degree {
+            get {
+                return ResourceManager.GetString("degree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degree Desc.
+        /// </summary>
+        public static string Degreesec {
+            get {
+                return ResourceManager.GetString("Degreesec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string delete {
@@ -498,6 +579,15 @@ namespace HR.Resource {
         public static string deletemessage {
             get {
                 return ResourceManager.GetString("deletemessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direct Head Evaluation.
+        /// </summary>
+        public static string Directheadevaluation {
+            get {
+                return ResourceManager.GetString("Directheadevaluation", resourceCulture);
             }
         }
         
@@ -574,6 +664,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Rate.
+        /// </summary>
+        public static string emplrate {
+            get {
+                return ResourceManager.GetString("emplrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Emp name.
         /// </summary>
         public static string empname {
@@ -588,6 +687,15 @@ namespace HR.Resource {
         public static string Endofservicedate {
             get {
                 return ResourceManager.GetString("Endofservicedate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Period.
+        /// </summary>
+        public static string endperiod {
+            get {
+                return ResourceManager.GetString("endperiod", resourceCulture);
             }
         }
         
@@ -637,6 +745,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluation Elements.
+        /// </summary>
+        public static string EVA {
+            get {
+                return ResourceManager.GetString("EVA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Evaluation element.
         /// </summary>
         public static string Evaluationelement {
@@ -669,6 +786,15 @@ namespace HR.Resource {
         public static string evaluationplan {
             get {
                 return ResourceManager.GetString("evaluationplan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Evaluation Transaction.
+        /// </summary>
+        public static string evaluationtransaction {
+            get {
+                return ResourceManager.GetString("evaluationtransaction", resourceCulture);
             }
         }
         
@@ -727,6 +853,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Final Score.
+        /// </summary>
+        public static string Finalscore {
+            get {
+                return ResourceManager.GetString("Finalscore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fixed basic salary by.
         /// </summary>
         public static string Fixed_basic_salary_by {
@@ -768,6 +903,24 @@ namespace HR.Resource {
         public static string fromscore1 {
             get {
                 return ResourceManager.GetString("fromscore1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAP.
+        /// </summary>
+        public static string GAP {
+            get {
+                return ResourceManager.GetString("GAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get employee.
+        /// </summary>
+        public static string getemp {
+            get {
+                return ResourceManager.GetString("getemp", resourceCulture);
             }
         }
         
@@ -826,6 +979,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Job Rate.
+        /// </summary>
+        public static string jobrate {
+            get {
+                return ResourceManager.GetString("jobrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Date of work after notice period.
         /// </summary>
         public static string lastDateofworkafternoticeperiod {
@@ -849,6 +1011,15 @@ namespace HR.Resource {
         public static string Lasworkingdate {
             get {
                 return ResourceManager.GetString("Lasworkingdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line.
+        /// </summary>
+        public static string line {
+            get {
+                return ResourceManager.GetString("line", resourceCulture);
             }
         }
         
@@ -997,6 +1168,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number Request.
+        /// </summary>
+        public static string numberreq {
+            get {
+                return ResourceManager.GetString("numberreq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Performance Evaluation Group.
         /// </summary>
         public static string PerformanceEvaluationGroup {
@@ -1038,6 +1218,33 @@ namespace HR.Resource {
         public static string periodstart {
             get {
                 return ResourceManager.GetString("periodstart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plan.
+        /// </summary>
+        public static string plan {
+            get {
+                return ResourceManager.GetString("plan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to plan code.
+        /// </summary>
+        public static string plancode {
+            get {
+                return ResourceManager.GetString("plancode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plane desc.
+        /// </summary>
+        public static string plandes {
+            get {
+                return ResourceManager.GetString("plandes", resourceCulture);
             }
         }
         
@@ -1096,6 +1303,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous Appraisall To Review.
+        /// </summary>
+        public static string previousapprisalltoreview {
+            get {
+                return ResourceManager.GetString("previousapprisalltoreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Evaluation.
+        /// </summary>
+        public static string previousevalution {
+            get {
+                return ResourceManager.GetString("previousevalution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process End.
         /// </summary>
         public static string processend {
@@ -1105,11 +1330,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Process.
+        /// </summary>
+        public static string processends {
+            get {
+                return ResourceManager.GetString("processends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ProcessStart.
         /// </summary>
         public static string processstart {
             get {
                 return ResourceManager.GetString("processstart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Process .
+        /// </summary>
+        public static string processtart {
+            get {
+                return ResourceManager.GetString("processtart", resourceCulture);
             }
         }
         
@@ -1249,6 +1492,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sector Mangaer Evaluation.
+        /// </summary>
+        public static string Sectormanagerevaluation {
+            get {
+                return ResourceManager.GetString("Sectormanagerevaluation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checklist group.
         /// </summary>
         public static string selectedchecklistgroup {
@@ -1303,6 +1555,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ssave {
+            get {
+                return ResourceManager.GetString("ssave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Period.
+        /// </summary>
+        public static string startperiod {
+            get {
+                return ResourceManager.GetString("startperiod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string status {
@@ -1344,6 +1614,15 @@ namespace HR.Resource {
         public static string toscore1 {
             get {
                 return ResourceManager.GetString("toscore1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string total {
+            get {
+                return ResourceManager.GetString("total", resourceCulture);
             }
         }
         
