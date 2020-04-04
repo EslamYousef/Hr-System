@@ -283,6 +283,7 @@ namespace HR.Controllers
         }
         public ActionResult Link(int id)
         {
+            ViewBag.id2 = id;
             job_level_setup modell = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == id);
             try
             {
@@ -318,6 +319,7 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.id2 = id;
                 ViewBag.id = id;
                 var record = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == id);
                 List<Organization_Unit_Type> organization = new List<Organization_Unit_Type>();

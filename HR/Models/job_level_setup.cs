@@ -65,6 +65,8 @@ namespace HR.Models
         public virtual List<Organization_Unit_Type> Organization_Unit_Type { get; set; }
         public List<string> Organization_Unit_TypeID { get; set; } 
         public List<special> special { get; set; }
+        public virtual List<items_man_power> items_man_power { get; set; }
+
 
     }
 }

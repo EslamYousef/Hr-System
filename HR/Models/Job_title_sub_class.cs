@@ -31,6 +31,8 @@ namespace HR.Models
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Job title class")]
         public string Job_title_classId { get; set; }
-        public virtual Job_title_class Job_title_class { get; set; } 
+        public virtual Job_title_class Job_title_class { get; set; }
+        public virtual List<items_man_power> items_man_power { get; set; }
+
     }
 }

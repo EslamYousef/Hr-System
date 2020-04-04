@@ -23,7 +23,10 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.organ = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID }); ;
+                ViewBag.organ = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "-[" + m.unit_Description + ']', ID = m.ID }); ;
+                ViewBag.setup = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
+                ViewBag.sub = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
+
                 ViewBag.cadre = new job_level_setup();
                 var model = new man_power();
                 model.from_year = 1900;model.to_year = 1901;
@@ -40,7 +43,10 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.organ = dbcontext.Organization_Chart.ToList();
+                ViewBag.organ = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "-[" + m.unit_Description + ']', ID = m.ID }); ;
+                ViewBag.setup = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
+                ViewBag.sub = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
+
                 ViewBag.cadre = new job_level_setup();
                 var check_date = dbcontext.man_power.FirstOrDefault(m => m.from_year == model.man_power.from_year);
                 if(check_date!=null)
@@ -51,13 +57,20 @@ namespace HR.Controllers
                 else
                 {
                     var manpoer = new man_power();
-                    manpoer.organization = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == model.selected_organ);
+                    manpoer.Organization_ChartID = model.selected_organ;
                     manpoer.from_year = model.man_power.from_year;
                     manpoer.to_year = model.man_power.to_year;
 
 
-                    var levelcode = Form["levelcode"].Split(char.Parse(","));
-                    var levelname = Form["levelname"].Split(char.Parse(","));
+                    var job_id = Form["job_ID1"].Split(char.Parse(","));
+             //       var job_code = Form["job_code"].Split(char.Parse(","));
+
+                    var level_id = Form["level_ID1"].Split(char.Parse(","));
+              //      var level_code = Form["level_code"].Split(char.Parse(","));
+
+                    var sub_id = Form["sub_ID1"].Split(char.Parse(","));
+              //      var sub_code = Form["sub_code"].Split(char.Parse(","));
+
                     var count = Form["count"].Split(char.Parse(","));
                     
                     var q1 = Form["q1"].Split(char.Parse(","));
@@ -65,7 +78,7 @@ namespace HR.Controllers
                     var q2 = Form["q2"].Split(char.Parse(","));
                     var q3 = Form["q3"].Split(char.Parse(","));
                     var q4 = Form["q4"].Split(char.Parse(","));
-                    var id = Form["levelID"].Split(char.Parse(","));
+                //    var id = Form["levelID"].Split(char.Parse(","));
                     var ss = new List<items_man_power>();
                    
                     for (var i= 0; i < q1.Count(); i++)
@@ -73,13 +86,16 @@ namespace HR.Controllers
 
                         if (q1[i] != "")
                         {
-                            var IDlevel = int.Parse(id[i]);
-                            var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
+                  //          var IDlevel = int.Parse(id[i]);
+                  //          var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
 
                             var item_de = new items_man_power
                             {
-                                cadre_code=le,
-                                current_jobs=int.Parse(count[i]),
+                                //                 cadre_code=le,
+                                job_title_cardsID = int.Parse(job_id[i]),
+                                job_level_setupID = int.Parse(level_id[i]),
+                                Job_title_sub_classID=int.Parse(sub_id[i]),
+                                current_jobs =int.Parse(count[i]),
                                 new_jobs= int.Parse(new_job[i]),
                                 quarter1= int.Parse(q1[i]),
                                 quarter2= int.Parse(q2[i]),
@@ -112,18 +128,18 @@ namespace HR.Controllers
         }
 
         public ActionResult edit(string id)
-
-
         {
             try
             {
-                ViewBag.organ = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID }); ;
+                ViewBag.organ = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "-[" + m.unit_Description + ']', ID = m.ID }); ;
+                ViewBag.setup = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
+                ViewBag.sub = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
                 ViewBag.cadre = new job_level_setup();
                 int ID = int.Parse(id);
                 var model = dbcontext.man_power.FirstOrDefault(m => m.ID ==ID);
                 var items = dbcontext.items_man_power.Where(m => m.man_power.ID == model.ID).ToList();
                 model.items_man_power = items;
-                var VM = new manpowerVM { man_power = model, selected_organ = model.organization.ID };
+                var VM = new manpowerVM { man_power = model, selected_organ = model.Organization_ChartID };
                 return View(VM);
             }
             catch (Exception e)
@@ -136,7 +152,9 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.organ = dbcontext.Organization_Chart.ToList();
+                ViewBag.organ = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "-[" + m.unit_Description + ']', ID = m.ID }); ;
+                ViewBag.setup = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
+                ViewBag.sub = dbcontext.Job_title_sub_class.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }); ;
                 ViewBag.cadre = new job_level_setup();
                 //var check_date = dbcontext.man_power.FirstOrDefault(m => m.from_year == model.man_power.from_year);
                 //if (check_date != null)
@@ -146,7 +164,7 @@ namespace HR.Controllers
                 //}
                
                     var manpoer = dbcontext.man_power.FirstOrDefault(m=>m.ID==model.man_power.ID);
-                    manpoer.organization = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == model.selected_organ);
+                manpoer.Organization_ChartID = model.selected_organ;
 
 
 
@@ -155,8 +173,13 @@ namespace HR.Controllers
                 //dbcontext.SaveChanges();
                 dbcontext.items_man_power.RemoveRange(items);
                 dbcontext.SaveChanges();
-                var levelcode = Form["levelcode"].Split(char.Parse(","));
-                var levelname = Form["levelname"].Split(char.Parse(","));
+                var job_id = Form["job_ID1"].Split(char.Parse(","));
+                //       var job_code = Form["job_code"].Split(char.Parse(","));
+
+                var level_id = Form["level_ID1"].Split(char.Parse(","));
+                //      var level_code = Form["level_code"].Split(char.Parse(","));
+
+                var sub_id = Form["sub_ID1"].Split(char.Parse(","));
                 var count = Form["count"].Split(char.Parse(","));
 
                 var q1 = Form["q1"].Split(char.Parse(","));
@@ -164,7 +187,7 @@ namespace HR.Controllers
                 var q2 = Form["q2"].Split(char.Parse(","));
                 var q3 = Form["q3"].Split(char.Parse(","));
                 var q4 = Form["q4"].Split(char.Parse(","));
-                var id = Form["levelID"].Split(char.Parse(","));
+             //   var id = Form["levelID"].Split(char.Parse(","));
                 var ss = new List<items_man_power>();
 
                     for (var i = 0; i < q1.Count(); i++)
@@ -172,12 +195,15 @@ namespace HR.Controllers
 
                         if (q1[i] != "")
                         {
-                            var IDlevel = int.Parse(id[i]);
-                            var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
+                          //  var IDlevel = int.Parse(id[i]);
+                          //  var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
 
                             var item_de = new items_man_power
                             {
-                                cadre_code = le,
+                                //   cadre_code = le,
+                                job_title_cardsID = int.Parse(job_id[i]),
+                                job_level_setupID = int.Parse(level_id[i]),
+                                Job_title_sub_classID = int.Parse(sub_id[i]),
                                 current_jobs = int.Parse(count[i]),
                                 new_jobs = int.Parse(new_job[i]),
                                 quarter1 = int.Parse(q1[i]),

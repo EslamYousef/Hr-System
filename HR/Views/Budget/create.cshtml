@@ -591,6 +591,7 @@ input::-webkit-inner-spin-button {
                                                       "</label>" +
                                                     "<div class='col-md-2'>" +
                                                            "<input type='number' min='0' value='0'  class='form-control' id='amountNn' onkeyup='calN($(this),$(this).parent().next().next().children())' name='AmountN' />" +
+                                                            "<input type='number'   value='0'  hidden />" +
                                                     "</div>" +
                                                     "<label class='control-label col-md-1'>" +
                                                         "<div>@organ.forign</div>" +
@@ -641,28 +642,36 @@ input::-webkit-inner-spin-button {
     }
     function calN(th,h)
     {
-         
+        debugger
+        var old = parseFloat(th.next().val());
         var thh = parseFloat(th.val());
         var R = parseFloat($("#R").val());
         var test = (parseFloat(h.val()) / R);
-        if (test == thh) {
-
+        if (thh < 0)
+        {
+            th.val(0)
         }
-        else {
+        if (thh != 0 && thh > 0)
+        {
             var N = parseFloat($("#N").val());
             var F = parseFloat($("#F").val());
+            var RN2 = parseFloat($("#RN").val());
+            $("#RN").val(RN2 + old);
             var RN = parseFloat($("#RN").val());
             var RfF = parseFloat($("#RF").val());
+
             var R = parseFloat($("#R").val());
             var oi = th.val();
             if (thh > RN) {
                 var u = 0;
                 alert("Summation of amounts in all items greater than Available value ");
+
+                th.next().val(0);
                 th.val("");
                 h.val("");
                 var jj = document.getElementsByName("AmountN");
                 $.each(jj, function (key, value) {
-                     
+
                     var op = value.value;
                     if (op != "" && op != "0") {
                         u = parseFloat(u) + parseFloat(op)
@@ -670,6 +679,7 @@ input::-webkit-inner-spin-button {
 
                 });
                 $("#RN").val(N - u);
+
                 $("#RF").val(F - (u * R));
             }
             else if (oi == 0 || oi == "") {
@@ -682,17 +692,28 @@ input::-webkit-inner-spin-button {
                     var tt = (parseFloat(h.val()) + RfF) / R;
                     $("#RF").val(t);
                     $("#RN").val(tt);
+                    th.next().val(parseFloat(th.val()));
                     h.val("");
                 }
             }
             else {
                 $("#RN").val(RN - parseFloat(thh));
                 var oo = parseFloat($("#RN").val());
+                th.next().val(parseFloat(th.val()));
                 h.val(thh * R);
                 $("#RF").val(oo * R);
             }
-        }
 
+        }
+        else
+        {
+            var RN = parseFloat($("#RN").val());
+            $("#RN").val(RN+old);
+            var RfF = parseFloat($("#RF").val());
+            $("#RF").val(RfF + (old * R));
+            th.next().val(0);
+            h.val(0);
+        }
     }
     function calF(th)
     {

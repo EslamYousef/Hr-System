@@ -251,7 +251,14 @@ namespace HR.Controllers
                 //my_model.status.approved_bydate = DateTime.Now.Date;
                 //my_model.status.Rejected_bydate = DateTime.Now.Date;
 
-
+                if (my_model.status.approved_by == null)
+                    my_model.status.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.Rejected_by == null)
+                    my_model.status.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.return_to_reviewby == null)
+                    my_model.status.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.cancaled_by == null)
+                    my_model.status.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 return View(my_model);
             }
             catch(Exception e)

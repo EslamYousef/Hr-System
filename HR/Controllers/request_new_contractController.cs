@@ -43,7 +43,7 @@ namespace HR.Controllers
                 var te = model.LastOrDefault().ID;
                 count = te + 1;
             }
-            DateTime statis2 = Convert.ToDateTime("1/1/1900");
+            DateTime statis2 = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             var Employee_contract_profile = new request_new_contract { Code = stru.Structure_Code + count, Employee_ProfileId = "0",
                                                                        Approved_date = statis2, Contract_start_date = statis2,
                                                                        Contract_end_date = statis2, Medical_date = statis2 };
@@ -217,6 +217,14 @@ namespace HR.Controllers
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
 
                 var my_model = new employeestate { status = st, empid = model.Employee_Profile.ID, opertion_id = ID };
+                if (my_model.status.approved_by == null)
+                    my_model.status.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.Rejected_by == null)
+                    my_model.status.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.return_to_reviewby == null)
+                    my_model.status.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.cancaled_by == null)
+                    my_model.status.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
 
                 return View(my_model);
             }

@@ -343,19 +343,18 @@ namespace HR.Controllers
                 return Json(false);
             }
         }
-        public JsonResult get_num_of_free_jobs(string id)
+        public JsonResult get_num_of_free_jobs(int id)
         {
             try
             {
-                var ID = int.Parse(id);
-                var record = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == ID);
-                var job_titles = dbcontext.job_title_cards.Where(m => m.joblevelsetupID == record.ID.ToString()).ToList();
+                
+                var job_titles = dbcontext.job_title_cards.Where(m => m.ID == id).ToList();
                 var count = 0;
                 foreach(var item in job_titles)
                 {
                     count = count + item.number_vacant;
                 }
-                var model = new manpoweritems { count = count, job_level_setup = record };
+                var model = new manpoweritems { count = count };
                 return Json(model);
             }
             catch (Exception e)
@@ -1167,6 +1166,11 @@ namespace HR.Controllers
                 return Json(null);
             }
           
+        }
+        public JsonResult getjob(int id)
+        {
+            var jobs = dbcontext.job_title_cards.Where(m => m.Organization_unit_codeID == id.ToString()).ToList().Select(m => new { Code = m.Code + "-[" + m.name + ']', ID = m.ID }); ;
+            return Json(jobs);
         }
 
 

@@ -73,7 +73,7 @@ namespace HR.Controllers
             {
                 number = stru+1;
             }
-            var check_Request_model = new check_Request { Request_number=number, check_number=0.ToString(),Request_date=DateTime.Now.Date,Check_Due_date=DateTime.Now.Date,month=1,year=1990,amount=0.00};
+            var check_Request_model = new check_Request { Request_number=number, check_number=0.ToString(),Request_date=DateTime.Now.Date,Check_Due_date=DateTime.Now.Date,month=1,year=2020,amount=0.00};
             var check_request_change_status = new check_request_change_status { Date=DateTime.Now.Date,selected_directedto=0,selected_signby=0};
             var model = new Check_Request_VM {  check_Request= check_Request_model, check_request_change_status= check_request_change_status };
             return View(model);

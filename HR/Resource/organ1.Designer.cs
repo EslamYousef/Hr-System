@@ -403,6 +403,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back Home.
+        /// </summary>
+        public static string backhome {
+            get {
+                return ResourceManager.GetString("backhome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to back to index.
         /// </summary>
         public static string backtoindex {

@@ -514,6 +514,14 @@ namespace HR.Controllers
                 var st = model.status;
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = st, empid = model.Employee.ID ,opertion_id=model.ID};
+                if(my_model.status.approved_by==null)
+                my_model.status.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.Rejected_by == null)
+                    my_model.status.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.return_to_reviewby == null)
+                    my_model.status.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.cancaled_by == null)
+                    my_model.status.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 return View(my_model);
             }
             catch (Exception e)

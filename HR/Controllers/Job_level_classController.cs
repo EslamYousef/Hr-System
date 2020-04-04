@@ -235,7 +235,9 @@ namespace HR.Controllers
         {
             try
             {
+                
                 var ID = int.Parse(id);
+                ViewBag.id2 =ID;
                 var list = new List<special_allowance_job_level_class>();
                 if((int)type==2)
                 {
@@ -281,6 +283,7 @@ namespace HR.Controllers
             {
                 TempData["TYPE"] = type;
                 TempData["ID"] = ID;
+                ViewBag.id2 = ID;
                 if (type == 1)
                 {
                     var specialold = dbcontext.special_allowance_job_level_class.Where(m => m.Job_level_classID == ID);

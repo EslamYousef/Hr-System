@@ -69,7 +69,8 @@ namespace HR.Models
 
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public check_status statuss { get; set; }
-      
+        public virtual List<items_man_power> items_man_power { get; set; }
+
 
     }
 }

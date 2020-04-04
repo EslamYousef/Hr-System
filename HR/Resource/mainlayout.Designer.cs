@@ -817,7 +817,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request new contract.
+        ///   Looks up a localized string similar to  Contract Transaction.
         /// </summary>
         public static string request_new_contract {
             get {
@@ -826,7 +826,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request new contract.
+        ///   Looks up a localized string similar to Contract Transaction.
         /// </summary>
         public static string requestconter {
             get {

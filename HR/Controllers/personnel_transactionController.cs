@@ -78,7 +78,7 @@ namespace HR.Controllers
                     var te = model.LastOrDefault().ID;
                     count = te + 1;
                 }
-                DateTime statis = Convert.ToDateTime("1/1/1900").Date;
+                DateTime statis = Convert.ToDateTime(DateTime.Now.ToShortDateString()).Date;
                 ViewBag.da = statis;
                var vm = new personnel_transaction {Number= stru.Structure_Code + count,End_of_service_date = statis,
                     Position_Transaction_number = stru.Structure_Code + count,
@@ -502,6 +502,14 @@ namespace HR.Controllers
                 var st = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = st, empid = model.Employee.ID,opertion_id=ID };
+                if (my_model.status.approved_by == null)
+                    my_model.status.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.Rejected_by == null)
+                    my_model.status.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.return_to_reviewby == null)
+                    my_model.status.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.cancaled_by == null)
+                    my_model.status.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 return View(my_model);
             }
             catch (Exception e)
@@ -523,7 +531,7 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
                 var go = new TRANS_VM { personnel_transaction = record, selected_employee = model.empid };
                 ///////////////update old position//////////
-                var old_position = dbcontext.Position_Information.FirstOrDefault(m => m.Primary_Position == true && m.Employee_Profile.ID == go.selected_employee);
+                var old_position = dbcontext.Position_Information.FirstOrDefault(m => m.Primary_Position == true && m.Employee_ProfileId == go.selected_employee.ToString());
                 old_position.Primary_Position = false;
                 old_position.To_date = go.personnel_transaction.Last_working_date;
                 dbcontext.SaveChanges();
@@ -696,13 +704,15 @@ namespace HR.Controllers
                 information.Approved_date = mmodel.personnel_transaction.Approved_date;
                 information.Memo_date = mmodel.personnel_transaction.Memo_date;
                 information.Resolution_date = mmodel.personnel_transaction.Resolution_date;
+              
+
                 var info = dbcontext.Position_Transaction_Information.Add(information);
                 dbcontext.SaveChanges();
                 ///////
                 Position_Information record = new Position_Information();
                 record.Code = stru.Structure_Code+count;
                 record.Primary_Position =true;
-                record.From_date = mmodel.personnel_transaction.Last_working_date;
+                record.From_date = mmodel.personnel_transaction.From_date;
                 record.To_date = mmodel.personnel_transaction.To_date;
                 record.Years = mmodel.personnel_transaction.Years;
                 record.Months = mmodel.personnel_transaction.Months;

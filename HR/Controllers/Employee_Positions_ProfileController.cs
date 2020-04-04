@@ -122,8 +122,17 @@ namespace HR.Controllers
                     }
                     else
                     {
-                        var te = list.LastOrDefault();
-                        te.Primary_Position = false;
+                        var te = list.Where(m=>m.Primary_Position==true);
+                        foreach(var item in te )
+                        {
+                            item.Primary_Position = false;
+                            int slot_id = int.Parse(item.SlotdescId);
+                            var slot = dbcontext.Slots.FirstOrDefault(m => m.ID == slot_id);
+                            slot.EmployeeID = null;
+                            slot.EmployeeName = null;
+                            slot.Employee_Profile = null;
+                            dbcontext.SaveChanges();
+                        }
                         record.Primary_Position = true;
                     }
                     dbcontext.SaveChanges();

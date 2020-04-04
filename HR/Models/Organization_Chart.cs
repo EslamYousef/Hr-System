@@ -50,6 +50,7 @@ namespace HR.Models
       
         public int? Employee_ProfileID { get; set; } 
 
+        public virtual List<man_power> man_power { get; set; }
 
     }
 }

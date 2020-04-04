@@ -10,40 +10,46 @@
 
 
 <link href="~/Content/jsTree/themes/default/style.min.css" rel="stylesheet" />
+<link href="~/Content/print.css" rel="stylesheet" media="print" />
+<body>
+    <div  class="form-group" style="align-content:center;margin-bottom:50px">
+        <p>
+            <div class="col-md-2">
+                <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue" style="color:white;background-color:forestgreen;width:100%" value=@organ.printalltree />
+            </div>
 
-<div class="form-group">
+            <div class="col-md-2">
+                <a style="width:100%" href="@Url.Action("index","Home")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backhome</a>
+            </div>
+        </p>
 
-    <link href="~/Content/print.css" rel="stylesheet" media="print" />
+    </div>
 
-
-    <p>
-        <input type="button" onclick="javascript:window.print()" class="NonPrintable btn btn-blue" style="color:white;background-color:forestgreen" value=@organ.printalltree />
-     
-
-    </p>
-    <div class="form-body">
-        <div id="jstree" style="margin-left:200px; text-align: left;direction:ltr" class="b">
-            @(Html.TreeView(Model)
+    <div style="margin-top:20px" class="form-group">
+    
+            <div id="jstree" style="margin-left:200px; text-align: left;direction:ltr" class="b">
+                @(Html.TreeView(Model)
                           .EmptyContent("Root")
                           .Children(m => m.Childs)
                           .HtmlAttributes(new { id = "tree" })
                           .ChildrenHtmlAttributes(new { @class = "subItem" })
                           .ItemText(m => m.unit_Description)
                            .ItemTemplate(
-            @<a href="@Url.Action("special_organization_view_related_to_jobs", "OrganizationInquiry", new{id=@item.ID})">
-                @item.unit_Description
+                @<a href="@Url.Action("special_organization_view_related_to_jobs", "OrganizationInquiry", new{id=@item.ID})">
+                    @item.unit_Description
 
-            </a>
+                </a>
         )
 
 
 
 
-            )
-        </div>
-    </div>
+                )
+            </div>
+       
 
-</div>
+    </div>
+</body>
 
 @section scripts{
 

@@ -31,7 +31,9 @@
                     <input name="q2" value="" hidden />
                     <input name="q3" value="" hidden />
                     <input name="q4" value="" hidden />
-                    <input name="levelID" value="" hidden />
+                    <input name="level_ID1" value="" hidden />
+                    <input name="job_ID1" value="" hidden />
+                    <input name="sub_ID1" value="" hidden />
                     <div class="form-horizontal">
                         <hr />
                         @if (TempData["Message"] != null)
@@ -45,52 +47,62 @@
                      
                         
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-1">
                                 <span> @organ.fromyear </span>
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.from_year, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1989" } })
                                        </div>
-                            <label style="color:red" class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-1">
                                 <span> @organ.toyear</span>
                             </label>
                             <div class="col-md-2">
                                 @Html.EditorFor(model => model.man_power.to_year, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1990" } })
                             </div>
-                        </div>
-                       
-                        <div class="form-group">
-                            <label style="color:red" class="control-label col-md-2">
+                            <label style="color:red" class="control-label col-md-1">
                                 <span>@organ.organizationchart</span>
                             </label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.selected_organ, new SelectList(ViewBag.organ, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "full_level()", @id = "employeeId" })
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(m => m.selected_organ, new SelectList(ViewBag.organ, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "full_job()", @id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.selected_organ, "", new { @class = "text-danger" })
-                            
+
                             </div>
-                            <div class="col-md-2"></div>
-                            <div style="margin-top:25px" class="form-group">
-                                <div class="col-md-4">
-                                    <input id="btnSave" style="width:150px" class="btn btn-success"  onclick="ch()" value=@organ.create />
-                                    <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                </div>
-                            </div>
+                                <input id="btnSave" style="width:150px" class="btn btn-success" onclick="ch()" value=@organ.create />
+                                <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                           
                         </div>
+                       
+                        
                         <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span>@organ.Job_level_class__ID</span>
+                            <label class="control-label col-md-1">
+                                <span>@organ.jobs</span>
                             </label>
-                            @*<div class="col-md-4">
-                                @Html.DropDownList("cadre", new SelectList(ViewBag.cadre, "ID", "Code"), "Select cadre", new { @class = "select2", @id = "employee11" })
-                            </div>*@
-                            <select class="col-md-4 select2"  id="employee181">
+                         
+                            <select class="col-md-2 select2"  id="employee181">
                               
                             </select>
-                            <div class="col-md-4">
-                                <input type="button" onclick="add()" style="width:300px" value=@organ.additems class="btn btn-success " />
+                            <label class="control-label col-md-1">
+                                <span>@organ.JobLevelSetup</span>
+                            </label>
+                            <div class="col-md-2">
+                                @Html.DropDownList("le", new SelectList(ViewBag.setup, "ID", "Code"), organ.JobLevelSetup, new { @class = "select2", @id = "lev" })
+                            </div>
+                                <label class="control-label col-md-1">
+                                    <span>@organ.jobtitleSubclass</span>
+                                </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("su", new SelectList(ViewBag.sub, "ID", "Code"), organ.jobtitleSubclass, new { @class = "select2", @id = "sub1" })
 
-                               </div>
-                        </div>
+                                </div>
+
+
+
+                                <div class="col-md-1">
+                                    <input type="button" onclick="add()" style="width:300px" value=@organ.additems class="btn btn-success " />
+
+                                </div>
+                            </div>
+
 
                       
                                     <span class="visible-xs"><i class="entypo-home"></i></span>
@@ -103,14 +115,15 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th hidden>
-
+                                       
+                                        <th>
+                                            <label class="control-label col-md-3">@Basic.jobtitle </label>
                                         </th>
                                         <th>
-                                            <label class="control-label col-md-3">@Basic.code </label>
+                                            <label class="control-label col-md-3">@organ.JobLevelSetup</label>
                                         </th>
                                         <th>
-                                            <label class="control-label col-md-3">@organ.item</label>
+                                            <label class="control-label col-md-3">@organ.jobtitleSubclass</label>
                                         </th>
                                         <th>
                                             <label class="control-label col-md-3">@organ.Currentjobs</label>
@@ -164,42 +177,79 @@
         $("#YF").val(parseInt(parseInt(value) - parseInt(1)));
     });
 
-    full_level();
+    full_job();
 
 
-        function full_level() {
 
-            var id = $("#employeeId").val();
-            if (id == "") {
-                $("#employee181").html("");
-                $("#employee181").select2("val", " ")
-                finalresult = "<option selected value='0' > Choose organiztion at first </option>";
+    function full_job() {
+    debugger
+        var id = $("#employeeId").val();
+        if (id == "")
+        {
+            $("#employee181").html("");
+            $("#employee181").select2("val", " ")
+            finalresult = "<option selected value='0' > Choose organiztion at first </option>";
+            $("#employee181").html(finalresult);
+            $("#employee181").select2("val", "0")
+        }
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjob",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                var finalresult = "";
+                finalresult = "<option selected value='0' > Choose job </option>";
+                $.each(result, function (key, value) {
+                    
+                    finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
+
+                });
+                debugger
                 $("#employee181").html(finalresult);
                 $("#employee181").select2("val", "0")
+            },
+            error: function () {
+
+                $("#employee181").html(" ");
+                //$("#codeid").val("");
             }
-            $.ajax({
-                type: "post",
-                url: "/Helper/Getlevel",
-                data: { "id": id },
-                success: function (result) {
+        });
+    }
 
-                    var finalresult = "";
-                    finalresult = "<option selected value='0' > Choose cadre </option>";
-                    $.each(result, function (key, value) {
 
-                        finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
+        //function full_level() {
 
-                    });
-                    $("#employee181").html(finalresult);
-                    $("#employee181").select2("val", "0")
-                },
-                error: function () {
+        //    var id = $("#employeeId").val();
+        //    if (id == "") {
+        //        $("#employee181").html("");
+        //        $("#employee181").select2("val", " ")
+        //        finalresult = "<option selected value='0' > Choose organiztion at first </option>";
+        //        $("#employee181").html(finalresult);
+        //        $("#employee181").select2("val", "0")
+        //    }
+        //    $.ajax({
+        //        type: "post",
+        //        url: "/Helper/Getlevel",
+        //        data: { "id": id },
+        //        success: function (result) {
+        //            var finalresult = "";
+        //            finalresult = "<option selected value='0' > Choose cadre </option>";
+        //            $.each(result, function (key, value) {
 
-                    $("#employee181").html(" ");
-                    //$("#codeid").val("");
-                }
-            });
-        }
+        //                finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
+
+        //            });
+        //            $("#employee181").html(finalresult);
+        //            $("#employee181").select2("val", "0")
+        //        },
+        //        error: function () {
+
+        //            $("#employee181").html(" ");
+        //            //$("#codeid").val("");
+        //        }
+        //    });
+        //}
         function add() {
             debugger;
             var employee11 = $("#employee181").val();
@@ -210,8 +260,8 @@
                     var flag = 0;
                     for (var o = 0; o < pp.length; o++) {
                         var inputs = pp[o].children;
-                        var first = parseInt(inputs[5].children[0].value) + parseInt(inputs[6].children[0].value) + parseInt(inputs[7].children[0].value) + parseInt(inputs[8].children[0].value);
-                        var second = parseInt(inputs[4].children[0].value) + parseInt(inputs[3].children[0].value);
+                        var first = parseInt(inputs[8].children[0].value) + parseInt(inputs[9].children[0].value) + parseInt(inputs[10].children[0].value) + parseInt(inputs[11].children[0].value);
+                        var second = parseInt(inputs[6].children[0].value) + parseInt(inputs[7].children[0].value);
                         if (second < first) {
                             flag = 1;
                             break;
@@ -228,38 +278,53 @@
                         }
                         else {
                             var id = $("#employee181").val();
-                            $.ajax({
-                                type: "post",
-                                url: "/Helper/get_num_of_free_jobs",
-                                data: { "id": id },
-                                success: function (result) {
+                            var job = document.getElementById("employee181");
+                            var job_ID = id;
+                            var job_code = job.options[job.selectedIndex].text;
+                            var level = document.getElementById("lev");
+                            var level_ID = $("#lev").val();
+                            var level_code = level.options[level.selectedIndex].text;
+                            var sub = document.getElementById("sub1");
+                            var sub_ID = $("#sub1").val();
+                            var sub_code = sub.options[sub.selectedIndex].text;
+                            if (sub_ID != "" && level_ID != "" && job_ID != "") {
+                                $.ajax({
+                                    type: "post",
+                                    url: "/Helper/get_num_of_free_jobs",
+                                    data: { "id": id },
+                                    success: function (result) {
 
-                                    var tr = "<tr id='manpoweritems'><td hidden><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' /></td>" +
-                      "<td><input  class='form-control'   name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' /></td>" +
-                      "<td><input  class='form-control'   name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' /></td>" +
-                      "<td><input  class='form-control'  name='count'   value='" + result.count + "' readonly='readonly' /></td>" +
-                      "<td><input  class='form-control'  name='new' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                      "<td><input  class='form-control'  name='q1' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                      "<td><input  class='form-control'  name='q2' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                      "<td><input  class='form-control'  name='q3' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                      "<td><input  class='form-control' name='q4' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                      "<td><input type='button'    value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
-                      "</tr>"
+                                        var tr = "<tr id='manpoweritems'>" +
+                          "<td hidden> <input  class='form-control' hidden   name='job_ID1'      value='" + job_ID + "' readonly='readonly' /></td>" +
+                          "<td>        <input  class='form-control'          name='job_code'    value='" + job_code + "' readonly='readonly' /></td>" +
+                          "<td hidden> <input  class='form-control' hidden   name='level_ID1'    value='" + level_ID + "' readonly='readonly' /></td>" +
+                          "<td>        <input  class='form-control'          name='level_code'  value='" + level_code + "' readonly='readonly' /></td>" +
+                          "<td hidden> <input  class='form-control' hidden   name='sub_ID1'      value='" + sub_ID + "' readonly='readonly' /></td>" +
+                          "<td>        <input  class='form-control'          name='sub_code'    value='" + sub_code + "' readonly='readonly' /></td>" +
+
+                          "<td><input  class='form-control'  name='count'   value='" + result.count + "' readonly='readonly' /></td>" +
+                          "<td><input  class='form-control'  name='new' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                          "<td><input  class='form-control'  name='q1' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                          "<td><input  class='form-control'  name='q2' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                          "<td><input  class='form-control'  name='q3' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                          "<td><input  class='form-control' name='q4' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                          "<td><input type='button'    value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
+                          "</tr>"
 
 
 
 
-                                    $("#Budgetdetails").append(tr);
-                                    $("#employee181").select2("val", "0");
+                                        $("#Budgetdetails").append(tr);
+                                        $("#employee181").select2("val", "0");
 
-                                },
-                                error: function () {
-                                    alter("some error");
-                                }
+                                    },
+                                    error: function () {
+                                        alter("some error");
+                                    }
 
-                            });
+                                });
 
-
+                            }
                         }
                     }
 
@@ -273,35 +338,50 @@
                     else {
                         debugger
                         var id = $("#employee181").val();
-                        $.ajax({
-                            type: "post",
-                            url: "/Helper/get_num_of_free_jobs",
-                            data: { "id": id },
-                            success: function (result) {
+                        var job = document.getElementById("employee181");
+                        var job_ID = id;
+                        var job_code = job.options[job.selectedIndex].text;
+                        var level = document.getElementById("lev");
+                        var level_ID = $("#lev").val();
+                        var level_code = level.options[level.selectedIndex].text;
+                        var sub = document.getElementById("sub1");
+                        var sub_ID = $("#sub1").val();
+                        var sub_code = sub.options[sub.selectedIndex].text;
+                        if (sub_ID != "" && level_ID != "" && job_ID != "") {
+                            $.ajax({
+                                type: "post",
+                                url: "/Helper/get_num_of_free_jobs",
+                                data: { "id": id },
+                                success: function (result) {
 
-                                debugger
-                                var tr = "<tr id='manpoweritems'><td hidden><input    id='class_type' style='margin-bottom: 1em;' hidden name='levelID'  value='" + result.job_level_setup.ID + "' readonly='readonly' /></td>" +
-                     "<td><input  class='form-control' name='levelcode'  value='" + result.job_level_setup.Code + "' readonly='readonly' /></td>" +
-                     "<td><input  class='form-control' name='levelname'  value='" + result.job_level_setup.Name + "' readonly='readonly' /></td>" +
-                     "<td><input  class='form-control' name='count'   value='" + result.count + "' readonly='readonly' /></td>" +
-                     "<td><input  class='form-control' name='new' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                     "<td><input  class='form-control' name='q1' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                     "<td><input  class='form-control' name='q2' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                     "<td><input  class='form-control' name='q3' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                     "<td><input  class='form-control' name='q4' type='number'  min='0'  value='" + 0 + "'  /></td>" +
-                     "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
-                     "</tr>"
-                                $("#Budgetdetails").append(tr);
-                                $("#employee181").select2("val", "0");
+                                    debugger
+                                    var tr = "<tr id='manpoweritems'>" +
+                         "<td hidden > <input  class='form-control' hidden   name='job_ID1'      value='" + job_ID + "' readonly='readonly' /></td>" +
+                          "<td>        <input  class='form-control'          name='job_code'    value='" + job_code + "' readonly='readonly' /></td>" +
+                          "<td hidden> <input  class='form-control' hidden   name='level_ID1'    value='" + level_ID + "' readonly='readonly' /></td>" +
+                          "<td>        <input  class='form-control'          name='level_code'  value='" + level_code + "' readonly='readonly' /></td>" +
+                          "<td hidden> <input  class='form-control' hidden   name='sub_ID1'      value='" + sub_ID + "' readonly='readonly' /></td>" +
+                          "<td>        <input  class='form-control'          name='sub_code'    value='" + sub_code + "' readonly='readonly' /></td>" +
 
-                            },
-                            error: function () {
-                                alter("some error");
-                            }
+                         "<td><input  class='form-control' name='count'   value='" + result.count + "' readonly='readonly' /></td>" +
+                         "<td><input  class='form-control' name='new' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                         "<td><input  class='form-control' name='q1' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                         "<td><input  class='form-control' name='q2' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                         "<td><input  class='form-control' name='q3' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                         "<td><input  class='form-control' name='q4' type='number'  min='0'  value='" + 0 + "'  /></td>" +
+                         "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>" +
+                         "</tr>"
+                                    $("#Budgetdetails").append(tr);
+                                    $("#employee181").select2("val", "0");
 
-                        });
+                                },
+                                error: function () {
+                                    alter("some error");
+                                }
 
+                            });
 
+                        }
                     }
                 }
 
@@ -310,7 +390,7 @@
         }
 
     function remove(thi)
-            {
+        {
 
 
         thi.parent().parent().remove();
@@ -325,8 +405,8 @@
                 var flag = 0;
                 for (var o = 0; o < pp.length; o++) {
                     var inputs = pp[o].children;
-                    var first = parseInt(inputs[5].children[0].value) + parseInt(inputs[6].children[0].value) + parseInt(inputs[7].children[0].value) + parseInt(inputs[8].children[0].value);
-                    var second = parseInt(inputs[4].children[0].value) + parseInt(inputs[3].children[0].value);
+                    var first = parseInt(inputs[8].children[0].value) + parseInt(inputs[9].children[0].value) + parseInt(inputs[10].children[0].value) + parseInt(inputs[11].children[0].value);
+                    var second = parseInt(inputs[6].children[0].value) + parseInt(inputs[7].children[0].value);
                     if (second < first) {
                         flag = 1;
                         break;
