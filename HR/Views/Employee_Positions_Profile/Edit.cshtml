@@ -382,6 +382,9 @@
 
 
 <script>
+    $(function () {
+        CountryName()
+    })
     function employee() {
   
         var id = $("#employeeId").val();
@@ -411,15 +414,22 @@
             url: "/Helper/GetJobtitle",
             dataType: "json",
             data: { "id": id },
+            async:false,
             success: function (result) {
-                
+                debugger
                 $("#countryname1").val(result.name);
                 $("#area").removeAttr("disabled");
                 //     areaName(result.Organization_unit_codeID.worklocationid)
                 areaname(result.joblevelsetupID)
+                $("#area").removeAttr("disabled");
+                $("#s2id_area").removeAttr("disabled");
 
                 getter(result.ID)
                 getstate(result.Organization_unit_codeID)
+                $("#s2id_getstate").removeAttr("disabled");
+                $("#s2id_citeid2").removeAttr("disabled");
+                $("#citeid2").removeAttr("disabled");
+
             },
             error: function () {
               
@@ -427,7 +437,8 @@
             }
         });
     }
-    CountryName()
+    
+   
     function areaname(did) {
      
 
@@ -435,13 +446,15 @@
             type: "post",
             url: "/helper/getjoblevel",
             data: { "id": did },
+            async: false,
+
             success: function (result) {
           
                 $("#ter").removeAttr("disabled");
                 $("#area").select2("val", result.ID);
                 $("#areaname1").val(result.Name);
-                $("#area").attr("readonly", true);
-                $("#area").prop("readonly", true);
+                //$("#area").attr("readonly", true);
+                //$("#area").prop("readonly", true);
             },
             error: function () {
           
@@ -458,6 +471,7 @@
             type: "post",
             url: "/Helper/GetJobSolts",
             data: { "id": did, "did": oo },
+            async: false,
             success: function (result) {
       
                 var finalresult = "";
@@ -492,6 +506,7 @@
             type: "post",
             url: "/Helper/GetSolt",
             data: { "id": id },
+            async: false,
             success: function (result) {
             
                 $("#tername").val(result.slot_code);
@@ -508,6 +523,7 @@
             type: "post",
             url: "/Helper/GetOrganizationChart",
             data: { "id": did },
+            async: false,
             success: function (result) {
                 
                 $("#state").select2("val", result.ID);
@@ -516,8 +532,8 @@
                 $("#statename").val(result.unit_Description);
                 getcite(result.worklocationid)
                 getcite2(result.worklocationid)
-                $("#state").attr("readonly", true);
-                $("#state").prop("readonly", true);
+                //$("#state").attr("readonly", true);
+                //$("#state").prop("readonly", true);
             },
             error: function () {
          
@@ -527,11 +543,12 @@
     }
 
     function getcite(did) {
-      
+        debugger
         $.ajax({
             type: "post",
             url: "/Helper/GetWorklocation",
             data: { "id": did },
+            async: false,
             success: function (result) {
               
                 $("#citeid").select2("val", result.ID);
@@ -539,6 +556,7 @@
                 $("#citeid").attr("readonly", true);
                 $("#citeid").prop("readonly", true);
                 $("#citeid2").removeAttr("disabled");
+                $("#s2id_citeid2").removeAttr("disabled");
             },
             error: function () {
           
@@ -548,13 +566,14 @@
     }
 
     function getcite2(did) {
-      
+        debugger
         $.ajax({
             type: "post",
             url: "/Helper/GetWorklocation",
             data: { "id": did },
+            async: false,
             success: function (result) {
-                
+                debugger
 
                 $("#citeid2").select2("val", result.ID);
                 $("#cityname2").val(result.Name);
@@ -569,7 +588,6 @@
     
     function GetDataById()
     {
-         debugger
         let x = window.location.href.split('/')[5];
         $.ajax({
             type: "post",
@@ -699,7 +717,6 @@
         }
     };
     function GetDataById5(date, id) {
-        debugger
         var valx = new Date(date);
         var month;
         if ((valx.getMonth() + 1) < 10) {

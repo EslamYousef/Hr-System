@@ -75,14 +75,16 @@
                     url: "/Helper/GetJobtitle",
                     dataType: "json",
                     data: { "id": id },
+                    async: false,
                     success: function (result) {
                          
 
                         $("#countryname1").val(result.name);
                         $("#area").removeAttr("disabled");
+                        $("#s2id_area").removeAttr("disabled");
 
                         areaname(result.joblevelsetupID)
-
+                        
                         getter(result.ID)
                         getstate(result.Organization_unit_codeID)
                     },
@@ -101,13 +103,14 @@
                 type: "post",
                 url: "/helper/getjoblevel",
                 data: { "id": did },
+                async: false,
                 success: function (result) {
                      
                     $("#ter").removeAttr("disabled");
                     $("#area").select2("val", result.ID);
                     $("#areaname1").val(result.Name);
-                    $("#area").attr("readonly", true);
-                    $("#area").prop("readonly", true);
+                    //$("#area").attr("readonly", true);
+                    //$("#area").prop("readonly", true);
                 },
                 error: function () {
                      
@@ -125,7 +128,8 @@
             $.ajax({
                 type: "post",
                 url: "/Helper/GetJobSolts",
-                data: { "id": did,"did":oo },
+                data: { "id": did, "did": oo },
+                async: false,
                 success: function (result) {
                      
                     var finalresult="";
@@ -180,6 +184,7 @@
                 type: "post",
                 url: "/Helper/GetOrganizationChart",
                 data: { "id": did },
+                async: false,
                 success: function (result) {
                      
                     $("#state").select2("val", result.ID);
@@ -188,8 +193,8 @@
                     $("#statename").val(result.unit_Description);
                     getcite(result.worklocationid)
                     getcite2(result.worklocationid)
-                    $("#state").attr("readonly", true);
-                    $("#state").prop("readonly", true);
+                    //$("#state").attr("readonly", true);
+                    //$("#state").prop("readonly", true);
                 },
                 error: function () {
                      
@@ -200,12 +205,12 @@
         //getstate(did)
 
         function getcite(did) {
-             
         //    var id = $("#citeid").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/GetWorklocation",
                 data: { "id": did },
+                async: false,
                 success: function (result) {
                      
 
@@ -223,12 +228,12 @@
         }
         //getcite(did)
         function getcite2(did) {
-             
             //    var id = $("#citeid").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/GetWorklocation",
                 data: { "id": did },
+                async: false,
                 success: function (result) {
                      
 
@@ -251,6 +256,7 @@
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
+            async: false,
             success: function (result) {
                  
                 var idg = $("#country").val();
@@ -417,7 +423,7 @@
                                             @pers_2.Locationdesc
                                         </label>
                                           <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.personnel_transaction.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), pers_2.Locationdesc, new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
+                                            @Html.DropDownListFor(m => m.personnel_transaction.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), pers_2.Locationdesc, new { @class = "select2", @onchange = "getcite2()", id = "citeid2"@*, @disabled = true*@ })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.Location_descId, "", new { @class = "text-danger" })
                                             <input type="hidden" value=" " class="form-control" id="cityname2" disabled />
 
@@ -426,7 +432,7 @@
                                             @organ.slot
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.personnel_transaction.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), organ.slot, new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
+                                            @Html.DropDownListFor(m => m.personnel_transaction.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), organ.slot, new { @class = "select2", @onchange = "slot()", id = "ter"@*, @disabled = true*@ })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.SlotdescId, "", new { @class = "text-danger" })
                                             <input type="hidden" value=" " class="form-control" id="tername" disabled />
 
@@ -439,7 +445,7 @@
                                             @organ.Job_level_gradeI__D
                                         </label>
                                            <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.personnel_transaction.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"),organ.Job_level_gradeI__D, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                            @Html.DropDownListFor(m => m.personnel_transaction.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"),organ.Job_level_gradeI__D, new { @class = "select2", @onchange = "areaName()", id = "area"@*, @disabled = true*@ })
                                             @Html.ValidationMessageFor(model => model.personnel_transaction.Job_level_gradeId, "", new { @class = "text-danger" })
                                             <input type="hidden" value=" " class="form-control" id="areaname1" disabled />
 
