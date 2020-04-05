@@ -533,4 +533,25 @@ namespace HR.Models.Infra
         [Display(Name = "Lateness After Leave")]
         LatenessAfterLeave = 8
     }
+    public enum Committe_Usage
+    {
+        Personnel = 1,
+        Test = 2
+    }
+    public enum Committe_Resolution_Status
+    {
+            
+        Created = 1,
+        Approved = 2,
+        Rejected=3,
+        Canceled=4,
+        [Display(Name = "Report As Ready")]
+        Report_As_Ready=5
+    }
+    public enum Committe_Type
+    {
+        Official = 1,
+        [Display(Name = "Non-Official")]
+        Non_Official = 2
+    }
 }

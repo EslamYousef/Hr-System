@@ -211,6 +211,8 @@ namespace HR.Models
         public DbSet<Applicant_Contact_Profile> Applicant_Contact_Profile { get; set; }
         public DbSet<Applicant_Military_Service_Profile> Applicant_Military_Service_Profile { get; set; }
         public DbSet<Applicant_Subscription_Syndicate_Profile> Applicant_Subscription_Syndicate_Profile { get; set; }
+        public DbSet<Committe_Resolution_Recuirtment> Committe_Resolution_Recuirtment { get; set; }
+        public DbSet<Append_Committe_Member> Append_Committe_Member { get; set; }
 
 
     }

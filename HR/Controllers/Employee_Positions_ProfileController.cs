@@ -126,6 +126,8 @@ namespace HR.Controllers
                         foreach(var item in te )
                         {
                             item.Primary_Position = false;
+                            item.End_of_service_date = DateTime.Now;
+                            item.Last_working_date = DateTime.Now;
                             int slot_id = int.Parse(item.SlotdescId);
                             var slot = dbcontext.Slots.FirstOrDefault(m => m.ID == slot_id);
                             slot.EmployeeID = null;
@@ -275,6 +277,8 @@ namespace HR.Controllers
                 var emp = record.Employee_Profile;
 
                 var list = dbcontext.Position_Information.Where(a => a.Primary_Position == true).ToList();
+                list.LastOrDefault().Last_working_date = DateTime.Now;
+                list.LastOrDefault().End_of_service_date = DateTime.Now;
                 if (list != null)
                 {
                     for (int i = 0; i < list.Count(); i++)
@@ -368,11 +372,6 @@ namespace HR.Controllers
 
                 }
                 record.SlotdescId = model.Position_Information.SlotdescId;
-
-
-
-
-
 
                 //    record.job_title_cards = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == SlotdescId);
                 record.Default_location_descId = model.Position_Information.Default_location_descId;

@@ -3265,6 +3265,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to margin-left:80px;.
+        /// </summary>
+        public static string margin_4 {
+            get {
+                return ResourceManager.GetString("margin_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to margin-left: 450px;.
         /// </summary>
         public static string margin_450px {
