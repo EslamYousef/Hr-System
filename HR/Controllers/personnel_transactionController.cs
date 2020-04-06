@@ -192,7 +192,7 @@ namespace HR.Controllers
                     {
                         var ID = int.Parse(model.personnel_transaction.Location_descId);
                         mymodel.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == ID);
-                        mymodel.Location_descId = model.personnel_transaction.Job_level_gradeId;
+                        mymodel.Location_descId = mymodel.work_location.ID.ToString();
                     }
                     else
                     {
@@ -373,8 +373,18 @@ namespace HR.Controllers
                 record.transaction_date = model.personnel_transaction.transaction_date;
                 record.Transaction_type = model.personnel_transaction.Transaction_type;
                 record.Transaction_Type_ = model.personnel_transaction.Transaction_Type_;
-                record.working_system = model.personnel_transaction.working_system;
-                record.work_location = model.personnel_transaction.work_location;
+                if (model.personnel_transaction.Location_descId != "0")
+                {
+                    var ID = int.Parse(model.personnel_transaction.Location_descId);
+                    record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == ID);
+                    record.Location_descId = record.work_location.ID.ToString();
+                }
+                else
+                {
+                    record.work_location = null;
+                    record.Location_descId = "0";
+                }
+             
                 record.Years = model.personnel_transaction.Years;
                 var tt = (int)record.Transaction_type;
                 var t=(transaction_type)(int)record.Transaction_type;
@@ -417,7 +427,7 @@ namespace HR.Controllers
                 {
                     var ID = int.Parse(model.personnel_transaction.Location_descId);
                     record.work_location = dbcontext.work_location.FirstOrDefault(m => m.ID == ID);
-                    record.Location_descId = model.personnel_transaction.Job_level_gradeId;
+                    record.Location_descId = record.work_location.ID.ToString();
                 }
                 else
                 {

@@ -1,0 +1,186 @@
+﻿@model HR.Models.Time_management.Shift_setup
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@using HR.Resource;
+
+
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @organ.Createjoblevel
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Edit", "ShiftSetUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @organ.code
+                            </label> <div class="col-md-3">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label style="color:red" class="control-label col-md-1">
+                                @organ.name
+                            </label>  <div class="col-md-3">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-1"> </div>
+                            <div class="col-md-3">
+                                <input style="width:100px" type="submit" value=@organ.Save class="btn btn-success" />
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @organ.description
+                            </label>   <div class="col-md-3">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                @organ.working_system
+                            </label>  <div class="col-md-3">
+
+                                @Html.EnumDropDownListFor(m => m.working_system, organ.selectjoblevelclass, new { @class = "select2", @onchange = "CountryName1()", id = "country1" })
+
+                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
+
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <a style="width:100px" href="@Url.Action("index","ShiftSetUp")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @organ.code
+                            </label> <div class="col-md-3">
+                                @Html.EditorFor(model => model.Start_time, new { htmlAttributes = new { @name = "start", id = "start", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1", @Onchange = "tt()" } })
+
+                            </div>
+                            <label class="control-label col-md-1">
+                                @organ.code
+                            </label> <div class="col-md-3">
+                                @Html.EditorFor(model => model.End_time, new { htmlAttributes = new { @name = "end", id = "end", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_default_time = "11:25 AM", @data_show_meridian = "true", @data_minute_step = "1", @Onchange = "tt()" } })
+
+                            </div>
+                            <label class="control-label col-md-1">
+                                @organ.code
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Total_Hours, new { htmlAttributes = new { id = "total", @readonly = true, @class = "form-control" } })
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @organ.worklocationid
+                            </label>  <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.work_locationID, new SelectList(ViewBag.location, "ID", "Code"), organ.selectjoblevelclass, new { @class = "select2", @onchange = "CountryName1()", id = "country1" })
+
+                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
+
+                            </div>
+                            <label class="control-label col-md-1">
+                                @Personnel.IncludeWeekEnd
+                            </label>  <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.Weekend_setupID, new SelectList(ViewBag.weekend, "ID", "Code"), organ.selectjoblevelgrade, new { @class = "select2", @onchange = "CountryName2()", id = "country2" })
+
+                                <input type="hidden" value=" " class="form-control" id="countryname2" disabled />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+<script>
+    debugger
+
+    var i = $("#start").val();
+    if(@Model.Start_time.Hours>12)
+    {
+       var def=@Model.Start_time.Hours-12;
+        var min=@Model.Start_time.Minutes;
+        var sec=@Model.Start_time.Seconds;
+
+        $("#start").val(def +":" +min+":"+sec+" pm")
+    }
+    if(@Model.End_time.Hours>12)
+    {
+        var def=@Model.End_time.Hours-12;
+        var min=@Model.End_time.Minutes;
+        var sec=@Model.End_time.Seconds;
+
+        $("#end").val(def +":" +min+":"+sec+" pm")
+    }
+    function tt()
+    {
+        debugger
+        var t = "01/01/2000 " + $("#end").val();
+        var end = new Date(t).getHours();
+
+        var t2 = "01/01/2000 " + $("#start").val();
+        var sta = new Date(t2).getHours();
+
+        var total=end-sta;
+        if(total<0)
+        {
+           $("#total").val(total * -1);
+        }
+        else
+        {
+            $("#total").val(total);
+        }
+    }
+
+</script>
