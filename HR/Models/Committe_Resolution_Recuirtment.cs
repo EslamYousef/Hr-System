@@ -34,7 +34,11 @@ namespace HR.Models
         public Committe_Type Committe_Type { get; set; } = Committe_Type.Official;
         [Display(Name = "Committe Conclusion")]
         public string Committe_Conclusion { get; set; }
-
         public virtual List<Append_Committe_Member> Append_Committe_Member { get; set; }
+        public virtual status status { get; set; }
+        public check_status check_status { get; set; }
+
+        public int statID { get; set; }
+        public string name_state { get; set; }
     }
 }

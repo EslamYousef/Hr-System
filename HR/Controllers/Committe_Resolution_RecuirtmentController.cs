@@ -83,6 +83,17 @@ namespace HR.Controllers
                     {
                         var add_items = dbcontext.Append_Committe_Member.AddRange(items);
                         dbcontext.SaveChanges();
+                        /////////////////////////////////////
+                        //record.check_status = check_status.created;
+
+                        //var Date = Convert.ToDateTime("1/1/1900");
+                        //var s = new status { statu = check_status.created, created_by = username, Type = Models.Infra.Type.employee_record, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, return_to_reviewdate = Date };
+                        //var st = dbcontext.status.Add(s);
+                        //dbcontext.SaveChanges();
+                        //record.status = st;
+                        //record.sss = record.Record_date.ToShortDateString();
+                        //record.name_state = nameof(check_status.created);
+                        ///////////////////////////////
                         var benfit = new Committe_Resolution_Recuirtment { Append_Committe_Member = add_items.ToList(), Code = model.Code, Committe_Usage = model.Committe_Usage, Committe_Location = model.Committe_Location, Committe_Resolution_Date = model.Committe_Resolution_Date, Committe_Year = model.Committe_Year, Committe_Resolution_Status = model.Committe_Resolution_Status, Committe_Type = model.Committe_Type, Committe_Conclusion = model.Committe_Conclusion };
                         dbcontext.Committe_Resolution_Recuirtment.Add(benfit);
                         dbcontext.SaveChanges();
@@ -241,7 +252,7 @@ namespace HR.Controllers
             try
             {
                 var ID = int.Parse(id);
-                var model = dbcontext.Employee_records.FirstOrDefault(m => m.ID == ID);
+                var model = dbcontext.Committe_Resolution_Recuirtment.FirstOrDefault(m => m.ID == ID);
                 var st = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = st, empid = ID };
@@ -257,7 +268,7 @@ namespace HR.Controllers
         public ActionResult status(employeestate model)
         {
             var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
-            var record = dbcontext.Employee_records.FirstOrDefault(m => m.ID == model.empid);
+            var record = dbcontext.Committe_Resolution_Recuirtment.FirstOrDefault(m => m.ID == model.empid);
             if (model.check_status == check_status.Approved)
             {
                 sta.approved_by = User.Identity.GetUserName();

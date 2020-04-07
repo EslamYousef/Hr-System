@@ -1,0 +1,252 @@
+﻿@model HR.Models.ViewModel.employeestate
+
+@{
+    ViewBag.Title = "status";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@using HR.Resource;
+<script>
+    $(function () {
+        close();
+        GetDataById2('@Model.status.created_bydate', "CR");
+        GetDataById2('@Model.status.Rejected_bydate', "Rj");
+        GetDataById2('@Model.status.return_to_reviewdate', "RE");
+        GetDataById2('@Model.status.approved_bydate', "AP");
+        GetDataById2('@Model.status.cancaled_bydate', "CA");
+    });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function go(input) {
+
+
+        var value = input.val();
+        if (value == 1) {
+            close();
+            $("#CR").attr("readonly", false);
+            //     $("#created1").attr("readonly", false);
+            //    $("#created1d").attr("hidden", false);
+
+        }
+        else if (value == 2) {
+            close();
+            $("#RE").attr("readonly", false);
+            //    $("#report1").prop("readonly", false);
+            //   $("#report1d").prop("hidden", false);
+        }
+        else if (value == 3) {
+            close();
+            $("#AP").attr("readonly", false);
+            //    $("#approved1").prop("readonly", false);
+            //   $("#approved1d").prop("hidden", false);
+        }
+        else if (value == 4) {
+            close();
+            $("#Rj").attr("readonly", false);
+            //     $("#Rejected1").prop("readonly", false);
+            //    $("#Rejected1d").prop("hidden", false);
+        } else if (value == 5) {
+            close();
+            $("#CA").attr("readonly", false);
+            //    $("#cancaled1").prop("readonly", false);
+            //   $("#cancaled1d").prop("hidden", false);
+        }
+        else if (value == 6) {
+            close();
+
+        }
+        else if (value == 7) {
+            close();
+
+        }
+    }
+    function close() {
+        $("#cancaled1").attr("readonly", true);
+        $("#Rejected1").attr("readonly", true);
+        $("#approved1").attr("readonly", true);
+        $("#ready1").attr("readonly", true);
+        $("#created1").attr("readonly", true);
+        $("#report1").attr("readonly", true);
+        //////
+        $("#CR").attr("readonly", true);
+        $("#Rj").attr("readonly", true);
+        $("#RE").attr("readonly", true);
+        $("#AP").attr("readonly", true);
+        $("#CA").attr("readonly", true);
+        //$("#cancaled1d").attr("hidden", true);
+        //$("#Rejected1d").attr("hidden", true);
+        //$("#approved1d").attr("hidden", true);
+        //$("#ready1d").attr("hidden", true);
+        //$("#created1d").attr("hidden", true);
+        //$("#report1d").attr("hidden", true);
+    }
+</script>
+@using (Html.BeginForm("status", "Employee_records", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <hr />
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["Message"]
+            </div>
+        }
+        @Html.HiddenFor(m => m.empid);
+        @Html.HiddenFor(m => m.status.ID);
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                @pers_2.check_status
+            </label>
+            <div class="col-md-4">
+                @Html.EnumDropDownListFor(m => m.check_status, pers_2.status, new { @class = "select2", @onchange = "go($(this))" })
+                @Html.ValidationMessageFor(model => model.check_status, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group" id="created">
+
+            <label class="control-label col-md-2">
+                <span> @organ.createdby</span>
+            </label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.status.created_by, new { htmlAttributes = new { id = "created1", @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.status.created_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="created1d">
+                <label class="control-label col-md-2">
+                    <span> @organ.createdDate</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CR" } })
+                    @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" id="ready">
+            <label class="control-label col-md-2">
+                <span>@organ.Reportasreadyby</span>
+            </label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.status.return_to_reviewby, new { htmlAttributes = new { id = "report1", @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.status.return_to_reviewby, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="report1d">
+                <label class="control-label col-md-2">
+                    <span>@organ.ReportasreadyDate</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.status.return_to_reviewdate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "RE" } })
+                    @Html.ValidationMessageFor(model => model.status.return_to_reviewdate, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group" id="approved">
+            <label class="control-label col-md-2">
+                <span>@organ.approvedby</span>
+            </label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.status.approved_by, new { htmlAttributes = new { id = "approved1", @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.status.approved_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="approved1d">
+                <label class="control-label col-md-2">
+                    <span>@organ.approvedDate</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "AP" } })
+                    @Html.ValidationMessageFor(model => model.status.approved_bydate, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group" id="Rejected">
+            <label class="control-label col-md-2">
+                <span>@organ.Rejectedby</span>
+            </label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.status.Rejected_by, new { htmlAttributes = new { id = "Rejected1", @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.status.Rejected_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="Rejected1d">
+                <label class="control-label col-md-2">
+                    <span>@organ.RejectedDate</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Rj" } })
+                    @Html.ValidationMessageFor(model => model.status.Rejected_bydate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group" id="cancaled">
+            <label class="control-label col-md-2">
+                <span>@organ.cancaledby</span>
+            </label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.status.cancaled_by, new { htmlAttributes = new { id = "cancaled1", @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.status.cancaled_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="cancaled1d">
+                <label class="control-label col-md-2">
+                    <span>@organ.cancaledDate</span>
+                </label>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CA" } })
+                    @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=@organ.Save class="btn btn-success" />
+                <a href="@Url.Action("index","Employee_records")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backtoindex</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{}
