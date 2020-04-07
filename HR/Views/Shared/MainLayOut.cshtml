@@ -50,7 +50,6 @@
         <link rel="stylesheet" href="~/Content/neon/assets/css/neon-core.css">
         <link rel="stylesheet" href="~/Content/neon/assets/css/neon-theme.css">
         <link rel="stylesheet" href="~/Content/neon/assets/css/neon-forms.css">
-        <link rel="stylesheet" href="~/Content/neon/assets/css/custom.css">
         <link rel="stylesheet" href="~/Content/neon/assets/js/jvectormap/jquery-jvectormap-1.2.2.css">
         <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">
         <link rel="stylesheet" href="~/Content/neon/assets/js/datatables/datatables.css">
@@ -63,11 +62,16 @@
         <link rel="stylesheet" href="~/Content/neon/assets/js/icheck/skins/flat/_all.css">
         <link rel="stylesheet" href="~/Content/neon/assets/js/icheck/skins/futurico/futurico.css">
         <link rel="stylesheet" href="~/Content/neon/assets/js/icheck/skins/polaris/polaris.css">
+        <link rel="stylesheet" href="~/Content/neon/assets/css/custom.css">
         <script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
 
     }
 </head>
-
+<script>
+        $('.dropdown-submenu').click(function () {
+            $(this).addClass('no-hover');
+        });
+</script>
 <body class="page-body  page-left-in" data-url="http://neon.dev">
 
     <div class="page-container @HR.Resource.Personnel.sidebarcollapsed">
@@ -104,17 +108,17 @@
 
             <div class="sidebar-menu" id="menubar" dir="@HR.Resource.mainlayout.d">
 
-                <div class="multiple-expanded" dir="@HR.Resource.mainlayout.d">
+                <div class="multiple-expanded" id="nav" dir="@HR.Resource.mainlayout.d">
                     <ul id="myDIV" class="mn-vnavigation main-menu" style="display: none">
-                        <li class="dropdown-submenu active">
+                        <li class="dropdown-submenu ">
                             <a href="@Url.Action("Index","Home")">
                                 <span class="title">@mainlayout.Home</span>
                             </a>
                          
                         </li>
-                        <li class="dropdown-submenu active">
+                        <li class="dropdown-submenu ">
                             <a tabindex="-1" href="#">@mainlayout.Basic</a>
-                            <ul class="dropdown-menu ">
+                            <ul class="dropdown-menu  sub">
                                 <li class="dropdown-submenu active">
                                     <a tabindex="-1" href="#">@mainlayout.Setup</a>
                                     <ul class="dropdown-menu">
@@ -367,10 +371,10 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown-submenu active">
+                        <li class="dropdown-submenu ">
                             <a tabindex="-1" href="#">@mainlayout.organization_chart</a>
                             <ul class="dropdown-menu ">
-                                <li class="dropdown-submenu active">
+                                <li class="dropdown-submenu ">
                                     <a tabindex="-1" href="#">@mainlayout.Setup</a>
                                     <ul class="dropdown-menu">
                                      
@@ -379,7 +383,7 @@
                                    
                                        
                                       
-                                        <li class="dropdown-submenu active">
+                                        <li class="dropdown-submenu ">
                                             <a tabindex="-1" href="#">@mainlayout.Authority</a>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -397,7 +401,7 @@
                                             </ul>
                                         </li>
 
-                                        <li class="dropdown-submenu active">
+                                        <li class="dropdown-submenu ">
                                             <a tabindex="-1" href="#">@mainlayout.skills</a>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -1188,15 +1192,32 @@
     <script>
         function myFunction() {
             var x = document.getElementById('myDIV');
-            if (x.style.display === 'block') {
-                return x.style.display = 'none';
+            if (x.style.display === 'none') {
+                return x.style.display = 'block';
             } else {
                 return x.style.display = 'block';
             }
         }
-        window.onload = init;
+        
     </script>
 
+    <script>
+        $(function () {
+            $('#nav').on('click', 'a[href="#"]', function () {
+                var submenu = $(this).next('ul');
+                $('#nav ul').not(submenu).hide();
+                submenu.parentsUntil('#nav', 'ul').show().end().toggle();
+                return false;
+            });
+
+            $(document).click(function () {
+                $('#nav ul ul').hide();
+            });
+
+        });
+
+</script>
+    
     <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">
     @RenderSection("scripts")
 </body>
