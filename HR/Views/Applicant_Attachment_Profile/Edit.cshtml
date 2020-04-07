@@ -147,8 +147,28 @@
                                 @Html.ValidationMessageFor(model => model.Document_status, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        @*<span>Attachments :<a href="~/files/@Model.Code/@Model.Attachmentfile" />The Link </span> <input type="file" name="MyItem" required /><br />*@
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                @if (Model.Attachmentfile == null)
+                                {
+                                    <div class="col-md-6">
+                                        <label class="control-label">Attachments</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="~/files/@Model.Code/@Model.Attachmentfile" style="color: currentColor;" />  <input type="file" name="MyItem" style="min-width: 400px; margin-left: -24px;" /><br />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-6">
+                                        <label class="control-label">Attachments</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="~/Applicant_Attachment_Files/@Model.Code/@Model.Attachmentfile" style="color: currentColor;" />  <input type="file" name="MyItem" style="margin-left: -24px;" /><input type="text" value="@Model.Attachmentfile" disabled style="min-width: 400px; margin-left: -24px;" /><br />
+                                    </div>
+                                }
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Comments</label>

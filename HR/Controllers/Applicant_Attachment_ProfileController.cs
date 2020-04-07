@@ -97,15 +97,22 @@ namespace HR.Controllers
 
                     record.Document_status = model.Document_status;
                     record.Comments = model.Comments;
+                    if (MyItem == null)
+                    {
+                        record.Attachmentfile = null;
 
-                    var code = record.Code;
-                    string folderpath = Server.MapPath("~/Applicant_Attachment_Files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
-                    Directory.CreateDirectory(folderpath + code);
-                    string mypath = folderpath + code;
-                    string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
-                    MyItem.SaveAs(mypath + "/" + filename);
-                    model.Attachmentfile = filename;
-                    //record.Attachmentfile = model.Attachmentfile;
+                    }
+                    else if (MyItem.FileName != null)
+                    {
+                        var code = record.Code;
+                        string folderpath = Server.MapPath("~/Applicant_Attachment_Files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
+                        Directory.CreateDirectory(folderpath + code);
+                        string mypath = folderpath + code;
+                        string filename = MyItem.FileName + Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                        MyItem.SaveAs(mypath + "/" + filename);
+                        model.Attachmentfile = filename;
+                        record.Attachmentfile = model.Attachmentfile;
+                    }
 
                     dbcontext.Applicant_Attachment_Profile.Add(record);
                     dbcontext.SaveChanges();
@@ -188,11 +195,8 @@ namespace HR.Controllers
                     TempData["Message"] = HR.Resource.Personnel.IssuedatebiggerExpirydate;
                     return View(model);
                 }
-
                 record.Document_status = model.Document_status;
                 record.Comments = model.Comments;
-
-
 
                 if (MyItem != null)
                 {
@@ -200,7 +204,7 @@ namespace HR.Controllers
                     string folderpath = Server.MapPath("~/Applicant_Attachment_Files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
                     Directory.CreateDirectory(folderpath + code);
                     string mypath = folderpath + code;
-                    string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                    string filename = MyItem.FileName + Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
                     MyItem.SaveAs(mypath + "/" + filename);
                     model.Attachmentfile = filename;
                     record.Attachmentfile = model.Attachmentfile;

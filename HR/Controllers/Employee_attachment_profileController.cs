@@ -73,12 +73,7 @@ namespace HR.Controllers
                 ViewBag.idemp = model.Employee_ProfileId;
                 if (ModelState.IsValid)
                 {
-                    //  var family = int.Parse(model.Employee_ProfileId);
-                    //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == family);
-                    //      var record = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == emp.Employee_family_profile.ID);
-
-               
-                   
+              
                     record.Code = model.Code;
                     record.Is_copy = model.Is_copy;
                     record.Is_required = model.Is_required;
@@ -88,7 +83,6 @@ namespace HR.Controllers
                     record.Reference_number = model.Reference_number;
                     record.Document_number = model.Document_number;
                     record.Document_description = model.Document_description;
-
                     record.Employee_Profile = EmpObj;
                     record.DocumentsId = model.DocumentsId;
                     record.Documents = dbcontext.Documents.FirstOrDefault(m => m.ID == model.DocumentsId);
@@ -102,7 +96,6 @@ namespace HR.Controllers
                    
                     record.Document_status = model.Document_status;
                     record.Comments = model.Comments;
-                    //////////
                     if (MyItem == null)
                     {
                         record.Attachmentfile = null;
@@ -114,9 +107,8 @@ namespace HR.Controllers
                         string folderpath = Server.MapPath("~/files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
                         Directory.CreateDirectory(folderpath + code);
                         string mypath = folderpath + code;
-                        string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                        string filename = MyItem.FileName + Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
                         MyItem.SaveAs(mypath + "/" + filename);
-
                         model.Attachmentfile = filename;
                         record.Attachmentfile = model.Attachmentfile;
                     }
@@ -215,8 +207,8 @@ namespace HR.Controllers
                     string folderpath = Server.MapPath("~/files/") /*(@"c:\users\3lamya\documents\visual studio 2015\projects\systemuserfakahany\systemuserfakahany\files\")*/;
                     Directory.CreateDirectory(folderpath + code);
                     string mypath = folderpath + code;
-                    string filename = Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
-                    MyItem.SaveAs(mypath + "/" + filename);
+                    string filename =  MyItem.FileName + Guid.NewGuid() + Path.GetExtension(MyItem.FileName);
+                    MyItem.SaveAs( mypath + "/" + filename);
                     model.Attachmentfile = filename;
                     record.Attachmentfile = model.Attachmentfile;
                 }
