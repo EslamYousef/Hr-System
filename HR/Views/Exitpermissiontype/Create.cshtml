@@ -1,4 +1,4 @@
-﻿@model HR.Models.Time_management.Shift_setup
+﻿@model HR.Models.Time_management.Exit_permission_type
 @using HR.Resource;
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            @pers_2.shiftsetup
+            @pers_2.ExitPerissiontype
         </h1>
     </section>
 
@@ -23,7 +23,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                @using (Html.BeginForm("Create", "ShiftSetUp", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Exitpermissiontype", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -53,11 +53,14 @@
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-1"> </div>
-                            <div class="col-md-3">
-                                <input style="width:100px" type="submit" value=@pers_2.CreateEOSRequest class="btn btn-success" />
+                           
+                            <div class="col-md-2">
+                                <input style="width:100px" type="submit" value=@pers_2.create class="btn btn-success" />
                             </div>
+                            <div class="col-md-2">
+                                <a style="width:100px" href="@Url.Action("index","Exitpermissiontype")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
 
+                            </div>
                         </div>
 
                    
@@ -69,67 +72,62 @@
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
+                          
                             <label class="control-label col-md-1">
-                                @organ.working_system
+                                @pers_2.shiftsetup
                             </label>  <div class="col-md-3">
 
-                                @Html.EnumDropDownListFor(m => m.working_system, organ.selectjoblevelclass, new { @class = "select2", @onchange = "CountryName1()", id = "country1" })
+                                @Html.DropDownListFor(m => m.ShiftdaystatusID, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
 
-                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
+                              </div>
 
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <a style="width:100px" href="@Url.Action("index","ShiftSetUp")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-
-                            </div>
                         </div>
                       
                         <div class="form-group">
                             <label class="control-label col-md-1">
                                 @pers_2.fromtime
                             </label> <div class="col-md-3">
-                                @Html.EditorFor(model => model.Start_time, new { htmlAttributes = new {@name="start",id="start", @class = "form-control timepicker",@data_template= "dropdown", @data_show_seconds = "true",@data_show_meridian = "true", @data_minute_step = "1", @Onchange="tt()" } })
+                                @Html.EditorFor(model => model.from, new { htmlAttributes = new {@name="start",id="start", @class = "form-control timepicker",@data_template= "dropdown", @data_show_seconds = "true",@data_show_meridian = "true", @data_minute_step = "1"} })
                              
                             </div>
                             <label class="control-label col-md-1">
                                 @pers_2.totime
                             </label> <div class="col-md-3">
-                                @Html.EditorFor(model => model.End_time, new {  htmlAttributes = new { @name = "end", id ="end",@class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_default_time = "11:25 AM", @data_show_meridian = "true", @data_minute_step = "1", @Onchange="tt()" } })
+                                @Html.EditorFor(model => model.to, new {  htmlAttributes = new { @name = "end", id ="end",@class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_default_time = "11:25 AM", @data_show_meridian = "true", @data_minute_step = "1"} })
                               
                             </div>
-                            <label class="control-label col-md-1">
-                                @pers_2.TotalTime
-                            </label>
-                             <div class="col-md-3">
-                                @Html.EditorFor(model => model.Total_Hours, new { htmlAttributes = new {id= "total", @readonly = true, @class = "form-control" } })
-
-                            </div>
-
-
                         </div>
                        
                         <div class="form-group">
                             <label class="control-label col-md-1">
-                                @pers_2.worklocation
-                            </label>  <div class="col-md-3">
-
-                                @Html.DropDownListFor(m => m.work_locationID, new SelectList(ViewBag.location, "ID", "Code"), pers_2.worklocation, new { @class = "select2", @onchange = "CountryName1()", id = "country1" })
-                             
-                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
-
+                                @pers_2.integratewithpayroll
+                            </label>
+                            <div class="col-md-3">
+                                @Html.CheckBoxFor(model => model.integrate_with_payroll, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                             <label class="control-label col-md-1">
-                                @pers_2.weekend
-                            </label>  <div class="col-md-3">
+                               @pers_2.Salarycode
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
 
-                                @Html.DropDownListFor(m => m.Weekend_setupID, new SelectList(ViewBag.weekend, "ID", "Code"), pers_2.weekend, new { @class = "select2", @onchange = "CountryName2()", id = "country2" })
-
-                                <input type="hidden" value=" " class="form-control" id="countryname2" disabled />
-
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.integratewithleaves
+                            </label>
+                            <div class="col-md-3">
+                                @Html.CheckBoxFor(model => model.integrate_with_leaves, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <label class="control-label col-md-1">
+                               @pers_2.Leavecode
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" />
                             </div>
 
-                        </div>  
+                        </div>
 
                     </div>
                 }
@@ -141,25 +139,3 @@
     </section>
 </div>
 @section scripts{}
-<script>
-    function tt()
-    {
-        debugger
-        var t = "01/01/2000 " + $("#end").val();
-        var end = new Date(t).getHours();
-
-        var t2 = "01/01/2000 " + $("#start").val();
-        var sta = new Date(t2).getHours();
-
-        var total=end-sta;
-        if(total<0)
-        {
-           $("#total").val(total * -1);
-        }
-        else
-        {
-            $("#total").val(total);
-        }
-    }
-   
-</script>

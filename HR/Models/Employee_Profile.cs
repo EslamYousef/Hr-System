@@ -5,6 +5,8 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HR.Models.Infra;
+using HR.Models.Time_management;
+
 namespace HR.Models
 {
     public class Employee_Profile
@@ -120,6 +122,7 @@ namespace HR.Models
         public virtual List<Employee_sponsor_profile> Employee_sponsor_profile { get; set; }
         public virtual List<Employee_vehicle_profile> Employee_vehicle_profile { get; set; }
 
+        public virtual List<Employee_Shift_schedule> Employee_Shift_schedule { get; set; }
         //public string tab { get; set; }
 
         //[DataType(DataType.DateTime)]

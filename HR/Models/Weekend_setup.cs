@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HR.Models.Time_management;
+
 namespace HR.Models
 {
     public class Weekend_setup
@@ -30,6 +32,7 @@ namespace HR.Models
         public bool Wednesday { get; set; }
         public bool Thursday { get; set; }
         public bool Friday { get; set; }
+        public virtual List<Shift_setup> Shift_setup { get; set; }
 
     }
 }

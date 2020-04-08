@@ -7,6 +7,7 @@ using HR.Models.Infra;
 using HR.Models.ViewModel;
 using HR.Reposatory;
 using HR.Areas.suberAdmin.Models;
+using HR.Models.Time_management;
 
 namespace HR.Models
 {
@@ -213,6 +214,17 @@ namespace HR.Models
         public DbSet<Applicant_Subscription_Syndicate_Profile> Applicant_Subscription_Syndicate_Profile { get; set; }
         public DbSet<Committe_Resolution_Recuirtment> Committe_Resolution_Recuirtment { get; set; }
         public DbSet<Append_Committe_Member> Append_Committe_Member { get; set; }
+        public DbSet<Shift_setup> Shift_setup { get; set; }
+        public DbSet<Shiftdaystatus> Shiftdaystatus { get; set; }
+        public DbSet<Day_Status_Linkedto_Location> Day_Status_Linkedto_Location { get; set; }
+        public DbSet<TransportationMethod> TransportationMethod { get; set; }
+        public DbSet<Business_Trip> Business_Trip { get; set; }
+        public DbSet<Time_management_action_setup> Time_management_action_setup { get; set; }
+        public DbSet<Exit_Permission_Reason> Exit_Permission_Reason { get; set; }
+        public DbSet<Exit_permission_type> Exit_permission_type { get; set; }
+
+        public DbSet<Employee_Shift_schedule> Employee_Shift_schedule { get; set; }
+        public DbSet<Schedule_Details> Schedule_Details { get; set; }
 
 
     }

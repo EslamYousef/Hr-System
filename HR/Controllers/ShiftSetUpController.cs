@@ -9,13 +9,14 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class ShiftSetUpController : Controller
+    public class ShiftSetUpController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: ShiftSetUp
         public ActionResult Index()
         {
-            return View();
+            var model = dbcontext.Shift_setup.ToList();
+            return View(model);
         }
         public ActionResult Create()
         {
@@ -109,6 +110,34 @@ namespace HR.Controllers
                 return View(model);
             }
 
+        }
+        public ActionResult Deltet_method(int id)
+        {
+            try
+            {
+                var model = dbcontext.Shift_setup.FirstOrDefault(m => m.ID == id);
+                return View(model);
+            }
+            catch(Exception)
+            {
+                return RedirectToAction("index");
+            }
+        }
+        [HttpPost]
+        [ActionName("Deltet_method")]
+        public ActionResult Deltet(int id)
+        {
+            var model = dbcontext.Shift_setup.FirstOrDefault(m => m.ID == id);
+            try
+            {
+                dbcontext.Shift_setup.Remove(model);
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch (Exception)
+            {
+                return View(model);
+            }
         }
     }
 }

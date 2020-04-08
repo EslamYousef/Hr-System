@@ -1,0 +1,156 @@
+﻿@model HR.Models.Time_management.Business_Trip
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.Businesstrip
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("edit", "BusinessTrip", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @organ.code
+                            </label> <div class="col-md-3">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label style="color:red" class="control-label col-md-1">
+                                @organ.name
+                            </label>  <div class="col-md-3">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-2">
+                                <input style="width:100%" type="submit" value=@organ.Save class="btn btn-success" />
+                            </div>
+                            <div class="col-md-2">
+                                <a style="width:100%" href="@Url.Action("index","BusinessTrip")" class="btn btn-danger btn-sm">@pers_2.Back</a>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @organ.description
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                               @pers_2.Allowancerateperday
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.alloeancereateberdaye, new { htmlAttributes = new {@type="number", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.alloeancereateberdaye, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.shiftsetup
+                            </label>
+                            <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.ShiftdaystatusID, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.defulttransportaion_GO
+                            </label>
+                            <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.TransportationMethodID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.trans, new { @class = "select2" })
+
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.defalulttransportation_return
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.transporation_return_ID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.trans, new { @class = "select2" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                linked to mnothely payroll
+                            </label>
+                            <div class="col-md-3">
+                                @Html.CheckBoxFor(model => model.linkedtomnothelypayroll, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <label class="control-label col-md-1">
+                               @pers_2.Salarycode
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                linked to manyal payment
+                            </label>
+                            <div class="col-md-3">
+                                @Html.CheckBoxFor(model => model.linkedtomanyalpayment, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <label class="control-label col-md-1">
+                              @pers_2.manualcode
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" />
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}

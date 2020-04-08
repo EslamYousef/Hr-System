@@ -169,6 +169,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alias.
+        /// </summary>
+        public static string alias {
+            get {
+                return ResourceManager.GetString("alias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allowance Rate Per Day.
+        /// </summary>
+        public static string Allowancerateperday {
+            get {
+                return ResourceManager.GetString("Allowancerateperday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All-record.
         /// </summary>
         public static string allrecord {
@@ -268,6 +286,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Business Trip / Mission Type Setup.
+        /// </summary>
+        public static string Businesstrip {
+            get {
+                return ResourceManager.GetString("Businesstrip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string change {
@@ -309,6 +336,24 @@ namespace HR.Resource {
         public static string Commnets {
             get {
                 return ResourceManager.GetString("Commnets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditional Value .
+        /// </summary>
+        public static string conditionalvalue {
+            get {
+                return ResourceManager.GetString("conditionalvalue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditional Value Description.
+        /// </summary>
+        public static string conditionalvaluedesc {
+            get {
+                return ResourceManager.GetString("conditionalvaluedesc", resourceCulture);
             }
         }
         
@@ -372,6 +417,15 @@ namespace HR.Resource {
         public static string create {
             get {
                 return ResourceManager.GetString("create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Business Trip / Mission Type Setup.
+        /// </summary>
+        public static string createBUsin {
+            get {
+                return ResourceManager.GetString("createBUsin", resourceCulture);
             }
         }
         
@@ -466,6 +520,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Exit Permission Reason.
+        /// </summary>
+        public static string createexit_res {
+            get {
+                return ResourceManager.GetString("createexit_res", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Exit Permission Type.
+        /// </summary>
+        public static string createexitper {
+            get {
+                return ResourceManager.GetString("createexitper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Performance Evaluation Group.
         /// </summary>
         public static string CreatePerformanceEvaluationGroup {
@@ -489,6 +561,42 @@ namespace HR.Resource {
         public static string CreaterequesttonewContract {
             get {
                 return ResourceManager.GetString("CreaterequesttonewContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Shift SetUp.
+        /// </summary>
+        public static string createshiftres {
+            get {
+                return ResourceManager.GetString("createshiftres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Shift Day Status Setup.
+        /// </summary>
+        public static string createshiftstatus {
+            get {
+                return ResourceManager.GetString("createshiftstatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Time Managmenet System Action.
+        /// </summary>
+        public static string createtime_manag {
+            get {
+                return ResourceManager.GetString("createtime_manag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Transportation Method.
+        /// </summary>
+        public static string createtrans {
+            get {
+                return ResourceManager.GetString("createtrans", resourceCulture);
             }
         }
         
@@ -520,11 +628,56 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Day Status Color.
+        /// </summary>
+        public static string daystatuscolor {
+            get {
+                return ResourceManager.GetString("daystatuscolor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day Status Linked to Locations.
+        /// </summary>
+        public static string daystatuslinkedlocation {
+            get {
+                return ResourceManager.GetString("daystatuslinkedlocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day Status Linked To Location And Vactions.
+        /// </summary>
+        public static string daystatuslocationandvacation {
+            get {
+                return ResourceManager.GetString("daystatuslocationandvacation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decision Type.
         /// </summary>
         public static string Decisiontype {
             get {
                 return ResourceManager.GetString("Decisiontype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default return transportion method.
+        /// </summary>
+        public static string defalulttransportation_return {
+            get {
+                return ResourceManager.GetString("defalulttransportation_return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default value.
+        /// </summary>
+        public static string defalutvalue {
+            get {
+                return ResourceManager.GetString("defalutvalue", resourceCulture);
             }
         }
         
@@ -543,6 +696,15 @@ namespace HR.Resource {
         public static string Defaultlocationdesc {
             get {
                 return ResourceManager.GetString("Defaultlocationdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default departure transportion method.
+        /// </summary>
+        public static string defulttransportaion_GO {
+            get {
+                return ResourceManager.GetString("defulttransportaion_GO", resourceCulture);
             }
         }
         
@@ -592,6 +754,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Editing.
+        /// </summary>
+        public static string disableediting {
+            get {
+                return ResourceManager.GetString("disableediting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string edit {
@@ -615,6 +786,15 @@ namespace HR.Resource {
         public static string editEOSRequest {
             get {
                 return ResourceManager.GetString("editEOSRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Personnel Transaction.
+        /// </summary>
+        public static string editperstran {
+            get {
+                return ResourceManager.GetString("editperstran", resourceCulture);
             }
         }
         
@@ -844,6 +1024,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit Permission Type.
+        /// </summary>
+        public static string ExitPerissiontype {
+            get {
+                return ResourceManager.GetString("ExitPerissiontype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit Permission Reason.
+        /// </summary>
+        public static string exitpermissionreason {
+            get {
+                return ResourceManager.GetString("exitpermissionreason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faild.
         /// </summary>
         public static string Faild {
@@ -907,6 +1105,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From Time.
+        /// </summary>
+        public static string fromtime {
+            get {
+                return ResourceManager.GetString("fromtime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GAP.
         /// </summary>
         public static string GAP {
@@ -930,6 +1137,24 @@ namespace HR.Resource {
         public static string group {
             get {
                 return ResourceManager.GetString("group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integrate With Leaves.
+        /// </summary>
+        public static string integratewithleaves {
+            get {
+                return ResourceManager.GetString("integratewithleaves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integrate With Payroll.
+        /// </summary>
+        public static string integratewithpayroll {
+            get {
+                return ResourceManager.GetString("integratewithpayroll", resourceCulture);
             }
         }
         
@@ -1015,11 +1240,38 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leave Code.
+        /// </summary>
+        public static string Leavecode {
+            get {
+                return ResourceManager.GetString("Leavecode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Line.
         /// </summary>
         public static string line {
             get {
                 return ResourceManager.GetString("line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked to monthly payroll.
+        /// </summary>
+        public static string linkedpayroll {
+            get {
+                return ResourceManager.GetString("linkedpayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked to manual payment / settlement.
+        /// </summary>
+        public static string linkedpymant {
+            get {
+                return ResourceManager.GetString("linkedpymant", resourceCulture);
             }
         }
         
@@ -1038,6 +1290,15 @@ namespace HR.Resource {
         public static string makenewcontract {
             get {
                 return ResourceManager.GetString("makenewcontract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual payment type code.
+        /// </summary>
+        public static string manualcode {
+            get {
+                return ResourceManager.GetString("manualcode", resourceCulture);
             }
         }
         
@@ -1173,6 +1434,24 @@ namespace HR.Resource {
         public static string numberreq {
             get {
                 return ResourceManager.GetString("numberreq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to payroll item code.
+        /// </summary>
+        public static string payrollitemcode {
+            get {
+                return ResourceManager.GetString("payrollitemcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payroll item desc.
+        /// </summary>
+        public static string payrollitemdesc {
+            get {
+                return ResourceManager.GetString("payrollitemdesc", resourceCulture);
             }
         }
         
@@ -1492,6 +1771,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Salary Code.
+        /// </summary>
+        public static string Salarycode {
+            get {
+                return ResourceManager.GetString("Salarycode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sector Mangaer Evaluation.
         /// </summary>
         public static string Sectormanagerevaluation {
@@ -1533,6 +1821,24 @@ namespace HR.Resource {
         public static string selectemployee {
             get {
                 return ResourceManager.GetString("selectemployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift Day Status Setup.
+        /// </summary>
+        public static string shiftdaystatussetup {
+            get {
+                return ResourceManager.GetString("shiftdaystatussetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift SetUp.
+        /// </summary>
+        public static string shiftsetup {
+            get {
+                return ResourceManager.GetString("shiftsetup", resourceCulture);
             }
         }
         
@@ -1591,6 +1897,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time Managmenet System Action.
+        /// </summary>
+        public static string timemanagementsystemaction {
+            get {
+                return ResourceManager.GetString("timemanagementsystemaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TM Day status code .
+        /// </summary>
+        public static string TMday {
+            get {
+                return ResourceManager.GetString("TMday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To.
         /// </summary>
         public static string todate {
@@ -1627,6 +1951,33 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Time.
+        /// </summary>
+        public static string TotalTime {
+            get {
+                return ResourceManager.GetString("TotalTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Time.
+        /// </summary>
+        public static string totime {
+            get {
+                return ResourceManager.GetString("totime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transportation.
+        /// </summary>
+        public static string trans {
+            get {
+                return ResourceManager.GetString("trans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction_Type_.
         /// </summary>
         public static string Transaction_Type_ {
@@ -1650,6 +2001,15 @@ namespace HR.Resource {
         public static string Transactiontype {
             get {
                 return ResourceManager.GetString("Transactiontype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transportation Method.
+        /// </summary>
+        public static string transportationmethod {
+            get {
+                return ResourceManager.GetString("transportationmethod", resourceCulture);
             }
         }
         
@@ -1681,11 +2041,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Week end.
+        /// </summary>
+        public static string weekend {
+            get {
+                return ResourceManager.GetString("weekend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to With Competencies.
         /// </summary>
         public static string withcompetencies {
             get {
                 return ResourceManager.GetString("withcompetencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work Location.
+        /// </summary>
+        public static string worklocation {
+            get {
+                return ResourceManager.GetString("worklocation", resourceCulture);
             }
         }
         

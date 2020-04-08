@@ -67,11 +67,7 @@
 
     }
 </head>
-<script>
-        $('.dropdown-submenu').click(function () {
-            $(this).addClass('no-hover');
-        });
-</script>
+
 <body class="page-body  page-left-in" data-url="http://neon.dev">
 
     <div class="page-container @HR.Resource.Personnel.sidebarcollapsed">
@@ -342,7 +338,15 @@
                                             </a>
                                         </li>
                                       </ul>
-                                    </li>
+                                 </li>
+                                <li class="dropdown-submenu active">
+                                    <a  tabindex="-1" href="#">@mainlayout.cards</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                          
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="dropdown-submenu active">
                                     <a tabindex="-1" href="#">@mainlayout.Transactions</a>
                                     <ul class="dropdown-menu">
@@ -369,21 +373,32 @@
 
                                     </ul>
                                 </li>
+                              
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">@mainlayout.inquery</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">@organ.report</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu ">
                             <a tabindex="-1" href="#">@mainlayout.organization_chart</a>
                             <ul class="dropdown-menu ">
-                                <li class="dropdown-submenu ">
+                                <li class="dropdown-submenu">
                                     <a tabindex="-1" href="#">@mainlayout.Setup</a>
                                     <ul class="dropdown-menu">
-                                     
-                                   
-                                  
-                                   
-                                       
-                                      
-                                        <li class="dropdown-submenu ">
+                                        <li class="dropdown-submenu">
                                             <a tabindex="-1" href="#">@mainlayout.Authority</a>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -401,7 +416,7 @@
                                             </ul>
                                         </li>
 
-                                        <li class="dropdown-submenu ">
+                                        <li class="dropdown-submenu">
                                             <a tabindex="-1" href="#">@mainlayout.skills</a>
                                             <ul class="dropdown-menu">
                                                 <li>
@@ -572,6 +587,23 @@
                                             </a>
                                         </li>
 
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">@mainlayout.Transactions</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+
+                                        </li>
+                                    </ul>
+
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">@mainlayout.Process</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu active">
@@ -748,16 +780,28 @@
                                         <li class="dropdown-submenu active">
                                             <a tabindex="-1" href="#">@mainlayout.employee_transactions</a>
                                             <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="@Url.Action("Index","personnel_transaction")">
-                                                        
-                                                        <span class="title">@mainlayout.employee_transactions_tran</span>
-                                                    </a>
+                                                <li class="dropdown-submenu active">
+                                                    <a tabindex="-1" href="#">@mainlayout.personnel_transaction</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="@Url.Action("index","personnel_transaction")">
+
+                                                                <span class="title">@pers_2.Positiontransaction</span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="@Url.Action("index","request_new_contract")">
+
+                                                                <span class="title">@mainlayout.request_new_contract</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
                                                 </li>
                                                 <li>
-                                                    <a href="@Url.Action("Index", "EOS_request")">
-                                                     
-                                                        <span class="title">@mainlayout.EOS_request_tran</span>
+                                                    <a href="@Url.Action("index", "EOS_request")">
+
+                                                        <span class="title">@mainlayout.EOS_request</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -772,7 +816,23 @@
                                     </ul>
                                 </li>
                               
-                             
+
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">@mainlayout.inquery</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">@organ.report</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -1195,28 +1255,12 @@
             if (x.style.display === 'none') {
                 return x.style.display = 'block';
             } else {
-                return x.style.display = 'block';
+                return x.style.display = 'none';
             }
         }
         
     </script>
 
-    <script>
-        $(function () {
-            $('#nav').on('click', 'a[href="#"]', function () {
-                var submenu = $(this).next('ul');
-                $('#nav ul').not(submenu).hide();
-                submenu.parentsUntil('#nav', 'ul').show().end().toggle();
-                return false;
-            });
-
-            $(document).click(function () {
-                $('#nav ul ul').hide();
-            });
-
-        });
-
-</script>
     
     <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">
     @RenderSection("scripts")
