@@ -154,7 +154,9 @@ namespace HR.Models.Infra
         Syndicate = 2,
         Budget = 3,
         [Display(Name = "Employee Record")]
-        employee_record = 4
+        employee_record = 4,
+        [Display(Name = "Committe Resolution Recuirtment")]
+        Committe_Resolution_Recuirtment = 5
     }
     public enum Gender
     {

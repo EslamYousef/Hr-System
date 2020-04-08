@@ -220,5 +220,24 @@ namespace HR.Controllers
                 return View();
             }
         }
+
+
+
+
+
+        public JsonResult DifferenceTwoDates(DateTime StartDate, DateTime EndDate)
+        {
+            try
+            {
+                var Diff = BusinessLayer.DateTimeSpan.CompareDates(EndDate.Date, StartDate.Date);
+                return Json(new { success = true, DateDiff = Diff },JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, errorMessage = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }
