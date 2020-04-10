@@ -8,6 +8,7 @@ using HR.Models.ViewModel;
 using HR.Reposatory;
 using HR.Areas.suberAdmin.Models;
 using HR.Models.Time_management;
+using HR.Models.All_Table_Commitee_Resolution;
 
 namespace HR.Models
 {
@@ -225,7 +226,7 @@ namespace HR.Models
 
         public DbSet<Employee_Shift_schedule> Employee_Shift_schedule { get; set; }
         public DbSet<Schedule_Details> Schedule_Details { get; set; }
-
+        public DbSet<Commitee_Agenda> Commitee_Agenda { get; set; }
 
     }
 }

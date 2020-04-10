@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HR.Models.Infra;
+using HR.Models.All_Table_Commitee_Resolution;
 
 namespace HR.Models
 {
@@ -40,5 +41,7 @@ namespace HR.Models
 
         public int statID { get; set; }
         public string name_state { get; set; }
+        public virtual List<Commitee_Agenda> Commitee_Agenda { get; set; }
+
     }
 }

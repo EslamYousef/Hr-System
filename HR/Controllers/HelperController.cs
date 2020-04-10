@@ -1030,7 +1030,12 @@ namespace HR.Controllers
             var Public_Holiday_Events = dbcontext.Public_Holiday_Events.FirstOrDefault(m => m.ID == ID);
             return Json(Public_Holiday_Events);
         }
-        
+        public JsonResult GetSubjectSetup(string id)
+        {
+            var ID = int.Parse(id);
+            var Committe_subjects = dbcontext.Committe_subjects.FirstOrDefault(m => m.ID == ID);
+            return Json(Committe_subjects);
+        }
 
         public JsonResult getempbyunit(int id)
         {
