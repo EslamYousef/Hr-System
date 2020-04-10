@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 using HR.Models.ViewModel;
 using Microsoft.AspNet.Identity;
+using HR.Models.All_Table_Commitee_Resolution;
 
 namespace HR.Controllers
 {
@@ -45,20 +46,16 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(FormCollection form, Committe_Resolution_Recuirtment model, string command)
+        public ActionResult Create(FormCollection form, Committe_Resolution_Recuirtment model, string Command)
         {
             try
             {
-
-
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 if (ModelState.IsValid)
                 {
                     var emp_profile = form["Employee_profile_No2"].Split(char.Parse(","));
                     var Emp_name = form["Employee_name"].Split(char.Parse(","));
-                    //var Head = form["Is_Head"].Split(char.Parse(","));
                     var Head = form["Is_Head"].Split(char.Parse(","));
-
                     var items = new List<Append_Committe_Member>();
                     for (var i = 0; i < emp_profile.Count(); i++)
                     {
@@ -80,19 +77,20 @@ namespace HR.Controllers
                         dbcontext.SaveChanges();
                         ///////////////////////////////
                         var benfit = new Committe_Resolution_Recuirtment {check_status= check_status.created, statID=s.ID, Append_Committe_Member = add_items.ToList(), Code = model.Code, Committe_Usage = model.Committe_Usage, Committe_Location = model.Committe_Location, Committe_Resolution_Date = model.Committe_Resolution_Date, Committe_Year = model.Committe_Year, Committe_Resolution_Status = model.Committe_Resolution_Status, Committe_Type = model.Committe_Type, Committe_Conclusion = model.Committe_Conclusion };
-                       
-                        var record=  dbcontext.Committe_Resolution_Recuirtment.Add(benfit);
-                        dbcontext.SaveChanges();
-                      
-                       
 
+                        var record =  dbcontext.Committe_Resolution_Recuirtment.Add(benfit);
+                        dbcontext.SaveChanges();
+
+                        if (Command == "Submit")
+                        {
+                            return RedirectToAction("Create", "Commitee_Agenda", new { id = record.ID });
+                        }
                     }
                     
-
                     dbcontext.SaveChanges();
-                    //if (command == "Submit")
+                    //if (Command == "Submit")
                     //{
-                    //    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(Employee_Profile.ID.ToString()) });
+                    //    return RedirectToAction("edit", "Commitee_Agenda", new { id = model.ID });
                     //}
                     return RedirectToAction("Index");
                 }
