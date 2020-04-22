@@ -1,0 +1,84 @@
+﻿@model IEnumerable<HR.Models.Time_management.Exit_permission_request>
+@using HR.Resource;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    <a href="@Url.Action("Create", "ExitPermissionRequest")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.createshiftres</a>
+                </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>@pers_2.numberreq</th>
+                            <th>@organ.empname</th>
+                            <th>@Basic.Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Request_Number</td>
+                                @if (@item.Employee_Profile != null)
+                                {
+                                <td>@item.Employee_Profile.Name</td>
+                                }
+                                else
+                                {
+                                    <td>@organ.empty</td>
+                                }
+                                <td>@item.Date.ToShortDateString()</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "ExitPermissionRequest", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    <a href="@Url.Action("delete", "ExitPermissionRequest", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}

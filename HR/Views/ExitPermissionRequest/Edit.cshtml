@@ -1,0 +1,197 @@
+﻿@model HR.Models.Time_management.Exit_permission_request
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@using HR.Resource;
+
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.shiftsetup
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("edit", "ExitPermissionRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                      @Html.HiddenFor(m => m.ID);
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @pers_2.numberreq
+                            </label> <div class="col-md-3">
+                                @Html.EditorFor(model => model.Request_Number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Request_Number, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-1">
+                                <span> @Basic.Date </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <input style="width:100px" type="submit" value=@organ.Save class="btn btn-success" />
+                            </div>
+                            <div class="col-md-2">
+                                <a style="width:100px" href="@Url.Action("index","ExitPermissionRequest")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.exitpermissionreason
+                            </label>  <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.Exit_Permission_ReasonID, new SelectList(ViewBag.reasons, "ID", "Code"), pers_2.exitpermissionreason, new { @class = "select2" })
+
+
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.fromtime
+                            </label> <div class="col-md-3">
+                                @Html.EditorFor(model => model.From, new { htmlAttributes = new { id = "start", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
+
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.totime
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.To, new { htmlAttributes = new { ud = "end", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_default_time = "11:25 AM", @data_show_meridian = "true", @data_minute_step = "1" } })
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.empname
+                            </label>  <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.empname, new { @class = "select2" })
+
+
+                            </div>
+
+                            <label class="control-label col-md-1">
+                                @pers_2.ExitPerissiontype
+                            </label>  <div class="col-md-3">
+
+                                @Html.DropDownListFor(m => m.Exit_permission_typeID, new SelectList(ViewBag.type, "ID", "Code"), pers_2.ExitPerissiontype, new { @class = "select2" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="control-label col-md-1">
+                                @pers_2.notes
+                            </label>
+                            <div class="col-md-7">
+                                @Html.TextAreaFor(model => model.Notes, 4,50,new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+<script>
+    $(function () {
+        GetDataById2('@Model.Date', "Requset_date_D");
+        var i = $("#start").val();
+        if(@Model.From.Hours==0)
+        {
+            var def=12;
+            var min=@Model.From.Minutes;
+            var sec=@Model.From.Seconds;
+
+            $("#start").val(def +":" +min+":"+sec+" AM")
+        }
+        if(@Model.To.Hours==0)
+        {
+            var def=12;
+            var min=@Model.To.Minutes;
+            var sec=@Model.To.Seconds;
+
+            $("#end").val(def +":" +min+":"+sec+" AM")
+        }
+        if(@Model.From.Hours>12)
+        {
+            var def=@Model.From.Hours-12;
+            var min=@Model.From.Minutes;
+            var sec=@Model.From.Seconds;
+
+            $("#start").val(def +":" +min+":"+sec+" pm")
+        }
+        if(@Model.To.Hours>12)
+        {
+            var def=@Model.To.Hours-12;
+            var min=@Model.To.Minutes;
+            var sec=@Model.To.Seconds;
+
+            $("#end").val(def +":" +min+":"+sec+" pm")
+        }
+
+    });
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+
+</script>

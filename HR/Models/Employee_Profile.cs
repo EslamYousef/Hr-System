@@ -123,6 +123,7 @@ namespace HR.Models
         public virtual List<Employee_vehicle_profile> Employee_vehicle_profile { get; set; }
 
         public virtual List<Employee_Shift_schedule> Employee_Shift_schedule { get; set; }
+        public virtual List<Exit_permission_request> Exit_permission_request { get; set; }
         //public string tab { get; set; }
 
         //[DataType(DataType.DateTime)]

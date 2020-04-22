@@ -1,0 +1,1025 @@
+﻿@model HR.Models.Time_management.Time_management_conditional_setup
+
+@{
+    ViewBag.Title = "create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.timemanagementconditional
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "TM_cases", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @*////////////////////////
+                        ////////////////////////Main
+                        ////////////////////////*@
+                       
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @pers_2.numberreq
+                            </label>
+                             <div class="col-md-3">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                            <label style="color:red" class="control-label col-md-1">
+                                @Basic.name
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @Basic.description
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <input style="width:100%" type="submit" value=@pers_2.create class="btn btn-success" />
+                            </div>
+                            <div class="col-md-2">
+                                <a style="width:100%" href="@Url.Action("index","TM_cases")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
+                            </div>
+                        </div>
+                     
+
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#all_cases" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@HR.Resource.pers_2.cases</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <div id="all_cases"  class="tab-pane active" style="overflow: hidden;width: auto;height: auto;">
+
+
+
+
+
+                            <div style="margin-top:60px" class="form-group">
+
+                                <label  style="color:red"  class="control-label col-md-1">
+                                    @HR.Resource.pers_2.casenumber
+                                </label>
+                                <input  readonly type="number" value="1" min="1" class="col-md-3 form-control-static" name="number_case" id="case_num" />
+                                <label  style="color:red"  class="control-label col-md-1">
+                                    @HR.Resource.pers_2.casedesc
+                                </label>
+                                @Html.Editor("Desc_case", new { htmlAttributes = new { @class = "col-md-4 form-control-static", @type="text",id= "Desc_cas1e" } })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-1">
+                                   @HR.Resource.pers_2.exprission
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="radio" id="ch1" class="icheck" name="check_B" checked />
+                                    <textarea readonly id="experission" wrap="hard" style="overflow:auto;width:100%;height:50px;paint-order:stroke;font-style:oblique"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">
+                                    @HR.Resource.pers_2.returnex
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="radio" class="icheck" name="check_B" id="ch2" />
+                                    <textarea readonly id="return_experission" wrap="hard" style="overflow:auto;width:100%;height:50px;paint-order:stroke;font-style:oblique"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+
+                                <input value='@HR.Resource.pers_2.addupdatecase' class="btn btn-blue" onclick="ADD_CASE()" />
+                                <input value='@HR.Resource.pers_2.clearcasr'  class="btn btn-blue" onclick="clearme()" />
+                                <input value='@HR.Resource.pers_2.check'  class="btn btn-blue" onclick="check_head()" />
+                                <input value='@HR.Resource.pers_2.removeonestep'  class="btn btn-blue" onclick="clearlast()" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">
+                                    @HR.Resource.pers_2.lookup
+                                </label>
+                                <select id="L1" class="select2 col-md-2" onchange="getL2()">
+                                    <option value="-7"> @HR.Resource.Basic.select</option>
+                                    <option value="-4">@HR.Resource.mainlayout.Basic</option>
+                                    <option value="-7">@HR.Resource.Basic.recuirtment</option>
+                                    <option value="-5">@HR.Resource.mainlayout.organization</option>
+                                    <option value="-6">@HR.Resource.mainlayout.personnel</option>
+                                </select>
+                                <div class="col-md-1"></div>
+                                <select disabled id="L2" onchange="get_L3()" class="select2 col-md-2"></select>
+
+                                <div class="col-md-1"></div>
+                                <select disabled id="L3" class="select2 col-md-2" onchange="add_id()"></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">
+                                    <span>@HR.Resource.pers_2.logicoper </span>
+                                </label>
+                                <select class="select2 col-md-2" onclick="add_logic()" id="logic">
+                                    <option value="0">@HR.Resource.Basic.select</option>
+                                    <option value="12">AND</option>
+                                    <option value="13">OR</option>
+                                    <option value="5"> /Greater_than </option>
+                                    <option value="6"> /younger_than </option>
+                                    <option value="7"> /Equal </option>
+                                    <option value="8"> /not_equal </option>
+                                </select>
+                                <label class="control-label col-md-1">
+                                    <span>@HR.Resource.pers_2.mathoper </span>
+                                </label>
+                                <select class="select2 col-md-2" onclick="add_math()" id="math">
+                                    <option value="0">@HR.Resource.Basic.select</option>
+                                    <option value="400"> ( </option>
+                                    <option value="-1"> ) </option>
+                                    <option value="-2"> , </option>
+                                    <option value="1"> $plus </option>
+                                    <option value="2"> $mins </option>
+                                    <option value="3"> $multiblay </option>
+                                    <option value="4"> $divide </option>
+                                </select>
+
+                                <label class="control-label col-md-1">
+                                    @HR.Resource.pers_2.typeconxtent
+                                </label>
+                                <select class="select2 col-md-2" id="type_con" onchange="change_type()">
+                                    <option value="1">@HR.Resource.Basic.number</option>
+                                    <option value="2">@HR.Resource.Basic.Text_</option>
+                                    <option value="3">@HR.Resource.Basic.TIME</option>
+                                </select>
+                                <label class="control-label col-md-1">
+                                    @HR.Resource.pers_2.conxtent
+                                </label>
+                                <input class="col-md-1 form-control-static" id="num" type="number" value="0" min="0" step="0" />
+                                <div class="col-md-1">
+                                    <input value='@HR.Resource.Personnel.Add' style="width:90%" class="btn btn-blue" onclick="addcon()" />
+                                </div>
+                            </div>
+
+                            <ul style="color:black" class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#Budgetdetails" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@pers_2.employee</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#time" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@HR.Resource.pers_2.TMTE</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#cases" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@HR.Resource.pers_2.cases</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+                                    <ul class="nav nav-tabs bordered">
+                                        <!-- available classes "bordered", "right-aligned" -->
+                                        <li class="active">
+                                            <a href="#ALL" data-toggle="tab">
+                                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                                <span class="hidden-xs">@HR.Resource.pers_2.ALL</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#cadre" data-toggle="tab">
+                                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                                <span class="hidden-xs">@HR.Resource.pers_2.cadre</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#position" data-toggle="tab">
+                                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                                <span class="hidden-xs">@HR.Resource.pers_2.position</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#other" data-toggle="tab">
+                                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                                <span class="hidden-xs">@HR.Resource.pers_2.other</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane active" id="ALL" style="overflow: hidden;width: auto;height: auto;">
+
+                                            <select class="select2 col-md-6" onclick="add_pos()" id="po">
+                                                <option value="0">@HR.Resource.Basic.select</option>
+                                                <option value="1">%Basic-Sallary</option>
+                                                <option value="2">%Boarding-membership-Date_day</option>
+                                                <option value="3">%Boarding-membership-Date_month</option>
+                                                <option value="4">%Boarding-membership-Date_year</option>
+                                                <option value="5">%country-of-employee-residence-address</option>
+                                                <option value="6">%county-of-employee-residence-address</option>
+                                                <option value="7">%city-of-employee-residence-address</option>
+                                                <option value="8">%continues-experience-day</option>
+                                                <option value="9">%continues-experience-month</option>
+                                                <option value="10">%continues-experience-year</option>
+                                                <option value="11">%contract-type</option>
+                                                <option value="17">%current-level</option>
+                                                <option value="18">%current-working-system</option>
+                                                <option value="19">%date-of-hiring-day</option>
+                                                <option value="20">%date-of-hiring-month</option>
+                                                <option value="23">%date-of-terminiation-day</option>
+                                                <option value="24">%date-of-terminiation-month</option>
+                                                <option value="25">%default-cost-center</option>
+                                                <option value="26">%destance-fromhome-to-co-bus-location</option>
+                                                <option value="27">%destance-fromhome-to-work-location</option>
+                                                <option value="28">%education-level</option>
+                                                <option value="29">%employee-number-of-year-from-age-at-one-of-january-on-the-current-year</option>
+                                                <option value="30">%employee-age-dayes-on-01-01-current-year</option>
+                                                <option value="31">%employee-age-dayes-on-01-01-next-year</option>
+                                                <option value="32">%employee-age-dayes-on-01-01-previous-year</option>
+                                                <option value="33">%employee-age-dayes-on-01-07-current-year</option>
+                                                <option value="34">%employee-age-dayes-on-01-07-next-year</option>
+                                                <option value="35">%employee-age-dayes-on-01-07-previous-year</option>
+                                                <option value="36">%employee-age-months-on-01-01-current-year</option>
+                                                <option value="37">%employee-age-months-on-01-01-next-year</option>
+                                                <option value="38">%employee-age-months-on-01-01-previous-year</option>
+                                                <option value="39">%employee-age-months-on-01-07-current-year</option>
+                                                <option value="40">%employee-age-months-on-01-07-next-year</option>
+                                                <option value="41">%employee-age-months-on-01-07-previous-year</option>
+                                                <option value="42">%employee-age-years-on-01-01-current-year</option>
+                                                <option value="43">%employee-age-years-on-01-01-next-year</option>
+                                                <option value="44">%employee-age-years-on-01-01-previous-year</option>
+                                                <option value="45">%employee-age-years-on-01-07-current-year</option>
+                                                <option value="46">%employee-age-years-on-01-07-next-year</option>
+                                                <option value="47">%employee-age-years-on-01-07-previous-year</option>
+                                                <option value="49">%employee-group</option>
+                                                <option value="52">%employee-qulification-category</option>
+                                                <option value="53">%employee-start-basic-salary</option>
+                                                <option value="54">%employee-total-reliable-person</option>
+                                                <option value="55">%experince-inside-company-day</option>
+                                                <option value="56">%experince-inside-company-month</option>
+                                                <option value="57">%experince-inside-company-year</option>
+                                                <option value="58">%experince-inside-oil-field-day</option>
+                                                <option value="59">%experince-inside-oil-field-month</option>
+                                                <option value="60">%experince-inside-oil-field-year</option>
+                                                <option value="61">%gender</option>
+                                                <option value="62">%governate</option>
+                                                <option value="63">%is-the-employee-getting-a-military-pension</option>
+                                                <option value="64">%marital-status</option>
+                                                <option value="65">%militry-service-experience-month</option>
+                                                <option value="66">%militry-service-experience-year</option>
+                                                <option value="67">%nationality</option>
+                                                <option value="68">%number-of-children-subscribed-in-medical-treatment</option>
+                                                <option value="69">%number-of-dependent-children</option>
+                                                <option value="70">%number-of-parents-subscribed-in-medical-treatment</option>
+                                                <option value="71">%number-of-sibilibgs-subscribed-in-medical-treatment</option>
+                                                <option value="72">%number-of-spouses-subscribed-in-medical-treatment</option>
+                                                <option value="84">%previous-experience-day</option>
+                                                <option value="85">%previous-experience-month</option>
+                                                <option value="86">%previous-experience-year</option>
+                                                <option value="87">%previous-level</option>
+                                                <option value="94">%previous-working-system</option>
+                                                <option value="95">%religion</option>
+                                                <option value="96">%social-insurance-basic-salary</option>
+                                                <option value="97">%social-insurance-variable-salary</option>
+                                                <option value="98">%total-employee-experience-year-of-education</option>
+                                                <option value="99">%total-excluded-allowance</option>
+                                                <option value="100">%total-included-allowance</option>
+                                                <option value="101">%transportaion-method-from-home-to-work-location</option>
+                                                <option value="102">%year-of-employee-graduation</option>
+                                                <option value="103">%year-of-hiring</option>
+                                                <option value="105">%year-of-terminiation</option>
+
+
+
+
+
+                                                <option value="12">%current-cadre</option>
+                                                <option value="13">%current-cadre-dedicted-allowance</option>
+                                                <option value="14">%current-cadre-level-starting-salary</option>
+                                                <option value="15">%current-cadre-level-starting-salary-percentage</option>
+                                                <option value="16">%current-cadre-representative-allowance</option>
+                                                <option value="80">%previous-cadre</option>
+                                                <option value="81">%previous-cadre-max-incentive-bouns</option>
+                                                <option value="82">%previous-cadre-max-incentive-bouns-percentage</option>
+                                                <option value="83">%previous-cadre-representative-allowance</option>
+                                                <option value="48">%employee-cadre-grade</option>
+                                                <option value="50">%employee-previous-cadre-deticted-allowance-value</option>
+                                                <option value="51">%employee-previous-cadre-grade</option>
+
+                                                <option value="21">%date-of-joining-position-day</option>
+                                                <option value="22">%date-of-joining-position-month</option>
+                                                <option value="73">%position</option>
+                                                <option value="74">%position-class</option>
+                                                <option value="75">%position-subclass</option>
+                                                <option value="76">%position-subclass-deticated-allowance</option>
+                                                <option value="78">%position-subclass-work-allowance-percentage</option>
+                                                <option value="79">%position-transaction-type</option>
+                                                <option value="88">%previous-position</option>
+                                                <option value="89">%previous-position-class</option>
+                                                <option value="90">%previous-position-subclass</option>
+                                                <option value="91">%previous-position-class-deticated-allowance</option>
+                                                <option value="92">%previous-position-subclass-work-allowance-percentage</option>
+                                                <option value="93">%previous-position-transaction-type</option>
+                                                <option value="104">%year-of-joining-position</option>
+                                            </select>
+                                        </div>
+                                        <div class="tab-pane" id="cadre" style="overflow: hidden;width: auto;height: auto;">
+
+                                            <select class="select2 col-md-6" onclick="add_cadre()" id="ca">
+                                                <option value="0"> @HR.Resource.Basic.select </option>
+                                                <option value="12">%current-cadre</option>
+                                                <option value="13">%current-cadre-dedicted-allowance</option>
+                                                <option value="14">%current-cadre-level-starting-salary</option>
+                                                <option value="15">%current-cadre-level-starting-salary-percentage</option>
+                                                <option value="16">%current-cadre-representative-allowance</option>
+                                                <option value="48">%employee-cadre-grade</option>
+                                                <option value="50">%employee-previous-cadre-deticted-allowance-value</option>
+                                                <option value="51">%employee-previous-cadre-grade</option>
+                                                <option value="80">%previous-cadre</option>
+                                                <option value="81">%previous-cadre-max-incentive-bouns</option>
+                                                <option value="1">%previous-cadre-level-staring-salary</option>
+                                                <option value="82">%previous-cadre-max-incentive-bouns-percentage</option>
+                                                <option value="83">%previous-cadre-representative-allowance</option>
+
+                                            </select>
+
+                                        </div>
+                                        <div class="tab-pane" id="position" style="overflow: hidden;width: auto;height: auto;">
+
+                                            <select class="select2 col-md-6" onclick="add_pos()" id="po">
+                                                <option value="0">@HR.Resource.Basic.select</option>
+                                                <option value="21">%date-of-joining-position-day</option>
+                                                <option value="22">%date-of-joining-position-month</option>
+                                                <option value="73">%position</option>
+                                                <option value="74">%position-class</option>
+                                                <option value="75">%position-subclass</option>
+                                                <option value="76">%position-subclass-deticated-allowance</option>
+                                                <option value="78">%position-subclass-work-allowance-percentage</option>
+                                                <option value="79">%position-transaction-type</option>
+                                                <option value="88">%previous-position</option>
+                                                <option value="89">%previous-position-class</option>
+                                                <option value="90">%previous-position-subclass</option>
+                                                <option value="91">%previous-position-class-deticated-allowance</option>
+                                                <option value="92">%previous-position-subclass-work-allowance-percentage</option>
+                                                <option value="93">%previous-position-transaction-type</option>
+                                                <option value="104">%year-of-joining-position</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="tab-pane" id="other" style="overflow: hidden;width: auto;height: auto;">
+
+                                            <select class="select2 col-md-6" onclick="add(to)" id="ot">
+                                                <option value="0">@HR.Resource.Basic.select</option>
+                                                <option value="1">%Basic-Sallary</option>
+                                                <option value="2">%Boarding-membership-Date_day</option>
+                                                <option value="3">%Boarding-membership-Date_month</option>
+                                                <option value="4">%Boarding-membership-Date_year</option>
+                                                <option value="5">%country-of-employee-residence-address</option>
+                                                <option value="6">%county-of-employee-residence-address</option>
+                                                <option value="7">%city-of-employee-residence-address</option>
+                                                <option value="8">%continues-experience-day</option>
+                                                <option value="9">%continues-experience-month</option>
+                                                <option value="10">%continues-experience-year</option>
+                                                <option value="11">%contract-type</option>
+                                                <option value="17">%current-level</option>
+                                                <option value="18">%current-working-system</option>
+                                                <option value="19">%date-of-hiring-day</option>
+                                                <option value="20">%date-of-hiring-month</option>
+                                                <option value="23">%date-of-terminiation-day</option>
+                                                <option value="24">%date-of-terminiation-month</option>
+                                                <option value="25">%default-cost-center</option>
+                                                <option value="26">%destance-fromhome-to-co-bus-location</option>
+                                                <option value="27">%destance-fromhome-to-work-location</option>
+                                                <option value="28">%education-level</option>
+                                                <option value="29">%employee-number-of-year-from-age-at-one-of-january-on-the-current-year</option>
+                                                <option value="30">%employee-age-dayes-on-01-01-current-year</option>
+                                                <option value="31">%employee-age-dayes-on-01-01-next-year</option>
+                                                <option value="32">%employee-age-dayes-on-01-01-previous-year</option>
+                                                <option value="33">%employee-age-dayes-on-01-07-current-year</option>
+                                                <option value="34">%employee-age-dayes-on-01-07-next-year</option>
+                                                <option value="35">%employee-age-dayes-on-01-07-previous-year</option>
+                                                <option value="36">%employee-age-months-on-01-01-current-year</option>
+                                                <option value="37">%employee-age-months-on-01-01-next-year</option>
+                                                <option value="38">%employee-age-months-on-01-01-previous-year</option>
+                                                <option value="39">%employee-age-months-on-01-07-current-year</option>
+                                                <option value="40">%employee-age-months-on-01-07-next-year</option>
+                                                <option value="41">%employee-age-months-on-01-07-previous-year</option>
+                                                <option value="42">%employee-age-years-on-01-01-current-year</option>
+                                                <option value="43">%employee-age-years-on-01-01-next-year</option>
+                                                <option value="44">%employee-age-years-on-01-01-previous-year</option>
+                                                <option value="45">%employee-age-years-on-01-07-current-year</option>
+                                                <option value="46">%employee-age-years-on-01-07-next-year</option>
+                                                <option value="47">%employee-age-years-on-01-07-previous-year</option>
+                                                <option value="49">%employee-group</option>
+                                                <option value="52">%employee-qulification-category</option>
+                                                <option value="53">%employee-start-basic-salary</option>
+                                                <option value="54">%employee-total-reliable-person</option>
+                                                <option value="55">%experince-inside-company-day</option>
+                                                <option value="56">%experince-inside-company-month</option>
+                                                <option value="57">%experince-inside-company-year</option>
+                                                <option value="58">%experince-inside-oil-field-day</option>
+                                                <option value="59">%experince-inside-oil-field-month</option>
+                                                <option value="60">%experince-inside-oil-field-year</option>
+                                                <option value="61">%gender</option>
+                                                <option value="62">%governate</option>
+                                                <option value="63">%is-the-employee-getting-a-military-pension</option>
+                                                <option value="64">%marital-status</option>
+                                                <option value="65">%militry-service-experience-month</option>
+                                                <option value="66">%militry-service-experience-year</option>
+                                                <option value="67">%nationality</option>
+                                                <option value="68">%number-of-children-subscribed-in-medical-treatment</option>
+                                                <option value="69">%number-of-dependent-children</option>
+                                                <option value="70">%number-of-parents-subscribed-in-medical-treatment</option>
+                                                <option value="71">%number-of-sibilibgs-subscribed-in-medical-treatment</option>
+                                                <option value="72">%number-of-spouses-subscribed-in-medical-treatment</option>
+                                                <option value="84">%previous-experience-day</option>
+                                                <option value="85">%previous-experience-month</option>
+                                                <option value="86">%previous-experience-year</option>
+                                                <option value="87">%previous-level</option>
+                                                <option value="94">%previous-working-system</option>
+                                                <option value="95">%religion</option>
+                                                <option value="96">%social-insurance-basic-salary</option>
+                                                <option value="97">%social-insurance-variable-salary</option>
+                                                <option value="98">%total-employee-experience-year-of-education</option>
+                                                <option value="99">%total-excluded-allowance</option>
+                                                <option value="100">%total-included-allowance</option>
+                                                <option value="101">%transportaion-method-from-home-to-work-location</option>
+                                                <option value="102">%year-of-employee-graduation</option>
+                                                <option value="103">%year-of-hiring</option>
+                                                <option value="105">%year-of-terminiation</option>
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="time" style="overflow: hidden;width: auto;height: auto;">
+                                    <div>
+                                        <select class="select2 col-md-6">
+                                            <option value="0">@HR.Resource.Basic.select</option>
+                                            <option value="1">%get-location</option>
+                                            <option value="2">%get-time-transaction-location</option>
+                                            <option value="3">%get-shift</option>
+                                            <option value="4">%get-day-status</option>
+                                            <option value="5">%get-time-in</option>
+                                            <option value="6">%get-time-out</option>
+                                            <option value="7">%get-total-hours</option>
+                                            <option value="8">%get-is-calling</option>
+                                            <option value="9">%get-time-IN-after-calling</option>
+                                            <option value="10">%get-time-out-after-calling</option>
+                                            <option value="11">%get-total-hours-after-calling</option>
+                                            <option value="12">%get-shift-time-in</option>
+                                            <option value="13">%get-shift-time-out</option>
+                                            <option value="14">%get-shift-total-hours</option>
+                                            <option value="15">%get-working-system</option>
+                                            <option value="16">%get-employee-system</option>
+                                            <option value="17">%get-employee-status</option>
+                                            <option value="18">%get-employee-status-references</option>
+                                            <option value="19">%get-total-variance-hours-between-calling</option>
+                                            <option value="20">%get-total-hours-before-calling-plus-hours-after-calling</option>
+                                            <option value="21">%get-variance-hours-before-shift-in</option>
+                                            <option value="22">%get-variance-hours-After-shift-in</option>
+                                            <option value="23">%get-variance-hours-before-shift-out</option>
+                                            <option value="24">%get-variance-hours-After-shift-out</option>
+                                            <option value="25">%get-transaction-day</option>
+                                            <option value="26">%get-yesterday-day-status</option>
+                                            <option value="27">%is-transaction-day-last-day-of-month</option>
+                                            <option value="28">%get-day-status-linked-to-location-rate</option>
+                                            <option value="29">%productivity-QTY-value</option>
+                                            <option value="30">%damaged-QTY-value</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="cases" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <table id="categories" class="table table-bordered table-striped text-center">
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    @HR.Resource.pers_2.casenumber
+                                                </td>
+                                                <td></td>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody id="my_case"></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+@section scripts{}
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
+        });
+    });
+    $(function(){
+        $("#my_case").empty();
+    })
+        $('#experission').keypress(function (event) {
+            event.preventDefault();
+        });
+        function show(id)
+        {
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/retun_case",
+                data: { "id": id },
+                success: function (result) {
+                    debugger
+                    sessionStorage.SessionName = $("#case_num").val();
+                    $("#experission").empty();
+                    $("#experission").val(result.EXeprission);
+                    $("#case_num").val(result.number);
+                    $("#Desc_cas1e").val(result.Description);
+                    $("#return_experission").val(result.Return_ex);
+
+                }
+            })
+        }
+        function add_pos()
+        {
+            debugger
+            var drop = $("#po");
+            var text1 = $("#po option:selected").text();
+            var value = drop.val();
+            if (value != '0' && $("#ch1").prop("checked") == true)
+            {
+                debugger
+                var t = $("#experission").val();
+                t = t + " " + text1;
+                $("#experission").val(t);
+                $("#po").select2("val", "0");
+            }
+            else if (value != '0' && $("#ch2").prop("checked") == true)
+            {
+                debugger
+                var t = $("#return_experission").val();
+                t = t + " " + text1;
+                $("#return_experission").val(t);
+                $("#po").select2("val", "0");
+            }
+        }
+        function add_cadre() {
+            debugger
+            var drop = $("#ca");
+            var text1 = $("#ca option:selected").text();
+            var value = drop.val();
+            if (value != '0' && $("#ch1").prop("checked") == true) {
+                var t = $("#experission").val();
+                t = t + " " + text1;
+                $("#experission").val(t);
+
+                $("#ca").select2("val", "0");
+            }
+            else if (value != '0' && $("#ch2").prop("checked") == true) {
+                debugger
+                var t = $("#return_experission").val();
+                t = t + " " + text1;
+                $("#return_experission").val(t);
+                $("#ca").select2("val", "0");
+            }
+        }
+        function add_logic() {
+            debugger
+            var drop = $("#logic");
+            var text1 = $("#logic option:selected").text();
+            var value = drop.val();
+            if (value != '0' && $("#ch1").prop("checked") == true)
+            {
+                var t = $("#experission").val();
+                t = t + " " + text1;
+                $("#experission").val(t);
+
+                $("#logic").select2("val", "0");
+            }
+            else if (value != '0' && $("#ch2").prop("checked") == true)
+            {
+                debugger
+                var t = $("#return_experission").val();
+                t = t + " " + text1;
+                $("#return_experission").val(t);
+                $("#logic").select2("val", "0");
+            }
+        }
+        function add_math() {
+            debugger
+            var drop = $("#math");
+            var text1 = $("#math option:selected").text();
+            var value = drop.val();
+            if (value != '0' && $("#ch1").prop("checked") == true) {
+                var t = $("#experission").val();
+                t = t + " " + text1;
+                $("#experission").val(t);
+                $("#math").select2("val", "0");
+            }
+            else if (value != '0' && $("#ch2").prop("checked") == true) {
+                debugger
+                var t = $("#return_experission").val();
+                t = t + " " + text1;
+                $("#return_experission").val(t);
+                $("#math").select2("val", "0");
+            }
+        }
+        function addcon()
+        {
+            debugger
+            var type = document.getElementById("num").type;
+            var sym = "ْ";
+            if (type == 'text') {
+               sym= "ْ"
+            }
+            else if (type == 'number') {
+                sym = "*"
+            }
+            else if (type == 'time') {
+                sym =">"
+            }
+
+            var drop = $("#num");
+            var value = drop.val();
+            if (value != '0' && $("#ch1").prop("checked") == true) {
+                var t = $("#experission").val();
+                t = t + " " + sym + value;
+                $("#experission").val(t);
+                if (type == 'text') {
+                    $("#num").val("");
+                }
+                else if (type == 'number') {
+                    $("#num").val(0);
+                }
+                else if (type == 'time') {
+                    $("#num").val("");
+                }
+
+            }
+            else if (value != '0' && $("#ch2").prop("checked") == true) {
+                debugger
+
+                var t = $("#return_experission").val();
+                t = t + " " + sym + value;
+                $("#return_experission").val(t);
+                if (type == 'text') {
+                    $("#num").val("");
+                }
+                else if (type == 'number') {
+                    $("#num").val(0);
+                }
+                else if (type == 'time') {
+                    $("#num").val("");
+                }
+            }
+        }
+        function clearme()
+        {
+            debugger
+
+            $("#experission").val("");
+            $("#return_experission").val("");
+            $("#Desc_cas1e").val("");
+            $("#case_num").val(parseInt(sessionStorage.getItem("SessionName")))
+
+        }
+        function clearlast() {
+            debugger
+            if ($("#ch1").prop("checked") == true)
+            {
+                var text = $("#experission").val();
+                var t = "";
+                var arr = text.split(" ");
+                for (var i = 0; i < ((arr.length) - 2) ; i++) {
+                    t = t + " " + arr[i];
+                }
+                $("#experission").val(t);
+            }
+            else if ($("#ch2").prop("checked") == true) {
+                var text = $("#return_experission").val();
+                var t = "";
+                var arr = text.split(" ");
+                for (var i = 0; i < ((arr.length) - 2) ; i++) {
+                    t = t + " " + arr[i];
+                }
+                $("#return_experission").val(t);
+            }
+
+
+        }
+        function ADD_CASE()
+        {
+            debugger
+            var val = $("#experission").val();
+            var retu = $("#return_experission").val();
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/check_head",
+                data: { "MY_Case": val, "Return": retu },
+                success: function (result) {
+                    if (result == true) {
+                        alert('@HR.Resource.Basic.success_check');
+                        var Case = $("#experission").val();
+                        var retu = $("#return_experission").val();
+                        var num = $("#case_num").val();
+                        var des = $("#Desc_cas1e").val();
+                        if (des != "" && num!="")
+                        {
+
+
+                            $.ajax({
+                                type: "post",
+                                url: "/TM_cases/Add_New_Case",
+                                data: { "Case": Case, "num": num, "desc": des, "Return": retu,"type":0},
+                                success: function (result) {
+                                    if (result.flag == 1)
+                                    {
+                                        var case_num = $("#case_num").val();
+                                        var value = parseInt(case_num) + 1;
+                                        sessionStorage.SessionName = value;
+                                          $("#case_num").val(sessionStorage.getItem("SessionName"));
+                                        var Case = "<tr><td Onclick='show(" + result.Case.ID + ")'>" + result.Case.number + "</td> <td><input  value='@HR.Resource.organ.remove' style='margin-left:5px' Onclick='remove(" + result.Case.ID + ", $(this))' class='btn btn-danger'/>" +
+                                            "<input style='margin-left:5px' value='@HR.Resource.pers_2.moveup' Onclick='moveup(" + result.Case.ID + ",$(this))' class='btn btn-danger'/><input style='margin-left:5px' value='@HR.Resource.pers_2.movedown' Onclick='movedown(" + result.Case.ID + ",$(this))' class='btn btn-danger'/></td><td hidden><input hidden value=" + result.Case.ID + " /></td></tr>"
+                                        $("#my_case").append(Case);
+                                        alert('@HR.Resource.Basic.success_case');
+                                        $("#experission").val("");
+                                        $("#Desc_cas1e").val("");
+                                        $("#return_experission").val("");
+                                    }
+                                    else if (result.flag == 2) {
+                                        debugger
+                                        alert('@HR.Resource.Basic.success_case');
+                                        $("#experission").val("");
+                                        $("#Desc_cas1e").val("");
+                                        $("#return_experission").val("");
+                                        $("#case_num").val(result.Case.number);
+
+                                    }
+                                    else {
+                                        alert('@HR.Resource.Basic.faild_case');
+                                    }
+                                },
+                                error: function () {
+
+
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert('@HR.Resource.Basic.must_case');
+                        }
+                    }
+                    else if (result == false) {
+                        alert('@HR.Resource.Basic.faild_case');
+                    }
+                }
+            });
+
+        }
+        function remove(input,input2)
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/remove",
+                data: { "id": input },
+                success: function (result)
+                {
+                    if (result == true)
+                    {
+                        input2.parent().parent().remove();
+                        alert('@HR.Resource.Basic.remove_sucess');
+
+                    }
+                    else
+                    {
+                        alert('@HR.Resource.Basic.Error');
+                    }
+                }
+            });
+        }
+        function moveup(id,input)
+        {
+            debugger
+            var my_ID = input.parent().parent().prev().children()[2].children[0].value;
+            var tr = "0";
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/moveup",
+                data: { "id": id, "prev": my_ID,"type":0},
+                success: function (result)
+                {
+                    debugger
+                    $.each(result, function (key, value) {
+                        debugger
+                        tr += "<tr><td Onclick='show(" + value.ID + ")'>" + value.number + "</td> <td><input value='Remove' style='margin-left:5px' Onclick='remove(" + value.ID + ", $(this))' class='btn btn-danger'/>" +
+                           "<input value='moveup' style='margin-left:5px' Onclick='moveup(" + value.ID + ",$(this))' class='btn btn-danger'/><input style='margin-left:5px' value='move down' Onclick='movedown(" + value.ID + ",$(this))' class='btn btn-danger'/></td><td hidden><input hidden value=" + value.ID + " /></td></tr>"
+
+                    });
+                    if (tr != "0")
+                    {
+                        $("#my_case").empty();
+                        $("#my_case").append(tr);
+                    }
+                    alert('@HR.Resource.Basic.success_case')
+                }
+            });
+        }
+        function movedown(id, input) {
+            debugger
+            var my_ID = input.parent().parent().next().children()[2].children[0].value;
+            var tr = "0";
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/movedown",
+                data: { "id": id, "next": my_ID, "type": 0 },
+                success: function (result)
+                {
+                    $.each(result, function (key, value) {
+                        debugger
+                        tr += "<tr><td Onclick='show(" + value.ID + ")'>" + value.number + "</td> <td><input value='Remove'style='margin-left:5px' Onclick='remove(" + value.ID + ", $(this))' class='btn btn-danger'/>" +
+                           "<input value='moveup' style='margin-left:5px' Onclick='moveup(" + value.ID + ",$(this))' class='btn btn-danger'/><input style='margin-left:5px' value='move down' Onclick='movedown(" + value.ID + ",$(this))' class='btn btn-danger'/></td><td hidden><input hidden value=" + value.ID + " /></td></tr>"
+
+                    });
+                    if (tr != "0") {
+                        $("#my_case").empty();
+                        $("#my_case").append(tr);
+                    }
+                    alert('@HR.Resource.Basic.success_case')
+                }
+            });
+        }
+        function check_head()
+        {
+            var val = $("#experission").val();
+            var ret = $("#return_experission").val();
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/check_head",
+                data: { "MY_Case": val, "Return": ret },
+                success: function (result)
+                {
+                    if (result == true)
+                        alert('@HR.Resource.Basic.success_check');
+                    if (result == false)
+                        alert('@HR.Resource.Basic.faild_check');
+                }
+            });
+        }
+        function getL2()
+        {
+            var id = $("#L1").val();
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/getL2",
+                data: { "ID": id },
+                success: function (result) {
+                    $("#L2").removeAttr("disabled");
+                    var finalresult = "<option value='-100' > Choose Type of look_up </option>";
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.name + " ]</option>";
+                    });
+                    $("#L2").html(finalresult);
+                    $("#L2").select2("val", "-100");
+                }
+            });
+        }
+        function get_L3()
+        {
+            var id = $("#L2").val();
+            $.ajax({
+                type: "post",
+                url: "/TM_cases/getL3",
+                data: { "id": id },
+                success: function (result) {
+                    $("#L3").removeAttr("disabled");
+                    var finalresult = "<option value='-102' > Choose look_up </option>";
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.name + " ]</option>";
+                    });
+                    $("#L3").html(finalresult);
+                    $("#L3").select2("val", "-102");
+                }
+            });
+        }
+        function add_id()
+        {
+            debugger
+            var drop = $("#L3");
+            var value = drop.val();
+            if (value != '0' && $("#ch1").prop("checked") == true) {
+                var t = $("#experission").val();
+                t = t + " " + "<" + value;
+                $("#experission").val(t);
+                $("#L3").select2("val", "-102");
+                $("#L2").select2("val", "-100");
+                $("#L3").attr("disabled", true);
+                $("#L2").attr("disabled", true);
+                $("#L1").select2("val", "-7");
+            }
+            else if (value != '0' && $("#ch2").prop("checked") == true) {
+                debugger
+
+                var t = $("#return_experission").val();
+                t = t + " " + "<" + value;
+                $("#return_experission").val(t);
+                $("#L3").select2("val", "-102");
+                $("#L2").select2("val", "-100");
+
+                $("#L1").select2("val", "-7");
+                $("#L3").attr("disabled", true);
+                $("#L2").attr("disabled", true);
+            }
+        }
+        function change_type()
+        {
+            var id = $("#type_con").val();
+            num
+            if(id==1)
+            {
+                document.getElementById("num").type = 'Number';
+                $("#num").val("0");
+            }
+            else if(id==2)
+            {
+
+                document.getElementById("num").type = 'text';
+                $("#num").val("");
+            }
+            else if(id==3)
+            {
+
+
+
+                document.getElementById("num").type = 'time';
+            }
+        }
+</script>

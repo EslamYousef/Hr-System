@@ -22,6 +22,19 @@
 
         GetDataById2('@Model.Approved_date', "Approved_date_D");
     });
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+
+                if (data) {
+                    debugger
+                    // $("#Days").val(data.DateDiff.Days);
+                    $("#months").val(data.DateDiff.Months);
+                    $("#Yearr").val(data.DateDiff.Years);
+                }
+            });
+        }
+    }
 
     function GetDataById2(date, id) {
         debugger
@@ -139,8 +152,7 @@
     }
     function Save() {
 
-        $(".yy").on('click', function () {
-            // var x = $(".name").val();
+    
 
             var StartDate = new Date($(".StartDate").val());
             var EndDate = new Date($(".EndDate").val());
@@ -149,12 +161,8 @@
             var to = $(".EndDate").val();
 
             if (to > from) {
-                var diffTime = Math.abs(EndDate - StartDate);
-                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                var months = Math.floor(Days / 31);
-                var years = Math.floor(months / 12);
-                $("#Yearr").val(years);
-                $("#months").val(months);
+         
+                GetDiffDates(from, to);
 
             }
             else {
@@ -163,33 +171,23 @@
 
             }
 
-        });
     }
     function Save2() {
 
-
-        $(".yyy").on('click', function () {
-            // var x = $(".name").val();
-
             var StartDate = new Date($(".StartDate").val());
             var EndDate = new Date($(".EndDate").val());
 
             var from = $(".StartDate").val();
             var to = $(".EndDate").val();
             if (to > from) {
-                var diffTime = Math.abs(EndDate - StartDate);
-                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                var months = Math.floor(Days / 31);
-                var years = Math.floor(months / 12);
-                $("#Yearr").val(years);
-                $("#months").val(months);
-                months
+             
+                GetDiffDates(from, to);
             }
             else {
                 $("#Yearr").val("0");
                 $("#months").val("0");
             }
-        });
+      
     }
 </script>
 <div class="content-wrapper">
@@ -234,7 +232,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="col-md-offset-2 col-md-7">
-                                        <input type="submit" value=@pers_2.create class="btn btn-success" />
+                                        <input type="submit" value=@pers_2.create class="btn btn-success"  />
                                         <a href="@Url.Action("index","request_new_contract")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
                                     </div>
                                 </div>
@@ -292,14 +290,14 @@
                                             @pers_2.Contractstartdate
                                         </label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_start_date_D", @onclick = "Save()" } })
+                                            @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_start_date_D", @onchange = "Save()" } })
                                             @Html.ValidationMessageFor(model => model.Contract_start_date, "", new { @class = "text-danger" })
                                         </div>
                                         <label class="control-label col-md-2">
                                             @pers_2.years
                                         </label>
                                           <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
+                                            @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0} })
 
                                             @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
                                         </div>
@@ -310,7 +308,7 @@
                                             @pers_2.Contractenddate
                                         </label>
                                           <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control EndDate yyy",@type="date", @id = "Contract_end_date_D", @onclick = "Save2()" } })
+                                            @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control EndDate yyy",@type="date", @id = "Contract_end_date_D", @onchange = "Save2()" } })
                                             @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
                                         </div>
                                        <label class="control-label col-md-2">

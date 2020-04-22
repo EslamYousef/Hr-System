@@ -13,5 +13,7 @@ namespace HR.Models.Time_management
         public TimeSpan to { get; set; }
         public bool integrate_with_payroll { get; set; }
         public bool integrate_with_leaves { get; set; }
+
+        public virtual List<Exit_permission_request> Exit_permission_request { get; set; }
     }
 }

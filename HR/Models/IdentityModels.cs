@@ -240,6 +240,10 @@ namespace HR.Models
         public DbSet<Application.Business_Test_Profile> Business_Test_Profile { get; set; }
         public DbSet<Application.Medical_Test_Profile> Medical_Test_Profile { get; set; }
         public DbSet<Application.Application_Status> Application_Status { get; set; }
+        public DbSet<Exit_permission_request> Exit_permission_request { get; set; }
+        public DbSet<CasesTM> CasesTM { get; set; }
+        public DbSet<Time_management_conditional_setup> Time_management_conditional_setup { get; set; }
+
 
     }
 

@@ -1,27 +1,10 @@
 ﻿@model HR.Models.Time_management.Employee_Shift_schedule
 
 @{
-    ViewBag.Title = "Create";
-   // Layout = null;
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-
-<script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
-<script>
-    
-  function da()
-    {
-      $("#FD").datepicker({
-        datepicker: true,
-        onshow: function () {
-            $("#FD").setoptions({
-                minDate: $("#fromD").val()
-            })
-        }
-    });
-    }
-</script>
 @using HR.Resource;
 
 <div class="content-wrapper">
@@ -40,7 +23,7 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                @using (Html.BeginForm("Create", "EmployeeShift", FormMethod.Post, new {id="for", enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("edit", "EmployeeShift", FormMethod.Post, new { id = "for", enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -63,11 +46,11 @@
                                 @pers_2.employee
                             </label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { id = "empID", @class = "select2", @Onchange = "getcode()"})
+                                @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { id = "empID", @class = "select2", @Onchange = "getcode()" ,@readonly=true})
                                 <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
                             </div>
                             <div class="col-md-2">
-                                <input style="width:100%" onclick="check()" value=@pers_2.create class="btn btn-success" />
+                                <input style="width:100%" onclick="check()" value=@organ.Save class="btn btn-success" />
                             </div>
                             <div class="col-md-2">
                                 <a style="width:100%" href="@Url.Action("index","EmployeeShift")" class="btn btn-danger btn-sm">@pers_2.Back</a>
@@ -144,13 +127,13 @@
                                         <span> @pers_2.fromdate </span>
                                     </label>
                                     <div class="col-md-3">
-                                        <input id="FD"  class="form-control" type="date"    />
+                                        <input id="FD" class="form-control" type="date" />
                                     </div>
                                     <label class="control-label col-md-1">
                                         <span> @pers_2.todate </span>
                                     </label>
                                     <div class="col-md-3">
-                                        <input id="TD"  class="form-control" type="date"    />
+                                        <input id="TD"  class="form-control" type="date" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -158,15 +141,15 @@
                                         @pers_2.shiftsetup
                                     </label>
                                     <div class="col-md-3">
-                                        @Html.DropDownList("d", new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { id = "SI", @class = "select2"})
-                                        
+                                        @Html.DropDownList("d", new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { id = "SI", @class = "select2" })
+
                                     </div>
                                     <label style="color:red" class="control-label col-md-1">
                                         @pers_2.shiftdaystatussetup
                                     </label>
                                     <div class="col-md-3">
-                                        @Html.DropDownList("s", new SelectList(ViewBag.daystate, "ID", "Code"), pers_2.shiftdaystatussetup, new {id="ST",@class = "select2"})
-                                      
+                                        @Html.DropDownList("s", new SelectList(ViewBag.daystate, "ID", "Code"), pers_2.shiftdaystatussetup, new { id = "ST", @class = "select2" })
+
                                     </div>
 
                                 </div>
@@ -176,20 +159,20 @@
                                     </label>
                                     <div class="col-md-3">
                                         <input class="form-control timepicker" id="FT" data-template="dropdown" data-show-seconds="true" data-default-time="11:25 AM" data-show-meridian="true" data-minute-step="1" />
-                                        </div>
-
-
-                                        <label class="control-label col-md-1">
-                                            <span> @pers_2.totime </span>
-                                        </label>
-                                        <div class="col-md-3">
-                                            <input class="form-control timepicker" id="TT" data-template="dropdown" data-show-seconds="true" data-default-time="11:25 AM" data-show-meridian="true" data-minute-step="1" />
-
-                                        </div>
                                     </div>
+
+
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.totime </span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <input class="form-control timepicker" id="TT" data-template="dropdown" data-show-seconds="true" data-default-time="11:25 AM" data-show-meridian="true" data-minute-step="1" />
+
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <div class="col-md-1"></div>
-                                    <input type="button" onclick="add()" value=@pers_2.addelement class="btn btn-success col-md-3"/>
+                                    <input type="button" onclick="add()" value='@pers_2.addelement' class="btn btn-success col-md-3" />
                                 </div>
 
                                 <div class="form-group">
@@ -206,7 +189,117 @@
                                                     <td></td>
                                                 </tr>
                                             </thead>
-                                            <tbody id="body_table"></tbody>
+                                            <tbody id="body_table">
+                                                @for (var i = 0; i < Model.Schedule_Details.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <input name='fromdate' class="form-control" value='@Model.Schedule_Details[i].From_date.ToShortDateString()'  readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input name='todate' class="form-control" value='@Model.Schedule_Details[i].To_date.ToShortDateString()' readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" value="@Model.Schedule_Details[i].Shift_setup.Code -> @Model.Schedule_Details[i].Shift_setup.Name" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" value="@Model.Schedule_Details[i].Shiftdaystatus.Code -> @Model.Schedule_Details[i].Shiftdaystatus.Name" readonly />
+
+                                                        </td>
+                                                       
+                                                        <td>
+                                                            <input class="form-control" name="fromtime" id="@Model.Schedule_Details[i].ID" readonly />
+                                                            <script>
+                                                                function ed()
+                                                                {
+                                                                   debugger
+                                                                    if(@Model.Schedule_Details[i].From.Hours==0)
+                                                                    {
+                                                                        debugger
+                                                                        var def=12;
+                                                                        var min=@Model.Schedule_Details[i].From.Minutes;
+                                                                        var sec=@Model.Schedule_Details[i].From.Seconds;
+                                                                        $("#@Model.Schedule_Details[i].ID").val(def +":" +min+":"+sec+" AM");
+                                                                    }
+                                                                    else if(@Model.Schedule_Details[i].From.Hours>12)
+                                                                    {
+                                                                        debugger
+                                                                        var def=@Model.Schedule_Details[i].From.Hours-12;
+                                                                        var min=@Model.Schedule_Details[i].From.Minutes;
+                                                                        var sec=@Model.Schedule_Details[i].From.Seconds;
+                                                                        $("#@Model.Schedule_Details[i].ID").val(def +":" +min+":"+sec+" pm");
+                                                             
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        debugger
+                                                                        var def=@Model.Schedule_Details[i].From.Hours;
+                                                                        var min=@Model.Schedule_Details[i].From.Minutes;
+                                                                        var sec=@Model.Schedule_Details[i].From.Seconds;
+                                                                        $("#@Model.Schedule_Details[i].ID").val(def +":" +min+":"+sec+" AM");
+                                                             
+                                                                    }
+                                                                }
+                                                                ed();
+                                                            </script>
+
+                                                           
+                                                        </td>
+                                                        <td>
+                                                            @if (true)
+                                                            {
+                                                            var t = @Model.Schedule_Details[i].ID + 1000000;
+                                                            <input class="form-control" name="totime" id='@t' value="@Model.Schedule_Details[i].To" readonly />
+                                                            <script>
+                                                                function ed()
+                                                                {
+                                                                    if(@Model.Schedule_Details[i].To.Hours==0)
+                                                                    {
+                                                                        var def=12;
+                                                                        var min=@Model.Schedule_Details[i].To.Minutes;
+                                                                        var sec=@Model.Schedule_Details[i].To.Seconds;
+                                                                        var t = @Model.Schedule_Details[i].ID + 1000000;
+                                                                        $("#@t" ).val(def +":" +min+":"+sec+" AM");
+                                                                    }
+                                                                    else if(@Model.Schedule_Details[i].To.Hours>12)
+                                                                    {
+                                                                        var def=@Model.Schedule_Details[i].To.Hours-12;
+                                                                        var min=@Model.Schedule_Details[i].To.Minutes;
+                                                                        var sec=@Model.Schedule_Details[i].To.Seconds;
+                                                                        var t = @Model.Schedule_Details[i].ID + 1000000;
+                                                                        $("#@t" ).val(def +":" +min+":"+sec+" pm");
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        var def=@Model.Schedule_Details[i].To.Hours;
+                                                                        var min=@Model.Schedule_Details[i].To.Minutes;
+                                                                        var sec=@Model.Schedule_Details[i].To.Seconds;
+                                                                        var t = @Model.Schedule_Details[i].ID + 1000000;
+                                                                        $("#@t" ).val(def +":" +min+":"+sec+" AM");
+                                                                    
+
+                                                                    }
+                                                                }
+                                                                ed();
+                                                            </script>
+                                                            }
+                                                        </td>
+                                                        <td hidden>
+                                                            <input hidden name="shift_ID" class="form-control" value="@Model.Schedule_Details[i].Shift_setup.ID" readonly />
+
+                                                        </td>
+                                                        <td hidden>
+                                                            <input hidden name="status_ID" class="form-control" value="@Model.Schedule_Details[i].Shiftdaystatus.ID" readonly />
+
+                                                        </td>
+                                                        <td>
+                                                            <input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' />
+                                                        </td>
+                                                    </tr>
+                                                   
+                                                }
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -215,10 +308,9 @@
                     </div>
                 }
 
-                        </div>
+            </div>
 
-                    </div>
-     
+        </div>
 
     </section>
 </div>
@@ -228,8 +320,8 @@
     $(document).ready(function () {
 
         GetDataById2('@Model.From_date' , "fromD");
-        GetDataById2('@Model.From_date', "toD");
-        setto(); setform();
+        GetDataById2('@Model.To_date', "toD");
+        setto();setform();
 
     });
     function GetDataById2(date, id) {
@@ -303,6 +395,7 @@
             if (check == -1)
             {
                 alert('@HR.Resource.pers_2.error_date');
+
             }
             else
             {
@@ -340,33 +433,38 @@
         {
             alert('@HR.Resource.pers_2.error_date');
         }
-        else {
+        else
+        {
             var flag = 0;
             $.ajax({
                 type: "post",
                 url: "/EmployeeShift/chech_date",
-                data: { "H_from": huge_from_date, "H_to": huge_to_date, "from": from_date, "to": to_date, "empid": emp_id, "code": code },
+                data: { "H_from": huge_from_date, "H_to": huge_to_date, "from": from_date, "to": to_date, "empid": emp_id ,"code":code},
                 success: function (result) {
-                    if (result == "0") {
+                    if(result=="0")
+                    {
                         debugger
                         var allTR = $("#body_table").find("tr");
-                        for (var i = 0; i < allTR.length; i++) {
+                        for(var i=0;i< allTR.length; i++)
+                        {
                             debugger
                             var F = new Date(allTR[i].children[0].children[0].value);
                             var T = new Date(allTR[i].children[1].children[0].value);
-                            var from = new Date(from_date); from.setHours(0, 0, 0, 0);
-                            var to = new Date(to_date); to.setHours(0, 0, 0, 0);
+                            var from=new Date(from_date);from.setHours(0,0,0,0);
+                            var to=new Date(to_date);to.setHours(0,0,0,0);
                             var DIF1 = new Date(F - from) / 1000 / 60 / 60 / 24;
                             var DIF2 = new Date(to - T) / 1000 / 60 / 60 / 24;
-                            if (((from - F) / 1000 / 60 / 60 / 24) <= 0 && ((to - T) / 1000 / 60 / 60 / 24) >= 0) {
+                            if (((from - F) / 1000 / 60 / 60 / 24) <= 0 && ((to - T) / 1000 / 60 / 60 / 24) >= 0)
+                            {
                                 alert('@HR.Resource.pers_2.errormpl2');
                                 flag = 1;
                                 break;
                             }
                             var t = ((F - to) / 1000 / 60 / 60 / 24);
-                            var y = ((to - T) / 1000 / 60 / 60 / 24);
+                            var y=((to - T) / 1000 / 60 / 60 / 24);
 
-                            if (((((F - from) / 1000 / 60 / 60 / 24) <= 0) && ((from - T) / 1000 / 60 / 60 / 24) <= 0) || ((((F - to) / 1000 / 60 / 60 / 24) <= 0) && ((to - T) / 1000 / 60 / 60 / 24) <= 0)) {
+                            if (((((F-from) / 1000 / 60 / 60 / 24) <= 0 )&& ((from - T) / 1000 / 60 / 60 / 24) <= 0) || ((((F - to) / 1000 / 60 / 60 / 24) <= 0) && ((to - T) / 1000 / 60 / 60 / 24) <= 0))
+                            {
                                 alert('@HR.Resource.pers_2.errormpl2');
                                 flag = 1;
                                 break;
@@ -379,7 +477,7 @@
                         var state = $("#ST").val();
                         var shift_text = $("#SI option:selected").text();
                         var state_text = $("#ST option:selected").text();
-                        if (check == 1 && flag == 0 && from_date != "" && to_date != "" && to_time != "" && from_time != "" && shift != "" && state != "") {
+                        if (check == 1 &&flag==0 && from_date != "" && to_date != "" && to_time != "" && from_time != "" && shift != "" && state != "") {
                             var tr = "<tr>" +
                                 "<td>        <input  class='form-control'          name='fromdate'      value='" + from_date + "' readonly='readonly' /></td>" +
                                 "<td>        <input  class='form-control'          name='todate'        value='" + to_date + "' readonly='readonly' /></td>" +
@@ -396,7 +494,8 @@
                             $("#ST").select2("val", "");
                         }
                     }
-                    else {
+                    else
+                    {
                         alert(result);
                     }
 
@@ -406,8 +505,8 @@
                     alert('@HR.Resource.pers_2.errorempl');
                 }
             });
-        }
 
+        }
     }
     function remove(thi) {
 
