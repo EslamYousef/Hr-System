@@ -5,7 +5,51 @@
 <html lang="en" dir="rtl">
 <head>
    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <jQuery(document).ready(function($) {
+
+  // http://jsfiddle.net/sWbfk/
+  $( "#dp-island" ).datepicker({
+    minDate: 0,
+    beforeShowDay: function(date) {
+        var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#start-date").val());
+        var date2 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#end-date").val());
+        var isHightlight = date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2));
+        return [true, isHightlight ? "dp-highlight" : ""];
+    },
+    onSelect: function(dateText, inst) {
+        var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#start-date").val());
+        var date2 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#end-date").val());
+        if (!date1 || date2) {
+            $("#start-date").val(dateText);
+            $("#end-date").val("");
+        } else if (selectedDate < date1) {
+            $("#end-date").val($("#start-date").val());
+            $("#start-date").val(dateText);
+        } else {
+            $("#end-date").val(dateText);
+        }
+        $(this).datepicker();
+    }
+  });
+
+  $( "#search" ).click(function() {
+    if ( $("#start-date").val() ) {
+      var startDate = $("#start-date").val();
+      if ( $("#end-date").val() ) {
+        var endDate = $("#end-date").val();
+      }else{
+        var endDate = startDate;
+      }
+      $.post( "URL GOES HERE", { start_date: startDate, end_date: endDate } ).done(function( data ) {
+        $('#output').html(data);
+        $('#filters').removeClass('cf-hidden');
+      });
+    }else{
+      $('#output').html('<p>Please select your dates.</p>');
+    }
+  });
+
+}); http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
@@ -26,6 +70,8 @@
     <link rel="stylesheet" href="~/Content/neon-rtl/assets/css/custom.css">
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Content/neon-rtl/assets/js/jquery-1.11.3.min.js"></script>
+    <script src="~/Content/neon/assets/js/jquery-ui.js"></script>
+    <script src="~/Content/neon/assets/js/custom-all.js"></script>
    
 </head>
 <body class="page-body  page-fade" data-url="http://neon.dev">
@@ -642,7 +688,7 @@
         </div>
 
         <div class="main-content">
-            <div class="row">
+            <div class="row main-content__header">
 
                 <!-- Profile Info and Notifications -->
                 <div class="col-md-6 col-sm-8 clearfix">
