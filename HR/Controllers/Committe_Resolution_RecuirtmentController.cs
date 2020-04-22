@@ -12,6 +12,7 @@ using HR.Models.All_Table_Commitee_Resolution;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Committe_Resolution_RecuirtmentController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
@@ -77,21 +78,44 @@ namespace HR.Controllers
                         dbcontext.SaveChanges();
                         ///////////////////////////////
                         var benfit = new Committe_Resolution_Recuirtment {check_status= check_status.created, statID=s.ID, Append_Committe_Member = add_items.ToList(), Code = model.Code, Committe_Usage = model.Committe_Usage, Committe_Location = model.Committe_Location, Committe_Resolution_Date = model.Committe_Resolution_Date, Committe_Year = model.Committe_Year, Committe_Resolution_Status = model.Committe_Resolution_Status, Committe_Type = model.Committe_Type, Committe_Conclusion = model.Committe_Conclusion };
-
-                        var record =  dbcontext.Committe_Resolution_Recuirtment.Add(benfit);
+                          var record =  dbcontext.Committe_Resolution_Recuirtment.Add(benfit);
                         dbcontext.SaveChanges();
+                        //if (Command == "Submit5" && record.Committe_Usage == Committe_Usage.Personnel)
+                        //{
+                        //    TempData["Message"] = HR.Resource.Personnel.YoumustchooseTestFromCommitteUsage;
+                        //    return View(model);
+                        //}
+                        //if ((Command == "Submit" && record.Committe_Usage == Committe_Usage.Test) || (Command == "Submit2" && record.Committe_Usage == Committe_Usage.Test) || (Command == "Submit3" && record.Committe_Usage == Committe_Usage.Test) || (Command == "Submit4" && record.Committe_Usage == Committe_Usage.Test))
+                        //{
+                        //    TempData["Message"] = HR.Resource.Personnel.YoumustchoosePersonnelFromCommitteUsage;
+                        //    return View(model);
+                        //}
 
-                        if (Command == "Submit")
+
+                        if (Command == "Submit" && record.Committe_Usage == Committe_Usage.Personnel)
                         {
                             return RedirectToAction("Create", "Commitee_Agenda", new { id = record.ID });
+                        }
+                        if (Command == "Submit2" && record.Committe_Usage == Committe_Usage.Personnel)
+                        {
+                            return RedirectToAction("Create", "Out_Organization", new { id = record.ID });
+                        }
+                        if (Command == "Submit3" && record.Committe_Usage == Committe_Usage.Personnel)
+                        {
+                            return RedirectToAction("Create", "In_Organization", new { id = record.ID });
+                        }
+                        if (Command == "Submit4" && record.Committe_Usage == Committe_Usage.Personnel) 
+                        {
+                            return RedirectToAction("Create", "Committe_Activities", new { id = record.ID });
+                        }
+                        if (Command == "Submit5" && record.Committe_Usage == Committe_Usage.Test)
+                        {
+                            return RedirectToAction("Create", "Linked_to_Testing", new { id = record.ID });
                         }
                     }
                     
                     dbcontext.SaveChanges();
-                    //if (Command == "Submit")
-                    //{
-                    //    return RedirectToAction("edit", "Commitee_Agenda", new { id = model.ID });
-                    //}
+                   
                     return RedirectToAction("Index");
                 }
                 else
@@ -119,7 +143,7 @@ namespace HR.Controllers
                 var record = dbcontext.Committe_Resolution_Recuirtment.FirstOrDefault(m => m.ID == ID);
                 if (record != null)
                 {
-                    return View(record);
+                        return View(record);
                 }
                 else
                 {
@@ -132,14 +156,13 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(Committe_Resolution_Recuirtment model, string command, FormCollection form)
+        public ActionResult Edit(Committe_Resolution_Recuirtment model, string Command, FormCollection form)
         {
             try
             {
 
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Committe_Resolution_Recuirtment.FirstOrDefault(m => m.ID == model.ID);
-       
                 record.Code = model.Code;
                 record.Committe_Usage = model.Committe_Usage;
                 record.Committe_Location = model.Committe_Location;
@@ -148,8 +171,6 @@ namespace HR.Controllers
                 record.Committe_Resolution_Status = model.Committe_Resolution_Status;
                 record.Committe_Type = model.Committe_Type;
                 record.Committe_Conclusion = model.Committe_Conclusion;
-                ///////////delete old Append_beneficiary_Family///////
-                // var all_items = model.Append_beneficiary_Family;
                 dbcontext.Append_Committe_Member.RemoveRange(record.Append_Committe_Member);
                 dbcontext.SaveChanges();
 
@@ -164,26 +185,87 @@ namespace HR.Controllers
                     {
                         items.Add(new Append_Committe_Member { Is_Committe_Head = Head[i], Employee_profile = emp_profile[i], Employee_Name = Emp_name[i] });
                     }
-                    dbcontext.SaveChanges();
                 }
                 if (items.Count() > 0)
                 {
                     var add_items = dbcontext.Append_Committe_Member.AddRange(items);
                     dbcontext.SaveChanges();
                     record.Append_Committe_Member = add_items.ToList();
-                    //var benfit = new Employee_beneficiary_profile { Append_beneficiary_Family = add_items.ToList(), Code = model.Code, Employee_Profile = emp, Legatee = model.Legatee, Employee_ProfileId = Employee_Profile.ID.ToString() };
-                    //dbcontext.Employee_beneficiary_profile.Add(benfit);
+                    /////////////////////////////////////
+                    //var username = User.Identity.GetUserName();
+                    //var Date = Convert.ToDateTime("1/1/1900");
+                    //var s = new status { statu = check_status.created, created_by = username, Type = Models.Infra.Type.Committe_Resolution_Recuirtment, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, return_to_reviewdate = Date };
+                    //var st = dbcontext.status.Add(s);
+                    //dbcontext.SaveChanges();
+                    ///////////////////////////////
+                    //var benfit = new Committe_Resolution_Recuirtment { /*check_status = check_status.created, statID = s.ID,*/ Append_Committe_Member = add_items.ToList(), Code = model.Code, Committe_Usage = model.Committe_Usage, Committe_Location = model.Committe_Location, Committe_Resolution_Date = model.Committe_Resolution_Date, Committe_Year = model.Committe_Year, Committe_Resolution_Status = model.Committe_Resolution_Status, Committe_Type = model.Committe_Type, Committe_Conclusion = model.Committe_Conclusion };
                     dbcontext.SaveChanges();
+
+                    var Agenda = dbcontext.Commitee_Agenda.FirstOrDefault(a => a.Committe_Resolution_RecuirtmentId == model.ID);
+                    var Out_Organization = dbcontext.Out_Organization.FirstOrDefault(a => a.Committe_Resolution_RecuirtmentId == model.ID);
+                    var In_Organization = dbcontext.In_Organization.FirstOrDefault(a => a.Committe_Resolution_RecuirtmentId == model.ID);
+                    var Committe_Activities = dbcontext.Committe_Activities.FirstOrDefault(a => a.Committe_Resolution_RecuirtmentId == model.ID);
+                    var Linked_to_Testing = dbcontext.Linked_to_Testing.FirstOrDefault(a => a.Committe_Resolution_RecuirtmentId == model.ID);
+                    //if (Command == "Submit5" && record.Committe_Usage == Committe_Usage.Personnel)
+                    //{
+                    //    TempData["Message"] = HR.Resource.Personnel.YoumustchooseTestFromCommitteUsage;
+                    //    return View();
+                    //}
+                    //if ((Command == "Submit" && record.Committe_Usage == Committe_Usage.Test) || (Command == "Submit2" && record.Committe_Usage == Committe_Usage.Test) || (Command == "Submit3" && record.Committe_Usage == Committe_Usage.Test) || (Command == "Submit4" && record.Committe_Usage == Committe_Usage.Test))
+                    //{
+                    //    TempData["Message"] = HR.Resource.Personnel.YoumustchoosePersonnelFromCommitteUsage;
+                    //    return View();
+                    //}
+                    if (Agenda != null && Command == "Submit")
+                    {
+                            return RedirectToAction("Edit", "Commitee_Agenda", new { id = record.ID });
+                    }
+                    else if (Agenda == null && Command == "Submit")
+                    {
+                        return RedirectToAction("Create", "Commitee_Agenda", new { id = record.ID });
+                    }
+                    if (Out_Organization != null && Command == "Submit2")
+                    {
+                            return RedirectToAction("Edit", "Out_Organization", new { id = record.ID });
+                     }
+                    else if (Out_Organization == null && Command == "Submit2")
+
+                    {
+                        return RedirectToAction("Create", "Out_Organization", new { id = record.ID });
+                    }
+                    if (In_Organization != null && Command == "Submit3")
+                    {
+                        return RedirectToAction("Edit", "In_Organization", new { id = record.ID });
+                    }
+                    else if (In_Organization == null && Command == "Submit3")
+
+                    {
+                        return RedirectToAction("Create", "In_Organization", new { id = record.ID });
+                    }
+                    if (Committe_Activities != null && Command == "Submit4")
+                    {
+                        return RedirectToAction("Edit", "Committe_Activities", new { id = record.ID });
+                    }
+                    else if (Committe_Activities == null && Command == "Submit4")
+
+                    {
+                        return RedirectToAction("Create", "Committe_Activities", new { id = record.ID });
+                    }
+                    if (Linked_to_Testing != null && Command == "Submit5")
+                    {
+                        return RedirectToAction("Edit", "Linked_to_Testing", new { id = record.ID });
+                    }
+                    else if (Linked_to_Testing == null && Command == "Submit5")
+
+                    {
+                        return RedirectToAction("Create", "Linked_to_Testing", new { id = record.ID });
+                    }
+
                 }
-
-
                 dbcontext.SaveChanges();
+                
+                return RedirectToAction("Index");
 
-                //if (command == "Submit")
-                //{
-                //    return RedirectToAction("edit", "Employee_Profile", new { id = int.Parse(record.Employee_ProfileId) });
-                //}
-                return RedirectToAction("index");
             }
             catch (DbUpdateException e)
             {
@@ -191,7 +273,9 @@ namespace HR.Controllers
                 return View(model);
             }
             catch (Exception e)
-            { return View(model); }
+            {
+                return View(model);
+            }
         }
         public ActionResult Delete(int id)
         {
@@ -255,12 +339,14 @@ namespace HR.Controllers
         {
             var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
             var record = dbcontext.Committe_Resolution_Recuirtment.FirstOrDefault(m => m.ID == model.empid);
+            var committe = dbcontext.Committe_Resolution_Recuirtment.Select(a => a.Committe_Resolution_Status).ToList();
             if (model.check_status == check_status.Approved)
             {
                 sta.approved_by = User.Identity.GetUserName();
                 sta.approved_bydate = model.status.approved_bydate;
                 record.check_status = check_status.Approved;
                 record.name_state = nameof(check_status.Approved);
+                record.Committe_Resolution_Status= Committe_Resolution_Status.Approved; 
                 dbcontext.SaveChanges();
             }
          
@@ -270,6 +356,7 @@ namespace HR.Controllers
                 sta.Rejected_bydate = model.status.Rejected_bydate;
                 record.check_status = check_status.Rejected;
                 record.name_state = nameof(check_status.Rejected);
+                record.Committe_Resolution_Status = Committe_Resolution_Status.Rejected;
                 dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Return_To_Review)
@@ -278,9 +365,9 @@ namespace HR.Controllers
                 sta.return_to_reviewdate = model.status.return_to_reviewdate;
                 record.check_status = check_status.Return_To_Review;
                 record.name_state = nameof(check_status.Return_To_Review);
+                record.Committe_Resolution_Status = Committe_Resolution_Status.Canceled;
                 dbcontext.SaveChanges();
             }
-
             return RedirectToAction("index");
         }
     }

@@ -5,42 +5,256 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-
 @Scripts.Render("~/bundles/jqueryval")
 <link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
 
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.EditCommitteResolution
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Committe_Resolution_Recuirtment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    <hr />
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.ID);
+
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;">@Personnel.CommitteeAgenda</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit4" class="btn btn-success" style="width:200px;">@Personnel.CommitteeActivites</button>
+                    </div>
+
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit5" class="btn btn-success" style="width:200px;">@Personnel.LinkedToTesting</button>
+                    </div>
+
+                    <div class="col-md-1" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success" style="width:200px;">@Personnel.OutOrganization</button>
+                    </div>
+                    <div class="col-md-12" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit3" class="btn btn-success" style="width:200px;">@Personnel.InOrganization</button>
+                    </div>
+
+
+                    <input name="Employee_profile_No2" hidden />
+                    <input name="Employee_name" hidden />
+                    <input name="Is_Head" hidden />
+
+                    <div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteeUsage</label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Committe_Usage, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Committe_Usage, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteeLocation</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Committe_Location, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Committe_Location, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteResolutionDate</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Committe_Resolution_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "Committe_Resolution_Date" } })
+                                @Html.ValidationMessageFor(model => model.Committe_Resolution_Date, "", new { @class = "text-danger" })
+                            </div>
+                            <label class="control-label col-md-2">@Personnel.CommitteeYear</label>
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.Committe_Year, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Committe_Year, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteeResolutionStatus</label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Committe_Resolution_Status, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Committe_Resolution_Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteeType</label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(model => model.Committe_Type, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Committe_Type, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteeConclusion</label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(model => model.Committe_Conclusion, 4, 55, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Committe_Conclusion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span>@Personnel.EmployeeName</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownList("fd", new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                            </div>
+                            <div class="col-md-3">
+                                <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
+                            </div>
+                        </div>
+                        <table id="tb-family" border="1" style="display: table; width:400px;">
+                            <thead>
+                                <tr>
+                                    <th id="fa">@Personnel.EmployeeNo</th>
+                                    <th id="na">@Personnel.EmployeeName</th>
+                                    <th id="per">@Personnel.IsCommitteeHead</th>
+                                    <th id="De">@Personnel.Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Append_Committe_Member.Count(); i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input name="Employee_profile_No2" type="text" value="@Model.Append_Committe_Member[i].Employee_profile" readonly />
+                                        </td>
+                                        <td>
+                                            <input name="Employee_name" type="text" value="@Model.Append_Committe_Member[i].Employee_Name" />
+                                        </td>
+
+                                        @if (Model.Append_Committe_Member[i].Is_Committe_Head == "0")
+                                        {
+                                            <td>
+
+                                                <select name='Is_Head'><option selected value='0'>@Personnel.No</option><option value='1'> @Personnel.Yes</option></select>
+                                            </td>
+                                        }
+                                        else
+                                        {
+
+                                            <td><select name='Is_Head'><option selected value='0'> @Personnel.No</option><option selected value='1'> @Personnel.Yes</option></select></td>
+                                        }
+                                        <td>
+                                            <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove($(this))" id="tt" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Edit1" class="btn btn-success" />
+                                <a href="@Url.Action("index","Committe_Resolution_Recuirtment")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+<script>
+    function Remove(thi) {
+        thi.closest('tr').remove();
+    }
+    function employee3() {
+
+        var id = $("#employeeId3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>
 <script>
 
     $(function () {
+        //$("#tb-family").hide();
         GetDataById2('@Model.Committe_Resolution_Date', "Committe_Resolution_Date");
 
         $("#ss").click(function () {
 
             var emp_profile = $("#employeeId3").val();
-
             $.ajax({
                 type: "post",
                 url: "/Helper/GetEmployee",
                 data: { "id": emp_profile },
                 success: function (result) {
-
+                    debugger
 
                     if (emp_profile != "") {
                         $("#tb-family").show();
                         var T = "";
-                        T = "<tr><td><input type='text' readonly name='Employee_profile_No2' value='" + result.Code + "'/></td><td><input type='text' readonly name='Employee_name' value='" + result.Full_Name + "'/></td><td><select name='Is_Head'><option value='0'> No</option><option value='1'> Yes</option></select></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+                        T = "<tr><td><input type='text' readonly name='Employee_profile_No2' value='" + result.Code + "'/></td><td><input type='text' readonly name='Employee_name' value='" + result.Full_Name + "'/></td><td><select name='Is_Head'><option value='0'> @Personnel.No</option><option value='1'> @Personnel.Yes</option></select></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
                         $("#tb-family").append(T)
                     }
-                }
-            })
+                    //}<td><input type='checkbox' onchange='unchecked($(this))' name='Is_Head' checked  /></td>
+                } })
             $("#tb-family").on('click', '.del-btn', function () {
                $(this).closest('tr').remove();
-            })
+                    })
         })
-    })
-    
+    });
+    function unchecked(input)
+    {
+        if (!input.checked)
+        {
+            input.val = "";
+            T = "<input name='Is_Head' value='' hidden />"
+            input.after(T);
+        }
+        if (input.checked) {
+          input.next.remove();
+
+        }
+    }
     function GetDataById2(date, id) {
-        debugger
         var valx = new Date(date);
         var month;
         if ((valx.getMonth() + 1) < 10) {
@@ -59,198 +273,4 @@
         var d = valx.getFullYear() + '-' + month + '-' + day;
         $('#' + id).val(d);
     }
-</script>
-
-<div class="content-wrapper">
-
-    <section class="content-header">
-        <h1>
-            @Personnel.EditEmployeeBeneficiaryProfile
-        </h1>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-
-        <div class="box">
-
-            <!-- /.box-header -->
-            <div class="box-body">
-
-                @using (Html.BeginForm("Edit", "Committe_Resolution_Recuirtment", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
-
-                        <hr />
-
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
-                        <input name="Employee_profile_No2" hidden />
-                        <input name="Employee_name" hidden />
-                        <input name="Is_Head" hidden />
-                        @Html.HiddenFor(m => m.ID);
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div>
-
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe Resolution No</label>
-                                    <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe_Usage</label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(model => model.Committe_Usage, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Committe_Usage, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe_Location</label>
-                                    <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Committe_Location, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Committe_Location, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe_Resolution_Date</label>
-                                    <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Committe_Resolution_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "Committe_Resolution_Date" } })
-                                        @Html.ValidationMessageFor(model => model.Committe_Resolution_Date, "", new { @class = "text-danger" })
-                                    </div>
-                                    <label class="control-label col-md-4">Committe_Year</label>
-                                    <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Committe_Year, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                        @Html.ValidationMessageFor(model => model.Committe_Year, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe_Resolution_Status</label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(model => model.Committe_Resolution_Status, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Committe_Resolution_Status, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe_Type</label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(model => model.Committe_Type, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Committe_Type, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">Committe_Conclusion</label>
-                                    <div class="col-md-4">
-                                        @Html.TextAreaFor(model => model.Committe_Conclusion, 4, 55, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Committe_Conclusion, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4">
-                                    <span>@Personnel.FamilyName</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectFamilyProfile, new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-
-                                </div>
-                            </div>
-                            <table id="tb-family" border="1" style="display: table; width:400px;">
-                                <thead>
-                                    <tr>
-                                        <th id="fa">@Personnel.EmployeeNo</th>
-                                        <th id="na">@Personnel.EmployeeName</th>
-                                        <th id="per">Is_Committe_Head</th>
-                                        <th id="De">@Personnel.Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.Append_Committe_Member.Count(); i++)
-                                    {
-                                             <tr>
-                                              <td>
-                   <input name="Employee_profile_No2" type="text" value="@Model.Append_Committe_Member[i].Employee_profile" readonly />
-                                            </td>
-                                            <td>
-                                                <input name="Employee_name" type="text" value="@Model.Append_Committe_Member[i].Employee_Name" />
-                                            </td>
-                                                
-                                                 @if (Model.Append_Committe_Member[i].Is_Committe_Head == "0")
-                                                 {
-                                                     /**/
-                                                    <td>
-                                                      
-                                                        <select name='Is_Head'><option selected value='0'> No</option><option value='1'> Yes</option></select>
-                                                    </td>  }
-                                                 else
-                                                 {
-
-                                                    <td><select name='Is_Head'><option selected value='0'> No</option><option selected value='1'> Yes</option></select></td>
-                                                 }
-                                                 
-                                                
-	
-                                                 
-                                            @*<td>
-                                                <input name="Percentage" type="number" value="@Model.Append_Committe_Member[i].Is_Committe_Head" />
-                                            </td>*@
-                                            <td>
-                                                <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove()" id="tt" />
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-
-                            <input type="button" value="@Personnel.Add" id="ss" />
-
-                            <div class="form-group">
-                                <div class="col-md-offset-4 col-md-10">
-                                    <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Committe_Resolution_Recuirtment")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-
-        </div>
-
-    </section>
-</div>
-@section scripts{}
-
-<script>
-    function Remove()
-    {
-        $("#tt").closest('tr').remove();
-    }
-
-    function employee3() {
-
-        var id = $("#employeeId3").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetEmployee",
-            data: { "id": id },
-            success: function (result) {
-
-            },
-            error: function () {
-            }
-        });
-    }
-
 </script>

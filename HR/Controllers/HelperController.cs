@@ -641,6 +641,7 @@ namespace HR.Controllers
             return Json(ter);
 
         }
+        [HttpPost]
         public JsonResult GetEmployee(string id)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
@@ -677,6 +678,44 @@ namespace HR.Controllers
                                        where AppendHoilday.Public_Holidays_DatesId == ID select new {id= AppendHoilday.ID, fromdate = AppendHoilday.Fromdate , todate = AppendHoilday.Todate });
                 //dbcontext.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == ID);
             return Json(AppendPublicHoliday);
+        }
+        public JsonResult GetDataByJobTitle(string id)
+        {
+            var ID = int.Parse(id);
+            var all_level = dbcontext.job_level_setup.ToList();
+            var all_jobs = dbcontext.job_title_cards.Where(a=>a.ID==ID).ToList();
+            var all_units = dbcontext.Organization_Chart.ToList();
+            var AppendPublicHoliday = from A in all_jobs
+                                      join Baa in all_level on A.joblevelsetupID equals Baa.ID.ToString()
+                                      join c in all_units on A.Organization_unit_codeID equals c.ID.ToString()
+                                      select new job_title_cards { name=A.name,Code=A.Code,job_level_setup = Baa, Organization_Chart = c };
+
+            //dbcontext.Append_Public_Holidays_Dates.Where(a => a.Public_Holidays_DatesId == ID);
+            //var AppendPublicHoliday = (from joblevel in dbcontext.job_level_setup
+            //                           join jobtitle in dbcontext.job_title_cards on joblevel.ID equals int.Parse(jobtitle.joblevelsetupID)
+            //                           where jobtitle.joblevelsetupID == id
+            //                           select new { id = joblevel.ID, names = jobtitle.name, Names = joblevel.Name });
+            //dbcontext.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == ID);
+            return Json(AppendPublicHoliday.ToList());
+        }
+       
+        public JsonResult GetDataByIdAppendCommitee_Agenda(string id)
+        {
+            var ID = int.Parse(id);
+            var AppendCommitee_Agenda = dbcontext.Commitee_Agenda.Where(a => a.Committe_Resolution_RecuirtmentId == ID).ToList().Select(m => new {id= m.ID, fromdate = m.Start_Date , todate = m.End_Date });
+            return Json(AppendCommitee_Agenda);
+        }
+        public JsonResult GetDataByIdAppendLinked_to_Testing(string id)
+        {
+            var ID = int.Parse(id);
+            var Linked_to_Testing = dbcontext.Linked_to_Testing.Where(a => a.Committe_Resolution_RecuirtmentId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Expected_Start_Date, todate = m.Expected_End_Date });
+            return Json(Linked_to_Testing);
+        }
+        public JsonResult GetDataByIdAppendCommitee_Activities(string id)
+        {
+            var ID = int.Parse(id);
+            var Committe_Activities = dbcontext.Committe_Activities.Where(a => a.Committe_Resolution_RecuirtmentId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Planned_Date, todate = m.Actual_Date });
+            return Json(Committe_Activities);
         }
         public JsonResult GetEmployeeRecodes(string id)
         {
@@ -1177,9 +1216,31 @@ namespace HR.Controllers
             var jobs = dbcontext.job_title_cards.Where(m => m.Organization_unit_codeID == id.ToString()).ToList().Select(m => new { Code = m.Code + "-[" + m.name + ']', ID = m.ID }); ;
             return Json(jobs);
         }
-
-
-
+        public JsonResult GetTest(string id)
+        {
+            var ID = int.Parse(id);
+            var Test = dbcontext.Test.FirstOrDefault(m => m.ID == ID);
+            return Json(Test);
+        }
+        public JsonResult GetCommitteResolutionRecuirtment(string id)
+        {
+            var ID = int.Parse(id);
+            var CommitteResolutionRecuirtment = dbcontext.Committe_Resolution_Recuirtment.Where(a=>a.Committe_Usage==Committe_Usage.Test).FirstOrDefault(a=>a.ID == ID);
+            return Json(CommitteResolutionRecuirtment);
+        }
+        public JsonResult GetWeekendsetup(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var ID = int.Parse(id);
+            var Weekend_setup = dbcontext.Weekend_setup.FirstOrDefault(m => m.ID == ID);
+            return Json(Weekend_setup);
+        }
+        public JsonResult GetDataByIdAppendBusiness_Test_Profile(string id)
+        {
+            var ID = int.Parse(id);
+            var Business_Test_Profile = dbcontext.Business_Test_Profile.Where(a => a.ApplicantId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Test_Date });
+            return Json(Business_Test_Profile);
+        }
     }
 
 }

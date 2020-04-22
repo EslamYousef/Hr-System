@@ -556,4 +556,23 @@ namespace HR.Models.Infra
         [Display(Name = "Non-Official")]
         Non_Official = 2
     }
+    public enum Position_Status
+    {
+        Active = 1,
+        [Display(Name = "Not Active")]
+        Not_Active = 2,
+    }
+    public enum Working_System
+    {
+        Day = 1,
+        Night = 2,
+    }
+    public enum ApplicationStatus
+    {
+        [Display(Name = "Interview/Test")]
+        Interview_Test = 1,
+        Confirmed = 2,
+        Rejected = 3,
+        Canceled = 4
+    }
 }

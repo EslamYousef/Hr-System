@@ -10,7 +10,7 @@
 <script>
 
     $(function () {
-        $("#tb-family").hide();
+        $("#tb-family").hide()
         $("#ss").click(function () {
 
             var Family_profile = $("#employeeId3").val();
@@ -29,21 +29,20 @@
                     }
                 }
             })
-            $("#tb-family").on('click', '.de l-btn', function () {
-               $(this).closest('tr').remove();
+            $("#tb-family").on('click', '.del-btn', function () {
+               $(this).closest('tr').remove()
 
             })
 
         })
-    });
+    })
 
 </script>
-<input type="date"/>
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-            @Personnel.CreateEmployeeBeneficiaryProfile
+            @Personnel.CreateCommiteeAgenda
         </h1>
     </section>
 
@@ -52,7 +51,7 @@
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("Create", "Commitee_Agenda", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Commitee_Agenda",new { id2=ViewBag.idemp}, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
@@ -77,47 +76,48 @@
 
                         <div>
 
-                            <div class="form-group">
-                                <div class="col-md-4" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Committe_Resolution_Recuirtment</button>
-                                </div>
-                            </div>
+                           
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Committe Resolution No.</label>
-                                <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
-
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span>@Personnel.FamilyName</span>
-                                </label>
+                                <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
                                 <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.Committe_subjects, "ID", "Code"), Personnel.SelectFamilyProfile, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                    <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
+                                    </div>
+                                </div>
 
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        <span>@Personnel.Subject</span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        @Html.DropDownList("fd", new SelectList(ViewBag.Committe_subjects, "ID", "Code"), Personnel.SelectSubject, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;"/>
+                                    </div>
+                                </div>
+                                <table id="tb-family" border="1" style="display: table; width:400px;">
+                                    <thead>
+                                        <tr>
+                                            <th id="fa">@Personnel.SubjectCode</th>
+                                            <th id="na">@Personnel.SubjectDescription</th>
+                                            <th id="per">@Personnel.Startdate</th>
+                                            <th id="De">@Personnel.Enddate</th>
+                                            <th id="No">@Personnel.Notes</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                        <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    </div>
                                 </div>
                             </div>
-                            <table id="tb-family" border="1" style="display: table; width:400px;">
-                                <thead>
-                                    <tr>
-                                        <th id="fa">SubjectCode</th>
-                                        <th id="na">SubjectDescription</th>
-                                        <th id="per">StartDate</th>
-                                        <th id="De">EndDate</th>
-                                        <th id="No">Notes</th>
-                                    </tr>
-                                </thead>
-                            </table>
-
-                            <input type="button" value="@Personnel.Add" id="ss" />
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Commitee_Agenda",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
 

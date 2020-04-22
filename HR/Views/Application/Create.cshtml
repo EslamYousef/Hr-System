@@ -1,0 +1,327 @@
+﻿
+@model HR.Models.Application.Application
+@using HR.Resource;
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(function () {
+        $("#name1,#name2,#name3,#name4,#name5").keyup(function (w) {
+            var x = $("#name1").val();
+            var y = $("#name2").val();
+            var q = $("#name3").val();
+            var w = $("#name4").val();
+            var e = $("#name5").val();
+            $("#full").val(x + " " + y + " " + q + " " + w + " " + e);
+        });
+
+        $("#arabic1,#arabic2,#arabic3,#arabic4,#arabic5").keyup(function (w) {
+            var x = $("#arabic1").val();
+            var y = $("#arabic2").val();
+            var z = $("#arabic3").val();
+            var a = $("#arabic4").val();
+            var b = $("#arabic5").val();
+            $("#full2").val(x + " " + y + " " + z + " " + a + " " + b);
+        });
+    })
+</script>
+
+<div class="content-wrapper">
+
+
+    @*<strong class="control-label col-md-2">IMG : </strong> <input type="file" name="MyItem"  /><br />*@
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateApplicantProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "Application", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    <hr />
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(a => a.ID)
+
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;">Contract Information</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success" style="width:200px;">Position Information</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit3" class="btn btn-success" style="width:200px;">Basic_Salary_Calculation_Result</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit4" class="btn btn-success" style="width:200px;">Hiring_Information</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit5" class="btn btn-success" style="width:200px;">Applicant_Profile</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit6" class="btn btn-success" style="width:200px;">Application_Status</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit7" class="btn btn-success" style="width:200px;">Business_Test_Profile</button>
+                    </div>
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <button type="submit" id="btnSubmit" name="Command" value="Submit8" class="btn btn-success" style="width:200px;">Medical_Test_Profile</button>
+                    </div>
+
+                    <div class="col-md-9" style="color:black;margin-bottom:10px;">
+                    </div>
+
+                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                        <a href="@Url.Action("index","Application")" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                        <input type="submit" value="@Personnel.Create" class="btn btn-success" style="width:98px;" />
+                    </div>
+
+                    <div>
+
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#home" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@Personnel.Home</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">@Personnel.EmployeeNo</label>
+
+                                    <div class="col-md-1">
+                                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label class="control-label col-md-2">@Personnel.EmployeeName</label>
+                                    <div class="col-md-3">
+                                        @Html.DropDownListFor(m => m.Applicant_ProfileId, new SelectList(ViewBag.Applicant_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId8" })
+                                        @Html.ValidationMessageFor(model => model.Applicant_ProfileId, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+
+                                        <h3>@Personnel.LatinName</h3>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Name</label>
+
+                                            <div class="col-md-2">
+                                                <input type="text" id="name1" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="name2" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="name3" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="name4" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="name5" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.FullName</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" id="full" class="form-control" readonly />
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.SurName</label>
+
+                                            <div class="col-md-10">
+                                                <input type="text" id="SurEn" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                        @*@style= "direction:ltr";margin - left:200px; text -align: left;**@
+
+                                    </div>
+
+                                    <div class="col-lg-6" style="@Personnel.border">
+                                        <h3>@Personnel.ArabicName</h3>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.Arabic</label>
+
+                                            <div class="col-md-2">
+                                                <input type="text" id="arabic1" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="arabic2" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="arabic3" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="arabic4" class="form-control" readonly />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="arabic5" class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.FullName</label>
+                                            <div class="col-md-10">
+                                                <input type="text" id="full2" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">@Personnel.SurName</label>
+                                            <div class="col-md-10">
+                                                <input type="text" id="SurAr" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="nav nav-tabs bordered">
+
+                                    <li>
+                                        <a href="#HiringInformation">
+                                            <span class="visible-xs"><i class="entypo-user"></i></span>
+                                            <span class="hidden-xs">Application Information</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-pane" id="Pension" style="margin-top:10px;">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1">Commitee Test No</label>
+                                        <div class="col-md-3">
+                                            @Html.DropDownListFor(m => m.CommiteeTestNo, new SelectList(ViewBag.Committe_Resolution_Recuirtment, "ID", "Code"), Personnel.SelectReligion, new { @class = "select2", @onchange = "Religion()", @id = "religion" })
+                                            @Html.ValidationMessageFor(model => model.CommiteeTestNo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                }
+                 </div>
+             </div>
+    </section>
+</div>
+
+@section scripts{}
+
+<script>
+    function Religion() {
+
+        var id = $("#religion").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCommitteResolutionRecuirtment",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#ReligionName").val(result.Code);
+            },
+            error: function () {
+
+                $("#ReligionName").val(" ");
+            }
+        });
+    }
+
+    function employee() {
+        debugger
+        var id = $("#employeeId8").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplicant",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                debugger
+                $("#full").val(result.Full_Name);
+                $("#SurEn").val(result.Surname);  
+                $("#full2").val(result.Full);
+                $("#SurAr").val(result.Sur_Name);
+                    var FullName = $("#full").val().split(' ');
+                    if (FullName.length > 0) {
+                        $("#name1").val(FullName[0]);
+                        $("#name2").val(FullName[1]);
+                        $("#name3").val(FullName[2]);
+                        $("#name4").val(FullName[3]);
+                        $("#name5").val(FullName[4]);
+                }
+                var FullName2 = $("#full2").val().split(' ');
+
+                if (FullName2.length > 0) {
+                    $("#arabic1").val(FullName2[0]);
+                    $("#arabic2").val(FullName2[1]);
+                    $("#arabic3").val(FullName2[2]);
+                    $("#arabic4").val(FullName2[3]);
+                    $("#arabic5").val(FullName2[4]);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>
+
+<link href="~/Content/neon/assets/js/dropzone/dropzone.css" rel="stylesheet" />
+<script src="~/Content/neon/assets/js/fileinput.js"></script>
+<script src="~/Content/neon/assets/js/dropzone/dropzone.js"></script>

@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            @Personnel.CreateApplicantAttachmentProfile
+            @Personnel.CreateApplicantPreviousExperiencesProfile
         </h1>
     </section>
 
@@ -141,7 +141,7 @@
                             </div>
                             <label class="control-label col-md-2">@Personnel.Approveddate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Approval_date, new { htmlAttributes = new { @class = "form-control datepicker", @id = "dateto", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Approval_date, new { htmlAttributes = new { @class = "form-control", @id = "Approval_date", @autocomplete = "off" , @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Approval_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -190,8 +190,11 @@
 <script>
     $(document).ready(function () {
         $("#employeeId").attr("disabled", true);
-        GetDataById2();
-        GetDataById5('@Model.Approval_date', "Approval_date ");
+            GetDataById5('@Model.Start_date', "Start");
+        GetDataById5('@Model.End_date', "End");
+        GetDataById5('@Model.Approval_date', "Approval_date");
+
+
     });
 </script>
 <script>
@@ -256,145 +259,45 @@
             }
         });
     }
-    function GetDataById() {
 
-        let x = window.location.href.split('/')[5];
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetDataByIdExperiences",
-            data: { "id": x },
-            success: function (result) {
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
 
-                if (result) {
-                    var date = parseJsonDate(result.End_date)
-                    month = date.getMonth() + 1;
-                    if (parseInt(month) < 10) {
-                        month = '0' + month;
-                    }
-                    day = date.getDate();
-                    if (parseInt(day) < 10) {
-                        day = '0' + day;
-                    }
-
-
-                    //     month = date.getMonth() + 1;
-                    var d = date.getFullYear() + '-' + month + '-' + day;
-                    $("#End").val(d);
-                    Save();
-                    Save2();
-                    console.log(result);
+                if (data) {
+                    $("#Days").val(data.DateDiff.Days);
+                    $("#months").val(data.DateDiff.Months);
+                    $("#Yearr").val(data.DateDiff.Years);
                 }
-            },
-            error: function () {
-
-
-            }
-        });
+            });
+        }
     }
-    //   GetDataById();
-    function parseJsonDate(jsonDateString) {
-        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
-    }
-    ///////////////////////////////////
-    function GetDataById2() {
-        debugger
-        let x = window.location.href.split('/')[5];
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetDataByIdExperiences",
-            data: { "id": x },
-            success: function (result) {
-                debugger
-                if (result) {
-                    var date = parseJsonDate(result.Start_date)
-                    month = date.getMonth() + 1;
-                    if (parseInt(month) < 10) {
-                        month = '0' + month;
-                    }
-                    day = date.getDate();
-                    if (parseInt(day) < 10) {
-                        day = '0' + day;
-                    }
 
-
-                    //      month = date.getMonth() + 1;
-                    var d = date.getFullYear() + '-' + month + '-' + day;
-                    $("#Start").val(d);
-                    GetDataById();
-                    console.log(result);
-                }
-            },
-            error: function () {
-
-
-            }
-        });
-    }
-    //  GetDataById2();
-    function parseJsonDate(jsonDateString) {
-        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
-    }
     function Save() {
         debugger
 
 
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
+           var from = $(".StartDate").val();
+           var to = $(".EndDate").val();
 
-        //   var from = $(".StartDate").val();
-        //   var to = $(".EndDate").val();
-        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
-        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
-        //if (to > from) {
-        var diffTime = Math.abs(EndDate - StartDate);
-        var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-        var years = Math.floor(Days / 365);
-        var months = Math.floor((Days / (31)) - (years * 12));
-        var cday = (years * 365) + (months * 31);
-        var lastday = Days - cday;
-        var newmonth = parseInt((lastday / 30));
-        $("#Days").val((lastday) - (newmonth * 30));
-        $("#months").val(months + newmonth);
-        $("#Yearr").val(years);
-        //}
-        //else {
-        //    $("#Yearr").val("0");
-        //    $("#months").val("0");
-        //    $("#Days").val("0");
-        //}
+        if (to > from) {
+        GetDiffDates(from, to);
+        }
+       
     };
     function Save2() {
         debugger
         var StartDate = new Date($(".StartDate").val());
         var EndDate = new Date($(".EndDate").val());
-        //   var x = $(".StartDate").val().split('/');
-        //    var StartDate = new Date(x[2],x[1]-1,x[0]);
-        //    var EndDate = new Date($(".EndDate").val());
-        var from = StartDate.getDate() + '-' + (StartDate.getMonth() + 1) + '-' + StartDate.getFullYear();
-        var to = EndDate.getDate() + '-' + (EndDate.getMonth() + 1) + '-' + EndDate.getFullYear();
-        //   var from = $(".StartDate").val();
-        //     var to = $(".EndDate").val();
-        //if (to > from) {
-        var diffTime = Math.abs(EndDate - StartDate);
-        var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      
+           var from = $(".StartDate").val();
+             var to = $(".EndDate").val();
+        if (to > from) {
+        GetDiffDates(from, to);
+                   }
 
-        var years = Math.floor(Days / 365);
-        var months = Math.floor((Days / (31)) - (years * 12));
-        var cday = (years * 365) + (months * 31);
-        var lastday = Days - cday;
-        var newmonth = parseInt((lastday / 30));
-        $("#Days").val((lastday) - (newmonth * 30));
-        $("#months").val(months + newmonth);
-        $("#Yearr").val(years);
-
-
-
-        //}
-        //else {
-        //    $("#Yearr").val("0");
-        //    $("#months").val("0");
-        //    $("#Days").val("0");
-        //}
     };
     function GetDataById5(date, id) {
         debugger

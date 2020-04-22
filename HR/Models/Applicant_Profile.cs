@@ -133,7 +133,8 @@ namespace HR.Models
         public virtual List<Applicant_Contact_Profile> Applicant_Contact_Profile { get; set; }
         public virtual List<Applicant_Military_Service_Profile> Applicant_Military_Service_Profile { get; set; }
         public virtual List<Applicant_Subscription_Syndicate_Profile> Applicant_Subscription_Syndicate_Profile { get; set; }
-   
+        //public virtual Application.Application Application { get; set; }
+
 
     }
 }

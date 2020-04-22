@@ -19,7 +19,7 @@ namespace HR.Resource {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Personnel {
@@ -106,11 +106,47 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Serial Number.
+        /// </summary>
+        public static string ActivitySerialNumber {
+            get {
+                return ResourceManager.GetString("ActivitySerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Status.
+        /// </summary>
+        public static string ActivityStatus {
+            get {
+                return ResourceManager.GetString("ActivityStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual Date.
+        /// </summary>
+        public static string ActualDate {
+            get {
+                return ResourceManager.GetString("ActualDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Committee Resolution.
+        /// </summary>
+        public static string Add_New_CommitteResolution {
+            get {
+                return ResourceManager.GetString("Add_New_CommitteResolution", resourceCulture);
             }
         }
         
@@ -399,6 +435,15 @@ namespace HR.Resource {
         public static string AddNewEOSInterviewQuestionsGroups {
             get {
                 return ResourceManager.GetString("AddNewEOSInterviewQuestionsGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Linked to Testing.
+        /// </summary>
+        public static string AddNewLinkedtoTesting {
+            get {
+                return ResourceManager.GetString("AddNewLinkedtoTesting", resourceCulture);
             }
         }
         
@@ -826,6 +871,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cadre.
+        /// </summary>
+        public static string Cadre {
+            get {
+                return ResourceManager.GetString("Cadre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CadreCode.
+        /// </summary>
+        public static string CadreCode {
+            get {
+                return ResourceManager.GetString("CadreCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cards.
         /// </summary>
         public static string Cards {
@@ -948,6 +1011,114 @@ namespace HR.Resource {
         public static string Comments {
             get {
                 return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committe Resolution Recuirtment.
+        /// </summary>
+        public static string Committe_Resolution_Recuirtment {
+            get {
+                return ResourceManager.GetString("Committe_Resolution_Recuirtment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Activites.
+        /// </summary>
+        public static string CommitteeActivites {
+            get {
+                return ResourceManager.GetString("CommitteeActivites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Agenda.
+        /// </summary>
+        public static string CommitteeAgenda {
+            get {
+                return ResourceManager.GetString("CommitteeAgenda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Conclusion.
+        /// </summary>
+        public static string CommitteeConclusion {
+            get {
+                return ResourceManager.GetString("CommitteeConclusion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Location.
+        /// </summary>
+        public static string CommitteeLocation {
+            get {
+                return ResourceManager.GetString("CommitteeLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Resolution Status.
+        /// </summary>
+        public static string CommitteeResolutionStatus {
+            get {
+                return ResourceManager.GetString("CommitteeResolutionStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Type.
+        /// </summary>
+        public static string CommitteeType {
+            get {
+                return ResourceManager.GetString("CommitteeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Usage.
+        /// </summary>
+        public static string CommitteeUsage {
+            get {
+                return ResourceManager.GetString("CommitteeUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Year.
+        /// </summary>
+        public static string CommitteeYear {
+            get {
+                return ResourceManager.GetString("CommitteeYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committe Resolution.
+        /// </summary>
+        public static string CommitteResolution {
+            get {
+                return ResourceManager.GetString("CommitteResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committe Resolution Date.
+        /// </summary>
+        public static string CommitteResolutionDate {
+            get {
+                return ResourceManager.GetString("CommitteResolutionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Committee Resolution No.
+        /// </summary>
+        public static string CommitteResolutionNo {
+            get {
+                return ResourceManager.GetString("CommitteResolutionNo", resourceCulture);
             }
         }
         
@@ -1294,6 +1465,33 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Commitee Activites.
+        /// </summary>
+        public static string CreateCommiteeActivites {
+            get {
+                return ResourceManager.GetString("CreateCommiteeActivites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Commitee Agenda.
+        /// </summary>
+        public static string CreateCommiteeAgenda {
+            get {
+                return ResourceManager.GetString("CreateCommiteeAgenda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Committee Resolution.
+        /// </summary>
+        public static string CreateCommitteResolution {
+            get {
+                return ResourceManager.GetString("CreateCommitteResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create EOS Questions.
         /// </summary>
         public static string CreateDefinitionofEOSInterviewQuestions {
@@ -1461,6 +1659,33 @@ namespace HR.Resource {
         public static string CreateEOSInterviewQuestionsGroups {
             get {
                 return ResourceManager.GetString("CreateEOSInterviewQuestionsGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create In Organization.
+        /// </summary>
+        public static string CreateInOrganization {
+            get {
+                return ResourceManager.GetString("CreateInOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Linked to Testing.
+        /// </summary>
+        public static string CreateLinkedtoTesting {
+            get {
+                return ResourceManager.GetString("CreateLinkedtoTesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Out Organization.
+        /// </summary>
+        public static string CreateOutOrganization {
+            get {
+                return ResourceManager.GetString("CreateOutOrganization", resourceCulture);
             }
         }
         
@@ -1825,6 +2050,33 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Commitee Activites.
+        /// </summary>
+        public static string EditCommiteeActivites {
+            get {
+                return ResourceManager.GetString("EditCommiteeActivites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Commitee Agenda.
+        /// </summary>
+        public static string EditCommiteeAgenda {
+            get {
+                return ResourceManager.GetString("EditCommiteeAgenda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Committee Resolution.
+        /// </summary>
+        public static string EditCommitteResolution {
+            get {
+                return ResourceManager.GetString("EditCommitteResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit EOS Questions.
         /// </summary>
         public static string EditDefinitionofEOSInterviewQuestions {
@@ -1996,6 +2248,33 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Out Organization.
+        /// </summary>
+        public static string EditInOrganization {
+            get {
+                return ResourceManager.GetString("EditInOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Linked to Testing.
+        /// </summary>
+        public static string EditLinkedtoTesting {
+            get {
+                return ResourceManager.GetString("EditLinkedtoTesting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Out Organization.
+        /// </summary>
+        public static string EditOutOrganization {
+            get {
+                return ResourceManager.GetString("EditOutOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Public Holiday Events.
         /// </summary>
         public static string EditPublicHolidayEvents {
@@ -2118,6 +2397,15 @@ namespace HR.Resource {
         public static string EmployeeBeneficiaryProfile {
             get {
                 return ResourceManager.GetString("EmployeeBeneficiaryProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Code.
+        /// </summary>
+        public static string EmployeeCode {
+            get {
+                return ResourceManager.GetString("EmployeeCode", resourceCulture);
             }
         }
         
@@ -2419,6 +2707,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expected End Date.
+        /// </summary>
+        public static string ExpectedEndDate {
+            get {
+                return ResourceManager.GetString("ExpectedEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected Start Date.
+        /// </summary>
+        public static string ExpectedStartDate {
+            get {
+                return ResourceManager.GetString("ExpectedStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Experience profile No..
         /// </summary>
         public static string ExperienceprofileNo {
@@ -2586,6 +2892,15 @@ namespace HR.Resource {
         public static string FromdatebiggerTodate {
             get {
                 return ResourceManager.GetString("FromdatebiggerTodate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Mark.
+        /// </summary>
+        public static string FullMark {
+            get {
+                return ResourceManager.GetString("FullMark", resourceCulture);
             }
         }
         
@@ -2860,6 +3175,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In Organization.
+        /// </summary>
+        public static string InOrganization {
+            get {
+                return ResourceManager.GetString("InOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IsCommitteeHead.
+        /// </summary>
+        public static string IsCommitteeHead {
+            get {
+                return ResourceManager.GetString("IsCommitteeHead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is copy.
         /// </summary>
         public static string Iscopy {
@@ -2977,11 +3310,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Job Code.
+        /// </summary>
+        public static string JobCode {
+            get {
+                return ResourceManager.GetString("JobCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Job desc.
         /// </summary>
         public static string Jobdesc {
             get {
                 return ResourceManager.GetString("Jobdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job Description.
+        /// </summary>
+        public static string JobDescription {
+            get {
+                return ResourceManager.GetString("JobDescription", resourceCulture);
             }
         }
         
@@ -3162,6 +3513,15 @@ namespace HR.Resource {
         public static string Linkedtopayroll {
             get {
                 return ResourceManager.GetString("Linkedtopayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked To Testing.
+        /// </summary>
+        public static string LinkedToTesting {
+            get {
+                return ResourceManager.GetString("LinkedToTesting", resourceCulture);
             }
         }
         
@@ -3409,6 +3769,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Memo.
+        /// </summary>
+        public static string Memo {
+            get {
+                return ResourceManager.GetString("Memo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Memo date.
         /// </summary>
         public static string Memodate {
@@ -3571,6 +3940,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string Notes {
@@ -3589,11 +3967,47 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Org Unit Code.
+        /// </summary>
+        public static string OrgUnitCode {
+            get {
+                return ResourceManager.GetString("OrgUnitCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Org Unit Description.
+        /// </summary>
+        public static string OrgUnitDescription {
+            get {
+                return ResourceManager.GetString("OrgUnitDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Out Organization.
+        /// </summary>
+        public static string OutOrganization {
+            get {
+                return ResourceManager.GetString("OutOrganization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
             get {
                 return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pass Mark.
+        /// </summary>
+        public static string PassMark {
+            get {
+                return ResourceManager.GetString("PassMark", resourceCulture);
             }
         }
         
@@ -3729,6 +4143,15 @@ namespace HR.Resource {
         public static string Phone_2 {
             get {
                 return ResourceManager.GetString("Phone_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planned Date.
+        /// </summary>
+        public static string PlannedDate {
+            get {
+                return ResourceManager.GetString("PlannedDate", resourceCulture);
             }
         }
         
@@ -4237,6 +4660,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Required Persons Num.
+        /// </summary>
+        public static string RequiredPersonsNum {
+            get {
+                return ResourceManager.GetString("RequiredPersonsNum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Residence Id.
         /// </summary>
         public static string ResidenceId {
@@ -4305,6 +4737,15 @@ namespace HR.Resource {
         public static string Saturday {
             get {
                 return ResourceManager.GetString("Saturday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -4467,6 +4908,15 @@ namespace HR.Resource {
         public static string SelectImage {
             get {
                 return ResourceManager.GetString("SelectImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Job.
+        /// </summary>
+        public static string SelectJob {
+            get {
+                return ResourceManager.GetString("SelectJob", resourceCulture);
             }
         }
         
@@ -4642,11 +5092,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Subject.
+        /// </summary>
+        public static string SelectSubject {
+            get {
+                return ResourceManager.GetString("SelectSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Subscription.
         /// </summary>
         public static string SelectSubscription {
             get {
                 return ResourceManager.GetString("SelectSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Test.
+        /// </summary>
+        public static string SelectTest {
+            get {
+                return ResourceManager.GetString("SelectTest", resourceCulture);
             }
         }
         
@@ -4912,6 +5380,33 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subject.
+        /// </summary>
+        public static string Subject {
+            get {
+                return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject Code.
+        /// </summary>
+        public static string SubjectCode {
+            get {
+                return ResourceManager.GetString("SubjectCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject Description.
+        /// </summary>
+        public static string SubjectDescription {
+            get {
+                return ResourceManager.GetString("SubjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subscribed.
         /// </summary>
         public static string Subscribed {
@@ -5052,6 +5547,33 @@ namespace HR.Resource {
         public static string Territoriesname {
             get {
                 return ResourceManager.GetString("Territoriesname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Code.
+        /// </summary>
+        public static string TestCode {
+            get {
+                return ResourceManager.GetString("TestCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Description.
+        /// </summary>
+        public static string TestDescription {
+            get {
+                return ResourceManager.GetString("TestDescription", resourceCulture);
             }
         }
         
@@ -5389,6 +5911,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to you-can-not-delete-this-row.
         /// </summary>
         public static string youcannotdeletethisRow {
@@ -5403,6 +5934,24 @@ namespace HR.Resource {
         public static string Youmustchooseamalefromthegender {
             get {
                 return ResourceManager.GetString("Youmustchooseamalefromthegender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must choose Personnel From Committe Usage.
+        /// </summary>
+        public static string YoumustchoosePersonnelFromCommitteUsage {
+            get {
+                return ResourceManager.GetString("YoumustchoosePersonnelFromCommitteUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must choose Test From Committe Usage.
+        /// </summary>
+        public static string YoumustchooseTestFromCommitteUsage {
+            get {
+                return ResourceManager.GetString("YoumustchooseTestFromCommitteUsage", resourceCulture);
             }
         }
     }

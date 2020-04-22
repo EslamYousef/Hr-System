@@ -374,13 +374,15 @@
         $("#employeeId").attr("disabled", true);
         Save();
         Save2();
-      
+
         GetDataById5('@Model.Position_Information.End_of_service_date', "End_of_service_date");
         GetDataById5('@Model.Position_Information.Last_working_date', "Last_working_date");
         GetDataById5('@Model.Position_Transaction_Information.Position_transaction', "Position_transaction");
         GetDataById5('@Model.Position_Transaction_Information.Resolution_date', "Resolution_date");
         GetDataById5('@Model.Position_Transaction_Information.Memo_date', "Memo_date");
         GetDataById5('@Model.Position_Transaction_Information.Approved_date', "Approved_date");
+        GetDataById5('@Model.Position_Information.To_date', "Start");
+        GetDataById5('@Model.Position_Information.From_date', "End");
 
     });
 </script>
@@ -586,18 +588,26 @@
             var to = $(".EndDate").val();
 
             if (to >  from) {
-                var diffTime = Math.abs(EndDate - StartDate);
-                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                var months = Math.floor(Days / 31);
-                var years = Math.floor(months / 12);
-                $("#Yearr").val(years);
-                $("#months").val(months-(years * 12));
+                GetDiffDates(from, to);
             }
             else {
                 $("#Yearr").val("0");
                 $("#months").val("0");
             }
-        };
+    };
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+
+                if (data) {
+                    $("#Days").val(data.DateDiff.Days);
+                    $("#months").val(data.DateDiff.Months);
+                    $("#Yearr").val(data.DateDiff.Years);
+                }
+            });
+        }
+    }
+
             function Save2(){
             var StartDate = new Date($(".StartDate").val());
             var EndDate = new Date($(".EndDate").val());
@@ -605,12 +615,7 @@
             var from = $(".StartDate").val();
             var to = $(".EndDate").val();
             if (to > from) {
-                var diffTime = Math.abs(EndDate - StartDate);
-                var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                var months = Math.floor(Days / 31);
-                var years = Math.floor(months / 12);
-                $("#Yearr").val(years);
-                $("#months").val(months-(years*12));
+                GetDiffDates(from, to);
             }
             else {
                 $("#Yearr").val("0");

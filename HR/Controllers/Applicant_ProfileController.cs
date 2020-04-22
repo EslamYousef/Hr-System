@@ -11,6 +11,7 @@ using System.IO;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Applicant_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

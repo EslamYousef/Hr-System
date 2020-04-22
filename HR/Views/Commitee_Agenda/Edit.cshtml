@@ -1,86 +1,301 @@
 ﻿@model HR.Models.All_Table_Commitee_Resolution.Commitee_Agenda
 @using HR.Resource;
-
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-
 @Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
 <div class="content-wrapper">
 
     <section class="content-header">
         <h1>
-            @Personnel.EditApplicantAddressProfile
+            @Personnel.EditCommiteeActivites
         </h1>
     </section>
 
     <!-- Main content -->
     <section class="content">
-
         <div class="box">
-
             <!-- /.box-header -->
             <div class="box-body">
-
-                @using (Html.BeginForm("Edit", "Commitee_Agenda", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Edit", "Commitee_Agenda", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
+                <div class="form-horizontal">
 
-                        <hr />
+                    <hr />
 
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.ID)
+                    @Html.HiddenFor(m => m.Committe_Resolution_Recuirtment.ID)
+                    @Html.HiddenFor(m => m.Committe_Resolution_RecuirtmentId)
 
-                        @Html.HiddenFor(m => m.Committe_Resolution_Recuirtment.ID)
+                    <input name="SubjectCode" hidden />
+                    <input name="SubjectDescription" hidden />
+                    <input name="StartDate" hidden />
+                    <input name="EndDate" hidden />
+                    <input name="Notes" hidden />
 
+                    <div>
 
+                       
                         <div class="form-group">
-                            <label class="control-label col-md-2">Committe Resolution No.</label>
-                          <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
-                           
+                            <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
+                            <div class="col-md-3">
+                                <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span>@Personnel.Subject</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.Committe_subjects, "ID", "Code"), Personnel.SelectSubject, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
+                                </div>
+                            </div>
+                            <table id="tb-family" border="1" style="display: table; width:400px;">
+                                <thead>
+                                    <tr>
+                                        <th id="fa">@Personnel.SubjectCode</th>
+                                        <th id="na">@Personnel.SubjectDescription</th>
+                                        <th id="per">@Personnel.Startdate</th>
+                                        <th id="De">@Personnel.Enddate</th>
+                                        <th id="No">@Personnel.Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < Model.Committe_Resolution_Recuirtment.Commitee_Agenda.Count(); i++)
+
+                                    {
+
+                                        <tr>
+
+                                            <td>
+                                                <input name="SubjectCode" type="text" value="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].SubjectCode" readonly />
+                                            </td>
+                                            <td>
+                                                <input name="SubjectDescription" type="text" value="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].SubjectDescription" />
+                                            </td>
+                                            <td>
+                                                <input name="StartDate" type="date" value="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].Start_Date" class="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].ID" />
+                                            </td>
+                                            <td>
+                                                <input name="EndDate" type="date" value="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].End_Date" id="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].ID" />
+                                            </td>
+                                            <td>
+                                                <input name="Notes" type="text" value="@Model.Committe_Resolution_Recuirtment.Commitee_Agenda[i].Notes" />
+                                            </td>
+                                            <td>
+                                                <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove($(this))" id="tt" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Personnel.Edit1" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </div>
+                            </div>
                         </div>
 
-                        @*<div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Transportationmethod</label>
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Transportation_method, new { @class = "select2" })
-                                @Html.ValidationMessageFor(model => model.Transportation_method, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.DistancefromMeetingpointtoworklocationkm</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.DistancefromMeetingpointtoworklocationkm, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.DistancefromMeetingpointtoworklocationkm, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
+                </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Commitee_Agenda",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-
-                            </div>
-                        </div>
-                    </div>
                 }
 
             </div>
 
         </div>
-
     </section>
 </div>
+
 @section scripts{}
+<script>
+    $(document).ready(function () {
+
+      GetDataById2();
+        GetDataById();
+    });
+
+</script>
+<script>
+    function Remove(thi) {
+        debugger
+        thi.closest('tr').remove();
+    }
+
+    function employee3() {
+
+        var id = $("#employeeId3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSubjectSetup",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('.' + id).val(d);
+    }
+</script>
+<script>
+
+    $(function () {
+        //$("#tb-family").hide();
+        $("#ss").click(function () {
+
+            var Family_profile = $("#employeeId3").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetSubjectSetup",
+                data: { "id": Family_profile },
+                async: false,
+                success: function (result) {
+    debugger
+                    if (Family_profile != "")
+                    {
+                        $("#tb-family").show();
+                        var T = "";
+                        T = "<tr><td><input type='text' readonly name='SubjectCode' value='" + result.Code + "'/></td><td><input type='text' readonly name='SubjectDescription' value='" + result.Name + "'/></td><td><input type='date' name='StartDate' value='1900/1/1' id='Start_date' /></td><td><input type='date' name='EndDate' value='1900/1/1' id='End_date' /></td><td><input type='text' name='Notes' value=''  /></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+                        $("#tb-family").append(T)
+                    }
+                }
+            })
+            $("#tb-family").on('click', '.del-btn', function () {
+               $(this).closest('tr').remove();
+
+            })
+
+        })
+    });
+    function GetDataById() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdAppendCommitee_Agenda",
+            data: { "id": x },
+            success: function (result) {
 
 
+                debugger
+                if (result) {
+                    $.each(result, function (i, r) {
+                        debugger
+                        var date = parseJsonDate(r.todate)
+                        month = date.getMonth() + 1;
+                        if (parseInt(month) < 10) {
+                            month = '0' + month;
+                        }
+                        day = date.getDate();
+                        if (parseInt(day) < 10) {
+                            day = '0' + day;
+                        }
+
+
+                        //     month = date.getMonth() + 1;
+                        var d = date.getFullYear() + '-' + month + '-' + day;
+                        var T = $('#' + r.id);
+                        $('#' + r.id).val(d);
+                    });
+                    debugger
+
+
+                    console.log(result);
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //   GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+    ///////////////////////////////////
+    function GetDataById2() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdAppendCommitee_Agenda",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    $.each(result, function (i, r) {
+                        debugger
+                        var date = parseJsonDate(r.fromdate)
+                        month = date.getMonth() + 1;
+                        if (parseInt(month) < 10) {
+                            month = '0' + month;
+                        }
+                        day = date.getDate();
+                        if (parseInt(day) < 10) {
+                            day = '0' + day;
+                        }
+
+
+                        //     month = date.getMonth() + 1;
+                        var d = date.getFullYear() + '-' + month + '-' + day;
+                        var t = $('.' + r.id);
+                        $('.' + r.id).val(d);
+                    });
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+    //  GetDataById2();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+</script>

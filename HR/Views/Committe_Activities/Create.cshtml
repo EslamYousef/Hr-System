@@ -1,0 +1,142 @@
+﻿@model HR.Models.All_Table_Commitee_Resolution.Committe_Activities
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
+<script>
+    $(function () {
+        $("#ss").click(function () {
+
+            debugger
+            $("#tb-family").show();
+
+        var slot_code = $("#code").val();
+
+        if (slot_code != "0" )
+        {
+            var div5 = $("#tb-family").find("tr");
+            var num = $("#fa").length++;
+                  var div = $("#tb-family").find("tr");
+
+            var flag = 0;
+            for (var o = 0; o < div.length; o++) {
+                    var inputs = div[o].children;
+                    debugger
+                    var f = inputs[0].childElementCount;
+                        if (f == slot_code) {
+                            flag = 1;
+                            slot_code = "_" + i;
+                            break;
+                        }
+                 
+            }
+            var t =
+                "<tr><td><input value='" + slot_code + "_" + div.length + "'  name='SubjectCode' readonly /></td><td><input type='date' name='StartDate' value='1900/1/1' id='Start_date' /></td><td><input type='date' name='EndDate' value='1900/1/1' id='End_date' /></td><td><select name='SubjectDescription'><option value='0'> Created</option><option value='1'> Report As Ready </option><option value='2'> Approved </option><option value='3'> Rejected </option><option value='4'> Canceled </option></select></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+
+                    $("#tb-family").append(t);
+            }
+            $("#tb-family").on('click', '.del-btn', function () {
+                $(this).closest('tr').remove();
+            })
+
+              })
+    })
+</script>
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateCommiteeActivites
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "Committe_Activities", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    <hr />
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <input name="SubjectCode" hidden />
+                    <input name="StartDate" hidden />
+                    <input name="EndDate" hidden />
+                    <input name="SubjectDescription" hidden />
+
+                    <div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
+                            <div class="col-md-3">
+                                <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled id="code"/>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" onclick="generat3e()"/>
+                            </div>
+                        </div>
+
+                            <table id="tb-family" border="1" style="display: table; width:400px;">
+                                <thead>
+                                    <tr>
+                                        <th id="fa">@Personnel.ActivitySerialNumber</th>
+                                        <th id="na">@Personnel.PlannedDate</th>
+                                        <th id="per">@Personnel.ActualDate</th>
+                                        <th id="De">@Personnel.ActivityStatus</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+@section scripts{}
+<script>
+    $(document).ready(function () {
+
+        GetDataById5('@Model.Planned_Date', "Start_date");
+        GetDataById5('@Model.Actual_Date', "End_date");
+    });
+
+</script>
+

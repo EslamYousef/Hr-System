@@ -42,6 +42,10 @@ namespace HR.Models
         public int statID { get; set; }
         public string name_state { get; set; }
         public virtual List<Commitee_Agenda> Commitee_Agenda { get; set; }
+        public virtual List<Out_Organization> Out_Organization { get; set; }
+        public virtual List<In_Organization> In_Organization { get; set; }
+        public virtual List<Committe_Activities> Committe_Activities { get; set; }
+        public virtual List<Linked_to_Testing> Linked_to_Testing { get; set; }
 
     }
 }

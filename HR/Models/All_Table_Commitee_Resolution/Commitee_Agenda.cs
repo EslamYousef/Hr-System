@@ -24,6 +24,8 @@ namespace HR.Models.All_Table_Commitee_Resolution
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime? End_Date { get; set; }
         public string Notes { get; set; }
+        [Display(Name = "Committe Resolution RecuirtmentId")]
+        public int Committe_Resolution_RecuirtmentId { get; set; }
         public virtual Committe_Resolution_Recuirtment Committe_Resolution_Recuirtment { get; set; }
 
     }

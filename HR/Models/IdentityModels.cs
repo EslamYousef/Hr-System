@@ -9,6 +9,7 @@ using HR.Reposatory;
 using HR.Areas.suberAdmin.Models;
 using HR.Models.Time_management;
 using HR.Models.All_Table_Commitee_Resolution;
+using HR.Models.Application;
 
 namespace HR.Models
 {
@@ -227,6 +228,19 @@ namespace HR.Models
         public DbSet<Employee_Shift_schedule> Employee_Shift_schedule { get; set; }
         public DbSet<Schedule_Details> Schedule_Details { get; set; }
         public DbSet<Commitee_Agenda> Commitee_Agenda { get; set; }
+        public DbSet<Out_Organization> Out_Organization { get; set; }
+        public DbSet<In_Organization> In_Organization { get; set; }
+        public DbSet<Committe_Activities> Committe_Activities { get; set; }
+        public DbSet<Linked_to_Testing> Linked_to_Testing { get; set; }
+        public DbSet<Application.Application> Application { get; set; }
+        public DbSet<Application.Contract_Information> Contract_Information { get; set; }
+        public DbSet<Application.Position_Information_Rec> Position_Information_Rec { get; set; }
+        public DbSet<Application.Basic_Salary_Calculation_Result> Basic_Salary_Calculation_Result { get; set; }
+        public DbSet<Application.Hiring_Information> Hiring_Information { get; set; }
+        public DbSet<Application.Business_Test_Profile> Business_Test_Profile { get; set; }
+        public DbSet<Application.Medical_Test_Profile> Medical_Test_Profile { get; set; }
+        public DbSet<Application.Application_Status> Application_Status { get; set; }
 
     }
+
 }

@@ -1,0 +1,264 @@
+﻿@model HR.Models.Application.Contract_Information
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.EditEmployeeBeneficiaryProfile
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Contract_Information", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Committe Resolution No.</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.ApplicationCode" disabled />
+                                </div>
+                                <label class="control-label col-md-1">Application Id</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.ApplicationApp" disabled />
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Committe_Resolution_Recuirtment</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Contract</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Contract, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Contract Type</label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.Contract_TypeId, new SelectList(ViewBag.Contract_Type, "ID", "Code"), Personnel.SelectNationality, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
+                                    @Html.ValidationMessageFor(model => model.Contract_TypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Employeement</label>
+                                <div class="col-md-3">
+                                    @Html.EnumDropDownListFor(model => model.Employment_type, new { @class = "select2" })
+                                    @Html.ValidationMessageFor(model => model.Employment_type, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Startdate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "Start_date", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-1">@Personnel.Years</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
+
+                                    @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Enddate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "End_date", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-1">@Personnel.Months</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+
+                                    @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Approved By</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.EmployeeProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                    @Html.ValidationMessageFor(model => model.EmployeeProfileId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Approved Date</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Approved_Date, new { htmlAttributes = new { @class = "form-control", @id = "Approved_Date", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Approved_Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Comments</label>
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.ApplicantNotes, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.ApplicantNotes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <input type="submit" value="@Personnel.Edit1" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+@section scripts{}
+<script>
+    $(document).ready(function () {
+        debugger
+        GetDataById2('@Model.Start_Date', "Start_date");
+        GetDataById2('@Model.End_Date', "End_date");
+        GetDataById2('@Model.Approved_Date', "Approved_Date");
+        Save();
+        Save2();
+    });
+
+</script>
+<script>
+    function Nationality() {
+
+        var id = $("#nationality").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetContract_Type",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#NationalityName").val(result.Name);
+            },
+            error: function () {
+
+                $("#NationalityName").val(" ");
+            }
+        });
+    }
+
+    function employee3() {
+
+        var id = $("#employeeId3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSubjectSetup",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+
+                if (data) {
+                    $("#Days").val(data.DateDiff.Days);
+                    $("#months").val(data.DateDiff.Months);
+                    $("#Yearr").val(data.DateDiff.Years);
+                }
+            });
+        }
+    }
+
+    function Save() {
+
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+
+        if (to > from) {
+            GetDiffDates(from, to);
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+            $("#Days").val("0");
+        }
+    };
+
+    function Save2() {
+
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to > from) {
+            GetDiffDates(from, to);
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+            $("#Days").val("0");
+        }
+    };
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+</script>

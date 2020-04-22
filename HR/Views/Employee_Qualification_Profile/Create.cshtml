@@ -660,6 +660,19 @@
         var d = valx.getFullYear() + '-' + month + '-' + day;
         $('#' + id).val(d);
     }
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+
+                if (data) {
+                    $("#Days").val(data.DateDiff.Days);
+                    $("#months").val(data.DateDiff.Months);
+                    $("#Yearr").val(data.DateDiff.Years);
+                }
+            });
+        }
+    }
+
     function Save() {
         var StartDate = new Date($("#Qualification_start_date").val());
         var EndDate = new Date($("#Qualification_end_date").val());
@@ -668,12 +681,7 @@
         var to = $("#Qualification_end_date").val();
 
         if (to > from) {
-            var diffTime = Math.abs(EndDate - StartDate);
-            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-            var months = Math.floor(Days / 31);
-            var years = Math.floor(months / 12);
-            $("#Yearr").val(years);
-            $("#months").val(months - (years * 12));
+            GetDiffDates(from, to);
         }
         else {
             $("#Yearr").val("0");
@@ -688,12 +696,8 @@
         var from = $("#Qualification_start_date").val();
         var to = $("#Qualification_end_date").val();
         if (to > from) {
-            var diffTime = Math.abs(EndDate - StartDate);
-            var Days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-            var months = Math.floor(Days / 31);
-            var years = Math.floor(months / 12);
-            $("#Yearr").val(years);
-            $("#months").val(months - (years * 12));
+            GetDiffDates(from, to);
+
         }
         else {
             $("#Yearr").val("0");
