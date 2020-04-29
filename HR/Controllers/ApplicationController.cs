@@ -98,7 +98,7 @@ namespace HR.Controllers
                     }
                     if (Command == "Submit5")
                     {
-                        return RedirectToAction("Edit", "Applicant_Profile", new { id = record.Applicant_Profile.ID });
+                        return RedirectToAction("Edit", "Applicant_Profile", new { id = record.Applicant_ProfileId });
                     }
                     if (Command == "Submit6")
                     {
@@ -112,6 +112,15 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("Create", "Medical_Test_Profile", new { id = record.ID });
                     }
+                    if (Command == "Submit9")
+                    {
+                        return RedirectToAction("Create", "Personnel_Committee_Profile", new { id = record.ID });
+                    }
+                    if (Command == "Submit10")
+                    {
+                        return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
+                    }
+                   
                     //if (MyItem == null)
                     //{
                     //    emp.EmpProfileIMG = null;
@@ -156,12 +165,18 @@ namespace HR.Controllers
         {
             try
             {
+                //var ID = int.Parse(id);
+
                 ViewBag.Committe_Resolution_Recuirtment = dbcontext.Committe_Resolution_Recuirtment.Where(a => a.Committe_Usage == Committe_Usage.Test).ToList().Select(m => new { Code = m.Code, ID = m.ID });
                 ViewBag.Applicant_Profile = dbcontext.Applicant_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
+              
                 var record = dbcontext.Application.FirstOrDefault(m => m.ID == id);
                 if (record != null)
-                { return View(record); }
+                {
+                    //ViewBag.idemp = ID;
+                    return View(record); }
+
                 else
                 {
                     TempData["Message"] = HR.Resource.Basic.thereisnodata;
@@ -174,7 +189,7 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Edit(Application model, HttpPostedFileBase MyItem, string Command)
+        public ActionResult Edit(Application model, HttpPostedFileBase MyItem, string Command, string id2)
         {
             try
             {
@@ -204,7 +219,9 @@ namespace HR.Controllers
                 var Application_Status = dbcontext.Application_Status.FirstOrDefault(a => a.ApplicantId == model.ID);
                 var Business_Test_Profile = dbcontext.Business_Test_Profile.FirstOrDefault(a => a.ApplicantId == model.ID);
                 var Medical_Test_Profile = dbcontext.Medical_Test_Profile.FirstOrDefault(a => a.ApplicantId == model.ID);
-
+                var Personnel_Committee_Profile = dbcontext.Personnel_Committee_Profile.FirstOrDefault(a => a.ApplicantId == model.ID);
+                var Hiring_Check_List = dbcontext.Hiring_Check_List.FirstOrDefault(a => a.ApplicantId == model.ID);
+                
                 if (ContractInformation != null && Command == "Submit")
                 {
                     return RedirectToAction("Edit", "Contract_Information", new { id = record.ID });
@@ -239,7 +256,7 @@ namespace HR.Controllers
                 }             
                 if (Command == "Submit5")
                 {
-                    return RedirectToAction("Edit", "Applicant_Profile", new { id = record.Applicant_Profile.ID });
+                    return RedirectToAction("Edit", "Applicant_Profile", new { id = record.Applicant_ProfileId , nid =record.Code});
                 }
                 if (Application_Status != null && Command == "Submit6")
                 {
@@ -265,26 +282,24 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("Create", "Medical_Test_Profile", new { id = record.ID });
                 }
+                if (Personnel_Committee_Profile != null && Command == "Submit9")
+                {
+                    return RedirectToAction("Edit", "Personnel_Committee_Profile", new { id = record.ID });
+                }
+                else if (Personnel_Committee_Profile == null && Command == "Submit9")
+                {
+                    return RedirectToAction("Create", "Personnel_Committee_Profile", new { id = record.ID });
+                }
+                if (Hiring_Check_List != null && Command == "Submit10")
+                {
+                    return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
+                }
+                else if (Hiring_Check_List == null && Command == "Submit10")
+                {
+                    return RedirectToAction("Create", "Hiring_Check_List", new { id = record.ID });
+                }
 
 
-
-
-                if (Command == "Submit5")
-                {
-                    return RedirectToAction("Edit", "Applicant_Profile", new { id = record.ID });
-                }
-                if (Command == "Submit6")
-                {
-                    return RedirectToAction("Create", "Application_Status", new { id = record.ID });
-                }
-                if (Command == "Submit7")
-                {
-                    return RedirectToAction("Create", "Business_Test_Profile", new { id = record.ID });
-                }
-                if (Command == "Submit8")
-                {
-                    return RedirectToAction("Create", "Medical_Test_Profile", new { id = record.ID });
-                }
                 return RedirectToAction("index");
             }
             catch (DbUpdateException e)
@@ -296,7 +311,62 @@ namespace HR.Controllers
             { return View(model); }
         }
 
+        public ActionResult HireProcess()
+        {
+            //ViewBag.idemp = id2;
+            //var ID = int.Parse(id2);
+            //var addmodel1 = dbcontext.Employee_Qualification_Profile.ToList();
+            //var tr = 0;
 
+            //if (addmodel1.Count() == 0)
+            //{
+            //    tr = 1;
+            //}
+            //else
+            //{
+            //    var te = addmodel1.LastOrDefault().ID;
+            //    tr = te + 1;
+            //}
+            //DateTime statis = Convert.ToDateTime("1/1/1900");
+            //var strus = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+            //var text = new Employee_Qualification_Profile
+            //{ Employee_ProfileId = emp.ID.ToString(), Code = strus.Structure_Code + tr.ToString(), Qualification_start_date = statis, Qualification_end_date = statis };
+            //var e = dbcontext.Employee_Qualification_Profile.Add(text);
+            //dbcontext.SaveChanges();
+
+            //emp.Employee_Qualification_Profile = e;
+            //dbcontext.SaveChanges();
+            var Applicant_Profile = dbcontext.Applicant_Profile.ToList();
+            var Application = dbcontext.Application.FirstOrDefault(a=>a.Applicant_ProfileId == a.Applicant_Profile.ID.ToString());
+           
+            var Employee_Profile = dbcontext.Employee_Profile.ToList();
+            var tr = 0;
+            if (Employee_Profile.Count() == 0)
+            {
+                tr = 1;
+            }
+            else
+            {
+                var te = Employee_Profile.LastOrDefault().ID;
+                tr = te + 1;
+            }
+            DateTime statis = DateTime.Now;
+            var strus = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
+           
+            var Ability = new Ability { registration_date = statis };
+            var Personnel_Information = new Personnel_Information { Hire_Date = statis, Join_Date = statis, Boarding_Date = statis, Sector_Join_Date = statis, Social_Insurance_Date = statis };
+            var Service_Information = new Service_Information { EOS_date = statis, Last_working_date = statis, Retired_expected_EOS = statis };
+
+            var ab = dbcontext.Ability.Add(Ability);
+            var per = dbcontext.Personnel_Information.Add(Personnel_Information);
+            var ser = dbcontext.Service_Information.Add(Service_Information);
+            dbcontext.SaveChanges();
+            var emp = new Employee_Profile { ID = Employee_Profile.LastOrDefault().ID, Code = strus.Structure_Code + tr.ToString(), Name = Application.Applicant_Profile.Name, Full = Application.Applicant_Profile.Full, Full_Name = Application.Applicant_Profile.Full_Name, Birth_date = Application.Applicant_Profile.Birth_date, Expire_date = Application.Applicant_Profile.Expire_date, Issue_date = Application.Applicant_Profile.Issue_date, ReligionId = Application.Applicant_Profile.ReligionId.ToString(), NationalityId = Application.Applicant_Profile.NationalityId.ToString(), Active = true ,Ability=ab,Personnel_Information=per,Service_Information=ser,Surname= Application.Applicant_Profile.Surname, Sur_Name = Application.Applicant_Profile.Sur_Name };
+            var e = dbcontext.Employee_Profile.Add(emp);
+            dbcontext.SaveChanges();
+
+            return RedirectToAction("index");
+        }
 
 
 

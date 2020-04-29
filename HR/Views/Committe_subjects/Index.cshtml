@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Committe_subjects>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -11,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Committe_subjects")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Committe subject </a>
+                    <a href="@Url.Action("Create", "Committe_subjects")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewCommitteeSubjectSetup </a>
                 </p>
             </div>
 
@@ -28,9 +29,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
+                            <th>@Personnel.Code</th>
+                            <th>@Personnel.Name</th>
+                            <th>@Personnel.Description</th>
 
                             <th></th>
                         </tr>
@@ -45,20 +46,12 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Committe_subjects", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Committe_subjects", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Committe_subjects", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("Delete", "Committe_subjects", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>name</th>
-                            <th>Description</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -79,9 +72,10 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "order" : 1
+            "order": 1
         });
     });
 </script>
 
 @section scripts{}
+s

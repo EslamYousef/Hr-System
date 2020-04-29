@@ -1,0 +1,270 @@
+﻿@model  IEnumerable<HR.Models.Application.Personnel_Committee_Profile>
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
+<script>
+
+    $(function () {
+        //$("#tb-family").hide()
+        $("#ss").click(function () {
+            debugger
+            var Family_profile = $("#employeeId3").val();
+            var Location = $("#employeeId").val();
+
+
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetTest",
+                data: { "id": Family_profile },
+                success: function (result) {
+                    debugger
+                    if (Family_profile != "" && Location != "")
+                    {
+                        debugger
+                        //$("#tb-family").show();
+
+                        var T = "";
+                        T = "<tr><td><input type='text' readonly name='CommitteResolution' value='" + result.Code + "'/></td><td><input type='text'  name='Subject' value='' /></td><td><input type='text' readonly name='ActivitySerialNo'  class='testcode'/></td><td><input type='date' name='CommitteeApprovalDate' value='1900/1/1' id='Start_date' /></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+                            $("#tb-family").append(T)
+                        }
+                }
+            })
+            $("#tb-family").on('click', '.del-btn', function () {
+               $(this).closest('tr').remove()
+            })
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetCommitteActivitiesByCommitteResolutionRecuirtment",
+                data: { "id": Location, "flag": "1" },
+                success: function (result) {
+
+                    debugger
+                    var dd = $(".testcode").val(result.ActivitySerialNumber);
+                }
+            })
+        })
+    })
+
+</script>
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateLinkedtoTesting
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Personnel_Committee_Profile", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    <hr />
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <input name="CommitteResolution" hidden />
+                    <input name="Subject" hidden />
+                    <input name="ActivitySerialNo" hidden />
+                    <input name="CommitteeApprovalDate" hidden />
+
+                    <div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Committe Resolution No.</label>
+                            <div class="col-md-3">
+                                <input type="text" value="@ViewBag.ApplicationCode" disabled class="code" />
+                            </div>
+                            <label class="control-label col-md-2">Application Id</label>
+                            <div class="col-md-3">
+                                <input type="text" value="@ViewBag.ApplicationApp" disabled />
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Application</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span>@Personnel.Test</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownList("fd", new SelectList(ViewBag.Committe_Resolution_Recuirtment, "ID", "Code"), Personnel.SelectTest, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                <span>@Personnel.Location</span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownList("fw", new SelectList(ViewBag.Committe_Activities, "ID", "Code"), Personnel.SelectTest, new { @required = "required", @class = "select2", @onchange = "getallCommitteeActivities()", id = "employeeId" })
+                            </div>
+                            <div class="col-md-2">
+                                <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
+                            </div>
+                        </div>
+                        <table id="tb-family" border="1" style="display: table; width:400px;">
+                            <thead>
+                                <tr>
+                                    <th id="fa">CommitteResolution</th>
+                                    <th id="per">Subject</th>
+                                    <th id="na">ActivitySerialNo</th>
+                                    <th id="No">CommitteeApprovalDate</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+
+                                    <td>
+                                        <input name="CommitteResolution" type="text" value=@item.Committe_Resolution_RecuirtmentId readonly />
+                                    </td>
+
+                                    <td>
+                                        <input name="Subject" type="text" value="@item.Subject"  />
+                                    </td>
+                                    <td>
+                                        <input name="ActivitySerialNo" type="text" value="@item.Activity_Serial_No" readonly />
+                                    </td>
+                                  
+                                    <td>
+                                        <input name="CommitteeApprovalDate" type="date" value="@item.Committee_Approval_Date" id="@item.ID" />
+
+                                    </td>
+                                    <td>
+                                        <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove($(this))" id="tt" />
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+@section scripts{}
+<script>
+    $(document).ready(function () {
+        GetDataById();
+    });
+</script>
+<script>
+
+    function GetDataById() {
+        debugger
+        let x = window.location.href.split('/')[5];
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataByIdAppendPersonnel_Committee_Profile",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                if (result) {
+                    $.each(result, function (i, r) {
+                        debugger
+                        var date = parseJsonDate(r.fromdate)
+                        month = date.getMonth() + 1;
+                        if (parseInt(month) < 10) {
+                            month = '0' + month;
+                        }
+                        day = date.getDate();
+                        if (parseInt(day) < 10) {
+                            day = '0' + day;
+                        }
+                        var d = date.getFullYear() + '-' + month + '-' + day;
+                        var T = $('#' + r.id);
+                        $('#' + r.id).val(d);
+                    });
+                    debugger
+                    console.log(result);
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+    //   GetDataById();
+    function parseJsonDate(jsonDateString) {
+        return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+    }
+</script>
+<script>
+    function Remove(thi) {
+        debugger
+        thi.closest('tr').remove();
+    }
+
+  
+        function employee3() {
+
+            var id = $("#employeeId3").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetTest",
+                data: { "id": id },
+                success: function (result) {
+                    getallCommitteeActivities(result.ID);
+                },
+                error: function () {
+
+                }
+            });
+    }
+    function getallCommitteeActivities(id) {
+
+        var countryname =
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetCommitteActivitiesByCommitteResolutionRecuirtment",
+                data: { "id": id, "flag": "0" },
+                success: function (result) {
+
+                    $("#employeeId").removeAttr("disabled");
+                    var finalresult = "<option value='0' > Choose Committee Activities </option>";
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#employeeId").html(finalresult);
+                    $("#employeeId").select2("val", "0");
+                },
+                error: function () {
+
+                    $("#Area").val(" ");
+                }
+            });
+    }
+</script>

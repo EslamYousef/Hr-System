@@ -15,7 +15,10 @@ namespace HR.Models
         public string Code { get; set; }
         public string Question { get; set; }
         public string Standart_Question { get; set; }
+        public string Attachmentfile { get; set; }
         public virtual Files Files { get; set; }
         public string Filesid { get; set; }
+        public int TestId { get; set; }
+
     }
 }

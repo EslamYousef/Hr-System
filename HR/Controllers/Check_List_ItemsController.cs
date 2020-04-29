@@ -1,10 +1,15 @@
 ﻿using HR.Models;
+using HR.Models.Infra;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace HR.Controllers
 {
@@ -22,7 +27,19 @@ namespace HR.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var modell = new Check_List_Items();
+
+            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Recuirtment).Structure_Code;
+            var model = dbcontext.Check_List_Items.ToList();
+            if (model.Count() == 0)
+            {
+                modell.Code = stru + "1";
+            }
+            else
+            {
+                modell.Code = stru + (model.LastOrDefault().ID + 1).ToString();
+            }
+            return View(modell);
         }
         [HttpPost]
         public ActionResult Create(Check_List_Items model)

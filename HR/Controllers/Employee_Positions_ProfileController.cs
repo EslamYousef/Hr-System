@@ -115,7 +115,7 @@ namespace HR.Controllers
                     ///////
 
                     Position_Information record = new Position_Information();
-                    var list = dbcontext.Position_Information.ToList();
+                    var list = dbcontext.Position_Information.Where(a=>a.Employee_ProfileId== emp.ID.ToString()).ToList();
                     if (list.Count() == 0)
                     {
                         record.Primary_Position = true;

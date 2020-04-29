@@ -20,12 +20,12 @@ namespace HR.Models.Application
         [Display(Name = "Medical Entity")]   
         public string Medical_Entity { get; set; }
         [Display(Name = "Test Result")]
-        public Medical_commite_recomindation Test_Result { get; set; } = Medical_commite_recomindation.Fit;
+        public string Test_Result { get; set; }
         [Display(Name = "Not Fit Reason")]
         public string Not_Fit_Reason { get; set; }
         public string Comments { get; set; }
         [Display(Name = "Final Test Result")]
-        public Medical_commite_recomindation Final_Test_Result { get; set; } = Medical_commite_recomindation.Fit;
+        public string Final_Test_Result { get; set; }
         [Display(Name = "Applicant Id")]
         public int ApplicantId { get; set; }
         public virtual Application Application { get; set; }

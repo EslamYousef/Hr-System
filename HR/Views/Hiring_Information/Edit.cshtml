@@ -10,7 +10,7 @@
 
     <section class="content-header">
         <h1>
-            @Personnel.CreateEmployeeBeneficiaryProfile
+            @Personnel.CreateHiringInformation
         </h1>
     </section>
 
@@ -40,21 +40,21 @@
 
                         <div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Committe Resolution No.</label>
+                                <label class="control-label col-md-2"> @Personnel.CommitteResolutionNo</label>
                                 <div class="col-md-3">
                                     <input type="text" value="@ViewBag.ApplicationCode" disabled />
                                 </div>
-                                <label class="control-label col-md-1">Application Id</label>
+                                <label class="control-label col-md-1"> @Personnel.ApplicantId</label>
                                 <div class="col-md-3">
                                     <input type="text" value="@ViewBag.ApplicationApp" disabled />
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Committe_Resolution_Recuirtment</button>
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success"> @Personnel.Application</button>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Committee_Recommendation</label>
+                                <label class="control-label col-md-2"> @Personnel.CommitteeRecommendation</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.Committee_Recommendation, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Committee_Recommendation, "", new { @class = "text-danger" })
@@ -63,7 +63,7 @@
 
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Final Medical Test</label>
+                                <label class="control-label col-md-2"> @Personnel.FinalMedicalTest</label>
                                 <div class="col-md-3">
                                     @Html.EnumDropDownListFor(model => model.Medical_commite_recomindation, new { @class = "select2" })
                                     @Html.ValidationMessageFor(model => model.Medical_commite_recomindation, "", new { @class = "text-danger" })
@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Employee_ID</label>
+                                <label class="control-label col-md-2"> @Personnel.EmployeeID</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.Employee_ID, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
@@ -91,19 +91,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Oil Sector JoinDate</label>
+                                <label class="control-label col-md-2"> @Personnel.OilSectorJoinDate</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.OilSectorJoinDate, new { htmlAttributes = new { @class = "form-control StartDate yy dt", @id = "OilSectorJoinDate", @autocomplete = "off", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.OilSectorJoinDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">SocialInsuranceNum</label>
+                                <label class="control-label col-md-2"> @Personnel.SocialInsuranceNum</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.SocialInsuranceNum, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.SocialInsuranceNum, "", new { @class = "text-danger" })
                                 </div>
-                                <label class="control-label col-md-2">SocialInsuranceDate</label>
+                                <label class="control-label col-md-2"> @Personnel.SocialInsuranceDate</label>
                                 <div class="col-md-4">
                                     @Html.EditorFor(model => model.SocialInsuranceDate, new { htmlAttributes = new { @class = "form-control StartDate yy dt", @id = "SocialInsuranceDate", @autocomplete = "off", @type = "date" } })
                                     @Html.ValidationMessageFor(model => model.SocialInsuranceDate, "", new { @class = "text-danger" })
@@ -111,12 +111,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-1">Service_Period_Ins_Y</label>
+                                <label class="control-label col-md-1"> @Personnel.Serviceperiodins_Y</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.Service_Period_Ins_Y, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
                                     @Html.ValidationMessageFor(model => model.Service_Period_Ins_Y, "", new { @class = "text-danger" })
                                 </div>
-                                <label class="control-label col-md-1">Service_Period_Ins_M</label>
+                                <label class="control-label col-md-1"> @Personnel.Serviceperiodins_M</label>
                                 <div class="col-md-2">
                                     @Html.EditorFor(model => model.Service_Period_Ins_M, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
                                     @Html.ValidationMessageFor(model => model.Service_Period_Ins_M, "", new { @class = "text-danger" })
@@ -124,9 +124,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">WeekendCode</label>
+                                <label class="control-label col-md-2"> @Personnel.WeekendCode</label>
                                 <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.WeekendCodeId, new SelectList(ViewBag.Weekendsetup, "ID", "Code"), Personnel.SelectNationality, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
+                                    @Html.DropDownListFor(m => m.WeekendCodeId, new SelectList(ViewBag.Weekendsetup, "ID", "Code"), Personnel.SelectWeekSetup, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
                                     @Html.ValidationMessageFor(model => model.WeekendCodeId, "", new { @class = "text-danger" })
                                 </div>
                             </div>

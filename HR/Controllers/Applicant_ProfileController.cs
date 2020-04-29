@@ -254,8 +254,8 @@ namespace HR.Controllers
             }
 
         }
-        public ActionResult Edit(int id)
-        {
+        public ActionResult Edit(int id,string nid)
+            {
             try
             {
                 ViewBag.Country = dbcontext.Country.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -266,7 +266,7 @@ namespace HR.Controllers
                 ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 ViewBag.job_title_cards = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "-----[" + m.name + ']', ID = m.ID });
-
+                ViewBag.Application = nid;
                 var record = dbcontext.Applicant_Profile.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -428,8 +428,13 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("index", "Applicant_Subscription_Syndicate_Profile", new { id = record.ID });
                 }
-              
-               
+                var app = dbcontext.Application.FirstOrDefault(a => a.Applicant_ProfileId == record.ID.ToString());
+                if (app != null && command != null)
+                {
+                    var application = dbcontext.Application.FirstOrDefault(a => a.Code == command);
+                    return RedirectToAction("Edit", "Application", new { id = application.ID });
+                }
+
                 return RedirectToAction("index");
             }
             catch (DbUpdateException e)

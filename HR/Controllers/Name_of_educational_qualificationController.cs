@@ -111,8 +111,7 @@ namespace HR.Controllers
                         {
                             listt.Add(new SelectListItem
                             {
-                                Text = team.Name + "-----------------------------------------------------------------" + team.Main_Educate_body.Name
-                                                     ,
+                                Text = team.Name + "-----------------------------------------------------------------" + team.Main_Educate_body.Name                 ,
                                 Value = team.ID.ToString(),
                                 Selected = true
                             });

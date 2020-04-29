@@ -1,88 +1,80 @@
 ﻿@model IEnumerable<HR.Models.Check_List_Items>
+@using HR.Resource;
 <script>
-        var $ = jQuery;
+    var $ = jQuery;
 
-        $(document).ready(function () {
-            $('#categories').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": false,
-                "info": true,
-                "autoWidth": false,
-                "order" : 1
-            });
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
         });
+    });
 </script>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
-    }
-    <div class="content-wrapper">
-        <!-- Main content -->
-        <section class="content">
+}
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
 
-            <div class="box">
-                <div class="box-header">
-                    <p class="lead">
-                        <a href="@Url.Action("Create", "Check_List_Items")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Check List Item </a>
-                    </p>
-                </div>
-
-                <!-- /.box-header -->
-                <div class="box-body">
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
-                        </div>
-                    }
-
-                    <table id="categories" class="table table-bordered table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>name</th>
-                                <th>Description</th>
-                                <th>Required on application</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.Code</td>
-                                    <td>@item.Name</td>
-                                    <td>@item.Description</td>
-                                    <td>@item.Required_on_application</td>
-
-                                    <td>
-                                        <a href="@Url.Action("Edit", "Check_List_Items", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                        <a href="@Url.Action("delete", "Check_List_Items", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Code</th>
-                                <th>name</th>
-                                <th>Description</th>
-                                <th>Required on application</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    <a href="@Url.Action("Create", "Check_List_Items")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewCheckListItems </a>
+                </p>
             </div>
 
-        </section>
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
 
-    </div>
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>@Personnel.Code</th>
+                            <th>@Personnel.Name</th>
+                            <th>@Personnel.Description</th>
+                            <th>@Personnel.RequiredOnApplication</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Code</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Required_on_application</td>
 
-    <!-- page script -->
-    
+                                <td>
+                                    <a href="@Url.Action("Edit", "Check_List_Items", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Check_List_Items", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
 
 @section scripts{}

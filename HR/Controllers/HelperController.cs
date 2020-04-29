@@ -717,6 +717,12 @@ namespace HR.Controllers
             var Committe_Activities = dbcontext.Committe_Activities.Where(a => a.Committe_Resolution_RecuirtmentId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Planned_Date, todate = m.Actual_Date });
             return Json(Committe_Activities);
         }
+        public JsonResult GetDataByIdAppendMedical_Test_Profile(string id)
+        {
+            var ID = int.Parse(id);
+            var Medical_Test_Profile = dbcontext.Medical_Test_Profile.Where(a => a.ApplicantId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Test_Date });
+            return Json(Medical_Test_Profile);
+        }
         public JsonResult GetEmployeeRecodes(string id)
         {
             var ID = int.Parse(id);
@@ -1240,6 +1246,39 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var Business_Test_Profile = dbcontext.Business_Test_Profile.Where(a => a.ApplicantId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Test_Date });
             return Json(Business_Test_Profile);
+        }
+        public JsonResult GetCommitteResolutionRecuirtmentPer(string id)
+        {
+            var ID = int.Parse(id);
+            var CommitteResolutionRecuirtment = dbcontext.Committe_Resolution_Recuirtment.Where(a => a.Committe_Usage == Committe_Usage.Personnel).FirstOrDefault(a => a.ID == ID);
+            return Json(CommitteResolutionRecuirtment);
+        }
+        public JsonResult GetCommitteActivitiesByCommitteResolutionRecuirtment(int id, string flag)
+        {
+            if (flag == "1")
+            {
+                var Committe_Activities = dbcontext.Committe_Activities.FirstOrDefault(m => m.Committe_Resolution_RecuirtmentId == id);
+
+                return Json(Committe_Activities);
+            }
+            else
+            {
+                var Committe_Activities = dbcontext.Committe_Activities.Where(m => m.Committe_Resolution_RecuirtmentId == id).ToList();
+                var t = Committe_Activities.Select(m => new { Code = m.ActivitySerialNumber, ID = m.ID });
+                return Json(t);
+            }
+        }
+        public JsonResult GetDataByIdAppendPersonnel_Committee_Profile(string id)
+        {
+            var ID = int.Parse(id);
+            var Personnel_Committee_Profile = dbcontext.Personnel_Committee_Profile.Where(a => a.ApplicantId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Committee_Approval_Date });
+            return Json(Personnel_Committee_Profile);
+        }
+        public JsonResult GetDataByIdPositionRec(string id)
+        {
+            var ID = int.Parse(id);
+            var newmodel = dbcontext.Position_Information_Rec.FirstOrDefault(m => m.ApplicantId == ID);
+            return Json(newmodel);
         }
     }
 

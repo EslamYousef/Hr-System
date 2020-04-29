@@ -60,9 +60,6 @@ namespace HR.Controllers
         {
             try
             {
-
-
-
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Documents = dbcontext.Documents.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
 
@@ -274,11 +271,6 @@ namespace HR.Controllers
                 return View();
             }
         }
-        public FileResult GetReport()
-        {
-            string ReportURL = "/Users/3LAMYA/Source/Repos/Hr-System/HR/Applicant_Attachment_Files/AB1/El Sayed Hamdy_CV.docx";
-            byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
-            return File(FileBytes, "application/msword");
-        }
+       
     }
 }

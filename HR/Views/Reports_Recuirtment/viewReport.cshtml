@@ -1,0 +1,264 @@
+﻿@model HR.Models.ViewModel.ReportRc_VM
+@using HR.Resource;
+@{
+    ViewBag.Title = "viewReport";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+
+}
+
+<script type="text/javascript">
+		jQuery( document ).ready( function( $ ) {
+			var $table4 = jQuery( "#table-4" );
+			$table4.DataTable( {
+				dom: 'Bfrtip',
+				buttons: [
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5',
+				]
+			} );
+		});
+		//function hiddeenn(th) {
+		//    var v = ["1", "2", "3"]
+		//    $.each(v, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").show();
+		//    })
+		//    debugger
+		//    var valu = th.val();
+		//    $.each(valu, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").remove();
+		//        var t = 0;
+		//    })
+
+		//    var i = 0;
+		//}
+</script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered datatable" id="table-4">
+                    <thead style="margin-right:15px">
+                        <tr>
+                            @if (Model.my_list[0])
+                            {
+                            <th style="width:40px">full</th>
+                            }
+                            @if (Model.my_list[1])
+                            {
+                        <th style="width:40px">Full_Name</th>
+                            }
+                            @*@if (Model.my_list[2])
+                                {
+                                 <th>@organ.description</th>
+                                 }
+                                  @if (Model.my_list[3])
+                                  {
+                                 <th>@organ.job_Summery</th>
+                                  }*@
+                            @if (Model.my_list[4])
+                            {
+                        <th style="width:40px">Nationality</th>
+                            }
+                            @if (Model.my_list[6])
+                            {
+                        <th style="width:40px">Religion</th>
+                            }
+                            @if (Model.my_list[7])
+                            {
+                        <th style="width:40px">Gender</th>
+                            }
+                            @if (Model.my_list[8])
+                            {
+                        <th style="width:40px">ID_type</th>
+                            }
+                            @if (Model.my_list[9])
+                            {
+                        <th style="width:40px">Blood_group</th>
+                            }
+                            @if (Model.my_list[10])
+                            {
+                        <th style="width:40px">Marital_Status</th>
+                            }
+                            @if (Model.my_list[11])
+                            {
+                                <th style="width:30px">@organ.gender</th>
+                            }
+                            @if (Model.my_list[12])
+                            {
+                                <th style="width:30px">@organ.nationality</th>
+                            }
+                            @if (Model.my_list[13])
+                            {
+                                <th style="width:30px">@organ.validity</th>
+                            }
+                            @if (Model.my_list[14])
+                            {
+                                <th style="width:30px">@organ.parment</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody style="margin-right:15px">
+                        @foreach (var item in Model.jobs)
+                        {
+                        <tr>
+                            @if (Model.my_list[0])
+                            {
+                                <td style="width:40px">@item.Full</td>
+                            }
+                            @if (Model.my_list[1])
+                            {
+                                <td style="width:40px">@item.Full_Name</td>
+                            }
+                            @*@if (Model.my_list[2])
+        {
+            if (@item.Description != null)
+            {
+              <td style="width:40px">@item.Description</td>
+            }
+            else
+            {
+            <td style="width:40px">@item.Description</td>
+            }
+        }
+        @if (Model.my_list[3])
+        {
+            if (@item.job_Summery != null)
+            {
+            <td>@item.job_Summery</td>
+            }
+            else
+            {
+                <td style="width:40px">@organ.empty</td>
+            }
+        }*@
+                            @if (Model.my_list[4])
+                            {
+                                if (item.Nationality != null)
+                                {
+                                    <td style="width:40px">@item.Nationality.Name</td>
+                                }
+                                else
+                                {
+                                    <td style="width:40px">@organ.empty</td>
+                                }
+
+                            }
+
+                            @if (Model.my_list[6])
+                            {
+                                if (@item.Religion != null)
+                                {
+                                    <td style="width:40px">@item.Religion.Name</td>
+                                }
+                                else
+                                {
+                                    <td style="width:40px">@organ.empty</td>
+                                }
+                            }
+                            @if (Model.my_list[7])
+                            {
+                                if (@item.Gender != null)
+                                {
+                                    <td style="width:40px">@item.Gender</td>
+                                }
+                                else
+                                {
+                                    <td style="width:40px">@organ.empty</td>
+                                }
+                            }
+                            @if (Model.my_list[8])
+                            {
+                                if (@item.ID_type != null)
+                                {
+                                    <td style="width:40px">@item.ID_type</td>
+                                }
+                                else
+                                {
+                                    <td style="width:40px">@organ.empty</td>
+                                }
+                            }
+                            @if (Model.my_list[9])
+                            {
+                                if (@item.Blood_group != null)
+                                {
+                                    <td style="width:40px">@item.Blood_group</td>
+                                }
+                                else
+                                {
+                                    <td style="width:40px">@organ.empty</td>
+                                }
+                            }
+                            @if (Model.my_list[10])
+                            {
+                                if (@item.Marital_Status != null)
+                                {
+                                    <td style="width:40px">@item.Marital_Status</td>
+                                }
+                                else
+                                {
+                                    <td style="width:40px">@organ.empty</td>
+                                }
+                            }
+                            @*@if (Model.my_list[11])
+        {
+            if (@item.gender != null)
+            {
+                <td style="width:40px">@item.gender</td>
+            }
+            else
+            {
+                <td style="width:40px">@organ.empty</td>
+            }
+        }
+        @if (Model.my_list[12])
+        {
+            if (@item.Nationality != null)
+            {
+                <td style="width:30px">@item.Nationality.Name</td>
+            }
+            else
+            {
+                <td style="width:30px">@organ.empty</td>
+            }
+        }
+        @if (Model.my_list[13])
+        {
+            if (@item.validity != null)
+            {
+                <td style="width:30px">@item.validity</td>
+            }
+            else
+            {
+                <td style="width:30px">@organ.empty</td>
+            }
+        }
+        @if (Model.my_list[14])
+        {
+            if (@item.parment != null)
+            {
+                <td style="width:30px">@item.parment</td>
+            }
+            else
+            {
+                <td style="width:30px">@organ.empty</td>
+
+        }}*@
+                        </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+@section scripts{}

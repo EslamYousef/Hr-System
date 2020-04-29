@@ -243,10 +243,10 @@ namespace HR.Models
         public DbSet<Exit_permission_request> Exit_permission_request { get; set; }
         public DbSet<CasesTM> CasesTM { get; set; }
         public DbSet<Time_management_conditional_setup> Time_management_conditional_setup { get; set; }
-
         public DbSet<workpermissionrequest> workpermissionrequest { get; set; }
         public DbSet<business_trip_request> business_trip_request { get; set; }
-
+        public DbSet<Personnel_Committee_Profile> Personnel_Committee_Profile { get; set; }
+        public DbSet<Hiring_Check_List> Hiring_Check_List { get; set; }
     }
 
 }

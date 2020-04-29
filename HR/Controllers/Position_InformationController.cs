@@ -43,6 +43,7 @@ namespace HR.Controllers
         {
             try
             {
+
                 if (model.job_descId == null) { model.job_descId = "0"; }
                 if (model.Default_location_descId == null) { model.Default_location_descId = "0"; }
                 if (model.Location_descId == null) { model.Location_descId = "0"; }
@@ -50,6 +51,10 @@ namespace HR.Controllers
                 if (model.SlotdescId == null) { model.SlotdescId = "0"; }
                 if (model.Organization_ChartId == null) { model.Organization_ChartId = "0"; }
 
+                var App = dbcontext.Application.FirstOrDefault(a => a.ID == model.ID).Applicant_ProfileId;
+                var AppId = int.Parse(App);
+                ViewBag.ApplicationApp = dbcontext.Applicant_Profile.FirstOrDefault(a => a.ID == AppId).Full_Name;
+                ViewBag.ApplicationCode = dbcontext.Application.FirstOrDefault(a => a.ID == model.ID).Code;
 
                 ViewBag.job_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
                 ViewBag.job_slot_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.num_slots + "------[" + m.name + ']', ID = m.ID });

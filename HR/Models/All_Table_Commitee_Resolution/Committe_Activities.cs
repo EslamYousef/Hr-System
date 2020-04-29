@@ -17,10 +17,10 @@ namespace HR.Models.All_Table_Commitee_Resolution
         public string ActivitySerialNumber { get; set; }
         [Display(Name = "Planned Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
-        public DateTime? Planned_Date { get; set; }
+        public DateTime Planned_Date { get; set; }
         [Display(Name = "Actual Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
-        public DateTime? Actual_Date { get; set; }
+        public DateTime Actual_Date { get; set; }
         [Display(Name = "Activity Status")]
         public string Committe_Resolution_Status { get; set; }
         [Display(Name = "Committe Resolution RecuirtmentId")]

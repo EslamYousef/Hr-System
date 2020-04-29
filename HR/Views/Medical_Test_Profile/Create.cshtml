@@ -1,0 +1,148 @@
+﻿@model HR.Models.Application.Medical_Test_Profile
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
+<script>
+    $(function () {
+        $("#tb-family").hide();
+
+        $("#ss").click(function () {
+
+            debugger
+            $("#tb-family").show();
+
+        var slot_code = $("#code").val();
+
+        if (slot_code != "0" )
+        {
+            var div5 = $("#tb-family").find("tr");
+            var num = $("#fa").length++;
+                  var div = $("#tb-family").find("tr");
+
+            var flag = 0;
+            for (var o = 0; o < div.length; o++) {
+                    var inputs = div[o].children;
+                    debugger
+                    var f = inputs[0].childElementCount;
+                        if (f == slot_code) {
+                            flag = 1;
+                            slot_code = "_" + i;
+                            break;
+                        }
+
+            }
+            var t =
+                "<tr><td><input value='" + slot_code + "_" + div.length + "'  name='SubjectCode' readonly /></td><td><input type='date' name='StartDate' value='1900/1/1' id='Start_date' /></td><td><input type='text'' name='MedicalEntity' /></td><td><select name='TestResult'><option value='0'> Fit</option><option value='1'> Not Fit </option></select></td><td><input type='text'' name='NotFitReason' /></td><td><input type='text'' name='Comments' /></td><td><select name='FinalTestResult'><option value='0'> Fit</option><option value='1'> Not Fit </option></select></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+
+                    $("#tb-family").append(t);
+            }
+            $("#tb-family").on('click', '.del-btn', function () {
+                $(this).closest('tr').remove();
+            })
+
+              })
+    })
+</script>
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Personnel.CreateCommiteeActivites
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "Medical_Test_Profile", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    <hr />
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <input name="SubjectCode" hidden />
+                    <input name="StartDate" hidden />
+                    <input name="MedicalEntity" hidden />
+                    <input name="TestResult" hidden />
+                    <input name="NotFitReason" hidden />
+                    <input name="Comments" hidden />
+                    <input name="FinalTestResult" hidden />
+                    <div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Committe Resolution No.</label>
+                            <div class="col-md-3">
+                                <input type="text" value="@ViewBag.ApplicationCode" disabled id="code" />
+                            </div>
+                            <label class="control-label col-md-1">Application Id</label>
+                            <div class="col-md-3">
+                                <input type="text" value="@ViewBag.ApplicationApp" disabled />
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Application</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" onclick="generat3e()" />
+                            </div>
+                        </div>
+
+                        <table id="tb-family" border="1" style="display: table; width:400px;">
+                            <thead>
+                                <tr>
+                                    <th id="fa">SubjectCode</th>
+                                    <th id="na">StartDate</th>
+                                    <th id="per">MedicalEntity</th>
+                                    <th id="De">TestResult</th>
+                                    <th id="na">NotFitReason</th>
+                                    <th id="per">Comments</th>
+                                    <th id="De">FinalTestResult</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  }
+             </div>
+        </div>
+    </section>
+</div>
+
+@section scripts{}
+<script>
+    $(document).ready(function () {
+
+        GetDataById5('@Model.Test_Date', "Start_date");
+    });
+
+</script>
+

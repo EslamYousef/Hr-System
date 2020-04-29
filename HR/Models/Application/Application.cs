@@ -24,5 +24,8 @@ namespace HR.Models.Application
         [Display(Name = "Commitee Test No")]
         public string CommiteeTestNo { get; set; }
         public virtual List<Business_Test_Profile> Business_Test_Profile { get; set; }
+        public virtual List<Medical_Test_Profile> Medical_Test_Profile { get; set; }
+        public virtual List<Personnel_Committee_Profile> Personnel_Committee_Profile { get; set; }
+
     }
 }

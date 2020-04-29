@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Allowance_years>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Allowance_years")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>add new Allowance year  </a>
+                    <a href="@Url.Action("Create", "Allowance_years")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Personnel.AddNewAllowanceYearsSetup  </a>
                 </p>
             </div>
 
@@ -29,10 +30,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Allowance_year</th>
-                            <th>Allowance_percentage</th>
-                            <th>max_Allowance_amount</th>
-                            <th>min_Allowance_amount on application</th>
+                            <th>@Personnel.AllowanceYear</th>
+                            <th>@Personnel.AllowancePercentage</th>
+                            <th>@Personnel.MaxAllowanceAmount</th>
+                            <th>@Personnel.MinAllowanceAmount</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -46,21 +47,12 @@
                                 <td>@item.min_Allowance_amount</td>
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Allowance_years", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Allowance_years", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Allowance_years", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Allowance_years", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Allowance_year</th>
-                            <th>Allowance_percentage</th>
-                            <th>max_Allowance_amount</th>
-                            <th>min_Allowance_amount on application</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -81,7 +73,7 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "order" : 1
+            "order": 1
         });
     });
 </script>
