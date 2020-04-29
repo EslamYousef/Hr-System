@@ -1,0 +1,298 @@
+﻿@model IEnumerable<HR.Models.Time_management.business_trip_request>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+    //$(function () {
+    //    filt(); filt2();
+    //})
+    //    function filt() {
+    //        var ht = "";
+    //        $.ajax
+    //            ({
+    //                type: "post",
+    //                url: "/EOS_request/getallstatues",
+    //                data: {},
+    //                success: function (result) {
+
+    //                    $.each(result, function (key, value) {
+    //                        ht += "<option  value='" + value + "'>" + value + "</option>";
+
+    //                    });
+    //                    $("#filter").html(ht);
+    //                }
+    //            });
+    //    }
+    //    function filt2() {
+
+    //        var ht = "";
+    //        $.ajax
+    //            ({
+    //                type: "post",
+    //                url: "/EOS_request/get_eos_type",
+    //                data: {},
+    //                success: function (result) {
+
+    //                    $.each(result, function (key, value) {
+    //                        ht += "<option  value='" + value + "'>"  + value +"</option>";
+
+    //                    });
+    //                    $("#filter_eos_type").html(ht);
+    //                }
+    //            });
+    //    }
+    //function getrequest()
+    //{
+
+    //    $("#tbody11 tr").remove();
+    //    var status = $("#filter").val();
+    //    var type = $("#filter_eos_type").val();
+    //    var from = $("#datefrom").val();
+    //    var to = $("#dateto").val();
+    //    if (from == "")
+    //    {
+    //        from = "1/1/1900";
+    //    }
+    //    if (to == "") {
+    //        to="1/1/3000"
+    //    }
+    //    if (type == null)
+    //    {
+    //        type = "all";
+    //    }
+    //    if (status == null)
+    //    {
+    //        status = "all";
+    //    }
+
+    //        $.ajax({
+    //            type: "post",
+    //            url: "/EOS_request/Getone",
+    //            data: { "from": from, "to": to, "status": status, "type": type },
+    //            success: function (result) {
+
+    //                $("#tbody11 tr").remove();
+    //                $.each(result, function (key, value) {
+    //                    var d1;var d2;
+    //                    if (value.Employee != null)
+    //                    {
+    //                        d1 = value.Employee.Code;
+    //                        d2 = value.Employee.Name;
+    //                    }
+    //                    else
+    //                    {
+    //                        d1 = "Empty";
+    //                        d2 = "Empty";
+    //                    }
+
+    //                        var tr =
+    //              "<tr id='tr'><td>" + value.number + "</td>" +
+
+    //             "<td style='width:60px'>" + d1 + "</td>" +
+    //             "<td style='width:150px'>" + d2 + "</td>" +
+    //              "<td  style='width:30px'>" + value.req_date + "</td>" +
+    //             "<td  style='width:30px'>" + value.eos_Date + "</td>" +
+    //             "<td class='col-md-0' >" + value.name_state + "</td>" +
+    //              "<td class='col-md-0' >" + value.name_type + "</td>" +
+    //             "<td>" +
+    //             "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
+    //             "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" +" "+
+    //             "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+    //                        $("#tbody11").append(tr);
+
+
+
+    //                               });
+
+    //            },
+    //            error: function () {
+
+
+    //            }
+    //        });
+    //    }
+    //function getallrequest() {
+
+    //    var status = $("#filter").val();
+    //    var type = $("#filter_eos_type").val();
+    //    $.ajax({
+    //        type: "post",
+    //        url: "/EOS_request/Getalll",
+    //        data: { },
+    //        success: function (result) {
+
+    //            $("#tbody11 tr").remove();
+    //            $.each(result, function (key, value) {
+
+    //                var d1; var d2;
+
+    //                if ((value.Employee) != null) {
+    //                    d1 = value.Employee.Code;
+    //                    d2 = value.Employee.Name;
+    //                }
+    //                else {
+    //                    d1 = "Empty";
+    //                    d2 = "Empty";
+    //                }
+
+    //                var tr =
+    //      "<tr id='tr'><td>" + value.number + "</td>" +
+
+    //     "<td style='width:60px'>" + d1 + "</td>" +
+    //     "<td style='width:150px'>" + d2 + "</td>" +
+    //     "<td  style='width:30px'>" + value.req_date + "</td>" +
+    //       "<td  style='width:30px'>" + value.eos_Date + "</td>" +
+    //     "<td class='col-md-0' >" + value.name_state + "</td>" +
+    //      "<td class='col-md-0' >" + value.name_type + "</td>" +
+    //     "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ID + ")' />" + " " +
+    //     "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+    //     "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ID + ")' /></td>";
+
+    //                $("#tbody11").append(tr);
+    //            });
+
+    //        },
+    //        error: function () {
+
+
+    //        }
+    //    });
+    //}
+
+    //function change(id)
+    //{
+    //    window.open("/EOS_request/Edit?id=" + id);
+    //}
+    //function history(id) {
+
+    //    window.open("/EOS_request/status?id=" + id);
+    //}
+    //function deletee(id) {
+
+    //    window.open("/EOS_request/Delete/" + id);
+    //}
+</script>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                <div class="row form-group">
+
+                    <div class="col-md-3">
+                        <a href="@Url.Action("Create", "business_trip_request" )"  class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.addbusinesstriprequest1</a>
+
+                    </div>
+                </div>
+                @*<div class="form-group" id="buttons">
+                    <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
+                    <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
+                    <div class="col-sm-7">
+                        <select name="test" class="select2" placeholder=@pers_2.status id="filter" multiple></select>
+                    </div>
+                </div>*@
+                @*<div class="form-group" style="margin-top:20px;margin-bottom:15px">
+
+                    <div class="col-md-7">
+                        <select name="type" class="select2" placeholder=@pers_2.type id="filter_eos_type" multiple></select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <input autocomplete="off" value="" class="form-control" onfocus="(this.type='date')" id="datefrom" placeholder=@pers_2.fromdate />
+                    </div>
+                    <div class="col-md-2">
+                        <input autocomplete="off" class="form-control" onfocus="(this.type='date')" id="dateto" placeholder=@pers_2.todate />
+                    </div>
+
+
+
+                </div>*@
+
+
+
+
+                <div class="form-group" style="margin-top:70px">
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@pers_2.number</th>
+                                <th>@pers_2.empid</th>
+                                <th>@pers_2.empname</th>
+                                <th>@pers_2.requestdate</th>
+                               
+                                <th>@pers_2.status</th>
+                           
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.number</td>
+
+                                   
+                                        <td>@item.Employee_Profile.Code</td>
+                                        <td>@item.Employee_Profile.Name</td>
+                                   
+                                    <td>@item.request_date.ToString("dd-MM-yyyy")</td>
+                                 
+                                    <td>@item.check_status</td>
+                                  
+                                    <td>
+                                        @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
+                                        {
+                                            <a href="@Url.Action("Edit", "business_trip_request", new { id = item.ID })" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                        }
+                                        <a href="@Url.Action("Delete", "business_trip_request" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
+                                        <a href="@Url.Action("status", "business_trip_request" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                          
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}

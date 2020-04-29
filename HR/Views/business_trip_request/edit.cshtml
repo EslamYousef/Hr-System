@@ -1,0 +1,376 @@
+﻿@model HR.Models.Time_management.business_trip_request
+
+@{
+    ViewBag.Title = "create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.businesstriprequest
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("edit", "business_trip_request", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @*////////////////////////
+                            ////////////////////////Main
+                            ////////////////////////*@
+
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @pers_2.numberreq
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.number, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-2">
+                                <input style="width:100%" type="submit" value=@organ.Save class="btn btn-success" />
+                            </div>
+                            <div class="col-md-2">
+                                <a style="width:100%" href="@Url.Action("index","business_trip_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @pers_2.employee
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { id = "emp", @class = "select2", @onchange = "getdata()" })
+                                @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-1">
+                                @Html.CheckBoxFor(model => model.carry_important_documents, new { htmlAttributes = new { @class = "form-control newcheck", id = "newcheck" } })
+                            </div>
+                            <label class="control-label col-md-3">
+                                @pers_2.important
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.Unitdesc
+                            </label>
+                            <div class="col-md-3">
+                                <input id="unit" readonly class="form-control" type="text" />
+                            </div>
+                            <label class="control-label col-md-1">
+                                @pers_2.Locationdesc
+                            </label>
+                            <div class="col-md-3">
+                                <input id="location" readonly class="form-control" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label style="color:red" class="control-label col-md-1">
+                                <span> @Basic.Request_date </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.request_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "date" } })
+                                @Html.ValidationMessageFor(model => model.request_date, "", new { @class = "text-danger" })
+                            </div>
+                            <label style="color:red" class="control-label col-md-1">
+                                <span> @pers_2.Businesstrip </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Business_TripID, new SelectList(ViewBag.busi, "ID", "Code"), pers_2.Businesstrip, new { id = "trip", @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.locationduty
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.location_of_duty, 4, 100, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.purposeduty
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.purpose_of_duty, 4, 100, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                @pers_2.remarks
+                            </label>
+                            <div class="col-md-3">
+                                @Html.TextAreaFor(model => model.Remarks_of_duty, 4, 100, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                            </div>
+
+                        </div>
+
+
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#planed" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@pers_2.planedpermission</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div id="planed" class="tab-pane active" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="form-group">
+
+
+                                    <label style="color:red" class="control-label col-md-1">
+                                        <span> @pers_2.fromdate </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.go_date, new { htmlAttributes = new { @class = "form-control StartDate", @type = "date", id = "fd", Onchange = "Save()" } })
+                                        @Html.ValidationMessageFor(model => model.go_date, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label style="color:red" class="control-label col-md-1">
+                                        <span> @pers_2.todate </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.return_date, new { htmlAttributes = new { @class = "form-control EndDate", @type = "date", id = "td", Onchange = "Save()" } })
+                                        @Html.ValidationMessageFor(model => model.return_date, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <label class="control-label col-md-1">
+                                        @pers_2.days
+                                    </label>
+                                    <div class="col-md-1">
+                                        @Html.EditorFor(model => model.days, new { htmlAttributes = new { id = "day", @readonly = true, @class = "form-control" } })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        @pers_2.months
+                                    </label>
+                                    <div class="col-md-1">
+                                        @Html.EditorFor(model => model.months, new { htmlAttributes = new { id = "m", @readonly = true, @class = "form-control" } })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        @pers_2.years
+                                    </label>
+                                    <div class="col-md-1">
+                                        @Html.EditorFor(model => model.years, new { htmlAttributes = new { id = "y", @readonly = true, @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">
+                                        @pers_2.fromtime
+                                    </label> <div class="col-md-2">
+                                        @Html.EditorFor(model => model.go_time, new { htmlAttributes = new { @name = "fromT", id = "fromT", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
+
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        @pers_2.totime
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.return_time, new { htmlAttributes = new { @name = "toT", id = "toT", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
+
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        @pers_2.totalrate
+                                    </label>
+                                    <div class="col-md-1">
+                                        <input id="rateP" name="rate" value="0" class="form-control" text="number" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="color:red" class="control-label col-md-1">
+                                        @pers_2.transportationmethod
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(m => m.TransportationMethodID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.transportationmethod, new { @class = "select2" })
+                                        @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
+                                    </div>
+                                    <label style="color:red" class="control-label col-md-1">
+                                        @pers_2.transportationmethod
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(m => m.tionMethodID_return, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.transportationmethod, new { @class = "select2" })
+                                        @Html.ValidationMessageFor(model => model.tionMethodID_return, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+<script>
+    $(function () {
+        GetDataById2('@Model.go_date', "fd");
+        GetDataById2('@Model.return_date', "td");
+        GetDataById2('@Model.request_date', "date");
+        Save(); getdata();
+        if(@Model.go_time.Hours==0)
+        {
+            var def=12;
+            var min=@Model.go_time.Minutes;
+            var sec=@Model.go_time.Seconds;
+
+            $("#froT").val(def +":" +min+":"+sec+" AM")
+        }
+        if(@Model.return_time.Hours==0)
+        {
+            var def=12;
+            var min=@Model.return_time.Minutes;
+            var sec=@Model.return_time.Seconds;
+
+            $("#toT").val(def +":" +min+":"+sec+" AM")
+        }
+        if(@Model.go_time.Hours>12)
+        {
+            var def=@Model.go_time.Hours-12;
+            var min=@Model.go_time.Minutes;
+            var sec=@Model.go_time.Seconds;
+
+            $("#froT").val(def +":" +min+":"+sec+" pm")
+        }
+        if(@Model.return_time.Hours>12)
+        {
+            var def=@Model.return_time.Hours-12;
+            var min=@Model.return_time.Minutes;
+            var sec=@Model.return_time.Seconds;
+
+            $("#toT").val(def +":" +min+":"+sec+" pm")
+        }
+
+    });
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function Save()
+    {
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to >= from) {
+            GetDiffDates(from, to);
+        }
+        else
+        {
+            alert(@pers_2.error_date)
+            $("#day").val("0");
+        }
+    }
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+                if (data) {
+                    debugger
+                    $("#day").val(data.DateDiff.Days+1);
+                    $("#m").val(data.DateDiff.Months);
+                    $("#y").val(data.DateDiff.Years);
+                    var D = (data.DateDiff.Days + 1);
+                    var M = ((data.DateDiff.Months) * 30);
+                    var Y = ((data.DateDiff.Years) * 365);
+                    uprate(D,M,Y);
+                }
+            });
+        }
+    }
+    function uprate(D,M,Y)
+    {
+        D = parseFloat(D);
+        M = parseFloat(M);
+        Y = parseFloat(Y);
+        var id = $("#trip").val();
+        $.ajax({
+            type: "post",
+            url: "/business_trip_request/Getrate",
+            data: { "id": id },
+            success: function (result) {
+             var rate=  (D * result) + (M * result) + (Y * result);
+             $("#rateP").val(rate);
+            },
+            error: function () {
+
+                $("#rateP").val(0);
+            }
+        });
+    }
+
+    function getdata()
+    {
+
+        var id = $("#emp").val();
+        $.ajax({
+            type: "post",
+            url: "/business_trip_request/Getdata",
+            data: { "id": id },
+            success: function (result) {
+                $("#unit").val(result.unit);
+                $("#location").val(result.locatoin);
+            },
+            error: function () {
+                $("#unit").val("");
+                $("#location").val("");
+
+            }
+        });
+    }
+</script>

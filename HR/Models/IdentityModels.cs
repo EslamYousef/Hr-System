@@ -244,6 +244,8 @@ namespace HR.Models
         public DbSet<CasesTM> CasesTM { get; set; }
         public DbSet<Time_management_conditional_setup> Time_management_conditional_setup { get; set; }
 
+        public DbSet<workpermissionrequest> workpermissionrequest { get; set; }
+        public DbSet<business_trip_request> business_trip_request { get; set; }
 
     }
 

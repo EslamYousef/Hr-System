@@ -1,4 +1,5 @@
 ﻿using HR.Models.Infra;
+using HR.Models.Time_management;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,5 +28,9 @@ namespace HR.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime cancaled_bydate { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public Infra.Type Type {get;set;}
+
+        public virtual List<workpermissionrequest> workpermissionrequest { get; set; }
+        public virtual List<business_trip_request> business_trip_request { get; set; }
+        public virtual List<Exit_permission_request> Exit_permission_request { get; set; }
     }
 }

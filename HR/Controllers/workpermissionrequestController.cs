@@ -11,45 +11,36 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class ExitPermissionRequestController : Controller
+    [Authorize]
+    public class workpermissionrequestController : BaseController
     {
-        // GET: ExitPermissionRequest
+        // GET: workpermissionrequest
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        public ActionResult index()
+        public ActionResult Index()
         {
-            try
-            {
-                var model = dbcontext.Exit_permission_request.ToList();
-                return View(model);
-            }
-            catch(Exception)
-            {
-                return View();
-            }
-
+            var model = dbcontext.workpermissionrequest.ToList();
+            return View(model);
         }
-        public ActionResult Create()
+        public ActionResult create()
         {
             try
             {
-                ViewBag.emp= dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.type = dbcontext.Exit_permission_type.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.reasons = dbcontext.Exit_Permission_Reason.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-
-
-                var model = new Exit_permission_request();
                 var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel).Structure_Code;
-                var all_data = dbcontext.Exit_permission_request.ToList();
+                var req = dbcontext.workpermissionrequest.ToList();
                 string number;
-                if (all_data.Count > 0)
+                if (req.Count > 0)
                 {
-                    number = stru + (all_data.LastOrDefault().ID + 1).ToString();
+                    number = stru + (req.LastOrDefault().ID + 1).ToString();
                 }
                 else
                 {
                     number = stru + 1;
                 }
-                model.Request_Number = number;model.Date = DateTime.Now.Date;
+
+                ViewBag.emp = dbcontext.Employee_Profile.Where(m=>m.Active==true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
+                var model = new workpermissionrequest();
+                model.date = DateTime.Now.Date;model.fromD = DateTime.Now.Date;model.toD = DateTime.Now.Date;
+                model.number = number;
                 return View(model);
             }
             catch(Exception)
@@ -58,33 +49,32 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(Exit_permission_request model,FormCollection form)
+        public ActionResult create(workpermissionrequest model,FormCollection record)
         {
             try
             {
-                ViewBag.emp = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.type = dbcontext.Exit_permission_type.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.reasons = dbcontext.Exit_Permission_Reason.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                var s = form["From"].Split(',');
-                var e = form["To"].Split(',');
-                model.From = Convert.ToDateTime(s[0]).TimeOfDay;
-                model.To = Convert.ToDateTime(e[0]).TimeOfDay;
+
+                ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
+                var s = record["fromT"].Split(',');
+                var e = record["toT"].Split(',');
+                model.fromT = Convert.ToDateTime(s[0]).TimeOfDay;
+                model.toT = Convert.ToDateTime(e[0]).TimeOfDay;
 
                 var Date = Convert.ToDateTime("1/1/1900");
-                var state = new status { statu = check_status.created, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, return_to_reviewdate = Date };
+                var state= new status { statu = check_status.created, approved_bydate = Date, cancaled_bydate = Date, created_bydate = DateTime.Now.Date, Rejected_bydate = Date, return_to_reviewdate = Date };
                 state.created_by = User.Identity.GetUserName();
                 var st = dbcontext.status.Add(state);
                 dbcontext.SaveChanges();
 
+
                 model.statusID = st.ID;
                 model.check_status = check_status.created;
-
-
-                dbcontext.Exit_permission_request.Add(model);
+                
+                dbcontext.workpermissionrequest.Add(model);
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return View(model);
             }
@@ -93,39 +83,46 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.emp = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.type = dbcontext.Exit_permission_type.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.reasons = dbcontext.Exit_Permission_Reason.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
+                ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
 
-                var model = dbcontext.Exit_permission_request.FirstOrDefault(m => m.ID == id);
+                var model = dbcontext.workpermissionrequest.FirstOrDefault(m => m.ID == id);
                 return View(model);
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return RedirectToAction("index");
             }
         }
         [HttpPost]
-        public ActionResult edit(Exit_permission_request model, FormCollection form)
+        public ActionResult edit(workpermissionrequest model, FormCollection record)
         {
             try
             {
-                ViewBag.emp = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.type = dbcontext.Exit_permission_type.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-                ViewBag.reasons = dbcontext.Exit_Permission_Reason.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
-
-                var old_record = dbcontext.Exit_permission_request.FirstOrDefault(m => m.ID == model.ID);
-                old_record.Date = model.Date;
-                old_record.Employee_ProfileID = model.Employee_ProfileID;
-                old_record.Exit_Permission_ReasonID = model.Exit_Permission_ReasonID;
-                old_record.Exit_permission_typeID = model.Exit_permission_typeID;
-                old_record.Notes = model.Notes;
-                var s = form["From"].Split(',');
-                var e = form["To"].Split(',');
-                old_record.From = Convert.ToDateTime(s[0]).TimeOfDay;
-                old_record.To = Convert.ToDateTime(e[0]).TimeOfDay;
+                var recod = dbcontext.workpermissionrequest.FirstOrDefault(m => m.ID == model.ID);
+                recod.Employee_ProfileID = model.Employee_ProfileID;
+                recod.position_profile_num = model.position_profile_num;
+                recod.work_permission_type = model.work_permission_type;
+                recod.date = model.date;
+                recod.accomplish = model.accomplish;
+                recod.securty = model.securty;
+                recod.reason = model.reason;
+                recod.remark = model.remark;
+                recod.fromD = model.fromD;
+                recod.toD = model.toD;
+                recod.month = model.month;
+                recod.year = model.year;
+                recod.days = model.days;
+                var s = record["fromT"].Split(',');
+                var e = record["toT"].Split(',');
+                recod.fromT = Convert.ToDateTime(s[0]).TimeOfDay;
+                recod.toT = Convert.ToDateTime(e[0]).TimeOfDay;
+                recod.meal = model.meal;
+                recod.lunch = model.lunch;
+                recod.lunch_basket = model.lunch_basket;
+                recod.dinner = model.dinner;
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
+
             }
             catch (Exception)
             {
@@ -136,7 +133,7 @@ namespace HR.Controllers
         {
             try
             {
-                var model = dbcontext.Exit_permission_request.FirstOrDefault(m => m.ID == id);
+                var model = dbcontext.workpermissionrequest.FirstOrDefault(m => m.ID==id);
                 return View(model);
             }
             catch(Exception)
@@ -146,28 +143,26 @@ namespace HR.Controllers
         }
         [HttpPost]
         [ActionName("delete")]
-        public ActionResult delete_method(int id)
+        public ActionResult Delete_method(int id)
         {
-            var model = dbcontext.Exit_permission_request.FirstOrDefault(m => m.ID == id);
-
+            var model = dbcontext.workpermissionrequest.FirstOrDefault(m => m.ID == id);
             try
             {
-                dbcontext.Exit_permission_request.Remove(model);
+                dbcontext.workpermissionrequest.Remove(model);
                 dbcontext.SaveChanges();
-                  return RedirectToAction("index");
+                return RedirectToAction("index");
             }
             catch (Exception)
             {
                 return View(model);
             }
-
         }
         public ActionResult status(string id)
         {
             try
             {
                 var ID = int.Parse(id);
-                var model = dbcontext.business_trip_request.FirstOrDefault(m => m.ID == ID);
+                var model = dbcontext.workpermissionrequest.FirstOrDefault(m => m.ID == ID);
                 var st = model.status;
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = model.status, opertion_id = model.ID };
@@ -190,8 +185,8 @@ namespace HR.Controllers
         public ActionResult status(employeestate model)
         {
             //  var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.status.ID);
-            var record = dbcontext.Exit_permission_request.FirstOrDefault(m => m.ID == model.opertion_id);
-            var sta = dbcontext.status.FirstOrDefault(m => m.ID == record.statusID);
+            var record = dbcontext.workpermissionrequest.FirstOrDefault(m => m.ID == model.opertion_id);
+            var sta = dbcontext.status.FirstOrDefault(m=>m.ID==record.statusID);
             if (model.check_status == check_status.Approved)
             {
                 sta.approved_by = User.Identity.GetUserName();
@@ -226,7 +221,7 @@ namespace HR.Controllers
                 sta.Rejected_bydate = model.status.Rejected_bydate;
                 sta.statu = check_status.Rejected;
                 record.check_status = check_status.Rejected;
-                dbcontext.SaveChanges();
+               dbcontext.SaveChanges();
             }
             else if (model.check_status == check_status.Return_To_Review)
             {
@@ -239,6 +234,5 @@ namespace HR.Controllers
 
             return RedirectToAction("index");
         }
-
     }
 }

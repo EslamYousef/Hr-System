@@ -18,6 +18,7 @@ namespace HR.Models.Time_management
         public int? ShiftdaystatusID { get; set; }
         public bool linkedtomnothelypayroll { get; set; }
         public bool linkedtomanyalpayment { get; set; }
+        public virtual List<business_trip_request> business_trip_request { get; set; }
 
     }
 }

@@ -14,6 +14,7 @@ namespace HR.Controllers
     {
      
         public ActionResult Index()
+
         {
            
             return View();

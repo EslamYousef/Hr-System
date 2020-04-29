@@ -48,10 +48,14 @@
                                     <td>@organ.empty</td>
                                 }
                                 <td>@item.Date.ToShortDateString()</td>
-                                <td>
-                                    <a href="@Url.Action("Edit", "ExitPermissionRequest", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
-                                    <a href="@Url.Action("delete", "ExitPermissionRequest", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
-                                </td>
+                               
+                                @if (item.statu != HR.Models.Infra.check_status.Approved && item.statu != HR.Models.Infra.check_status.Rejected)
+                                {
+                                    <a href="@Url.Action("Edit", "ExitPermissionRequest", new { id = item.ID })" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                }
+                                <a href="@Url.Action("Delete", "ExitPermissionRequest" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
+                                <a href="@Url.Action("status", "ExitPermissionRequest" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+
                             </tr>
                         }
                     </tbody>

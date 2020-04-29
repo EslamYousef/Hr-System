@@ -79,11 +79,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accomplish.
+        /// </summary>
+        public static string accomplish {
+            get {
+                return ResourceManager.GetString("accomplish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity number.
         /// </summary>
         public static string Activitynumber {
             get {
                 return ResourceManager.GetString("Activitynumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Business trip Request.
+        /// </summary>
+        public static string addbusinesstriprequest1 {
+            get {
+                return ResourceManager.GetString("addbusinesstriprequest1", resourceCulture);
             }
         }
         
@@ -192,6 +210,15 @@ namespace HR.Resource {
         public static string addupdatecase {
             get {
                 return ResourceManager.GetString("addupdatecase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create Work permission request.
+        /// </summary>
+        public static string addworkpermissionrequest1 {
+            get {
+                return ResourceManager.GetString("addworkpermissionrequest1", resourceCulture);
             }
         }
         
@@ -327,6 +354,15 @@ namespace HR.Resource {
         public static string Businesstrip {
             get {
                 return ResourceManager.GetString("Businesstrip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Business trip Request.
+        /// </summary>
+        public static string businesstriprequest {
+            get {
+                return ResourceManager.GetString("businesstriprequest", resourceCulture);
             }
         }
         
@@ -736,6 +772,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Working Days.
+        /// </summary>
+        public static string days {
+            get {
+                return ResourceManager.GetString("days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Day Status Color.
         /// </summary>
         public static string daystatuscolor {
@@ -849,6 +894,15 @@ namespace HR.Resource {
         public static string deletemessage {
             get {
                 return ResourceManager.GetString("deletemessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinner.
+        /// </summary>
+        public static string dinner {
+            get {
+                return ResourceManager.GetString("dinner", resourceCulture);
             }
         }
         
@@ -1294,6 +1348,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dose the employee carry important documents.
+        /// </summary>
+        public static string important {
+            get {
+                return ResourceManager.GetString("important", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integrate With Leaves.
         /// </summary>
         public static string integratewithleaves {
@@ -1438,6 +1501,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location of duty.
+        /// </summary>
+        public static string locationduty {
+            get {
+                return ResourceManager.GetString("locationduty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logic operators.
         /// </summary>
         public static string logicoper {
@@ -1452,6 +1524,24 @@ namespace HR.Resource {
         public static string lookup {
             get {
                 return ResourceManager.GetString("lookup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lunch.
+        /// </summary>
+        public static string lunch {
+            get {
+                return ResourceManager.GetString("lunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lunch basket.
+        /// </summary>
+        public static string lunch_p {
+            get {
+                return ResourceManager.GetString("lunch_p", resourceCulture);
             }
         }
         
@@ -1479,6 +1569,24 @@ namespace HR.Resource {
         public static string mathoper {
             get {
                 return ResourceManager.GetString("mathoper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meals option.
+        /// </summary>
+        public static string mealoption {
+            get {
+                return ResourceManager.GetString("mealoption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meals.
+        /// </summary>
+        public static string meals {
+            get {
+                return ResourceManager.GetString("meals", resourceCulture);
             }
         }
         
@@ -1735,6 +1843,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Planed permission.
+        /// </summary>
+        public static string planedpermission {
+            get {
+                return ResourceManager.GetString("planedpermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
         public static string position {
@@ -1758,6 +1875,15 @@ namespace HR.Resource {
         public static string positioninformation {
             get {
                 return ResourceManager.GetString("positioninformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position profile number.
+        /// </summary>
+        public static string positionprofilenumber {
+            get {
+                return ResourceManager.GetString("positionprofilenumber", resourceCulture);
             }
         }
         
@@ -1852,6 +1978,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purpose of duty.
+        /// </summary>
+        public static string purposeduty {
+            get {
+                return ResourceManager.GetString("purposeduty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string Question {
@@ -1866,6 +2001,15 @@ namespace HR.Resource {
         public static string questiondescription {
             get {
                 return ResourceManager.GetString("questiondescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason of work.
+        /// </summary>
+        public static string reason {
+            get {
+                return ResourceManager.GetString("reason", resourceCulture);
             }
         }
         
@@ -1929,6 +2073,15 @@ namespace HR.Resource {
         public static string Recordvalue {
             get {
                 return ResourceManager.GetString("Recordvalue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remarks.
+        /// </summary>
+        public static string remarks {
+            get {
+                return ResourceManager.GetString("remarks", resourceCulture);
             }
         }
         
@@ -2028,6 +2181,15 @@ namespace HR.Resource {
         public static string Sectormanagerevaluation {
             get {
                 return ResourceManager.GetString("Sectormanagerevaluation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivered to security sector.
+        /// </summary>
+        public static string security {
+            get {
+                return ResourceManager.GetString("security", resourceCulture);
             }
         }
         
@@ -2212,6 +2374,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total rate.
+        /// </summary>
+        public static string totalrate {
+            get {
+                return ResourceManager.GetString("totalrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Time.
         /// </summary>
         public static string TotalTime {
@@ -2334,6 +2505,24 @@ namespace HR.Resource {
         public static string worklocation {
             get {
                 return ResourceManager.GetString("worklocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work permission request.
+        /// </summary>
+        public static string workpermissionrequest {
+            get {
+                return ResourceManager.GetString("workpermissionrequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work permission type.
+        /// </summary>
+        public static string workpermissiontype {
+            get {
+                return ResourceManager.GetString("workpermissiontype", resourceCulture);
             }
         }
         

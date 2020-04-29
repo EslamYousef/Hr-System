@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HR.Models.Infra;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,5 +25,8 @@ namespace HR.Models.Time_management
         public string Notes { get; set; }
         public TimeSpan From { get; set; }
         public TimeSpan To { get; set; }
+        public virtual status status { get; set; }
+        public int statusID { get; set; }
+        public check_status check_status { get; set; }
     }
 }

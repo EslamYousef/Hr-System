@@ -124,6 +124,8 @@ namespace HR.Models
 
         public virtual List<Employee_Shift_schedule> Employee_Shift_schedule { get; set; }
         public virtual List<Exit_permission_request> Exit_permission_request { get; set; }
+        public virtual List<workpermissionrequest> workpermissionrequest { get; set; }
+        public virtual List<business_trip_request> business_trip_request { get; set; }
         //public string tab { get; set; }
 
         //[DataType(DataType.DateTime)]

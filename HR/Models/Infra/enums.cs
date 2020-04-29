@@ -575,4 +575,17 @@ namespace HR.Models.Infra
         Rejected = 3,
         Canceled = 4
     }
+    public enum work_permission_type
+    {
+        continous_of_work=1,
+        return_back_After_duty=2,
+        at_weekends_or_holidays=3
+    }
+    public enum meals
+    {
+        lunch_basket=1,
+        lunch=2,
+        dinner=3
+
+    }
 }
