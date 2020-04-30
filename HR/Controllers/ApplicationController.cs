@@ -116,10 +116,10 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("Create", "Personnel_Committee_Profile", new { id = record.ID });
                     }
-                    if (Command == "Submit10")
-                    {
-                        return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
-                    }
+                    //if (Command == "Submit10")
+                    //{
+                    //    return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
+                    //}
                    
                     //if (MyItem == null)
                     //{
@@ -290,14 +290,14 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("Create", "Personnel_Committee_Profile", new { id = record.ID });
                 }
-                if (Hiring_Check_List != null && Command == "Submit10")
-                {
-                    return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
-                }
-                else if (Hiring_Check_List == null && Command == "Submit10")
-                {
-                    return RedirectToAction("Create", "Hiring_Check_List", new { id = record.ID });
-                }
+                //if (Hiring_Check_List != null && Command == "Submit10")
+                //{
+                //    return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
+                //}
+                //else if (Hiring_Check_List == null && Command == "Submit10")
+                //{
+                //    return RedirectToAction("Create", "Hiring_Check_List", new { id = record.ID });
+                //}
 
 
                 return RedirectToAction("index");

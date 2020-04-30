@@ -64,16 +64,20 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-2">
-                                        <span> Full</span>
+                                        <span>@Personnel.FullNameAr</span>
                                     </label>
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.Full, new SelectList(ViewBag.Full, "ID", "Code"), new { @onchange = "changeSelection(this.value)", @data_placeholder = organ.parentjob, @class = "form-control select2", @multiple = "multiple" })
+                                        @Html.DropDownListFor(m => m.Full, new SelectList(ViewBag.Full, "ID", "Code"), new
+                                        {
+                                            @onchange = "changeSelection(this.value)",@*@data_placeholder = organ.parentjob,*@ @class = "form-control select2",
+                                            @multiple = "multiple"
+                                        })
                                     </div>
                                     <label class="control-label col-md-2">
-                                        Full_Name
+                                        @Personnel.FullNameEn
                                     </label>
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.Full_Name, new SelectList(ViewBag.Full_Name, "ID", "Code"), new { @data_placeholder = organ.JobLevelSetup, @class = "select2", @style = "width:100%", @multiple = "multiple" })
+                                        @Html.DropDownListFor(m => m.Full_Name, new SelectList(ViewBag.Full_Name, "ID", "Code"), new { @*@data_placeholder = organ.JobLevelSetup,*@ @class = "select2", @style = "width:100%", @multiple = "multiple" })
                                     </div>
 
 
@@ -95,7 +99,7 @@
                                     </div>
 
                                     <label class="control-label col-md-2">
-                                        Religion
+                                        @Personnel.Religion
                                     </label>
                                     <div class="col-md-4">
                                         @Html.DropDownListFor(m => m.Religion, new SelectList(ViewBag.Religion, "ID", "Code"), new { @class = "select2", @multiple = "multiple" })
@@ -105,13 +109,13 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-2">
-                                        Gender
+                                        @Personnel.Gender
                                     </label>
                                     <div class="col-md-4">
                                         @Html.EnumDropDownListFor(m => m.Gender, new { @data_placeholder = organ.working_system, @class = "select2", @multiple = "multiple" })
                                     </div>
                                     <label class="control-label col-md-2">
-                                        ID_type
+                                        @Personnel.IDtype
                                     </label>
                                     <div class="col-md-4">
                                         @Html.EnumDropDownListFor(m => m.ID_type, new { @data_placeholder = organ.parment, @class = "select2", @multiple = "multiple" })
@@ -119,13 +123,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">
-                                        Blood_group
+                                        @Personnel.Bloodgroup
                                     </label>
                                     <div class="col-md-4">
                                         @Html.EnumDropDownListFor(m => m.Blood_group, new { @data_placeholder = organ.working_system, @class = "select2", @multiple = "multiple" })
                                     </div>
                                     <label class="control-label col-md-2">
-                                        Marital_Status
+                                        @Personnel.MaritalStatus
                                     </label>
                                     <div class="col-md-4">
                                         @Html.EnumDropDownListFor(m => m.Marital_Status, new { @data_placeholder = organ.parment, @class = "select2", @multiple = "multiple" })
@@ -181,19 +185,19 @@
                                         @organ.selectcolumnstoDisplay
                                     </label>
                                     <select data_placeholder=@organ.selectcolumnstoDisplay name="List_Display" class="select2 col-md-4" multiple="multiple">
-                                        <option value="0">full </option>
-                                        <option value="1">Full_Name </option>
+                                        <option value="0">@Personnel.FullNameAr </option>
+                                        <option value="1">@Personnel.FullNameEn </option>
                                         @*<option value="2">Description </option>
                         <option value="3">Job Summery </option>*@
-                                    <option value="4">Nationality</option>
-                                    <option value="6">Religion </option>
-                                    <option value="7">Gender </option>
-                                    <option value="8">ID_type </option>
-                                    <option value="9">Blood_group </option>
-                                    <option value="10">Marital_Status </option>
+                                    <option value="4">@Personnel.Nationality</option>
+                                    <option value="6">@Personnel.Religion </option>
+                                    <option value="7">@Personnel.Gender </option>
+                                    <option value="8">@Personnel.IDtype </option>
+                                    <option value="9">@Personnel.Bloodgroup </option>
+                                    <option value="10">@Personnel.MaritalStatus </option>
                                         @*<option value="11">Gender </option>*@
                                         @*<option value="12">nationlity</option>*@
-                                        <option value="13">Validity </option>
+                                    <option value="13">@organ.validity </option>
                                         <option value="14">Type of worke </option>
                                     </select>
                                 </div>

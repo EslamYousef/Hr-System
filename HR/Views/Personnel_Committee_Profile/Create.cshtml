@@ -55,7 +55,7 @@
 
     <section class="content-header">
         <h1>
-            @Personnel.CreateLinkedtoTesting
+            @Personnel.CreatePersonnelCommitteeProfile
         </h1>
     </section>
 
@@ -90,31 +90,31 @@
                         <div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Committe Resolution No.</label>
+                                <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
                                 <div class="col-md-3">
                                     <input type="text" value="@ViewBag.ApplicationCode" disabled class="code" />
                                 </div>
-                                <label class="control-label col-md-2">Application Id</label>
+                                <label class="control-label col-md-2">@Personnel.ApplicantId</label>
                                 <div class="col-md-3">
                                     <input type="text" value="@ViewBag.ApplicationApp" disabled />
                                 </div>
-                                <div class="col-md-3">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Application</button>
+                                <div class="col-md-2">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Application</button>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">
-                                    <span>@Personnel.Test</span>
+                                    <span>@Personnel.Committe_Resolution_Recuirtment</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.Committe_Resolution_Recuirtment, "ID", "Code"), Personnel.SelectTest, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.Committe_Resolution_Recuirtment, "ID", "Code"), Personnel.SelectCommitte_Resolution_Recuirtment, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
                                 </div>
                                 <label class="control-label col-md-2">
-                                    <span>@Personnel.Location</span>
+                                    <span>@Personnel.CommitteeActivites</span>
                                 </label>
                                 <div class="col-md-3">
-                                    @Html.DropDownList("fw", new SelectList(ViewBag.Committe_Activities, "ID", "Code"), Personnel.SelectTest, new { @required = "required", @class = "select2", @onchange = "getallCommitteeActivities()", id = "employeeId", disabled= "disabled" })
+                                    @Html.DropDownList("fw", new SelectList(ViewBag.Committe_Activities, "ID", "Code"), Personnel.SelectCommitteeActivites, new { @required = "required", @class = "select2", @onchange = "getallCommitteeActivities()", id = "employeeId", disabled= "disabled" })
                                 </div>
                                 <div class="col-md-2">
                                     <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
@@ -123,10 +123,10 @@
                             <table id="tb-family" border="1" style="display: table; width:400px;">
                                 <thead>
                                     <tr>
-                                        <th id="fa">CommitteResolution</th>
-                                        <th id="per">Subject</th>
-                                        <th id="na">ActivitySerialNo</th>
-                                        <th id="No">CommitteeApprovalDate</th>
+                                        <th id="fa">@Personnel.CommitteResolution</th>
+                                        <th id="per">@Personnel.Subject</th>
+                                        <th id="na">@Personnel.ActivitySerialNo</th>
+                                        <th id="No">@Personnel.CommiteeApprovalDate</th>
                                        
                                     </tr>
                                 </thead>
@@ -181,7 +181,7 @@
                 success: function (result) {
 
                     $("#employeeId").removeAttr("disabled");
-                    var finalresult = "<option value='0' > Choose Committee Activities </option>";
+                    var finalresult = "<option value='0' >  @Personnel.SelectCommitteeActivites </option>";
                     $.each(result, function (key, value) {
                         finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
                     });
