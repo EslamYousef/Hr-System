@@ -116,11 +116,11 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("Create", "Personnel_Committee_Profile", new { id = record.ID });
                     }
-                    //if (Command == "Submit10")
-                    //{
-                    //    return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
-                    //}
-                   
+                    if (Command == "Submit10")
+                    {
+                        return RedirectToAction("link", "Application", new { id = record.ID });
+                    }
+
                     //if (MyItem == null)
                     //{
                     //    emp.EmpProfileIMG = null;
@@ -290,6 +290,10 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("Create", "Personnel_Committee_Profile", new { id = record.ID });
                 }
+                if (Command == "Submit10")
+                {
+                    return RedirectToAction("link", "Application", new { id = record.ID, tag = "0" });
+                }
                 //if (Hiring_Check_List != null && Command == "Submit10")
                 //{
                 //    return RedirectToAction("Edit", "Hiring_Check_List", new { id = record.ID });
@@ -367,7 +371,106 @@ namespace HR.Controllers
 
             return RedirectToAction("index");
         }
+        public ActionResult link(string id, string tag)
+            {
+            try
+            {
+                if (tag == "0")
+                {
+                    var ID = int.Parse(id);
+                    var All_Sub = dbcontext.Check_List_Items.Where(m => m.Name_of_educational_qualification_ns == id &&m.Required_on_application==true ).ToList();
+                    var mainqulifications = dbcontext.Check_List_Items.Where(a=>a.Required_on_application==true).ToList();
+                    var listt = new List<SelectListItem>();
+                    foreach (var team in mainqulifications)
+                    {
+                        //if (mainqulifications.Any(ma => ma.ID == team.Name_of_educational_qualification.ID))
+                        if (All_Sub.Any(ma => ma.ID == team.ID))
+                        {
+                            listt.Add(new SelectListItem
+                            {
+                                Text = team.Code + "-----" + team.Name,
+                                Value = team.ID.ToString(),
+                                Selected = true
+                            });
+                        }
+                        else
+                        {
+                            listt.Add(new SelectListItem
+                            {
+                                Text = team.Code + "-----" + team.Name
+                                                     ,
+                                Value = team.ID.ToString(),
+                                Selected = false
+                            });
+                        }
 
+                    }
+                    var model = new Assign_subqulifications_ViewModel { AvailableFruits = listt, nameID = id };
+                    return View(model);
+                }
+                else
+                {
+                    var model = new Assign_subqulifications_ViewModel { AvailableFruits = Getitems(), nameID = id };
+                    return View(model);
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult link(Assign_subqulifications_ViewModel model)
+        {
+            var id = int.Parse(model.nameID);
+            var name = dbcontext.Application.FirstOrDefault(m => m.ID == id);
+            if (true)
+            {
+                var ID = int.Parse(model.nameID);
+                var sub = dbcontext.Check_List_Items.ToList();
+                if (sub != null)
+                {
+                    foreach (var item in sub)
+                    {
+                        item.Name_of_educational_qualification_ns = null;
+                        item.Name_of_educational_qualification = null;
+                        dbcontext.SaveChanges();
+                    }
+                }
+
+            }
+            if (model.SelectedFruits != null)
+            {
+                foreach (var item in model.SelectedFruits)
+                {
+                    var ID = int.Parse(item);
+                    var sub = dbcontext.Check_List_Items.FirstOrDefault(m => m.ID == ID);
+                    sub.Name_of_educational_qualification_ns = name.ID.ToString();
+                    sub.Name_of_educational_qualification = name;
+                    dbcontext.SaveChanges();
+                }
+            }
+            return RedirectToAction("index");
+        }
+
+        private IList<SelectListItem> Getitems()
+        {
+            var mainqulifications = dbcontext.Check_List_Items.Where(a=>a.Required_on_application==true).ToList();
+            var listt = new List<SelectListItem>();
+            foreach (var team in mainqulifications)
+            {
+                listt.Add(new SelectListItem
+                {
+                    Text = team.Code + "-----" + team.Name
+                                             ,
+                    Value = team.ID.ToString()
+                });
+            }
+            return listt;
+
+        }
 
 
 

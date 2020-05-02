@@ -1,0 +1,102 @@
+﻿@model HR.Models.ViewModel.Assign_subqulifications_ViewModel
+@using HR.Resource;
+
+@{
+    ViewBag.Title = "link";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+    <div class="row">
+        
+        <div class="col-md-12">
+
+            <div class="panel panel-primary" data-collapsed="0">
+
+                <div class="panel-body">
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.HiringCheckList
+                        </h1>
+                    </section>
+                    @Html.AntiForgeryToken()
+                    <div class="container">
+                        @using (Html.BeginForm("link", "Application"))
+                        {
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    @Html.HiddenFor(m => m.nameID)
+                                    <table id="tb-family" border="1" style="display: table; width:400px;">
+                                        <thead>
+                                            <tr>
+                                                <th id="fa">Select</th>
+
+                                                <th id="per">@Personnel.Name</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.AvailableFruits)
+                                            {
+                                                if (item.Selected == false)
+                                                {
+
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <label>
+                                                                    <input type="checkbox" name="SelectedFruits" value="@item.Value" />
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                @item.Text
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+
+                                                        <td>
+                                                            <div>
+                                                                <label>
+                                                                    <input type="checkbox" name="SelectedFruits" checked value="@item.Value" />
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                @item.Text
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <a href="@Url.Action("index","Application")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+
+                                <input type="submit" class="btn btn-primary" value=@organ.submit />
+                            </div>
+                        }
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+@section scripts{}

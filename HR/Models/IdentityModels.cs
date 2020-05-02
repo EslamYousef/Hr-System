@@ -10,6 +10,7 @@ using HR.Areas.suberAdmin.Models;
 using HR.Models.Time_management;
 using HR.Models.All_Table_Commitee_Resolution;
 using HR.Models.Application;
+using HR.Models.SetupPayroll;
 
 namespace HR.Models
 {
@@ -246,6 +247,36 @@ namespace HR.Models
         public DbSet<business_trip_request> business_trip_request { get; set; }
         public DbSet<Personnel_Committee_Profile> Personnel_Committee_Profile { get; set; }
         public DbSet<Hiring_Check_List> Hiring_Check_List { get; set; }
+        public DbSet<Bank> Bank { get; set; }
+        public DbSet<Branch> Branch { get; set; }
+        public DbSet<CostCenter> CostCenter { get; set; }
+        public DbSet<CostCenterCategory> CostCenterCategory { get; set; }
+        public DbSet<ExtendedFields_Details> ExtendedFields_Details { get; set; }
+        public DbSet<ExtendedFields_Header> ExtendedFields_Header { get; set; }
+        public DbSet<GL_AccountSetup> GL_AccountSetup { get; set; }
+        public DbSet<Locker> Locker { get; set; }
+        public DbSet<PayrollPeriodSetup> PayrollPeriodSetup { get; set; }
+        public DbSet<PayrollTransactionJournalSetup> PayrollTransactionJournalSetup { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }
