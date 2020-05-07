@@ -30,7 +30,7 @@ namespace HR.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext() : base("HR_ERP", throwIfV1Schema: false)
+        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
@@ -258,6 +258,10 @@ namespace HR.Models
         public DbSet<PayrollPeriodSetup> PayrollPeriodSetup { get; set; }
         public DbSet<PayrollTransactionJournalSetup> PayrollTransactionJournalSetup { get; set; }
 
+        public DbSet<PayrollGeneralSetup> PayrollGeneralSetup { get; set; }
+        public DbSet<salary_code> salary_code { get; set; }
+        public DbSet<SalaryCodeGroup_Header> SalaryCodeGroup_Header { get; set; }
+        public DbSet<SalaryCodeGroup_Detail> SalaryCodeGroup_Detail { get; set; }
 
 
 
