@@ -262,6 +262,9 @@ namespace HR.Models
         public DbSet<salary_code> salary_code { get; set; }
         public DbSet<SalaryCodeGroup_Header> SalaryCodeGroup_Header { get; set; }
         public DbSet<SalaryCodeGroup_Detail> SalaryCodeGroup_Detail { get; set; }
+        public DbSet<LoanInAdvanceSetup> LoanInAdvanceSetup { get; set; }
+        public DbSet<ManualPaymentTypes_Detail> ManualPaymentTypes_Detail { get; set; }
+        public DbSet<ManualPaymentTypes_Header> ManualPaymentTypes_Header { get; set; }
 
 
 

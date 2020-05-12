@@ -1,21 +1,21 @@
-﻿@model HR.Controllers.Header
-
+﻿@model HR.Controllers.VM
+@using HR.Resource
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
-    //  Layout = "~/Views/Shared/View.cshtml";
+    
 }
 @using HR.Resource;
 <div class="panel panel-primary" data-collapsed="0">
     <div class="panel-body">
-        @using (Html.BeginForm("Create", "SalaryItemGroup_Header", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("edit", "SalaryItemGroup_Header", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <input name="item" value="" hidden />
-                    <input name="ID_item" value="" hidden />
+            <input name="ID_item" value="" hidden />
                     <input name="value" value="" hidden />
                     <input name="sort" value="" hidden />
-
+                    @Html.HiddenFor(m => m.Header.SalaryItemCollectionGroup_Header.ID);
                     <div class="form-horizontal">
                         <hr />
                         @if (TempData["Message"] != null)
@@ -31,36 +31,36 @@
                                 @organ.code
                             </label>
                             <div class="col-md-3">
-                                @Html.EditorFor(model => model.SalaryItemCollectionGroup_Header.CodeGroupID, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.SalaryItemCollectionGroup_Header.CodeGroupID, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupID, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupID, "", new { @class = "text-danger" })
 
                             </div>
                             <div class="col-md-1">
 
                             </div>
                             <div class="col-md-2">
-                            
-                                <input type="submit"  id="btnSave" class="btn btn-success" value=@pers_2.create  />
+
+                                <input type="submit" id="btnSave" class="btn btn-success" value=@organ.Save />
                             </div>
                             <div class="col-md-2">
                                 <a href="@Url.Action("index", "SalaryItemGroup_Header")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
                             </div>
-                           
+
                         </div>
                         <div class="form-group">
                             <label style="color:red" class="control-label col-md-1">
                                 @organ.name
                             </label>
                             <div class="col-md-3">
-                                @Html.EditorFor(model => model.SalaryItemCollectionGroup_Header.CodeGroupDesc, new { htmlAttributes = new { @class = "form-control"} })
-                                @Html.ValidationMessageFor(model => model.SalaryItemCollectionGroup_Header.CodeGroupDesc, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupDesc, "", new { @class = "text-danger" })
 
                             </div>
                             <label class="control-label col-md-1">
                                 @organ.description
                             </label>
                             <div class="col-md-3">
-                                @Html.EditorFor(model => model.SalaryItemCollectionGroup_Header.CodeGroupAltDesc, new { htmlAttributes = new { @class = "form-control"} })
+                                @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupAltDesc, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                         </div>
                         <div class="form-group">
@@ -68,15 +68,15 @@
                                 <span> @pers_2.codegrouptype</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.EnumDropDownListFor(m => m.code_group_type, "Select budget type", new { @class = "select2" })
-                           
+                                @Html.EnumDropDownListFor(m => m.Header.code_group_type, "Select budget type", new { @class = "select2" })
+
                             </div>
                             <label class="control-label col-md-1">
                                 <span> @pers_2.grouppurpose</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.EnumDropDownListFor(m => m.group_purpose, "Select budget type", new { @class = "select2" })
-                            
+                                @Html.EnumDropDownListFor(m => m.Header.group_purpose, "Select budget type", new { @class = "select2" })
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -84,14 +84,14 @@
                                 <span> @pers_2.Eligibilitytype</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.EnumDropDownListFor(m => m.Eligibility, "Select budget type", new { @class = "select2" })
+                                @Html.EnumDropDownListFor(m => m.Header.Eligibility, "Select budget type", new { @class = "select2" })
 
                             </div>
                             <label class="control-label col-md-1">
                                 <span> @pers_2.payrolleligibility</span>
                             </label>
                             <div class="col-md-3">
-                                @Html.EditorFor(model => model.SalaryItemCollectionGroup_Header.PayrollEligibility, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.PayrollEligibility, new { htmlAttributes = new { @class = "form-control" } })
 
 
                             </div>
@@ -105,12 +105,12 @@
                                         <span class="hidden-xs">@pers_2.Salarycode</span>
                                     </a>
                                 </li>
-                               
+
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
 
-                                    <div style="margin-bottom:15px"  class="form-group">
+                                    <div style="margin-bottom:15px" class="form-group">
                                         <label class="control-label col-md-1">
                                             <span> @pers_2.salarycodeid </span>
                                         </label>
@@ -123,37 +123,49 @@
                                         <div class="control-label col-md-1">
                                             <a onclick="additems()" style="margin-right:3px" class="btn btn-success"> @organ.additems </a>
                                         </div>
-                                        
+
                                     </div>
-                                    
-                                        <div class="form-group">
-                                            <table id="categories" class="table table-bordered table-striped text-center">
-                                                <thead>
+
+                                    <div class="form-group">
+                                        <table id="categories" class="table table-bordered table-striped text-center">
+                                            <thead>
+                                                <tr>
+                                                    <td hidden></td>
+                                                    <td class="col-md-3">
+                                                        @pers_2.Salarycode
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        @pers_2.value
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        @pers_2.sortindex
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="itemTR">
+                                                @foreach(var item in Model.SalaryCodeGroup_Detail)
+                                                {
                                                     <tr>
-                                                        <td hidden></td>
-                                                        <td class="col-md-3">
-                                                            @pers_2.Salarycode
-                                                        </td>
-                                                        <td class="col-md-1">
-                                                            @pers_2.value
-                                                        </td>
-                                                        <td class="col-md-1">
-                                                            @pers_2.sortindex
-                                                        </td>
-                                                        <td></td>
+                                                        <td hidden><input hidden name='ID_item' value="@item.salary_code.ID" /></td>
+                                                        <td class="col-md-3"><input class = 'form-control' value="@item.salary_code.SalaryCodeID - @item.salary_code.SalaryCodeDesc" readonly /></td>
+                                                        <td class="col-md-1"><input class = 'form-control'  name='value' type="number" value="@item.DefaultValue" min="0" /></td>
+                                                        <td class="col-md-1"><input class = 'form-control'  name='sort' type="number" value="@item.SortIndex" min="0" /></td>
+                                                        <td class="col-md-1"><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td>
                                                     </tr>
-                                                </thead>
+                                                  
+                                                }
+                                            </tbody>
+                                        </table>
 
-                                                <tbody id="itemTR"></tbody>
-                                            </table>
+                                    </div>
 
-                                        </div>
-                                    
                                 </div>
                             </div>
 
 
-                          
+
                         </div>
                     </div>
         }
@@ -161,7 +173,9 @@
 </div>
 @section scripts{}
 <script>
-
+    function remove(thi) {
+        thi.parent().parent().remove();
+    }
     function additems()
     {
 
@@ -171,6 +185,7 @@
                 alert('you must choose salary item ');
             }
             else {
+
                 var i = "";
                 var d = $("#ite").val();
                 var firstdrop = " ";

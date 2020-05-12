@@ -1,0 +1,450 @@
+﻿@model HR.Controllers.Loan_VM
+
+@using HR.Resource
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.LOAN_in_Advance_setup
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "LoanInAdvanceSetup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        <input name="A1" value="" hidden />
+                        <input name="A2" value="" hidden />
+                        <input name="A3" value="" hidden />
+                        <input name="A4" value="" hidden />
+                        <input name="A5" value="" hidden />
+
+                        <div class="form-group">
+                            <label style="color:red" class="control-label col-md-1">
+                                @pers_2.code
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.LoanInAdvanceSetup.LoanTypeCode, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanInAdvanceSetup.LoanTypeCode, "", new { @class = "text-danger" })
+                            </div>
+
+                            <label style="color:red" class="control-label col-md-1">
+                                <span> @Personnel.Name </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.LoanInAdvanceSetup.LoanTypeDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanInAdvanceSetup.LoanTypeDesc, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div>
+                                <div class="col-md-2" style="color:black">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success"> @pers_2.create</button>
+                                </div>
+                                <div class="col-md-1">
+                                    <a style="width:100%" href="@Url.Action("index","LoanInAdvanceSetup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-1">
+                                <span> @organ.description </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.LoanInAdvanceSetup.LoanTypeAltDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanInAdvanceSetup.LoanTypeAltDesc, "", new { @class = "text-danger" })
+                            </div>
+
+                            <label class="control-label col-md-1">
+                                <span> @pers_2.loan_eligibility_type </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.EnumDropDownListFor(m => m.loan_eligibility_type, pers_2.codetype, new { @class = "select2", @id = "Country88",@Onclick= "openlig()" })
+                            </div>
+
+                            <label class="control-label col-md-1">
+                                <span id="lableg"> @pers_2.eligibility_matrix </span>
+                            </label>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.LoanInAdvanceSetup.EligibilityMatrixCode, new SelectList(ViewBag.salary_code, "ID", "Code"), pers_2.checktype, new { @class = "select2", @id = "elig1211"  ,@disabled = true })
+
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#General" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@pers_2.loan_amount</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#Rounding" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@pers_2.loan_installment</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#general" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@pers_2.generalsetting</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <div class="tab-content">
+                            <div id="General" class="tab-pane active" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="form-group">
+                                    <div class="col-md-1"></div>
+                                    @if (Model.LoanInAdvanceSetup.EnableToGenerateManualPayment == true)
+                                    {
+                                        <div>
+                                            <input  type="checkbox" onchange="check1(this)" style="position:center" value="on" checked class="icheck col-md-1" name="A1" id="ch3" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <input type="checkbox" onchange="check1(this)" value="on" style="position:center" class="icheck col-md-1" name="A1" id="ch3" />
+                                        </div>
+                                    }
+
+                                    <label class="control-label col-md-1">
+                                        @pers_2.enable_to_generate_manual_payment
+                                    </label>
+
+                                   
+                                    <label class="control-label col-md-1">
+                                        <span id="lableg2"> @pers_2.manual_payment </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(m => m.LoanInAdvanceSetup.ManualPaymentCode, new SelectList(ViewBag.salary_code, "ID", "Code"), pers_2.checktype, new { @class = "select2", @id = "elig2", @disabled = true })
+
+                                    </div>
+
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.loan_amount_type </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EnumDropDownListFor(m => m.loan_amount_type, pers_2.codetype, new { @class = "select2", @id = "Country4778", @Onclick = "openlig2()" })
+                                    </div>
+
+                                </div>
+                                <div class="form-group" id="r1">
+
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.minimumamount </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.LoanInAdvanceSetup.MinimumAmount, new { htmlAttributes = new {id="m1", @min = "0", @type = "number", @class = "form-control" } })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.maximumamount </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.LoanInAdvanceSetup.MaximumAmount, new { htmlAttributes = new {id="x1", @min = "0", @type = "number", @class = "form-control" } })
+                                    </div>
+                                   <div class="col-md-1"></div>
+                                    @if (Model.LoanInAdvanceSetup.EnableLoanAmountRestriction == true)
+                                    {
+                                        <div>
+                                            <input type="checkbox"  value="on" checked class="icheck col-md-1" name="A2" id="ch33" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <input type="checkbox"  value="on" class="icheck col-md-1" name="A2" id="ch33" />
+                                        </div>
+                                    }
+                                    <label class="control-label col-md-1">
+                                        @pers_2.enable_loan_amount_restriction
+                                    </label>
+                                </div>
+                                <div class="form-group"  id="r2">
+
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.percentage </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.LoanInAdvanceSetup.Percentage, new { htmlAttributes = new { id = "x991", @min = "0", @type = "number", @class = "form-control", @disabled = true } })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        <span id="lableg2d"> @pers_2.Salarycode </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(m => m.LoanInAdvanceSetup.SalaryCodeAmount, new SelectList(ViewBag.salary_code, "ID", "Code"), pers_2.checktype, new { @class = "select2", @id = "elig33", @disabled = true })
+                                    </div>
+                                 
+                                </div>
+                           
+
+                            </div>
+                            <div class="tab-pane" id="Rounding" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.installment_period_type </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EnumDropDownListFor(m => m.installment_period_type, pers_2.codetype, new { @class = "select2", @id = "Country478", @Onclick = "openlig3()" })
+                                    </div>
+
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.period_length </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.LoanInAdvanceSetup.PeriodLength, new { htmlAttributes = new { id = "x121", @min = "0", @type = "number", @class = "form-control" } })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.installment_amount </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.LoanInAdvanceSetup.InstallmentAmount, new { htmlAttributes = new { id = "x1211", @min = "0", @type = "number", @class = "form-control", @disabled = true } })
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="col-md-1"></div>
+                                        @if (Model.LoanInAdvanceSetup.EnableFreezing == true)
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" value="on" checked class="icheck" name="A3" id="c44" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" value="on" class="icheck" name="A3" id="c44" />
+                                            </div>
+                                        }
+                                        <label class="control-label col-md-1">
+                                            <span id="c22"> @pers_2.enable_freezing </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-1"></div>
+                                        @if (Model.LoanInAdvanceSetup.EnableAutomaticPayrollDeduction == true)
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" value="on" onclick="check2((this))" checked class="icheck" name="A4" id="c414" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-1">
+                                                <input type="checkbox" value="on" onclick="check2((this))" class="icheck" name="A4" id="c414" />
+                                            </div>
+                                        }
+                                        <label class="control-label col-md-1">
+                                            <span> @pers_2.enable_automatic_payroll_deduction </span>
+                                        </label>
+                                    </div>
+
+                                  
+                                   <div class="form-group">
+                                       <label class="control-label col-md-1">
+                                           <span id="lableg12"> @pers_2.monthly_salary_code </span>
+                                       </label>
+                                       <div class="col-md-2">
+                                           @Html.DropDownListFor(m => m.LoanInAdvanceSetup.SalaryCodeID, new SelectList(ViewBag.salary_code, "ID", "Code"), pers_2.debitaccount, new { @class = "select2", @id = "C500", @disabled = true })
+
+                                       </div>
+                                       <label class="control-label col-md-1">
+                                           <span> @pers_2.number_of_installments </span>
+                                       </label>
+                                       <div class="col-md-2">
+                                           @Html.EditorFor(model => model.LoanInAdvanceSetup.NumberOfDeductedInstallments, new { htmlAttributes = new { id = "x11", @min = "0", @type = "number", @class = "form-control", @disabled = true } })
+                                       </div>
+                                   </div>
+                                   
+                                  
+                              
+
+                            </div>
+                            <div class="tab-pane" id="general" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="form-group">
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.interval </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.interval, new { htmlAttributes = new {  @min = "0", @type = "number", @class = "form-control" } })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.interval_type </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EnumDropDownListFor(m => m.interval_type, pers_2.codetype, new { @class = "select2" })
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        <span> @pers_2.interval_period </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        @Html.EditorFor(model => model.LoanInAdvanceSetup.IntervalPeriod, new { htmlAttributes = new { @min = "0", @type = "number", @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-1"></div>
+                                    @if (Model.LoanInAdvanceSetup.EnableToRecuiningLoanRequestAutomaticAfterCloseTheRequest == true)
+                                    {
+                                        <div class="col-md-1">
+                                            <input type="checkbox" value="on" checked class="icheck" name="A3" id="c44" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-1">
+                                            <input type="checkbox" value="on" class="icheck" name="A3" id="c44" />
+                                        </div>
+                                    }
+                                    <label class="control-label col-md-5">
+                                        <span id="c22"> @pers_2.enable_to_recuining_loan_request_automatic_after_close_the_requset </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+
+<script>
+    $(function () {
+        openlig();
+        openlig2();
+        openlig3();
+        var a1 = document.getElementById("ch3");
+        var a2 = document.getElementById("c414");
+        check1(a1);
+        check2(a2);
+      
+
+
+
+     
+    })
+    function openlig() {
+        var value = $("#Country88").val();
+        debugger
+       if(value==2)
+       {
+           $("#elig1211").removeAttr('disabled');
+           document.getElementById('lableg').style.color = 'red';
+       }
+       else
+       {
+           $("#elig1211").attr('disabled', true);
+           document.getElementById('lableg').style.color = 'gray';
+       }
+    }
+    function check1(checkbox) {
+        if (checkbox.checked == true) {
+
+            $("#elig2").removeAttr('disabled');
+            document.getElementById('lableg2').style.color = 'red';
+        }
+        else {
+            $("#elig2").attr('disabled', true);
+
+            document.getElementById('lableg2').style.color = 'gray';
+        }
+    }
+    function openlig2()
+    {
+        debugger
+        var value = $("#Country4778").val();
+        if (value == 1) {
+            $("#ch33").removeAttr("disabled");
+            $("#m1").removeAttr("disabled");
+            $("#x1").removeAttr("disabled");
+
+
+            $("#x991").attr('disabled', true);
+            $("#elig33").attr('disabled', true);
+            document.getElementById('lableg2d').style.color = 'gray';
+
+        }
+        else {
+            $("#ch33").attr("disabled", true);
+            $("#m1").attr("disabled", true);
+            $("#x1").attr("disabled", true);
+            $("#x991").removeAttr('disabled');
+            $("#elig33").removeAttr('disabled');
+            document.getElementById('lableg2d').style.color = 'red';
+
+        }
+    }
+    function openlig3() {
+        debugger
+        var value = $("#Country478").val();
+        if (value == 1) {
+            $("#x121").removeAttr("disabled");
+            $("#x1211").attr('disabled', true);
+            $("#x1211").val(0);
+        }
+        else if(value == 2)
+        {
+            $("#x121").attr("disabled", true);
+            $("#x1211").removeAttr('disabled');
+            $("#x121").val(0);
+        }
+        else
+        {
+            $("#x1211").attr('disabled', true);
+            $("#x121").attr('disabled', true);
+            $("#x1211").val(0);
+            $("#x121").val(0);
+        }
+    }
+    function check2(checkbox) {
+
+        if (checkbox.checked == true) {
+            $("#C500").removeAttr('disabled');
+            $("#x11").removeAttr('disabled');
+            document.getElementById('lableg12').style.color = 'red';
+
+        }
+        else {
+            $("#C500").attr('disabled', true);
+            $("#x11").attr('disabled', true);
+            document.getElementById('lableg12').style.color = 'gray';
+
+
+        }
+    }
+   
+   
+</script>
+@section scripts{}

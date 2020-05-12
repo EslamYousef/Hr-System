@@ -61,8 +61,9 @@ namespace HR.Models.SetupPayroll
         public Nullable<System.DateTime> Modified_Date { get; set; }
         public int RowIndx { get; set; }
        
-    
-      
-        
+    public virtual List<SalaryCodeGroup_Detail> SalaryCodeGroup_Detail { get; set; }
+
+
+
     }
 }

@@ -115,9 +115,13 @@
                                 <span> @pers_2.documententry </span>
                             </label>
                             <div class="col-md-3">
-                                @Html.EnumDropDownListFor(m => m.Document_entry, pers_2.documententry, new { @class = "select2", @id = "Country1" })
+                                @Html.EnumDropDownListFor(m => m.Document_entry, pers_2.documententry, new { @class = "select2", @id = "Country78", onclick="dis()" })
                             </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-3">
+                                <button type="submit" disabled id="ass" name="Command" value="assign" class="btn">assign value of this item for all employees</button>
 
+                            </div>
                         </div>
                         <div class="form-group">
 
@@ -126,6 +130,11 @@
                             </label>
                             <div class="col-md-3">
                                 @Html.EnumDropDownListFor(m => m.cost_center_type, pers_2.costcnetertype, new { @class = "select2", @id = "Country1" })
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-3">
+                                <button type="submit" name="Command" value="deleteitem" class="btn">delete value of this item from all financial contract for all employees</button>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -370,6 +379,18 @@
         check3(a3);
         check4(a4);
     })
+    function dis()
+    {
+        var val = $("#Country78").val();
+        if(val=="1")
+        {
+            $("#ass").removeAttr('disabled');
+        }
+        else
+        {
+            $("#ass").attr('disabled', true);
+        }
+    }
     function check1(checkbox) {
         if (checkbox.checked == true) {
 

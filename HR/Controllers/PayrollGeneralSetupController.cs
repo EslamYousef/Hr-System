@@ -23,21 +23,22 @@ namespace HR.Controllers
 
             try
             {
-                ViewBag.defaultpayrollperiod = dbcontext.PayrollPeriodSetup.ToList().Select(m => new { Code = m.PeriodCode + "-[" + m.PeriodDesc + ']', ID = m.ID });
-                ViewBag.accountnumberforaccruedasallery = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
-                ViewBag.defaultaccountnumberforaccruedpayment = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
-                ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
-                ViewBag.deathdaysubscriptioncode = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
-                ViewBag.Basicsallarycode = dbcontext.salary_code.ToList();  ///contract and transaction
-                ViewBag.totalexcludedallwencecode = dbcontext.salary_code.ToList();   ///contract and transaction
-                ViewBag.earnedsallarycode = dbcontext.salary_code.ToList();     ///earned money type
-                ViewBag.deductedsallerycode = dbcontext.salary_code.ToList();   ///deducted money type
-                ViewBag.Deathdaysallarycode = dbcontext.salary_code.ToList();   ///all earned or deducted transaction
+                ViewBag.defaultpayrollperiod = dbcontext.PayrollPeriodSetup.ToList().Select(m => new { Code = m.PeriodCode + "-[" + m.PeriodDesc + ']', ID = m.ID }).ToList();
+                ViewBag.accountnumberforaccruedasallery = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID }).ToList();
+                ViewBag.defaultaccountnumberforaccruedpayment = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID }).ToList();
+                ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID }).ToList();
+                ViewBag.deathdaysubscriptioncode = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID }).ToList();
+                ViewBag.Basicsallarycode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); ///contract and transaction
+                ViewBag.totalexcludedallwencecode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();   ///contract and transaction
+                ViewBag.earnedsallarycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();      ///earned money type
+                ViewBag.deductedsallerycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();    ///deducted money type
+                ViewBag.Deathdaysallarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
+
                 var recod = new PayrollGeneralSetup {AllowToRounding=false, Length_Of_Segment=0,Number_Of_Account_Segments=0,Value=0,Rest_On_The_First_Punishment=true};
                 var model = new PayrollGeneralSetupVM {PayrollGeneralSetup=recod, Rounding_method=new Rounding_method(),ERP_INTERGRATION_TYPE=new ERP_INTERGRATION_TYPE(),GL_cost_center_distribution_behavior=new GL_cost_center_distribution_behavior()};
                 return View(model);
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return RedirectToAction("index");
             }
@@ -54,12 +55,12 @@ namespace HR.Controllers
                 ViewBag.defaultaccountnumberforaccruedpayment = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
                 ViewBag.deathdaysubscriptioncode = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
-                ViewBag.Basicsallarycode = dbcontext.salary_code.ToList();
-                ViewBag.totalexcludedallwencecode = dbcontext.salary_code.ToList();
-                ViewBag.earnedsallarycode = dbcontext.salary_code.ToList();
-                ViewBag.deductedsallerycode = dbcontext.salary_code.ToList();
-                ViewBag.Deathdaysallarycode = dbcontext.salary_code.ToList();
-           
+                ViewBag.Basicsallarycode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); ///contract and transaction
+                ViewBag.totalexcludedallwencecode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();   ///contract and transaction
+                ViewBag.earnedsallarycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();      ///earned money type
+                ViewBag.deductedsallerycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();    ///deducted money type
+                ViewBag.Deathdaysallarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
+
                 var new_model = model.PayrollGeneralSetup;
                 var allow = form["check_A"].Split(',');
                 var PUNI = form["check_B"].Split(',');
@@ -111,11 +112,12 @@ namespace HR.Controllers
                 ViewBag.defaultaccountnumberforaccruedpayment = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
                 ViewBag.deathdaysubscriptioncode = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
-                ViewBag.Basicsallarycode = dbcontext.salary_code.ToList();
-                ViewBag.totalexcludedallwencecode = dbcontext.salary_code.ToList();
-                ViewBag.earnedsallarycode = dbcontext.salary_code.ToList();
-                ViewBag.deductedsallerycode = dbcontext.salary_code.ToList();
-                ViewBag.Deathdaysallarycode = dbcontext.salary_code.ToList();
+                ViewBag.Basicsallarycode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); ///contract and transaction
+                ViewBag.totalexcludedallwencecode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();   ///contract and transaction
+                ViewBag.earnedsallarycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();      ///earned money type
+                ViewBag.deductedsallerycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();    ///deducted money type
+                ViewBag.Deathdaysallarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
+
 
                 var rec = dbcontext.PayrollGeneralSetup.FirstOrDefault(m => m.ID == id);
 
@@ -135,11 +137,12 @@ namespace HR.Controllers
             ViewBag.defaultaccountnumberforaccruedpayment = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
             ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
             ViewBag.deathdaysubscriptioncode = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
-            ViewBag.Basicsallarycode = dbcontext.salary_code.ToList();
-            ViewBag.totalexcludedallwencecode = dbcontext.salary_code.ToList();
-            ViewBag.earnedsallarycode = dbcontext.salary_code.ToList();
-            ViewBag.deductedsallerycode = dbcontext.salary_code.ToList();
-            ViewBag.Deathdaysallarycode = dbcontext.salary_code.ToList();
+            ViewBag.Basicsallarycode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); ///contract and transaction
+            ViewBag.totalexcludedallwencecode = dbcontext.salary_code.Where(m => m.SourceEntry == 1 || m.SourceEntry == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();   ///contract and transaction
+            ViewBag.earnedsallarycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();      ///earned money type
+            ViewBag.deductedsallerycode = dbcontext.salary_code.Where(m => m.CodeGroupType == 2).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();    ///deducted money type
+            ViewBag.Deathdaysallarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
+
             var record_edit = dbcontext.PayrollGeneralSetup.FirstOrDefault(m => m.ID == model.PayrollGeneralSetup.ID);
 
             //var new_model = model.PayrollGeneralSetup;

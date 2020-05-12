@@ -50,7 +50,7 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult create(salary_codeVM model,FormCollection form)
+        public ActionResult create(salary_codeVM model,FormCollection form,string Command)
         {
             try
             {
@@ -222,6 +222,22 @@ namespace HR.Controllers
 
                 dbcontext.salary_code.Add(new_model);
                 dbcontext.SaveChanges();
+                if(Command == "assign")
+                {
+
+
+
+
+
+                }
+                if (Command == "deleteitem")
+                {
+
+
+
+
+
+                }
                 return RedirectToAction("index");
             }
             catch (Exception)
@@ -250,7 +266,7 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult edit(salary_codeVM model, FormCollection form)
+        public ActionResult edit(salary_codeVM model, FormCollection form,string Command)
         {
             try
             {
@@ -427,6 +443,22 @@ namespace HR.Controllers
 
                 }
                 dbcontext.SaveChanges();
+                if (Command == "assign")
+                {
+
+
+
+
+
+                }
+                if (Command == "deleteitem")
+                {
+
+
+
+
+
+                }
                 return RedirectToAction("index");
             }
             catch(Exception)
