@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
     }
 <!-- page script -->
+<script src="~/Content/neon/assets/js/datatables/datatables.js"></script>
 <script>
+
     var $ = jQuery;
 
     $(document).ready(function () {
@@ -207,8 +209,7 @@
                     </div>
 
 
-                    <div class="form-group" style="margin-top:70px">
-                        <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <table id="categories" style="margin-top:70px" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th> @pers_2.number</th>
@@ -241,10 +242,10 @@
                                     <td>
                                   @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
                                   {
-                                        <a href=@Url.Action("Edit", "personnel_transaction", new { id = item.ID }) class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                        <a href=@Url.Action("Edit", "personnel_transaction", new { id = item.ID }) class="create-btn" style="width:70px"><i class="fa fa-edit"></i> @organ.change</a>
                                   }
-                                              <a href=@Url.Action("Delete","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
-                                        <a href=@Url.Action("status","personnel_transaction",new {id=item.ID}) class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+                                              <a href=@Url.Action("Delete","personnel_transaction",new {id=item.ID}) class="create-btn"><i class="far fa-trash-alt"></i> @pers_2.delete</a>
+                                        <a href=@Url.Action("status","personnel_transaction",new {id=item.ID}) class="create-btn"><i class="fas fa-shield-alt"></i> @pers_2.status</a>
 
                                     </td>
                                 </tr>
@@ -262,7 +263,6 @@
                                     </tr>*@
                             </tfoot>
                         </table>
-                    </div>
                 </div>
             </div>
 
@@ -272,3 +272,23 @@
 
 
     @section scripts{}
+<style>
+    table{
+    margin-top:70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+    white-space: nowrap;
+    }
+
+    table thead{
+        border-bottom: 3px solid #bbb
+    }
+    .create-btn{
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000
+    }
+    .create-btn svg{
+        color:#0d62aa
+    }
+</style>

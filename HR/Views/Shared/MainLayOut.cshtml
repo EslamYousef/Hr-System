@@ -18,8 +18,9 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
-
+@*   <link rel="stylesheet" href="~/Content/neon/assets/layout/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="~/Content/neon/assets/layout/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/neon/assets/layout/css/style.css">
 
 
     @if (Session["lang"] != null && Session["lang"].ToString() == "ar-EG")
@@ -68,14 +69,14 @@
         <script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
         @*<script src="~/Content/neon/assets/js/jquery-ui.js" ></script>
         <script src="~/Content/neon/assets/js/custom-all.js"></script>*@
-
+    
     }
 </head>
 
 <body class="page-body  page-left-in" data-url="http://neon.dev">
 
-    <div class="page-container @HR.Resource.Personnel.sidebarcollapsed">
-         @*sidebar-collapsed right-sidebar*@
+    @*<div class="page-container @HR.Resource.Personnel.sidebarcollapsed">
+         @*sidebar-collapsed right-sidebar
         <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
         <div class="sidebar-menu">
         <div class="sidebar-menu-inner">
@@ -770,12 +771,12 @@
                                                 <span class="title">@mainlayout.Employee_record</span>
                                             </a>
                                         </li>
-                                        @*<li>
+                                        <li>
                                             <a href="@Url.Action("Create","request_new_contract")">
                                               
                                                 <span class="title">@mainlayout.requestconter</span>
                                             </a>
-                                        </li>*@
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu active">
@@ -848,70 +849,119 @@
 
 
         </div>
+    </div>*@
+        
+    <div class="main-menu small">
+        <!--Main Menu in left sidebar-->
+        <span class="shrink"><i class="fas fa-bars"></i></span>
+        <span class="li"><a href="index.html"><i class="fas fa-home"></i><span> Home</span></a></span>
+        <span class="li" data-value="home"> <i class="fas fa-home"></i><span> Home 2</span></span>
+        <span class="li" data-value="basic"><i class="fas fa-home"></i><span> Basic Page</span></span>
+        <span class="li" data-value="module"><i class="fas fa-home"></i><span> Module Page</span></span>
     </div>
-  
 
-            <div class="main-content">
-
-                <div class="row main-content__header">
-
-                    <div class="col-md-6 col-sm-4 clearfix hidden-xs">
-
-                        <ul class="list-inline links-list pull-left">
-
-                            <li>
-                                <a href="#" style="font-size: 20px;">
-                                    @*Dynamics 365*@
-                                </a>
-                            </li>
-
-                            <li class="sep"></li>
-
-                            <li>
-                                <a href="#" style="font-size: 20px;">
-                                    @*Finance and Operations*@
-                                </a>
-                            </li>
-                            <li class="lang">
-                                <i class="fa fa-globe" title="10001" aria-hidden="true"></i>
-                                <a href="/Language/@HR.Resource.mainlayout.Arabic">@mainlayout.العربية</a>
-
-                            </li>
-                            <li>
-                                <a href="@Url.Action("LogOff","Security")">
-                                    @mainlayout.Logout <i class="entypo-logout right"></i>
-                                </a>
+    <div class="custom-navbar">
+        <ul class="parent-ul main-li-collapse" id="home">
+            <!--// UL For each span in main-menu div [id == data-value]-->
+            <li>test</li>
+        </ul>
+        <ul class="parent-ul main-li-collapse" id="basic">
+            <li><a href="#">test</a></li>
+            <li class="children">
+                <span>Basic <i class="arrow down"></i></span> <!-- More than one branch-->
+                <ul class="main main-li-collapse">
+                    <li><a href="index.html">test1</a></li>
+                    <li>test1</li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="parent-ul main-li-collapse" id="module">
+            <li><a href="#">test</a></li>
+            <li class="children">
+                <span>COLLAPSE2<i class="arrow down"></i></span> <!-- More than one branch-->
+                <ul class="main main-li-collapse">
+                    <li><a href="index.html">test1</a></li>
+                    <li><a href="index.html">test1</a></li>
+                    <li class="children">
+                        <span>Module <i class="arrow down"></i></span> <!-- More than one branch-->
+                        <ul class="main main-li-collapse">
+                            <li><a href="index.html">test1</a></li>
+                            <li>test1</li>
+                            <li class="children">
+                                <span>Module <i class="arrow down"></i></span> <!-- More than one branch-->
+                                <ul class="main main-li-collapse">
+                                    <li><a href="index.html">test1</a></li>
+                                    <li><a href="index.html">test1</a></li>
+                                </ul>
                             </li>
                         </ul>
-                    </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+        
+        <div class="main-content">
+
+            <div class="row main-content__header" style="padding:0">
+
+                <div class="col-md-6 col-sm-4 clearfix hidden-xs">
+
+                    <ul class="list-inline links-list pull-left" style="position:absolute">
+
+                        <li>
+                            <a href="#" style="font-size: 20px;">
+                                @*Dynamics 365*@
+                            </a>
+                        </li>
+
+                        <li class="sep"></li>
+
+                        <li>
+                            <a href="#" style="font-size: 20px;">
+                                @*Finance and Operations*@
+                            </a>
+                        </li>
+                        <li class="lang">
+                            <i class="fa fa-globe" title="10001" aria-hidden="true"></i>
+                            <a href="/Language/@HR.Resource.mainlayout.Arabic">@mainlayout.العربية</a>
+
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LogOff","Security")">
+                                @mainlayout.Logout <i class="entypo-logout right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
 
-                    <div class="col-md-6 col-sm-8 clearfix">
+                <div class="col-md-6 col-sm-8 clearfix">
 
-                        <ul class="user-info  pull-none-xs">
+                    <ul class="user-info  pull-none-xs">
 
-                            <!-- Profile Info -->
-                            <li class="profile-info dropdown">
-                                <!-- add class "pull-right" if you want to place this from right -->
+                        <!-- Profile Info -->
+                        <li class="profile-info dropdown">
+                            <!-- add class "pull-right" if you want to place this from right -->
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="~/Content/neon/assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
-                                </a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Content/neon/assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
+                            </a>
 
-                                <ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
 
-                                    <!-- Reverse Caret -->
-                                    <li class="caret"></li>
+                                <!-- Reverse Caret -->
+                                <li class="caret"></li>
 
-                                    <!-- Profile sub-links -->
-                                    <li>
-                                        <a href="extra-timeline.html">
-                                            <i class="entypo-user"></i>
-                                            Edit Profile
-                                        </a>
-                                    </li>
+                                <!-- Profile sub-links -->
+                                <li>
+                                    <a href="extra-timeline.html">
+                                        <i class="entypo-user"></i>
+                                        Edit Profile
+                                    </a>
+                                </li>
 
-                                    @*<li>
+                                @*<li>
                                         <a href="mailbox.html">
                                             <i class="entypo-mail"></i>
                                             Inbox
@@ -932,21 +982,21 @@
                                         </a>
                                     </li>*@
 
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="user-info  pull-left-xs pull-none-xsm">
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="user-info  pull-left-xs pull-none-xsm">
 
-                                    <!-- Raw Notifications -->
-                                    @*<li class="notifications dropdown">
+                                <!-- Raw Notifications -->
+                                @*<li class="notifications dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                             <i class="entypo-help"></i>
                                         </a>
                                     </li>*@
 
-                                    <!-- Message Notifications -->
-                                    @*<li class="notifications dropdown">
+                                <!-- Message Notifications -->
+                                @*<li class="notifications dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                             <i class="entypo-cog"></i>
@@ -954,33 +1004,33 @@
                                     </li>
                                     <li class="sep"></li>*@
 
-                                    @*<li class="notifications dropdown">
+                                @*<li class="notifications dropdown">
 
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                             <i class="entypo-chat"></i>
                                         </a>
                                     </li>*@
-                                </ul>
-                            </li>
-                                              </ul>
-                    </div>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                @RenderSection("image",false)
-                @*<div class="row" style="padding: 83px;background-image: url(/1.jpg);background-size: 1533px 214px;">
+            </div>
+            @RenderSection("image",false)
+            @*<div class="row" style="padding: 83px;background-image: url(/1.jpg);background-size: 1533px 214px;">
                     <div col-lg-12>
                         <h3 style="color: #fff">Contoso company</h3>
 
                     </div>
                 </div>*@
-                <div class="row" style="padding: 20px">
-                    
+            <div class="row">
 
 
-                    <br />
+
+                <br />
 
 
-                    <br />
-                    <script type="text/javascript">
+                <br />
+                <script type="text/javascript">
                         // Code used to add Todo Tasks
                         jQuery(document).ready(function ($) {
                             var $todo_tasks = $("#todo_tasks");
@@ -1000,108 +1050,108 @@
                                 }
                             });
                         });
-                    </script>
+                </script>
 
 
 
 
 
-                </div>
-                <div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
+            </div>
+            <div id="chat" class="fixed" data-current-user="Art Ramadani" data-order-by-status="1" data-max-chat-history="25">
 
-                    <div class="chat-inner">
-
-
-                        <h2 class="chat-header">
-                            <a href="#" class="chat-close"><i class="entypo-cancel"></i></a>
-
-                            <i class="entypo-users"></i>
-                            Chat
-                            <span class="badge badge-success is-hidden">0</span>
-                        </h2>
+                <div class="chat-inner">
 
 
-                        <div class="chat-group" id="group-1">
-                            <strong>Favorites</strong>
+                    <h2 class="chat-header">
+                        <a href="#" class="chat-close"><i class="entypo-cancel"></i></a>
 
-                            <a href="#" id="sample-user-123" data-conversation-history="#sample_history"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
-                            <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
-                            <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
-                            <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
-                            <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
-                        </div>
+                        <i class="entypo-users"></i>
+                        Chat
+                        <span class="badge badge-success is-hidden">0</span>
+                    </h2>
 
 
-                        <div class="chat-group" id="group-2">
-                            <strong>Work</strong>
+                    <div class="chat-group" id="group-1">
+                        <strong>Favorites</strong>
 
-                            <a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
-                            <a href="#" data-conversation-history="#sample_history_2"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
-                            <a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
-                        </div>
-
-
-                        <div class="chat-group" id="group-3">
-                            <strong>Social</strong>
-
-                            <a href="#"><span class="user-status is-busy"></span> <em>Velma G. Pearson</em></a>
-                            <a href="#"><span class="user-status is-offline"></span> <em>Margaret R. Dedmon</em></a>
-                            <a href="#"><span class="user-status is-online"></span> <em>Kathleen M. Canales</em></a>
-                            <a href="#"><span class="user-status is-offline"></span> <em>Tracy J. Rodriguez</em></a>
-                        </div>
-
+                        <a href="#" id="sample-user-123" data-conversation-history="#sample_history"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
+                        <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
+                        <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
+                        <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
+                        <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
                     </div>
 
-                    <!-- conversation template -->
-                    <div class="chat-conversation">
 
-                        <div class="conversation-header">
-                            <a href="#" class="conversation-close"><i class="entypo-cancel"></i></a>
+                    <div class="chat-group" id="group-2">
+                        <strong>Work</strong>
 
-                            <span class="user-status"></span>
-                            <span class="display-name"></span>
-                            <small></small>
-                        </div>
+                        <a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
+                        <a href="#" data-conversation-history="#sample_history_2"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
+                        <a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
+                    </div>
 
-                        <ul class="conversation-body"></ul>
 
-                        <div class="chat-textarea">
-                            <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
-                        </div>
+                    <div class="chat-group" id="group-3">
+                        <strong>Social</strong>
 
+                        <a href="#"><span class="user-status is-busy"></span> <em>Velma G. Pearson</em></a>
+                        <a href="#"><span class="user-status is-offline"></span> <em>Margaret R. Dedmon</em></a>
+                        <a href="#"><span class="user-status is-online"></span> <em>Kathleen M. Canales</em></a>
+                        <a href="#"><span class="user-status is-offline"></span> <em>Tracy J. Rodriguez</em></a>
                     </div>
 
                 </div>
 
-                <ul class="chat-history" id="sample_history">
-                    <li>
-                        <span class="user">Art Ramadani</span>
-                        <p>Are you here?</p>
-                        <span class="time">09:00</span>
-                    </li>
+                <!-- conversation template -->
+                <div class="chat-conversation">
 
-                    <li class="opponent">
-                        <span class="user">Catherine J. Watkins</span>
-                        <p>This message is pre-queued.</p>
-                        <span class="time">09:25</span>
-                    </li>
+                    <div class="conversation-header">
+                        <a href="#" class="conversation-close"><i class="entypo-cancel"></i></a>
 
-                    <li class="opponent">
-                        <span class="user">Catherine J. Watkins</span>
-                        <p>Whohoo!</p>
-                        <span class="time">09:26</span>
-                    </li>
+                        <span class="user-status"></span>
+                        <span class="display-name"></span>
+                        <small></small>
+                    </div>
 
-                    <li class="opponent unread">
-                        <span class="user">Catherine J. Watkins</span>
-                        <p>Do you like it?</p>
-                        <span class="time">09:27</span>
-                    </li>
-                </ul>
-                <div class="container" style="width:95%;max-width:95%;" dir='@HR.Resource.mainlayout.d'>
-                    <br />
-                    @RenderBody()
-                    <script type="text/javascript">
+                    <ul class="conversation-body"></ul>
+
+                    <div class="chat-textarea">
+                        <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <ul class="chat-history" id="sample_history">
+                <li>
+                    <span class="user">Art Ramadani</span>
+                    <p>Are you here?</p>
+                    <span class="time">09:00</span>
+                </li>
+
+                <li class="opponent">
+                    <span class="user">Catherine J. Watkins</span>
+                    <p>This message is pre-queued.</p>
+                    <span class="time">09:25</span>
+                </li>
+
+                <li class="opponent">
+                    <span class="user">Catherine J. Watkins</span>
+                    <p>Whohoo!</p>
+                    <span class="time">09:26</span>
+                </li>
+
+                <li class="opponent unread">
+                    <span class="user">Catherine J. Watkins</span>
+                    <p>Do you like it?</p>
+                    <span class="time">09:27</span>
+                </li>
+            </ul>
+            <div class="container" style="width:95%;max-width:95%;" dir='@HR.Resource.mainlayout.d'>
+                <br />
+                @RenderBody()
+                <script type="text/javascript">
                         // Code used to add Todo Tasks
                         jQuery(document).ready(function ($) {
                             var $todo_tasks = $("#todo_tasks");
@@ -1121,14 +1171,16 @@
                                 }
                             });
                         });
-                    </script>
-                    <!-- Footer -->
-                    <footer class="main" dir="@HR.Resource.mainlayout.d">
-                        &copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
-                    </footer>
-                </div>
+                </script>
+
+                <!-- Footer -->
+                <footer class="main" dir="@HR.Resource.mainlayout.d">
+                    &copy; 2015 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
+                </footer>
             </div>
         </div>
+    
+       
    
     @if (Session["lang"] != null && Session["lang"].ToString() == "ar-EG")
             {
@@ -1252,17 +1304,11 @@
                 <script src="~/Content/neon/assets/js/icheck/icheck.min.js"></script>
                 <script src="~/Content/neon/assets/js/neon-chat.js"></script>
     }
-    <script>
-        function myFunction() {
-            var x = document.getElementById('myDIV');
-            if (x.style.display === 'none') {
-                return x.style.display = 'block';
-            } else {
-                return x.style.display = 'none';
-            }
-        }
-        
-    </script>
+                @*<script src="~/Content/neon/assets/layout/js/popper.min.js"></script>
+    <script src="~/Content/neon/assets/layout/js/jquery-3.2.1.min.js"></script>*@
+    <script src="~/Content/neon/assets/layout/js/bootstrap.min.js"></script>
+    <script src="~/Content/neon/assets/layout/js/all.js"></script>
+    <script src="~/Content/neon/assets/layout/js/main.js"></script>
 
     
     <link rel="stylesheet" href="~/Content/neon/assets/js/rickshaw/rickshaw.min.css">
