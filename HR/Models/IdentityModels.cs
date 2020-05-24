@@ -11,6 +11,7 @@ using HR.Models.Time_management;
 using HR.Models.All_Table_Commitee_Resolution;
 using HR.Models.Application;
 using HR.Models.SetupPayroll;
+using HR.Models.CardPayroll;
 
 namespace HR.Models
 {
@@ -266,7 +267,12 @@ namespace HR.Models
         public DbSet<ManualPaymentTypes_Detail> ManualPaymentTypes_Detail { get; set; }
         public DbSet<ManualPaymentTypes_Header> ManualPaymentTypes_Header { get; set; }
 
+        public DbSet<Employee_Financial_Contract_Detail> Employee_Financial_Contract_Detail { get; set; }
+        public DbSet<Employee_Financial_Contract_Header> Employee_Financial_Contract_Header { get; set; }
+        public DbSet<FinancialContract_ExtendedFieldsDetails> FinancialContract_ExtendedFieldsDetails { get; set; }
 
+        public DbSet<SalaryItemCollectionGroup_Header> SalaryItemCollectionGroup_Header { get; set; }
+        public DbSet<SalaryItemCollectionGroup_Detail> SalaryItemCollectionGroup_Detail { get; set; }
 
 
 

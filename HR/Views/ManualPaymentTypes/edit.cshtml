@@ -1,0 +1,393 @@
+﻿@model HR.Controllers.VMs
+@using HR.Resource
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("edit", "ManualPaymentTypes", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <input name="codeid" value="" hidden />
+            <input name="SalaryDes" value="" hidden />
+            <input name="TypeE" value="" hidden />
+            <input name="ValueType" value="" hidden />
+            <input name="DefaultValue" value="" hidden />
+
+            @Html.HiddenFor(m => m.Header.ManualPaymentTypes_Header.ID);
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label style="color:red" class="control-label col-md-2">
+                        @Payroll.Paymenttypecode
+                    </label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Header.ManualPaymentTypes_Header.PaymentTypeCode, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.PaymentTypeCode, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-2">
+
+                        <input type="submit" id="btnSave" class="btn btn-success" value=@organ.Save />
+                    </div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("index", "ManualPaymentTypes")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label style="color:red" class="control-label col-md-2">
+                        @Payroll.Paymenttypedescription
+                    </label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Header.ManualPaymentTypes_Header.PaymentTypeDesc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.PaymentTypeDesc, "", new { @class = "text-danger" })
+                    </div>
+                    <label class="control-label col-md-2">
+                        @Payroll.Paymenttypealternativedescription
+                    </label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Header.ManualPaymentTypes_Header.PaymentTypeAltDesc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.PaymentTypeAltDesc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        <span> @Payroll.TransactionType</span>
+                    </label>
+                    <div class="col-md-3">
+                        @Html.EnumDropDownListFor(m => m.Header.Transaction_Type, "Select Transaction Type", new { @class = "select2" })
+                    </div>
+                    <label class="control-label col-md-2">@Payroll.CreditAccountFornet</label>
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.Header.ManualPaymentTypes_Header.CreditAccountNumber, new SelectList(ViewBag.Credites, "ID", "Code"), Payroll.SelectCreditAccountFornet, new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.CreditAccountNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">@Payroll.DebitAccountFornet</label>
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.Header.ManualPaymentTypes_Header.DebitAccountNumber, new SelectList(ViewBag.Debit, "ID", "Code"), Payroll.SelectDebitAccountFornet, new { @class = "select2", @onchange = "CountryNamess()", id = "Countryss" })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.DebitAccountNumber, "", new { @class = "text-danger" })
+                    </div>
+                    <label class="control-label col-md-2">
+                        <span> @Payroll.Paymenttypesourcedocument</span>
+                    </label>
+                    <div class="col-md-3">
+                        @Html.EnumDropDownListFor(m => m.Header.Payment_Type_Source_Document, "Select Payment Type Source Document", new { @class = "select2" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">@Payroll.Journalname_Batchcode</label>
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.Header.ManualPaymentTypes_Header.JournalName_BatchCode, new SelectList(ViewBag.PayrollTransactionJournalSetup, "ID", "Code"), Payroll.SelectJournalname_Batchcode, new { @class = "select2", @onchange = "JournalName()", id = "Journal" })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.JournalName_BatchCode, "", new { @class = "text-danger" })
+                    </div>
+                    <label class="control-label col-md-2">@Payroll.Frequency</label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Header.ManualPaymentTypes_Header.Frequency, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.Frequency, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        <span> @Payroll.FrequencyPeriodictype</span>
+                    </label>
+                    <div class="col-md-3">
+                        @Html.EnumDropDownListFor(m => m.Header.Frequency_Periodic_type, "Select Frequency Periodic type", new { @class = "select2" })
+                    </div>
+                    <label class="control-label col-md-2">@Payroll.Checktypecode</label>
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.Header.ManualPaymentTypes_Header.Type_Code, new SelectList(ViewBag.Checktype, "ID", "Code"), Payroll.SelectChecktypecode, new { @class = "select2", @onchange = "Type_Code()", id = "Type" })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.Type_Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">@Payroll.Extendedfieldscode</label>
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.Header.ManualPaymentTypes_Header.ExtendedFields_Code, new SelectList(ViewBag.ExtendedFields_Header, "ID", "Code"), Payroll.SelectExtendedFields, new { @class = "select2", @onchange = "ExtendedFields()", id = "Extended" })
+                        @Html.ValidationMessageFor(model => model.Header.ManualPaymentTypes_Header.ExtendedFields_Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs bordered">
+                        <!-- available classes "bordered", "right-aligned" -->
+                        <li class="active">
+                            <a href="#Budgetdetails" data-toggle="tab">
+                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                <span class="hidden-xs">@pers_2.Salarycode</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+
+                            <div style="margin-bottom:15px" class="form-group">
+                                <label class="control-label col-md-1">
+                                    <span> @Payroll.Salarycodeid </span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("items", new SelectList(ViewBag.salaryitem, "ID", "Code"), Payroll.SelectSalaryCode, new { @class = "select2", @id = "ite" })
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+                                <div class="control-label col-md-1">
+                                    <a onclick="additems()" style="margin-right:3px" class="btn btn-success"> @organ.additems </a>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <table id="categories" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                            <td hidden></td>
+                                            <td class="col-md-1">
+                                                @Payroll.Salarycodeid
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Salarycodedescription
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Type
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.ValueType
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.DefaultType
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="itemTR">
+                                        @foreach (var item in Model.ManualPaymentTypes_Detail)
+                                        {
+                                        <tr>
+                                            @*<td hidden><input hidden name='ID_item' value="@item.salary_code.ID" /></td>*@
+                                            <td class="col-md-2"><input class='form-control' value="@item.SalaryCodeID" readonly name="codeid" /></td>
+                                            <td class="col-md-2"><input class='form-control' value="@item.Salarycodedescription" readonly name="SalaryDes" /></td>
+                                            <td class="col-md-2"><input class='form-control' value="@item.Type" readonly name="TypeE" /></td>
+                                            <td class="col-md-2"><input class='form-control' value="@item.ValueType" readonly name="ValueType" /></td>
+                                            <td class="col-md-1"><input class='form-control' name='DefaultValue' type="number" value="@item.DefaultValue" min="0" /></td>
+                                            <td class="col-md-1"><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td>
+                                        </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section scripts{}
+<script>
+    function remove(thi) {
+        thi.parent().parent().remove();
+    }
+    function additems()
+    {
+
+            var f = $("#ite").val();
+            if (f == "")
+            {
+                alert('you must choose salary item ');
+            }
+            else {
+
+                var i = "";
+                var d = $("#ite").val();
+                var firstdrop = " ";
+                $.ajax
+                  ({
+                      type: "post",
+                      url: "/SalaryItemGroup_Header/salaryitem",
+                      data: { "id": d },
+                      success: function (result) {
+                          if (result.CodeGroupType == 0) {
+                              var GroupType = "Code type";
+                          }
+                          else if (result.CodeGroupType == 1) {
+                              var GroupType = "Earning";
+                          }
+                          else if (result.CodeGroupType == 2) {
+                              var GroupType = "Deduction";
+                          }
+                          if (result.CodeValueType == 0) {
+                              var Earning = "Code value type";
+                          }
+                          else if (result.CodeValueType == 1) {
+                              var Earning = "Unkown";
+                          }
+                          else if (result.CodeValueType == 2) {
+                              var Earning = "Minites";
+                          }
+                          else if (result.CodeValueType == 3) {
+                              var Earning = "Hours";
+                          }
+                          else if (result.CodeValueType == 4) {
+                              var Earning = "Days";
+                          }
+                          else if (result.CodeValueType == 5) {
+                              var Earning = "Months";
+                          }
+                          else if (result.CodeValueType == 6) {
+                              var Earning = "Years";
+                          }
+                          else if (result.CodeValueType == 7) {
+                              var Earning = "Money";
+                          }
+                          else if (result.CodeValueType == 8) {
+                              var Earning = "Piece";
+                          }
+                          else if (result.CodeValueType == 9) {
+                              var Earning = "Calculated Value";
+                          }
+                          var i = "<tr><td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeID + "' name='codeid'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeDesc + "' name='SalaryDes'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + GroupType + "' name='TypeE'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + Earning + "' name='ValueType'></td>" + "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='0' min='0' type='number' /></td>"/* + "<td class='col-md-1'><select class='car' id='carss' name='cars'></select ></td >"*/ +
+                            "<td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                       debugger
+                          $("#itemTR").append(i);
+                          $("#ite").select2("val", "");
+                      }
+                  });
+            }
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+    }
+
+    function ch()
+    {
+
+        var t = check();
+        if (t == 0) {
+
+
+            $("#dd").submit();
+        }
+
+    }
+
+</script>
+
+<script>
+    function CountryName() {
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCredit",
+            data: { "id": id },
+            success: function (result) {
+
+                //$("#countryname").val(result.AccountName);
+            },
+            error: function () {
+                //$("#countryname").val(" ");
+            }
+        });
+    }
+    CountryName();
+
+    function CountryNamess() {
+        var id = $("#Countryss").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDebit",
+            data: { "id": id },
+            success: function (result) {
+
+                //$("#countryname").val(result.AccountName);
+            },
+            error: function () {
+                //$("#countrynamess").val(" ");
+            }
+        });
+    }
+    CountryNamess();
+
+    function Type_Code() {
+        debugger
+        var id = $("#Type").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Get_type_code",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                //$("#Type").val(result.Name);
+            },
+            error: function () {
+                //$("#Type").val(" ");
+            }
+        });
+    }
+    Type_Code();
+
+    function ExtendedFields() {
+        var id = $("#Extended").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetExtendedFields_Header",
+            data: { "id": id },
+            success: function (result) {
+
+                //$("#Extended").val(result.Name);
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+    ExtendedFields();
+
+    //$(function () {
+    //    debugger
+    //    $.ajax({
+    //        type: "post",
+    //        url: "/Helper/GetChecktype",
+    //        //data: { "id": id },
+    //        success: function (result) {
+    //            debugger
+    //            $.each(result, function (i, r) {
+    //                $("#cars").append('<option value="' + r.ID + '">' + r.Code + "--" + r.Name + '</option>')
+    //            })
+    //            //$("#cars").val(result.Name);
+    //        },
+    //        error: function () {
+    //            //$("#Extended").val(" ");
+    //        }
+    //    });
+    //})
+</script>

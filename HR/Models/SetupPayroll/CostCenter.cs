@@ -13,9 +13,13 @@ namespace HR.Models.SetupPayroll
     public class CostCenter
     {
         [Key]
-        public int ID { get; set; }
+        public int ID { get; set; }        
         public string CategoryCode { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string CostCenterCode { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string CostCenterDesc { get; set; }
         public string CostCenterAltDesc { get; set; }
         public string CostCenterMask { get; set; }

@@ -1,5 +1,6 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
+using HR.Models.SetupPayroll;
 using HR.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -698,7 +699,16 @@ namespace HR.Controllers
             //dbcontext.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == ID);
             return Json(AppendPublicHoliday.ToList());
         }
-       
+        public JsonResult GetDataBysa()
+        {
+            var all_level = dbcontext.salary_code.Where(a => a.SourceEntry == 1).ToList();
+            var all_jobs = dbcontext.ExtendedFields_Header.ToList();
+            var AppendPublicHoliday = from A in all_level
+                                      join Baa in all_jobs on A.ExtendedFields_Code equals Baa.ID.ToString()
+                                      select new SalaryCode_ExtendedFields_VM { ID =A.ID,SalaryCodeID = A.SalaryCodeID , SalaryCodeDesc = A.SalaryCodeDesc, CodeGroupType =A.CodeGroupType , CodeValueType = A.CodeValueType /*, ExtendedFields_Code = Baa.ExtendedFields_Code , ExtendedFields_Description = Baa.ExtendedFields_Desc*/};
+            return Json(AppendPublicHoliday.ToList());
+        }
+
         public JsonResult GetDataByIdAppendCommitee_Agenda(string id)
         {
             var ID = int.Parse(id);
@@ -1279,6 +1289,58 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var newmodel = dbcontext.Position_Information_Rec.FirstOrDefault(m => m.ApplicantId == ID);
             return Json(newmodel);
+        }
+        public JsonResult GetCostCenterCategory(string id)
+        {
+            var ID = int.Parse(id);
+            var CostCenterCategory = dbcontext.CostCenterCategory.FirstOrDefault(m => m.ID == ID);
+            return Json(CostCenterCategory);
+        }
+        public JsonResult GetBank(string id)
+        {
+            var ID = int.Parse(id);
+            var Bank = dbcontext.Bank.FirstOrDefault(m => m.ID == ID);
+            return Json(Bank);
+        }
+        public JsonResult GetExtendedFields_Header(string id)
+        {
+            var ID = int.Parse(id);
+            var ExtendedFields_Header = dbcontext.ExtendedFields_Header.FirstOrDefault(m => m.ID == ID);
+            return Json(ExtendedFields_Header);
+        }
+        public JsonResult GetExtendedFieldsHeader()
+        {
+            var ExtendedFields_Header = dbcontext.ExtendedFields_Header.ToList();
+            return Json(ExtendedFields_Header);
+        }
+        public JsonResult GetSalaryCodeGroup_Header(string id)
+        {
+            var ID = int.Parse(id);
+            var SalaryCodeGroup_Header = dbcontext.SalaryCodeGroup_Header.FirstOrDefault(m => m.ID == ID);
+            return Json(SalaryCodeGroup_Header);
+        }
+        public JsonResult GetDebit(string id)
+        {
+            var ID = int.Parse(id);
+            var Debit = dbcontext.GL_AccountSetup.Where(a=>a.AccountType ==1 || a.AccountType == 3).FirstOrDefault(m => m.ID == ID);
+            return Json(Debit);
+        }
+        public JsonResult GetCredit(string id)
+        {
+            var ID = int.Parse(id);
+            var Credit = dbcontext.GL_AccountSetup.Where(a => a.AccountType == 2 || a.AccountType == 3).FirstOrDefault(m => m.ID == ID);
+            return Json(Credit);
+        }
+        public JsonResult GetChecktype()
+        {
+            var Checktype = dbcontext.Checktype.ToList();
+            return Json(Checktype);
+        }
+        public JsonResult salaryitem()
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.salary_code.ToList();
+            return Json(item);
         }
     }
 

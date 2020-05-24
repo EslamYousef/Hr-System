@@ -7,6 +7,7 @@ using System.Web;
 
 namespace HR.Models.SetupPayroll
 {
+    [Table("ManualPaymentTypes_Header")]
     public class ManualPaymentTypes_Header
     { 
           public int ID { get; set; }
@@ -20,7 +21,7 @@ namespace HR.Models.SetupPayroll
         public string PaymentTypeDesc { get; set; }
         public string PaymentTypeAltDesc { get; set; }
         public Nullable<int> PaymentTypeSourceDocument { get; set; }
-        public Nullable<short> Transaction_Type { get; set; }
+        public Nullable<int> Transaction_Type { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
 
         public string DebitAccountNumber { get; set; }
@@ -31,7 +32,7 @@ namespace HR.Models.SetupPayroll
 
         public string JournalName_BatchCode { get; set; }
         public Nullable<int> Frequency { get; set; }
-        public Nullable<short> FrequencyPeriodType { get; set; }
+        public Nullable<int> FrequencyPeriodType { get; set; }
         public string ExtendedFields_Code { get; set; }
         public string Company_ID { get; set; }
         public string Created_By { get; set; }

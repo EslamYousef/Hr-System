@@ -19,10 +19,10 @@ namespace HR.Controllers
             var new_model = dbcontext.Employee_Address_Profile.Where(m => m.Employee_Profile.ID == ID).ToList();
             var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == ID);
             ViewBag.idemp = id;
-           
+
             return View(new_model);
         }
-   
+
         public ActionResult Create(string id)
         {
 
@@ -49,7 +49,7 @@ namespace HR.Controllers
 
             var ID = int.Parse(id);
             var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeAddress = new Employee_Address_Profile { Employee_Profile=emp,Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() };
+            var EmployeeAddress = new Employee_Address_Profile { Employee_Profile = emp, Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + count.ToString() };
             return View(EmployeeAddress);
 
         }
@@ -76,14 +76,14 @@ namespace HR.Controllers
 
                 //if (ModelState.IsValid)
                 //{
-                    //     var prof = int.Parse(model.Employee_ProfileId);
-                    //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+                //     var prof = int.Parse(model.Employee_ProfileId);
+                //   var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
 
-                    var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
+                var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
                 var list = dbcontext.Employee_Address_Profile.ToList();
 
                 Employee_Address_Profile record = new Employee_Address_Profile();
-                if (list.Count()==0) 
+                if (list.Count() == 0)
                 {
                     record.Resident = true;
                 }
@@ -93,7 +93,7 @@ namespace HR.Controllers
                     te.Resident = false;
                     record.Resident = true;
                 }
-             
+
                 record.Code = model.Code;
                 record.Streetname = model.Streetname;
                 record.Streetnumber = model.Streetnumber;
@@ -102,12 +102,12 @@ namespace HR.Controllers
                 record.Distancetoworklocationkm = model.Distancetoworklocationkm;
                 record.Transportation_method = model.Transportation_method;
 
-                    var empid = EmpObj.Code + "------" + EmpObj.Name;
-                    record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
+                var empid = EmpObj.Code + "------" + EmpObj.Name;
+                record.Employee_ProfileId = model.Employee_ProfileId == null ? model.Employee_ProfileId = EmpObj.ID.ToString() : model.Employee_ProfileId;
                 ViewBag.idemp = model.Employee_ProfileId;
                 record.Employee_Profile = EmpObj;
 
-                    record.countryid = model.countryid;
+                record.countryid = model.countryid;
                 var Countryid = int.Parse(model.countryid);
                 record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);
                 record.areaid = model.areaid;
@@ -132,13 +132,13 @@ namespace HR.Controllers
                     return RedirectToAction("edit", "Employee_Profile", new { id = EmpObj.ID });//int.Parse(record.Employee_ProfileId)
                 }
                 return RedirectToAction("Index", new { id = EmpObj.ID }); //model.Employee_ProfileId 
-                //}
-                //else
-                //{
-                //    return View(model);
-                //}
-            return View(model);
-        }
+                                                                          //}
+                                                                          //else
+                                                                          //{
+                                                                          //    return View(model);
+                                                                          //}
+                return View(model);
+            }
             catch (DbUpdateException e)
             {
                 TempData["Message"] = HR.Resource.Basic.thiscodeIsalreadyexists;
@@ -197,11 +197,11 @@ namespace HR.Controllers
                 ViewBag.Territories = dbcontext.Territories.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.cities = dbcontext.cities.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.postcode = dbcontext.postcode.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-         //     ViewBag.idemp = model.Employee_ProfileId;
+                //     ViewBag.idemp = model.Employee_ProfileId;
                 var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
 
                 var record = dbcontext.Employee_Address_Profile.FirstOrDefault(m => m.ID == model.ID);
-                var list = dbcontext.Employee_Address_Profile.Where(a=>a.Resident ==true).ToList();
+                var list = dbcontext.Employee_Address_Profile.Where(a => a.Resident == true).ToList();
                 //     var emp = record.Employee_Profile;
                 record.Code = model.Code;
                 if (list != null)
@@ -225,7 +225,7 @@ namespace HR.Controllers
                 ViewBag.idemp = model.Employee_ProfileId;
                 record.Employee_Profile = EmpObj;
 
-           //   record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
+                //   record.Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == EmpObj.ID);
                 record.countryid = model.countryid;
                 var Countryid = int.Parse(model.countryid);
                 record.Country = dbcontext.Country.FirstOrDefault(m => m.ID == Countryid);

@@ -13,7 +13,11 @@ namespace HR.Models.SetupPayroll
     {
         [Key]
         public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string AccountNumber { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string AccountName { get; set; }
         public Nullable<int> AccountType { get; set; }
         public string Company_ID { get; set; }

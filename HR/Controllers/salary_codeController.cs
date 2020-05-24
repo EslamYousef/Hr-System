@@ -222,14 +222,16 @@ namespace HR.Controllers
 
                 dbcontext.salary_code.Add(new_model);
                 dbcontext.SaveChanges();
-                if(Command == "assign")
-                {
+             
 
 
+                    if (Command == "assign")
+                    {
+                        return RedirectToAction("EditAssign", "salary_code", new { id = model.salary_code.ID });
+                    }
 
 
-
-                }
+              
                 if (Command == "deleteitem")
                 {
 
@@ -466,6 +468,75 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        //public ActionResult EditAssign(int id)
+        //{
+
+        //    try
+        //    {
+        //        ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
+        //        ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
+        //        ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
+        //        ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+        //        ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+
+        //        var model = dbcontext.salary_code.FirstOrDefault(m => m.ID == id);
+        //        var new_model = new salary_codeVM { salary_code = model, code_type = (code_type)model.CodeGroupType, code_value_type = (code_value_type)model.CodeValueType, cost_center_type = (cost_center_type)model.Costcenter_Type, Document_entry = (Document_entry)model.SourceEntry };
+        //        return View(dbcontext.Employee_Profile.ToList());
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return RedirectToAction("index");
+        //    }
+        //}
+        //[HttpPost]
+        //public ActionResult EditAssign(salary_codeVM model, FormCollection form, string Command)
+        //{
+        //    try
+        //    {
+        //        ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
+        //        ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
+        //        ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
+        //        ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+        //        ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+
+        //        var new_record = dbcontext.salary_code.FirstOrDefault(m => m.ID == model.salary_code.ID);
+        //        var list = dbcontext.Employee_Financial_Contract_Header.Where(a => a.IsActive == true).ToList();
+        //        var lists = dbcontext.Employee_Financial_Contract_Header.ToList();
+        //        var De = dbcontext.Employee_Financial_Contract_Detail.Where(a => a.Contract_Number == lists. ).ToList();
+
+        //        if (list != null)
+        //        {
+        //            for (int i = 0; i < list.Count(); i++)
+        //            {
+        //                list[i].em = false;
+        //            }
+        //            record.Primary_Position = true;
+        //        }
+        //        new_record.CodeGroupType = model.code_type.GetHashCode();
+        //        new_record.CodeValueType = model.code_value_type.GetHashCode();
+        //        new_record.SourceEntry = model.Document_entry.GetHashCode();
+        //        new_record.Costcenter_Type = (Int16)model.cost_center_type.GetHashCode();
+        //        new_record.Modified_By = User.Identity.Name;
+        //        new_record.Modified_Date = DateTime.Now.Date;
+
+        //        new_record.SalaryCodeDesc = model.salary_code.SalaryCodeDesc;
+        //        new_record.SalaryCodeAltDesc = model.salary_code.SalaryCodeAltDesc;
+        //        new_record.Type_Code = model.salary_code.Type_Code;
+        //        new_record.SortingIndex = model.salary_code.SortingIndex;
+        //        new_record.FrequencyPerPeriod = model.salary_code.FrequencyPerPeriod;
+        //        new_record.Description = model.salary_code.Description;
+
+
+        //        dbcontext.SaveChanges();
+           
+        //        return RedirectToAction("index");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return View(model);
+        //    }
+        //}
+
         public ActionResult delete(int id)
         {
             try

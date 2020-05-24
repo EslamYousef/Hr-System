@@ -13,7 +13,11 @@ namespace HR.Models.SetupPayroll
     {
         [Key]
         public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string JournalName_BatchCode { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string JournalDesc { get; set; }
         public string JournalAltDesc { get; set; }
         public Nullable<int> JournalType { get; set; }

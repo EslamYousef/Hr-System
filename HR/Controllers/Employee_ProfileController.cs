@@ -504,6 +504,10 @@ namespace HR.Controllers
                     {
                         return RedirectToAction("index", "Employee_sponsor_profile", new { id = emp.ID });
                     }
+                    if (command == "Submit4")
+                    {
+                        return RedirectToAction("index", "Employee_Financial_Contract", new { id = emp.ID });
+                    }
                     return RedirectToAction("Index");
                 }
                 else
@@ -788,6 +792,10 @@ namespace HR.Controllers
                 if (command == "Submit3")
                 {
                     return RedirectToAction("index", "Employee_sponsor_profile", new { id = record.ID });
+                }
+                if (command == "Submit4")
+                {
+                    return RedirectToAction("index", "Employee_Financial_Contract", new { id = record.ID });
                 }
                 return RedirectToAction("index");
             }

@@ -1,0 +1,165 @@
+﻿@model HR.Models.CardPayroll.SalaryItemCollectionGroup_Header
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
+<script>
+
+    $(function () {
+        $("#tb-family").hide();
+        $("#ss").click(function () {
+
+            var Family_profile = $("#employeeId3").val();
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetSalaryCodeGroup_Header",
+                data: { "id": Family_profile },
+                success: function (result) {
+                    if (Family_profile != "" ) {
+                        $("#tb-family").show();
+                        var T = "";
+                        T = "<tr><td><input type='text' readonly name='Family_profile_No2' value='" + result.CodeGroupID + "'/></td><td><input type='text' readonly name='Family_name' value='" + result.CodeGroupDesc + "'/></td><td><input type='number' name='Percentage' value='0'  /></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+                        $("#tb-family").append(T)
+                    }
+                }
+            })
+            $("#tb-family").on('click', '.del-btn', function () {
+               $(this).closest('tr').remove();
+            })
+        })
+    });
+
+</script>
+
+
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @Payroll.CreateSalaryitemscollectiongroups
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "SalaryItemCollectionGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <input name="Family_profile_No2" hidden />
+                        <input name="Family_name" hidden />
+                        <input name="Percentage" hidden />
+
+                        <div>
+
+                            <div class="form-group">
+                                <label style="color:red" class="control-label col-md-2">
+                                    @organ.code
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.EditorFor(model => model.CollectionId, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CollectionId, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="submit" id="btnSave" class="btn btn-success" value=@pers_2.create />
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="@Url.Action("index", "SalaryItemCollectionGroup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Description</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.CollectionDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CollectionDesc, "", new { @class = "text-danger" })
+                                </div>
+
+
+                                <label class="control-label col-md-2">@Personnel.DescriptionAlternative</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.CollectionAltDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CollectionAltDesc, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span>@Payroll.SalaryItemsGroup</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.SalaryCodeGroup_Header, "ID", "Code"), Payroll.SelectSalaryItemsGroup, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;"/>
+                                </div>
+                            </div>
+                            <table id="tb-family" border="1" style="display: table; width:400px;">
+                                <thead>
+                                    <tr>
+                                        <th id="fa">@Payroll.Groupid</th>
+                                        <th id="na">@Payroll.Groupdescription</th>
+                                        <th id="per">@Payroll.Sortindex</th>
+                                        <th id="De">@Personnel.Delete</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+<script>
+
+
+    function employee3() {
+
+        var id = $("#employeeId3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSalaryCodeGroup_Header",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>

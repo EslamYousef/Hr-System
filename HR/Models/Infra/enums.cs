@@ -586,6 +586,12 @@ namespace HR.Models.Infra
         lunch_basket=1,
         lunch=2,
         dinner=3
-
+    }
+    public enum PeriodType
+    {
+        [Display(Name = "Full month")]
+        Full_month = 1,
+        [Display(Name = "Cut of month")]
+        Cut_of_month = 2,
     }
 }

@@ -133,11 +133,8 @@ namespace HR.Controllers
                 var emp = record.Employee_Profile;
                 ViewBag.family = emp.Employee_family_profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
               
-     
                 ViewBag.idemp = record.Employee_Profile.ID.ToString();
           
-             
-
                 if (record != null)
                 {
                     return View(record);

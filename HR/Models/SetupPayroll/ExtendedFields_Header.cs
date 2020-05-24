@@ -13,7 +13,11 @@ namespace HR.Models.SetupPayroll
     {
         [Key]
         public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string ExtendedFields_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string ExtendedFields_Desc { get; set; }
         public string ExtendedFields_AltDesc { get; set; }
         public Nullable<short> Purpose { get; set; }

@@ -12,9 +12,13 @@ namespace HR.Models.SetupPayroll
     public class ExtendedFields_Details
     {
         [Key]
-        public int ID { get; set; }
+        public int ID { get; set; }       
         public string ExtendedFields_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Detail_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Detail_Desc { get; set; }
         public string Detail_AltDesc { get; set; }
         public Nullable<short> ValueType { get; set; }

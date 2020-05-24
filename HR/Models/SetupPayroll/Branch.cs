@@ -12,9 +12,13 @@ namespace HR.Models.SetupPayroll
     public class Branch
     {
         [Key]
-        public int ID { get; set; }
+        public int ID { get; set; }      
         public string Bank_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string Branch_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Branch_Desc { get; set; }
         public string Branch_AltDesc { get; set; }
         public string Company_ID { get; set; }

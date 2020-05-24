@@ -1,0 +1,82 @@
+﻿@model IEnumerable<HR.Models.SetupPayroll.CostCenterCategory>
+
+@using HR.Resource;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    <a href="@Url.Action("Create", "CostCenterCategory")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Payroll.AddNewCostCenterCategory</a>
+                </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>@Payroll.CategoryCode</th>
+                            <th>@Payroll.Description</th>
+                            <th>@Payroll.AlternativeDescription</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CategoryCode</td>
+                                <td>@item.CategoryDesc</td>
+                                <td>@item.CategoryAltDesc</td>
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "CostCenterCategory", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    <a href="@Url.Action("Delete", "CostCenterCategory", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->s
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}
