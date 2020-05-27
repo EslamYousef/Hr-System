@@ -6,11 +6,7 @@
 }
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @pers_2.evaluationtransaction
-        </h1>
-    </section>
+   
 
 
     <div class="row">
@@ -19,7 +15,13 @@
                 <div class="panel-body">
                     @using (Html.BeginForm("Create", "EvaluationTransaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
-                       
+                        <div class="sec-nav">
+                            <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+                            <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "EvaluationTransaction")" class="create-btn">@pers_2.new_</a></div>
+                            <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","EvaluationTransaction")" class="create-btn" value=@organ.delete /></div>
+                            <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "EvaluationTransaction")" class="create-btn"> @pers_2.Back</a></div>
+
+                        </div>
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">
                             <hr />
@@ -44,95 +46,94 @@
                             <input value="" name="Mnamger_O" hidden /><input value="" name="average_O" hidden /><input value="" name="final_O" hidden />
                             <input value="" name="ID_S" hidden /><input value="" name="job_rate" hidden /><input value="" name="employee_rate" hidden />
                             <input value="" name="GAP" hidden />
-                               
+                            <section style="margin-top:40px" class="content-header">
+                                <h1>
+                                    @pers_2.evaluationtransaction
+                                </h1>
+                            </section>
                             <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    @organ.empname
-                                </label>
+                               
                                 <div class="col-md-4">
+                                    <label style="color:red">
+                                        @organ.empname
+                                    </label>
                                     @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.employee, "ID", "Code"), pers_2.employee, new { @class = "select2", @onchange = "emp2()", id = "emp" })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
 
                                 </div>
-                                <div class="col-md-2">
-
-                                </div>
-                                <div class="col-md-2">
-                                    <input style="width:100px" type="submit" value=@pers_2.create class="btn btn-success" />
-                                </div>
-                                <div>
-                                    <a style="width:100px" href="@Url.Action("index","EvaluationTransaction")" class="col-md-2 btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-
-                                </div>
-                               
-
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span> @pers_2.requestdate </span>
-                                </label>
+                           
                                 <div class="col-md-4">
+                                    <label style="color:red">
+                                        <span> @pers_2.requestdate </span>
+                                    </label>
                                     @Html.EditorFor(model => model.AppraisalDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
                                     @Html.ValidationMessageFor(model => model.AppraisalDate, "", new { @class = "text-danger" })
                                 </div>
-                                <label class="control-label col-md-2">
-                                    @organ.code
-                                </label>
+                             
                                 <div class="col-md-4">
+                                    <label style="color:red">
+                                        @organ.code
+                                    </label>
                                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "Code", @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                 </div>
-                               
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span> @pers_2.plan </span>
-                                </label>
                                 <div class="col-md-4">
+                                    <label style="color:red">
+                                        <span> @pers_2.plan </span>
+                                    </label>
                                     @Html.DropDownListFor(m => m.EvaluationPlanID, new SelectList(ViewBag.plancode, "ID", "Code"), pers_2.plan, new { @class = "select2", @onchange = "getdate()", id = "plan", @disabled = true })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
 
                                 </div>
-                                <label class="control-label col-md-2">
-                                    @pers_2.group
-                                </label>
+                            </div>
+                            <div class="form-group">
+                               
+                             
+                                
                                 <div class="col-md-4">
+                                    <label style="color:red">
+                                        @pers_2.group
+                                    </label>
                                     @Html.DropDownListFor(m=>m.PerformanceEvaluationGroupID, new SelectList(ViewBag.groupcode, "ID", "Code"), pers_2.group, new { @class = "select2", @onchange = "getgroup()", id = "group", @disabled = true })
 
                                 </div>
-                            </div>
-                            <div class="form-group">
+                           
                               
-                                <label class="control-label col-md-2">
-                                    <span> @Basic.from_date</span>
-                                </label>
+                            
                                 <div class="col-md-4">
+                                    <label>
+                                        <span> @Basic.from_date</span>
+                                    </label>
                                     @Html.EditorFor(model => model.FromeDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "from", @readonly = true } })
                                    
                                 </div>
-                                <label class="control-label col-md-2">
-                                    <span> @Basic.to_date</span>
-                                </label>
+                               
                                 <div class="col-md-4">
+                                    <label >
+                                        <span> @Basic.to_date</span>
+                                    </label>
                                     @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "to", @readonly = true } })
                                   
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        <span> @pers_2.line</span>
+                                    </label>
+                                    @Html.EditorFor(model => model.planLine, new { htmlAttributes = new { @class = "form-control", @type = "text", id = "line", @readonly = true } })
+
                                 </div>
                             </div>
 
 
                             <div class="form-group">
 
-                                <label class="control-label col-md-2">
-                                    <span> @pers_2.line</span>
-                                </label>
+                               
+                               
+                               
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.planLine, new { htmlAttributes = new { @class = "form-control", @type = "text", id = "line", @readonly = true } })
-
-                                </div>
-                                <label class="control-label col-md-2">
-                                    <span> @pers_2.status </span>
-                                </label>
-                                <div class="col-md-4">
+                                    <label>
+                                        <span> @pers_2.status </span>
+                                    </label>
                                     @Html.EditorFor(model => model.check_status, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.check_status, "", new { @class = "text-danger" })
                                 </div>
@@ -1044,3 +1045,95 @@
 
     }
 </script>
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

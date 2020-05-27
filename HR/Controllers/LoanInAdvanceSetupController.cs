@@ -45,9 +45,10 @@ namespace HR.Controllers
                     new_record.LoanInAdvanceSetup.LoanTypeCode = stru + (model_.LastOrDefault().ID + 1).ToString();
                 }
                 ////ViewBag.eligibility_matrix_code
-                ////     ViewBag.manual_payment=manual payment settlement loan
-                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
-                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.manual_payment = dbcontext.ManualPaymentTypes_Header.Where(m => m.PaymentTypeSourceDocument == 2).Select(m => new { Code = m.PaymentTypeCode + "-[" + m.PaymentTypeDesc + "-]", ID = m.ID }).ToList();///loan only
+                ViewBag.salary_code = dbcontext.salary_code.Where(m=>m.CodeGroupType==1&&m.CodeValueType==7&&m.SourceEntry==1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); //earning and money and contract
+                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
+
 
 
                 return View(new_record);
@@ -58,14 +59,14 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult create(Loan_VM model,FormCollection form)
+        public ActionResult create(Loan_VM model,FormCollection form,string Command)
         {
             try
             {
                 ////ViewBag.eligibility_matrix_code
-                ////     ViewBag.manual_payment=manual payment settlement loan
-                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
-                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.manual_payment = dbcontext.ManualPaymentTypes_Header.Where(m => m.PaymentTypeSourceDocument == 2).Select(m => new { Code = m.PaymentTypeCode + "-[" + m.PaymentTypeDesc + "-]", ID = m.ID }).ToList();///loan only
+                ViewBag.salary_code = dbcontext.salary_code.Where(m => m.CodeGroupType == 1 && m.CodeValueType == 7 && m.SourceEntry == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); //earning and money and contract
+                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
 
                 var add_record = new LoanInAdvanceSetup();
                 add_record = model.LoanInAdvanceSetup;
@@ -164,8 +165,12 @@ namespace HR.Controllers
                 add_record.Interval =model.interval.ToString();
                 add_record.Created_By = User.Identity.Name;
                 add_record.Created_Date = DateTime.Now.Date;
-                dbcontext.LoanInAdvanceSetup.Add(add_record);
+             var loan=   dbcontext.LoanInAdvanceSetup.Add(add_record);
                 dbcontext.SaveChanges();
+                if(Command== "link")
+                {
+                    return RedirectToAction("link", new { loan_ID = loan.ID, type = 0 });
+                }
                 return RedirectToAction("index");
 
 
@@ -175,14 +180,97 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        public ActionResult link(int loan_ID,int type)
+        {
+            try
+            {
+                var model_link = new LinkLoanDeductionsWithOtherManualPayment { Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date };
+                ViewBag.header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeAltDesc + ']', ID = m.ID });
+                if(type==0)
+                {
+                    model_link.LoanInAdvanceSetupID = loan_ID;
+                    var loan = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == loan_ID);
+                    model_link.LoanInAdvanceSetup = loan;
+                    model_link.NumberOfInstallments = 0;
+                    ViewBag.type = 0;
+                    return View(model_link);
+                }
+                else if(type==1)
+                {
+                   
+                    var link = dbcontext.LinkLoanDeductionsWithOtherManualPayment.FirstOrDefault(m => m.LoanInAdvanceSetupID == loan_ID);
+                    if (link != null) { ViewBag.type = 1; return View(link); }
+                    else
+                    {
+                       
+                        model_link.LoanInAdvanceSetupID = loan_ID;
+                        var loan = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == loan_ID);
+                        model_link.LoanInAdvanceSetup = loan;
+                        model_link.NumberOfInstallments = 0;
+                        ViewBag.type = 0;
+                        return View(model_link);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("edit", new { id = loan_ID });
+                }
+            }
+            catch(Exception)
+            {
+                return RedirectToAction("edit", new { id = loan_ID });
+            }
+        }
+        [HttpPost]
+        public ActionResult link(LinkLoanDeductionsWithOtherManualPayment model,int type)
+        {
+            try
+            {
+                ViewBag.header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeAltDesc + ']', ID = m.ID });
+                ViewBag.type = type;
+                if (type==1)
+                {
+                    var link = dbcontext.LinkLoanDeductionsWithOtherManualPayment.FirstOrDefault(m => m.LoanInAdvanceSetupID == model.LoanInAdvanceSetupID);
+                    if (link != null) { dbcontext.LinkLoanDeductionsWithOtherManualPayment.Remove(link);dbcontext.SaveChanges(); model.Modified_By = User.Identity.Name; model.Modified_Date = DateTime.Now.Date; }
+                }
+                model.LoanTypeCode = model.LoanInAdvanceSetup.LoanTypeCode;
+                if(model.ManualPaymentTypes_DetailID==0 ||model.ManualPaymentTypes_HeaderID==0)
+                {
+                    return View(model);
+                }
+               
+                    model.PaymentTypeCode = model.ManualPaymentTypes_Header.Type_Code;
+                    model.SalaryCodeID = model.ManualPaymentTypes_Detail.SalaryCodeID;
+                    dbcontext.LinkLoanDeductionsWithOtherManualPayment.Add(model);
+                    return RedirectToAction("edit", new { id = model.LoanInAdvanceSetupID });
+                
+            }
+            catch(Exception)
+            {
+                return View(model);
+            }
+        }
+        public JsonResult details(int id_header)
+        {
+            try
+            {
+                var header = dbcontext.ManualPaymentTypes_Header.FirstOrDefault(m => m.ID == id_header);
+                var details = dbcontext.ManualPaymentTypes_Detail.Where(m => m.PaymentTypeCode == header.PaymentTypeCode).ToList().Select(m => new { Code = m.SalaryCodeID + "------", ID = m.ID }); ;
+                return Json(details);
+            }
+            catch(Exception)
+            {
+                return Json(0);
+            }
+        }
         public ActionResult edit(int id)
         {
             try
             {
                 ////ViewBag.eligibility_matrix_code
-                ////     ViewBag.manual_payment=manual payment settlement loan
-                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
-                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.manual_payment = dbcontext.ManualPaymentTypes_Header.Where(m => m.PaymentTypeSourceDocument == 2).Select(m => new { Code = m.PaymentTypeCode + "-[" + m.PaymentTypeDesc + "-]", ID = m.ID }).ToList();///loan only
+                ViewBag.salary_code = dbcontext.salary_code.Where(m => m.CodeGroupType == 1 && m.CodeValueType == 7 && m.SourceEntry == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); //earning and money and contract
+                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
 
                 var model = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == id);
                 var edit_model = new Loan_VM();
@@ -201,10 +289,15 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult edit(Loan_VM model, FormCollection form)
+        public ActionResult edit(Loan_VM model, FormCollection form,string Command)
         {
             try
             {
+                ////ViewBag.eligibility_matrix_code
+                ViewBag.manual_payment = dbcontext.ManualPaymentTypes_Header.Where(m => m.PaymentTypeSourceDocument == 2).Select(m => new { Code = m.PaymentTypeCode + "-[" + m.PaymentTypeDesc + "-]", ID = m.ID }).ToList();///loan only
+                ViewBag.salary_code = dbcontext.salary_code.Where(m => m.CodeGroupType == 1 && m.CodeValueType == 7 && m.SourceEntry == 1).Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList(); //earning and money and contract
+                ViewBag.monthly_salarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
+
                 var add_record = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == model.LoanInAdvanceSetup.ID);
 
                 add_record.LoanEligibilityType = model.loan_eligibility_type.GetHashCode();
@@ -318,6 +411,12 @@ namespace HR.Controllers
                 add_record.Modified_By = User.Identity.Name;
                 add_record.Modified_Date = DateTime.Now.Date;
                 dbcontext.SaveChanges();
+                if (Command == "link")
+                {
+                  
+                        return RedirectToAction("link", new { loan_ID = add_record.ID, type = 1 });
+                    
+                }
                 return RedirectToAction("index");
             }
             catch(Exception)

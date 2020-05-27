@@ -9,11 +9,7 @@
 
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @pers_2.shiftsetup
-        </h1>
-    </section>
+  
 
     <!-- Main content -->
     <section class="content">
@@ -25,6 +21,13 @@
 
                 @using (Html.BeginForm("Create", "ExitPermissionRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "ExitPermissionRequest")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","ExitPermissionRequest")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "ExitPermissionRequest")" class="create-btn"> @pers_2.Back</a></div>
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -39,49 +42,50 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.exitpermissionreason
+                            </h1>
+                        </section>
 
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @pers_2.numberreq
-                            </label> <div class="col-md-3">
+                           <div class="col-md-4">
+                               <label style="color:red">
+                                   @pers_2.numberreq
+                               </label> 
                                 @Html.EditorFor(model => model.Request_Number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Request_Number, "", new { @class = "text-danger" })
                             </div>
-                            <label class="control-label col-md-1">
-                                <span> @Basic.Date </span>
-                            </label>
-                            <div class="col-md-3">
+                           
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @Basic.Date </span>
+                                </label>
                                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
                                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-2">
-                                <input style="width:100px" type="submit" value=@pers_2.create class="btn btn-success" />
-                            </div>
-                            <div class="col-md-2">
-                                <a style="width:100px" href="@Url.Action("index","ExitPermissionRequest")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.exitpermissionreason
-                            </label>  <div class="col-md-3">
+                           
+                           <div class="col-md-4">
+                               <label>
+                                   @pers_2.exitpermissionreason
+                               </label> 
 
                                 @Html.DropDownListFor(m => m.Exit_Permission_ReasonID, new SelectList(ViewBag.reasons, "ID", "Code"), pers_2.exitpermissionreason, new { @class = "select2" })
 
 
                             </div>
-                            <label class="control-label col-md-1">
-                                @pers_2.fromtime
-                            </label> <div class="col-md-3">
+                          <div class="col-md-4">
+                              <label>
+                                  @pers_2.fromtime
+                              </label> 
                                 @Html.EditorFor(model => model.From, new { htmlAttributes = new { id="start",@class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                             </div>
-                            <label class="control-label col-md-1">
-                                @pers_2.totime
-                            </label>
-                            <div class="col-md-3">
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.totime
+                                </label>
                                 @Html.EditorFor(model => model.To, new { htmlAttributes = new {ud="end", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_default_time = "11:25 AM", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                             </div>
@@ -92,31 +96,31 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.empname
-                            </label>  <div class="col-md-3">
-
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.empname
+                                </label> 
                                 @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.empname, new { @class = "select2"})
 
                                
                             </div>
                             
-                            <label class="control-label col-md-1">
-                                @pers_2.ExitPerissiontype
-                            </label>  <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.ExitPerissiontype
+                                </label>
 
                                 @Html.DropDownListFor(m => m.Exit_permission_typeID, new SelectList(ViewBag.type, "ID", "Code"), pers_2.ExitPerissiontype, new { @class = "select2"})
 
                               
                             </div>
-                        </div>
-                    
-                        <div class="form-group">
+                      
                            
-                            <label class="control-label col-md-1">
-                                @pers_2.notes
-                            </label>
-                            <div class="col-md-7">
+                         
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.notes
+                                </label>
                                 @Html.TextAreaFor(model => model.Notes,4,50, new { htmlAttributes = new { @class = "form-control" } })
 
                             </div>
@@ -194,3 +198,95 @@
   
 
 </script>
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

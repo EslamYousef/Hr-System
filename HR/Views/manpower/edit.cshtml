@@ -19,9 +19,17 @@
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("edit", "manpower", FormMethod.Post, new { id = "dd",enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("edit", "manpower", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "manpower")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","manpower")" class="create-btn" value=@pers_2.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "manpower")" class="create-btn"> @pers_2.Back</a></div>
 
+
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <input name="levelcode" value="" hidden />
                     <input name="levelname" value="" hidden />
@@ -48,59 +56,62 @@
 
 
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                <span> @organ.fromyear </span>
-                            </label>
-                            <div class="col-md-2">
+                           
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @organ.fromyear </span>
+                                </label>
                                 @Html.EditorFor(model => model.man_power.from_year, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1989" } })
                             </div>
-                            <label style="color:red" class="control-label col-md-1">
-                                <span> @organ.toyear</span>
-                            </label>
-                            <div class="col-md-2">
+                          
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @organ.toyear</span>
+                                </label>
                                 @Html.EditorFor(model => model.man_power.to_year, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1990" } })
                             </div>
-                            <label style="color:red" class="control-label col-md-1">
-                                <span>@organ.organizationchart</span>
-                            </label>
-                            <div class="col-md-2">
+                           
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span>@organ.organizationchart</span>
+                                </label>
                                 @Html.DropDownListFor(m => m.selected_organ, new SelectList(ViewBag.organ, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "full_job()", @id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.selected_organ, "", new { @class = "text-danger" })
 
                             </div>
-                            <input id="btnSave" style="width:150px" class="btn btn-success" onclick="ch()" value=@organ.Save />
-                            <a style="width:150px" href="@Url.Action("index", "manpower")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-
+                       
                         </div>
-
-
                         <div class="form-group">
-                            <label class="control-label col-md-1">
-                                <span>@organ.jobs</span>
-                            </label>
+                            <div class="col-md-4">
+                                <label>
+                                    <span>@organ.jobs</span>
+                                </label>
 
-                            <select class="col-md-2 select2" id="employee181"></select>
-                            <label class="control-label col-md-1">
-                                <span>@organ.JobLevelSetup</span>
-                            </label>
-                            <div class="col-md-2">
-                                @Html.DropDownList("le", new SelectList(ViewBag.setup, "ID", "Code"), organ.JobLevelSetup, new { @class = "select2", @id = "lev" })
+                                <select class="select2" id="employee181"></select>
+                             </div>
+                            
+                                <div class="col-md-4">
+                                    <label>
+                                        <span>@organ.JobLevelSetup</span>
+                                    </label>
+                                    @Html.DropDownList("le", new SelectList(ViewBag.setup, "ID", "Code"), organ.JobLevelSetup, new { @class = "select2", @id = "lev" })
+                                </div>
+                              
+                                <div class="col-md-4">
+                                    <label>
+                                        <span>@organ.jobtitleSubclass</span>
+                                        </label>
+                                        @Html.DropDownList("su", new SelectList(ViewBag.sub, "ID", "Code"), organ.jobtitleSubclass, new { @class = "select2", @id = "sub1" })
+                                </div>
+
+
+
+                                <div class="col-md-4">
+                                    <label> - </label>
+                                    <input type="button" onclick="add()" style="width:300px" value=@organ.additems class="btn btn-success " />
+
+                                </div>
                             </div>
-                            <label class="control-label col-md-1">
-                                <span>@organ.jobtitleSubclass</span>
-                            </label>
-                            <div class="col-md-2">
-                                @Html.DropDownList("su", new SelectList(ViewBag.sub, "ID", "Code"), organ.jobtitleSubclass, new { @class = "select2", @id = "sub1" })
-
-                            </div>
-
-
-
-                            <div class="col-md-1">
-                                <input type="button" onclick="add()" style="width:300px" value=@organ.additems class="btn btn-success " />
-
-                            </div>
-                        </div>
 
 
 
@@ -123,31 +134,31 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                <label class="control-label col-md-3">@Basic.jobtitle </label>
+                                                <span class="control-label col-md-3">@Basic.jobtitle </span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.JobLevelSetup</label>
+                                                <span class="control-label col-md-3">@organ.JobLevelSetup</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.jobtitleSubclass</label>
+                                                <span class="control-label col-md-3">@organ.jobtitleSubclass</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.Currentjobs</label>
+                                                <span class="control-label col-md-3">@organ.Currentjobs</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.newjobs</label>
+                                                <span class="control-label col-md-3">@organ.newjobs</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.quarter1</label>
+                                                <span class="control-label col-md-3">@organ.quarter1</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.quarter2</label>
+                                                <span class="control-label col-md-3">@organ.quarter2</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.quarter3</label>
+                                                <span class="control-label col-md-3">@organ.quarter3</span>
                                             </th>
                                             <th>
-                                                <label class="control-label col-md-3">@organ.quarter4</label>
+                                                <span class="control-label col-md-3">@organ.quarter4</span>
                                             </th>
                                             <th></th>
                                         </tr>
@@ -469,5 +480,98 @@
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+</style>
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
     }
 </style>

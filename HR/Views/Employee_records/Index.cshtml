@@ -181,7 +181,7 @@
                     </div>
                     }
                     <div class="row">
-                        <a href="@Url.Action("Create", "Employee_records" )" style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.addemployeerecord</a>
+                        <a href="@Url.Action("Create", "Employee_records" )" style="width:130px;margin-left:10px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>'@pers_2.addemployeerecord'</a>
 
                     </div>
                     <div style="margin-top:15px" class="form-group" id="buttons">
@@ -207,8 +207,8 @@
                     </div>
                    
 
-                    <div class="form-group" style="margin-top:70px">
-                        <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                    <div class="form-group" style="margin-top:70px;margin-left:30px">
+                        <table id="categories" style="margin-top:20px" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>@pers_2.recordnumber </th>
@@ -241,10 +241,10 @@
                                     <td>
 
                                     @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
-                                    {    <a href="@Url.Action("Edit", "Employee_records", new { id = item.ID })" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    {    <a href="@Url.Action("Edit", "Employee_records", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                     }
-                                       <a href="@Url.Action("Delete", "Employee_records" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
-                                        <a href="@Url.Action("status", "Employee_records" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+                                       <a href="@Url.Action("Delete", "Employee_records" , new {id=item.ID})" class="create-btn"><i class="far fa-trash-alt"></i> @pers_2.delete</a>
+                                        <a href="@Url.Action("status", "Employee_records" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
 
                                         </td>
                                 </tr>
@@ -273,3 +273,25 @@
     <!-- page script -->
 
     @section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

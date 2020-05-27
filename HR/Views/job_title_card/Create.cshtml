@@ -303,6 +303,20 @@
                     <input name="des5" value="" hidden />
                     <input name="slotcode__" value="" hidden />
                     <div class="form-horizontal">
+
+                        <div class="sec-nav">
+                            <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+                            <div><i class="fas fa-plus"></i><a style="" href="@Url.Action("create", "job_title_card")" class="create-btn"> @pers_2.new_</a></div>
+
+                            <div><i class="far fa-trash-alt"></i><input type="button" class="create-btn" value="Delete" /></div>
+                            <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "job_title_card")" class="create-btn"> @pers_2.Back</a></div>
+
+                            <div><i class="far fa-save"></i><button type="submit" id="btnSubmit" name="Command" value="Submit" class="create-btn">@organ.jobtitlelinkedtomultisubclasses </button></div>
+                            <div><i class="far fa-save"></i><button type="submit" id="btnSubmit" name="Command" value="Submit2" class="create-btn">@organ.jobtitledetails </button></div>
+
+
+
+                        </div>
                         <hr />
                         @if (TempData["Message"] != null)
                         {
@@ -314,57 +328,39 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                            
-                            <label style="color:red" class = "control-label col-md-2">
-                                @organ.code
-                            </label>
+                           
                             <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.code
+                                </label>
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new {@readonly=true, @class = "form-control", id = "code" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
 
                             </div>
                             <div class="col-md-4">
-                                <button type="submit" style="width:100%" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@organ.jobtitlelinkedtomultisubclasses</button>
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                          
-                            <label style="color:red" class="control-label col-md-2">
-                                @organ.name
-                            </label>
-                             <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.name
+                                </label>
                                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name" } })
                                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
 
                             </div>
-                            <div class="col-md-4" >
-                                <button type="submit" style="width:100%" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success">@organ.jobtitledetails</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                           
-                            <label class="control-label col-md-2">
-                                @organ.description
-                            </label>
                             <div class="col-md-4">
+                                <label>
+                                    @organ.description
+                                </label>
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
                             </div>
-                          
-                                <div class="col-md-2">
-                                    <button type="submit" id="btnSave" style="width:100%" class="btn btn-success" name="Command" value="Save">@organ.create</button>
-                                </div>
-                                    <div class="col-md-2">
-                                        <a href="@Url.Action("index", "job_title_card")" style="width:100%" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                    </div>
-                           
                         </div>
+                       
+             
                         <div class="col-md-12">
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
                                 <li class="active">
-                                    <a href="#home" data-toggle="tab">
+                                    <a href="#homee" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
                                         <span class="hidden-xs">@organ.Home</span>
                                     </a>
@@ -378,172 +374,178 @@
 
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                        <label style="color:red" class="control-label col-md-2">
-                                            <span>@organ.JobLevelSetup</span>
-                                        </label>
+                                       
                                         <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@organ.JobLevelSetup</span>
+                                            </label>
                                             @Html.DropDownListFor(m => m.joblevelsetupID, new SelectList(ViewBag.level_Set_up, "ID", "Code"), organ.JobLevelSetup, new { @class = "select2", @onchange = "level()", @id = "level_setup" })
                                             @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
                                           
                                         </div>
                                       
-                                        <label style="color:red" class="control-label col-md-1">
-                                            <span>@organ.working_system</span>
-                                        </label>
+                                       
                                         <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@organ.working_system</span>
+                                            </label>
                                             @Html.EnumDropDownListFor(m => m.working_system, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.joblevelsetupID, "", new { @class = "text-danger" })
                                         </div>
-                                       
-                                    </div>
-                                   
-                                    <div class="form-group">
-                                        <label style="color:red" class="control-label col-md-2">
-                                            <span>@organ.organizationchart</span>
-                                        </label>
 
                                         <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@organ.organizationchart</span>
+                                            </label>
+
                                             @Html.DropDownListFor(m => m.Organization_unit_codeID, new SelectList(ViewBag.chart, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "chart11()", @id = "chart1" })
                                             @Html.ValidationMessageFor(model => model.Organization_unit_codeID, "", new { @class = "text-danger" })
-                                         
-                                            
+
+
                                         </div>
-                                        <label style="color:red" class="control-label col-md-1">
-                                            <span>@Basic.jobtitle1</span>
-                                        </label>
+
                                         <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@Basic.jobtitle1</span>
+                                            </label>
                                             @Html.EnumDropDownListFor(m => m.statuss, new { @class = "select2", @id = "job_system" })
                                             @Html.ValidationMessageFor(model => model.statuss, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            <span>@organ.parentjob</span>
-                                        </label>
                                         <div class="col-md-4">
-                                            @Html.DropDownListFor(m => m.parent_job, new SelectList(ViewBag.parent_jobbb, "ID", "Code"),organ.parentjob, new { @class = "select2", @onchange = "p11arent()", @id = "parent" })
+                                            <label>
+                                                <span>@organ.parentjob</span>
+                                            </label>
+                                            @Html.DropDownListFor(m => m.parent_job, new SelectList(ViewBag.parent_jobbb, "ID", "Code"), organ.parentjob, new { @class = "select2", @onchange = "p11arent()", @id = "parent" })
                                             @Html.ValidationMessageFor(model => model.parent_job, "", new { @class = "text-danger" })
-                                       
+
                                         </div>
-                                        <label class="control-label col-md-1">
-                                            <span>@organ.nationality</span>
-                                        </label>
+                                    </div>
+                                   
+                                    
+                                    <div class="form-group">
+                                     
+                                        
+                                      
 
                                         <div class="col-md-4">
+                                            <label>
+                                                <span>@organ.nationality</span>
+                                            </label>
                                             @Html.DropDownListFor(m => m.nationalityID, new SelectList(ViewBag.nationality, "ID", "Code"), organ.nationality, new { @class = "select2", @onchange = "nationality11()", @id = "nationality" })
                                             @Html.ValidationMessageFor(model => model.nationalityID, "", new { @class = "text-danger" })
                                           
                                         </div>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label style="color:red" class="control-label col-md-2">
-                                            <span> @organ.Defaultjobtitlesubclass</span>
-                                        </label>
-
                                         <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span> @organ.Defaultjobtitlesubclass</span>
+                                            </label>
                                             @Html.DropDownListFor(m => m.Default_job_title_sub_classID, new SelectList(ViewBag.subclass, "ID", "Code"), organ.Defaultjobtitlesubclass, new { @class = "select2", @onchange = "defaultt11()", @id = "defaultt" })
                                             @Html.ValidationMessageFor(model => model.Default_job_title_sub_classID, "", new { @class = "text-danger" })
-                                            
-                                        </div>
-                                      
-                                        <label class="control-label col-md-1">
-                                            <span>@organ.Fromage </span>
-                                        </label>
 
-                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>
+                                                <span>@organ.Fromage </span>
+                                            </label>
                                             @Html.EditorFor(model => model.from_age, new { htmlAttributes = new { @min = "1", @class = "form-control" } })
                                         </div>
-                                        <label class="control-label col-md-1">
-                                            <span> @organ.Toage </span>
-                                        </label>   
-                                        <div class="col-md-1">
-                                            @Html.EditorFor(model => model.to_age, new { htmlAttributes = new {  @min = "1", @class = "form-control" } })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label style="color:red" class="control-label col-md-2">
-                                            <span>@Basic.jobtitle</span>
-                                        </label>
+
                                         <div class="col-md-4">
+                                            <label>
+                                                <span> @organ.Toage </span>
+                                            </label>
+                                            @Html.EditorFor(model => model.to_age, new { htmlAttributes = new { @min = "1", @class = "form-control" } })
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@Basic.jobtitle</span>
+                                            </label>
                                             @Html.EnumDropDownListFor(m => m.parment, new { @class = "select2", @id = "job_system" })
                                             @Html.ValidationMessageFor(model => model.parment, "", new { @class = "text-danger" })
                                         </div>
+                                    </div>
+                                 
+                                    <div class="form-group">
+                                        
+                                       
 
 
-                                        <label style="color:red" class="control-label col-md-1">
-                                            <span>@organ.validity</span>
-                                        </label>
+                                      
                                         <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@organ.validity</span>
+                                            </label>
                                             @Html.EnumDropDownListFor(m => m.validity, new { @class = "select2", @id = "job_system" })
                                             @Html.ValidationMessageFor(model => model.validity, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label style="color:red" class="control-label col-md-2">
-                                            <span>@organ.num_slots</span>
-                                        </label>
                                         <div class="col-md-4">
-                                            @Html.EditorFor(model => model.num_slots, new { htmlAttributes = new { type="number", id = "number", min = "0", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.num_slots, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-md-1">
-                                        </div>
-                                  <div class="col-md-2">
-                                     
-                                       <input type="button" style="width:100%" value=@organ.generteslot onclick="generat3e()" class="btn btn-success" id="generateenum" />
-
-                                      
-                                       </div>
-                                        <div class="col-md-2">
-                                            <input type="button"  value=@organ.clear onclick="clearnum()" class="btn btn-success" style="width:100%;margin-right:10px" id="clearenum11" />
-
-                                        </div>   
-                                     </div>
-                                    <div class="form-group">
-                                        <label style="color:red" class="control-label col-md-2">
-                                            <span>@organ.gender</span>
-                                        </label>
-                                        <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@organ.gender</span>
+                                            </label>
                                             @Html.EnumDropDownListFor(m => m.gender, new { @class = "select2", @id = "job_system" })
                                             @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
                                         </div>
-                                        <label   class="control-label col-md-1">
-                                        
-                                            <span>
+
+                                        <div class="col-md-4">
+                                            <label>
+
+
                                                 shift
-                                            </span>
-                                        </label>
-                                        <div  class="col-md-4">
-                                            <input disabled class="form-control"/>
+
+                                            </label>
+                                            <input disabled class="form-control" />
                                             @*@Html.EnumDropDownListFor(m => m.gender, new { vaule="", @disabled = "disabled", @class = "select2", @id = "job_system" })*@
                                             @*@Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })*@
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            <span>@organ.job_Summery</span>
-                                        </label>
-                                        <div class="col-md-10">
+                                       
+                                        <div class="col-md-4">
+                                            <label style="color:red">
+                                                <span>@organ.num_slots</span>
+                                            </label>
+                                            @Html.EditorFor(model => model.num_slots, new { htmlAttributes = new { type="number", id = "number", min = "0", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.num_slots, "", new { @class = "text-danger" })
+                                        </div>
+                                      
+                                
+                                     </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <input type="button" style="width:100%" value=@organ.generteslot onclick="generat3e()" class="btn btn-success" id="generateenum" />
+                                            <input type="button" value=@organ.clear onclick="clearnum()" class="btn btn-success" style="width:100%;margin-right:10px" id="clearenum11" />
+                                        </div>   
+                                    </div>
+                                  
+                                    <div class="form-group">
+                                      
+                                        <div class="col-md-4">
+                                            <label>
+                                                <span>@organ.job_Summery</span>
+                                            </label>
                                             @Html.TextAreaFor(model => model.job_Summery, 6, 67, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.job_Summery, "", new { @class = "text-danger" })
                                         </div>
+                                        <div class="col-md-4"></div>
+
+                                            <div class="col-md-4">
+                                                <label>
+                                                    <span>@organ.Job_alt_summery</span>
+                                                </label>
+                                                @Html.TextAreaFor(model => model.Job_alt_summery, 6, 67, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Job_alt_summery, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                        
                                         
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            <span>@organ.Job_alt_summery</span>
-                                        </label>
-                                        <div class="col-md-10">
-                                            @Html.TextAreaFor(model => model.Job_alt_summery, 6, 67, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Job_alt_summery, "", new { @class = "text-danger" })
-                                          
-                                        </div>
-                                       
-                                    </div>
+                                   
                                 </div>
                                 <div class="tab-pane" id="profile">
 
@@ -551,22 +553,22 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <label class="control-label col-md-3">@Basic.code </label>
+                                                    <span class="control-label col-md-3">@Basic.code </span>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">@Basic.joblevel</label>
+                                                    <span class="control-label col-md-3">@Basic.joblevel</span>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">@Basic.slottyupe</label>
+                                                    <span class="control-label col-md-3">@Basic.slottyupe</span>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">@organ.description </label>
+                                                    <span class="control-label col-md-3">@organ.description </span>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">@Basic.unit</label>
+                                                    <span class="control-label col-md-3">@Basic.unit</span>
                                                 </th>
                                                 <th>
-                                                    <label class="control-label col-md-3">@organ.status</label>
+                                                    <span class="control-label col-md-3">@organ.status</span>
                                                 </th>
                                             <th></th>
                                             </tr>
@@ -597,3 +599,96 @@
 
     $("#number").val(0);
 </script>
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

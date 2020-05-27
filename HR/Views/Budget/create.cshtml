@@ -7,8 +7,17 @@
 @using HR.Resource;
 <div class="panel panel-primary" data-collapsed="0">
             <div class="panel-body">
-                @using (Html.BeginForm("Create", "Budget", FormMethod.Post,new { id="dd",enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Budget", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Budget")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Budget")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Budget")" class="create-btn"> @pers_2.Back</a></div>
+
+
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <input name="item" value="" hidden />
                     <input name="AmountN" value="" hidden />
@@ -26,110 +35,112 @@
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <label style="color:red" class = "control-label col-md-2">
-                                @organ.code
-                            </label>
+                           
                             <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.code
+                                </label>
                                 @Html.EditorFor(model => model.Budget.Code, new { htmlAttributes = new {@readonly=true, @class = "form-control", id = "code" } })
                                 @Html.ValidationMessageFor(model => model.Budget.Code, "", new { @class = "text-danger" })
 
                             </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label style="color:red" class="control-label col-md-2">
-                                <span> @organ.fromyear </span>
-                            </label>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @organ.fromyear </span>
+                                </label>
                                 @Html.EditorFor(model => model.Budget.Year_From, new { htmlAttributes = new { @class = "form-control", id = "YF", type = "number", @min = "1990" } })
                                 @Html.ValidationMessageFor(model => model.Budget.Year_From, "", new { @class = "text-danger" })
 
                             </div>
-                           <div class="col-md-2">
+                            <div class="col-md-4">
+                                <label> @organ.toyear </label>
                                 @Html.EditorFor(model => model.Budget.Year_To, new { htmlAttributes = new { @class = "form-control", id = "YT", type = "number", @min = "1990" } })
                                 @Html.ValidationMessageFor(model => model.Budget.Year_To, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span> @organ.budgettype</span>
-                            </label>
                             <div class="col-md-4">
+                                <label>
+                                    <span> @organ.budgettype</span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.Budget.budget_type, "Select budget type", new { @class = "select2" })
                                 @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
-                          
+
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label style="color:red" class="control-label col-md-2">
-                                <span> @organ.organizationchart</span>
-                            </label>
                             <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @organ.organizationchart</span>
+                                </label>
                                 @Html.DropDownListFor(m => m.Budget.Organization_unitid, new SelectList(ViewBag.organization, "ID", "Code"), organ.organizationchart, new { @class = "select2", @onchange = "org()", @id = "orgid" })
                                 @Html.ValidationMessageFor(model => model.Budget.Organization_unitid, "", new { @class = "text-danger" })
                                 <input type="hidden" value="" class="form-control" id="orgname" disabled />
                             </div>
                         </div>
+                      
+                       
+                       
                         
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span> @organ.nativcurrency</span>
-                            </label>
+                         
                             <div class="col-md-4">
+                                <label>
+                                    <span> @organ.nativcurrency</span>
+                                </label>
                                 @Html.DropDownListFor(m => m.Budget.sign_native, new SelectList(ViewBag.sign, "ID", "Code"), organ.currency, new { @class = "select2", @onchange = "curN('N')", @id = "curNid" })
                                 @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
                                 <input type="hidden" value="" class="form-control" id="curNname" disabled />
                             </div>
-                            <label class="control-label col-md-2">
-                                <span>@organ.Forigncurrency</span>
-                            </label>
+                          
                             <div class="col-md-4">
+                                <label>
+                                    <span>@organ.Forigncurrency</span>
+                                </label>
                                 @Html.DropDownListFor(m => m.Budget.sign_forign, new SelectList(ViewBag.sign, "ID", "Code"), organ.currency, new { @class = "select2", @onchange = "curF('F')", @id = "curFid" })
                                 @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
                                 <input type="hidden" value="" class="form-control" id="curFname" disabled />
                             </div>
+                           
+                            
                         </div>
+                       
+                        
                         <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span> @organ.Currencyrate
-                                </span>
-                            </label>
                             <div class="col-md-4">
+                                <label>
+                                    <span>
+                                        @organ.Currencyrate
+                                    </span>
+                                </label>
                                 @Html.EditorFor(model => model.Budget.Currency_rate, new { htmlAttributes = new { @class = "form-control", id = "R", type = "number", @min = "0" } })
                                 @Html.ValidationMessageFor(model => model.Budget.budget_type, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span id="ANN">@organ.amountnative</span>
-                            </label>  
                             <div class="col-md-4">
+                                <label>
+                                    <span id="ANN">@organ.amountnative</span>
+                                </label>
                                 @Html.EditorFor(model => model.Budget.amount_native, new { htmlAttributes = new { @class = "form-control", id = "N", type = "number", @min = "0" } })
                                 @Html.ValidationMessageFor(model => model.Budget.amount_native, "", new { @class = "text-danger" })
 
                             </div>
-                            <label class="control-label col-md-2">
-                                <span id="AFF"> @organ.ammountforigne</span>
-                            </label>
                             <div class="col-md-4">
+                                <label>
+                                    <span id="AFF"> @organ.ammountforigne</span>
+                                </label>
                                 @Html.EditorFor(model => model.Budget.ammount_forigne, new { htmlAttributes = new { @class = "form-control", id = "F", type = "number", @min = "0" } })
                                 @Html.ValidationMessageFor(model => model.Budget.ammount_forigne, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span> @organ.Remainingnative</span>
-                            </label>
                               <div class="col-md-4">
+                                  <label>
+                                      <span> @organ.Remainingnative</span>
+                                  </label>
                                 @Html.EditorFor(model => model.Budget.Remaining_native, new { htmlAttributes = new { @Readonly = true, @class = "form-control", id = "RN", type = "number", @min = "0" } })
                                 @Html.ValidationMessageFor(model => model.Budget.Remaining_native, "", new { @class = "text-danger" })
 
                             </div>
-                            <label class="control-label col-md-2">
-                                <span>@organ.remainingforigne</span>
-                            </label>   
+                            
                             <div class="col-md-4">
+                                <label>
+                                    <span>@organ.remainingforigne</span>
+                                </label>   
                                 @Html.EditorFor(model => model.Budget.Remaining_forgin, new { htmlAttributes = new { @Readonly = true, @class = "form-control", id = "RF", type = "number", @min = "0" } })
                                 @Html.ValidationMessageFor(model => model.Budget.Remaining_forgin, "", new { @class = "text-danger" })
                             </div>
@@ -183,108 +194,112 @@
                                         </div>
                                        <div class="tab-pane" id="BudgetStatus">
                                            <div class="form-group">
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.status</span>
-                                               </label>
                                                <div class="col-md-4">
-                                                   @Html.EnumDropDownListFor(m => m.status.statu, new {@readonly=true, @class = "select2" })
+                                                   <label>
+                                                       <span>@organ.status</span>
+                                                   </label>
+                                                   @Html.EnumDropDownListFor(m => m.status.statu, new { @readonly = true, @class = "select2" })
                                                    @Html.ValidationMessageFor(model => model.status.statu, "", new { @class = "text-danger" })
 
                                                </div>
                                            </div>
                                            <div class="form-group">
-
-                                               <label class="control-label col-md-2">
-                                                   <span> @organ.createdby</span>
-                                               </label>
+                                             
+                                              
                                                <div class="col-md-4">
+                                                   <label>
+                                                       <span> @organ.createdby</span>
+                                                   </label>
                                                    @Html.EditorFor(model => model.status.created_by, new { htmlAttributes = new {  @class = "form-control" } })
                                                    @Html.ValidationMessageFor(model => model.status.created_by, "", new { @class = "text-danger" })
 
                                                </div>
-                                               <label class="control-label col-md-2">
-                                                   <span> @organ.createdDate</span>
-                                               </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control",@type="date", id = "CR" } })
-                                                   @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
-
-                                               </div>
-
-                                           </div>
-                                           <div class="form-group">
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.Reportasreadyby</span>
-                                               </label>
-                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span>@organ.Reportasreadyby</span>
+                                                   </label>
                                                    @Html.EditorFor(model => model.status.return_to_reviewby, new { htmlAttributes = new { @class = "form-control" } })
                                                    @Html.ValidationMessageFor(model => model.status.return_to_reviewby, "", new { @class = "text-danger" })
 
                                                </div>
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.ReportasreadyDate</span>
-                                               </label>
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.return_to_reviewdate, new { htmlAttributes = new { @class="form-control", @type = "date", id = "RE" } })
-                                                   @Html.ValidationMessageFor(model => model.status.return_to_reviewdate, "", new { @class = "text-danger" })
-
-                                               </div>
-
-                                           </div>
-
-
-                                           <div class="form-group">
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.approvedby</span>
-                                               </label>
-                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span>@organ.approvedby</span>
+                                                   </label>
                                                    @Html.EditorFor(model => model.status.approved_by, new { htmlAttributes = new { @class = "form-control" } })
                                                    @Html.ValidationMessageFor(model => model.status.approved_by, "", new { @class = "text-danger" })
 
                                                </div>
-                                               <label class="control-label col-md-2">
-                                                   <span> @organ.approvedDate</span>
-                                               </label>
                                                <div class="col-md-4">
+                                                   <label>
+                                                       <span> @organ.Rejectedby</span>
+                                                   </label>
+                                                   @Html.EditorFor(model => model.status.Rejected_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.Rejected_by, "", new { @class = "text-danger" })
+
+                                               </div>
+                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span>@organ.cancaledby</span>
+                                                   </label>
+                                                   @Html.EditorFor(model => model.status.cancaled_by, new { htmlAttributes = new { @class = "form-control" } })
+                                                   @Html.ValidationMessageFor(model => model.status.cancaled_by, "", new { @class = "text-danger" })
+
+                                               </div>
+
+                                               
+                                           </div>
+
+
+                                           <div class="form-group">
+                                             
+                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span> @organ.createdDate</span>
+                                                   </label>
+                                                   @Html.EditorFor(model => model.status.created_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CR" } })
+                                                   @Html.ValidationMessageFor(model => model.status.created_bydate, "", new { @class = "text-danger" })
+
+                                               </div>
+
+
+
+                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span>@organ.ReportasreadyDate</span>
+                                                   </label>
+                                                   @Html.EditorFor(model => model.status.return_to_reviewdate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "RE" } })
+                                                   @Html.ValidationMessageFor(model => model.status.return_to_reviewdate, "", new { @class = "text-danger" })
+
+                                               </div>
+
+                                            
+                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span> @organ.approvedDate</span>
+                                                   </label>
                                                    @Html.EditorFor(model => model.status.approved_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "AP" } })
                                                    @Html.ValidationMessageFor(model => model.status.approved_bydate, "", new { @class = "text-danger" })
 
                                                </div>
 
-                                           </div>
-                                           <div class="form-group">
-                                               <label class="control-label col-md-2">
-                                                   <span> @organ.Rejectedby</span>
-                                               </label>
+                                         
+                                             
+                                               
+                                           
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.Rejected_by, new { htmlAttributes = new { @class = "form-control" } })
-                                                   @Html.ValidationMessageFor(model => model.status.Rejected_by, "", new { @class = "text-danger" })
-
-                                               </div>
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.RejectedDate</span>
-                                               </label>
-                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span>@organ.RejectedDate</span>
+                                                   </label>
                                                    @Html.EditorFor(model => model.status.Rejected_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Rj" } })
                                                    @Html.ValidationMessageFor(model => model.status.Rejected_bydate, "", new { @class = "text-danger" })
 
                                                </div>
-
-                                           </div>
-
-                                           <div class="form-group">
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.cancaledby</span>
-                                               </label>
+                                               
                                                <div class="col-md-4">
-                                                   @Html.EditorFor(model => model.status.cancaled_by, new { htmlAttributes = new { @class = "form-control" } })
-                                                   @Html.ValidationMessageFor(model => model.status.cancaled_by, "", new { @class = "text-danger" })
-
-                                               </div>
-                                               <label class="control-label col-md-2">
-                                                   <span>@organ.cancaledDate</span>
-                                               </label>
-                                               <div class="col-md-4">
+                                                   <label>
+                                                       <span>@organ.cancaledDate</span>
+                                                   </label>
                                                    @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CA" } })
                                                    @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
 
@@ -292,19 +307,14 @@
                                            </div>
                                         </div>
                                         <div class="tab-pane" id="Justification">
-                                            @Html.TextAreaFor(m => m.justification.justifiaction,10,500,new { });
+                                            @Html.TextAreaFor(m => m.justification.justifiaction,7,400,new { });
                                             @Html.ValidationMessageFor(model => model.justification.justifiaction, "", new { @class = "text-danger" })
                                        </div>  
 
                                     </div>
                              
 
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input id="btnSave" class="btn btn-success" onclick="ch()" value=@organ.create/>
-                                    <a href="@Url.Action("index", "Budget")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 }
@@ -558,10 +568,10 @@ input::-webkit-inner-spin-button {
         var ch = check();
         if (ch == 0)
         {
-             
+
             var n = $("#N").val();
             var f = $("#F").val();
-             
+
             if (n == 0 || n == "" || f == 0 || f == "") {
                 alert('you must enter amount native and amount forign at first ');
             }
@@ -575,34 +585,36 @@ input::-webkit-inner-spin-button {
                       url: "/Budget/items",
                       data: { "id": d },
                       success: function (result) {
-                           
+
                           var i = "<div><div class='form-group'>" +
-                                                    "<label class='control-label col-md-1'>" +
+                                                    "<div class='col-md-4'>" +
+                                                      "<label>" +
                                                        "<span>@organ.item </span>" +
                                                     "</label>" +
-                                                    "<div class='col-md-2'>" +
 
                                                           "<input type='text' value='" + result.Name + "' class='form-control' id='itemnamee' disabled />" +
                                                           "<input type='text'  name='item' value='" + result.ID + "' id='itemid' hidden />" +
 
                                                       "</div>" +
-                                                      "<label class='control-label col-md-1'>" +
+
+                                                    "<div class='col-md-4'>" +
+                                                      "<label>" +
                                                           "<div>@organ.native</div>" +
                                                       "</label>" +
-                                                    "<div class='col-md-2'>" +
                                                            "<input type='number' min='0' value='0'  class='form-control' id='amountNn' onkeyup='calN($(this),$(this).parent().next().next().children())' name='AmountN' />" +
                                                             "<input type='number'   value='0'  hidden />" +
                                                     "</div>" +
-                                                    "<label class='control-label col-md-1'>" +
+                                                    "<div class='col-md-4'>" +
+                                                      "<label>" +
                                                         "<div>@organ.forign</div>" +
                                                     "</label>" +
-                                                    "<div class='col-md-2'>" +
                                                            "<input type='number'  value='0' min='0' class='form-control' id='amountFf' readonly  onkeyup='calf($(this))' name='AmountF' />" +
                                                     "</div>" +
-                                                      "<label class='control-label col-md-1'>" +
+
+                                                      "<div class='col-md-4'>" +
+                                                         "<label>" +
                                                        "<div>@organ.comment</div>" +
                                                     "</label>" +
-                                                      "<div class='col-md-2'>" +
                                                           "<input type='text' class='form-control' id='comment' name='commentt' />"
                                                           +
                                                       "</div>" +
@@ -621,7 +633,7 @@ input::-webkit-inner-spin-button {
             }
             var inp = document.getElementsByName('AmountN');
             $.each(inp, function (key, value) {
-                 
+
                 value.addEventListener('select', function () {
                     this.selectionStart = this.selectionEnd;
                 }, false);
@@ -629,7 +641,7 @@ input::-webkit-inner-spin-button {
         }
     }
     function remove(thi,l) {
-         
+
         thi.parent().parent().parent().remove();
         var inputN = l.children()[4];
         var inputF = l.children()[6];
@@ -717,7 +729,7 @@ input::-webkit-inner-spin-button {
     }
     function calF(th)
     {
-         
+
         var thh = parseFloat(th.val());
         var N = parseFloat($("#N").val());
         var F = parseFloat($("#F").val());
@@ -731,22 +743,22 @@ input::-webkit-inner-spin-button {
         }
         else
         {
-            
+
             $("#RF").val(F - parseFloat(thh));
             var oo = parseFloat($("#RF").val());
             $("#RN").val(oo * R);
-        
+
         }
     }
     function check()
     {
         ////////////
-         
+
         var all_value = document.getElementsByName("AmountN");
         var u = 0;
         var Nn = parseFloat($("#N").val());
         $.each(all_value, function (key, value) {
-             
+
             var op = value.value;
             if (op != "" && op != "0") {
                 u = parseFloat(u) + parseFloat(op)
@@ -767,7 +779,7 @@ input::-webkit-inner-spin-button {
     }
     function ch()
     {
-         
+
         var t = check();
         if (t == 0) {
 
@@ -792,3 +804,96 @@ input::-webkit-inner-spin-button {
     $("#RN").val(n);
     $("#RF").val(f);
 </script>
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

@@ -88,6 +88,28 @@
 
                         <hr />
 
+                        <div class="sec-nav">
+                            <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+                           
+                            @if ((int)TempData["TYPE"] == 1)
+                            {
+
+                                <div><i class="fas fa-undo"></i><a style=""href="@Url.Action("edit", "Job_level_class", new { id=ViewBag.id2})" class="create-btn"> @pers_2.Back</a></div>
+
+                            }
+                            else if ((int)TempData["TYPE"] == 2)
+                            {
+                               <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "Job_level_grade", new { id=ViewBag.id2})"  class="create-btn"> @pers_2.Back</a></div>
+
+                            }
+                            else if ((int)TempData["TYPE"] == 3)
+                            {
+                                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "job_level_setup", new { id=ViewBag.id2})" class="create-btn"> @pers_2.Back</a></div>
+
+                            }
+
+                           </div>
+
                         @if (TempData["Message"] != null)
                         {
                             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -102,31 +124,13 @@
                         <input hidden name="pervious_basic" value="" />
                         <input hidden name="new_basic_sallary" value="" />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        
                         <div class="form-group">
-                            <div class="col-md-2">
-                                <input style="width:100%" class="btn btn-success" type="submit" name="Command" value='@organ.submit'/>
-                            </div>
-                            <div class="col-md-2">
-                                @if ((int)TempData["TYPE"] == 1)
-                                {
-
-                                    <a style="width:100%" href="@Url.Action("edit", "Job_level_class", new { id=ViewBag.id2})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                }
-                                else if ((int)TempData["TYPE"] == 2)
-                                {
-                                    <a style="width:100%" href="@Url.Action("edit", "Job_level_grade", new { id=ViewBag.id2})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                }
-                                else if ((int)TempData["TYPE"] == 3)
-                                {
-                                    <a style="width:100%" href="@Url.Action("edit", "job_level_setup", new { id=ViewBag.id2})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                                }
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class = "control-label col-md-3">
-                                @organ.Year
-                            </label>
-                            <div class="col-sm-3">
+                          
+                            <div class="col-sm-4">
+                                <label>
+                                    @organ.Year
+                                </label>
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
@@ -140,58 +144,63 @@
 
 
 
-                            <label class="control-label col-md-3">
-                                @organ.Month
-                            </label>
-                            <div class="col-sm-3">
+                          
+                            <div class="col-sm-4">
+                                <label>
+                                    @organ.Month
+                                </label>
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
                                     <input id="month" class="form-control size-1" value="0" min="0" />
 
 
-                                  
-                              
+
+
                                     <button type="button" class="btn btn-default">+</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">
-                                @organ.Percentage
-                            </label> <div class="col-sm-3">
+                            <div class="col-sm-4">
+                                <label>
+                                    @organ.Percentage
+                                </label>
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
                                     <input id="percentage" class="form-control size-1" value="0" min="0" />
 
-                                 
+
 
                                     <button type="button" class="btn btn-default">+</button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            
 
 
 
-                            <label class="control-label col-md-3">
-                                @organ.Allowanceamount
-                            </label> <div class="col-sm-3">
+                          
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label>
+                                    @organ.Allowanceamount
+                                </label>
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default">-</button>
                                     <input id="Allowance_amount" class="form-control size-1" value="0" min="0" />
 
-                                
+
                                     <button type="button" class="btn btn-default">+</button>
 
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">
-                                @organ.perviousbasicsallary
-                            </label>  
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
+                                <label>
+                                    @organ.perviousbasicsallary
+                                </label>
                                     <!-- Spinner Markup -->
                                     <div class="input-spinner">
                                         <button type="button" class="btn btn-default">-</button>
@@ -204,10 +213,11 @@
 
 
 
-                            <label class="control-label col-md-3">
-                                @organ.newbasicsallary
-                            </label> 
-                            <div class="col-sm-3">
+                           
+                            <div class="col-sm-4">
+                                <label>
+                                    @organ.newbasicsallary
+                                </label> 
                                     <!-- Spinner Markup -->
                                     <div class="input-spinner">
                                         <button type="button" class="btn btn-default">-</button>
@@ -221,7 +231,7 @@
                        
 
                         <div class="col-md-4"></div>
-                        <div class="col-md-2" style="margin-bottom:10px">
+                        <div  class="col-md-2" style="margin-bottom:10px;margin-top:20px">
                             <input type="button" style="width:100%" value=@pers_2.addelement class="btn btn-success" onclick="add()" />
                         </div>
 
@@ -284,3 +294,96 @@
 
 
 @section scripts{}
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

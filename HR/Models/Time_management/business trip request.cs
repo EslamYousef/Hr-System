@@ -44,7 +44,7 @@ namespace HR.Models.Time_management
         public string purpose_of_duty { get; set; }
 
         public string Remarks_of_duty { get; set; }
-        public status status { get; set; }
+        public virtual status status { get; set; }
         public int statusID { get; set; }
         public check_status check_status { get; set; }
 

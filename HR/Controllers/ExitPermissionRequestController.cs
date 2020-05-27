@@ -167,8 +167,8 @@ namespace HR.Controllers
             try
             {
                 var ID = int.Parse(id);
-                var model = dbcontext.business_trip_request.FirstOrDefault(m => m.ID == ID);
-                var st = model.status;
+                var model = dbcontext.Exit_permission_request.FirstOrDefault(m => m.ID == ID);
+                var st = dbcontext.status.FirstOrDefault(m=>m.ID==model.statusID);
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = model.status, opertion_id = model.ID };
                 if (my_model.status.approved_by == null)

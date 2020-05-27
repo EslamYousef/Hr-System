@@ -7,11 +7,7 @@
 @using HR.Resource;
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @pers_2.businesstriprequest
-        </h1>
-    </section>
+   
 
     <!-- Main content -->
     <section class="content">
@@ -23,6 +19,13 @@
 
                 @using (Html.BeginForm("edit", "business_trip_request", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "business_trip_request")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","business_trip_request")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "business_trip_request")" class="create-btn"> @pers_2.Back</a></div>
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -37,98 +40,102 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.businesstriprequest
+                            </h1>
+                        </section>
 
                         @*////////////////////////
                             ////////////////////////Main
                             ////////////////////////*@
 
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @pers_2.numberreq
-                            </label>
-                            <div class="col-md-3">
+                           
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @pers_2.numberreq
+                                </label>
                                 @Html.EditorFor(model => model.number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.number, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-2">
-                                <input style="width:100%" type="submit" value=@organ.Save class="btn btn-success" />
-                            </div>
-                            <div class="col-md-2">
-                                <a style="width:100%" href="@Url.Action("index","business_trip_request")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @pers_2.employee
-                            </label>
-                            <div class="col-md-3">
+                           
+                     
+                          
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @pers_2.employee
+                                </label>
                                 @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { id = "emp", @class = "select2", @onchange = "getdata()" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.important
+                                </label>
                                 @Html.CheckBoxFor(model => model.carry_important_documents, new { htmlAttributes = new { @class = "form-control newcheck", id = "newcheck" } })
                             </div>
-                            <label class="control-label col-md-3">
-                                @pers_2.important
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.Unitdesc
-                            </label>
-                            <div class="col-md-3">
+                         
+                       
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.Unitdesc
+                                </label>
                                 <input id="unit" readonly class="form-control" type="text" />
                             </div>
-                            <label class="control-label col-md-1">
-                                @pers_2.Locationdesc
-                            </label>
-                            <div class="col-md-3">
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.Locationdesc
+                                </label>
                                 <input id="location" readonly class="form-control" type="text" />
                             </div>
                         </div>
                         <div class="form-group">
 
-                            <label style="color:red" class="control-label col-md-1">
-                                <span> @Basic.Request_date </span>
-                            </label>
-                            <div class="col-md-3">
+                      
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @Basic.Request_date </span>
+                                </label>
                                 @Html.EditorFor(model => model.request_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "date" } })
                                 @Html.ValidationMessageFor(model => model.request_date, "", new { @class = "text-danger" })
                             </div>
-                            <label style="color:red" class="control-label col-md-1">
-                                <span> @pers_2.Businesstrip </span>
-                            </label>
-                            <div class="col-md-3">
+                          
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.Businesstrip </span>
+                                </label>
                                 @Html.DropDownListFor(m => m.Business_TripID, new SelectList(ViewBag.busi, "ID", "Code"), pers_2.Businesstrip, new { id = "trip", @class = "select2" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
                             </div>
-                        </div>
+                       
+                            <div class="col-md-4">
 
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.locationduty
-                            </label>
-                            <div class="col-md-3">
-                                @Html.TextAreaFor(model => model.location_of_duty, 4, 100, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                <label>
+                                    @pers_2.locationduty
+                                </label>
+                                @Html.TextAreaFor(model => model.location_of_duty, 4, 36, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                             </div>
 
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.purposeduty
-                            </label>
-                            <div class="col-md-3">
-                                @Html.TextAreaFor(model => model.purpose_of_duty, 4, 100, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                        
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.purposeduty
+                                </label>
+                                @Html.TextAreaFor(model => model.purpose_of_duty, 4, 36, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                             </div>
 
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.remarks
-                            </label>
-                            <div class="col-md-3">
-                                @Html.TextAreaFor(model => model.Remarks_of_duty, 4, 100, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                    
+                           
+                            <div class="col-md-2">
+                                <label>
+                                    @pers_2.remarks
+                                </label>
+                                @Html.TextAreaFor(model => model.Remarks_of_duty, 4, 36, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                             </div>
 
                         </div>
@@ -149,74 +156,83 @@
                                 <div class="form-group">
 
 
-                                    <label style="color:red" class="control-label col-md-1">
-                                        <span> @pers_2.fromdate </span>
-                                    </label>
-                                    <div class="col-md-2">
+                                 
+                                    <div class="col-md-4">
+                                        <label style="color:red">
+                                            <span> @pers_2.fromdate </span>
+                                        </label>
                                         @Html.EditorFor(model => model.go_date, new { htmlAttributes = new { @class = "form-control StartDate", @type = "date", id = "fd", Onchange = "Save()" } })
                                         @Html.ValidationMessageFor(model => model.go_date, "", new { @class = "text-danger" })
                                     </div>
-                                    <label style="color:red" class="control-label col-md-1">
-                                        <span> @pers_2.todate </span>
-                                    </label>
-                                    <div class="col-md-2">
+                                   
+                                    <div class="col-md-4">
+                                        <label style="color:red">
+                                            <span> @pers_2.todate </span>
+                                        </label>
                                         @Html.EditorFor(model => model.return_date, new { htmlAttributes = new { @class = "form-control EndDate", @type = "date", id = "td", Onchange = "Save()" } })
                                         @Html.ValidationMessageFor(model => model.return_date, "", new { @class = "text-danger" })
                                     </div>
 
-                                    <label class="control-label col-md-1">
-                                        @pers_2.days
-                                    </label>
-                                    <div class="col-md-1">
+                                   
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.days
+                                        </label>
                                         @Html.EditorFor(model => model.days, new { htmlAttributes = new { id = "day", @readonly = true, @class = "form-control" } })
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        @pers_2.months
-                                    </label>
-                                    <div class="col-md-1">
+                                    
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.months
+                                        </label>
                                         @Html.EditorFor(model => model.months, new { htmlAttributes = new { id = "m", @readonly = true, @class = "form-control" } })
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        @pers_2.years
-                                    </label>
-                                    <div class="col-md-1">
+                                   
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.years
+                                        </label>
                                         @Html.EditorFor(model => model.years, new { htmlAttributes = new { id = "y", @readonly = true, @class = "form-control" } })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-1">
-                                        @pers_2.fromtime
-                                    </label> <div class="col-md-2">
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.fromtime
+                                        </label>
                                         @Html.EditorFor(model => model.go_time, new { htmlAttributes = new { @name = "fromT", id = "fromT", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        @pers_2.totime
-                                    </label>
-                                    <div class="col-md-2">
+                                   
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.totime
+                                        </label>
                                         @Html.EditorFor(model => model.return_time, new { htmlAttributes = new { @name = "toT", id = "toT", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        @pers_2.totalrate
-                                    </label>
-                                    <div class="col-md-1">
+                                   
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.totalrate
+                                        </label>
                                         <input id="rateP" name="rate" value="0" class="form-control" text="number" readonly />
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label style="color:red" class="control-label col-md-1">
-                                        @pers_2.transportationmethod
-                                    </label>
-                                    <div class="col-md-2">
+                             
+                                   
+                                    <div class="col-md-4">
+                                        <label style="color:red">
+                                            @pers_2.transportationmethod
+                                        </label>
                                         @Html.DropDownListFor(m => m.TransportationMethodID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.transportationmethod, new { @class = "select2" })
                                         @Html.ValidationMessageFor(model => model.Employee_ProfileID, "", new { @class = "text-danger" })
                                     </div>
-                                    <label style="color:red" class="control-label col-md-1">
-                                        @pers_2.transportationmethod
-                                    </label>
-                                    <div class="col-md-2">
+                                  
+                                    <div class="col-md-4">
+                                        <label style="color:red">
+                                            @pers_2.transportationmethod
+                                        </label>
                                         @Html.DropDownListFor(m => m.tionMethodID_return, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.transportationmethod, new { @class = "select2" })
                                         @Html.ValidationMessageFor(model => model.tionMethodID_return, "", new { @class = "text-danger" })
                                     </div>
@@ -374,3 +390,95 @@
         });
     }
 </script>
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

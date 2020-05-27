@@ -9,11 +9,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-       @pers_2.InterviewQuestions
-        </h1>
-    </section>
+   
 
     <!-- Main content -->
     <section class="content">
@@ -25,6 +21,13 @@
                 @using (Html.BeginForm("interview", "EOS_request", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+                        <div><i class="fas fa-plus"></i><input type="button" class="create-btn" value="New" /></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" class="create-btn" value="Delete" /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit","EOS_request",new { id=Model.ID.ToString()})" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                
                     <div class="form-horizontal">
 
                         <hr />
@@ -36,24 +39,27 @@
                                 @TempData["Message"]
                             </div>
                         }
+                        <section style="margin-top:25px" class="content-header">
+                            <h1>
+                                @pers_2.InterviewQuestions
+                            </h1>
+                        </section>
                         @Html.HiddenFor(m => m.ID);
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                           <label class = "control-label col-md-3">
-                                @pers_2.number
-                            </label>
-                            <div class="col-md-8">
+                         
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.number
+                                </label>
                                 @Html.EditorFor(model => model.number, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.number, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3">
-                                @pers_2.requestdate
-                            </label>
-                              <div class="col-md-8">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.requestdate
+                                </label>
                                 @if (Model.Requset_date != null)
                                 {
                                     <input value=@Model.Requset_date.ToString("dd/MM/yyyy") class="form-control" readonly />
@@ -64,21 +70,25 @@
                                     <input value="empty" class="form-control" readonly />
                                 }
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">
-                                @pers_2.Noticeperiodtype
-                            </label>
-                            <div class="col-md-8">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.Noticeperiodtype
+                                </label>
                                 <input value=@Model.Notice_period_type.GetTypeCode() class="form-control" readonly />
                             </div>
+
                         </div>
 
+                      
+                         
+                      
+
                         <div class="form-group">
-                            <label class="control-label col-md-3">
-                                @pers_2.lastworkdaybeforerequest
-                            </label>
-                            <div class="col-md-8">
+                            
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.lastworkdaybeforerequest
+                                </label>
                                 @if (Model.last_work_day_before_request != null)
                                 {
                                     <input value=@Model.last_work_day_before_request.ToString("dd/MM/yyyy") class="form-control" readonly />
@@ -88,13 +98,10 @@
                                     <input value="empty" class="form-control" readonly />
                                 }
                             </div>
-
-                        </div>
-                        <div class="form-group">
-                        <label class="control-label col-md-3">
-                                @pers_2.DateofEOS
-                            </label>
-                              <div class="col-md-8">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.DateofEOS
+                                </label>
                                 @if (Model.Date_of_EOS != null)
                                 {
                                     <input value=@Model.Date_of_EOS.ToString("dd/MM/yyyy") class="form-control" readonly />
@@ -105,13 +112,11 @@
                                     <input value="empty" class="form-control" readonly />
                                 }
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">
-                                @pers_2.dateofeosinterview
-                            </label>
-                              <div class="col-md-8">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.dateofeosinterview
+                                </label>
                                 @if (Model.date_of_eos_interview != null)
                                 {
                                     <input value=@Model.date_of_eos_interview.ToString("dd/MM/yyyy") class="form-control" readonly />
@@ -122,11 +127,13 @@
                                     <input value="empty" class="form-control" readonly />
                                 }
                             </div>
+
                         </div>
+                        
                     </div>
 
 
-                    <table id="categories" class="table table-bordered table-striped text-center">
+                    <table style="margin-top:30px" id="categories" class="table table-bordered table-striped text-center">
                         <thead>
                             <tr>
                                 <th>@pers_2.code</th>
@@ -163,13 +170,7 @@
                         </tfoot>
                     </table>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value=@pers_2.create class="btn btn-success" />
-                            <a href="@Url.Action("edit","EOS_request",new { id=Model.ID.ToString()})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-
-                        </div>
-                    </div>
+                
                 }
 
             </div>
@@ -180,3 +181,98 @@
 </div>
 @section scripts{}
 
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    h1 {
+        margin-top: 40px;
+    }
+</style>

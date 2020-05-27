@@ -226,7 +226,13 @@ namespace HR.Controllers
                 if(child_noeds.Count()>0)
                 {
                     TempData["Message"] = HR.Resource.organ.youcannotdeletethisRow;
-                   
+
+                    ViewBag.location = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
+                    ViewBag.empl = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+
+                    ViewBag.unit_type = dbcontext.Organization_Unit_Type.ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
+                    var parenttt = dbcontext.Organization_Chart.Where(m => m.ID != model.ID && m.parent != model.ID.ToString()).ToList();
+                    ViewBag.parenttt = parenttt.ToList().Select(m => new { Code = m.Code + "--[" + m.unit_Description + ']', ID = m.ID });
                     var modell = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
                    return View("Details", modell);
                 }

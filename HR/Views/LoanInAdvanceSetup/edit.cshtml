@@ -142,7 +142,7 @@
                                         <span id="lableg2"> @pers_2.manual_payment </span>
                                     </label>
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(m => m.LoanInAdvanceSetup.ManualPaymentCode, new SelectList(ViewBag.salary_code, "ID", "Code"), pers_2.checktype, new { @class = "select2", @id = "elig2", @disabled = true })
+                                        @Html.DropDownListFor(m => m.LoanInAdvanceSetup.ManualPaymentCode, new SelectList(ViewBag.manual_payment, "ID", "Code"), pers_2.checktype, new { @class = "select2", @id = "elig2", @disabled = true })
 
                                     </div>
 
@@ -271,7 +271,7 @@
                                         <span id="lableg12"> @pers_2.monthly_salary_code </span>
                                     </label>
                                     <div class="col-md-2">
-                                        @Html.DropDownListFor(m => m.LoanInAdvanceSetup.SalaryCodeID, new SelectList(ViewBag.salary_code, "ID", "Code"), pers_2.debitaccount, new { @class = "select2", @id = "C500", @disabled = true })
+                                        @Html.DropDownListFor(m => m.LoanInAdvanceSetup.SalaryCodeID, new SelectList(ViewBag.monthly_salarycode, "ID", "Code"), pers_2.debitaccount, new { @class = "select2", @id = "C500", @disabled = true })
 
                                     </div>
                                     <label class="control-label col-md-1">
@@ -281,7 +281,12 @@
                                         @Html.EditorFor(model => model.LoanInAdvanceSetup.NumberOfDeductedInstallments, new { htmlAttributes = new { id = "x11", @min = "0", @type = "number", @class = "form-control", @disabled = true } })
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5" style="color:black">
+                                        <button type="submit" id="btnSubmit2" name="Command" value="link" class="btn">@pers_2.link_loan_deduction_with_other_manual_payments</button>
+                                    </div>
+                                </div>   
 
 
 
@@ -434,12 +439,15 @@
         if (checkbox.checked == true) {
             $("#C500").removeAttr('disabled');
             $("#x11").removeAttr('disabled');
+            $("#btnSubmit2").removeAttr('disabled');
             document.getElementById('lableg12').style.color = 'red';
 
         }
         else {
             $("#C500").attr('disabled', true);
             $("#x11").attr('disabled', true);
+            $("#btnSubmit2").attr('disabled', true);
+            $("#x11").val(0);
             document.getElementById('lableg12').style.color = 'gray';
 
 

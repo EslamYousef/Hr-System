@@ -1915,6 +1915,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link loan deduction with other manual payments.
+        /// </summary>
+        public static string link_loan_deduction_with_other_manual_payments {
+            get {
+                return ResourceManager.GetString("link_loan_deduction_with_other_manual_payments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Linked to monthly payroll.
         /// </summary>
         public static string linkedpayroll {
@@ -2217,6 +2226,15 @@ namespace HR.Resource {
         public static string moveup {
             get {
                 return ResourceManager.GetString("moveup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string new_ {
+            get {
+                return ResourceManager.GetString("new_", resourceCulture);
             }
         }
         

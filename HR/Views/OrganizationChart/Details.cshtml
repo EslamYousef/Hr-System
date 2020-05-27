@@ -94,170 +94,187 @@
 
                
                    
-                    <div class="form-horizontal">
+                <div class="form-horizontal">
 
-                        <hr />
+                    <hr />
 
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
-                          @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                           
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("edit_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.change />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("Delete", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.delete />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value='@organ.tree' />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.backtoindex />
-                            <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index2", "OrganizationChart",new { id =Model.ID })'" class="btn btn-success col-md-2" value='@organ.hier' />
-
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
                         </div>
-                        <div class="form-group">
-                             <label class = "control-label col-md-2" >
+                    }
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+
+                        <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("edit_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.change />
+                        <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("Delete", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.delete />
+                        <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("chart_node", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value='@organ.tree' />
+                        <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index", "OrganizationChart",new{id=Model.ID})'" class="btn btn-success col-md-2" value=@organ.backtoindex />
+                        <input type="button" style="margin-left:4px" onclick="location.href='@Url.Action("index2", "OrganizationChart",new { id =Model.ID })'" class="btn btn-success col-md-2" value='@organ.hier' />
+
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-4">
+                            <label>
                                 @organ.code
                             </label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control",@readonly=true } })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            <label>
                                 @organ.userunitCode
                             </label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.User_unit_code, new { htmlAttributes = new { @class = "form-control" , @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.User_unit_code, "", new { @class = "text-danger" })
-                            </div>
-
+                            @Html.EditorFor(model => model.User_unit_code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.User_unit_code, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
+                        <div class="col-md-4">
+                            <label>
                                 @organ.unitDescription
                             </label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.unit_Description, new { htmlAttributes = new { @class = "form-control" , @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.unit_Description, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.unit_Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.unit_Description, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
+                        <div class="col-md-4">
+                            <label>
                                 @organ.AlterunitDescription
                             </label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.alter_unit_Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.alter_unit_Description, "", new { @class = "text-danger" })
-                            </div>
+                            @Html.EditorFor(model => model.alter_unit_Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.alter_unit_Description, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group">
-
-                            <label class="control-label col-md-2">
+                        <div class="col-md-4">
+                            <label>
                                 @organ.UnitTypeCode
                             </label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.unit_type_codeID, new SelectList(ViewBag.unit_type, "ID", "Code"),organ.UnitTypeCode, new { @disabled=true, @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
-                                @Html.ValidationMessageFor(model => model.unit_type_codeID, "", new { @class = "text-danger" })
-                                <input type="hidden" value={} " class="form-control" id="countryname2" disabled />
-                            </div>
-                            <label class="control-label col-md-2">
+                            @Html.DropDownListFor(m => m.unit_type_codeID, new SelectList(ViewBag.unit_type, "ID", "Code"), organ.UnitTypeCode, new { @disabled = true, @class = "select2", @onchange = "CountryName2()", @id = "Country2" })
+                            @Html.ValidationMessageFor(model => model.unit_type_codeID, "", new { @class = "text-danger" })
+                            <input type="hidden" value={} " class="form-control" id="countryname2" disabled />
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+
+                        <div class="col-md-4">
+
+                            <label>
                                 @organ.parentunitcode
                             </label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parenttt, "ID", "Code"), organ.parentunitcode, new { @disabled = true, @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
-                                @Html.ValidationMessageFor(model => model.parent, "", new { @class = "text-danger" })
-                                <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
-                            </div>
+
+                            @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parenttt, "ID", "Code"), organ.parentunitcode, new { @disabled = true, @class = "select2", @onchange = "CountryName1()", @id = "Country1" })
+                            @Html.ValidationMessageFor(model => model.parent, "", new { @class = "text-danger" })
+                            <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
+
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
+
+                        <div class="col-md-4">
+                            <label>
                                 @organ.unitlevelcode
                             </label>
-                            <input class="form-control col-md-4" type="text" id="U_L_C" readonly />
-                            <div class="col-md-2"> </div>
-                            <input class="form-control col-md-4" type="text" id="U_L_N" readonly />
+                            <input class="form-control" type="text" id="U_L_C" readonly />
+
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
+                        <div class="col-md-4">
+                            <label> - </label>
+                            <input class="form-control" type="text" id="U_L_N" readonly />
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <label>
                                 @organ.unitSchemacode
                             </label>
-                            <input class="form-control col-md-4" type="text" id="U_S_C" readonly />
-                            <div class="col-md-2"></div>
-                            <input class="form-control col-md-4" type="text" id="U_S_N" readonly />
+                            <input class="form-control" type="text" id="U_S_C" readonly />
+                          
+
                         </div>
+                        <div class="col-md-4">
+                            <label> - </label>
+                            <input class="form-control" type="text" id="U_S_N" readonly />
+                        </div>
+                    </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.worklocationid
-                            </label>
+
 
 
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.worklocationid, new SelectList(ViewBag.location, "ID", "Code"), organ.worklocationid , new { @class = "select2", @id = "Lo" ,@disabled = true })
+                                <label>
+                                    @organ.worklocationid
+                                </label>
+                                @Html.DropDownListFor(m => m.worklocationid, new SelectList(ViewBag.location, "ID", "Code"), organ.worklocationid, new { @class = "select2", @id = "Lo", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
                                 <input type="hidden" value=" " class="form-control" id="Loname" disabled />
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.unitstate
-                            </label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.unit_status, new { @class = "select2" , @disabled = true })
+                                <label>
+                                    @organ.unitstate
+                                </label>
+                                @Html.EnumDropDownListFor(model => model.unit_status, new { @class = "select2", @disabled = true })
                                 @Html.ValidationMessageFor(model => model.unit_status, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.numberofdirectpositions
-                            </label>
+
                             <div class="col-md-4">
+                                <label>
+                                    @organ.numberofdirectpositions
+                                </label>
                                 @Html.EditorFor(model => model.number_of_direct_positions, new { htmlAttributes = new { type = "number", min = "0", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.number_of_direct_positions, "", new { @class = "text-danger" })
                             </div>
-                            <label class="control-label col-md-2">
-                                @organ.Refrencenumber
-                            </label>
+
                             <div class="col-md-4">
+                                <label>
+                                    @organ.Refrencenumber
+                                </label>
                                 @Html.EditorFor(model => model.refrence_number, new { htmlAttributes = new { type = "number", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.refrence_number, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-
-                            <label class="control-label col-md-2">
-                                cost center
-                            </label>
-                            <div class="col-md-4">
-                                <input class="form-control" type="text" disabled />
-                            </div>
-                            <label class="control-label col-md-2">
-                                shift code
-                            </label>
-                            <div class="col-md-4">
-                                <input class="form-control" type="text" disabled />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.unitmail
-                            </label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.unit_mail, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.unit_mail, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">
-                                @organ.unitmanger
-                            </label>
-
-
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.empl, "ID", "Code"), pers_2.employee, new { @class = "select2", @id = "Lo" })
-                                @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
-
-                            </div>
 
                         </div>
-                    </div>
+                  
+
+                            <div class="form-group">
+
+                            
+                                <div class="col-md-4">
+                                    <label>
+                                        cost center
+                                    </label>
+                                    <input class="form-control" type="text" disabled />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        shift code
+                                    </label>
+                                    <input class="form-control" type="text" disabled />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @organ.unitmail
+                                    </label>
+                                    @Html.EditorFor(model => model.unit_mail, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.unit_mail, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @organ.unitmanger
+                                    </label>
+                                    @Html.DropDownListFor(m => m.Employee_ProfileID, new SelectList(ViewBag.empl, "ID", "Code"), pers_2.employee, new { @class = "select2", @id = "Lo" })
+                                    @Html.ValidationMessageFor(model => model.worklocationid, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                    
+                       
+
+                </div>
+
+                
                 }
 
             </div>
@@ -267,3 +284,97 @@
     </section>
 </div>
 @section scripts{}
+
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

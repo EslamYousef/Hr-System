@@ -288,6 +288,7 @@ namespace HR.Models
 
 
 
+        public DbSet<LinkLoanDeductionsWithOtherManualPayment> LinkLoanDeductionsWithOtherManualPayment { get; set; }
 
 
     }

@@ -7,11 +7,6 @@
 @using HR.Resource;
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @pers_2.ExitPerissiontype
-        </h1>
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -23,6 +18,13 @@
 
                 @using (Html.BeginForm("edit", "Exitpermissiontype", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Exitpermissiontype")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Exitpermissiontype")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Exitpermissiontype")" class="create-btn"> @pers_2.Back</a></div>
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -37,43 +39,40 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.ExitPerissiontype
+                            </h1>
+                        </section>
 
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @organ.code
-                            </label> <div class="col-md-3">
+                          <div class="col-md-4">
+                              <label style="color:red">
+                                  @organ.code
+                              </label> 
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                            <label style="color:red" class="control-label col-md-1">
-                                @organ.name
-                            </label>  <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.name
+                                </label> 
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="col-md-2">
-                                <input style="width:100px" type="submit" value=@organ.Save class="btn btn-success" />
-                            </div>
-                            <div class="col-md-2">
-                                <a style="width:100px" href="@Url.Action("index","Exitpermissiontype")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @organ.description
-                            </label>   <div class="col-md-3">
+                           <div class="col-md-4">
+                               <label>
+                                   @organ.description
+                               </label> 
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
+                         <div class="col-md-4">
 
-                            <label class="control-label col-md-1">
-                              @pers_2.shiftsetup
-                            </label>  <div class="col-md-3">
+                             <label>
+                                 @pers_2.shiftsetup
+                             </label> 
 
                                 @Html.DropDownListFor(m => m.ShiftdaystatusID, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
 
@@ -82,46 +81,50 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.fromtime
-                            </label> <div class="col-md-3">
+                             <div class="col-md-4">
+                                 <label>
+                                     @pers_2.fromtime
+                                 </label>
                                 @Html.EditorFor(model => model.from, new { htmlAttributes = new { @name = "start", id = "start", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                             </div>
-                            <label class="control-label col-md-1">
-                                @pers_2.totime
-                            </label> <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.totime
+                                </label>
                                 @Html.EditorFor(model => model.to, new { htmlAttributes = new { @name = "end", id = "end", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                @pers_2.integratewithpayroll
-                            </label>
-                            <div class="col-md-3">
+                      
+                           
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.integratewithpayroll
+                                </label>
                                 @Html.CheckBoxFor(model => model.integrate_with_payroll, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
-                            <label class="control-label col-md-1">
-                                @pers_2.Salarycode
-                            </label>
-                            <div class="col-md-3">
+                           
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.Salarycode
+                                </label>
                                 <input type="text" class="form-control" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-1">
-                               @pers_2.integratewithleaves
-                            </label>
-                            <div class="col-md-3">
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.integratewithleaves
+                                </label>
                                 @Html.CheckBoxFor(model => model.integrate_with_leaves, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
-                            <label class="control-label col-md-1">
-                               @pers_2.Leavecode
-                            </label>
-                            <div class="col-md-3">
+                           
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.Leavecode
+                                </label>
                                 <input type="text" class="form-control" />
                             </div>
 
@@ -176,3 +179,95 @@
 
 
 </script>
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

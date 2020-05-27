@@ -205,7 +205,7 @@
                         @TempData["Message"]
                     </div>
                     }
-                      <div class="row form-group">
+                      <div style="margin-left:10px" class="row form-group">
 
                         <div class="col-md-3">
                             <a href="@Url.Action("Create", "EOS_request" )" style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.addEOSRequest</a>
@@ -243,7 +243,7 @@
                     
                    
 
-                    <div class="form-group" style="margin-top:70px">
+                    <div class="form-group" style="margin-top:70px;margin-left:30px">
                         <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
@@ -280,10 +280,10 @@
                                     <td>
                                @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
                                {
-                                                 <a href="@Url.Action("Edit", "EOS_request", new { id = item.ID })" class="btn btn-primary btn-sm" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                                 <a href="@Url.Action("Edit", "EOS_request", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                }
-                                                         <a href="@Url.Action("Delete", "EOS_request" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.delete</a>
-                                        <a href="@Url.Action("status", "EOS_request" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+                                                         <a href="@Url.Action("Delete", "EOS_request" , new {id=item.ID})" class="create-btn"><i class="far fa-trash-alt"></i>@pers_2.delete</a>
+                                        <a href="@Url.Action("status", "EOS_request" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
                                         
                                      
                                         </td>
@@ -314,3 +314,25 @@
     <!-- page script -->
    
     @section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

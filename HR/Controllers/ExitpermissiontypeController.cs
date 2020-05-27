@@ -99,7 +99,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        public ActionResult delete_method(int id)
+        public ActionResult Deltet_method(int id)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        [ActionName("delete_method")]
+        [ActionName("Deltet_method")]
         public ActionResult delete(int id)
         {
             var record = dbcontext.Exit_permission_type.FirstOrDefault(m => m.ID == id);

@@ -1,0 +1,237 @@
+﻿@model HR.Models.SetupPayroll.LinkLoanDeductionsWithOtherManualPayment
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+
+
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("link", "LoanInAdvanceSetup",new { type=ViewBag.type}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.create</div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "LoanInAdvanceSetup")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    Html.HiddenFor(m => m.Created_By);
+                    Html.HiddenFor(m => m.Created_Date);
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.link_loan_deduction_with_other_manual_payments
+                            </h1>
+                        </section>
+                        @*<div class="form-group">
+                                <label class="control-label col-md-2"> Country Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" value=" " class="form-control" id="country" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2"> Area Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" value=" " class="form-control" id="Area" disabled />
+                                </div>
+                            </div>*@
+                     
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+
+                                <label>@Basic.code</label>
+                                @Html.EditorFor(model => model.LoanInAdvanceSetupID, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanInAdvanceSetupID, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <label>@Basic.description</label>
+                                @Html.EditorFor(model => model.LoanInAdvanceSetup.LoanTypeDesc, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanInAdvanceSetup.LoanTypeDesc, "", new { @class = "text-danger" })
+                            </div>
+
+                         
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-4">
+
+                                <label>@pers_2.manual_payment</label>
+                                @Html.DropDownListFor(m => m.ManualPaymentTypes_HeaderID, new SelectList(ViewBag.header, "ID", "Code"), Personnel.Manualpaymentcode, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.ValidationMessageFor(model => model.ManualPaymentTypes_HeaderID, "", new { @class = "text-danger" })
+                            
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <label>@pers_2.Salarycode</label>
+                                <select name="ManualPaymentTypes_DetailID" class="select2" id="area">
+
+                                </select>
+                               
+                                @Html.ValidationMessageFor(model => model.ManualPaymentTypes_DetailID, "", new { @class = "text-danger" })
+                                
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+<script>
+    $(function () {
+        CountryName();
+    })
+      function CountryName() {
+
+          var id = $("#country").val();
+          $("#area").empty(); 
+          $("#area").select2("val", "");
+      
+          $.ajax({
+              type: "post",
+              url: "/LoanInAdvanceSetup/details",
+              data: { "id_header": id },
+              success: function (result) {
+                  var finalresult = "<option value='0' > Choose </option>";
+                  $.each(result, function (key, value) {
+                      finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                  });
+                  $("#area").html(finalresult);
+                  $("#area").select2("val", "0");
+              },
+              error: function () {
+
+                  $("#area").val(" ");
+              }
+          });
+      }
+   
+</script>
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

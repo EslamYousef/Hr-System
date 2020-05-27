@@ -1,4 +1,4 @@
-﻿using HR.Models;
+﻿ using HR.Models;
 using HR.Models.Infra;
 using HR.Models.Time_management;
 using System;
@@ -95,6 +95,8 @@ namespace HR.Controllers
                 record.ShiftdaystatusID = model.ShiftdaystatusID;
                 record.TransportationMethodID = model.TransportationMethodID;
                 record.transporation_return_ID = model.transporation_return_ID;
+                record.linkedtomanyalpayment = model.linkedtomanyalpayment;
+                record.linkedtomnothelypayroll = model.linkedtomnothelypayroll;
                 if (model.transporation_return_ID != null)
                     record.transporation_return_name = dbcontext.TransportationMethod.FirstOrDefault(m => m.ID == model.transporation_return_ID).Name;
                 else

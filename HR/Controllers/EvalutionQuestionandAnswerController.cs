@@ -168,7 +168,7 @@ namespace HR.Controllers
                 else
                 {
                     TempData["Message"] = HR.Resource.pers_2.Faild;
-                    return View("index");
+                    return RedirectToAction("index");
                 }
             }
             catch (Exception)

@@ -247,11 +247,11 @@
                                 <td>
                                     @if (item.check_status != HR.Models.Infra.check_status.Approved && item.check_status != HR.Models.Infra.check_status.Rejected)
                                     {
-                                        <a href="@Url.Action("Edit", "EvaluationTransaction", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                        <a href="@Url.Action("Edit", "EvaluationTransaction", new {id = item.ID})" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
                                     }
-                                    <a href="@Url.Action("delete", "EvaluationTransaction", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.delete</a>
+                                    <a href="@Url.Action("delete", "EvaluationTransaction", new {id = item.ID})"  class="create-btn"><i class="fas fa-shield-alt"></i>@organ.delete</a>
 
-                                      <a href="@Url.Action("status", "EvaluationTransaction" , new {id=item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.status</a>
+                                      <a href="@Url.Action("status", "EvaluationTransaction" , new {id=item.ID})"  class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
 
 
                                 </td>
@@ -285,3 +285,27 @@
         });
     });
 </script>
+
+
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

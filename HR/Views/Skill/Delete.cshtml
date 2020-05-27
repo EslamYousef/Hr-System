@@ -8,6 +8,12 @@
 <h3>@organ.message_delete</h3>
 @using (Html.BeginForm("Delete", "Skill", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <div class="sec-nav">
+        <div><i class="far fa-save"></i><input type="submit" value=@organ.Save class="create-btn" /></div>
+        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Skill_group")" class="create-btn">@pers_2.new_</a></div>
+        <div><i class="far fa-trash-alt"></i><input type="submit" value=@pers_2.delete class="create-btn" /></div>
+        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "Skill")" class="create-btn">@pers_2.Back</a></div>
+    </div>
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
 
@@ -23,27 +29,113 @@
 
 
         <div class="form-group">
-            <label class="control-label col-md-2">@organ.name</label>
+          
             <div class="col-md-4">
+                <label>@organ.name</label>
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
 
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">@organ.description</label>
+       
             <div class="col-md-4">
+
+                <label>@organ.description</label>
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@organ.delete" class="btn btn-success" />
-                <a href="@Url.Action("index", "Skill")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-
-            </div>
-        </div>
+      
     </div>
 }
 
     @section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

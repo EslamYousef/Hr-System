@@ -339,6 +339,17 @@
                     <input value="" name="M1" hidden /> 
                     <input value="" name="L1" hidden />
                     <input value="" name="exper" hidden />
+
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+                        <div><i class="fas fa-plus"></i><input type="button" class="create-btn" value="New" /></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" class="create-btn" value="Delete" /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "job_title_card")" class="create-btn"> @pers_2.Back</a></div>
+
+                     
+
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         <hr />
@@ -351,49 +362,39 @@
                         }
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.code
-                            </label>
+                         
+                            
+
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new {  @class = "form-control", id = "code", @readonly = true } })
+                                <label>
+                                    @organ.code
+                                </label>
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "code", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
 
                             </div>
 
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.name
-                            </label>
                             <div class="col-md-4">
+                                <label>
+                                    @organ.name
+                                </label>
                                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", id = "name", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
 
                             </div>
-                            <div class="col-md-2">
-
-                            </div>
                             <div class="col-md-4">
-                                <button type="submit" style="width:200px" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.submit</button>
-                                <a href="@Url.Action("index","job_title_card")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.backtoindex</a>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                @organ.description
-                            </label>
-                            <div class="col-md-4">
+                                <label>
+                                    @organ.description
+                                </label>
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-8">
-
-                            </div>
-                           
-                        </div>
+                       
+                       
                         <div class="col-md-12">
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
@@ -456,45 +457,38 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="Qulifications" style="overflow: hidden;width: auto;height: auto;">
 
+                                    
                                     <div class="form-group">
                                         <div class="form-group">
-                                         
-                                            <label class="control-label col-md-2">
-                                              @organ.NamEofeducationalqualification
-                                            </label>
                                             <div class="col-md-4">
+                                                <label>
+                                                    @organ.NamEofeducationalqualification
+                                                </label>
                                                 @Html.DropDownList("name", new SelectList(ViewBag.quliname, "ID", "Code"), organ.NamEofeducationalqualification, new { @class = "select2", @id = "Country1" })
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                             <label class="control-label col-md-2">
-                                                 @organ.QualificationMajor
-                                            </label>
                                              <div class="col-md-4">
+                                                 <label>
+                                                     @organ.QualificationMajor
+                                                 </label>
                                                 @Html.DropDownList("qulispeci", new SelectList(ViewBag.qulispeci, "ID", "Code"),organ.QualificationMajor, new { @class = "select2", @id = "Country2" })
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">
-                                                @organ.Grade
+                                            <div class="col-md-4">
+                                                <label>
+                                                    @organ.Grade
 
-                                            </label>
-                                              <div class="col-md-4">
+                                                </label>
                                                 @Html.DropDownList("grade", new SelectList(ViewBag.qulidegree, "ID", "Code"), organ.Grade, new { @class = "select2", @id = "Country3" })
                                             </div>
                                         </div>
                                     </div>
+                                 
                                     @*<div class="form-group">
                                             <label class="control-label col-md-2"><span>Required</span></label>
                                             <div class="col-md-4">
                                                 <input type="checkbox" name="required_job"  class = "icheck" id = "minimal-checkbox-1" />
                                             </div>
                                         </div>*@
-                                    <div class="form-group">
+                                    <div style="margin-top:15px" class="form-group">
                                         <div class="col-md-3">
 
                                         </div>
@@ -936,3 +930,96 @@
 </div>
 
 @section scripts{}
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

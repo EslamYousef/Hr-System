@@ -192,11 +192,7 @@
 </script>
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @pers_2.CreaterequesttonewContract
-        </h1>
-    </section>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -207,9 +203,19 @@
 
                 @using (Html.BeginForm("Create", "request_new_contract", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+
+
+                        <div><i class="fas fa-plus"></i><input type="button" class="create-btn" value="New" /></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" class="create-btn" value="Delete" /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "request_new_contract")" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
-
+                       
                         <hr />
 
                         @if (TempData["Message"] != null)
@@ -220,194 +226,189 @@
                             </div>
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top: 40px" class="content-header">
+                            <h1>
+                                @pers_2.CreaterequesttonewContract
+                            </h1>
+                        </section>
                         <div>
                             <div class="form-group">
-                                <label class = "control-label col-md-2">
-                                    @pers_2.employee
-                                </label>
-                                <div class="col-md-3">
+                              
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.employee
+                                    </label>
                                     @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), pers_2.employee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
 
                                 </div>
-                                <div class="col-md-7">
-                                    <div class="col-md-offset-2 col-md-7">
-                                        <input type="submit" value=@pers_2.create class="btn btn-success"  />
-                                        <a href="@Url.Action("index","request_new_contract")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    @organ.code
-                                </label>
                                 <div class="col-md-4">
+                                    <label>
+                                        @organ.code
+                                    </label>
                                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+
+                           
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
                                 <li class="active">
-                                    <a href="#home" data-toggle="tab">
+                                    <a href="#homepagep" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
                                         <span class="hidden-xs">@pers_2.contractinformation</span>
                                     </a>
                                 </li>
+                             
+
                                 <li>
-                                    <a href="#MedicalInformation" data-toggle="tab">
-                                        <span class="visible-xs"><i class="entypo-user"></i></span>
-                                        <span class="hidden-xs">@pers_2.medicainformation</span>
+                                    <a href="#other" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@HR.Resource.pers_2.medicainformation</span>
                                     </a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="tab-pane active" id="homepagep" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                         <label class="control-label col-md-2">
-                                            @pers_2.ContractType
-                                        </label>
-                                        <div class="col-md-3">
+                                        
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.ContractType
+                                            </label>
                                             @Html.DropDownListFor(m => m.ContractTypeId, new SelectList(ViewBag.Contract_Type, "ID", "Code"), pers_2.ContractType, new { @readonly = true, @class = "select2", @onchange = "employee3()", id = "employeeId3" })
                                             @Html.ValidationMessageFor(model => model.ContractTypeId, "", new { @class = "text-danger" })
 
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                       <label class="control-label col-md-2">
-                                            @pers_2.Employmenttype
-                                        </label>
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Employmenttype
+                                            </label>
                                             @Html.EnumDropDownListFor(model => model.Employment_type, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Employment_type, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Contractstartdate
-                                        </label>
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Contractstartdate
+                                            </label>
                                             @Html.EditorFor(model => model.Contract_start_date, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_start_date_D", @onchange = "Save()" } })
                                             @Html.ValidationMessageFor(model => model.Contract_start_date, "", new { @class = "text-danger" })
                                         </div>
-                                        <label class="control-label col-md-2">
-                                            @pers_2.years
-                                        </label>
-                                          <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0} })
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.years
+                                            </label>
+                                            @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Contractenddate
-                                        </label>
-                                          <div class="col-md-4">
-                                            @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control EndDate yyy",@type="date", @id = "Contract_end_date_D", @onchange = "Save2()" } })
-                                            @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
-                                        </div>
-                                       <label class="control-label col-md-2">
-                                            @pers_2.months
-                                        </label>
-                                          <div class="col-md-4">
+                                       
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.months
+                                            </label>
                                             @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                    
+
+                                    
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Approvedby
-                                        </label>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Contractenddate
+                                            </label>
+                                            @Html.EditorFor(model => model.Contract_end_date, new { htmlAttributes = new { @class = "form-control EndDate yyy", @type = "date", @id = "Contract_end_date_D", @onchange = "Save2()" } })
+                                            @Html.ValidationMessageFor(model => model.Contract_end_date, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Approvedby
+                                            </label>
                                             @Html.DropDownListFor(m => m.ApprovedbyId, new SelectList(ViewBag.Approved_date, "ID", "Code"), pers_2.employee, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
                                             @Html.ValidationMessageFor(model => model.ApprovedbyId, "", new { @class = "text-danger" })
 
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Approveddate
-                                        </label>
+
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Approveddate
+                                            </label>
                                             @Html.EditorFor(model => model.Approved_date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Approved_date_D" } })
                                             @Html.ValidationMessageFor(model => model.Approved_date, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.notes
-                                        </label>
                                         <div class="col-md-4">
-                                            @Html.TextAreaFor(model => model.Notes,4,67, new { htmlAttributes = new { @class = "form-control" } })
+                                            <label>
+                                                @pers_2.notes
+                                            </label>
+                                            @Html.TextAreaFor(model => model.Notes, 4, 67, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                    
+
+                                    
                                 </div>
 
-                                <div class="tab-pane" id="MedicalInformation">
+                                <div   class="tab-pane" id= "other" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Medicaldate
-                                        </label>
+                                       
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Medicaldate
+                                            </label>
                                             @Html.EditorFor(model => model.Medical_date, new { htmlAttributes = new { @class = "form-control" ,@type="date",id= "Medical_date_D" } })
                                             @Html.ValidationMessageFor(model => model.Medical_date, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Medicacommiterecomindation
-                                        </label>
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Medicacommiterecomindation
+                                            </label>
                                             @Html.EnumDropDownListFor(model => model.Medical_commite_recomindation, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Medical_commite_recomindation, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Medicalentityname
-                                        </label>
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Medicalentityname
+                                            </label>
                                             @Html.EditorFor(model => model.Medical_entity_name, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Medical_entity_name, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Notfireason
-                                        </label>
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Notfireason
+                                            </label>
                                             @Html.EditorFor(model => model.Not_fit_reason, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Not_fit_reason, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+
+                                
+                                  
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Medicalcommitecomments
-                                        </label>
+                                      
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Medicalcommitecomments
+                                            </label>
                                             @Html.EditorFor(model => model.Medical_commite_comments, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Medical_commite_comments, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            @pers_2.Result
-                                        </label>
                                         <div class="col-md-4">
+                                            <label>
+                                                @pers_2.Result
+                                            </label>
                                             @Html.EnumDropDownListFor(model => model.Result, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Result, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
+                                   
                                 </div>
 
                             </div>
@@ -427,6 +428,97 @@
 
 
 
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
 
 
 

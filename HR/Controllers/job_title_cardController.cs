@@ -545,6 +545,7 @@ namespace HR.Controllers
         public ActionResult Link(int id)
         {
             job_title_cards modell = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == id);
+            ViewBag.id2 = id;
             try
             {
 
@@ -575,7 +576,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.id = id;
+                ViewBag.id2 = id;
                 var record = dbcontext.job_title_cards.FirstOrDefault(m => m.ID == id);
                 List<Job_title_sub_class> organization = new List<Job_title_sub_class>();
                 List<string> orgid = new List<string>();

@@ -8,19 +8,20 @@
 
 
 
-<div class="sec-nav">
-    <div><i class="far fa-save"></i><input type="submit" value=@organ.Save class="create-btn" /></div>
-    @*<input type="submit" value="create" />*@
 
-    <div><i class="fas fa-plus"></i><input type="submit" class="create-btn" value="New" /></div>
-    <div><i class="far fa-trash-alt"></i><input type="submit" value=@pers_2.delete class="create-btn" /></div>
-    <div><i class="fas fa-plus"></i><input id="btnSave" style="" class="create-btn" type="submit" onclick="ch()" value=@pers_2.create /></div>
-    <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "personnel_transaction")" class="create-btn">@pers_2.Back</a></div>
-
-</div>
 <h3 style="margin-top:70px;">@pers_2.deletemessage</h3>
 @using (Html.BeginForm("delete", "personnel_transaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <div class="sec-nav">
+        <div><i class="far fa-save"></i><input type="submit" value=@organ.Save class="create-btn" /></div>
+        @*<input type="submit" value="create" />*@
+
+        <div><i class="fas fa-plus"></i><input type="submit" class="create-btn" value="New" /></div>
+        <div><i class="far fa-trash-alt"></i><input type="submit" value=@pers_2.delete class="create-btn" /></div>
+        <div><i class="fas fa-plus"></i><input id="btnSave" style="" class="create-btn" type="submit" onclick="ch()" value=@pers_2.create /></div>
+        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "personnel_transaction")" class="create-btn">@pers_2.Back</a></div>
+
+    </div>
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
 

@@ -131,16 +131,17 @@ namespace HR.Controllers
         [HttpPost]
         public ActionResult Deletemethod(int id)
         {
+            var record = dbcontext.Nationality.FirstOrDefault(m => m.ID == id);
+
             try
             {
-                var record = dbcontext.Nationality.FirstOrDefault(m => m.ID == id);
-                dbcontext.Nationality.Remove(record);
+                 dbcontext.Nationality.Remove(record);
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
             catch (Exception e)
             {
-                return View();
+                return View(record);
             }
         }
 
