@@ -185,7 +185,7 @@ namespace HR.Controllers
             try
             {
                 var model_link = new LinkLoanDeductionsWithOtherManualPayment { Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date };
-                ViewBag.header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeAltDesc + ']', ID = m.ID });
+                ViewBag.header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeDesc + ']', ID = m.ID });
                 if(type==0)
                 {
                     model_link.LoanInAdvanceSetupID = loan_ID;
@@ -226,26 +226,32 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeAltDesc + ']', ID = m.ID });
+                ViewBag.header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeDesc + ']', ID = m.ID });
                 ViewBag.type = type;
+                if(type==0)
+                {
+                    model.Created_By = User.Identity.Name;model.Created_Date = DateTime.Now.Date;
+                }
                 if (type==1)
                 {
                     var link = dbcontext.LinkLoanDeductionsWithOtherManualPayment.FirstOrDefault(m => m.LoanInAdvanceSetupID == model.LoanInAdvanceSetupID);
                     if (link != null) { dbcontext.LinkLoanDeductionsWithOtherManualPayment.Remove(link);dbcontext.SaveChanges(); model.Modified_By = User.Identity.Name; model.Modified_Date = DateTime.Now.Date; }
                 }
-                model.LoanTypeCode = model.LoanInAdvanceSetup.LoanTypeCode;
-                if(model.ManualPaymentTypes_DetailID==0 ||model.ManualPaymentTypes_HeaderID==0)
+              
+                if (model.ManualPaymentTypes_DetailID==0 ||model.ManualPaymentTypes_HeaderID==0||model.LoanInAdvanceSetupID==0)
                 {
                     return View(model);
                 }
-               
-                    model.PaymentTypeCode = model.ManualPaymentTypes_Header.Type_Code;
-                    model.SalaryCodeID = model.ManualPaymentTypes_Detail.SalaryCodeID;
-                    dbcontext.LinkLoanDeductionsWithOtherManualPayment.Add(model);
+                model.LoanTypeCode = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == model.LoanInAdvanceSetupID).LoanTypeCode;
+                model.LoanInAdvanceSetup = null;
+                model.PaymentTypeCode = dbcontext.ManualPaymentTypes_Header.FirstOrDefault(m=>m.ID==model.ManualPaymentTypes_HeaderID).Type_Code;
+                model.SalaryCodeID = dbcontext.ManualPaymentTypes_Detail.FirstOrDefault(m => m.ID == model.ManualPaymentTypes_DetailID).SalaryCodeID;
+                dbcontext.LinkLoanDeductionsWithOtherManualPayment.Add(model);
+                dbcontext.SaveChanges();
                     return RedirectToAction("edit", new { id = model.LoanInAdvanceSetupID });
                 
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return View(model);
             }
@@ -254,8 +260,8 @@ namespace HR.Controllers
         {
             try
             {
-                var header = dbcontext.ManualPaymentTypes_Header.FirstOrDefault(m => m.ID == id_header);
-                var details = dbcontext.ManualPaymentTypes_Detail.Where(m => m.PaymentTypeCode == header.PaymentTypeCode).ToList().Select(m => new { Code = m.SalaryCodeID + "------", ID = m.ID }); ;
+         //       var header = dbcontext.ManualPaymentTypes_Header.FirstOrDefault(m => m.ID == id_header);
+                var details = dbcontext.ManualPaymentTypes_Detail.Where(m => m.PaymentTypeCode == id_header.ToString()).ToList().Select(m => new { Code = m.SalaryCodeID + "------" +m.Salarycodedescription, ID = m.ID }); 
                 return Json(details);
             }
             catch(Exception)
@@ -346,6 +352,9 @@ namespace HR.Controllers
                 {
                     add_record.EnableAutomaticPayrollDeduction = false;
                     model.LoanInAdvanceSetup.EnableAutomaticPayrollDeduction = false;
+                    var link = dbcontext.LinkLoanDeductionsWithOtherManualPayment.FirstOrDefault(m => m.LoanInAdvanceSetupID == add_record.ID);
+                    if (link != null) { dbcontext.LinkLoanDeductionsWithOtherManualPayment.Remove(link); dbcontext.SaveChanges(); }
+
                 }
                 else
                 {
@@ -357,6 +366,7 @@ namespace HR.Controllers
                 {
                     add_record.EnableToRecuiningLoanRequestAutomaticAfterCloseTheRequest = false;
                     model.LoanInAdvanceSetup.EnableToRecuiningLoanRequestAutomaticAfterCloseTheRequest = false;
+
                 }
                 else
                 {

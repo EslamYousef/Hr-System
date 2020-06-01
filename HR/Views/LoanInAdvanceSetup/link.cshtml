@@ -19,8 +19,8 @@
                 @using (Html.BeginForm("link", "LoanInAdvanceSetup",new { type=ViewBag.type}, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="sec-nav">
-                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.create</div>
-                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "LoanInAdvanceSetup")" class="create-btn"> @pers_2.Back</a></div>
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.Save</div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "LoanInAdvanceSetup",new { id=Model.LoanInAdvanceSetupID})" class="create-btn"> @pers_2.Back</a></div>
                     </div>
                     @Html.AntiForgeryToken()
                     Html.HiddenFor(m => m.Created_By);
@@ -53,12 +53,12 @@
                                 </div>
                             </div>*@
                      
-
+                        @Html.HiddenFor(m=>m.LoanInAdvanceSetupID)
                         <div class="form-group">
                             <div class="col-md-4">
 
                                 <label>@Basic.code</label>
-                                @Html.EditorFor(model => model.LoanInAdvanceSetupID, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.EditorFor(model => model.LoanInAdvanceSetup.LoanTypeCode, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.LoanInAdvanceSetupID, "", new { @class = "text-danger" })
                             </div>
 
@@ -76,7 +76,7 @@
                             <div class="col-md-4">
 
                                 <label>@pers_2.manual_payment</label>
-                                @Html.DropDownListFor(m => m.ManualPaymentTypes_HeaderID, new SelectList(ViewBag.header, "ID", "Code"), Personnel.Manualpaymentcode, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                @Html.DropDownListFor(m => m.ManualPaymentTypes_HeaderID, new SelectList(ViewBag.header, "ID", "Code"), Personnel.Manualpaymentcode, new { @class = "select2", @onchange = "co()", id = "country" })
                                 @Html.ValidationMessageFor(model => model.ManualPaymentTypes_HeaderID, "", new { @class = "text-danger" })
                             
                             </div>
@@ -93,6 +93,12 @@
                                 
                             </div>
 
+                            <div class="col-md-4">
+
+                                <label>@pers_2.number_of_installments</label>
+                                @Html.EditorFor(model => model.NumberOfInstallments, new { htmlAttributes = new {@type="number", @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanInAdvanceSetup.LoanTypeDesc, "", new { @class = "text-danger" })
+                            </div>
 
 
 
@@ -113,12 +119,40 @@
     $(function () {
         CountryName();
     })
+    function co()
+    {
+        var id = $("#country").val();
+        $("#area").empty(); 
+        $("#area").select2("val", "");
+      
+        $.ajax({
+            type: "post",
+            url: "/LoanInAdvanceSetup/details",
+            data: { "id_header": id },
+            success: function (result) {
+                var finalresult = "<option value='0' > Choose </option>";
+                $.each(result, function (key, value) {
+                    debugger
+                 
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    
+                });
+                $("#area").html(finalresult);
+                $("#area").select2("val", " ");
+               
+            },
+            error: function () {
+
+                $("#area").select2("val"," ");
+            }
+        });
+    }
       function CountryName() {
 
           var id = $("#country").val();
           $("#area").empty(); 
-          $("#area").select2("val", "");
-      
+          $("#area").select2("val",0);
+     var de=@Model.ManualPaymentTypes_DetailID; 
           $.ajax({
               type: "post",
               url: "/LoanInAdvanceSetup/details",
@@ -126,18 +160,30 @@
               success: function (result) {
                   var finalresult = "<option value='0' > Choose </option>";
                   $.each(result, function (key, value) {
-                      finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                      debugger
+                      if(de==value.ID)
+                      {
+                          finalresult += "<option value='" + value.ID + "' selected>" + "[  " + value.Code + " ]</option>";
+                      }
+                      else
+                      {
+                          finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                      }
                   });
                   $("#area").html(finalresult);
-                  $("#area").select2("val", "0");
+                  $("#area").select2("val", de);
+               
               },
               error: function () {
 
-                  $("#area").val(" ");
+                  $("#area").select2("val",0);
               }
           });
       }
-   
+    function ar()
+    {
+
+    }
 </script>
 
 
