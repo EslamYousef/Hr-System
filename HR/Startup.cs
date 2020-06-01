@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
-
+ 
 [assembly: OwinStartupAttribute(typeof(HR.Startup))]
 namespace HR
 {
