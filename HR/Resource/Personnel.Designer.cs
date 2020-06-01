@@ -637,6 +637,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applicant Profile.
+        /// </summary>
+        public static string Applicant_Profile {
+            get {
+                return ResourceManager.GetString("Applicant_Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applicant Address Profile.
         /// </summary>
         public static string ApplicantAddressProfile {
@@ -5394,6 +5403,15 @@ namespace HR.Resource {
         public static string RenewBalanceevery {
             get {
                 return ResourceManager.GetString("RenewBalanceevery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Recuirtment.
+        /// </summary>
+        public static string Reports_Recuirtment {
+            get {
+                return ResourceManager.GetString("Reports_Recuirtment", resourceCulture);
             }
         }
         

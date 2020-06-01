@@ -708,7 +708,11 @@ namespace HR.Controllers
                                       select new SalaryCode_ExtendedFields_VM { ID =A.ID,SalaryCodeID = A.SalaryCodeID , SalaryCodeDesc = A.SalaryCodeDesc, CodeGroupType =A.CodeGroupType , CodeValueType = A.CodeValueType /*, ExtendedFields_Code = Baa.ExtendedFields_Code , ExtendedFields_Description = Baa.ExtendedFields_Desc*/};
             return Json(AppendPublicHoliday.ToList());
         }
-
+        public JsonResult GetDataBys()
+        {
+            var salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 1).ToList();
+            return Json(salary_code);
+        }
         public JsonResult GetDataByIdAppendCommitee_Agenda(string id)
         {
             var ID = int.Parse(id);
@@ -1341,6 +1345,13 @@ namespace HR.Controllers
             dbcontext.Configuration.ProxyCreationEnabled = false;
             var item = dbcontext.salary_code.ToList();
             return Json(item);
+        }
+        public JsonResult GetEmployees()
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var Employee = dbcontext.Employee_Profile.Where(a=>a.Active==true).ToList();
+            return Json(Employee);
+
         }
     }
 

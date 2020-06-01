@@ -256,26 +256,27 @@
                         else if (result.CodeValueType == 9) {
                             var Earning = "Calculated Value";
                         }/*<td hidden><input hidden name='ID_item' value='" + result.ID + "'/></td>" +*/
-                        //var pp = $("#itemTR").find("tr");
-                        //var flag = 0;
-                        //for (var o = 0; o < pp.length; o++) {
-                        //    debugger
-                        //    var inputs = pp[o].children;
-                        //    ID_ = inputs[0].children;
-                        //    if (parseInt(SalaryCodeID_[0].value) == result.SalaryCodeID) {
-                        //        flag = 1;
-                        //    }
-                        //}
-                        //if (flag == 0) {
+                        debugger
+                        var pp = $("#itemTR").find("tr");
+                        var flag = 0;
+                        for (var o = 0; o < pp.length; o++) {
+                            debugger
+                            var inputs = pp[o].children;
+                            codeid_ = inputs[0].children;
+                            if (codeid_[0].value == result.SalaryCodeID) {
+                                flag = 1;
+                            }
+                        }
+                        if (flag == 0) {
                         var i = "<tr><td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeID + "' name='codeid'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeDesc + "' name='SalaryDes'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + GroupType + "' name='TypeE'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + Earning + "' name='ValueType'></td>" + "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='0' min='0' type='number' /></td>"/* + "<td class='col-md-1'><select class='car' id='carss' name='cars'></select ></td >"*/ +
-                            "<td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                            "<td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
                         debugger
                         $("#itemTR").append(i);
                         var seledct = $("#itemTR tr").last().children()[4].children[0];
                         full_check(seledct);
                         $("#ite").select2("val", "");
                     }
-                //}
+                }
                 });
             debugger
  }

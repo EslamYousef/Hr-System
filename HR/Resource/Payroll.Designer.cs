@@ -88,6 +88,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add All Financial Contract Items.
+        /// </summary>
+        public static string AddAllFinancialContractItems {
+            get {
+                return ResourceManager.GetString("AddAllFinancialContractItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add New Bank.
         /// </summary>
         public static string AddNewBank {

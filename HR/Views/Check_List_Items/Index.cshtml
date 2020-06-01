@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<HR.Models.Check_List_Items>
 @using HR.Resource;
+<script src="~/Content/neon/assets/js/datatables/datatables.js"></script>
 <script>
     var $ = jQuery;
 
@@ -40,7 +41,7 @@
                     </div>
                 }
 
-                <table id="categories" class="table table-bordered table-striped text-center">
+                <table id="categories" class="table table-striped">
                     <thead>
                         <tr>
                             <th>@Personnel.Code</th>
@@ -60,8 +61,8 @@
                                 <td>@item.Required_on_application</td>
 
                                 <td>
-                                    <a href="@Url.Action("Edit", "Check_List_Items", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
-                                    <a href="@Url.Action("delete", "Check_List_Items", new {id = item.ID})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Delete</a>
+                                    <a href="@Url.Action("Edit", "Check_List_Items", new {id = item.ID})" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Check_List_Items", new {id = item.ID})" class="create-btn"><i class="far fa-trash-alt"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
@@ -78,3 +79,26 @@
 
 
 @section scripts{}
+
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000
+    }
+
+        .create-btn svg {
+            color: #0d62aa
+        }
+</style>

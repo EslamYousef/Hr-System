@@ -6,6 +6,7 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+  
 <div class="content-wrapper">
 
     <section class="content-header">
@@ -24,56 +25,65 @@
 
                 @using (Html.BeginForm("Edit", "Check_List_Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><input id="btnSave" class="create-btn" type="submit" value=@organ.Save /></div>
+                        @*<input type="submit" value="create" />*@
+                        <div><i class="fas fa-plus"></i><input type="submit" class="create-btn" value="New" /></div>
+                        <div><i class="far fa-trash-alt"></i><input type="submit" class="create-btn" value="Delete" /></div>
+                        <div><i class="fas fa-plus"></i><input id="btnSave" style="" class="create-btn" type="submit" onclick="ch()" value=@pers_2.create /></div>
+                        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "Check_List_Items")" class="create-btn">@pers_2.Back</a></div>
+
+                    </div>
                     @Html.AntiForgeryToken()
-                <div class="form-horizontal">
+                    <div class="form-horizontal">
 
-                    <hr />
+                        <hr />
 
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
-                        </div>
-                    }
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Code</label>
-                        <div class="col-md-3">
-                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Code</label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "margin-bottom: 15px;" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Name</label>
-                        <div class="col-md-3">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Name</label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Description</label>
-                        <div class="col-md-3">
-                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.Description</label>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">@Personnel.RequiredOnApplication</label>
+                            <div class="col-md-3">
+                                @Html.CheckBoxFor(model => model.Required_on_application, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                                @Html.ValidationMessageFor(model => model.Required_on_application, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div hidden class="col-md-4" style="margin-top:15px">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("index","Check_List_Items")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.RequiredOnApplication</label>
-                        <div class="col-md-3">
-                            @Html.CheckBoxFor(model => model.Required_on_application, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Required_on_application, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <a href="@Url.Action("index","Check_List_Items")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                            <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                        </div>
-                    </div>
-                </div>
                 }
 
             </div>
@@ -86,3 +96,98 @@
 
 
 @section scripts{}
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    h1 {
+        margin-top: 40px
+    }
+</style>

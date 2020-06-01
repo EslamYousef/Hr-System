@@ -1,4 +1,5 @@
 ﻿using HR.Models;
+using HR.Models.CardPayroll;
 using HR.Models.Infra;
 using HR.Models.SetupPayroll;
 using System;
@@ -17,7 +18,7 @@ namespace HR.Controllers
         public ActionResult Index()
         {
             var EN = Document_entry.Manual_payment.GetHashCode();
-            var model = dbcontext.salary_code.Where(m=>m.SourceEntry!= EN).ToList();
+            var model = dbcontext.salary_code.Where(m => m.SourceEntry != EN).ToList();
             return View(model);
         }
         public ActionResult Create()
@@ -25,7 +26,7 @@ namespace HR.Controllers
             try
             {
                 var new_record = new salary_code();
-                new_record.SortingIndex = 0;new_record.FrequencyPerPeriod = 0;new_record.MinimumAmount = 0;new_record.MaximumAmount = 0;
+                new_record.SortingIndex = 0; new_record.FrequencyPerPeriod = 0; new_record.MinimumAmount = 0; new_record.MaximumAmount = 0;
                 var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Payroll).Structure_Code;
                 var model_ = dbcontext.salary_code.ToList();
                 if (model_.Count() == 0)
@@ -41,7 +42,7 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
-                var vm = new salary_codeVM { salary_code = new_record ,unit=new unit(),code_type=new code_type(),code_value_type=new code_value_type(),cost_center_type=new cost_center_type(),Document_entry=new Document_entry()};
+                var vm = new salary_codeVM { salary_code = new_record, unit = new unit(), code_type = new code_type(), code_value_type = new code_value_type(), cost_center_type = new cost_center_type(), Document_entry = new Document_entry() };
                 return View(vm);
             }
             catch (Exception)
@@ -50,7 +51,7 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult create(salary_codeVM model,FormCollection form,string Command)
+        public ActionResult create(salary_codeVM model, FormCollection form, string Command)
         {
             try
             {
@@ -59,8 +60,8 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
-                
-                var new_model = new salary_code ();
+
+                var new_model = new salary_code();
                 new_model = model.salary_code;
                 new_model.CodeGroupType = model.code_type.GetHashCode();
                 new_model.CodeValueType = model.code_value_type.GetHashCode();
@@ -78,7 +79,7 @@ namespace HR.Controllers
                 var a6 = form["check_c2"].Split(',');
                 var a7 = form["check_c3"].Split(',');
 
-                if(a5.Length==1)
+                if (a5.Length == 1)
                 {
                     new_model.PrintableInPayslip = false;
                     model.salary_code.PrintableInPayslip = false;
@@ -135,14 +136,14 @@ namespace HR.Controllers
                     new_model.EnableExtendedFields = true;
                     if (model.salary_code.ExtendedFields_Code == null)
                     {
-                       
+
                         return View(model);
                     }
                     else
                     {
                         new_model.ExtendedFields_Code = model.salary_code.ExtendedFields_Code;
                     }
-                 
+
                 }
                 if (a2.Length == 1)
                 {
@@ -153,10 +154,10 @@ namespace HR.Controllers
                 }
                 else
                 {
-                  new_model.LinkedWithAccumulators = true;
+                    new_model.LinkedWithAccumulators = true;
                     if (model.salary_code.Subscription_Code == null)
                     {
-                        new_model.Subscription_Code =null;
+                        new_model.Subscription_Code = null;
 
                     }
                     else
@@ -215,31 +216,25 @@ namespace HR.Controllers
                         new_model.CreditAccount = model.salary_code.CreditAccount;
                     }
 
-                   
+
 
                 }
 
 
                 dbcontext.salary_code.Add(new_model);
                 dbcontext.SaveChanges();
-             
 
 
-                    if (Command == "assign")
-                    {
-                        return RedirectToAction("EditAssign", "salary_code", new { id = model.salary_code.ID });
-                    }
 
-
-              
-                if (Command == "deleteitem")
+                if (Command == "assign")
                 {
-
-
-
-
-
+                    return RedirectToAction("EditAssign", "salary_code", new { id = model.salary_code.ID, code = model.salary_code.SalaryCodeID, name = model.salary_code.SalaryCodeDesc, codetype = model.code_type, codevaluetype = model.code_value_type });
                 }
+
+                //if (Command == "deleteitem")
+                //{
+                //    return RedirectToAction("DeleteAssign", "salary_code", new { id = model.salary_code.ID, code = model.salary_code.SalaryCodeID, name = model.salary_code.SalaryCodeDesc, codetype = model.code_type, codevaluetype = model.code_value_type });
+                //}
                 return RedirectToAction("index");
             }
             catch (Exception)
@@ -262,13 +257,13 @@ namespace HR.Controllers
                 var new_model = new salary_codeVM { salary_code = model, code_type = (code_type)model.CodeGroupType, code_value_type = (code_value_type)model.CodeValueType, cost_center_type = (cost_center_type)model.Costcenter_Type, Document_entry = (Document_entry)model.SourceEntry };
                 return View(new_model);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return RedirectToAction("index");
             }
         }
         [HttpPost]
-        public ActionResult edit(salary_codeVM model, FormCollection form,string Command)
+        public ActionResult edit(salary_codeVM model, FormCollection form, string Command)
         {
             try
             {
@@ -398,7 +393,7 @@ namespace HR.Controllers
                 else
                 {
                     new_record.ApplayRangeConstrains = true;
-                    if(model.salary_code.MaximumAmount==null)
+                    if (model.salary_code.MaximumAmount == null)
                     {
                         new_record.MaximumAmount = 0;
                     }
@@ -416,8 +411,8 @@ namespace HR.Controllers
                         new_record.MinimumAmount = model.salary_code.MinimumAmount;
 
                     }
-                  
-                  
+
+
                 }
 
                 if (a4.Length == 1)
@@ -447,96 +442,128 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
                 if (Command == "assign")
                 {
-
-
-
-
-
+                    return RedirectToAction("EditAssign", "salary_code", new { id = model.salary_code.ID, code = model.salary_code.SalaryCodeID, name = model.salary_code.SalaryCodeDesc, codetype = model.code_type, codevaluetype = model.code_value_type });
                 }
                 if (Command == "deleteitem")
                 {
-
-
-
-
-
+                    return RedirectToAction("DeleteAssign", "salary_code", new { id = model.salary_code.ID, code = model.salary_code.SalaryCodeID, name = model.salary_code.SalaryCodeDesc, codetype = model.code_type, codevaluetype = model.code_value_type });
                 }
                 return RedirectToAction("index");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return View(model);
             }
         }
-        //public ActionResult EditAssign(int id)
-        //{
+        public ActionResult EditAssign(int id, string code, string name, string codetype, string codevaluetype)
+        {
 
-        //    try
-        //    {
-        //        ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
-        //        ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
-        //        ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
-        //        ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
-        //        ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+            try
+            {
+                ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
+                ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
+                ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
+                ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.code = code;
+                ViewBag.name = name;
+                ViewBag.codetype = codetype;
+                ViewBag.codevaluetype = codevaluetype;
 
-        //        var model = dbcontext.salary_code.FirstOrDefault(m => m.ID == id);
-        //        var new_model = new salary_codeVM { salary_code = model, code_type = (code_type)model.CodeGroupType, code_value_type = (code_value_type)model.CodeValueType, cost_center_type = (cost_center_type)model.Costcenter_Type, Document_entry = (Document_entry)model.SourceEntry };
-        //        return View(dbcontext.Employee_Profile.ToList());
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return RedirectToAction("index");
-        //    }
-        //}
+                var model = dbcontext.salary_code.FirstOrDefault(m => m.ID == id);
+                var new_model = new salary_codeVM {  code_type = (code_type)model.CodeGroupType, code_value_type = (code_value_type)model.CodeValueType, cost_center_type = (cost_center_type)model.Costcenter_Type, Document_entry = (Document_entry)model.SourceEntry };
+                return View(new_model);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("index");
+            }
+        }
+        [HttpPost]
+        public ActionResult EditAssign(salary_codeVM model, FormCollection form, string Command, string code, string name, string codetype, string codevaluetype)
+        {
+            try
+            {
+                ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
+                ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
+                ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
+                ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.code = code;
+                ViewBag.name = name;
+                ViewBag.codetype = codetype;
+                ViewBag.codevaluetype = codevaluetype;
+
+                var list = dbcontext.Employee_Financial_Contract_Header.Where(a => a.IsActive == true).ToList();
+                var lists = dbcontext.Employee_Financial_Contract_Header.ToList();
+                var De = dbcontext.Employee_Financial_Contract_Detail.Where(a => a.SalaryCodeID == code).ToList();
+
+                if (list != null)
+                {
+
+                    for (int i = 0; i < De.Count(); i++)
+                    {
+                        var delete = dbcontext.Employee_Financial_Contract_Detail.Remove(De[i]);
+                        dbcontext.SaveChanges();
+                    }
+
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+
+                        Employee_Financial_Contract_Detail record = new Employee_Financial_Contract_Detail();
+                        record.Contract_Number = list[i].ID.ToString();
+                        record.SalaryCodeID = code;
+                        record.Salarycodedescription = name;
+                        record.SalaryCodeValue = 0;
+                        record.Type = codetype;
+                        record.ValueType = codevaluetype;
+                        dbcontext.Employee_Financial_Contract_Detail.Add(record);
+                        dbcontext.SaveChanges();
+                    }
+                }
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch (Exception)
+            {
+                return View(model);
+            }
+        }
         //[HttpPost]
-        //public ActionResult EditAssign(salary_codeVM model, FormCollection form, string Command)
-        //{
-        //    try
-        //    {
-        //        ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
-        //        ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
-        //        ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
-        //        ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
-        //        ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+        public ActionResult DeleteAssign(salary_codeVM model, FormCollection form, string Command, string code, string name, string codetype, string codevaluetype)
+        {
+            try
+            {
+                ViewBag.checktype = dbcontext.Checktype.ToList().Select(m => new { Code = m.Code + "-[" + m.Description + ']', ID = m.ID });
+                ViewBag.extedned = dbcontext.ExtendedFields_Header.ToList().Select(m => new { Code = m.ExtendedFields_Code + "-[" + m.ExtendedFields_Desc + ']', ID = m.ID });
+                ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
+                ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.code = code;
+                ViewBag.name = name;
+                ViewBag.codetype = codetype;
+                ViewBag.codevaluetype = codevaluetype;
 
-        //        var new_record = dbcontext.salary_code.FirstOrDefault(m => m.ID == model.salary_code.ID);
-        //        var list = dbcontext.Employee_Financial_Contract_Header.Where(a => a.IsActive == true).ToList();
-        //        var lists = dbcontext.Employee_Financial_Contract_Header.ToList();
-        //        var De = dbcontext.Employee_Financial_Contract_Detail.Where(a => a.Contract_Number == lists. ).ToList();
+                var list = dbcontext.Employee_Financial_Contract_Header.Where(a => a.IsActive == true).ToList();
+                var lists = dbcontext.Employee_Financial_Contract_Header.ToList();
+                var De = dbcontext.Employee_Financial_Contract_Detail.Where(a => a.SalaryCodeID == code).ToList();
 
-        //        if (list != null)
-        //        {
-        //            for (int i = 0; i < list.Count(); i++)
-        //            {
-        //                list[i].em = false;
-        //            }
-        //            record.Primary_Position = true;
-        //        }
-        //        new_record.CodeGroupType = model.code_type.GetHashCode();
-        //        new_record.CodeValueType = model.code_value_type.GetHashCode();
-        //        new_record.SourceEntry = model.Document_entry.GetHashCode();
-        //        new_record.Costcenter_Type = (Int16)model.cost_center_type.GetHashCode();
-        //        new_record.Modified_By = User.Identity.Name;
-        //        new_record.Modified_Date = DateTime.Now.Date;
-
-        //        new_record.SalaryCodeDesc = model.salary_code.SalaryCodeDesc;
-        //        new_record.SalaryCodeAltDesc = model.salary_code.SalaryCodeAltDesc;
-        //        new_record.Type_Code = model.salary_code.Type_Code;
-        //        new_record.SortingIndex = model.salary_code.SortingIndex;
-        //        new_record.FrequencyPerPeriod = model.salary_code.FrequencyPerPeriod;
-        //        new_record.Description = model.salary_code.Description;
-
-
-        //        dbcontext.SaveChanges();
-           
-        //        return RedirectToAction("index");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return View(model);
-        //    }
-        //}
-
+                if (list != null)
+                {
+                    for (int i = 0; i < De.Count(); i++)
+                    {
+                        var delete = dbcontext.Employee_Financial_Contract_Detail.Remove(De[i]);
+                        dbcontext.SaveChanges();
+                    }
+                }
+                dbcontext.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch (Exception)
+            {
+                return View(model);
+            }
+        }
         public ActionResult delete(int id)
         {
             try
@@ -568,7 +595,7 @@ namespace HR.Controllers
         }
     }
     public class salary_codeVM
-        {
+    {
         public salary_code salary_code { get; set; }
         public code_type code_type { get; set; }
 
@@ -580,44 +607,44 @@ namespace HR.Controllers
     }
     public enum code_type
     {
-        Earning=1,
-        Deduction=2
+        Earning = 1,
+        Deduction = 2
     }
     public enum code_value_type
     {
-        Unkown=1,
-        Minites=2,
-        Hours=3,
-        Days=4,
-        Months=5,
-        Years=6,
-        Money=7,
-        Piece=8,
+        Unkown = 1,
+        Minites = 2,
+        Hours = 3,
+        Days = 4,
+        Months = 5,
+        Years = 6,
+        Money = 7,
+        Piece = 8,
         [Display(Name = "Calculated Value")]
-        Calculated_Value =8
+        Calculated_Value = 8
     }
     public enum Document_entry
     {
         [Display(Name = "Financial contract")]
-        Financial_contract =1,
+        Financial_contract = 1,
         [Display(Name = "Manual transaction")]
-        Manual_transaction =2,
+        Manual_transaction = 2,
         [Display(Name = "Manual payment")]
-        Manual_payment =3
+        Manual_payment = 3
     }
     public enum cost_center_type
     {
-        None=1,
-        Employee=2,
-        Department=3
+        None = 1,
+        Employee = 2,
+        Department = 3
     }
     public enum unit
     {
         [Display(Name = "End of current month")]
-        end_of_current_month =1,
+        end_of_current_month = 1,
         [Display(Name = "Transaction date of cuerrent month")]
-        transaction_date_of_cuerrent_month =2,
+        transaction_date_of_cuerrent_month = 2,
         [Display(Name = "Even_from_previous_month(s)")]
-        even_from_previous_month=3
+        even_from_previous_month = 3
     }
 }

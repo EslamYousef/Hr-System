@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="control-label col-md-1">
 
-                                    <input type="button" value="click" class="btn btn-success" id="searchbutton" onclick="go()" />
+                                    <input type="button" value="@Payroll.AddAllFinancialContractItems" class="btn btn-success" id="searchbutton" onclick="go()" />
 
                                 </div>
                             </div>
@@ -134,12 +134,12 @@
                                             <td class="col-md-1">
                                                 @Payroll.Salarycodevalue
                                             </td>
-                                            <td class="col-md-1">
+                                            @*<td class="col-md-1">
                                                 @Payroll.Extendedfieldscode
                                             </td>
                                             <td class="col-md-1">
                                                 @Payroll.Extendedfieldsdescription
-                                            </td>
+                                            </td>*@
                                             <td></td>
                                         </tr>
                                     </thead>
@@ -154,9 +154,9 @@
                                             <td class="col-md-2"><input class='form-control' value="@item.Type" readonly name="TypeE" /></td>
                                             <td class="col-md-2"><input class='form-control' value="@item.ValueType" readonly name="ValueType" /></td>
                                             <td class="col-md-1"><input class='form-control' name='DefaultValue' type="number" value="@item.SalaryCodeValue" min="0" /></td>
-                                            <td class="col-md-2"><input class='form-control' value="@item.ExtendedFields_Code" readonly name="Extendedco" /></td>
-                                            <td class="col-md-2"><input class='form-control' value="@item.ExtendedFields_Desc" readonly name="Extendedna" /></td>
-                                            <td class="col-md-1"><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td>
+                                            @*<td class="col-md-2"><input class='form-control' value="@item.ExtendedFields_Code" readonly name="Extendedco" /></td>
+                                            <td class="col-md-2"><input class='form-control' value="@item.ExtendedFields_Desc" readonly name="Extendedna" /></td>*@
+                                            <td class="col-md-1"><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>
                                         </tr>
 
                                         }
@@ -203,53 +203,63 @@
                         var Exten = result.ExtendedFields_Code;
                         if (result.ExtendedFields_Code == null) {
 
-
-
-                    if (result.CodeGroupType == 0) {
-                        var GroupType = "Code type";
-                    }
-                        else if (result.CodeGroupType == 1) {
-                        var GroupType = "Earning";
-                    }
-                    else if (result.CodeGroupType == 2) {
-                        var GroupType = "Deduction";
-                    }
-                    if (result.CodeValueType == 0) {
-                        var Earning = "Code value type";
-                    }
-                    else if (result.CodeValueType == 1) {
-                        var Earning = "Unkown";
-                    }
-                    else if (result.CodeValueType == 2) {
-                        var Earning = "Minites";
-                    }
-                    else if (result.CodeValueType == 3) {
-                        var Earning = "Hours";
-                    }
-                    else if (result.CodeValueType == 4) {
-                        var Earning = "Days";
-                    }
-                    else if (result.CodeValueType == 5) {
-                        var Earning = "Months";
-                    }
-                    else if (result.CodeValueType == 6) {
-                        var Earning = "Years";
-                    }
-                    else if (result.CodeValueType == 7) {
-                        var Earning = "Money";
-                    }
-                    else if (result.CodeValueType == 8) {
-                        var Earning = "Piece";
-                    }
-                    else if (result.CodeValueType == 9) {
-                        var Earning = "Calculated Value";
-                    }
-                            var i = "<tr><td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeID + "' name='codeid'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeDesc + "' name='SalaryDes'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + GroupType + "' name='TypeE'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + Earning + "' name='ValueType'></td>" + "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='0' min='0' type='number' /></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='' name='Extendedco'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='' name='Extendedna'></td>" + "<td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
-                    debugger
-                        $("#itemTR").append(i);
-                            $("#ite").select2("val", "");
+                            if (result.CodeGroupType == 0) {
+                                var GroupType = "Code type";
+                            }
+                            else if (result.CodeGroupType == 1) {
+                                var GroupType = "Earning";
+                            }
+                            else if (result.CodeGroupType == 2) {
+                                var GroupType = "Deduction";
+                            }
+                            if (result.CodeValueType == 0) {
+                                var Earning = "Code value type";
+                            }
+                            else if (result.CodeValueType == 1) {
+                                var Earning = "Unkown";
+                            }
+                            else if (result.CodeValueType == 2) {
+                                var Earning = "Minites";
+                            }
+                            else if (result.CodeValueType == 3) {
+                                var Earning = "Hours";
+                            }
+                            else if (result.CodeValueType == 4) {
+                                var Earning = "Days";
+                            }
+                            else if (result.CodeValueType == 5) {
+                                var Earning = "Months";
+                            }
+                            else if (result.CodeValueType == 6) {
+                                var Earning = "Years";
+                            }
+                            else if (result.CodeValueType == 7) {
+                                var Earning = "Money";
+                            }
+                            else if (result.CodeValueType == 8) {
+                                var Earning = "Piece";
+                            }
+                            else if (result.CodeValueType == 9) {
+                                var Earning = "Calculated Value";
+                            }
+                            var pp = $("#itemTR").find("tr");
+                            var flag = 0;
+                            for (var o = 0; o < pp.length; o++) {
+                                debugger
+                                var inputs = pp[o].children;
+                                codeid_ = inputs[0].children;
+                                if (codeid_[0].value == result.SalaryCodeID) {
+                                    flag = 1;
+                                }
+                            }
+                            if (flag == 0) {
+                                var i = "<tr><td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeID + "' name='codeid'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + result.SalaryCodeDesc + "' name='SalaryDes'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + GroupType + "' name='TypeE'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + Earning + "' name='ValueType'></td>" + "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='0' min='0' type='number' /></td>" /*+ "<td class='col-md-1'><input readonly class = 'form-control' value='' name='Extendedco'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='' name='Extendedna'></td>"*/ + "<td class='col-md-1'><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                                debugger
+                                $("#itemTR").append(i);
+                                $("#ite").select2("val", "");
+                            }
                         }
-                        else {
+                        @*else {
                             if (result.CodeGroupType == 0) {
                                 var GroupType = "Code type";
                             }
@@ -308,7 +318,7 @@
                                   //$("#codeid").val("");
                               }
                           });
-                          }
+                          }*@
 
                       }
 
@@ -402,10 +412,11 @@
     }
            function go() {
         debugger
+               $("#itemTR").empty();
 
         $.ajax({
             type: "post",
-            url: "/Helper/GetDataBysa",
+            url: "/Helper/GetDataBys",
            success: function (result) {
                debugger
                $.each(result, function (i, r) {
@@ -451,7 +462,7 @@
                    else if (r.CodeValueType == 9) {
                        var Earning = "Calculated Value";
                    }
-                   $("#itemTR").append("<tr><td class='col-md-1'><input readonly class = 'form-control' value='" + r.SalaryCodeID + "' name='codeid'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + r.SalaryCodeDesc + "' name='SalaryDes'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + GroupType + "' name='TypeE'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + Earning + "' name='ValueType'></td>" + "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='0' min='0' type='number' /></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + r.ExtendedFields_Code + "' name='Extendedco'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + r.ExtendedFields_Description+"' name='Extendedna'></td>" + "<td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>")
+                   $("#itemTR").append("<tr><td class='col-md-1'><input readonly class = 'form-control' value='" + r.SalaryCodeID + "' name='codeid'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + r.SalaryCodeDesc + "' name='SalaryDes'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + GroupType + "' name='TypeE'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + Earning + "' name='ValueType'></td>" + "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='0' min='0' type='number' /></td>" /*+ "<td class='col-md-1'><input readonly class = 'form-control' value='" + r.ExtendedFields_Code + "' name='Extendedco'></td>" + "<td class='col-md-1'><input readonly class = 'form-control' value='" + r.ExtendedFields_Description+"' name='Extendedna'></td>"*/ + "<td class='col-md-1'><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>")
                 })
                 //$("#cars").val(result.Name);
             },

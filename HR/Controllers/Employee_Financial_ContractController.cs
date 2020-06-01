@@ -56,6 +56,9 @@ namespace HR.Controllers
         {
             try
             {
+                //var prof = int.Parse(model.Employee_Profile.ID);
+                var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == model.Employee_Profile.ID);
+
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.salaryitem = dbcontext.salary_code.Where(a => a.SourceEntry == 1).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
                 var EmpObj = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.Employee_Profile.ID);
@@ -66,7 +69,9 @@ namespace HR.Controllers
                 record.Employee_Profile = EmpObj;
                 if (ModelState.IsValid)
                 {
-                    var list = dbcontext.Employee_Financial_Contract_Header.ToList();
+                    var list = dbcontext.Employee_Financial_Contract_Header.Where(a => a.Employee_Code == emp.ID.ToString()).ToList();
+
+                    //var list = dbcontext.Employee_Financial_Contract_Header.ToList();
                     if (list.Count() == 0)
                     {
                         record.IsActive = true;
@@ -97,14 +102,14 @@ namespace HR.Controllers
                     var TypeE = form["TypeE"].Split(',');
                     var ValueType = form["ValueType"].Split(',');
                     var DefaultValue = form["DefaultValue"].Split(',');
-                    var Extendedco = form["Extendedco"].Split(',');
-                    var Extendedna = form["Extendedna"].Split(',');
+                    //var Extendedco = form["Extendedco"].Split(',');
+                    //var Extendedna = form["Extendedna"].Split(',');
 
                     for (var i = 0; i < codeid.Length; i++)
                     {
                         if (codeid[i] != "")
                         {
-                            var new_details = new Employee_Financial_Contract_Detail { Contract_Number = Header.ID.ToString(), Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date, SalaryCodeID = codeid[i], SalaryCodeValue = double.Parse(DefaultValue[i]), Salarycodedescription = SalaryDes[i], Type = TypeE[i], ValueType = ValueType[i], ExtendedFields_Code = Extendedco[i], ExtendedFields_Desc = Extendedna[i] };
+                            var new_details = new Employee_Financial_Contract_Detail { Contract_Number = Header.ID.ToString(), Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date, SalaryCodeID = codeid[i], SalaryCodeValue = double.Parse(DefaultValue[i]), Salarycodedescription = SalaryDes[i], Type = TypeE[i], ValueType = ValueType[i]/*, ExtendedFields_Code = Extendedco[i], ExtendedFields_Desc = Extendedna[i] */};
                             dbcontext.Employee_Financial_Contract_Detail.Add(new_details);
                             dbcontext.SaveChanges();
                         }

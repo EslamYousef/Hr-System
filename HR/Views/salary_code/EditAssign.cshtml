@@ -1,10 +1,32 @@
-﻿@model IEnumerable<HR.Models.Employee_Profile>
+﻿@model HR.Controllers.salary_codeVM
 @using HR.Resource;
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 
 }
+<script>
+
+    $(function () {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployees",
+            //data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    $("#car").append('<tr><th value="' + r.ID + '">' + r.Code + '</th><th> ' + r.Full_Name + '</th></tr>')
+                })
+                //$("#cars").val(result.Name);
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    })
+
+</script>
 
 
 @Scripts.Render("~/bundles/jqueryval")
@@ -24,10 +46,15 @@
             <!-- /.box-header -->
             <div class="box-body">
 
-                @using (Html.BeginForm("Edit", "EditAssign", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("EditAssign", "salary_code", new { code = ViewBag.code, name = ViewBag.name, codetype = ViewBag.codetype, codevaluetype = ViewBag.codevaluetype }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
+
+                        <div>
+                            <a href="@Url.Action("index","salary_code")" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            <input type="submit" value="@Personnel.Edit" class="btn btn-success" style="width:98px;" />
+                        </div>
 
                         <hr />
 
@@ -40,15 +67,6 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-
-
-                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                            <a href="@Url.Action("index","salary_code")" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                            <input type="submit" value="@Personnel.Edit" class="btn btn-success" style="width:98px;" />
-                        </div>
-
 
 
                         <div>
@@ -66,46 +84,39 @@
                                 <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
 
-                                    @*<div class="form-group">
-                                            <label class="control-label col-md-1">salarycode</label>
-                                            <div class="col-md-1">
-                                                @Html.EditorFor(model => model.salary_code.SalaryCodeID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                                @Html.ValidationMessageFor(model => model.salary_code.SalaryCodeID, "", new { @class = "text-danger" })
-                                            </div>
-
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@pers_2.salarycodeid</label>
+                                        <div class="col-md-3">
+                                            <input type="text" value="@ViewBag.code" class="form-control" readonly />
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-1">
-                                                <span> @pers_2.codetype </span>
-                                            </label>
-                                            <div class="col-md-3">
-                                                @Html.EnumDropDownListFor(m => m.code_type, pers_2.codetype, new { @class = "select2", @id = "Country1" })
-                                            </div>
+                                        <label class="control-label col-md-2"> @Personnel.Name</label>
+                                        <div class="col-md-3">
+                                            <input type="text" value="@ViewBag.name" class="form-control" readonly />
+                                        </div>
+                                    </div>
 
-                                            <label class="control-label col-md-1">
-                                                <span> @pers_2.codevaluetype </span>
-                                            </label>
-                                            <div class="col-md-3">
-                                                @Html.EnumDropDownListFor(m => m.code_value_type, pers_2.codevaluetype, new { @class = "select2", @id = "Country1" })
-                                            </div>
-                                        </div>*@
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@pers_2.codetype</label>
+                                        <div class="col-md-3">
+                                            @Html.EnumDropDownListFor(m => m.code_type, pers_2.codetype, new { @class = "select2", @id = "Country1", @readonly = "true" })
+                                        </div>
+                                        <label class="control-label col-md-2"> @pers_2.codevaluetype</label>
+                                        <div class="col-md-3">
+                                            @Html.EnumDropDownListFor(m => m.code_value_type, pers_2.codevaluetype, new { @class = "select2", @id = "Country2", @readonly = "true" })
+                                        </div>
+                                    </div>
+                                  
                                     <div>
                                         <table id="categories" class="table table-bordered table-striped text-center">
                                             <thead>
                                                 <tr>
-                                                    <th>@pers_2.salarycodeid</th>
-                                                    <th>@organ.name</th>
-                                                    <th></th>
+                                                    <th>Code</th>
+                                                    <th>Full Name</th>
+
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                @foreach (var item in Model)
-                                                {
-                                                    <tr>
-                                                        <td>@item.Code</td>
-                                                        <td>@item.Full_Name</td>
-                                                    </tr>
-                                                }
+                                            <tbody id="car">
                                             </tbody>
 
                                         </table>
@@ -121,88 +132,21 @@
 </div>
 @section scripts{}
 
-
-
 <script>
     $(function () {
-        $("#employeeId8").attr("disabled", true);
 
-        function employee() {
-            debugger
-            var id = $("#employeeId8").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetApplicant",
-                data: { "id": id },
-                async: false,
-                success: function (result) {
-                    debugger
-                    $("#full").val(result.Full_Name);
-                    $("#SurEn").val(result.Surname);
-                    $("#full2").val(result.Full);
-                    $("#SurAr").val(result.Sur_Name);
-                    var FullName = $("#full").val().split(' ');
-                    if (FullName.length > 0) {
-                        $("#name1").val(FullName[0]);
-                        $("#name2").val(FullName[1]);
-                        $("#name3").val(FullName[2]);
-                        $("#name4").val(FullName[3]);
-                        $("#name5").val(FullName[4]);
-                    }
-                    var FullName2 = $("#full2").val().split(' ');
-                    if (FullName2.length > 0) {
-                        $("#arabic1").val(FullName2[0]);
-                        $("#arabic2").val(FullName2[1]);
-                        $("#arabic3").val(FullName2[2]);
-                        $("#arabic4").val(FullName2[3]);
-                        $("#arabic5").val(FullName2[4]);
-                    }
-                },
-                error: function () {
+        function CheckOnName() {
 
-                }
-            });
+            $("#Country2").attr('disabled', 'disabled');
+            
+            $("#Country1").attr('disabled', 'disabled');
+
         }
-        employee();
-        function GetDataById2(date, id) {
-            debugger
-            var valx = new Date(date);
-            var month;
-            if ((valx.getMonth() + 1) < 10) {
-                month = "0" + (valx.getMonth() + 1).toString();
-            }
-            else {
-                month = date.getMonth() + 1;
-            }
-            var day = parseInt(valx.getDate());
-            if (day < 10) {
-                day = "0" + (valx.getDate()).toString();
-            }
-            else {
-                day = valx.getDate();
-            }
-            var d = valx.getFullYear() + '-' + month + '-' + day;
-            $('#' + id).val(d);
-        }
-    })
-    function Religion() {
+        CheckOnName();
+      
 
-        var id = $("#religion").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetCommitteResolutionRecuirtment",
-            data: { "id": id },
-            success: function (result) {
-
-                $("#ReligionName").val(result.Code);
-            },
-            error: function () {
-
-                $("#ReligionName").val(" ");
-            }
-        });
-    }
-
+    });
 </script>
+
 
 

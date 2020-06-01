@@ -6,34 +6,56 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
-<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
-<script>
+@*<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />*@
+    <script>
 
-    $(function () {
-        $("#tb-family").hide();
-        $("#ss").click(function () {
 
-            var Family_profile = $("#employeeId3").val();
-            $.ajax({
-                type: "post",
-                url: "/Helper/GetSalaryCodeGroup_Header",
-                data: { "id": Family_profile },
-                success: function (result) {
-                    if (Family_profile != "" ) {
-                        $("#tb-family").show();
-                        var T = "";
-                        T = "<tr><td><input type='text' readonly name='Family_profile_No2' value='" + result.CodeGroupID + "'/></td><td><input type='text' readonly name='Family_name' value='" + result.CodeGroupDesc + "'/></td><td><input type='number' name='Percentage' value='0'  /></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
-                        $("#tb-family").append(T)
+        function additems() {
+
+        var f = $("#ite").val();
+        if (f == "") {
+            alert('you must choose salary item ');
+        }
+        else
+        {
+            var i = "";
+            var d = $("#ite").val();
+            var firstdrop = " ";
+            $.ajax
+                ({
+                    type: "post",
+                    url: "/Helper/GetSalaryCodeGroup_Header",
+                    data: { "id": d },
+
+                    success: function (result) {
+                        debugger
+                        debugger
+                        var pp = $("#itemTR").find("tr");
+                        var flag = 0;
+                        for (var o = 0; o < pp.length; o++) {
+                            debugger
+                            var inputs = pp[o].children;
+                            ss_ = inputs[0].children;
+                            if (ss_[0].value == result.CodeGroupID) {
+                                flag = 1;
+                            }
+                        }
+                        if (flag == 0) {
+                            var i = "<tr><td class='col-md-1'><input type='text' readonly name='Family_profile_No2' value='" + result.CodeGroupID + "'/></td><td class='col-md-1'><input type='text' readonly name='Family_name' value='" + result.CodeGroupDesc + "'/></td><td class='col-md-1'><input type='number' name='Percentage' value='0'  /></td><td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        debugger
+                        $("#itemTR").append(i);
+                        var seledct = $("#itemTR tr").last().children()[4].children[0];
+                        full_check(seledct);
+                        $("#ite").select2("val", "");
                     }
                 }
-            })
-            $("#tb-family").on('click', '.del-btn', function () {
-               $(this).closest('tr').remove();
-            })
-        })
-    });
-
-</script>
+                });
+ }
+    }
+        function remove(thi) {
+            thi.parent().parent().remove();
+        }
+    </script>
 
 
 
@@ -108,31 +130,62 @@
                             </div>
 
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span>@Payroll.SalaryItemsGroup</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.SalaryCodeGroup_Header, "ID", "Code"), Payroll.SelectSalaryItemsGroup, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;"/>
+                            <div class="col-md-12">
+
+                                <ul class="nav nav-tabs bordered">
+                                    <!-- available classes "bordered", "right-aligned" -->
+                                    <li class="active">
+                                        <a href="#Budgetdetails" data-toggle="tab">
+                                            <span class="visible-xs"><i class="entypo-home"></i></span>
+                                            <span class="hidden-xs">@Payroll.SalaryItemsGroup</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+
+                                        <div style="margin-bottom:15px" class="form-group">
+                                            <label class="control-label col-md-1">
+                                                <span> @Payroll.SalaryItemsGroup </span>
+                                            </label>
+                                            <div class="col-md-3">
+                                                @Html.DropDownList("fd", new SelectList(ViewBag.SalaryCodeGroup_Header, "ID", "Code"), Payroll.SelectSalaryItemsGroup, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "ite" })
+                                            </div>
+                                            <div class="col-md-1">
+
+                                            </div>
+                                            <div class="control-label col-md-1">
+                                                <a onclick="additems()" style="margin-right:3px" class="btn btn-success"> @Personnel.Add </a>
+                                            </div>
+
+                                        </div>
+                                        <table id="categories" class="table table-bordered table-striped text-center">
+                                            <thead>
+                                                <tr>
+                                                    <td hidden></td>
+                                                    <td class="col-md-1">
+                                                        @Payroll.Groupid
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        @Payroll.Groupdescription
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        @Payroll.Sortindex
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        @Personnel.Delete
+                                                    </td>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="itemTR"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <table id="tb-family" border="1" style="display: table; width:400px;">
-                                <thead>
-                                    <tr>
-                                        <th id="fa">@Payroll.Groupid</th>
-                                        <th id="na">@Payroll.Groupdescription</th>
-                                        <th id="per">@Payroll.Sortindex</th>
-                                        <th id="De">@Personnel.Delete</th>
-                                    </tr>
-                                </thead>
-                            </table>
-
+                            </div>
                         </div>
-
-                    </div>
 
                 }
 
