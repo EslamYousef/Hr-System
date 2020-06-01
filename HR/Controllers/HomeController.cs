@@ -10,7 +10,7 @@ namespace HR.Controllers
 {
     [Authorize]
     [HandleError(View = "Error")]
-    public class HomeController : MyController
+    public class HomeController : BaseController
     {
      
         public ActionResult Index()
