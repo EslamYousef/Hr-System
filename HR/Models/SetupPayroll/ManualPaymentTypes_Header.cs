@@ -41,5 +41,6 @@ namespace HR.Models.SetupPayroll
         public Nullable<System.DateTime> Modified_Date { get; set; }
         public int RowIndx { get; set; }
         public string Type_Code { get; set; }
+        public virtual List<LinkLoanDeductionsWithOtherManualPayment> LinkLoanDeductionsWithOtherManualPayment { get; set; }
     }
 }

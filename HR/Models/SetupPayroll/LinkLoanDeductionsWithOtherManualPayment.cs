@@ -11,10 +11,10 @@ namespace HR.Models.SetupPayroll
     {
         [Key]
         public int ID { get; set; }
-        public string LoanTypeCode { get; set; }
-        public string PaymentTypeCode { get; set; }
-        public string SalaryCodeID { get; set; }
-        public Nullable<int> NumberOfInstallments { get; set; }
+        public string LoanTypeCode { get; set; }   //loan
+        public string PaymentTypeCode { get; set; } ///header
+        public string SalaryCodeID { get; set; }   //details
+        public Nullable<int> NumberOfInstallments { get; set; }  //num
         public string Company_ID { get; set; }
         public string Created_By { get; set; }
         public Nullable<System.DateTime> Created_Date { get; set; }

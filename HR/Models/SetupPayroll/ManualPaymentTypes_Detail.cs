@@ -26,6 +26,7 @@ namespace HR.Models.SetupPayroll
         public string Salarycodedescription { get; set; }
         public string Type { get; set; }
         public string ValueType { get; set; }
+        public virtual List<LinkLoanDeductionsWithOtherManualPayment> LinkLoanDeductionsWithOtherManualPayment { get; set; }
 
     }
 }
