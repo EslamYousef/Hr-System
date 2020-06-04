@@ -39,6 +39,11 @@
 
                         @using (Html.BeginForm("Chart", "Reports_organization", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
+                            <section class="content-header">
+                                <h1 style=" margin-top 60px">
+                                  -----
+                                </h1>
+                            </section>
                             <input name="userUnit" hidden />
                             <input name="unitDescription" hidden />
                             <input name="parent" hidden />
@@ -49,6 +54,12 @@
                             <input name="check_status" hidden />
                             <input name="List_Display" hidden />
                             @Html.AntiForgeryToken()
+                            <div class="sec-nav">
+                                <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+
+                                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Home")" class="create-btn"> @pers_2.Back</a></div>
+
+                            </div>
                             <div class="form-horizontal">
 
                                 <hr />
@@ -61,34 +72,37 @@
                                     </div>
                                 }
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @organ.userunitCode
-                                    </label>
+                                
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.userunitCode
+                                        </label>
                                         @Html.DropDownListFor(m => m.userUnit, new SelectList(ViewBag.userUnitCode, "Code", "Code"), new {id= "EmpList", @data_placeholder = organ.userunitCode, @class = "select2", @multiple = "multiple" })
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @organ.unitDescription
-                                    </label>
+                                
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.unitDescription
+                                        </label>
                                         @Html.DropDownListFor(m => m.unitDescription, new SelectList(ViewBag.unitDescription, "Code", "Code"), new { @data_placeholder = organ.unitDescription,@class = "select2", @multiple = "multiple" })
                                     </div>
 
 
 
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @organ.parentjob
-                                    </label>
+                               
+                                   
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.parentjob
+                                        </label>
                                         @Html.DropDownListFor(m => m.parent, new SelectList(ViewBag.parent, "ID", "Code"), new { @data_placeholder = organ.parentjob, @class = "select2", @multiple = "multiple" })
                                     </div>
 
-                                    <label class="control-label col-md-2">
-                                        @organ.UnitTypeCode
-                                    </label>
+                                   
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.UnitTypeCode
+                                        </label>
                                         @Html.DropDownListFor(m => m.unitType, new SelectList(ViewBag.unitTypeCode, "ID", "Code"), new { @data_placeholder = organ.UnitTypeCode, @class = "select2", @multiple = "multiple" })
                                     </div>
 
@@ -96,64 +110,65 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @organ.unitlevelcode
-                                    </label>
+                                  
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.unitlevelcode
+                                        </label>
                                         @Html.DropDownListFor(m => m.unitLevel, new SelectList(ViewBag.unitLevelCode, "ID", "Code"), new { @data_placeholder = organ.OrganizationUnitLevel,@class = "select2", @multiple = "multiple" })
                                     </div>
 
-                                    <label class="control-label col-md-2">
-                                        @organ.unitSchemacode
-                                    </label>
+                                   
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.unitSchemacode
+                                        </label>
                                         @Html.DropDownListFor(m => m.unitSchema, new SelectList(ViewBag.unitSchema, "ID", "Code"), new { @data_placeholder = organ.OrganizationUnitSchema,@class = "select2", @multiple = "multiple" })
                                     </div>
 
 
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @organ.Locationname
-                                    </label>
+                               
+                                  
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.Locationname
+                                        </label>
                                         @Html.DropDownListFor(m => m.loaction, new SelectList(ViewBag.location, "ID", "Code"), new { @data_placeholder = organ.Locationname, @class = "select2", @multiple = "multiple" })
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @organ.status
-                                    </label>
+                                   
                                     <div class="col-md-4">
+                                        <label>
+                                            @organ.status
+                                        </label>
                                         @Html.EnumDropDownListFor(m => m.check_status, new { @class = "select2", @multiple = "multiple" })
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @organ.selectcolumnstoDisplay
-                                    </label>
-                                    <select data_placeholder = @organ.selectcolumnstoDisplay name="List_Display" class="col-md-4 select2" multiple="multiple">
-                                        <option value="-1">Select ALL </option>
-                                        <option value="0">unit Code </option>
-                                        <option value="1">user unit Code </option>
-                                        <option value="2">unit description </option>
-                                        <option value="3">parent </option>
-                                        <option value="4">unit type</option>
-                                        <option value="5">unit level</option>
-                                        <option value="6">unit schema</option>
-                                        <option value="7">location </option>
-                                        <option value="8">status </option>
-                                        <option value="9">number of direct position </option>
-                                        <option value="10">unit mail </option>
-                                        <option value="11">number of chaild </option>
-                                    </select>
+                                
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @organ.selectcolumnstoDisplay
+                                            </label>
+                                            <select data_placeholder=@organ.selectcolumnstoDisplay name="List_Display" class="select2" multiple="multiple">
+                                                <option value="-1">Select ALL </option>
+                                                <option value="0">unit Code </option>
+                                                <option value="1">user unit Code </option>
+                                                <option value="2">unit description </option>
+                                                <option value="3">parent </option>
+                                                <option value="4">unit type</option>
+                                                <option value="5">unit level</option>
+                                                <option value="6">unit schema</option>
+                                                <option value="7">location </option>
+                                                <option value="8">status </option>
+                                                <option value="9">number of direct position </option>
+                                                <option value="10">unit mail </option>
+                                                <option value="11">number of chaild </option>
+                                            </select>
+                                        </div>
                                 </div>
+                             
 
-                                <div  class="form-group" style="margin-top:15px">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@organ.create</button>
-                                        <a href="@Url.Action("index","Home")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
-                                    </div>
-                                </div>
+                               
                             </div>
                         }
 
@@ -176,6 +191,99 @@ $('select').select2({
 
 @section scripts{}
 
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
 
 
 

@@ -1,4 +1,11 @@
-﻿@using HR.Resource
+﻿
+@using HR.Resource
+@using Microsoft.AspNet.Identity
+@{
+    var userId = User.Identity.GetUserId();
+    var context = new HR.Models.ApplicationDbContext();
+    var user = context.Users.Find(userId);
+}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -1907,7 +1914,7 @@
 
     <div class="main-content">
 
-        <div class="row main-content__header" style="padding:0">
+        <div class="row main-content__header" style="padding:5px">
 
             <div class="col-md-6 col-sm-4 clearfix hidden-xs">
 
@@ -1915,45 +1922,63 @@
 
                     <li>
                         <a href="#" style="font-size: 20px;">
-                            @*Dynamics 365*@
+                            Human Capital
+
+
                         </a>
                     </li>
 
-                    <li class="sep"></li>
 
-                    <li>
-                        <a href="#" style="font-size: 20px;">
-                            @*Finance and Operations*@
-                        </a>
-                    </li>
-                    <li class="lang">
-                        <i class="fa fa-globe" title="10001" aria-hidden="true"></i>
-                        <a href="/Language/@HR.Resource.mainlayout.Arabic">@mainlayout.العربية</a>
 
-                    </li>
-                    <li>
-                        <a href="@Url.Action("LogOff","Security")">
-                            @mainlayout.Logout <i class="entypo-logout right"></i>
-                        </a>
-                    </li>
                 </ul>
             </div>
 
 
-            <div class="col-md-6 col-sm-8 clearfix">
+            <div class="col-md-6 col-sm-8 clearfix hidden-xs">
 
                 <ul class="user-info  pull-none-xs">
 
                     <!-- Profile Info -->
                     <li class="profile-info dropdown">
-                        <!-- add class "pull-right" if you want to place this from right -->
-                    
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span style="color:white" >Hello @User.Identity.Name </span>
-                            <img src="~/Content/neon/assets/images/thumb-1@2x.png" alt="" class="img-circle" width="44" />
-                          
+
+                        <span style="color:white;margin-left:10px;margin-right:10px">ARADO</span>
+                        <a href="@Url.Action("LogOff","Security")" style="color:white;margin-left:10px;margin-right:10px">
+
+                            @mainlayout.Logout
+                            <i class="entypo-logout right"></i>
                         </a>
-                       
+
+                        <a href="/Language/@HR.Resource.mainlayout.Arabic" style="color:white;margin-left:10px;margin-right:10px">
+
+                            @mainlayout.العربية
+                            <i class="fa fa-globe" title="10001" aria-hidden="true"></i>
+                        </a>
+
+
+
+
+
+                        <!-- add class "pull-right" if you want to place this from right -->
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span style="color:white"> @mainlayout.Hello @User.Identity.Name</span>
+
+                            @{
+                                if (string.IsNullOrEmpty(user.ImagePath) || !File.Exists(HttpRuntime.AppDomainAppPath + user.ImagePath))
+                                {
+                                    <img src="~/login-icon-3048.png" class="img-circle" width="55" height="33">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content(user.ImagePath)" class="img-circle" width="55" height="33">
+                                }
+                            }
+
+
+
+
+                        </a>
+
                         <ul class="dropdown-menu">
 
                             <!-- Reverse Caret -->
@@ -1961,73 +1986,67 @@
 
                             <!-- Profile sub-links -->
                             <li>
-                                <a href="extra-timeline.html">
+                                <a href="@Url.Action("edit_profile", "Account")">
                                     <i class="entypo-user"></i>
                                     Edit Profile
                                 </a>
                             </li>
 
                             @*<li>
-                                    <a href="mailbox.html">
-                                        <i class="entypo-mail"></i>
-                                        Inbox
-                                    </a>
-                                </li>
+                                <a href="mailbox.html">
+                                    <i class="entypo-mail"></i>
+                                    Inbox
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="extra-calendar.html">
-                                        <i class="entypo-calendar"></i>
-                                        Calendar
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="extra-calendar.html">
+                                    <i class="entypo-calendar"></i>
+                                    Calendar
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="#">
-                                        <i class="entypo-clipboard"></i>
-                                        Tasks
-                                    </a>
-                                </li>*@
+                            <li>
+                                <a href="#">
+                                    <i class="entypo-clipboard"></i>
+                                    Tasks
+                                </a>
+                            </li>*@
 
                         </ul>
                     </li>
-                    <li>
-                        <ul class="user-info  pull-left-xs pull-none-xsm">
 
-                            <!-- Raw Notifications -->
-                            @*<li class="notifications dropdown">
+                    <!-- Raw Notifications -->
+                    @*<li class="notifications dropdown">
 
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i class="entypo-help"></i>
-                                    </a>
-                                </li>*@
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="entypo-help"></i>
+                        </a>
+                    </li>*@
 
-                            <!-- Message Notifications -->
-                            @*<li class="notifications dropdown">
+                    <!-- Message Notifications -->
+                    @*<li class="notifications dropdown">
 
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i class="entypo-cog"></i>
-                                    </a>
-                                </li>
-                                <li class="sep"></li>*@
-
-                            @*<li class="notifications dropdown">
-
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i class="entypo-chat"></i>
-                                    </a>
-                                </li>*@
-                        </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="entypo-cog"></i>
+                        </a>
                     </li>
+                    <li class="sep"></li>*@
+
+                    @*<li class="notifications dropdown">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="entypo-chat"></i>
+                        </a>
+                    </li>*@
+
+
                 </ul>
             </div>
         </div>
-        @RenderSection("image", false)
-        @*<div class="row" style="padding: 83px;background-image: url(/1.jpg);background-size: 1533px 214px;">
-                <div col-lg-12>
-                    <h3 style="color: #fff">Contoso company</h3>
 
-                </div>
-            </div>*@
+        @RenderSection("image", false)
+     
         <div class="row">
 
 

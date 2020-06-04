@@ -349,6 +349,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change image profile.
+        /// </summary>
+        public static string change_image_profile {
+            get {
+                return ResourceManager.GetString("change_image_profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check due date.
         /// </summary>
         public static string Check_Due_date {
@@ -507,6 +516,15 @@ namespace HR.Resource {
         public static string company_type {
             get {
                 return ResourceManager.GetString("company_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string confirm_pass {
+            get {
+                return ResourceManager.GetString("confirm_pass", resourceCulture);
             }
         }
         
@@ -1330,6 +1348,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image profile.
+        /// </summary>
+        public static string image_profile {
+            get {
+                return ResourceManager.GetString("image_profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Job Level.
         /// </summary>
         public static string joblevel {
@@ -1353,6 +1380,15 @@ namespace HR.Resource {
         public static string jobtitle1 {
             get {
                 return ResourceManager.GetString("jobtitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-Mail.
+        /// </summary>
+        public static string mail {
+            get {
+                return ResourceManager.GetString("mail", resourceCulture);
             }
         }
         
@@ -1456,6 +1492,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        public static string new_pass {
+            get {
+                return ResourceManager.GetString("new_pass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Num Street From.
         /// </summary>
         public static string Num_Street_From {
@@ -1497,6 +1542,15 @@ namespace HR.Resource {
         public static string oil_sector {
             get {
                 return ResourceManager.GetString("oil_sector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Password.
+        /// </summary>
+        public static string old_password {
+            get {
+                return ResourceManager.GetString("old_password", resourceCulture);
             }
         }
         
