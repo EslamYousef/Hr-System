@@ -64,10 +64,11 @@ namespace HR.Controllers
                     var add_items = dbcontext.Business_Test_Profile.AddRange(items);
                     dbcontext.SaveChanges();
                     /////////////////////////////////////
-                    if (Command == "Submit")
-                    {
-                        return RedirectToAction("Edit", "Application", new { id = id2 });
-                    }
+                    
+                }
+                if (Command == "Submit")
+                {
+                    return RedirectToAction("Edit", "Application", new { id = id2 });
                 }
                 return RedirectToAction("Index", "Application", new { id = id2 });
                 }
@@ -116,7 +117,7 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(FormCollection form, Business_Test_Profile model, string Command, string id2)
+        public ActionResult Edit(FormCollection form, Business_Test_Profile model, string Commandd, string id2)
         {
             try
             {
@@ -153,7 +154,7 @@ namespace HR.Controllers
                     var add_items = dbcontext.Business_Test_Profile.AddRange(items);
                     dbcontext.SaveChanges();
                     /////////////////////////////////////
-                    if (Command == "Submit")
+                    if (Commandd == "Submitt")
                     {
                         return RedirectToAction("Edit", "Application", new { id = id2 });
                     }

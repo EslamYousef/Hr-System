@@ -24,7 +24,7 @@
                     {
                         $("#tb-family").show();
                         var T = "";
-                        T = "<tr><td><input type='text' readonly name='SubjectCode' value='" + result.Code + "'/></td><td><input type='text' readonly name='SubjectDescription' value='" + result.Name + "'/></td><td><input type='date' name='StartDate' value='1900/1/1' id='Start_date' /></td><td><input type='date' name='EndDate' value='1900/1/1' id='End_date' /></td><td><input type='text' name='Notes' value=''  /></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
+                        T = "<tr><td><input type='text' readonly name='SubjectCode' value='" + result.Code + "'/></td><td><input type='text' readonly name='SubjectDescription' value='" + result.Name + "'/></td><td><input type='date' name='StartDate'  id='Start_date' /></td><td><input type='date' name='EndDate' id='End_date' /></td><td><input type='text' name='Notes' value=''  /></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>"
                         $("#tb-family").append(T)
                     }
                 }
@@ -40,19 +40,28 @@
 </script>
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.CreateCommiteeAgenda
-        </h1>
-    </section>
+    
 
     <!-- Main content -->
     <section class="content">
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                @using (Html.BeginForm("Create", "Commitee_Agenda",new { id2=ViewBag.idemp}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("Create", "Commitee_Agenda", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Commitee_Agenda")" class="create-btn">@pers_2.new_</a></div>
+                <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Commitee_Agenda")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ;/></div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreateCommiteeAgenda
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -76,48 +85,48 @@
 
                         <div>
 
-                           
+
 
                             <div class="form-group">
                                 <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
                                 <div class="col-md-3">
-                                    <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
-                                    </div>
+                                    <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled  style = "margin-bottom: 15px;"/>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        <span>@Personnel.Subject</span>
-                                    </label>
-                                    <div class="col-md-3">
-                                        @Html.DropDownList("fd", new SelectList(ViewBag.Committe_subjects, "ID", "Code"), Personnel.SelectSubject, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;"/>
-                                    </div>
-                                </div>
-                                <table id="tb-family" border="1" style="display: table; width:400px;">
-                                    <thead>
-                                        <tr>
-                                            <th id="fa">@Personnel.SubjectCode</th>
-                                            <th id="na">@Personnel.SubjectDescription</th>
-                                            <th id="per">@Personnel.Startdate</th>
-                                            <th id="De">@Personnel.Enddate</th>
-                                            <th id="No">@Personnel.Notes</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                        <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                    </div>
+                                <div class="col-md-3">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span>@Personnel.Subject</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.Committe_subjects, "ID", "Code"), Personnel.SelectSubject, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;"  />
+                                </div>
+                            </div>
+                            <table id="tb-family" border="1" style="display: table; width:400px;margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th id="fa">@Personnel.SubjectCode</th>
+                                        <th id="na">@Personnel.SubjectDescription</th>
+                                        <th id="per">@Personnel.Startdate</th>
+                                        <th id="De">@Personnel.Enddate</th>
+                                        <th id="No">@Personnel.Notes</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div class="form-group" hidden>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -158,3 +167,95 @@
     }
 
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

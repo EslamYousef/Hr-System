@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using HR.Models.Infra;
 using HR.Models.ViewModel;
 using HR.Models.All_Table_Commitee_Resolution;
+using System.Web.WebPages;
 
 namespace HR.Controllers
 {
@@ -50,7 +51,7 @@ namespace HR.Controllers
                 {
                     if (SubjectCode[i] != "" && SubjectDescription[i] != "" && StartDate[i] != "" && EndDate[i] != "")
                     {
-                        items.Add(new Commitee_Agenda { Committe_Resolution_RecuirtmentId= int.Parse(id2) , SubjectCode =int.Parse(SubjectCode[i]), SubjectDescription = SubjectDescription[i], Start_Date = DateTime.Parse(StartDate[i]), End_Date = DateTime.Parse(EndDate[i]), Notes = Notes[i] ,});
+                        items.Add(new Commitee_Agenda { Committe_Resolution_RecuirtmentId= int.Parse(id2) , SubjectCode =int.Parse(SubjectCode[i]), SubjectDescription = SubjectDescription[i], Start_Date = DateTime.Parse(StartDate[i]), End_Date = DateTime.Parse(EndDate[i]), Notes = Notes[i] });
                     }
                 }
                 if (items.Count() > 0)

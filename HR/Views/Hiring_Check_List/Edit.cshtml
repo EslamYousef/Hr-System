@@ -9,11 +9,7 @@
 
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.CreateLinkedtoTesting
-        </h1>
-    </section>
+
 
     <!-- Main content -->
     <section class="content">
@@ -22,6 +18,18 @@
             <div class="box-body">
                 @using (Html.BeginForm("Edit", "Hiring_Check_List", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("Edit", "Hiring_Check_List")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Hiring_Check_List")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreateLinkedtoTesting
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -36,11 +44,11 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                      
+
                         <input name="Select" hidden />
                         <input name="ItemCode" hidden />
                         <input name="ItemDesc" hidden />
-                        
+
 
                         <div>
 
@@ -64,23 +72,23 @@
                                         <th id="fa">Select</th>
                                         <th id="per">ItemCode</th>
                                         <th id="fa">ItemDesc</th>
-                                      
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        <td>
-                                            <input name="Select" type="checkbox" @*value="@item.Select"*@  />
-                                        </td>
-                                        <td>
-                                            <input name="ItemCode" type="text" value="@item.Code" readonly />
-                                        </td>
-                                        <td>
-                                            <input name="ItemDesc" type="text" value="@item.Name" readonly />
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <input name="Select" type="checkbox" @*value="@item.Select"*@ />
+                                            </td>
+                                            <td>
+                                                <input name="ItemCode" type="text" value="@item.Code" readonly />
+                                            </td>
+                                            <td>
+                                                <input name="ItemDesc" type="text" value="@item.Name" readonly />
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
 
@@ -105,3 +113,106 @@
 </div>
 
 @section scripts{}
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-2 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

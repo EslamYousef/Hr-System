@@ -9,11 +9,7 @@
 <link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.EditCommiteeActivites
-        </h1>
-    </section>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -22,37 +18,50 @@
             <div class="box-body">
                 @using (Html.BeginForm("Edit", "Commitee_Agenda", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Commitee_Agenda")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Commitee_Agenda")" class="create-btn" value=@organ.delete style="
+    background-color: transparent"; /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.EditCommiteeActivites
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
-                <div class="form-horizontal">
+                    <div class="form-horizontal">
 
-                    <hr />
+                        <hr />
 
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
-                        </div>
-                    }
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(m => m.ID)
-                    @Html.HiddenFor(m => m.Committe_Resolution_Recuirtment.ID)
-                    @Html.HiddenFor(m => m.Committe_Resolution_RecuirtmentId)
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.ID)
+                        @Html.HiddenFor(m => m.Committe_Resolution_Recuirtment.ID)
+                        @Html.HiddenFor(m => m.Committe_Resolution_RecuirtmentId)
 
-                    <input name="SubjectCode" hidden />
-                    <input name="SubjectDescription" hidden />
-                    <input name="StartDate" hidden />
-                    <input name="EndDate" hidden />
-                    <input name="Notes" hidden />
+                        <input name="SubjectCode" hidden />
+                        <input name="SubjectDescription" hidden />
+                        <input name="StartDate" hidden />
+                        <input name="EndDate" hidden />
+                        <input name="Notes" hidden />
 
-                    <div>
+                        <div>
 
-                       
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
-                            <div class="col-md-3">
-                                <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled style = "margin-bottom: 15px;"/>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
@@ -70,7 +79,7 @@
                                     <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
                                 </div>
                             </div>
-                            <table id="tb-family" border="1" style="display: table; width:400px;">
+                            <table id="tb-family" border="1" style="display: table; width:400px;margin-top: 10px;">
                                 <thead>
                                     <tr>
                                         <th id="fa">@Personnel.SubjectCode</th>
@@ -111,7 +120,7 @@
 
                             </table>
 
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="@Personnel.Edit1" class="btn btn-success" />
                                     <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
@@ -119,7 +128,7 @@
                             </div>
                         </div>
 
-                </div>
+                    </div>
 
                 }
 

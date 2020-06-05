@@ -8,11 +8,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.CreateEmployeeBeneficiaryProfile
-        </h1>
-    </section>
+  
 
     <!-- Main content -->
     <section class="content">
@@ -21,6 +17,21 @@
             <div class="box-body">
                 @using (Html.BeginForm("Create", "Basic_Salary_Calculation_Result", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Basic_Salary_Calculation_Result")" class="create-btn">@pers_2.new_</a></div>
+                        <div>
+                            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Basic_Salary_Calculation_Result")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                        </div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreateBasicSalaryCalculationResult
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -38,88 +49,88 @@
 
 
 
-                    <div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
-                            <div class="col-md-3">
-                                <input type="text" value="@ViewBag.ApplicationCode" disabled />
+                        <div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2"style="color:red">@Personnel.CommitteResolutionNo</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.ApplicationCode" disabled />
+                                </div>
+                                <label class="control-label col-md-2"style="color:red">@Personnel.ApplicantId</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.ApplicationApp" disabled />
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Application</button>
+                                </div>
                             </div>
-                            <label class="control-label col-md-1">@Personnel.ApplicantId</label>
-                            <div class="col-md-3">
-                                <input type="text" value="@ViewBag.ApplicationApp" disabled />
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Application</button>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-1">@Personnel.StartBasicSalary</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Start_Basic_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Start_Basic_Salary, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.StartBasicSalary</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Start_Basic_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Start_Basic_Salary, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.BasicSalary_A</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Basic_Salary_A, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Basic_Salary_A, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <label class="control-label col-md-1">@Personnel.BasicSalary_A</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Basic_Salary_A, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Basic_Salary_A, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-1">@Personnel.OtherAllowance</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Other_Allowance, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Other_Allowance, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.OtherAllowance</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Other_Allowance, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Other_Allowance, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-1">@Personnel.TotalIncludedAllowances</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Total_Included_Allowances, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Total_Included_Allowances, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.TotalIncludedAllowances</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Total_Included_Allowances, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Total_Included_Allowances, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.TotalExecludedAllowances</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Total_Execluded_Allowances, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Total_Execluded_Allowances, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <label class="control-label col-md-1">@Personnel.TotalExecludedAllowances</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Total_Execluded_Allowances, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Total_Execluded_Allowances, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-1">@Personnel.TotalBasicSalary</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Total_Basic_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Total_Basic_Salary, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.TotalBasicSalary</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Total_Basic_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Total_Basic_Salary, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.TotalRemuneration</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Total_Remuneration, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Total_Remuneration, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <label class="control-label col-md-1">@Personnel.TotalRemuneration</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Total_Remuneration, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Total_Remuneration, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-1">@Personnel.InsuranceBasicSalary</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Insurance_Basic_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Insurance_Basic_Salary, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.InsuranceBasicSalary</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Insurance_Basic_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Insurance_Basic_Salary, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-2">@Personnel.InsuranceVariableSalary</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Insurance_Variable_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                                    @Html.ValidationMessageFor(model => model.Insurance_Variable_Salary, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <label class="control-label col-md-1">@Personnel.InsuranceVariableSalary</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Insurance_Variable_Salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-                                @Html.ValidationMessageFor(model => model.Insurance_Variable_Salary, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                            <div class="form-group" hidden>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     </div>
 
@@ -133,3 +144,106 @@
 
 @section scripts{}
 
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-2 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

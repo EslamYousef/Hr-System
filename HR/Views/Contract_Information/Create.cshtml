@@ -8,11 +8,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.CreateContractInformation
-        </h1>
-    </section>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -21,123 +17,138 @@
             <div class="box-body">
                 @using (Html.BeginForm("Create", "Contract_Information", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Contract_Information")" class="create-btn">@pers_2.new_</a></div>
+                        <div>
+                            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Contract_Information")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                        </div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreateContractInformation
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
-                <div class="form-horizontal">
+                    <div class="form-horizontal">
 
-                    <hr />
+                        <hr />
 
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2"style="color:red">@Personnel.CommitteResolutionNo</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.ApplicationCode" disabled />
+                                </div>
+                                <label class="control-label col-md-1"style="color:red">@Personnel.ApplicantId</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.ApplicationApp" disabled />
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Application</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2"style="color:red">@Personnel.Contract</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Contract, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2" style="color:red">@Personnel.ContractType</label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.Contract_TypeId, new SelectList(ViewBag.Contract_Type, "ID", "Code"), Personnel.SelectContractType, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
+                                    @Html.ValidationMessageFor(model => model.Contract_TypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2"style="color:red">@Personnel.Employeement</label>
+                                <div class="col-md-3">
+                                    @Html.EnumDropDownListFor(model => model.Employment_type, new { @class = "select2" })
+                                    @Html.ValidationMessageFor(model => model.Employment_type, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2" style="color:red">@Personnel.Startdate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "Start_date", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-1" style="color:red">@Personnel.Years</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
+
+                                    @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" style="color:red">@Personnel.Enddate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "End_date", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+                                </div>
+                                <label class="control-label col-md-1"style="color:red">@Personnel.Months</label>
+                                <div class="col-md-2">
+                                    @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+
+                                    @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2"style="color:red">@Personnel.Approvedby</label>
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.EmployeeProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                    @Html.ValidationMessageFor(model => model.EmployeeProfileId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2" style="color:red">@Personnel.Approveddate</label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.Approved_Date, new { htmlAttributes = new { @class = "form-control", @id = "Approved_Date", @type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Approved_Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.Comments</label>
+                                <div class="col-md-4">
+                                    @Html.TextAreaFor(model => model.ApplicantNotes, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                    @Html.ValidationMessageFor(model => model.ApplicantNotes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group" hidden>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                </div>
+                            </div>
                         </div>
-                    }
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-
-                <div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
-                        <div class="col-md-3">
-                            <input type="text" value="@ViewBag.ApplicationCode" disabled />
-                        </div>
-                        <label class="control-label col-md-1">@Personnel.ApplicantId</label>
-                        <div class="col-md-3">
-                            <input type="text" value="@ViewBag.ApplicationApp" disabled />
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Application</button>
-                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Contract</label>
-                        <div class="col-md-2">
-                            @Html.EditorFor(model => model.Contract, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.ContractType</label>
-                        <div class="col-md-3">
-                            @Html.DropDownListFor(m => m.Contract_TypeId, new SelectList(ViewBag.Contract_Type, "ID", "Code"), Personnel.SelectContractType, new { @class = "select2", @onchange = "Nationality()", @id = "nationality" })
-                            @Html.ValidationMessageFor(model => model.Contract_TypeId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Employeement</label>
-                        <div class="col-md-3">
-                            @Html.EnumDropDownListFor(model => model.Employment_type, new { @class = "select2" })
-                            @Html.ValidationMessageFor(model => model.Employment_type, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Startdate</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "Start_date", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
-                            @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
-                        </div>
-                        <label class="control-label col-md-1">@Personnel.Years</label>
-                        <div class="col-md-2">
-                            @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
-
-                            @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Enddate</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "End_date", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
-                            @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
-                        </div>
-                        <label class="control-label col-md-1">@Personnel.Months</label>
-                        <div class="col-md-2">
-                            @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
-
-                            @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Approvedby</label>
-                        <div class="col-md-4">
-                            @Html.DropDownListFor(m => m.EmployeeProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
-                            @Html.ValidationMessageFor(model => model.EmployeeProfileId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Approveddate</label>
-                        <div class="col-md-4">
-                            @Html.EditorFor(model => model.Approved_Date, new { htmlAttributes = new { @class = "form-control", @id = "Approved_Date", @type = "date" } })
-                            @Html.ValidationMessageFor(model => model.Approved_Date, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">@Personnel.Comments</label>
-                        <div class="col-md-4">
-                            @Html.TextAreaFor(model => model.ApplicantNotes, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                            @Html.ValidationMessageFor(model => model.ApplicantNotes, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <a href="@Url.Action("index","Application",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                            <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                        </div>
-                    </div>
-                </div>
-
-                </div>
 
                 }
 
@@ -262,3 +273,104 @@
     }
 
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+    .col-md-2 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

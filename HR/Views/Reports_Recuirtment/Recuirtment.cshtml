@@ -1,5 +1,5 @@
 ﻿@model HR.Models.ViewModel.Report_RecuirtmentVM
-    @using HR.Resource;
+@using HR.Resource;
 @{
     ViewBag.Title = "job_title";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
@@ -7,231 +7,348 @@
 
 
 <script language="javascript">
-    function changeSelection(value)
-    {
+    function changeSelection(value) {
 
-      var length = document.getElementById("ch").options.length;
-      debugger
-      if (value == 0) {
-         
-          for (var i = 1; i < length; i++) {
-              debugger
-              document.getElementById("ch").options[i].selected = "selected";
-          }
+        var length = document.getElementById("ch").options.length;
+        debugger
+        if (value == 0) {
 
-      document.getElementById("ch").options[0].selected = "";
-      }
+            for (var i = 1; i < length; i++) {
+                debugger
+                document.getElementById("ch").options[i].selected = "selected";
+            }
 
-  }
+            document.getElementById("ch").options[0].selected = "";
+        }
+
+    }
 </script>
-        <div class="content-wrapper">
+<div class="content-wrapper">
 
-    
 
-            <!-- Main content -->
-            <section class="content">
 
-                <div class="box">
+    <!-- Main content -->
+    <section class="content">
 
-                    <!-- /.box-header -->
-                    <div class="box-body">
+        <div class="box">
 
-                        @using (Html.BeginForm("Recuirtment", "Reports_Recuirtment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Recuirtment", "Reports_Recuirtment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("Recuirtment", "Reports_Recuirtment")" class="create-btn">@pers_2.new_</a></div>
+                        <div>
+                            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Reports_Recuirtment")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                        </div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index","Home")" class="create-btn"> @pers_2.Back</a></div>
+
+                    </div>
+                    <hr /><hr /><hr />
+                    <input name="nationality" hidden />
+                    <input name="job_setup" hidden />
+                    @*<input name="name" hidden />*@
+                    <input name="Blood_group" hidden />
+                    <input name="Full_Name" hidden />
+                    <input name="Full" hidden />
+                    <input name="Marital_Status" hidden />
+                    <input name="Religion" hidden />
+                    <input name="Gender" hidden />
+                    <input name="ID_type" hidden />
+                    <input name="List_Display" hidden />
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
                         {
-                            <input name="nationality" hidden />
-                            <input name="job_setup" hidden />
-                            @*<input name="name" hidden />*@
-                            <input name="Blood_group" hidden />
-                            <input name="Full_Name" hidden />
-                            <input name="Full" hidden />
-                            <input name="Marital_Status" hidden />
-                            <input name="Religion" hidden />
-                            <input name="Gender" hidden />
-                            <input name="ID_type" hidden />
-                            <input name="List_Display" hidden />
-                            @Html.AntiForgeryToken()
-                            <div class="form-horizontal">
-
-                                <hr />
-
-                                @if (TempData["Message"] != null)
-                                {
-                                    <div class="alert alert-danger alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        @TempData["Message"]
-                                    </div>
-                                }
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        <span>@Personnel.FullNameAr</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.Full, new SelectList(ViewBag.Full, "ID", "Code"), new
-                                        {
-                                            @onchange = "changeSelection(this.value)",@*@data_placeholder = organ.parentjob,*@ @class = "form-control select2",
-                                            @multiple = "multiple"
-                                        })
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        @Personnel.FullNameEn
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.Full_Name, new SelectList(ViewBag.Full_Name, "ID", "Code"), new { @*@data_placeholder = organ.JobLevelSetup,*@ @class = "select2", @style = "width:100%", @multiple = "multiple" })
-                                    </div>
-
-
-
-                                </div>
-                                <div class="form-group">
-                                    @*<label class="control-label col-md-2">
-                        code
-                    </label>*@
-                                    @*<div class="col-md-4">
-                        @Html.DropDownListFor(m => m.code, new SelectList(ViewBag.code, "ID", "Code"), new { @data_placeholder = organ.organizationchart, @class = "select2", @style = "width:100%", @multiple = "multiple" })
-                    </div>*@
-
-                                    <label class="control-label col-md-2">
-                                        @organ.nationality
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.nationality, new SelectList(ViewBag.nationality, "ID", "Code"), new { @data_placeholder = organ.nationality, @class = "select2", @multiple = "multiple" })
-                                    </div>
-
-                                    <label class="control-label col-md-2">
-                                        @Personnel.Religion
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.DropDownListFor(m => m.Religion, new SelectList(ViewBag.Religion, "ID", "Code"), new { @class = "select2", @multiple = "multiple" })
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @Personnel.Gender
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(m => m.Gender, new { @data_placeholder = organ.working_system, @class = "select2", @multiple = "multiple" })
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        @Personnel.IDtype
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(m => m.ID_type, new { @data_placeholder = organ.parment, @class = "select2", @multiple = "multiple" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @Personnel.Bloodgroup
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(m => m.Blood_group, new { @data_placeholder = organ.working_system, @class = "select2", @multiple = "multiple" })
-                                    </div>
-                                    <label class="control-label col-md-2">
-                                        @Personnel.MaritalStatus
-                                    </label>
-                                    <div class="col-md-4">
-                                        @Html.EnumDropDownListFor(m => m.Marital_Status, new { @data_placeholder = organ.parment, @class = "select2", @multiple = "multiple" })
-                                    </div>
-                                </div>
-
-                                @*<label class="control-label col-md-2">
-                   @organ.gender
-                </label>
-                <div class="col-md-4">
-                    @Html.EnumDropDownListFor(m => m.gender_list, new { @class = "form-control example-getting-started", @multiple = "multiple" })
-                </div>*@
-                                @*<div class="form-group">
-                    <label class="control-label col-md-2">
-                        @organ.num_slots
-                    </label>
-
-                    <div class="col-md-4">
-                        @Html.EditorFor(m => m.numSlot, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <label class="control-label col-md-2">
-                        @organ.validity
-                    </label>
-                    <div class="col-md-4">
-                        @Html.EnumDropDownListFor(m => m.validity_list, new { @class = "select2" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">
-                        @organ.Toage
-                    </label>
-                    <div class="col-md-4">
-                        @Html.EditorFor(m => m.toAge, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <label class="control-label col-md-2">
-                        @organ.Fromage
-                    </label>
-                    <div class="col-md-4">
-                        @Html.EditorFor(m => m.fromAge, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>*@
-                                <div class="form-group">
-
-                                    @*<label class="control-label col-md-2">
-                        @organ.Fromage
-                    </label>
-                    <div class="col-md-4">
-                        @Html.EnumDropDownListFor(m => m.validity_list, new { @class = "form-control example-getting-started", @multiple = "multiple" })
-                    </div>*@
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @organ.selectcolumnstoDisplay
-                                    </label>
-                                    <select data_placeholder=@organ.selectcolumnstoDisplay name="List_Display" class="select2 col-md-4" multiple="multiple">
-                                        <option value="0">@Personnel.FullNameAr </option>
-                                        <option value="1">@Personnel.FullNameEn </option>
-                                        @*<option value="2">Description </option>
-                        <option value="3">Job Summery </option>*@
-                                    <option value="4">@Personnel.Nationality</option>
-                                    <option value="6">@Personnel.Religion </option>
-                                    <option value="7">@Personnel.Gender </option>
-                                    <option value="8">@Personnel.IDtype </option>
-                                    <option value="9">@Personnel.Bloodgroup </option>
-                                    <option value="10">@Personnel.MaritalStatus </option>
-                                        @*<option value="11">Gender </option>*@
-                                        @*<option value="12">nationlity</option>*@
-                                    <option value="13">@organ.validity </option>
-                                        <option value="14">Type of worke </option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Basic.Create</button>
-                                        <a href="@Url.Action("index","Home")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
-                                    </div>
-                                </div>
-
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
                             </div>
                         }
 
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                <span>@Personnel.FullNameAr</span>
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Full, new SelectList(ViewBag.Full, "ID", "Code"), new
+                                {
+                                    @onchange = "changeSelection(this.value)",@*@data_placeholder = organ.parentjob,*@@class = "form-control select2",
+@multiple = "multiple"
+})
+                            </div>
+                            <label class="control-label col-md-2">
+                                @Personnel.FullNameEn
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Full_Name, new SelectList(ViewBag.Full_Name, "ID", "Code"), new
+                                {@*@data_placeholder = organ.JobLevelSetup,*@@class = "select2",
+@style = "width:100%",
+@multiple = "multiple"
+})
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group">
+                            @*<label class="control-label col-md-2">
+                                    code
+                                </label>*@
+                            @*<div class="col-md-4">
+                                    @Html.DropDownListFor(m => m.code, new SelectList(ViewBag.code, "ID", "Code"), new { @data_placeholder = organ.organizationchart, @class = "select2", @style = "width:100%", @multiple = "multiple" })
+                                </div>*@
+
+                            <label class="control-label col-md-2">
+                                @organ.nationality
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.nationality, new SelectList(ViewBag.nationality, "ID", "Code"), new { @data_placeholder = organ.nationality, @class = "select2", @multiple = "multiple" })
+                            </div>
+
+                            <label class="control-label col-md-2">
+                                @Personnel.Religion
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.Religion, new SelectList(ViewBag.Religion, "ID", "Code"), new { @class = "select2", @multiple = "multiple" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Personnel.Gender
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.Gender, new { @data_placeholder = organ.working_system, @class = "select2", @multiple = "multiple" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @Personnel.IDtype
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.ID_type, new { @data_placeholder = organ.parment, @class = "select2", @multiple = "multiple" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @Personnel.Bloodgroup
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.Blood_group, new { @data_placeholder = organ.working_system, @class = "select2", @multiple = "multiple" })
+                            </div>
+                            <label class="control-label col-md-2">
+                                @Personnel.MaritalStatus
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.Marital_Status, new { @data_placeholder = organ.parment, @class = "select2", @multiple = "multiple" })
+                            </div>
+                        </div>
+
+                        @*<label class="control-label col-md-2">
+                               @organ.gender
+                            </label>
+                            <div class="col-md-4">
+                                @Html.EnumDropDownListFor(m => m.gender_list, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                            </div>*@
+                        @*<div class="form-group">
+                                <label class="control-label col-md-2">
+                                    @organ.num_slots
+                                </label>
+
+                                <div class="col-md-4">
+                                    @Html.EditorFor(m => m.numSlot, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <label class="control-label col-md-2">
+                                    @organ.validity
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EnumDropDownListFor(m => m.validity_list, new { @class = "select2" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    @organ.Toage
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(m => m.toAge, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <label class="control-label col-md-2">
+                                    @organ.Fromage
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(m => m.fromAge, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+
+                            @*<label class="control-label col-md-2">
+                                    @organ.Fromage
+                                </label>
+                                <div class="col-md-4">
+                                    @Html.EnumDropDownListFor(m => m.validity_list, new { @class = "form-control example-getting-started", @multiple = "multiple" })
+                                </div>*@
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                @organ.selectcolumnstoDisplay
+                            </label>
+                            <select data_placeholder=@organ.selectcolumnstoDisplay name="List_Display" class="select2 col-md-4" multiple="multiple">
+                                <option value="0">@Personnel.FullNameAr </option>
+                                <option value="1">@Personnel.FullNameEn </option>
+                                @*<option value="2">Description </option>
+                                    <option value="3">Job Summery </option>*@
+                                <option value="4">@Personnel.Nationality</option>
+                                <option value="6">@Personnel.Religion </option>
+                                <option value="7">@Personnel.Gender </option>
+                                <option value="8">@Personnel.IDtype </option>
+                                <option value="9">@Personnel.Bloodgroup </option>
+                                <option value="10">@Personnel.MaritalStatus </option>
+                                @*<option value="11">Gender </option>*@
+                                @*<option value="12">nationlity</option>*@
+                                <option value="13">@organ.validity </option>
+                                <option value="14">Type of worke </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" hidden>
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Basic.Create</button>
+                                <a href="@Url.Action("index","Home")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                            </div>
+                        </div>
+
                     </div>
+                }
 
-                </div>
+            </div>
 
-            </section>
         </div>
-  
+
+    </section>
+</div>
+
 
 
 
 
 <script>
 
-$('select').select2({
-    minimumResultsForSearch: -1,
-    placeholder: function(){
-        $(this).data('placeholder');
-    }
-})
+    $('select').select2({
+        minimumResultsForSearch: -1,
+        placeholder: function () {
+            $(this).data('placeholder');
+        }
+    })
 </script>
 
 @section scripts{}
 
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-2 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

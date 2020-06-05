@@ -9,11 +9,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.EditApplicantMilitaryServiceProfile
-        </h1>
-    </section>
+
 
     <!-- Main content -->
     <section class="content">
@@ -25,6 +21,18 @@
 
                 @using (Html.BeginForm("Edit", "Applicant_Military_Service_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Applicant_Military_Service_Profile",new {id=ViewBag.idemp})" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Applicant_Military_Service_Profile")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Applicant_Military_Service_Profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.EditApplicantMilitaryServiceProfile
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.Applicant_Profile.ID)
 
@@ -45,9 +53,9 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.ApplicantName</label>
+                            <label class="control-label col-md-2" style="color:red">@Personnel.ApplicantName</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId", @style = "margin-bottom: 15px;" })
                                 @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
                             </div>
                             <div class="col-md-4" style="color:black">
@@ -56,14 +64,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.MilitaryserviceprofileeNo</label>
+                            <label class="control-label col-md-2" style="color:red">@Personnel.MilitaryserviceprofileeNo</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true } })
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.Serviceathire</label>
                             <div class="col-md-4">
-                                @Html.CheckBoxFor(model => model.Service_at_hire, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.CheckBoxFor(model => model.Service_at_hire, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Service_at_hire, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -72,12 +80,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Trionumber</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Trio_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Trio_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Trio_number, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.Branch</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Branch, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Branch, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -85,12 +93,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Militaryservicestatus</label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Military_service_status, new { @class = "select2" })
+                                @Html.EnumDropDownListFor(model => model.Military_service_status, new { @class = "select2", @style = "margin-bottom: 15px;" })
                                 @Html.ValidationMessageFor(model => model.Military_service_status, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.Level</label>
                             <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Level, new { @class = "select2" })
+                                @Html.EnumDropDownListFor(model => model.Level, new { @class = "select2", @style = "margin-bottom: 15px;" })
                                 @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
                             </div>
 
@@ -99,45 +107,45 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Militaryservicerankcode</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Military_Service_RankId, new SelectList(ViewBag.Military_Service_Rank, "ID", "Code"), Personnel.SelectMilitaryServiceRank, new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                @Html.DropDownListFor(m => m.Military_Service_RankId, new SelectList(ViewBag.Military_Service_Rank, "ID", "Code"), Personnel.SelectMilitaryServiceRank, new { @class = "select2", @onchange = "employee2()", id = "employeeId2", @style = "margin-bottom: 15px;" })
                                 @Html.ValidationMessageFor(model => model.Military_Service_RankId, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Certificatedate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Certificate_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Certificate_date", @autocomplete = "off", @type = "date" } })
+                                @Html.EditorFor(model => model.Certificate_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Certificate_date", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Certificate_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.BatchreferenceNo</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Batch_reference_No, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Batch_reference_No, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Batch_reference_No, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Fromdate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "From_date", @autocomplete = "off", @type = "date" } })
+                                @Html.EditorFor(model => model.From_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "From_date", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.From_date, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.IDnumber</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Id_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.EditorFor(model => model.Id_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Id_number, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Todate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "To_date", @autocomplete = "off", @type = "date" } })
+                                @Html.EditorFor(model => model.To_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "To_date", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.To_date, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Exemptionreason</label>
                             <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Rejection_ReasonsId, new SelectList(ViewBag.Rejection_Reasons, "ID", "Code"), Personnel.SelectRejectionReasons, new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                @Html.DropDownListFor(m => m.Rejection_ReasonsId, new SelectList(ViewBag.Rejection_Reasons, "ID", "Code"), Personnel.SelectRejectionReasons, new { @class = "select2", @onchange = "employee3()", id = "employeeId3", @style = "margin-bottom: 15px;" })
                                 @Html.ValidationMessageFor(model => model.Rejection_ReasonsId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -148,7 +156,7 @@
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" OnClick="updatemaxplus(-1)">-</button>
                                     @Html.EditorFor(model => model.Service_period_YY, new { htmlAttributes = new { @min = 0, @class = "form-control size-1", id = "max", value = "1" } })
-                                    <button type="button" class="btn btn-default" OnClick="updatemaxplus(1)">+</button>
+                                    <button type="button" class="btn btn-default" OnClick="updatemaxplus(1)" style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
 
@@ -158,7 +166,7 @@
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" OnClick="updatemaxplus2(-1)">-</button>
                                     @Html.EditorFor(model => model.Service_period_MM, new { htmlAttributes = new { @class = "form-control size-1", id = "max2", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" OnClick="updatemaxplus2(1)">+</button>
+                                    <button type="button" class="btn btn-default" OnClick="updatemaxplus2(1)" style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -169,8 +177,8 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" OnClick="updatemaxplus3(-1)">-</button>
-                                    @Html.EditorFor(model => model.Service_period_The_number_of_days, new { htmlAttributes = new { @class = "form-control size-1", id = "max3", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" OnClick="updatemaxplus3(+1)">+</button>
+                                    @Html.EditorFor(model => model.Service_period_The_number_of_days, new { htmlAttributes = new { @class = "form-control size-1", id = "max3", value = "1", @min = 0} })
+                                    <button type="button" class="btn btn-default" OnClick="updatemaxplus3(+1)"style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +191,7 @@
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" OnClick="updateminplus(-1)">-</button>
                                     @Html.EditorFor(model => model.Added_Service_period_YY, new { htmlAttributes = new { @class = "form-control size-1", id = "min2", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" OnClick="updateminplus(+1)">+</button>
+                                    <button type="button" class="btn btn-default" OnClick="updateminplus(+1)" style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
 
@@ -193,7 +201,7 @@
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" OnClick="updateminplus2(-1)">-</button>
                                     @Html.EditorFor(model => model.Added_Service_period_MM, new { htmlAttributes = new { @class = "form-control size-1", id = "min22", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" OnClick="updateminplus2(+1)">+</button>
+                                    <button type="button" class="btn btn-default" OnClick="updateminplus2(+1)" style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -205,8 +213,8 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" OnClick="updateminplus3(-1)">-</button>
-                                    @Html.EditorFor(model => model.Added_Service_period_The_number_of_days, new { htmlAttributes = new { @class = "form-control size-1", id = "min222", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" OnClick="updateminplus3(+1)">+</button>
+                                    @Html.EditorFor(model => model.Added_Service_period_The_number_of_days, new { htmlAttributes = new { @class = "form-control size-1", id = "min222", value = "1", @min = 0} })
+                                    <button type="button" class="btn btn-default" OnClick="updateminplus3(+1)" style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -217,8 +225,8 @@
                                 <!-- Spinner Markup -->
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" disabled>-</button>
-                                    @Html.EditorFor(model => model.Total_Service_period_YY, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", id = "mid", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                    @Html.EditorFor(model => model.Total_Service_period_YY, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", id = "mid", value = "1", @min = 0} })
+                                    <button type="button" class="btn btn-default" disabled style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
 
@@ -228,7 +236,7 @@
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" disabled>-</button>
                                     @Html.EditorFor(model => model.Total_Service_period_MM, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", id = "mid2", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                    <button type="button" class="btn btn-default" disabled style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +248,7 @@
                                 <div class="input-spinner">
                                     <button type="button" class="btn btn-default" disabled>-</button>
                                     @Html.EditorFor(model => model.Total_Service_period_The_number_of_days, new { htmlAttributes = new { @readonly = true, @class = "form-control size-1", id = "mid3", value = "1", @min = 0 } })
-                                    <button type="button" class="btn btn-default" disabled>+</button>
+                                    <button type="button" class="btn btn-default" disabled style = "margin-bottom: 15px;">+</button>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +256,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Comments</label>
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Comments, 4, 100, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.TextAreaFor(model => model.Comments, 4, 100, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -256,7 +264,7 @@
 
 
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
                                 <a href="@Url.Action("index","Applicant_Military_Service_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
@@ -347,12 +355,12 @@
         var max = parseInt($("#max").val());
         var max2 = parseInt($("#max2").val());
         var max3 = parseInt($("#max3").val());
-        var mid = (min2  + max );
-   //     var mid2 = (min22 + max2);
-    //    var mid3 = (min222 + max3);
+        var mid = (min2 + max);
+        //     var mid2 = (min22 + max2);
+        //    var mid3 = (min222 + max3);
         $("#mid").val(mid);
-      //  $("#mid2").val(mid2);
-   //     $("#mid3").val(mid3);
+        //  $("#mid2").val(mid2);
+        //     $("#mid3").val(mid3);
 
     });
     $("#max").keyup(function (e) {
@@ -366,17 +374,16 @@
         var mid2 = (min22 + max2);
         var mid3 = (min222 + max3);
         $("#mid").val(mid);
-   //     $("#mid2").val(mid2);
-   //     $("#mid3").val(mid3);
+        //     $("#mid2").val(mid2);
+        //     $("#mid3").val(mid3);
 
     });
-    function updateminplus(value)
-    {
+    function updateminplus(value) {
 
-      //  var min = parseInt($("#min").val()) + parseInt(value);
-        var min2 = parseInt($("#min2").val()) +parseInt(value);
-        var min22 = parseInt($("#min22").val()) +parseInt(value);
-        var min222 = parseInt($("#min222").val())+parseInt(value);
+        //  var min = parseInt($("#min").val()) + parseInt(value);
+        var min2 = parseInt($("#min2").val()) + parseInt(value);
+        var min22 = parseInt($("#min22").val()) + parseInt(value);
+        var min222 = parseInt($("#min222").val()) + parseInt(value);
         var max = parseInt($("#max").val());
         var max2 = parseInt($("#max2").val());
         var max3 = parseInt($("#max3").val());
@@ -384,12 +391,12 @@
         var mid2 = (min22 + max2);
         var mid3 = (min222 + max3);
         $("#mid").val(mid);
-     //   $("#mid2").val(mid2);
-      //  $("#mid3").val(mid3);
+        //   $("#mid2").val(mid2);
+        //  $("#mid3").val(mid3);
     }
     function updatemaxplus(value) {
 
-     //   var min = parseInt($("#min").val()) ;
+        //   var min = parseInt($("#min").val()) ;
         var min2 = parseInt($("#min2").val());
         var min22 = parseInt($("#min22").val());
         var min222 = parseInt($("#min222").val());
@@ -407,58 +414,56 @@
 
         var min22 = parseInt($("#min22").val());
         var max2 = parseInt($("#max2").val());
-    var mid2 = (min22 + max2);
-      $("#mid2").val(mid2);
+        var mid2 = (min22 + max2);
+        $("#mid2").val(mid2);
     });
     $("#max2").keyup(function (e) {
         var min22 = parseInt($("#min22").val());
         var max2 = parseInt($("#max2").val());
         var mid2 = (min22 + max2);
-    $("#mid2").val(mid2);
+        $("#mid2").val(mid2);
     });
-    function updateminplus2(value)
-    {
+    function updateminplus2(value) {
 
-        var min22 = parseInt($("#min22").val()) +parseInt(value);
+        var min22 = parseInt($("#min22").val()) + parseInt(value);
         var max2 = parseInt($("#max2").val());
         var mid2 = (min22 + max2);
-     $("#mid2").val(mid2);
+        $("#mid2").val(mid2);
     }
     function updatemaxplus2(value) {
 
         var min22 = parseInt($("#min22").val());
         var max2 = parseInt($("#max2").val()) + parseInt(value);
         var mid2 = (min22 + max2);
-      $("#mid2").val(mid2);
+        $("#mid2").val(mid2);
     }
 
     $("#min222").keyup(function (e) {
 
         var min222 = parseInt($("#min222").val());
         var max22 = parseInt($("#max3").val());
-    var mid2 = (min222 + max22);
-      $("#mid2").val(mid2);
+        var mid2 = (min222 + max22);
+        $("#mid2").val(mid2);
     });
     $("#max22").keyup(function (e) {
         var min222 = parseInt($("#min222").val());
         var max22 = parseInt($("#max3").val());
         var mid222 = (min222 + max22);
-    $("#mid3").val(mid222);
+        $("#mid3").val(mid222);
     });
-    function updateminplus3(value)
-    {
+    function updateminplus3(value) {
 
-        var min222 = parseInt($("#min222").val()) +parseInt(value);
+        var min222 = parseInt($("#min222").val()) + parseInt(value);
         var max22 = parseInt($("#max3").val());
         var mid3 = (min222 + max22);
-     $("#mid3").val(mid3);
+        $("#mid3").val(mid3);
     }
     function updatemaxplus3(value) {
 
         var min222 = parseInt($("#min222").val());
         var max3 = parseInt($("#max3").val()) + parseInt(value);
         var mid3 = (min222 + max3);
-      $("#mid3").val(mid3);
+        $("#mid3").val(mid3);
     }
     function GetDataById5(date, id) {
         debugger
@@ -481,3 +486,95 @@
         $('#' + id).val(d);
     }
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

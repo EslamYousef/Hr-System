@@ -40,11 +40,7 @@
 </script>
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.CreateLinkedtoTesting
-        </h1>
-    </section>
+
 
     <!-- Main content -->
     <section class="content">
@@ -53,76 +49,91 @@
             <div class="box-body">
                 @using (Html.BeginForm("Create", "Linked_to_Testing", new { id2 = ViewBag.idemp }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    @Html.AntiForgeryToken()
-                <div class="form-horizontal">
-
-                    <hr />
-
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Linked_to_Testing")" class="create-btn">@pers_2.new_</a></div>
+                        <div>
+                            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Linked_to_Testing")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
                         </div>
-                    }
-
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                    <input name="TestCode" hidden />
-                    <input name="TestDescription" hidden />
-                    <input name="ExpectedStart_Date" hidden />
-                    <input name="ExpectedEnd_Date" hidden />
-                    <input name="PassMark" hidden />
-                    <input name="FullMark" hidden />
-
-                    <div>
-
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
-                            <div class="col-md-3">
-                                <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled />
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">
-                                <span>@Personnel.Test</span>
-                            </label>
-                            <div class="col-md-3">
-                                @Html.DropDownList("fd", new SelectList(ViewBag.Test, "ID", "Code"), Personnel.SelectTest, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-                            </div>
-                            <div class="col-md-3">
-                                <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
-                            </div>
-                        </div>
-                        <table id="tb-family" border="1" style="display: table; width:400px;">
-                            <thead>
-                                <tr>
-                                    <th id="fa">@Personnel.TestCode</th>
-                                    <th id="na">@Personnel.TestDescription</th>
-                                    <th id="per">@Personnel.ExpectedStartDate</th>
-                                    <th id="De">@Personnel.ExpectedEndDate</th>
-                                    <th id="No">@Personnel.PassMark</th>
-                                    <th id="No">@Personnel.FullMark</th>
-
-                                </tr>
-                            </thead>
-                        </table>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="@Personnel.Create" class="btn btn-success" />
-                                <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                            </div>
-                        </div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
                     </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreateLinkedtoTesting
+                        </h1>
+                    </section>
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
 
-                </div>
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <input name="TestCode" hidden />
+                        <input name="TestDescription" hidden />
+                        <input name="ExpectedStart_Date" hidden />
+                        <input name="ExpectedEnd_Date" hidden />
+                        <input name="PassMark" hidden />
+                        <input name="FullMark" hidden />
+
+                        <div>
+
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">@Personnel.CommitteResolutionNo</label>
+                                <div class="col-md-3">
+                                    <input type="text" value="@ViewBag.Committe_Resolution_Recuirtment" disabled style = "margin-bottom: 15px;"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.Committe_Resolution_Recuirtment</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    <span>@Personnel.Test</span>
+                                </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.Test, "ID", "Code"), Personnel.SelectTest, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
+                                </div>
+                            </div>
+                            <table id="tb-family" border="1" style="display: table; width:400px;">
+                                <thead>
+                                    <tr>
+                                        <th id="fa">@Personnel.TestCode</th>
+                                        <th id="na">@Personnel.TestDescription</th>
+                                        <th id="per">@Personnel.ExpectedStartDate</th>
+                                        <th id="De">@Personnel.ExpectedEndDate</th>
+                                        <th id="No">@Personnel.PassMark</th>
+                                        <th id="No">@Personnel.FullMark</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div class="form-group" hidden>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Personnel.Create" class="btn btn-success" />
+                                    <a href="@Url.Action("index","Committe_Resolution_Recuirtment",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 }
 
@@ -154,3 +165,95 @@
     }
 
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

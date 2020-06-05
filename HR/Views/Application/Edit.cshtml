@@ -10,11 +10,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.EditApplication
-        </h1>
-    </section>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -26,57 +22,69 @@
 
                 @using (Html.BeginForm("Edit", "Application", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Application")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Application")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Application")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.EditApplication
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
-                <div class="form-horizontal">
+                    <div class="form-horizontal">
 
-                    <hr />
+                        <hr />
 
-                    @if (TempData["Message"] != null)
-                    {
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            @TempData["Message"]
-                        </div>
-                    }
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;"> @Personnel.ContractInformation</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success" style="width:200px;"> @Personnel.PositionInformation</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit3" class="btn btn-success" style="width:200px;"> @Personnel.BasicSalaryCalculationResult</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit4" class="btn btn-success" style="width:200px;"> @Personnel.HiringInformation</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit5" class="btn btn-success" style="width:200px;"> @Personnel.ApplicantProfile</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit6" class="btn btn-success" style="width:200px;"> @Personnel.ApplicationStatus</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit7" class="btn btn-success" style="width:200px;"> @Personnel.BusinessTestProfile</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit8" class="btn btn-success" style="width:200px;"> @Personnel.MedicalTestProfile</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <button type="submit" id="btnSubmit" name="Command" value="Submit9" class="btn btn-success" style="width:200px;"> @Personnel.PersonnelCommitteeProfile</button>
-                    </div>
-                    <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                        <a href="@Url.Action("HireProcess","Application")" class="btn btn-blue btn-sm" style="width:200px;"><i class="fa fa-trash-o"></i>@Personnel.HireProcess</a>
-                        </div>
-                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                <button type="submit" id="btnSubmit" name="Command" value="Submit10" class="btn btn-success" style="width:200px;"> @Personnel.HiringCheckList</button>
-            </div>
 
                         <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success" style="width:200px;"> @Personnel.ContractInformation</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success" style="width:200px;"> @Personnel.PositionInformation</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit3" class="btn btn-success" style="width:200px;"> @Personnel.BasicSalaryCalculationResult</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit4" class="btn btn-success" style="width:200px;"> @Personnel.HiringInformation</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit5" class="btn btn-success" style="width:200px;"> @Personnel.ApplicantProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit6" class="btn btn-success" style="width:200px;"> @Personnel.ApplicationStatus</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit7" class="btn btn-success" style="width:200px;"> @Personnel.BusinessTestProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit8" class="btn btn-success" style="width:200px;"> @Personnel.MedicalTestProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit9" class="btn btn-success" style="width:200px;"> @Personnel.PersonnelCommitteeProfile</button>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <a href="@Url.Action("HireProcess","Application")" class="btn btn-blue btn-sm" style="width:200px;"><i class="fa fa-trash-o"></i>@Personnel.HireProcess</a>
+                        </div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;">
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit10" class="btn btn-success" style="width:200px;"> @Personnel.HiringCheckList</button>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-3" style="color:black;margin-bottom:10px;" hidden>
                             <a href="@Url.Action("index","Application")" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                             <input type="submit" value="@Personnel.Edit" class="btn btn-success" style="width:98px;" />
                         </div>
@@ -99,9 +107,9 @@
                                     @Html.HiddenFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-1">@Personnel.ApplicantNo</label>
+                                        <label class="control-label col-md-1" style="color:red">@Personnel.ApplicantNo</label>
                                         <div class="col-md-1">
-                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "width: 110px!important;" } })
                                             @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                         </div>
                                         <label class="control-label col-md-2">@Personnel.ApplicantProfile</label>
@@ -118,33 +126,33 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.Name</label>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="name1" class="form-control" readonly />
+                                                    <input type="text" id="name1" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="name2" class="form-control" readonly />
+                                                    <input type="text" id="name2" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="name3" class="form-control" readonly />
+                                                    <input type="text" id="name3" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="name4" class="form-control" readonly />
+                                                    <input type="text" id="name4" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="name5" class="form-control" readonly />
+                                                    <input type="text" id="name5" class="form-control" readonly style = "width: 110px!important;margin-bottom: 15px;"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.FullName</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" id="full" class="form-control" readonly />
+                                                    <input type="text" id="full" class="form-control" readonly style = "margin-bottom: 15px;"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.SurName</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" id="SurEn" class="form-control" readonly />
+                                                    <input type="text" id="SurEn" class="form-control" readonly style = "margin-bottom: 15px;"/>
                                                 </div>
                                             </div>
                                             @*@style= "direction:ltr";margin - left:200px; text -align: left;**@
@@ -154,35 +162,35 @@
                                             <h3>@Personnel.ArabicName</h3>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Arabic</label>
+                                                <label class="control-label col-md-2">@Personnel.Name</label>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="arabic1" class="form-control" readonly />
+                                                    <input type="text" id="arabic1" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="arabic2" class="form-control" readonly />
+                                                    <input type="text" id="arabic2" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="arabic3" class="form-control" readonly />
+                                                    <input type="text" id="arabic3" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="arabic4" class="form-control" readonly />
+                                                    <input type="text" id="arabic4" class="form-control" readonly style = "width: 110px!important;" />
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="arabic5" class="form-control" readonly />
+                                                    <input type="text" id="arabic5" class="form-control" readonly style = "width: 110px!important;margin-bottom: 15px;"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.FullName</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" id="full2" class="form-control" readonly />
+                                                    <input type="text" id="full2" class="form-control" readonly style = "margin-bottom: 15px;"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.SurName</label>
                                                 <div class="col-md-10">
-                                                    <input type="text" id="SurAr" class="form-control" readonly />
+                                                    <input type="text" id="SurAr" class="form-control" readonly style = "margin-bottom: 15px;"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -199,7 +207,7 @@
 
                                     <div class="tab-pane" id="Pension" style="margin-top:10px;">
                                         <div class="form-group">
-                                            <label class="control-label col-md-1">@Personnel.CommiteeTestNo</label>
+                                            <label class="control-label col-md-2" style="color:red">@Personnel.CommiteeTestNo</label>
                                             <div class="col-md-3">
                                                 @Html.DropDownListFor(m => m.CommiteeTestNo, new SelectList(ViewBag.Committe_Resolution_Recuirtment, "ID", "Code"), Personnel.SelectCommiteeTest, new { @class = "select2", @onchange = "Religion()", @id = "religion" })
                                                 @Html.ValidationMessageFor(model => model.CommiteeTestNo, "", new { @class = "text-danger" })
@@ -210,8 +218,8 @@
                             </div>
                         </div>
                     </div>
-                    }
-                </div>
+                }
+            </div>
         </div>
     </section>
 </div>
@@ -302,3 +310,96 @@
 </script>
 
 
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

@@ -9,11 +9,7 @@
   
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.EditCheckListItem
-        </h1>
-    </section>
+  
 
     <!-- Main content -->
     <section class="content">
@@ -26,64 +22,65 @@
                 @using (Html.BeginForm("Edit", "Check_List_Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div class="sec-nav">
-                        <div><i class="far fa-save"></i><input id="btnSave" class="create-btn" type="submit" value=@organ.Save /></div>
-                        @*<input type="submit" value="create" />*@
-                        <div><i class="fas fa-plus"></i><input type="submit" class="create-btn" value="New" /></div>
-                        <div><i class="far fa-trash-alt"></i><input type="submit" class="create-btn" value="Delete" /></div>
-                        <div><i class="fas fa-plus"></i><input id="btnSave" style="" class="create-btn" type="submit" onclick="ch()" value=@pers_2.create /></div>
-                        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "Check_List_Items")" class="create-btn">@pers_2.Back</a></div>
-
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Check_List_Items")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Check_List_Items")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Check_List_Items")" class="create-btn"> @pers_2.Back</a></div>
                     </div>
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
+            <div class="form-horizontal">
 
-                        <hr />
-
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Code</label>
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Name</label>
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Description</label>
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.RequiredOnApplication</label>
-                            <div class="col-md-3">
-                                @Html.CheckBoxFor(model => model.Required_on_application, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Required_on_application, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div hidden class="col-md-4" style="margin-top:15px">
-                            <div class="col-md-offset-2 col-md-10">
-                                <a href="@Url.Action("index","Check_List_Items")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                            </div>
-                        </div>
+                <hr /> <hr /> <hr />
+                <section class="content-header">
+                    <h1>
+                        @Personnel.EditCheckListItem
+                    </h1>
+                </section>
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
                     </div>
+                }
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2" style="color:red">@Personnel.Code</label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" style="color:red">@Personnel.Name</label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">@Personnel.Description</label>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">@Personnel.RequiredOnApplication</label>
+                    <div class="col-md-3">
+                        @Html.CheckBoxFor(model => model.Required_on_application, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Required_on_application, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div hidden class="col-md-4" style="margin-top:15px">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="@Url.Action("index","Check_List_Items")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                        <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
                 }
 
             </div>

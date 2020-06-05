@@ -9,11 +9,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.Create_Subscription_Syndicate
-        </h1>
-    </section>
+   
 
     <!-- Main content -->
     <section class="content">
@@ -25,6 +21,21 @@
 
                 @using (Html.BeginForm("Create", "Subscription_Syndicate", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Subscription_Syndicate")" class="create-btn">@pers_2.new_</a></div>
+                        <div>
+                            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Subscription_Syndicate")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                        </div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Subscription_Syndicate")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.Create_Subscription_Syndicate
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -41,21 +52,21 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Subscription_Code</label>
+                            <label class="control-label col-md-2" style="color:red">@Personnel.Subscription_Code</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Subscription_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Subscription_Code, "", new { @class = "text-danger" })
                             </div>
-                      
+
                             <label class="control-label col-md-2">@Personnel.Server_Legatees</label>
-                                                <div class="col-md-4">
+                            <div class="col-md-4">
                                 @Html.CheckBoxFor(model => model.Server_Legatees, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Server_Legatees, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                       
+
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Subscription_Description</label>
+                            <label class="control-label col-md-2" style="color:red"> @Personnel.Subscription_Description</label>
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.Subscription_Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Subscription_Description, "", new { @class = "text-danger" })
@@ -88,18 +99,18 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Default_Subscription_Fees</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Default_Subscription_Fees, new { htmlAttributes = new { @class = "form-control",@type="number" ,@min=0} })
+                                @Html.EditorFor(model => model.Default_Subscription_Fees, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
                                 @Html.ValidationMessageFor(model => model.Default_Subscription_Fees, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <label class="control-label col-md-2">@Personnel.Deduction_Period</label>
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Deduction_Period, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Deduction_Period, "", new { @class = "text-danger" })
-                            </div>
-                      
+                        <label class="control-label col-md-2" style="color:red">@Personnel.Deduction_Period</label>
+                        <div class="col-md-4">
+                            @Html.EnumDropDownListFor(model => model.Deduction_Period, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Deduction_Period, "", new { @class = "text-danger" })
+                        </div>
+
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Type</label>
+                            <label class="control-label col-md-2" style="color:red">@Personnel.Type</label>
                             <div class="col-md-4">
                                 @Html.EnumDropDownListFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
@@ -134,12 +145,12 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Personnel.Address</label>
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Address, 4, 100, new { htmlAttributes = new { @class = "form-control"} })
+                                @Html.TextAreaFor(model => model.Address, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <div class="col-md-offset-2 col-md-10">
                                 <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
                                 <a href="@Url.Action("index","Subscription_Syndicate")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
@@ -179,3 +190,96 @@
     }
   
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 280px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>
