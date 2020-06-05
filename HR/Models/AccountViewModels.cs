@@ -46,7 +46,17 @@ namespace HR.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+    public class edit
+    {
+        public string name { get; set; }
+        public string mail { get; set; }
+        public string company_name { get; set; }
+        public string image_profile { get; set; }
+        public string password { get; set; }
+        public string new_password { get; set; }
+        public string confirmpassword { get; set; }
 
+    }
     public class LoginViewModel
     {
       

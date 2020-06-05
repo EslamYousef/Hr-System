@@ -12,6 +12,7 @@ namespace HR.Controllers
     [HandleError(View = "Error")]
     public class HomeController : BaseController
     {
+
      
         public ActionResult Index()
 
@@ -33,10 +34,7 @@ namespace HR.Controllers
             return View();
 
         }
-
-
-
-
+      
 
 
 

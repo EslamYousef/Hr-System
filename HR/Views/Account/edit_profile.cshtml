@@ -1,0 +1,213 @@
+﻿@model HR.Models.edit
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@using (Html.BeginForm("edit_profile", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="sec-nav">
+        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@HR.Resource.organ.Save </button></div>
+      
+        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Home")" class="create-btn"> @HR.Resource.pers_2.Back</a></div>
+
+    </div>
+    @Html.AntiForgeryToken()
+    <div style="margin-top:70px">
+     profile
+    </div>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (TempData["Message"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @TempData["Message"]
+        </div>
+    }
+    if(Model.image_profile!=null)
+    {
+        Html.Hidden(Model.image_profile);
+    }
+
+    <div class="form-horizontal">
+        <div class="form-group">
+           
+          
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.name
+                </label>
+                @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+            </div>
+      
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.mail
+                </label>
+                @Html.TextBoxFor(m => m.mail, new { @class = "form-control" })
+            </div>
+     
+           
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.old_password
+                </label>
+                @Html.PasswordFor(m => m.password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+      
+           
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.new_pass
+                </label>
+                @Html.PasswordFor(m => m.new_password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.new_password, "", new { @class = "text-danger" })
+
+            </div>
+
+      
+            
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.confirm_pass
+                </label>
+                @Html.PasswordFor(m => m.confirmpassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.confirmpassword, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group">
+        
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.image_profile
+                </label>
+                @{
+                    if (string.IsNullOrEmpty(Model.image_profile) || !File.Exists(HttpRuntime.AppDomainAppPath + Model.image_profile))
+                    {
+                        <img src="@Url.Content("~/login-icon-3048.png")" alt="@Model.name" style="width: 200px; height: 200px">
+                    }
+                    else
+                    {
+                        <img src="@Url.Content(Model.image_profile)" alt="@Model.name" style="width: 200px; height: 200px">
+                    }
+                   
+                }
+            </div>
+      
+           
+            <div class="col-md-4">
+                <label>
+                    @HR.Resource.Basic.change_image_profile
+                </label>
+                <input type="file" name="file" id="file" style="width: 100%;" class="form-control" />
+            </div>
+        </div>
+     
+
+
+      
+     </div>
+        
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

@@ -9,11 +9,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HR.Models;
+using System.Web.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace HR.Controllers
 {
     [Authorize]
-    public class AccountController : MyController
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -26,7 +29,110 @@ namespace HR.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _userManager= userManager;
         }
+      
+        public async Task<ActionResult> edit_profile()
+        {
+            
+         
+            try
+            {
+              
+
+                var userId = User.Identity.GetUserId();
+                var Login_User = await UserManager.FindByIdAsync(userId);
+
+                edit user_edit = new edit();
+                user_edit.name = Login_User.UserName;
+                user_edit.mail = Login_User.Email;
+                user_edit.image_profile = Login_User.ImagePath;
+                return View(user_edit);
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("index","Home");
+
+            }
+        }
+        [HttpPost]
+        public async  Task<ActionResult> edit_profile(edit model, HttpPostedFileBase file)
+        {
+            var userId = User.Identity.GetUserId();
+            var Login_User = await UserManager.FindByIdAsync(userId);
+            model.image_profile = Login_User.ImagePath;
+            if (!ModelState.IsValid)
+            {
+                TempData["Message"] = "ERROR.";
+                return View(model);
+            }
+            try
+            {
+              
+
+                Login_User.UserName = model.name;
+                Login_User.Email = model.mail;
+                if(model.image_profile!=null)
+                Login_User.ImagePath = model.image_profile;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var supportedTypes = new[] { "jpg", "jpeg", "png" };
+                    var fileName = Path.GetExtension(file.FileName);
+                    if (fileName != null)
+                    {
+                        var fileExt = fileName.Substring(1);
+                        if (!supportedTypes.Contains(fileExt))
+                        {
+                            TempData["Message"] = "Invalid image type. Only the following types (jpg, jpeg, png) are supported.";
+                            return View(model);
+                        }
+                        var photoName = Guid.NewGuid().ToString("N") + "." + fileExt;
+                        var photo = Server.MapPath("~/Images/Users/") + photoName;
+                        file.SaveAs(photo);
+                        Login_User.ImagePath = "/Images/Users/" + photoName;
+                    }
+                }
+                if (!string.IsNullOrEmpty(model.password) && !string.IsNullOrEmpty(model.new_password) && model.new_password == model.confirmpassword)
+                {
+                    var result = await UserManager.ChangePasswordAsync(userId, model.password, model.new_password);
+                    if (!result.Succeeded)
+                    {
+                        AddErrors(result);
+                        return View(model);
+                    }
+                    await SignInManager.SignInAsync(Login_User, isPersistent: false, rememberBrowser: false);
+                }
+                else if(!string.IsNullOrEmpty(model.new_password) && model.new_password != model.confirmpassword)
+                {
+                    TempData["Message"] = "new password not matching";
+                    return View(model);
+                }
+                else
+                {
+                    TempData["Message"] = "password not updated";
+                }
+                var result1 = await UserManager.UpdateAsync(Login_User);
+                if (!result1.Succeeded)
+                {
+                    AddErrors(result1);
+                    return View(model);
+                }
+                TempData["msg"] = "Profile Changes Saved !";
+                return RedirectToAction("index", "Home");
+
+            }
+            catch (Exception)
+            {
+                TempData["Message"] = "ERROR.";
+                return View(model);
+
+            }
+        }
+
+
+
 
         public ApplicationSignInManager SignInManager
         {
