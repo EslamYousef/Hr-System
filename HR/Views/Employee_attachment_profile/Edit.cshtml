@@ -9,11 +9,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.EditEmployeeAttachmentProfile
-        </h1>
-    </section>
+   
 
     <!-- Main content -->
     <section class="content">
@@ -25,172 +21,160 @@
 
                 @using (Html.BeginForm("Edit", "Employee_attachment_profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                <div class="sec-nav">
+                    <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                    <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Employee_attachment_profile",new {id=ViewBag.idemp})" class="create-btn">@pers_2.new_</a></div>
+                    <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Employee_attachment_profile")" class="create-btn" value=@organ.delete /></div>
+                    <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Employee_attachment_profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    <div><i class="far fa-save"></i> <button type="submit" id="btnSubmit" name="Command" value="Submit" class="create-btn" />@Personnel.EmployeeProfile</div>
+                </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.EditEmployeeAttachmentProfile
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
+            <div class="form-horizontal">
 
-                        <hr />
+                <hr />
 
-                        @if (TempData["Message"] != null)
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.Employee_Profile.ID)
+                @Html.HiddenFor(m => m.Employee_Profile.Name)
+                @Html.HiddenFor(m => m.Employee_Profile.Full_Name)
+                @Html.HiddenFor(m => m.Employee_Profile.Code)
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.EmployeeName</label>
+                        @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                        @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.AttachmentprofileNo</label>
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Iscopy</label>
+                        @Html.CheckBoxFor(model => model.Is_copy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Is_copy, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.Documentcode</label>
+                        @Html.DropDownListFor(m => m.DocumentsId, new SelectList(ViewBag.Documents, "ID", "Code"), Personnel.SelectDocument, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                        @Html.ValidationMessageFor(model => model.DocumentsId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Isrequired</label>
+                        @Html.CheckBoxFor(model => model.Is_required, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Is_required, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Documentgroup</label>
+                        @Html.EditorFor(model => model.DocumentGroup, new { htmlAttributes = new { @class = "form-control", id = "groupdocument", @readonly = true, @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.DocumentGroup, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Personnel.Relatedto</label>
+                        @Html.EnumDropDownListFor(model => model.Related_to, new { @class = "select2" })
+
+                        @Html.ValidationMessageFor(model => model.Related_to, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Personnel.Issuedplace</label>
+                        @Html.EditorFor(model => model.Issued_place, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+
+                        @Html.ValidationMessageFor(model => model.Issued_place, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Personnel.Issuedate</label>
+                        @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control @*datepicker*@", @id = "Issue_date", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Expirydate</label>
+                        @Html.EditorFor(model => model.Expiry_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control @*datepicker*@", @id = "Expiry_date", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Expiry_date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Referencenumber</label>
+                        @Html.EditorFor(model => model.Reference_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Reference_number, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Personnel.Documentnumber</label>
+                        @Html.EditorFor(model => model.Document_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Document_number, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Personnel.Documentdescription</label>
+                        @Html.EditorFor(model => model.Document_description, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Document_description, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Personnel.Documentstatus</label>
+                        @Html.EnumDropDownListFor(model => model.Document_status, new { @class = "select2" })
+
+                        @Html.ValidationMessageFor(model => model.Document_status, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div @*class="fileinput fileinput-new"*@ data-provides="fileinput">
+                        @if (Model.Attachmentfile == null)
                         {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
+                            <div class="col-md-4">
+                                <label>Attachments</label>
+                                <a href="~/files/@Model.Code/@Model.Attachmentfile" style="color: currentColor;" />  <input type="file" name="MyItem" style="min-width: 200px; " /><br />
                             </div>
                         }
+                        else
+                        {
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.Employee_Profile.ID)
-                        @Html.HiddenFor(m => m.Employee_Profile.Name)
-                        @Html.HiddenFor(m => m.Employee_Profile.Full_Name)
-                        @Html.HiddenFor(m => m.Employee_Profile.Code)
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.EmployeeName</label>
                             <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                                <label>Attachments</label>
+                                <a href="~/files/@Model.Code/@Model.Attachmentfile" style="color: currentColor;" />  <input type="file" name="MyItem" @*style="margin-left: -24px;"*@ /><input type="text" value="@Model.Attachmentfile" disabled style="min-width: 200px;" /><br />
                             </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Comments</label>
+                        @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                            <div class="col-md-6" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.AttachmentprofileNo</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">@Personnel.Iscopy</label>
-                            <div class="col-md-3">
-                                @Html.CheckBoxFor(model => model.Is_copy, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Is_copy, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Documentcode</label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.DocumentsId, new SelectList(ViewBag.Documents, "ID", "Code"), Personnel.SelectDocument, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
-                                @Html.ValidationMessageFor(model => model.DocumentsId, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">@Personnel.Isrequired</label>
-                            <div class="col-md-3">
-                                @Html.CheckBoxFor(model => model.Is_required, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Is_required, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Documentgroup</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.DocumentGroup, new { htmlAttributes = new { @class = "form-control", id = "groupdocument", @readonly = true, @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.DocumentGroup, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Relatedto</label>
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Related_to, new { @class = "select2" })
+                <div class="form-group" hidden>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                        <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                    </div>
+                </div>
 
-                                @Html.ValidationMessageFor(model => model.Related_to, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Issuedplace</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Issued_place, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-
-                                @Html.ValidationMessageFor(model => model.Issued_place, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Issuedate</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control @*datepicker*@", @id = "Issue_date", @type = "date" } })
-                                @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">@Personnel.Expirydate</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Expiry_date, new { htmlAttributes = new { @autocomplete = "off", @class = "form-control @*datepicker*@", @id = "Expiry_date", @type = "date" } })
-                                @Html.ValidationMessageFor(model => model.Expiry_date, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Referencenumber</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Reference_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Reference_number, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Documentnumber</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Document_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Document_number, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Documentdescription</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Document_description, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Document_description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Documentstatus</label>
-                            <div class="col-md-4">
-                                @Html.EnumDropDownListFor(model => model.Document_status, new { @class = "select2" })
-
-                                @Html.ValidationMessageFor(model => model.Document_status, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                @if (Model.Attachmentfile == null)
-                                {
-                                    <div class="col-md-6">
-                                        <label class="control-label">Attachments</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a href="~/files/@Model.Code/@Model.Attachmentfile" style="color: currentColor;"/>  <input type="file" name="MyItem" style="min-width: 400px; margin-left: -24px;"/><br />
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-md-6">
-                                        <label class="control-label">Attachments</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a href="~/files/@Model.Code/@Model.Attachmentfile" style="color: currentColor;" />  <input type="file" name="MyItem" style="margin-left: -24px;"/><input type="text" value="@Model.Attachmentfile" disabled style="min-width: 400px; margin-left: -24px;"/><br />
-                                    </div>
-                                }
-                            </div>
-                        </div>
-
-         
-                        @*<div>
-                            <span onclick="GetClientReport()">sa</span>
-                        </div>*@
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.Comments</label>
-                                <div class="col-md-4">
-                                    @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Employee_attachment_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                </div>
-                            </div>
-
-                        </div>
+            </div>
 
                 }
 
@@ -284,3 +268,96 @@
 
    
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

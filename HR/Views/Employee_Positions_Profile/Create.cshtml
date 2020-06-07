@@ -10,11 +10,7 @@
 
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            @Personnel.CreateEmployeePositionsProfile
-        </h1>
-    </section>
+   
 
     <!-- Main content -->
     <section class="content">
@@ -25,6 +21,19 @@
 
                 @using (Html.BeginForm("Create", "Employee_Positions_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Employee_Positions_Profile")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Employee_Positions_Profile")" class="create-btn" style="background-color: transparent;" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Employee_Positions_Profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                        <div><i class="far fa-save"></i> <button type="submit" id="btnSubmit" name="Command" value="Submit" class="create-btn" />@Personnel.EmployeeProfile</div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreateEmployeePositionsProfile
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -43,21 +52,25 @@
                         @Html.HiddenFor(m => m.Position_Information.ID)
 
 
-                        <div class="form-group">                  
-                            <label class="control-label col-md-2">@Personnel.EmployeeName</label>
+                        <div class="form-group">
+                            <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
                             <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
                             </div>
-                                   <div class="col-md-2" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.EmployeeProfile</button>
-                                </div>
+                           
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.PositionprofileNo</label>
+                            <label class="control-label col-md-2" style="color:red">@Personnel.PositionprofileNo</label>
                             <div class="col-md-3">
                                 @Html.EditorFor(model => model.Position_Information.Code, new
-                                   { htmlAttributes = new  {   @class = "form-control"@*, id = "codeid" *@ ,  @readonly = true   }  })
+                                   {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control"@*, id = "codeid" *@,
+                    @readonly = true
+                }
+            })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
                             </div>
                             <label class="control-label col-md-2">@Personnel.PrimaryPosition</label>
@@ -65,7 +78,7 @@
                                 @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" hidden>
                                 <a href="@Url.Action("index","Employee_Positions_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
                                 <input type="submit" value="@Personnel.Create" class="btn btn-success" style="width:98px;" />
                             </div>
@@ -89,11 +102,11 @@
 
                             </ul>
                             <div class="tab-content">
-                              
-                                
 
 
-                              
+
+
+
 
                                 <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
 
@@ -101,7 +114,7 @@
                                         <label class="control-label col-md-2">@Personnel.Jobdesc</label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), @Personnel.SelectJobdesc, new { @class = "select2", @onchange = "CountryName()", id = "country" })
-                                            @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })                                    
+                                            @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -117,15 +130,15 @@
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), @Personnel.SelectLocationdesc, new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Location_descId, "", new { @class = "text-danger" })
-                                          
+
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Slotdesc</label>
+                                        <label class="control-label col-md-2" style="color:red">@Personnel.Slotdesc</label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), @Personnel.Selectslot, new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.SlotdescId, "", new { @class = "text-danger" })
-                                        
+
                                         </div>
                                     </div>
 
@@ -133,7 +146,7 @@
                                         <label class="control-label col-md-2">@Personnel.Jobleveldesc</label>
                                         <div class="col-md-4">
                                             @Html.DropDownListFor(m => m.Position_Information.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"), @Personnel.SelectJobleveldesc, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
-                                            @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })                
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
@@ -159,33 +172,33 @@
                                             @Html.EditorFor(model => model.Position_Information.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Position_Information.Years, "", new { @class = "text-danger" })
-                                        </div>                                  
+                                        </div>
                                     </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-2">@Personnel.Todate</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Position_Information.To_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date" } })
-                                                @Html.ValidationMessageFor(model => model.Position_Information.To_date, "", new { @class = "text-danger" })
-                                            </div>                                   
-                                            <label class="control-label col-md-2">@Personnel.Months</label>
-                                            <div class="col-md-4">
-                                                @Html.EditorFor(model => model.Position_Information.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
-
-                                                @Html.ValidationMessageFor(model => model.Position_Information.Months, "", new { @class = "text-danger" })
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">@Personnel.Todate</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Information.To_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date" } })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.To_date, "", new { @class = "text-danger" })
                                         </div>
+                                        <label class="control-label col-md-2">@Personnel.Months</label>
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(model => model.Position_Information.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Months, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.Workingsystem</label>
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Information.working_system,  new { @class = "select2"  })
+                                            @Html.EnumDropDownListFor(model => model.Position_Information.working_system, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.working_system, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.Positionstatus</label>
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Information.Position_status, new { @class = "select2" } )
+                                            @Html.EnumDropDownListFor(model => model.Position_Information.Position_status, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Position_status, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -222,7 +235,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2">@Personnel.EOSreasons</label>
                                                 <div class="col-md-4">
-                                                    @Html.EditorFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control",@readonly="true", @autocomplete = "off" } })
+                                                    @Html.EditorFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control", @readonly = "true", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.EOS_reasons, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -237,7 +250,7 @@
                                         </div>
                                     </div>
 
-                               
+
                                 </div>
 
 
@@ -259,13 +272,13 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-2">@Personnel.TransactionType</label>
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Transaction_Type, new  { @class = "select2" } )
+                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Transaction_Type, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Transaction_Type, "", new { @class = "text-danger" })
                                         </div>
 
                                         <label class="control-label col-md-2">@Personnel.Fixedbasicsalaryby</label>
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, new { @class = "select2"  })
+                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -643,6 +656,101 @@
                 $('#' + id).val(d);
             }
 </script>
+<style>
+
+    /*Create Page*/
 
 
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
 
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>
