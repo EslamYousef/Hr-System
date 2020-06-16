@@ -621,7 +621,7 @@ namespace HR.Controllers
         Money = 7,
         Piece = 8,
         [Display(Name = "Calculated Value")]
-        Calculated_Value = 8
+        Calculated_Value = 9
     }
     public enum Document_entry
     {
