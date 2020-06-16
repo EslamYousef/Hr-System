@@ -1,0 +1,236 @@
+﻿@model IEnumerable<HR.Models.ViewModel.loan_installmentVM>
+@using HR.Resource
+@{
+    ViewBag.Title = "create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+               
+                
+@using (Html.BeginForm("loan_installment", "LoanRequest", new { id = ViewBag.id },FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+                <div class="sec-nav">
+                    <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+
+                    <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "LoanRequest",new { id=ViewBag.id})" class="create-btn"> @pers_2.Back</a></div>
+
+
+                </div>
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@pers_2.frezz</th>
+                                <th>@pers_2.seq</th>
+                                <th>@pers_2.months</th>
+                                <th>@pers_2.years</th>
+                                <th>@pers_2.installment_amount</th>
+                                <th>@pers_2.ispaid</th>
+                                <th>@pers_2.paidamount</th>
+                                <th>@pers_2.unpaidmount</th>
+                                <th>@pers_2.active</th>
+                                <th>@pers_2.notes</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            <input hidden type="checkbox" name="frezz" checked value=" " />
+
+                            @foreach (var item in Model)
+                            {
+                             <tr>
+                                 <td>
+                                     <div class="checkbox">
+                                         @if (item.LoanInstallment.IsActive == false)
+                                         {
+                                            <span>
+                                                <input disabled type="checkbox" name="frezz" value="@item.LoanInstallment.ID" />
+                                            </span>
+                                         }
+                                         else
+                                         {
+                                            <span>
+                                                <input type="checkbox" name="frezz" value="@item.LoanInstallment.ID" />
+                                            </span>
+                                         }
+                                       
+                                     </div>
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.InstallmentNumber
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.InstallmentMonth
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.InstallmentYear
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.InstallmentAmount
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.IsPaid
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.PaidAmount
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.UnpaidAmount
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.IsActive
+                                 </td>
+                                 <td>
+                                     @item.LoanInstallment.InstallmenNotes
+                                 </td>
+                             </tr>
+                            }
+                        </tbody>
+                      
+                    </table>
+                </div>
+}
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>
+
+<style>
+    /*Create Page*/
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

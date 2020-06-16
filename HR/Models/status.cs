@@ -1,4 +1,5 @@
 ﻿using HR.Models.Infra;
+using HR.Models.payroll_trans;
 using HR.Models.Time_management;
 using System;
 using System.Collections.Generic;
@@ -32,5 +33,6 @@ namespace HR.Models
         public virtual List<workpermissionrequest> workpermissionrequest { get; set; }
         public virtual List<business_trip_request> business_trip_request { get; set; }
         public virtual List<Exit_permission_request> Exit_permission_request { get; set; }
+        public virtual List<LoanRequest> LoanRequest { get; set; }
     }
 }

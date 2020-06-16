@@ -23,6 +23,7 @@ namespace HR.Models
         public string EmployeeName { get; set; }
 
         public virtual job_title_cards job_title_cards { get; set; }
+        public int job_title_cardsID { get; set; }
         public virtual Organization_Chart Organization_Chart__ { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
         //public virtual job_title_cards job_title_cards { get; set; }

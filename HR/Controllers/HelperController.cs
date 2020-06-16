@@ -1144,7 +1144,7 @@ namespace HR.Controllers
         {
             try
             {
-                var LIST = dbcontext.Employee_Profile.ToList().Select(m => new { code = m.Code, Name = m.Name, ID = m.ID }).ToList();
+                var LIST = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { code = m.Code, Name = m.Name, ID = m.ID }).ToList();
                 return Json(LIST);
             }
             catch (Exception)
@@ -1169,7 +1169,7 @@ namespace HR.Controllers
                         foreach (var item2 in i)
                         {
                             int ID = int.Parse(item2.Employee_ProfileId);
-                            em.Add(dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID));
+                            em.Add(dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID && m.Active == true));
                         }
                         var ii = em.Distinct().ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct();
                         em = new List<Employee_Profile>();
@@ -1187,7 +1187,7 @@ namespace HR.Controllers
                     foreach (var item in id)
                     {
 
-                        var i = (dbcontext.Employee_Profile.Where(m => m.NationalityId == item).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                        var i = (dbcontext.Employee_Profile.Where(m => m.NationalityId == item && m.Active == true).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
                         foreach (var o in i)
                         {
                             y.Add(new uoi { Name = o.Name, ID = o.ID, code = o.code });
@@ -1196,6 +1196,101 @@ namespace HR.Controllers
                     return Json(y);
 
                 }
+                else if (type == 4)
+                {
+                    foreach (var item in id)
+                    {
+                        var unit = dbcontext.Organization_Chart.Where(m => m.worklocationid == item).ToList();
+                        var jobs = new List<job_title_cards>();
+                        foreach (var item4 in unit)
+                        {
+                            var ID = item4.ID.ToString();
+                            jobs.AddRange(dbcontext.job_title_cards.Where(m => m.Organization_unit_codeID == ID).ToList().ToList());
+
+
+                        }
+                        var slot = new List<Slots>();
+                        foreach (var item7 in jobs)
+                        {
+
+                            slot.AddRange(dbcontext.Slots.Where(m => m.job_title_cardsID == item7.ID && m.EmployeeID != null && m.EmployeeID != ""));
+                        }
+                        foreach (var item2 in slot)
+                        {
+
+                            int ID = int.Parse(item2.EmployeeID);
+                            var i = (dbcontext.Employee_Profile.Where(m => m.ID == ID && m.Active == true).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+
+                            y.Add(new uoi { Name = i.First().Name, ID = i.First().ID, code = i.First().code });
+
+                        }
+
+
+                    }
+                    var t = y.GroupBy(x => x.ID).Select(yy => yy.First());
+                    return Json(t);
+
+                }
+                else if (type == 6)
+                {
+
+                    foreach (var item in id)
+                    {
+                        var jobs = dbcontext.job_title_cards.Where(m => m.joblevelsetupID == item).ToList();
+
+
+
+                        var slot = new List<Slots>();
+                        foreach (var item7 in jobs)
+                        {
+
+                            slot.AddRange(dbcontext.Slots.Where(m => m.job_title_cardsID == item7.ID && m.EmployeeID != null && m.EmployeeID != ""));
+                        }
+                        var real_slot = new List<Slots>();
+                        foreach (var item2 in slot)
+                        {
+                            if (item2.EmployeeID != null || item2.EmployeeID != "0")
+                            {
+
+
+                                int ID = int.Parse(item2.EmployeeID);
+                                var i = (dbcontext.Employee_Profile.Where(m => m.ID == ID && m.Active == true).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                                y.Add(new uoi { Name = i.First().Name, ID = i.First().ID, code = i.First().code });
+                            }
+
+                        }
+
+
+                    }
+                    var t = y.GroupBy(x => x.ID).Select(yy => yy.First());
+                    return Json(t);
+
+                }
+                ////costcenter
+                //else if (type == 5)
+                //{
+                //    foreach (var item in id)
+                //    {
+                //        var Slots = dbcontext.job_title_cards.Where(m => m.Organization_Chart == item).ToList().Select(m => m.Slots).ToList();
+
+                //        var real_slot = new List<Slots>();
+                //        foreach (var item2 in Slots)
+                //        {
+
+                //            real_slot.AddRange(item2.Where(m => m.EmployeeID != null || m.EmployeeID != "0").ToList());
+                //        }
+                //        foreach (var item3 in real_slot)
+                //        {
+
+                //            int ID = int.Parse(item3.EmployeeID);
+                //            var i = (dbcontext.Employee_Profile.Where(m => m.ID == ID && m.Active == true).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                //            y.Add(new uoi { Name = i.First().Name, ID = i.First().ID, code = i.First().code });
+                //        }
+
+                //    }
+                //    return Json(y);
+
+                //}
                 //else if (type == 3)
                 //{
                 //    foreach (var item in id)

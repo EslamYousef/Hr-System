@@ -97,6 +97,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string active {
+            get {
+                return ResourceManager.GetString("active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity number.
         /// </summary>
         public static string Activitynumber {
@@ -1609,6 +1618,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frezze.
+        /// </summary>
+        public static string frezz {
+            get {
+                return ResourceManager.GetString("frezz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string fromdate {
@@ -1821,6 +1839,15 @@ namespace HR.Resource {
         public static string InterviewQuestions {
             get {
                 return ResourceManager.GetString("InterviewQuestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Paid.
+        /// </summary>
+        public static string ispaid {
+            get {
+                return ResourceManager.GetString("ispaid", resourceCulture);
             }
         }
         
@@ -2316,6 +2343,15 @@ namespace HR.Resource {
         public static string other {
             get {
                 return ResourceManager.GetString("other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paid Amount.
+        /// </summary>
+        public static string paidamount {
+            get {
+                return ResourceManager.GetString("paidamount", resourceCulture);
             }
         }
         
@@ -2905,6 +2941,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seq.
+        /// </summary>
+        public static string seq {
+            get {
+                return ResourceManager.GetString("seq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shift Day Status Setup.
         /// </summary>
         public static string shiftdaystatussetup {
@@ -3162,6 +3207,15 @@ namespace HR.Resource {
         public static string Unitdesc {
             get {
                 return ResourceManager.GetString("Unitdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unpaid Amount.
+        /// </summary>
+        public static string unpaidmount {
+            get {
+                return ResourceManager.GetString("unpaidmount", resourceCulture);
             }
         }
         

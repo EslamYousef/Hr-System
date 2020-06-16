@@ -12,6 +12,8 @@ using HR.Models.All_Table_Commitee_Resolution;
 using HR.Models.Application;
 using HR.Models.SetupPayroll;
 using HR.Models.CardPayroll;
+using HR.Models.payroll_trans;
+using HR.Models.TransactionsPayroll;
 
 namespace HR.Models
 {
@@ -273,24 +275,15 @@ namespace HR.Models
 
         public DbSet<SalaryItemCollectionGroup_Header> SalaryItemCollectionGroup_Header { get; set; }
         public DbSet<SalaryItemCollectionGroup_Detail> SalaryItemCollectionGroup_Detail { get; set; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         public DbSet<LinkLoanDeductionsWithOtherManualPayment> LinkLoanDeductionsWithOtherManualPayment { get; set; }
+        public DbSet<LoanInstallment> LoanInstallment { get; set; }
+        public DbSet<LoanRequest> LoanRequest { get; set; }
+        public DbSet<ManualPaymentTransactionEntry> ManualPaymentTransactionEntry { get; set; }
 
+        public DbSet<ManualPaymentTransactionEntry_Detail> ManualPaymentTransactionEntry_Detail { get; set; }
 
+        public DbSet<ManualPaymentTransactionEntry_ExtendedFieldsDetail> ManualPaymentTransactionEntry_ExtendedFieldsDetail { get; set; }
     }
 
 }

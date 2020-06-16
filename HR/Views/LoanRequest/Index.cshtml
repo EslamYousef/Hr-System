@@ -1,0 +1,264 @@
+﻿@model IEnumerable<HR.Models.payroll_trans.LoanRequest>
+@using HR.Resource;
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+   
+    function getrequest()
+    {
+
+        $("#tbody11 tr").remove();
+     
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        if (from == "")
+        {
+            from = "1/1/1900";
+        }
+        if (to == "") {
+            to="1/1/3000"
+        }
+       
+        
+
+            $.ajax({
+                type: "post",
+                url: "/LoanRequest/Getone",
+                data: { "from": from, "to": to},
+                success: function (result) {
+
+                    $("#tbody11 tr").remove();
+                    $.each(result, function (key, value) {
+                        
+                            var tr =
+                  "<tr id='tr'><td>" + value.LoanRequestNumber + "</td>" +
+                 "<td style='width:60px'>" + value.EmployeeID +"--"+ value.emp_name+ "</td>" +
+                
+                  "<td>" + value.CanceledBy + "</td>" +
+                 "<td>" + value.RejectedBy + "</td>" +
+                 "<td>" + value.LoanAmount + "</td>" +
+                  "<td >" + value.status + "</td>" +
+                 "<td>" +
+                 "<input type='button' value='change' class='create-btn' onclick='change(" + value.ID + ")' />" + " " +
+                 "<input type='button' value='status' class='create-btn' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+                 "<input type='button' value='Delete' class='create-btn' onclick='deletee(" + value.ID + ")' /></td>";
+                            $("#tbody11").append(tr);
+
+
+
+                                   });
+
+                },
+                error: function () {
+
+
+                }
+            });
+        }
+    function getallrequest() {
+
+       
+        $.ajax({
+            type: "post",
+            url: "/LoanRequest/Getalll",
+            data: { },
+            success: function (result) {
+
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+
+                   
+
+                    var tr =
+          "<tr id='tr'><td>" + value.LoanRequestNumber + "</td>" +
+                 "<td style='width:60px'>" + value.EmployeeID + "--" + value.emp_name + "</td>" +
+
+                   "<td>" + value.CanceledBy + "</td>" +
+                 "<td>" + value.RejectedBy + "</td>" +
+                 "<td>" + value.LoanAmount + "</td>" +
+                  "<td >" + value.status + "</td>" +
+         "<td>" + "<input type='button' value='change' class='create-btn' onclick='change(" + value.ID + ")' />" + " " +
+         "<input type='button' value='status' class='create-btn' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+         "<input type='button' value='Delete' class='create-btn' onclick='deletee(" + value.ID + ")' /></td>";
+
+                    $("#tbody11").append(tr);
+                });
+
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+
+    function change(id)
+    {
+        window.open("/LoanRequest/Edit?id=" + id);
+    }
+    function history(id) {
+
+        window.open("/LoanRequest/status?id=" + id);
+    }
+    function deletee(id) {
+
+        window.open("/LoanRequest/Delete/" + id);
+    }
+</script>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                <div style="margin-left:10px" class="row form-group">
+
+                    <div class="col-md-3">
+                        <a href="@Url.Action("Create", "LoanRequest" )" style="width:130px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>'@Personnel.addloanrequest'</a>
+
+                    </div>
+                </div>
+                <div class="form-group" id="buttons">
+                    
+                </div>
+                <div class="form-group" style="margin-top:20px;margin-bottom:15px">
+
+                 
+                    <div class="col-md-3">
+                        <input autocomplete="off" value="" class="form-control" onfocus="(this.type='date')" id="datefrom" placeholder=@pers_2.fromdate />
+                    </div>
+                    <div class="col-md-2">
+                        <input autocomplete="off" class="form-control" onfocus="(this.type='date')" id="dateto" placeholder=@pers_2.todate />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="col-md-2 btn btn-success" />
+                    <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="col-md-2 btn btn-success" />
+
+
+
+                </div>
+
+
+
+
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@pers_2.number</th>
+                                <th>@pers_2.employee</th>
+                                
+                                <th>@Personnel.Startdate</th>
+                                <th>@Personnel.Enddate</th>
+                                <th>@Personnel.loanamount</th>
+                                <th>@pers_2.check_status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.LoanRequestNumber</td>
+
+                                    @if (item.EmployeeID != null)
+                                    {
+                                        <td>@item.EmployeeID --@item.emp_name </td>
+                                      
+                                    }
+                                    else
+                                    {
+                                        <td>Empty</td>
+                                        <td>Empty</td>
+                                    }
+                                    <td>@item.StartDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.EndDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@item.LoanAmount</td>                                  
+                                    <td>@item.check_status</td>
+                                 
+                                    <td>
+                                        @if (item.check_status !="Approved" && item.check_status !="Rejected")
+                                        {
+                                            <a href="@Url.Action("Edit", "LoanRequest", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                        }
+                                        <a href="@Url.Action("Delete", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="far fa-trash-alt"></i>@pers_2.delete</a>
+                                        <a href="@Url.Action("status", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
+
+                                       
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            @*<tr>
+                                    <th>@pers_2.number</th>
+                                    <th>@pers_2.empid</th>
+                                    <th>@pers_2.empname</th>
+                                    <th>@pers_2.requestdate</th>
+                                    <th>@pers_2.eosdate</th>
+                                    <th>@pers_2.status</th>
+                                    <th>@pers_2.type</th>
+                                    <th></th>
+                                </tr>*@
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

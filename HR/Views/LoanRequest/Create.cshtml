@@ -1,0 +1,579 @@
+﻿@model HR.Models.payroll_trans.LoanRequest
+@using HR.Resource
+@{
+    ViewBag.Title = "create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "LoanRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+
+
+                        <div><i class="fas fa-plus"></i><input type="button" class="create-btn" value="New" /></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" class="create-btn" value="Delete" /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "LoanRequest")" class="create-btn"> @pers_2.Back</a></div>
+
+                        <div><i class="far fa-save"></i><button name="Command" value="Submit" class="create-btn" /> @Personnel.loaninstallment</div>
+
+                    </div>
+                    @Html.HiddenFor(m => m.CreatedBy);
+
+                    @Html.HiddenFor(m => m.CreatedDate);
+
+                    @Html.HiddenFor(m => m.check_status);
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top: 40px" class="content-header">
+                            <h1>
+                                @Personnel.loanrequest
+                            </h1>
+                        </section>
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @Personnel.requestnumber
+                                    </label>
+                                    @Html.EditorFor(model => model.LoanRequestNumber, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.LoanRequestNumber, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @pers_2.employee
+                                    </label>
+                                    @Html.DropDownListFor(m => m.EmployeeID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @Personnel.loantype
+                                    </label>
+                                    @Html.DropDownListFor(m => m.LoanTypeCode, new SelectList(ViewBag.loan_type, "ID", "Code"), Personnel.loantype, new { @readonly = true, @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                    @Html.ValidationMessageFor(model => model.LoanTypeCode, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                      @Personnel.loanamount
+                                    </label>
+                                    @Html.EditorFor(model => model.LoanAmount, new { htmlAttributes = new { @class = "form-control", @type = "number",id= "loanamount" } })
+                                    @Html.ValidationMessageFor(model => model.LoanAmount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label >
+                                      @Personnel.numberofinstallment
+                                    </label>
+                                    @Html.EditorFor(model => model.NumberOfInstallment, new { htmlAttributes = new { @class = "form-control", @type = "number" , id = "numberofinstall" } })
+                                    @Html.ValidationMessageFor(model => model.NumberOfInstallment, "", new { @class = "text-danger" })
+                                </div>
+                               
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.loaninstallmentamount
+                                    </label>
+                                    @Html.EditorFor(model => model.LoanInstallmentAmount, new { htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number", id = "loaninstallamount" } })
+                                    @Html.ValidationMessageFor(model => model.LoanInstallmentAmount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.numberofdeduction
+                                    </label>
+                                    @Html.EditorFor(model => model.NumberOfDeductedInstallments, new { htmlAttributes = new {@max=Model.NumberOfInstallment, @class = "form-control",id="Deducttion", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.NumberOfDeductedInstallments, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                      @Personnel.totalpaidamount
+                                    </label>
+                                    @Html.EditorFor(model => model.TotalPaidAmount, new { htmlAttributes = new {@readonly=true, @class = "form-control", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.TotalPaidAmount, "", new { @class = "text-danger" })
+                                </div>
+                               
+                                <div class="col-md-4">
+                                    <label >
+                                     @Personnel.totalremainingamount
+                                    </label>
+                                    @Html.EditorFor(model => model.TotalRemainingAmount, new { htmlAttributes = new { @readonly=true,@class = "form-control", @type = "number",id= "remain" } })
+                                    @Html.ValidationMessageFor(model => model.TotalRemainingAmount, "", new { @class = "text-danger" })
+                                </div>
+                              
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>
+                                       @Personnel.Startdate
+                                    </label>
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_start_date_s", @onchange = "Save()" } })
+                                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                     @Personnel.Enddate
+                                    </label>
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_end_date_D", @readonly=true } })
+                                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-9">
+                                    <label>
+                                        @pers_2.notes
+                                    </label>
+                                    @Html.TextAreaFor(model => model.LoanRequestNote, 4, 67, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LoanRequestNote, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                         
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#homepagep" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@pers_2.status</span>
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#other" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@HR.Resource.Personnel.transfer</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#other2" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@HR.Resource.Personnel.guarantor</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="homepagep" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+
+                                      
+                                       
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.check_status
+                                            </label>
+                                            @Html.EditorFor(model => model.check_status, new { htmlAttributes = new { @readonly=true, @class = "form-control", @type = "text", } })
+                                            @Html.ValidationMessageFor(model => model.RequestStatus, "", new { @class = "text-danger" })
+                                        </div>
+
+                                     
+
+                                       
+                                    </div>
+
+
+
+                                  
+
+
+                                </div>
+
+                                <div class="tab-pane" id="other" style="overflow: hidden;width: auto;height: auto;">
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Personnel.transactionnumber
+                                            </label>
+                                            @Html.EditorFor(model => model.TransferTransactionNumber, new { htmlAttributes = new { @class = "form-control", @type = "text", } })
+                                            @Html.ValidationMessageFor(model => model.TransferTransactionNumber, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Personnel.transfereedto
+                                            </label>
+                                            @Html.EditorFor(model => model.TransferredTo, new { htmlAttributes = new { @class = "form-control", @type = "text", } })
+                                            @Html.ValidationMessageFor(model => model.TransferredTo, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Personnel.transfernotes
+                                            </label>
+                                            @Html.TextAreaFor(model => model.TransferNotes, 4, 67, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.TransferNotes, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                   
+
+                                </div>
+                                <div class="tab-pane" id="other2" style="overflow: hidden;width: auto;height: auto;">
+                                    <div class="col-md-4">
+                                        <label style="color:red">
+                                            @Personnel.guarantor1
+                                        </label>
+                                        @Html.DropDownListFor(m => m.Guarantor1, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                        @Html.ValidationMessageFor(model => model.Guarantor1, "", new { @class = "text-danger" })
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label style="color:red">
+                                            @Personnel.guarantor2
+                                        </label>
+                                        @Html.DropDownListFor(m => m.Guarantor2, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                        @Html.ValidationMessageFor(model => model.Guarantor2, "", new { @class = "text-danger" })
+
+                                    </div>
+                                    </div>
+
+                                </div>
+                           
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+@section scripts{}
+
+
+
+<style>
+    /*Create Page*/
+
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        GetDataById2('@Model.StartDate', "Contract_start_date_s");
+        GetDataById2('@Model.EndDate', "Contract_end_date_D");
+    });
+    $("#loanamount").keyup(function (e) {
+        var value1 = $("#loanamount").val();
+        $("#remain").val(parseFloat(value1));
+        var value2 = $("#numberofinstall").val();
+        $("#loaninstallamount").val(parseFloat(parseFloat(value1) / parseFloat(value2)));
+    });
+    $("#numberofinstall").keyup(function (e) {
+        var value1 = $("#loanamount").val();
+        var value2 = $("#numberofinstall").val();
+        $("#loaninstallamount").val(parseFloat(parseFloat(value1) / parseFloat(value2)));
+        debugger
+
+        /////
+        document.getElementById("Deducttion").max =parseInt(value2);
+        update_end_date();
+    });
+    $("#Deducttion").keyup(function (e) {
+      
+        /////
+        update_end_date();
+    });
+    function update_end_date()
+    {
+        var value1 = $("#Deducttion").val();
+        if (parseInt($("#Deducttion").val()) == 0) { valu1 = 1; }
+        var value2 = $("#numberofinstall").val();
+        if (parseInt($("#numberofinstall").val()) == 0) { valu2 = 1; }
+        if (parseInt($("#Deducttion").val()) > parseInt($("#numberofinstall").val()))
+        {
+            debugger
+            alert("deduction greater than number of installment ");
+            $("#Deducttion").val(1);
+        }
+        else
+        {
+            var start_Date = $("#Contract_start_date_s").val().toString();
+            var valx = new Date(start_Date);
+            var month;
+            debugger
+            var year = valx.getFullYear();
+            var di = parseInt(parseInt(value2) / parseInt(value1));
+            if (parseInt(value2) % parseInt(value1) > 0) {
+                di = di + 1;
+            }
+            month = parseInt(valx.getMonth() + 1) + (di-1);
+            if ((month) < 10) {
+                month = "0" + (month).toString();
+            }
+            else {
+                if (month > 12) {
+                    year = year + parseInt(parseInt(month) / 12);
+                    month = "0" + (month - (parseInt(parseInt(month) / 12) * 12)).toString();
+                }
+                else {
+
+                    month = month;
+                }
+            }
+            var day = parseInt(valx.getDate());
+            if (day < 10) {
+                day = "0" + (valx.getDate()).toString();
+            }
+            else {
+                day = valx.getDate();
+            }
+            var d = year + '-' + month + '-' + day;
+            $("#Contract_end_date_D").val(d);
+        }
+       
+    }
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+
+                if (data) {
+                    debugger
+                    // $("#Days").val(data.DateDiff.Days);
+                    $("#months").val(data.DateDiff.Months);
+                    $("#Yearr").val(data.DateDiff.Years);
+                }
+            });
+        }
+    }
+
+    function GetDataById2(date, id) {
+
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+    function employee() {
+
+        var id = $("#employeeId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#employeename").val(result.Name);
+                $("#codeid").val(result.Employee_Positions_Profile.Code);
+                $("#employeeId").attr("readonly", true);
+                $("#employeeId").prop("readonly", true);
+            },
+            error: function () {
+
+                $("#employeename").val(" ");
+                $("#codeid").val("");
+            }
+        });
+    }
+    function employee2() {
+
+        var id = $("#employeeId2").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+                //  $("#employeename").val(result.Name);
+
+            },
+            error: function () {
+
+                //    $("#employeename").val(" ");
+            }
+        });
+    }
+    function employee3() {
+
+        var id = $("#employeeId3").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetContract_Type",
+            data: { "id": id },
+            success: function (result) {
+
+                //  $("#employeename").val(result.Name);
+
+            },
+            error: function () {
+
+                //    $("#employeename").val(" ");
+            }
+        });
+    }
+    function employee4() {
+
+        var id = $("#employeeId4").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetAirports",
+            data: { "id": id },
+            success: function (result) {
+
+                //  $("#employeename").val(result.Name);
+
+            },
+            error: function () {
+
+                //    $("#employeename").val(" ");
+            }
+        });
+    }
+    function employee5() {
+
+        var id = $("#employeeId5").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetAirports",
+            data: { "id": id },
+            success: function (result) {
+
+                //  $("#employeename").val(result.Name);
+
+            },
+            error: function () {
+
+                //    $("#employeename").val(" ");
+            }
+        });
+    }
+    function Save() {
+        update_end_date();
+    }
+
+</script>
