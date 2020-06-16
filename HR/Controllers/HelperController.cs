@@ -285,19 +285,18 @@ namespace HR.Controllers
                 var check_type = dbcontext.Checktype.ToList();
                 var checkRequestStatues = dbcontext.check_request_change_status.ToList();
 
-                    var employeeRecord = from e in request
-                                         join d in check_type on e.ChecktypeID equals d.ID.ToString()
-                                         join i in checkRequestStatues on e.check_request_change_statusID equals i.ID.ToString()
-                                         select new CheckRequestVM
-                                         {
-                                             iD = e.ID,
-                                             amount = e.amount,
-                                             checkNumber = e.check_number,
-                                             requestDate = e.Request_date.ToString("dd/MM/yyyy"),
-                                             requestNumber = e.Request_number,
-                                             checkType = d.Name,
-
-                                         };
+                var employeeRecord = from e in request
+                                     join d in check_type on e.ChecktypeID equals d.ID.ToString()
+                                     join i in checkRequestStatues on e.check_request_change_statusID equals i.ID.ToString()
+                                     select new CheckRequestVM
+                                     {
+                                         iD = e.ID,
+                                         amount = e.amount,
+                                         checkNumber = e.check_number,
+                                         requestDate = e.Request_date.ToString("dd/MM/yyyy"),
+                                         requestNumber = e.Request_number,
+                                         checkType = d.Name,
+                                     };
                 var t = employeeRecord.ToList();
                 return Json(employeeRecord, JsonRequestBehavior.AllowGet);
             }
@@ -348,10 +347,10 @@ namespace HR.Controllers
         {
             try
             {
-                
+
                 var job_titles = dbcontext.job_title_cards.Where(m => m.ID == id).ToList();
                 var count = 0;
-                foreach(var item in job_titles)
+                foreach (var item in job_titles)
                 {
                     count = count + item.number_vacant;
                 }
@@ -427,7 +426,7 @@ namespace HR.Controllers
         public JsonResult ALL_job_level_setup()
         {
 
-            var model = dbcontext.job_level_setup.ToList().Select(m=> new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+            var model = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             return Json(model);
         }
         public JsonResult all_organization_unit()
@@ -649,7 +648,7 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var Employee = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID);
             return Json(Employee);
-            
+
         }
         public JsonResult GetApplicant(string id)
         {
@@ -665,7 +664,7 @@ namespace HR.Controllers
             var emps = (from emp in dbcontext.Employee_Profile
                         join add in dbcontext.Employee_Address_Profile on emp.ID.ToString() equals add.Employee_ProfileId
                         where emp.ID == ID
-                        select new {namex= add.Transportation_method ,nameb=add.countryid} 
+                        select new { namex = add.Transportation_method, nameb = add.countryid }
                      ).FirstOrDefault();
             return Json(emps);
 
@@ -676,20 +675,21 @@ namespace HR.Controllers
             dbcontext.Append_Public_Holidays_Dates.Where(a => a.Public_Holidays_DatesId == ID);
             var AppendPublicHoliday = (from AppendHoilday in dbcontext.Append_Public_Holidays_Dates
                                        join PublicHoliday in dbcontext.Public_Holidays_Dates on AppendHoilday.Public_Holidays_DatesId equals PublicHoliday.ID
-                                       where AppendHoilday.Public_Holidays_DatesId == ID select new {id= AppendHoilday.ID, fromdate = AppendHoilday.Fromdate , todate = AppendHoilday.Todate });
-                //dbcontext.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == ID);
+                                       where AppendHoilday.Public_Holidays_DatesId == ID
+                                       select new { id = AppendHoilday.ID, fromdate = AppendHoilday.Fromdate, todate = AppendHoilday.Todate });
+            //dbcontext.Append_Public_Holidays_Dates.FirstOrDefault(m => m.ID == ID);
             return Json(AppendPublicHoliday);
         }
         public JsonResult GetDataByJobTitle(string id)
         {
             var ID = int.Parse(id);
             var all_level = dbcontext.job_level_setup.ToList();
-            var all_jobs = dbcontext.job_title_cards.Where(a=>a.ID==ID).ToList();
+            var all_jobs = dbcontext.job_title_cards.Where(a => a.ID == ID).ToList();
             var all_units = dbcontext.Organization_Chart.ToList();
             var AppendPublicHoliday = from A in all_jobs
                                       join Baa in all_level on A.joblevelsetupID equals Baa.ID.ToString()
                                       join c in all_units on A.Organization_unit_codeID equals c.ID.ToString()
-                                      select new job_title_cards { name=A.name,Code=A.Code,job_level_setup = Baa, Organization_Chart = c };
+                                      select new job_title_cards { name = A.name, Code = A.Code, job_level_setup = Baa, Organization_Chart = c };
 
             //dbcontext.Append_Public_Holidays_Dates.Where(a => a.Public_Holidays_DatesId == ID);
             //var AppendPublicHoliday = (from joblevel in dbcontext.job_level_setup
@@ -705,7 +705,7 @@ namespace HR.Controllers
             var all_jobs = dbcontext.ExtendedFields_Header.ToList();
             var AppendPublicHoliday = from A in all_level
                                       join Baa in all_jobs on A.ExtendedFields_Code equals Baa.ID.ToString()
-                                      select new SalaryCode_ExtendedFields_VM { ID =A.ID,SalaryCodeID = A.SalaryCodeID , SalaryCodeDesc = A.SalaryCodeDesc, CodeGroupType =A.CodeGroupType , CodeValueType = A.CodeValueType /*, ExtendedFields_Code = Baa.ExtendedFields_Code , ExtendedFields_Description = Baa.ExtendedFields_Desc*/};
+                                      select new SalaryCode_ExtendedFields_VM { ID = A.ID, SalaryCodeID = A.SalaryCodeID, SalaryCodeDesc = A.SalaryCodeDesc, CodeGroupType = A.CodeGroupType, CodeValueType = A.CodeValueType /*, ExtendedFields_Code = Baa.ExtendedFields_Code , ExtendedFields_Description = Baa.ExtendedFields_Desc*/};
             return Json(AppendPublicHoliday.ToList());
         }
         public JsonResult GetDataBys()
@@ -716,7 +716,7 @@ namespace HR.Controllers
         public JsonResult GetDataByIdAppendCommitee_Agenda(string id)
         {
             var ID = int.Parse(id);
-            var AppendCommitee_Agenda = dbcontext.Commitee_Agenda.Where(a => a.Committe_Resolution_RecuirtmentId == ID).ToList().Select(m => new {id= m.ID, fromdate = m.Start_Date , todate = m.End_Date });
+            var AppendCommitee_Agenda = dbcontext.Commitee_Agenda.Where(a => a.Committe_Resolution_RecuirtmentId == ID).ToList().Select(m => new { id = m.ID, fromdate = m.Start_Date, todate = m.End_Date });
             return Json(AppendCommitee_Agenda);
         }
         public JsonResult GetDataByIdAppendLinked_to_Testing(string id)
@@ -881,7 +881,7 @@ namespace HR.Controllers
             dbcontext.Configuration.ProxyCreationEnabled = false;
             var ii = int.Parse(did);
             var ID = int.Parse(id);
-            var Slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == ID && ((m.EmployeeID == null|| m.EmployeeID == "0") || m.EmployeeID == did)).Where(m=>m.slot_type == slot_type.Active).ToList().Select(m => new { Code = m.slot_code + "------[" + m.slot_description + ']', ID = m.ID });
+            var Slots = dbcontext.Slots.Where(m => m.job_title_cards.ID == ID && ((m.EmployeeID == null || m.EmployeeID == "0") || m.EmployeeID == did)).Where(m => m.slot_type == slot_type.Active).ToList().Select(m => new { Code = m.slot_code + "------[" + m.slot_description + ']', ID = m.ID });
             return Json(Slots);
         }
         public JsonResult GetSolt(string id)
@@ -914,7 +914,7 @@ namespace HR.Controllers
             dbcontext.Configuration.ProxyCreationEnabled = false;
 
             var ID = int.Parse(id);
-            var RejectionReasons = dbcontext.Rejection_Reasons.FirstOrDefault(m => m.ID == ID );
+            var RejectionReasons = dbcontext.Rejection_Reasons.FirstOrDefault(m => m.ID == ID);
             return Json(RejectionReasons);
         }
         public JsonResult GetContactmethods(string id)
@@ -944,7 +944,7 @@ namespace HR.Controllers
         }
         public JsonResult all_organization_chart()
         {
-            var model = dbcontext.Organization_Chart.ToList().Select(m=> new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+            var model = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
             return Json(model);
         }
 
@@ -961,7 +961,7 @@ namespace HR.Controllers
                 var unit = dbcontext.Organization_Unit_Type.FirstOrDefault(m => m.ID == unit_ID);
                 var ii = dbcontext.job_level_setup.ToList();
                 var list_level = new List<job_level_setup>();
-                foreach(var item in ii)
+                foreach (var item in ii)
                 {
                     if (item.Organization_Unit_Type != null)
                     {
@@ -974,7 +974,7 @@ namespace HR.Controllers
                 //var level_setup = dbcontext.job_level_setup.ToList().Where(m => m.Organization_Unit_Type.Contains(unit)).ToList();
                 return Json(list_level.Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID }));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(false);
             }
@@ -1000,10 +1000,10 @@ namespace HR.Controllers
         public JsonResult getfamilybyemployee(string id /*string flag*/)
         {
             int ID2 = int.Parse(id);
-                var family = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == ID2);
-           
-                return Json(family);
-            
+            var family = dbcontext.Employee_family_profile.FirstOrDefault(m => m.ID == ID2);
+
+            return Json(family);
+
         }
         public JsonResult GetSponsor(string id)
         {
@@ -1102,9 +1102,9 @@ namespace HR.Controllers
             {
 
                 var list = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "->" + m.unit_Description, ID = m.ID }).ToList();
-                
+
                 //var list = dbcontext.Position_Information.Where(m => m.Organization_ChartId == id.ToString()).Select(m=>new { m.Employee_Profile}).ToList().Select(m => new { Code = m.Employee_Profile.Code, ID = m.Employee_Profile.ID }).ToList();
-               
+
                 return Json(list);
             }
             catch (Exception)
@@ -1120,7 +1120,7 @@ namespace HR.Controllers
                 //var list = dbcontext.Position_Information.Where(m => m.job_level_setup.ID == id).Select(m => new { m.Employee_Profile }).ToList().Select(m => new { Code = m.Employee_Profile.Code, ID = m.Employee_Profile.ID }).ToList();
 
                 return Json(list);
-             
+
             }
             catch (Exception)
             {
@@ -1144,7 +1144,7 @@ namespace HR.Controllers
         {
             try
             {
-                var LIST = dbcontext.Employee_Profile.ToList().Select(m => new { code = m.Code,Name= m.Name, ID = m.ID }).ToList();
+                var LIST = dbcontext.Employee_Profile.ToList().Select(m => new { code = m.Code, Name = m.Name, ID = m.ID }).ToList();
                 return Json(LIST);
             }
             catch (Exception)
@@ -1152,32 +1152,32 @@ namespace HR.Controllers
                 return Json(null);
             }
         }
-        public JsonResult getemp(int type,string[]id)
+        public JsonResult getemp(int type, string[] id)
         {
             try
             {
-            
-            
-              var  y = new List<uoi>();
+
+
+                var y = new List<uoi>();
                 var em = new List<Employee_Profile>();
-                if (type == 2) 
+                if (type == 2)
                 {
-                    foreach(var item in id)
+                    foreach (var item in id)
                     {
 
                         var i = dbcontext.Position_Information.Where(m => m.Organization_ChartId == item).ToList();
-                        foreach(var item2 in i)
+                        foreach (var item2 in i)
                         {
                             int ID = int.Parse(item2.Employee_ProfileId);
                             em.Add(dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID));
                         }
-                        var ii=em.Distinct().ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct();
+                        var ii = em.Distinct().ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct();
                         em = new List<Employee_Profile>();
-                       foreach(var o in ii)
+                        foreach (var o in ii)
                         {
                             y.Add(new uoi { Name = o.Name, ID = o.ID, code = o.code });
                         }
-                      
+
                     }
 
                     return Json(y);
@@ -1187,7 +1187,7 @@ namespace HR.Controllers
                     foreach (var item in id)
                     {
 
-                       var i=(dbcontext.Employee_Profile.Where(m => m.NationalityId == item).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
+                        var i = (dbcontext.Employee_Profile.Where(m => m.NationalityId == item).ToList().Select(m => new { Name = m.Name, code = m.Code, ID = m.ID }).Distinct());
                         foreach (var o in i)
                         {
                             y.Add(new uoi { Name = o.Name, ID = o.ID, code = o.code });
@@ -1225,11 +1225,11 @@ namespace HR.Controllers
 
                 return Json(null);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(null);
             }
-          
+
         }
         public JsonResult getjob(int id)
         {
@@ -1245,7 +1245,7 @@ namespace HR.Controllers
         public JsonResult GetCommitteResolutionRecuirtment(string id)
         {
             var ID = int.Parse(id);
-            var CommitteResolutionRecuirtment = dbcontext.Committe_Resolution_Recuirtment.Where(a=>a.Committe_Usage==Committe_Usage.Test).FirstOrDefault(a=>a.ID == ID);
+            var CommitteResolutionRecuirtment = dbcontext.Committe_Resolution_Recuirtment.Where(a => a.Committe_Usage == Committe_Usage.Test).FirstOrDefault(a => a.ID == ID);
             return Json(CommitteResolutionRecuirtment);
         }
         public JsonResult GetWeekendsetup(string id)
@@ -1326,7 +1326,7 @@ namespace HR.Controllers
         public JsonResult GetDebit(string id)
         {
             var ID = int.Parse(id);
-            var Debit = dbcontext.GL_AccountSetup.Where(a=>a.AccountType ==1 || a.AccountType == 3).FirstOrDefault(m => m.ID == ID);
+            var Debit = dbcontext.GL_AccountSetup.Where(a => a.AccountType == 1 || a.AccountType == 3).FirstOrDefault(m => m.ID == ID);
             return Json(Debit);
         }
         public JsonResult GetCredit(string id)
@@ -1349,10 +1349,79 @@ namespace HR.Controllers
         public JsonResult GetEmployees()
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
-            var Employee = dbcontext.Employee_Profile.Where(a=>a.Active==true).ToList();
+            var Employee = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList();
             return Json(Employee);
-
         }
+        public JsonResult GetManualPaymentTypes_Header()
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.ManualPaymentTypes_Header.ToList();
+            return Json(item);
+        }
+        public JsonResult GetExtendedFieldsHeaderByManualPaymentTypes(int id)
+        {
+            var ManualPaymentTypes_Header = dbcontext.ManualPaymentTypes_Header.FirstOrDefault(m => m.ID == id);
+            var code = int.Parse(ManualPaymentTypes_Header.ExtendedFields_Code);
+            var Ex = dbcontext.ExtendedFields_Header.FirstOrDefault(a => a.ID == code);
+            return Json(Ex);
+        }
+        public JsonResult GetExtendedFieldsDetailsByExtendedFieldsHeader(string id)
+        {
+            var Checktype = dbcontext.ExtendedFields_Details.Where(a => a.ExtendedFields_Code == id).ToList();
+            return Json(Checktype);
+        }
+        public JsonResult GetManualPaymentTypes_DetailByManualPaymentTypesHeader(string id)
+        {
+            var Checktype = dbcontext.ManualPaymentTypes_Detail.Where(a => a.PaymentTypeCode == id).ToList();
+            return Json(Checktype);
+        }
+        public JsonResult GetManualPaymentTransactionEntry_Detail(string id)
+        {
+            var ID = double.Parse(id);
+            var Checktype = dbcontext.ManualPaymentTransactionEntry_Detail.Where(a => a.TransactionNumber == id).ToList();
+            return Json(Checktype);
+        }
+        public JsonResult GetManualPaymentTypes_HeaderinEdit(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.ManualPaymentTransactionEntry.Where(a=>a.ID == id).ToList();
+            return Json(item);
+        }
+        //public JsonResult AllManual(string id)
+        //{
+        //    int ID = int.Parse(id);
+        //    var ManualPaymentTransactionEntry = dbcontext.ManualPaymentTransactionEntry.Where(a => a.ID == ID).ToList();
+        //    var ManualPaymentTypes_Detail = dbcontext.ManualPaymentTypes_Detail.ToList();
+        //    var ManualPaymentTransactionEntry_Detail = dbcontext.ManualPaymentTransactionEntry_Detail.Where(a => a.TransactionNumber == id).ToList();
+        //    var model = from a in ManualPaymentTransactionEntry
+        //                join b in ManualPaymentTypes_Detail on a.ManualPaymentType equals b.PaymentTypeCode
+        //                join c in ManualPaymentTransactionEntry_Detail on b.PaymentTypeCode equals c.TransactionNumber
+        //                select new { code = b.SalaryCodeID, salarydesc = b.Salarycodedescription, Types = b.Type, ValueTypes = b.ValueType, val = c.Value };
+        //    return Json(model);
+        //}
+        public JsonResult AllManual(string id,string did)
+        {
+            int ID = int.Parse(id);
+            //var ManualPaymentTransactionEntry = dbcontext.ManualPaymentTransactionEntry.Where(a => a.ID == ID).ToList();
+            var ManualPaymentTypes_Detail = dbcontext.ManualPaymentTypes_Detail.Where(a=>a.PaymentTypeCode == did).ToList();
+            var ManualPaymentTransactionEntry_Detail = dbcontext.ManualPaymentTransactionEntry_Detail.Where(a => a.TransactionNumber == id).ToList();
+            if (ManualPaymentTransactionEntry_Detail.Count() == 0)
+            {
+                var Checktype = dbcontext.ManualPaymentTypes_Detail.Where(a => a.PaymentTypeCode == did).ToList();
+                return Json(Checktype);
+            }
+            else
+            {
+                var model = (from a in ManualPaymentTransactionEntry_Detail
+                             join b in ManualPaymentTypes_Detail on a.SalaryCodeID equals b.Salarycodedescription
+                             where a.SalaryCodeID == b.Salarycodedescription
+                             orderby (a.ID)
+                             select new { SalaryCodeID = b.SalaryCodeID, Salarycodedescription = b.Salarycodedescription, Type = b.Type, ValueType = b.ValueType, Value = a.Value });
+                return Json(model);
+            }
+           
+        }
+
     }
 
 }
