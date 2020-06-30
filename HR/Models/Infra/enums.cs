@@ -156,7 +156,11 @@ namespace HR.Models.Infra
         [Display(Name = "Employee Record")]
         employee_record = 4,
         [Display(Name = "Committe Resolution Recuirtment")]
-        Committe_Resolution_Recuirtment = 5
+        Committe_Resolution_Recuirtment = 5,
+        [Display(Name = "Employee Payroll Transactions")]
+        Employee_Payroll_Transactions =6,
+        [Display(Name = "Manual Payment Transaction Entry")]
+        ManualPaymentTransactionEntry = 7
     }
     public enum Gender
     {

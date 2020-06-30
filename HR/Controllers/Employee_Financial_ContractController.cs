@@ -207,7 +207,7 @@ namespace HR.Controllers
                 {
                     if (codeid[i] != "")
                     {
-                        var new_details = new Employee_Financial_Contract_Detail { Contract_Number = record.ID.ToString(), Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date, SalaryCodeID = codeid[i], SalaryCodeValue = double.Parse(DefaultValue[i]), Salarycodedescription = SalaryDes[i], Type = TypeE[i], ValueType = ValueType[i], ExtendedFields_Code = Extendedco[i], ExtendedFields_Desc = Extendedna[i] };
+                        var new_details = new Employee_Financial_Contract_Detail { Contract_Number = record.ID.ToString(), Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date, SalaryCodeID = codeid[i], SalaryCodeValue = double.Parse(DefaultValue[i]), Salarycodedescription = SalaryDes[i], Type = TypeE[i], ValueType = ValueType[i]/*, ExtendedFields_Code = Extendedco[i], ExtendedFields_Desc = Extendedna[i]*/ };
                         dbcontext.Employee_Financial_Contract_Detail.Add(new_details);
                         dbcontext.SaveChanges();
                     }

@@ -46,31 +46,24 @@
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    <label class="control-label col-md-2" style="color:red">@Personnel.Code</label>
                     <div class="col-md-3">
+                        <label style="color:red">@Personnel.Code</label>
                         @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @style = "margin-bottom: 15px;" } })
                         @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" style="color:red">@Personnel.Name</label>
                     <div class="col-md-3">
+                        <label style="color:red">@Personnel.Name</label>
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">@Personnel.Description</label>
                     <div class="col-md-3">
+                        <label>@Personnel.Description</label>
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">@Personnel.RequiredOnApplication</label>
                     <div class="col-md-3">
-                        @Html.CheckBoxFor(model => model.Required_on_application, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                        <label>@Personnel.RequiredOnApplication</label>
+                        @Html.CheckBoxFor(model => model.Required_on_application, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Required_on_application, "", new { @class = "text-danger" })
                     </div>
                 </div>

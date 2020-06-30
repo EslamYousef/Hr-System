@@ -20,12 +20,13 @@
 
                 @using (Html.BeginForm("Create", "Applicant_Contact_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    <div class="sec-nav">
-                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
-                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Applicant_Contact_Profile")" class="create-btn">@pers_2.new_</a></div>
-                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Applicant_Contact_Profile")" class="create-btn" value=@organ.delete /></div>
-                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Applicant_Contact_Profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
-                    </div>
+                <div class="sec-nav">
+                    <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                    <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Applicant_Contact_Profile")" class="create-btn">@pers_2.new_</a></div>
+                    <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Applicant_Contact_Profile")" class="create-btn" value=@organ.delete /></div>
+                    <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Applicant_Contact_Profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    <div><i class="far fa-save"></i> <button type="submit" id="btnSubmit" name="Command" value="Submit" class="create-btn" />@Personnel.ApplicantProfile</div>
+                </div>
                     <hr /><hr /><hr />
                     <section class="content-header">
                         <h1>
@@ -47,54 +48,39 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.ApplicantName</label>
-                            <div class="col-md-3">
+                            <label  style="color:red">@Personnel.ApplicantName</label>
+                            <div class="col-md-4">
                                 @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId", @style = "margin-bottom: 15px;" })
                                 @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
                                 @*<input type="text" value=" " class="form-control" id="employeename" disabled />*@
                             </div>
-                            <div class="col-md-4" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.ContactprofileNo</label>
                             <div class="col-md-4">
+                                <label style="color:red">@Personnel.ContactprofileNo</label>
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                            <label class="control-label col-md-2">@Personnel.Primary</label>
                             <div class="col-md-4">
+                                <label>@Personnel.Primary</label>
                                 @Html.CheckBoxFor(model => model.Primary, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Primary, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Contact_Methods_Code</label>
-                            <div class="col-md-3">
-
+                            <div class="col-md-4">
+                                <label>@Personnel.Contact_Methods_Code</label>
                                 @Html.DropDownListFor(m => m.ContactmethodsId, new SelectList(ViewBag.Contactmethods, "ID", "Code"), Personnel.Select_Contact_Methods, new { @class = "select2", @onchange = "Contact()", id = "ContactId", @style = "margin-bottom: 15px;" })
                                 @Html.ValidationMessageFor(model => model.ContactmethodsId, "", new { @class = "text-danger" })
                                 @*<input type="text" value=" " class="form-control" id="Contactname" disabled />*@
-
                             </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Contactmethoddetail</label>
-                            <div class="col-md-8">
+                            <div class="col-md-4">
+                                <label>@Personnel.Contactmethoddetail</label>
                                 @Html.EditorFor(model => model.Contact_method_detail, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Contact_method_detail, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Comments</label>
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
+                                <label>@Personnel.Comments</label>
+                                @Html.TextAreaFor(model => model.Comments, 4, 40, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
                             </div>
                         </div>

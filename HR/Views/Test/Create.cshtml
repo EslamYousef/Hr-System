@@ -42,67 +42,66 @@
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.Code</label>
+                    <div class="form-group">
 
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Code, new
-                           {
-                               htmlAttributes = new { @class = "form-control", id = "testcode", @readonly = "@readonly", @style = "margin-bottom: 15px;" }
-                                })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="col-md-3">
+                            <label style="color:red">@Personnel.Code</label>
+                            @Html.EditorFor(model => model.Code, new
+                       {
+                           htmlAttributes = new { @class = "form-control", id = "testcode", @readonly = "@readonly", @style = "margin-bottom: 15px;" }
+                            })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                         </div>
+
 
                         <input type="text" id="h" hidden />
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.Name</label>
 
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
+
+
+                        <div class="col-md-3">
+                            <label style="color:red">@Personnel.Name</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Description</label>
 
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
+
+                        <div class="col-md-3">
+                            <label>@Personnel.Description</label>
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.TestType</label>
-                            <div class="col-md-3">
-                                @Html.EnumDropDownListFor(model => model.Test_type, new { @class = "form-control", @style = "margin-bottom: 15px;" })
-                                @Html.ValidationMessageFor(model => model.Test_type, "", new { @class = "text-danger" })
-                            </div>
+
+
+                        <div class="col-md-3">
+                            <label>@Personnel.TestType</label>
+                            @Html.EnumDropDownListFor(model => model.Test_type, new { @class = "form-control", @style = "height: 30px;" })
+                            @Html.ValidationMessageFor(model => model.Test_type, "", new { @class = "text-danger" })
                         </div>
+</div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.PassMark</label>
                             <div class="col-md-3">
+                                <label>@Personnel.PassMark</label>
                                 @Html.EditorFor(model => model.Pass_mark, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = '1', @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Pass_mark, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.FullMark</label>
+
+
                             <div class="col-md-3">
+                                <label>@Personnel.FullMark</label>
                                 @Html.EditorFor(model => model.Full_mark, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = '1', @style = "margin-bottom: 15px;" } })
                                 @Html.ValidationMessageFor(model => model.Full_mark, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Jobdesc</label>
-                            <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), @Personnel.SelectJobdesc, new { @class = "select2", @onchange = "CountryName()", id = "country", @style = "margin-bottom: 15px;" })
-                                @Html.ValidationMessageFor(model => model.job_descId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                       
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
+
+                        <div class="col-md-3">
+                            <label>@Personnel.Jobdesc</label>
+                            @Html.DropDownListFor(m => m.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), @Personnel.SelectJobdesc, new { @class = "select2", @onchange = "CountryName()", id = "country", @style = "margin-bottom: 15px;" })
+                            @Html.ValidationMessageFor(model => model.job_descId, "", new { @class = "text-danger" })
+                        </div>
+                   
+                            <div class="col-md-3">
                                 <input type="button" onclick="get()" value="@Personnel.AddTicketPrices" class="btn btn-success" style = "margin: 15px;"/>
                                 @*<button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
                                 <a href="@Url.Action("index","Test")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>*@

@@ -1,0 +1,363 @@
+﻿@model HR.Controllers.TransactionsPayroll.Employee_Payroll_TransactionsController.Headers
+<script>
+    $(document).ready(function () {
+        debugger
+        GetDataById5('@Model.Employee_Payroll_Transactions.TransactionDate', "Start");
+        GetDataById5('@Model.Employee_Payroll_Transactions.EffectiveDate', "End");
+        GetDataById5('@Model.Employee_Payroll_Transactions.CreatedDate', "CreatedDate");
+        GetDataById5('@Model.Employee_Payroll_Transactions.ReportAsReadyDate', "ReportAsReadyDate");
+        GetDataById5('@Model.Employee_Payroll_Transactions.ApprovedDate', "ApprovedDate");
+        GetDataById5('@Model.Employee_Payroll_Transactions.CanceledDate', "CanceledDate");
+        GetDataById5('@Model.Employee_Payroll_Transactions.ReportAsReadyDate', "ReportAsReadyDate");
+        GetDataById5('@Model.Employee_Payroll_Transactions.CompletedDate', "CompletedDate");
+        GetDataById5('@Model.Employee_Payroll_Transactions.RejectedDate', "RejectedDate");
+
+    });
+    function GetDataById5(date, id) {
+
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+</script>
+
+<script>
+    function CountryName() {
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployees",
+            data: { "id": id },
+            success: function (result) {
+
+                //$("#countryname").val(result.AccountName);
+            },
+            error: function () {
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    CountryName();
+
+    function CountryNamess() {
+        var id = $("#Countryss").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetPayrollTransactionJournalSetup",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+                $("#countrynamess").val(" ");
+            }
+        });
+    }
+    CountryNamess();
+
+    function Type_Code() {
+        debugger
+        $("#cars").empty();
+        var id = $("#Type").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSalaryCodeGroupHeader",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                SalaryCodeGroupDetials(result.CodeGroupID);
+                //$("#Extended").empty();
+                //$("#Extended").val(" ");
+            },
+            error: function () {
+
+            }
+        });
+    }
+    Type_Code();
+    function SalaryCodeGroupDetials(id) {
+        debugger
+        $("#cars").empty();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetSalaryCodeGroup_Detail",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r)
+                {
+                    if (r.codegrouptype == "1") {
+                        var codegrouptype ="Earning"
+                }
+                    else if (r.codegrouptype == "2") {
+                        var codegrouptype ="Deduction"
+                }
+                    else if (r.codevaluetype == "0") {
+                        var codegrouptype ="Code type"
+                }
+                    if (r.codevaluetype == "0") {
+                        var codevaluetype ="Code value type"
+                }
+                    else if (r.codevaluetype == "1") {
+                        var codevaluetype ="Unkown"
+                }
+                    else if (r.codevaluetype == "2") {
+                        var codevaluetype ="Minites"
+                }
+                    else if (r.codevaluetype == "3") {
+                        var codevaluetype ="Hours"
+                }
+                    else if (r.codevaluetype == "4") {
+                        var codevaluetype ="Days"
+                }
+                    else if (r.codevaluetype == "5") {
+                        var codevaluetype ="Months"
+                }
+                    else if (r.codevaluetype == "6") {
+                        var codevaluetype ="Years"
+                }
+                    else if (r.codevaluetype == "7") {
+                        var codevaluetype ="Money"
+                }
+                    else if (r.codevaluetype == "8") {
+                        var codevaluetype ="Piece"
+                }
+                    else if (r.codevaluetype == "9") {
+                   var codevaluetype ="Calculated Value"
+                }
+                      var i = "<tr><td hidden><input hidden name='ID_item' value='" + r.ID + "'/></td>" +
+                          "<td class='col-md-3'><input readonly class = 'form-control' name='codeid' value='" + r.salarycode + "' ></td>" + "<td class='col-md-3'><input readonly class = 'form-control' value='" + r.salaryDes + "'></td>" + "<td class='col-md-1'><input readonly class = 'form-control'  value='" + codegrouptype  + "' /></td>"+
+                          "<td class='col-md-1'><input readonly class = 'form-control'  value='" + codevaluetype + "' /></td>" +
+                          "<td class='col-md-1'><input class = 'form-control' name='DefaultValue' value='" + r.defaultvalue +"'  min='0' type='number'/></td>"+
+                          "<td class='col-md-1'><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>";
+                       debugger
+                $("#cars").append(i);
+                    })
+
+                //$("#Extended").empty();
+                //$("#Extended").val(" ");
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+</script>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("PayrollTransactionsVerticalBatch", "Employee_Payroll_Transactions", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("PayrollTransactionsVerticalBatch", "Employee_Payroll_Transactions")" class="create-btn">@pers_2.new_</a></div>
+                <div>
+                    <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Employee_Payroll_Transactions")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                </div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Employee_Payroll_Transactions")" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Payroll.BatchTransactionsvertical
+                </h1>
+            </section>
+            @Html.AntiForgeryToken()
+            @*<input name="ID_item" value="" hidden />*@
+            <input name="codeid" value="" hidden />
+            <input name="DefaultValue" value="" hidden />
+
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Employeeid</label>
+                    @Html.DropDownListFor(m => m.Employee_Payroll_Transactions.Employee_Code, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                    @Html.ValidationMessageFor(model => model.Employee_Payroll_Transactions.Employee_Code, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Transactiondate</label>
+                    @Html.EditorFor(model => model.Employee_Payroll_Transactions.TransactionDate, new { htmlAttributes = new { @class = "form-control  StartDate yy", @id = "Start", @type = "date", @onchange = "Saves2()" } })
+                    @Html.ValidationMessageFor(model => model.Employee_Payroll_Transactions.TransactionDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Effectivedate</label>
+                    @Html.EditorFor(model => model.Employee_Payroll_Transactions.EffectiveDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "End", @type = "date", @onchange = "Saves()" } })
+                    @Html.ValidationMessageFor(model => model.Employee_Payroll_Transactions.EffectiveDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Codegroupid</label>
+                    @Html.DropDownListFor(m => m.Employee_Payroll_Transactions.SalaryCodeID, new SelectList(ViewBag.SalaryCodeGroup_Header, "ID", "Code"), Payroll.SelectChecktypecode, new { @class = "select2", @onchange = "Type_Code()", id = "Type" })
+                    @Html.ValidationMessageFor(model => model.Employee_Payroll_Transactions.SalaryCodeID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Journalname</label>
+                    @Html.DropDownListFor(m => m.Employee_Payroll_Transactions.JournalName_BatchCode, new SelectList(ViewBag.PayrollTransactionJournalSetup, "ID", "Code"), Payroll.SelectJournalname, new { @class = "select2", @onchange = "CountryNamess()" })
+                    @Html.ValidationMessageFor(model => model.Employee_Payroll_Transactions.SalaryCodeID, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+
+                <div class="form-group">
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <td hidden></td>
+                                <td class="col-md-1">
+                                    @Payroll.Salarycodeid
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Salarycodedescription
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Salarycodetype
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Salarycodevaluetype
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Salarycodevalue
+                                </td>
+                                <td class="col-md-1"></td>
+                            </tr>
+                        </thead>
+                        <tbody id="cars">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{}
+
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

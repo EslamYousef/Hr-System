@@ -32,6 +32,10 @@ namespace HR.Controllers
             ViewBag.Currency = dbcontext.Currency.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
             ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+            ViewBag.PayrollPeriodSetup = dbcontext.PayrollPeriodSetup.ToList().Select(m => new { Code = m.PeriodCode + "------[" + m.PeriodDesc + ']', ID = m.ID });
+            ViewBag.Weekend_setup = dbcontext.Weekend_setup.ToList().Select(m => new { Code = m.Code + "-----[" + m.Description + ']', ID = m.ID });
+            ViewBag.Employee_Profile_Groups = dbcontext.Employee_Profile_Groups.ToList().Select(m => new { Code = m.Group_Code + "-----[" + m.Group_Description + ']', ID = m.ID });
+
             if (id != null)
             {
                 var ID = int.Parse(id);
@@ -96,6 +100,11 @@ namespace HR.Controllers
                 ViewBag.Currency = dbcontext.Currency.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Religion = dbcontext.Religion.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 ViewBag.Nationality = dbcontext.Nationality.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+
+                ViewBag.PayrollPeriodSetup = dbcontext.PayrollPeriodSetup.ToList().Select(m => new { Code = m.PeriodCode + "------[" + m.PeriodDesc + ']', ID = m.ID });
+                ViewBag.Weekend_setup = dbcontext.Weekend_setup.ToList().Select(m => new { Code = m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.Employee_Profile_Groups = dbcontext.Employee_Profile_Groups.ToList().Select(m => new { Code = m.Group_Code + "-----[" + m.Group_Description + ']', ID = m.ID });
+
 
                 Personnel_Information Personnel = new Personnel_Information();
                 if (model.Personnel_Information.Boarding_membership == Boarding_membership.None)
@@ -274,164 +283,7 @@ namespace HR.Controllers
                         emp.EmpProfileIMG = model.Employee_Profile.EmpProfileIMG;
                     }
                     dbcontext.SaveChanges();
-                    ///////////////////////////////////////////////////////////////////////////
-                    //var addmodel = dbcontext.Employee_Address_Profile.ToList();
-                    //var couunt = 0;
-                    //if (addmodel.Count() == 0)
-                    //{
-                    //    couunt = 1;
-                    //}
-                    //else
-                    //{
-                    //    var te = addmodel.LastOrDefault().ID;
-                    //    couunt = te + 1;
-                    //}
-                    //var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-
-                    //var adddd = new Employee_Address_Profile
-                    //{ Employee_ProfileId = emp.ID.ToString(), Code = stru.Structure_Code + couunt.ToString() };
-                    //var address_emp = dbcontext.Employee_Address_Profile.Add(adddd);
-                    //dbcontext.SaveChanges();
-                    //emp.Employee_Address_Profile = address_emp;
-                    //dbcontext.SaveChanges();
-                    ///////////////////////////////////////////////
-                    //var addmodel1 = dbcontext.Employee_Qualification_Profile.ToList();
-                    //var tr = 0;
-
-                    //if (addmodel1.Count() == 0)
-                    //{
-                    //    tr = 1;
-                    //}
-                    //else
-                    //{
-                    //    var te = addmodel1.LastOrDefault().ID;
-                    //    tr = te + 1;
-                    //}
-                    //DateTime statis = Convert.ToDateTime("1/1/1900");
-                    //var strus = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    //var text = new Employee_Qualification_Profile
-                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus.Structure_Code + tr.ToString(), Qualification_start_date = statis, Qualification_end_date = statis };
-                    //var e = dbcontext.Employee_Qualification_Profile.Add(text);
-                    //dbcontext.SaveChanges();
-
-                    //emp.Employee_Qualification_Profile = e;
-                    //dbcontext.SaveChanges();
-                    //////////////////////////////////////////////////////////
-                    //var addmodel2 = dbcontext.Position_Information.ToList();
-                    //var tr2 = 0;
-
-                    //if (addmodel2.Count() == 0)
-                    //{
-                    //    tr2 = 1;
-                    //}
-                    //else
-                    //{
-                    //    var te2 = addmodel2.LastOrDefault().ID;
-                    //    tr2 = te2 + 1;
-                    //}
-                    //DateTime statis2 = Convert.ToDateTime("1/1/1900");
-                    //var strus2 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    //var text2 = new Position_Information
-                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus2.Structure_Code + tr2.ToString(), From_date = statis2, To_date = statis2, End_of_service_date = statis2, Last_working_date = statis2, SlotdescId = "0" };
-                    //var e2 = dbcontext.Position_Information.Add(text2);
-                    //dbcontext.SaveChanges();
-
-                    //var text22 = new Position_Transaction_Information
-                    //{ Position_transaction = statis2, Approved_date = statis2, Memo_date = statis2, Resolution_date = statis2 };
-                    //var e22 = dbcontext.Position_Transaction_Information.Add(text22);
-                    //dbcontext.SaveChanges();
-
-                    //emp.Employee_Positions_Profile = e2;
-                    //dbcontext.SaveChanges();
-                    //emp.Position_Transaction_Information = e22;
-                    //dbcontext.SaveChanges();
-
-                    ///////////////////////////////////////////////
-
-                    //var employeefamily = dbcontext.Employee_family_profile.ToList();
-                    //var famcount = 0;
-
-                    //if (employeefamily.Count() == 0)
-                    //{
-                    //    famcount = 1;
-                    //}
-                    //else
-                    //{
-                    //    var te3 = employeefamily.LastOrDefault().ID;
-                    //    famcount = te3 + 1;
-                    //}
-                    //DateTime statis3 = Convert.ToDateTime("1/1/1900");
-                    //var strus3 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    //var text3 = new Employee_family_profile
-                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus3.Structure_Code + famcount.ToString(), Birth_date = statis3, Death_date = statis3, End_relation_date = statis3, Start_relation_date = statis3 };
-                    //var e3 = dbcontext.Employee_family_profile.Add(text3);
-                    //dbcontext.SaveChanges();
-                    //emp.Employee_family_profile = e3;
-                    //dbcontext.SaveChanges();
-                    ///////////////////////////////////////////////////////////////
-                    //var employeeexperience = dbcontext.Employee_experience_profile.ToList();
-                    //var expcount = 0;
-
-                    //if (employeeexperience.Count() == 0)
-                    //{
-                    //    expcount = 1;
-                    //}
-                    //else
-                    //{
-                    //    var te5 = employeeexperience.LastOrDefault().ID;
-                    //    expcount = te5 + 1;
-                    //}
-                    //DateTime statis5 = Convert.ToDateTime("1/1/1900");
-                    //var strus5 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    //var text5 = new Employee_experience_profile
-                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus5.Structure_Code + expcount.ToString(), Approval_date = statis5, Start_date = statis5, End_date = statis5 ,Rejection_ReasonsId="0",External_compainesId="0"};
-                    //var e5 = dbcontext.Employee_experience_profile.Add(text5);
-                    //dbcontext.SaveChanges();
- 
-                    //dbcontext.SaveChanges();
-                    ////////////////////////////////////////////////
-                    //var employeecontact= dbcontext.Employee_contact_profile.ToList();
-                    //var contactcount = 0;
-
-                    //if (employeecontact.Count() == 0)
-                    //{
-                    //    contactcount = 1;
-                    //}
-                    //else
-                    //{
-                    //    var te6 = employeecontact.LastOrDefault().ID;
-                    //    contactcount = te6 + 1;
-                    //}
-                    //var strus6 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    //var text6 = new Employee_contact_profile
-                    //{ Employee_ProfileId = emp.ID.ToString(), Code = strus6.Structure_Code + contactcount.ToString() };
-                    //var e6 = dbcontext.Employee_contact_profile.Add(text6);
-                    //dbcontext.SaveChanges();
-                    //dbcontext.SaveChanges();
-                    /////////////////////////////////////////
-                    //if (record.Gender==Gender.male /*&& command8 == "Submit"*/)
-                    //{
-                    //    var employeemilitary = dbcontext.Employee_military_service_profile.ToList();
-                    //    var militarycount = 0;
-
-                    //    if (employeemilitary.Count() == 0)
-                    //    {
-                    //        militarycount = 1;
-                    //    }
-                    //    else
-                    //    {
-                    //        var te8 = employeemilitary.LastOrDefault().ID;
-                    //        militarycount = te8 + 1;
-                    //    }
-                    //    DateTime statis8 = Convert.ToDateTime("1/1/1900");
-                    //    var strus8 = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel);
-                    //    var text8 = new Employee_military_service_profile
-                    //    { Employee_ProfileId = emp.ID.ToString(), Code = strus8.Structure_Code + militarycount.ToString(), Certificate_date = statis8, From_date = statis8, To_date = statis8 };
-                    //    var e8 = dbcontext.Employee_military_service_profile.Add(text8);
-                    //    dbcontext.SaveChanges();
-                    //    dbcontext.SaveChanges();
-
-                    //}
+                  
                      if (record.Gender == Gender.female && command8 == "Submit")
                     {
                         TempData["Message"] = HR.Resource.Personnel.Youmustchooseamalefromthegender;
@@ -443,11 +295,6 @@ namespace HR.Controllers
                         return View(model);
                     }
 
-
-
-
-
-                    //////////////////////////
                     if (command == "Submit")
                     {
                         return RedirectToAction("index", "Employee_Address_Profile", new { id = emp.ID });
@@ -507,6 +354,10 @@ namespace HR.Controllers
                     if (command == "Submit4")
                     {
                         return RedirectToAction("index", "Employee_Financial_Contract", new { id = emp.ID });
+                    }
+                    if (command == "Submit5")
+                    {
+                        return RedirectToAction("ShowEmployeeAnnualIncrease", "EmployeeAnnualandSpecialAllowance", new { id = emp.ID });
                     }
                     return RedirectToAction("Index");
                 }
@@ -796,6 +647,10 @@ namespace HR.Controllers
                 if (command == "Submit4")
                 {
                     return RedirectToAction("index", "Employee_Financial_Contract", new { id = record.ID });
+                }
+                if (command == "Submit5")
+                {
+                    return RedirectToAction("ShowEmployeeAnnualIncrease", "EmployeeAnnualandSpecialAllowance", new { id = record.ID });
                 }
                 return RedirectToAction("index");
             }

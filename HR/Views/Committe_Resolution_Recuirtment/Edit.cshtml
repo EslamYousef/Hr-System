@@ -73,71 +73,57 @@
 
                         <div>
                             <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.CommitteResolutionNo</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.CommitteResolutionNo</label>
                                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "margin-bottom: 15px;" } })
                                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.CommitteeUsage</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.CommitteeUsage</label>
                                     @Html.EnumDropDownListFor(model => model.Committe_Usage, new { @class = "form-control", @style = "margin-bottom: 15px;height: 30px;" })
                                     @Html.ValidationMessageFor(model => model.Committe_Usage, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.CommitteeLocation</label>
                                 <div class="col-md-4">
+                                    <label>@Personnel.CommitteeLocation</label>
                                     @Html.EditorFor(model => model.Committe_Location, new { htmlAttributes = new { @class = "form-control", @style = "margin-bottom: 15px;" } })
                                     @Html.ValidationMessageFor(model => model.Committe_Location, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.CommitteResolutionDate</label>
                                 <div class="col-md-4">
+                                    <label>@Personnel.CommitteResolutionDate</label>
                                     @Html.EditorFor(model => model.Committe_Resolution_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "Committe_Resolution_Date", @style = "margin-bottom: 15px;" } })
                                     @Html.ValidationMessageFor(model => model.Committe_Resolution_Date, "", new { @class = "text-danger" })
                                 </div>
-                                <label class="control-label col-md-2" style="color:red">@Personnel.CommitteeYear</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.CommitteeYear</label>
                                     @Html.EditorFor(model => model.Committe_Year, new { htmlAttributes = new { @class = "form-control", @readonly = true, @style = "margin-bottom: 15px;" } })
                                     @Html.ValidationMessageFor(model => model.Committe_Year, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.CommitteeResolutionStatus</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.CommitteeResolutionStatus</label>
                                     @Html.EnumDropDownListFor(model => model.Committe_Resolution_Status, new { @class = "form-control", @style = "margin-bottom: 15px;height: 30px;" })
                                     @Html.ValidationMessageFor(model => model.Committe_Resolution_Status, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.CommitteeType</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.CommitteeType</label>
                                     @Html.EnumDropDownListFor(model => model.Committe_Type, new { @class = "form-control", @style = "margin-bottom: 15px;height: 30px;" })
                                     @Html.ValidationMessageFor(model => model.Committe_Type, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.CommitteeConclusion</label>
                                 <div class="col-md-4">
-                                    @Html.TextAreaFor(model => model.Committe_Conclusion, 4, 55,  new { @class = "form-control", @style = "margin-bottom: 15px;"  })
+                                    <label>@Personnel.CommitteeConclusion</label>
+                                    @Html.TextAreaFor(model => model.Committe_Conclusion, 4, 30, new { @class = "form-control", @style = "margin-bottom: 15px;" })
                                     @Html.ValidationMessageFor(model => model.Committe_Conclusion, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span>@Personnel.EmployeeName</span>
-                                </label>
-                                <div class="col-md-3">
+                              
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.EmployeeName>
+                                    </label>
                                     @Html.DropDownList("fd", new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3", @style = "margin-bottom: 15px;" })
                                 </div>
-                                <div class="col-md-3">
-                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 10px;" />
+                                <div class="col-md-4">
+                                    <input type="button" value="@Personnel.Add" id="ss" style="margin-top: 30px;" />
                                 </div>
                             </div>
                             <table id="tb-family" border="1" style="display: table; width:400px;">

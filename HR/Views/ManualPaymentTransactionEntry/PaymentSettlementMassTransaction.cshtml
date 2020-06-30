@@ -1,0 +1,803 @@
+﻿@model HR.Controllers.TransactionsPayroll.HeaderManual
+<script>
+    $(document).ready(function () {
+        debugger
+        GetDataById5('@Model.ManualPaymentTransactionEntry.TransactionDate', "Start");
+        GetDataById5('@Model.ManualPaymentTransactionEntry.EffectiveDate', "End");
+        GetDataById5('@Model.ManualPaymentTransactionEntry.FromDate', "From");
+        GetDataById5('@Model.ManualPaymentTransactionEntry.ToDate', "To");
+        GetDataById5('@Model.ManualPaymentTransactionEntry.PaidDate', "Paid");
+        //$("#checksta").attr("disabled", true);
+        //$("#s2id_checksta").attr("disabled", true);
+        //$("#select2-chosen-3").attr("disabled", true);
+    });
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+</script>
+
+<script>
+    function Type_Code() {
+        $("#cars").empty();
+        $("#salar").empty();
+
+        var id = $("#Type").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetManualPaymentTypes_Header",
+            data: { "id": id },
+            success: function (result) {
+
+                //$("#Extended").val(result.Name);
+                ExtendedFields(id)
+                AllSalary(id)
+            },
+            error: function () {
+
+            }
+        });
+    }
+    Type_Code();
+
+    function ExtendedFields(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetExtendedFieldsHeaderByManualPaymentTypes",
+            data: { "id": id },
+            success: function (result) {
+
+                $("#Extended").val(result.ExtendedFields_Code + " ----- " + result.ExtendedFields_Desc);
+                AllExtendedFields(result.ID)
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+    function AllExtendedFields(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetExtendedFieldsDetailsByExtendedFieldsHeader",
+            data: { "id": id },
+            success: function (result) {
+
+                $.each(result, function (i, r) {
+                    if (r.ValueType == 1) {
+                        var ValueType = "Amount";
+                    }
+                    else if (r.ValueType == 2) {
+                        var ValueType = "Percent";
+                    }
+                    else if (r.ValueType == 3) {
+                        var ValueType = "Hours";
+                    }
+                    else if (r.ValueType == 4) {
+                        var ValueType = "Days";
+                    }
+                    else if (r.ValueType == 5) {
+                        var ValueType = "Months";
+                    }
+                    else if (r.ValueType == 6) {
+                        var ValueType = "Years";
+                    }
+                    var tt = '<tr><td><input readonly class= "form-control" value = ' + r.Detail_Code + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + r.Detail_Desc + ' name="SalaryDes"></td><td><input readonly class= "form-control" value = ' + ValueType + ' name="ValueType"></td><td><input readonly class= "form-control" value = ' + r.Value + ' name="DefaultValue"></td></tr>'
+                    $("#cars").append(tt)
+                    //$("#s2id_Type").attr("disabled", true);
+                    //$("#select2-chosen-2").attr("disabled", true);
+                    //$("#Type").attr("disabled", true);
+                })
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+
+    function TypeCodeSalarys() {
+        debugger
+        $("#salar").empty();
+        var id = $("#Type").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetManualPaymentTypes_Header",
+            data: { "id": id },
+            async: true,
+            success: function (result) {
+                debugger
+                //$("#Extended").val(result.Name);
+                AllSalary(id)
+            },
+            error: function () {
+
+            }
+        });
+    }
+    TypeCodeSalarys();
+
+    function AllSalary(id) {
+        debugger
+        //GetManualPaymentTypes_DetailByManualPaymentTypesHeader
+        $.ajax({
+            type: "post",
+            url: "/Helper/AllManualMass",
+            data: { "id": id },
+            async: true,
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    debugger
+                    if (r.Value != undefined) {
+                        var tt = '<tr><td><input readonly class= "form-control" value = ' + r.SalaryCodeID + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + r.Salarycodedescription + ' name="SalaryDes"></td><td><input readonly class= "form-control" value = ' + r.Type + ' name="Type"></td><td><input readonly class= "form-control" value = ' + r.ValueType + ' name="ValueType"></td><td><input  class= "form-control" value = ' + r.Value + '  name="DefaultValue" ></td></tr>'
+                        //ManualPaymentTransactionEntryDetail(id)
+                        $("#salar").append(tt)
+                    }
+                    else {
+                        var tt = '<tr><td><input readonly class= "form-control" value = ' + r.SalaryCodeID + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + r.Salarycodedescription + ' name="SalaryDes"></td><td><input readonly class= "form-control" value = ' + r.Type + ' name="Type"></td><td><input readonly class= "form-control" value = ' + r.ValueType + ' name="ValueType"></td><td><input  class= "form-control" value = ' + 0 + '  name="DefaultValue" ></td></tr>'
+                        //ManualPaymentTransactionEntryDetail(id)
+                        $("#salar").append(tt)
+                    }
+
+                })
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+    function ManualPaymentTransactionEntryDetail(id) {
+        debugger
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetManualPaymentTransactionEntry_Detail",
+            data: { "id": id },
+            async: true,
+            success: function (result) {
+                debugger
+                $(".testcode").val(result.Value);
+                //$.each(result, function (i, r) {
+
+                //    $(".testcode").val(r.Value);
+
+                //})
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>
+<script>
+    function CountryName() {
+        var ID = $("#country").val();
+        $("#ter").select2("val", "0");
+        var finalresult = "";
+        debugger
+        if (ID == '1')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Helper/getallemp",
+                data: {  },
+                success: function (result) {
+
+                    $.each(result, function (key, value) {
+                        var pp = $("#emp2").find("tr");
+                        var flag = 0;
+                        for (var o = 0; o < pp.length; o++) {
+
+                            var inputs = pp[o].children;
+                            ID_ = parseInt(inputs[0].children[0].value);
+                            if (ID_ == parseInt(value.ID)) {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if (flag == 0) {
+                            debugger
+                            finalresult +=
+                                "<tr>" +
+                                "<td hidden><input hidden  class = 'form-control' required type='number'  name='ID_emp'   value='" + value.ID + "' /></td>" +
+                                "<td><input class = 'form-control' required   value='" + value.code + "'  readonly='readonly'/></td>" +
+                                "<td><input class = 'form-control' required   value='" + value.Name + "'  readonly='readonly'/></td>" +
+                                "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        }
+                    });
+                    $("#emp2").removeAttr("disabled");
+                    $("#emp2").append(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+
+        }
+        else if (ID == '2')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Helper/getempbyunit",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+       }
+        else if (ID == '3')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/Helper/getempbynationality",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+        }
+        else if (ID == '4') {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/LoanRequest/worklocation",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+        }
+        else if (ID == '6') {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/LoanRequest/cadrelevel",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+        }
+        else if (ID == '5') {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/LoanRequest/costcenter",
+                data: { "id": ID },
+                success: function (result) {
+                    debugger
+                    $("#ter").empty();
+                    $.each(result, function (key, value) {
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                    });
+                    $("#ter").removeAttr("disabled");
+                    $("#ter").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+            });
+        }
+
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+
+    }
+    function getemp()
+    {
+        var finalresult = "";
+        var type = $("#country").val();
+        var value = $("#ter").val();
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getemp",
+            data: { "type": type, "id": value },
+            success: function (result) {
+
+
+                $.each(result, function (key, value) {
+                    var pp = $("#emp2").find("tr");
+                    var flag = 0;
+                    for (var o = 0; o < pp.length; o++) {
+
+                        var inputs = pp[o].children;
+                        ID_ = parseInt(inputs[0].children[0].value);
+                        if (ID_ == parseInt(value.ID)) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 0) {
+                        debugger
+                        finalresult +=
+                            "<tr>" +
+                            "<td hidden><input hidden  class = 'form-control' required type='number'  name='ID_emp'   value='" + value.ID + "' /></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.code + "'  readonly='readonly'/></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.Name + "'  readonly='readonly'/></td>" +
+                            "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                    }
+                });
+                $("#emp2").removeAttr("disabled");
+                $("#emp2").append(finalresult);
+            },
+            error: function () {
+
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function getallarea(id)
+    {
+       var countryname=
+       $.ajax({
+          type: "post",
+          url: "/PerformanceEvaluationGroup/getareabycountry",
+          data: { "id": id, "flag": "0" },
+          success: function (result) {
+
+              $("#area").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+
+                  finalresult +="<tr><td>" + value.ID + "</td><td>" + value.Code + "</td></tr>"
+              });
+              $("#area").html(emp2);
+              $("#area").select2("val", "0");
+          },
+          error: function () {
+
+              $("#area").val(" ");
+          }
+      });
+    }
+    function addanother() {
+        debugger
+
+        $("#ter").select2("val", "0");
+    }
+
+</script>
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+    //  Layout = "~/Views/Shared/View.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("PaymentSettlementMassTransaction", "ManualPaymentTransactionEntry", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("PaymentSettlementMassTransaction", "ManualPaymentTransactionEntry")" class="create-btn">@pers_2.new_</a></div>
+                <div>
+                    <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","ManualPaymentTransactionEntry")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                </div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "ManualPaymentTransactionEntry")" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Payroll.PaymentSettlementMassTransaction
+                </h1>
+            </section>
+            @Html.AntiForgeryToken()
+            @*<input name="ID_item" value="" hidden />*@
+            <input name="codeid" value="" hidden />
+            <input name="SalaryDes" value="" hidden />
+            <input name="TypeE" value="" hidden />
+            <input name="ValueType" value="" hidden />
+            <input name="DefaultValue" value="" hidden />
+
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label style="color:red">
+                        @Payroll.Transactionnumber
+                    </label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.TransactionNumber, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.TransactionNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red"> @Payroll.Transactiondate</label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.TransactionDate, new { htmlAttributes = new { @class = "form-control  StartDate yy", @id = "Start", @type = "date", @onchange = "Saves2()" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.TransactionDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red"> @Payroll.Effectivedate</label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.EffectiveDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "End", @type = "date", @onchange = "Saves()" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.EffectiveDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label> @Payroll.Currentyear</label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.CurrentYear, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, id = "name1", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.CurrentYear, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label> @Payroll.Previousyear</label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.PreviousYear, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, id = "name2", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.PreviousYear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Manualpaymenttype</label>
+                    @Html.DropDownListFor(m => m.ManualPaymentTransactionEntry.ManualPaymentType, new SelectList(ViewBag.ManualPaymentTypes_Header, "ID", "Code"), Payroll.SelectManualpaymenttype, new { @class = "select2", @onchange = "Type_Code()", id = "Type" })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.ManualPaymentType, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.Fromdate</label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.FromDate, new { htmlAttributes = new { @class = "form-control  StartDate yy", @id = "From", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.FromDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.Todate</label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.ToDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "To", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.ToDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label> @Payroll.TransactionType</label>
+                    @Html.EditorFor(m => m.check_status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", id = "checksta", @display = "display" } })
+                    @*<input type="text" value="Create" class="form-control" readonly />*@
+                </div>
+                <div class="col-md-4">
+                    <label>@Payroll.Transactionnote </label>
+                    @Html.EditorFor(model => model.ManualPaymentTransactionEntry.TransactionNote, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.TransactionNote, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Payroll.Extendedfieldscode </label>
+                        @Html.EditorFor(model => model.ManualPaymentTransactionEntry.ExtendedFields_Code, new { htmlAttributes = new { @class = "form-control", id = "Extended", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.ManualPaymentTransactionEntry.ExtendedFields_Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <td hidden></td>
+                                <td class="col-md-1">
+                                    @Payroll.Code
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Description
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.ValueType
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Value
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody id="cars">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs bordered">
+                        <!-- available classes "bordered", "right-aligned" -->
+                        <li class="active">
+                            <a href="#Budgetdetails" data-toggle="tab">
+                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                <span class="hidden-xs">@pers_2.Salarycode</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+
+                            <div class="form-group">
+                                <table id="categories" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                            <td hidden></td>
+                                            <td class="col-md-1">
+                                                @Payroll.Salarycodeid
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Salarycodedescription
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Type
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.ValueType
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Value
+                                            </td>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="salar">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="nav nav-tabs bordered">
+                    <!-- available classes "bordered", "right-aligned" -->
+                    <li class="active">
+                        <a href="#homepagep" data-toggle="tab">
+                            <span class="visible-xs"><i class="entypo-home"></i></span>
+                            <span class="hidden-xs">@pers_2.employee</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="homepagep" style="overflow: hidden;width: auto;height: auto;">
+                        <input name="ID_emp" value="" hidden />
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>@Basic.category</label>
+                                @Html.DropDownList("category", new SelectList(ViewBag.Object, "Value", "Text"), @Basic.category, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label>@pers_2.items</label>
+                                <select multiple id="ter" class="select2" disabled></select>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label> - </label>
+                                <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
+
+                            </div>
+
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+
+                                    <td>@pers_2.code</td>
+                                    <td>@organ.name</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="emp2"></tbody>
+                        </table>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+@section scripts{}
+<script>
+    $(function () {
+        debugger
+        GetDataById4('@Model.ManualPaymentTransactionEntry.EffectiveDate', "End");
+
+          function Saves() {
+                  debugger
+                  var FullName = $("#End").val().split('-');
+                  if (FullName.length > 0) {
+                      $("#name1").val(FullName[0]);
+                      $("#name2").val(FullName[0]-1);
+                  }
+              }
+        Saves();
+
+          });
+        function GetDataById4(date, id) {
+            debugger
+            var valx = new Date(date);
+            var month;
+            if ((valx.getMonth() + 1) < 10) {
+                month = "0" + (valx.getMonth() + 1).toString();
+            }
+            else {
+                month = date.getMonth() + 1;
+            }
+            var day = parseInt(valx.getDate());
+            if (day < 10) {
+                day = "0" + (valx.getDate()).toString();
+            }
+            else {
+                day = valx.getDate();
+            }
+            var d = valx.getFullYear() + '-' + month + '-' + day;
+            $('#' + id).val(d);
+        }
+    function Saves() {
+        debugger
+        var FullName = $("#End").val().split('-');
+        if (FullName.length > 0) {
+            $("#name1").val(FullName[0]);
+            $("#name2").val(FullName[0]-1);
+        }
+    }
+
+</script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

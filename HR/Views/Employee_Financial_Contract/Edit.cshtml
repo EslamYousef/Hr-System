@@ -43,16 +43,13 @@
                 }
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
                     <div class="col-md-4">
+                        <label style="color:red">@Personnel.EmployeeName</label>
                         @Html.DropDownListFor(m => m.Employee_Financial_Contract_Header.Employee_Code, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                         @Html.ValidationMessageFor(model => model.Employee_Financial_Contract_Header.Employee_Code, "", new { @class = "text-danger" })
                     </div>
-                   
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2" style="color:red">@Payroll.Contractnumber</label>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Contractnumber</label>
                         @Html.EditorFor(model => model.Employee_Financial_Contract_Header.Contract_Number, new
          {
                             htmlAttributes = new
@@ -63,28 +60,19 @@
 })
                         @Html.ValidationMessageFor(model => model.Employee_Financial_Contract_Header.Employee_Code, "", new { @class = "text-danger" })
                     </div>
-                    <label class="control-label col-md-2">@Payroll.Isactive</label>
-                    <div class="col-md-1">
+                    <div class="col-md-4">
+                        <label>@Payroll.Isactive</label>
                         @Html.CheckBoxFor(model => model.Employee_Financial_Contract_Header.IsActive, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Employee_Financial_Contract_Header.IsActive, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-2" hidden>
-                        <a href="@Url.Action("index","Employee_Financial_Contract",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm" style="width:98px;"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                        <input type="submit" value="@Personnel.Edit" class="btn btn-success" style="width:98px;" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">@Personnel.Fromdate</label>
+                
                     <div class="col-md-4">
+                        <label>@Personnel.Fromdate</label>
                         @Html.EditorFor(model => model.Employee_Financial_Contract_Header.From_Date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date" } })
                         @Html.ValidationMessageFor(model => model.Employee_Financial_Contract_Header.From_Date, "", new { @class = "text-danger" })
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">@Personnel.Todate</label>
                     <div class="col-md-4">
+                        <label>@Personnel.Todate</label>
                         @Html.EditorFor(model => model.Employee_Financial_Contract_Header.To_Date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date" } })
                         @Html.ValidationMessageFor(model => model.Employee_Financial_Contract_Header.To_Date, "", new { @class = "text-danger" })
                     </div>

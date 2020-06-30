@@ -1482,18 +1482,29 @@ namespace HR.Controllers
             var item = dbcontext.ManualPaymentTransactionEntry.Where(a=>a.ID == id).ToList();
             return Json(item);
         }
-        //public JsonResult AllManual(string id)
-        //{
-        //    int ID = int.Parse(id);
-        //    var ManualPaymentTransactionEntry = dbcontext.ManualPaymentTransactionEntry.Where(a => a.ID == ID).ToList();
-        //    var ManualPaymentTypes_Detail = dbcontext.ManualPaymentTypes_Detail.ToList();
-        //    var ManualPaymentTransactionEntry_Detail = dbcontext.ManualPaymentTransactionEntry_Detail.Where(a => a.TransactionNumber == id).ToList();
-        //    var model = from a in ManualPaymentTransactionEntry
-        //                join b in ManualPaymentTypes_Detail on a.ManualPaymentType equals b.PaymentTypeCode
-        //                join c in ManualPaymentTransactionEntry_Detail on b.PaymentTypeCode equals c.TransactionNumber
-        //                select new { code = b.SalaryCodeID, salarydesc = b.Salarycodedescription, Types = b.Type, ValueTypes = b.ValueType, val = c.Value };
-        //    return Json(model);
-        //}
+        public JsonResult AllManualMass(string id, string did)
+        {
+            int ID = int.Parse(id);
+            //var ManualPaymentTransactionEntry = dbcontext.ManualPaymentTransactionEntry.Where(a => a.ID == ID).ToList();
+            var ManualPaymentTypes_Detail = dbcontext.ManualPaymentTypes_Detail.Where(a => a.PaymentTypeCode == id).ToList();
+            var ManualPaymentTransactionEntry_Detail = dbcontext.ManualPaymentTransactionEntry_Detail.Where(a => a.TransactionNumber == id).ToList();
+            if (ManualPaymentTransactionEntry_Detail.Count() == 0)
+            {
+                var Checktype = dbcontext.ManualPaymentTypes_Detail.Where(a => a.PaymentTypeCode == id).ToList();
+                return Json(Checktype);
+            }
+            else
+            {
+                var model = (from a in ManualPaymentTransactionEntry_Detail
+                             join b in ManualPaymentTypes_Detail on a.SalaryCodeID equals b.Salarycodedescription
+                             where a.SalaryCodeID == b.Salarycodedescription
+                             orderby (a.ID)
+                             select new { SalaryCodeID = b.SalaryCodeID, Salarycodedescription = b.Salarycodedescription, Type = b.Type, ValueType = b.ValueType, Value = a.Value });
+                return Json(model);
+            }
+
+        }
+
         public JsonResult AllManual(string id,string did)
         {
             int ID = int.Parse(id);
@@ -1514,9 +1525,68 @@ namespace HR.Controllers
                              select new { SalaryCodeID = b.SalaryCodeID, Salarycodedescription = b.Salarycodedescription, Type = b.Type, ValueType = b.ValueType, Value = a.Value });
                 return Json(model);
             }
-           
         }
+        public JsonResult GetPayrollTransactionJournalSetup(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.PayrollTransactionJournalSetup.FirstOrDefault(a => a.ID == id);
+            return Json(item);
+        }
+        public JsonResult Getsalary_code(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.salary_code.Where(a => a.SourceEntry == 2).FirstOrDefault(a=>a.ID == id);
+            return Json(item);
+        }
+        public JsonResult GetExtendedFieldsBySalaryCode(int id)
+        {
+            var salary_code = dbcontext.salary_code.FirstOrDefault(m => m.ID == id);
+            var code = int.Parse(salary_code.ExtendedFields_Code);
+            var Ex = dbcontext.ExtendedFields_Header.FirstOrDefault(a => a.ID == code);
+            return Json(Ex);
+        }
+        public JsonResult Getsalarycode(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.salary_code.Where(a => a.SourceEntry == 2).FirstOrDefault(a => a.ID == id);
+            return Json(item);
+        }
+        public JsonResult GetEmployee_Payroll_Transactions_ExtendedFieldsDetail(int id)
+        {
+            var code = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(a => a.ID == id).TransactionNumber;
+            var Checktype = dbcontext.Employee_Payroll_Transactions_ExtendedFieldsDetail.Where(a => a.TransactionNumber == code).ToList();
+            return Json(Checktype);
+        }
+        public JsonResult GetSalaryCodeGroupHeader(int id)
+        {
+            var Checktype = dbcontext.SalaryCodeGroup_Header.Where(a => a.GroupPurpose == 2).FirstOrDefault(a=>a.ID == id);
+            return Json(Checktype);
+        }
+        public JsonResult GetSalaryCodeGroup_Detail(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
 
+            var SalaryCodeGroup_Detail = dbcontext.SalaryCodeGroup_Detail.Where(a => a.CodeGroupID == id).ToList();
+            var salary = dbcontext.salary_code.ToList();
+            var total = from a in SalaryCodeGroup_Detail
+                        join b in salary on a.SalaryCodeID equals b.SalaryCodeID
+                        where a.SalaryCodeID == b.SalaryCodeID
+                        select new { salarycode = b.SalaryCodeID, salaryDes = b.SalaryCodeDesc, codegrouptype = b.CodeGroupType, codevaluetype = b.CodeValueType, defaultvalue = a.DefaultValue };
+            return Json(total);
+        }
+        public JsonResult GetPayrollPeriodSetup(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.PayrollPeriodSetup.ToList();
+            return Json(item);
+        }
+        public JsonResult GetEmployee_Profile_Groups(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var ID = int.Parse(id);
+            var Employee_Profile_Groups = dbcontext.Employee_Profile_Groups.FirstOrDefault(m => m.ID == ID);
+            return Json(Employee_Profile_Groups);
+        }
     }
 
 }

@@ -26,7 +26,7 @@
                             <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Employee_Recodes_Group")" class="create-btn" value=@organ.delete style="
     background-color: transparent" ; />
                         </div>
-                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "ExtendedFields_Header")" class="create-btn"> @pers_2.Back</a></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Employee_Recodes_Group")" class="create-btn"> @pers_2.Back</a></div>
                     </div>
                     <hr /><hr /><hr />
                     <section class="content-header">
@@ -50,31 +50,26 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                         <div class="form-group">
-                            <label class="control-label col-md-2"style="color:red">@Personnel.Record_Group_Code</label>
                             <div class="col-md-4">
+                                <label style="color:red">@Personnel.Record_Group_Code</label>
                                 @Html.EditorFor(model => model.Record_Group_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                 @Html.ValidationMessageFor(model => model.Record_Group_Code, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2"style="color:red">@Personnel.Record_Group_Description</label>
+                  
                             <div class="col-md-4">
+                                <label style="color:red">@Personnel.Record_Group_Description</label>
                                 @Html.EditorFor(model => model.Record_Group_Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Record_Group_Description, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Record_Group_Alternative</label>
+                   
                             <div class="col-md-4">
+                                <label>@Personnel.Record_Group_Alternative</label>
                                 @Html.EditorFor(model => model.Record_Group_Alternative, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Record_Group_Alternative, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Linkedtopayroll</label>
+            
                             <div class="col-md-4">
+                                <label>@Personnel.Linkedtopayroll</label>
                                 @Html.CheckBoxFor(model => model.Linkedtopayroll, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Linkedtopayroll, "", new { @class = "text-danger" })
                             </div>
@@ -96,25 +91,24 @@
                                 <div class="tab-pane" id="Pension" style="margin-top:10px;">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Linkedtobasicpayment</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Linkedtobasicpayment</label>
                                             @Html.CheckBoxFor(model => model.Linkedtobasicpayment, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Linkedtobasicpayment, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Linkedtoanotherpayment</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Salarycodeid</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Linkedtoanotherpayment</label>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>@Personnel.Salarycodeid</label>
                                             @Html.CheckBoxFor(model => model.Linkedtoanotherpayment, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Linkedtoanotherpayment, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Manualpaymentcode</label>
+
+                                        <div class="col-md-4">
+                                            <label>@Personnel.Manualpaymentcode</label>
+                                        </div>
                                     </div>
                                     <div class="form-group" hidden>
                                         <div class="col-md-offset-2 col-md-10">

@@ -1,0 +1,101 @@
+﻿@*@model HR.Controllers.TransactionsPayroll.Employee_Payroll_TransactionsController.EmpVM*@
+@using HR.Resource;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        @using (Html.BeginForm("ViewExecl", "EmployeeAnnualandSpecialAllowance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="box">
+
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@Payroll.Employeeid</th>
+                                <th>@Payroll.EmployeeName</th>
+                                <th>@Payroll.Year</th>
+                                <th>@Payroll.Month</th>
+                                <th>@Payroll.IncreasePrecentage</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Data)
+                            {
+                                <tr>
+
+                                    <td><input name="EmployeeCode" value="@item.EmployeeCode" readonly /> </td>
+                                    <td><input name="EmployeeName" value="@item.EmployeeName" readonly /></td>
+                                    <td><input name="Year" value="@item.Year" readonly /></td>
+                                    <td><input name="Month" value="@item.Month" readonly /></td>
+                                    <td><input name="AllowncePercentage" value="@item.AllowncePercentage" readonly /></td>
+                               </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                    <input type="submit" value="@Personnel.Create" />
+                </div>
+            </div>
+        }
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}
+
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

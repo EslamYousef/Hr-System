@@ -21,12 +21,13 @@
 
                 @using (Html.BeginForm("Edit", "Applicant_Previous_Experiences_Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    <div class="sec-nav">
-                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
-                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Applicant_Previous_Experiences_Profile",new {id=ViewBag.idemp})" class="create-btn">@pers_2.new_</a></div>
-                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Applicant_Previous_Experiences_Profile")" class="create-btn" value=@organ.delete /></div>
-                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Applicant_Previous_Experiences_Profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
-                    </div>
+                <div class="sec-nav">
+                    <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                    <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Applicant_Previous_Experiences_Profile",new {id=ViewBag.idemp})" class="create-btn">@pers_2.new_</a></div>
+                    <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Applicant_Previous_Experiences_Profile")" class="create-btn" value=@organ.delete /></div>
+                    <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Applicant_Previous_Experiences_Profile",new {id=ViewBag.idemp})" class="create-btn"> @pers_2.Back</a></div>
+                    <div><i class="far fa-save"></i> <button type="submit" id="btnSubmit" name="Command" value="Submit" class="create-btn" />@Personnel.ApplicantProfile</div>
+                </div>
                     <hr /><hr /><hr />
                     <section class="content-header">
                         <h1>
@@ -34,160 +35,125 @@
                         </h1>
                     </section>
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
+            <div class="form-horizontal">
 
-                        <hr />
+                <hr />
 
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.Applicant_Profile.ID)
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.ApplicantName</label>
-                            <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId88", @style = "margin-bottom: 15px;" })
-                                @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.ExperienceprofileNo</label>
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-md-4" style="color:black">
-                                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">@Personnel.ApplicantProfile</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Companycode</label>
-                            <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.External_compainesId, new SelectList(ViewBag.External_compaines, "ID", "Code"), Personnel.SelectCompany, new { @class = "select2", @onchange = "company()", id = "companyId", @style = "margin-bottom: 15px;" })
-                                @Html.ValidationMessageFor(model => model.External_compainesId, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Companytype</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Company_type, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Company_type, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Jobtitle</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Job_title, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Job_title, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Startdate</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control StartDate", @id = "Start", @onchange = "Save()", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
-                            </div>
-
-                            <label class="control-label col-md-2">@Personnel.Years</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
-
-                                @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Enddate</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control EndDate", @id = "End", @onchange = "Save2()", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-1">@Personnel.Months</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
-
-                                @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-1">@Personnel.Days</label>
-                            <div class="col-md-2">
-                                @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Days", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Totalsalary</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Total_salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Total_salary, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Reasonofleave</label>
-                            <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Rejection_ReasonsId, new SelectList(ViewBag.Rejection_Reasons, "ID", "Code"), Personnel.SelectReasonofleave, new { @class = "select2", @onchange = "Reasons()", id = "ReasonsId", @style = "margin-bottom: 15px;" })
-                                @Html.ValidationMessageFor(model => model.Rejection_ReasonsId, "", new { @class = "text-danger" })
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Addedyears</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Added_years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
-
-                                @Html.ValidationMessageFor(model => model.Added_years, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">@Personnel.Approveddate</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Approval_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Approval_date", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Approval_date, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Addedmonths</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Added_months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
-
-                                @Html.ValidationMessageFor(model => model.Added_months, "", new { @class = "text-danger" })
-                            </div>
-                            <label class="control-label col-md-2">@Personnel.Consideredperiod</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Considered_period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
-                                @Html.ValidationMessageFor(model => model.Considered_period, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Addeddays</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Added_days, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
-
-                                @Html.ValidationMessageFor(model => model.Added_days, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group" hidden>
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                <a href="@Url.Action("index","Applicant_Previous_Experiences_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-
-                            </div>
-                        </div>
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
                     </div>
+                }
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.Applicant_Profile.ID)
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.ApplicantName</label>
+                        @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId88", @style = "margin-bottom: 15px;" })
+                        @*@Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })*@
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.ExperienceprofileNo</label>
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", id = "codeid", @readonly = true, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Companycode</label>
+                        @Html.DropDownListFor(m => m.External_compainesId, new SelectList(ViewBag.External_compaines, "ID", "Code"), Personnel.SelectCompany, new { @class = "select2", @onchange = "company()", id = "companyId", @style = "margin-bottom: 15px;" })
+                        @Html.ValidationMessageFor(model => model.External_compainesId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Companytype</label>
+                        @Html.EditorFor(model => model.Company_type, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Company_type, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Jobtitle</label>
+                        @Html.EditorFor(model => model.Job_title, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Job_title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Startdate</label>
+                        @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control StartDate", @id = "Start", @onchange = "Save()", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Years</label>
+                        @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Enddate</label>
+                        @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control EndDate", @id = "End", @onchange = "Save2()", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Months</label>
+                        @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Days</label>
+                        @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Days", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Totalsalary</label>
+                        @Html.EditorFor(model => model.Total_salary, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Total_salary, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Reasonofleave</label>
+                        @Html.DropDownListFor(m => m.Rejection_ReasonsId, new SelectList(ViewBag.Rejection_Reasons, "ID", "Code"), Personnel.SelectReasonofleave, new { @class = "select2", @onchange = "Reasons()", id = "ReasonsId", @style = "margin-bottom: 15px;" })
+                        @Html.ValidationMessageFor(model => model.Rejection_ReasonsId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Addedyears</label>
+                        @Html.EditorFor(model => model.Added_years, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                        @Html.ValidationMessageFor(model => model.Added_years, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Approveddate</label>
+                        @Html.EditorFor(model => model.Approval_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@", @id = "Approval_date", @autocomplete = "off", @type = "date", @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Approval_date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Addedmonths</label>
+                        @Html.EditorFor(model => model.Added_months, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Added_months, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Consideredperiod</label>
+                        @Html.EditorFor(model => model.Considered_period, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Considered_period, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Addeddays</label>
+                        @Html.EditorFor(model => model.Added_days, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0, @style = "margin-bottom: 15px;" } })
+                        @Html.ValidationMessageFor(model => model.Added_days, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                        <a href="@Url.Action("index","Applicant_Previous_Experiences_Profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+
+                    </div>
+                </div>
+            </div>
                 }
 
             </div>

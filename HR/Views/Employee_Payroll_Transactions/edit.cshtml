@@ -1,0 +1,526 @@
+﻿@model HR.Controllers.TransactionsPayroll.Employee_Payroll_TransactionsController.VMs
+<script>
+    $(document).ready(function () {
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.TransactionDate', "Start");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.EffectiveDate', "End");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.CreatedDate', "CreatedDate");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.ReportAsReadyDate', "ReportAsReadyDate");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.ApprovedDate', "ApprovedDate");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.CanceledDate', "CanceledDate");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.ReportAsReadyDate', "ReportAsReadyDate");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.CompletedDate', "CompletedDate");
+        GetDataById5('@Model.Header.Employee_Payroll_Transactions.RejectedDate', "RejectedDate");
+  });
+    function GetDataById5(date, id) {
+    var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+</script>
+<script>
+
+    function Type_Code() {
+        debugger
+        $("#cars").empty();
+        var id =  @ViewBag.id;
+        $.ajax({
+            type: "post",
+            url: "/Helper/Getsalarycode",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                //var CodeGroupType = $("#code_type").val(result.CodeGroupType);
+                if (result.CodeGroupType == "1") {
+                    $("#codetype").empty();
+                    $("#codetype").val("Earning");
+                }
+                else if (result.CodeGroupType == "2") {
+                    $("#codetype").empty();
+                    $("#codetype").val("Deduction");
+                }
+                else if (result.CodeGroupType == "0") {
+                    $("#codetype").empty();
+                    $("#codetype").val("Code type");
+                }
+                if (result.CodeValueType == "0") {
+                    $("#codevaluetype").val("Code value type");
+                }
+                else if (result.CodeValueType == "1") {
+                    $("#codevaluetype").val("Unkown");
+                }
+                else if (result.CodeValueType == "2") {
+                    $("#codevaluetype").val("Minites");
+                }
+                else if (result.CodeValueType == "3") {
+                    $("#codevaluetype").val("Hours");
+                }
+                else if (result.CodeValueType == "4") {
+                    $("#codevaluetype").val("Days");
+                }
+                else if (result.CodeValueType == "5") {
+                    $("#codevaluetype").val("Months");
+                }
+                else if (result.CodeValueType == "6") {
+                    $("#codevaluetype").val("Years");
+                }
+                else if (result.CodeValueType == "7") {
+                    $("#codevaluetype").val("Money");
+                }
+                else if (result.CodeValueType == "8") {
+                    $("#codevaluetype").val("Piece");
+                }
+                else if (result.CodeValueType == "9") {
+                    $("#codevaluetype").val("Calculated Value");
+                }
+                var x = result.ID;
+                debugger
+                $("#Extended").empty();
+                $("#Extended").val(" ");
+                ExtendedFields(x);
+            },
+            error: function () {
+
+            }
+        });
+    }
+    Type_Code();
+
+
+
+    function ExtendedFields(x) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetExtendedFieldsBySalaryCode",
+            data: { "id": x },
+            success: function (result) {
+                debugger
+                $("#Extended").val(result.ExtendedFields_Code + " ----- " + result.ExtendedFields_Desc);
+                //AllExtendedFields(result.ID)
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+    function AllExtendedFields() {
+        debugger
+        id =  @ViewBag.code;
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee_Payroll_Transactions_ExtendedFieldsDetail",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    if (r.ValueType == "Amount") {
+                        var ValueType = "Amount";
+                    }
+                    else if (r.ValueType == "Percent") {
+                        var ValueType = "Percent";
+                    }
+                    else if (r.ValueType == "Hours") {
+                        var ValueType = "Hours";
+                    }
+                    else if (r.ValueType == "Days") {
+                        var ValueType = "Days";
+                    }
+                    else if (r.ValueType == "Months") {
+                        var ValueType = "Months";
+                    }
+                    else if (r.ValueType == "Years") {
+                        var ValueType = "Years";
+                    }
+
+                    var tt = '<tr><td><input readonly class= "form-control" value = ' + r.Detail_Code + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + r.Detail_Desc + ' name="SalaryDes"></td><td><input readonly class= "form-control" value = ' + ValueType + ' name="ValueType"></td><td><input  class= "form-control" type = "number" min = 0 value = ' + r.Value + ' name="DefaultValue"></td></tr>'
+                    $("#cars").append(tt)
+                })
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+    AllExtendedFields()
+    function CountryName() {
+        debugger
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployees",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                //$("#countryname").val(result.Code);
+            },
+            error: function () {
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    CountryName();
+
+    function CountryNamess() {
+        debugger
+        var id = $("#Countryss").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetPayrollTransactionJournalSetup",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+            },
+            error: function () {
+                $("#countrynamess").val(" ");
+            }
+        });
+    }
+    CountryNamess();
+</script>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("Edit", "Employee_Payroll_Transactions", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("Edit", "Employee_Payroll_Transactions")" class="create-btn">@pers_2.new_</a></div>
+                <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Employee_Payroll_Transactions")" class="create-btn" value=@organ.delete /></div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Employee_Payroll_Transactions")" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Payroll.EditTransactionEntry
+                </h1>
+            </section>
+            @Html.AntiForgeryToken()
+            @*<input name="ID_item" value="" hidden />*@
+            <input name="codeid" value="" hidden />
+            <input name="SalaryDes" value="" hidden />
+            <input name="TypeE" value="" hidden />
+            <input name="ValueType" value="" hidden />
+            <input name="DefaultValue" value="" hidden />
+
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(a => a.Header.Employee_Payroll_Transactions.ID)
+
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        <label style="color:red">
+                            @Payroll.Transactionnumber
+                        </label>
+                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.TransactionNumber, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.TransactionNumber, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Employeeid</label>
+                        @Html.DropDownListFor(m => m.Header.Employee_Payroll_Transactions.Employee_Code, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee,
+                       new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.Employee_Code, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Salarycodeid</label>
+                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.SalaryCodeID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.SalaryCodeID, "", new { @class = "text-danger" })
+                        @*@Html.DropDownListFor(m => m.Header.Employee_Payroll_Transactions.SalaryCodeID, new SelectList(ViewBag.salary_code, "ID", "Code"), Payroll.SelectChecktypecode, new { @class = "select2", @onchange = "Type_Code()", id = "Typee" })
+                            @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.SalaryCodeID, "", new { @class = "text-danger" })*@
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Journalname</label>
+                        @Html.DropDownListFor(m => m.Header.Employee_Payroll_Transactions.JournalName_BatchCode, new SelectList(ViewBag.PayrollTransactionJournalSetup, "ID", "Code"), Payroll.SelectJournalname, new { @class = "select2", @onchange = "CountryNamess()" })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.SalaryCodeID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Transactiondate</label>
+                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.TransactionDate, new { htmlAttributes = new { @class = "form-control  StartDate yy", @id = "Start", @type = "date", @onchange = "Saves2()" } })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.TransactionDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Effectivedate</label>
+                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.EffectiveDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "End", @type = "date", @onchange = "Saves()" } })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.EffectiveDate, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label> @Payroll.Salarycodetype</label>
+                        @Html.EditorFor(m => m.Header.code_type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @display = "display", @id = "codetype" } })
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>@Payroll.Transactionvalue</label>
+                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.TransactionValue, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.TransactionValue, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label> @Payroll.ValueType</label>
+                        @Html.EditorFor(m => m.Header.code_value_type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @display = "display", @id = "codevaluetype" } })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Payroll.Extendedfieldscode </label>
+                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.ExtendedFields_Code, new { htmlAttributes = new { @class = "form-control", id = "Extended", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.ExtendedFields_Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <td hidden></td>
+                                <td class="col-md-1">
+                                    @Payroll.Code
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Description
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.ValueType
+                                </td>
+                                <td class="col-md-1">
+                                    @Payroll.Value
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody id="cars">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs bordered">
+                        <!-- available classes "bordered", "right-aligned" -->
+                        <li class="active">
+                            <a href="#Budgetdetails" data-toggle="tab">
+                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                <span class="hidden-xs">@Payroll.TransactionStatus</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#PersonnelInformation" data-toggle="tab">
+                                <span class="visible-xs"><i class="entypo-user"></i></span>
+                                <span class="hidden-xs">@Payroll.SourceDocument</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Pensionss" data-toggle="tab">
+                                <span class="visible-xs"><i class="entypo-user"></i></span>
+                                <span class="hidden-xs">@Payroll.Notes</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+                            <div class="col-md-4">
+                                <label> @Payroll.Status</label>
+                                @Html.EditorFor(m => m.Header.check_status, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", id = "checksta", @display = "display" } })
+                            </div>
+                            <div class="col-md-4">
+                                <label>@Payroll.Createdby</label>
+                                @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.CreatedDate, new { htmlAttributes = new { @class = "form-control  StartDate yy", @id = "CreatedDate", @type = "date", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.CreatedDate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>@Payroll.Reportasreadyby</label>
+                                @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.ReportAsReadyDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "ReportAsReadyDate", @type = "date", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.ReportAsReadyDate, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>@Payroll.Approvedby</label>
+                                    @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.ApprovedDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "ApprovedDate", @type = "date", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.ApprovedDate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>@Payroll.Rejectedby</label>
+                                    @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.RejectedDate, new { htmlAttributes = new { @class = "form-control  StartDate yy", @id = "RejectedDate", @type = "date", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.RejectedDate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>@Payroll.Canceledby</label>
+                                    @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.CanceledDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "CanceledDate", @type = "date", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.CanceledDate, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label>@Payroll.Completedby</label>
+                                        @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.CompletedDate, new { htmlAttributes = new { @class = "form-control  EndDate yyy", @id = "CompletedDate", @type = "date", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.CompletedDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="PersonnelInformation">
+
+
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label> <span>@Payroll.SourceDocument</span>  </label>
+                                    @Html.EditorFor(m => m.Header.Payment_Type_Source_Document, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @display = "display" } })
+                                </div>
+                                <div class="col-md-4">
+                                    <label> @Payroll.Sourcedocumentreference </label>
+                                    @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.SourceDocumentRefrence, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.SourceDocumentRefrence, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label> @Payroll.Sourcedocumentdescription </label>
+                                    @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.SourceDocumentDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.SourceDocumentDescription, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label> @Payroll.Sourcedocumentnotes </label>
+                                    @Html.EditorFor(model => model.Header.Employee_Payroll_Transactions.SourceDocumentNotes, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.SourceDocumentNotes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="Pensionss">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @*<label>@Payroll.TransactionNote </label>*@
+                                    @Html.TextAreaFor(model => model.Header.Employee_Payroll_Transactions.TransactionNotes, 8, 200, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.TransactionNotes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{}
+
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

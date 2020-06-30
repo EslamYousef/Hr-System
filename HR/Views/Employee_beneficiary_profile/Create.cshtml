@@ -101,47 +101,39 @@
                         <div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <label style="color:red">@Personnel.EmployeeName</label>
                                     @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                     @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-
                                 </div>
-                                
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.BeneficiaryProfileNo</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.BeneficiaryProfileNo</label>
                                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                                 </div>
-                                <label class="control-label col-md-2">@Personnel.Legatee</label>
                                 <div class="col-md-4">
+                                    <label>@Personnel.Legatee</label>
                                     @Html.CheckBoxFor(model => model.Legatee, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Legatee, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label class="control-label col-md-2">
-                                    <span>@Personnel.Benefittypecode</span>
-                                </label>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.Benefittypecode
+                                    </label>
                                     @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), Personnel.SelectSubscription, new { @required = "required", @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                                </div>
 
+                                <div class="col-md-4">
+                                    <label>
+                                        <span>@Personnel.FamilyName</span>
+                                    </label>
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), Personnel.SelectFamilyProfile, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span>@Personnel.FamilyName</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), Personnel.SelectFamilyProfile, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-
+                                <div class="col-md-4">
+                                    <input type="button" value="@Personnel.Add" id="ss" />
                                 </div>
                             </div>
                             <table id="tb-family" border="1" style="display: table; width:400px;">
@@ -155,7 +147,6 @@
                                 </thead>
                             </table>
 
-                            <input type="button" value="@Personnel.Add" id="ss" />
                             <div class="form-group" hidden>
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" value="@Personnel.Create" class="btn btn-success" />
@@ -164,7 +155,7 @@
                             </div>
                         </div>
 
-                    </div>
+                            </div>
 
                 }
 

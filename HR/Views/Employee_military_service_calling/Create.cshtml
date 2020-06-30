@@ -36,85 +36,68 @@
                         </h1>
                     </section>
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
+            <div class="form-horizontal">
 
-                        <hr />
+                <hr />
 
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @TempData["Message"]
-                            </div>
-                        }
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
 
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        @Html.HiddenFor(m => m.Employee_Profile.ID);
-                        <div>
+                @Html.HiddenFor(m => m.Employee_Profile.ID);
+                <div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId8" })
-                                    @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.EmployeeName</label>
+                        @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "Select Employee", new { @class = "select2", @onchange = "employee()", id = "employeeId8" })
+                        @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Personnel.MilitaryservicecallingNo</label>
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Startdate</label>
+                        @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "Start_date", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Years</label>
+                        @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
+                        @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Enddate</label>
+                        @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "End_date", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                                </div>
-                              
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.MilitaryservicecallingNo</label>
-                                <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.Startdate</label>
-                                <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Start_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ StartDate yy dt", @id = "Start_date", @onchange = "Save()", @autocomplete = "off", @type = "date" } })
-                                    @Html.ValidationMessageFor(model => model.Start_date, "", new { @class = "text-danger" })
-                                </div>
-                                <label class="control-label col-md-2">@Personnel.Years</label>
-                                <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
-
-                                    @Html.ValidationMessageFor(model => model.Years, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.Enddate</label>
-                                <div class="col-md-4">
-                                    @Html.EditorFor(model => model.End_date, new { htmlAttributes = new { @class = "form-control @*datepicker*@ EndDate yyy dt ", @id = "End_date", @onchange = "Save2()", @autocomplete = "off", @type = "date" } })
-                                    @Html.ValidationMessageFor(model => model.End_date, "", new { @class = "text-danger" })
-                                </div>
-                                <label class="control-label col-md-1">@Personnel.Months</label>
-                                <div class="col-md-2">
-                                    @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
-
-                                    @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
-                                </div>
-                                <label class="control-label col-md-1">@Personnel.Days</label>
-                                <div class="col-md-2">
-                                    @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Days" } })
-                                    @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">@Personnel.Comments</label>
-                                <div class="col-md-3">
-                                    @Html.TextAreaFor(model => model.Comments, 4, 55, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.Months</label>
+                        @Html.EditorFor(model => model.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
+                        @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Days</label>
+                        @Html.EditorFor(model => model.Days, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Days" } })
+                        @Html.ValidationMessageFor(model => model.Days, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Comments</label>
+                        @Html.TextAreaFor(model => model.Comments, 4, 40, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+         
 
 
                         <div class="form-group" hidden>

@@ -53,28 +53,25 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
                             <div class="col-md-4">
+                                <label style="color:red">@Personnel.EmployeeName</label>
                                 @Html.DropDownListFor(m => m.Position_Information.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Employee_ProfileId, "", new { @class = "text-danger" })
                             </div>
-                           
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.PositionprofileNo</label>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label style="color:red">@Personnel.PositionprofileNo</label>
                                 @Html.EditorFor(model => model.Position_Information.Code, new
                                    {
                                     htmlAttributes = new
                                     {
                                         @class = "form-control"@*, id = "codeid" *@,
-                    @readonly = true
-                }
-            })
+@readonly = true
+}
+})
                                 @Html.ValidationMessageFor(model => model.Position_Information.Code, "", new { @class = "text-danger" })
                             </div>
-                            <label class="control-label col-md-2">@Personnel.PrimaryPosition</label>
-                            <div class="col-md-1">
+                            <div class="col-md-4">
+                                <label>@Personnel.PrimaryPosition</label>
                                 @Html.CheckBoxFor(model => model.Position_Information.Primary_Position, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Position_Information.Primary_Position, "", new { @class = "text-danger" })
                             </div>
@@ -88,7 +85,7 @@
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
                                 <li class="active">
-                                    <a href="#home" data-toggle="tab">
+                                    <a href="#homes" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
                                         <span class="hidden-xs">@Personnel.PositionInformation</span>
                                     </a>
@@ -103,101 +100,74 @@
                             </ul>
                             <div class="tab-content">
 
-
-
-
-
-
-                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="tab-pane active" id="homes" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Jobdesc</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Jobdesc</label>
                                             @Html.DropDownListFor(m => m.Position_Information.job_descId, new SelectList(ViewBag.job_desc, "ID", "Code"), @Personnel.SelectJobdesc, new { @class = "select2", @onchange = "CountryName()", id = "country" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.job_descId, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Defaultlocationdesc</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Defaultlocationdesc</label>
                                             @Html.DropDownListFor(m => m.Position_Information.Default_location_descId, new SelectList(ViewBag.Default_location, "ID", "Code"), @Personnel.SelectDefaultlocationdesc, new { @eadonly = true, @class = "select2", @onchange = "getcite()", id = "citeid", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Default_location_descId, "", new { @class = "text-danger" })
-
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Locationdesc</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Locationdesc</label>
                                             @Html.DropDownListFor(m => m.Position_Information.Location_descId, new SelectList(ViewBag.location_desc, "ID", "Code"), @Personnel.SelectLocationdesc, new { @class = "select2", @onchange = "getcite2()", id = "citeid2", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Location_descId, "", new { @class = "text-danger" })
-
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2" style="color:red">@Personnel.Slotdesc</label>
                                         <div class="col-md-4">
+                                            <label style="color:red">@Personnel.Slotdesc</label>
                                             @Html.DropDownListFor(m => m.Position_Information.SlotdescId, new SelectList(ViewBag.job_slot_desc, "ID", "Code"), @Personnel.Selectslot, new { @class = "select2", @onchange = "slot()", id = "ter", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.SlotdescId, "", new { @class = "text-danger" })
-
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Jobleveldesc</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Jobleveldesc</label>
                                             @Html.DropDownListFor(m => m.Position_Information.Job_level_gradeId, new SelectList(ViewBag.Job_level_grade, "ID", "Code"), @Personnel.SelectJobleveldesc, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Job_level_gradeId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-
-
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Unitdesc</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Unitdesc</label>
                                             @Html.DropDownListFor(m => m.Position_Information.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), @Personnel.SelectUnitdesc, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
-
                                         </div>
-                                    </div>
 
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Fromdate</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Fromdate</label>
                                             @Html.EditorFor(model => model.Position_Information.From_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Position_Information.From_date, "", new { @class = "text-danger" })
                                         </div>
-                                        <label class="control-label col-md-2">@Personnel.Years</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Years</label>
                                             @Html.EditorFor(model => model.Position_Information.Years, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "Yearr", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Position_Information.Years, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Todate</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Todate</label>
                                             @Html.EditorFor(model => model.Position_Information.To_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  EndDate yyy", @onchange = "Save2()", @id = "End", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Position_Information.To_date, "", new { @class = "text-danger" })
                                         </div>
-                                        <label class="control-label col-md-2">@Personnel.Months</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Months</label>
                                             @Html.EditorFor(model => model.Position_Information.Months, new { htmlAttributes = new { @readonly = "true", @class = "form-control", id = "months", @type = "number", @min = 0 } })
 
                                             @Html.ValidationMessageFor(model => model.Position_Information.Months, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Workingsystem</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Workingsystem</label>
                                             @Html.EnumDropDownListFor(model => model.Position_Information.working_system, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.working_system, "", new { @class = "text-danger" })
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.Positionstatus</label>
+
                                         <div class="col-md-4">
+                                            <label>@Personnel.Positionstatus</label>
                                             @Html.EnumDropDownListFor(model => model.Position_Information.Position_status, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Position_status, "", new { @class = "text-danger" })
                                         </div>
@@ -219,34 +189,27 @@
 
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Endofservicedate</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Endofservicedate</label>
                                                     @Html.EditorFor(model => model.Position_Information.End_of_service_date, new { htmlAttributes = new { @class = "form-control", @id = "End_of_service_date", @autocomplete = "off", @readonly = true, @type = "date" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.End_of_service_date, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Lastworkingdate</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Lastworkingdate</label>
                                                     @Html.EditorFor(model => model.Position_Information.Last_working_date, new { htmlAttributes = new { @class = "form-control", @id = "Last_working_date", @autocomplete = "off", @readonly = true, @type = "date" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.Last_working_date, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.EOSreasons</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.EOSreasons</label>
                                                     @Html.EditorFor(model => model.Position_Information.EOS_reasons, new { htmlAttributes = new { @class = "form-control", @readonly = "true", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.EOS_reasons, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Commnets</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Commnets</label>
                                                     @Html.EditorFor(model => model.Position_Information.Commnets, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @readonly = true } })
                                                     @Html.ValidationMessageFor(model => model.Position_Information.Commnets, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -257,28 +220,27 @@
                                 <div class="tab-pane" id="PersonnelInformation">
 
                                     <div class="form-group" style="margin-top:10px;">
-                                        <label class="control-label col-md-2">@Personnel.Positiontransactionno</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Positiontransactionno</label>
                                             @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction_no, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Position_transaction_no, "", new { @class = "text-danger" })
                                         </div>
 
-                                        <label class="control-label col-md-2">@Personnel.Positiontransaction</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.Positiontransaction</label>
                                             @Html.EditorFor(model => model.Position_Transaction_Information.Position_transaction, new { htmlAttributes = new { @class = "form-control", @id = "Position_transaction", @autocomplete = "off", @type = "date" } })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Position_transaction, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2">@Personnel.TransactionType</label>
                                         <div class="col-md-4">
+                                            <label>@Personnel.TransactionType</label>
                                             @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Transaction_Type, new { @class = "select2" })
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Transaction_Type, "", new { @class = "text-danger" })
                                         </div>
 
-                                        <label class="control-label col-md-2">@Personnel.Fixedbasicsalaryby</label>
                                         <div class="col-md-4">
-                                            @Html.EnumDropDownListFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, new { @class = "select2" })
+                                            <label>@Personnel.Fixedbasicsalaryby</label>
                                             @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Fixed_basic_salary_by, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -294,39 +256,31 @@
                                         </ul>
 
                                         <div class="tab-pane" id="HiringInformation">
-                                            <div class="form-group" style="margin-top:10px;">
-                                                <label class="control-label col-md-2">@Personnel.Resolutionnumber</label>
+                                            <div class="form-group" >
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Resolutionnumber</label>
                                                     @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Resolution_number, "", new { @class = "text-danger" })
                                                 </div>
 
-                                                <label class="control-label col-md-2">@Personnel.Resolutiondate</label>
-
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Resolutiondate</label>
                                                     @Html.EditorFor(model => model.Position_Transaction_Information.Resolution_date, new { htmlAttributes = new { @class = "form-control", @id = "Resolution_date", @autocomplete = "off", @type = "date" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Resolution_date, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Activitynumber</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Activitynumber</label>
                                                     @Html.EditorFor(model => model.Position_Transaction_Information.Activity_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Activity_number, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2">@Personnel.Memonumber</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Memonumber</label>
                                                     @Html.EditorFor(model => model.Position_Transaction_Information.Memo_number, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Memo_number, "", new { @class = "text-danger" })
                                                 </div>
 
-                                                <label class="control-label col-md-2">@Personnel.Memodate</label>
                                                 <div class="col-md-4">
+                                                    <label>@Personnel.Memodate</label>
                                                     @Html.EditorFor(model => model.Position_Transaction_Information.Memo_date, new { htmlAttributes = new { @class = "form-control", @id = "Memo_date", @autocomplete = "off", @type = "date" } })
                                                     @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Memo_date, "", new { @class = "text-danger" })
                                                 </div>
@@ -345,22 +299,19 @@
                                             </ul>
 
                                             <div class="tab-pane" id="Pension">
-                                                <div class="form-group" style="margin-top:10px;">
-                                                    <label class="control-label col-md-2">@Personnel.Recommendedby</label>
+                                                <div class="form-group">
                                                     <div class="col-md-4">
+                                                        <label>@Personnel.Recommendedby</label>
                                                         @Html.EditorFor(model => model.Position_Transaction_Information.Recommended_by, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Recommended_by, "", new { @class = "text-danger" })
                                                     </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-2">@Personnel.Approvedby</label>
                                                     <div class="col-md-4">
+                                                        <label>@Personnel.Approvedby</label>
                                                         @Html.EditorFor(model => model.Position_Transaction_Information.Approved_by, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                                         @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Approved_by, "", new { @class = "text-danger" })
                                                     </div>
-                                                    <label class="control-label col-md-2">@Personnel.Approveddate</label>
                                                     <div class="col-md-4">
+                                                        <label>@Personnel.Approveddate</label>
                                                         @Html.EditorFor(model => model.Position_Transaction_Information.Approved_date, new { htmlAttributes = new { @class = "form-control", @id = "Approved_date", @autocomplete = "off", @type = "date" } })
                                                         @Html.ValidationMessageFor(model => model.Position_Transaction_Information.Approved_date, "", new { @class = "text-danger" })
                                                     </div>

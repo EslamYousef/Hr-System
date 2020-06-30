@@ -1,0 +1,145 @@
+﻿@*@model IEnumerable<HR.Models.TransactionsPayroll.ManualPaymentTransactionEntry>*@
+@model IEnumerable<HR.Controllers.TransactionsPayroll.EmployeeAnnualandSpecialAllowanceController.EmployeeAnnualIncreaseHistory_VM>
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+
+}
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
+        });
+    });
+
+</script>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <p class="lead">
+                            <a href="@Url.Action("Create", "EmployeeAnnualandSpecialAllowance")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Payroll.AddNewEmployeeAnnualIncrease</a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="lead">
+                            <label>@Payroll.EmployeeAnnualIncreaseHistory</label>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Edit", "Employee_Profile", new {id = @ViewBag.idemp})" class="create-btn"><i class="fas fa-undo"></i>@Personnel.BackToEmployeeProfile</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <hr />
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Personnel.EmployeeName</th>
+                                <th>@Payroll.Year</th>
+                                <th>@Payroll.Month</th>
+                                <th>@Payroll.AllowancePercentage</th>
+                                <th>@Payroll.AllowanceAmount</th>
+                                <th>@Payroll.OldSalary</th>
+                                <th>@Payroll.NewSalary</th>
+                                <th>@Payroll.IncreaseType</th>
+                                <th>@Payroll.Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.fullname</td>
+                                    <td>@item.EmployeeAnnualIncreaseHistory.Year</td>
+                                    <td>@item.EmployeeAnnualIncreaseHistory.Month</td>
+                                    <td>@item.EmployeeAnnualIncreaseHistory.AllowncePercentage</td>
+                                    <td>@item.EmployeeAnnualIncreaseHistory.AllownceAmount</td>
+                                    <td>@item.EmployeeAnnualIncreaseHistory.OldSalary</td>
+                                    <td>@item.EmployeeAnnualIncreaseHistory.NewSalary</td>
+                                    @if (item.EmployeeAnnualIncreaseHistory.IncreaseType == 1)
+                                    {
+                                        <td>
+                                            AnnualIncrease
+                                        </td>
+                                    }
+                                    else if (item.EmployeeAnnualIncreaseHistory.IncreaseType == 2)
+                                    {
+                                        <td>
+                                            PromotionIncrease
+                                        </td>
+                                    }
+                                    else if (item.EmployeeAnnualIncreaseHistory.IncreaseType == 3)
+                                    {
+                                        <td>
+                                            OtherIncrease
+                                        </td>
+                                    }
+                                    else if (item.EmployeeAnnualIncreaseHistory.IncreaseType == 0)
+                                    {
+                                        <td>
+                                            Empty
+                                        </td>
+                                    }
+                                    <td>@item.EmployeeAnnualIncreaseHistory.Notes</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000
+    }
+
+        .create-btn svg {
+            color: #0d62aa
+        }
+</style>

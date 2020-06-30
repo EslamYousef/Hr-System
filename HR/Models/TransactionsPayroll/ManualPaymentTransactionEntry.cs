@@ -22,9 +22,9 @@ namespace HR.Models.TransactionsPayroll
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string ManualPaymentType { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
-        public Nullable<System.DateTime> TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; }
         [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
-        public Nullable<System.DateTime> EffectiveDate { get; set; }
+        public DateTime EffectiveDate { get; set; }
         public Nullable<double> NetAmount { get; set; }
         public Nullable<int> TransactionStatus { get; set; }
         public string CreatedBy { get; set; }
@@ -57,5 +57,11 @@ namespace HR.Models.TransactionsPayroll
         public Nullable<int> PreviousYear { get; set; }
         public Nullable<System.DateTime> FromDate { get; set; }
         public Nullable<System.DateTime> ToDate { get; set; }
+
+        public virtual status status { get; set; }
+        public check_status check_status { get; set; }
+
+        public int statID { get; set; }
+        public string name_state { get; set; }
     }
 }

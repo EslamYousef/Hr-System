@@ -74,39 +74,28 @@
 
                         @Html.HiddenFor(m => m.EOS_Interview_Questions_Groups.ID)
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.QuestionCode</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Question_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                @Html.ValidationMessageFor(model => model.Question_Code, "", new { @class = "text-danger" })
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label style="color:red">@Personnel.QuestionCode</label>
+                            @Html.EditorFor(model => model.Question_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.Question_Code, "", new { @class = "text-danger" })
                         </div>
-
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.QuestionDescription</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Question_Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Question_Description, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="col-md-4">
+                            <label>@Personnel.QuestionDescription</label>
+                            @Html.EditorFor(model => model.Question_Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Question_Description, "", new { @class = "text-danger" })
                         </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Description</label>
-                            <div class="col-md-4">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="col-md-4">
+                            <label>@Personnel.Description</label>
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.QuestionGroup</label>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Question_GroupId, new SelectList(ViewBag.EOS_Interview_Questions_Groups, "ID", "Code"), Personnel.QuestionGroup2, new { @class = "select2", @onchange = "QuestionsGroups()", @id = "EOSInterviewQuestionsGroups" })
-                                @Html.ValidationMessageFor(model => model.Question_GroupId, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="col-md-4">
+                            <label  style="color:red">@Personnel.QuestionGroup</label>
+                            @Html.DropDownListFor(m => m.Question_GroupId, new SelectList(ViewBag.EOS_Interview_Questions_Groups, "ID", "Code"), Personnel.QuestionGroup2, new { @class = "select2", @onchange = "QuestionsGroups()", @id = "EOSInterviewQuestionsGroups" })
+                            @Html.ValidationMessageFor(model => model.Question_GroupId, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
 
 

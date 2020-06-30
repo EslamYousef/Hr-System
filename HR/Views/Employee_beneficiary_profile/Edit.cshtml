@@ -102,99 +102,90 @@
                         @Html.HiddenFor(m => m.ID);
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div>
+                    <div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
-                                <div class="col-md-3">
-                                    @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                    @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-
-                                </div>
-                               
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label style="color:red">@Personnel.EmployeeName</label>
+                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2" style="color:red">@Personnel.BeneficiaryProfileNo</label>
-                                <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                                </div>
-                                <label class="control-label col-md-2">@Personnel.Legatee</label>
-                                <div class="col-md-4">
-                                    @Html.CheckBoxFor(model => model.Legatee, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Legatee, "", new { @class = "text-danger" })
-                                </div>
+                            <div class="col-md-4">
+                                <label style="color:red">@Personnel.BeneficiaryProfileNo</label>
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-
-                            <div class="form-group">
-
-                                <label class="control-label col-md-2">
+                            <div class="col-md-4">
+                                <label>@Personnel.Legatee</label>
+                                @Html.CheckBoxFor(model => model.Legatee, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Legatee, "", new { @class = "text-danger" })
+                            </div>
+                           
+                            <div class="col-md-4">
+                                <label>
                                     <span>@Personnel.Benefittypecode</span>
                                 </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), Personnel.SelectSubscription, new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
-
-
-                                </div>
+                                @Html.DropDownList("f", new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), Personnel.SelectSubscription, new { @class = "select2", @onchange = "employee2()", id = "employeeId2" })
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
+                       
+                            <div class="col-md-3">
+                                <label>
                                     <span>@Personnel.FamilyName</span>
                                 </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), Personnel.SelectFamilyProfile, new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
-
-                                </div>
-                            </div>
-                            <table id="tb-family" border="1" style="display: table; width:400px;">
-                                <thead>
-                                    <tr>
-                                        <th id="fa">@Personnel.FamilyprofileNo</th>
-                                        <th id="na">@Personnel.FamilyName</th>
-                                        <th id="per">@Personnel.Percentage</th>
-                                        <th id="De">@Personnel.Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for (var i = 0; i < Model.Append_beneficiary_Family.Count(); i++)
-                                    {
-                                        @*@Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_profile);
-                                   @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_name);
-                                   @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Percentage);
-                                @Html.HiddenFor(m => m.Append_beneficiary_Family[i].ID);*@
-                                        <tr>
-
-                                            <td>
-                                                <input name="Family_profile_No2" type="text" value="@Model.Append_beneficiary_Family[i].Family_profile" readonly />
-                                            </td>
-                                           
-                                            <td>
-                                                <input name="Family_name" type="text" value="@Model.Append_beneficiary_Family[i].Family_name" />
-                                            </td>
-                                            <td>
-                                                <input name="Percentage" type="number" value="@Model.Append_beneficiary_Family[i].Percentage" />
-                                            </td>
-                                            <td>
-                                                <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove()" id="tt" />
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-
-                            <input type="button" value="@Personnel.Add" id="ss" />
-
-
-
-                            <div class="form-group" hidden>
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Employee_beneficiary_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                </div>
+                                @Html.DropDownList("fd", new SelectList(ViewBag.family, "ID", "Code"), Personnel.SelectFamilyProfile, new { @class = "select2", @onchange = "employee3()", id = "employeeId3" })
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input type="button" value="@Personnel.Add" id="ss" />
+                            </div>
+                        </div>
+                        <table id="tb-family" border="1" style="display: table; width:400px;">
+                            <thead>
+                                <tr>
+                                    <th id="fa">@Personnel.FamilyprofileNo</th>
+                                    <th id="na">@Personnel.FamilyName</th>
+                                    <th id="per">@Personnel.Percentage</th>
+                                    <th id="De">@Personnel.Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Append_beneficiary_Family.Count(); i++)
+                                {
+                                    @*@Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_profile);
+                       @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Family_name);
+                       @Html.HiddenFor(m => m.Append_beneficiary_Family[i].Percentage);
+                    @Html.HiddenFor(m => m.Append_beneficiary_Family[i].ID);*@
+                                    <tr>
+
+                                        <td>
+                                            <input name="Family_profile_No2" type="text" value="@Model.Append_beneficiary_Family[i].Family_profile" readonly />
+                                        </td>
+
+                                        <td>
+                                            <input name="Family_name" type="text" value="@Model.Append_beneficiary_Family[i].Family_name" />
+                                        </td>
+                                        <td>
+                                            <input name="Percentage" type="number" value="@Model.Append_beneficiary_Family[i].Percentage" />
+                                        </td>
+                                        <td>
+                                            <input type="button" value="@Personnel.Delete" class="del-btn" onclick="Remove()" id="tt" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+
+
+                        <div class="form-group" hidden>
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="@Personnel.Edit" class="btn btn-success" />
+                                <a href="@Url.Action("index","Employee_beneficiary_profile",new {id=ViewBag.idemp})" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 }
 

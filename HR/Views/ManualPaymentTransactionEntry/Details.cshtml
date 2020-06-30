@@ -1,0 +1,354 @@
+﻿@model HR.Controllers.TransactionsPayroll.HeaderManual
+
+<script>
+    function CountryName() {
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployees",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                //$("#countryname").val(result.AccountName);
+            },
+            error: function () {
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    CountryName();
+
+    function Type_Code() {
+        debugger
+        $("#cars").empty();
+        var did = @ViewBag.Mans
+            var id = @ViewBag.IDD
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetManualPaymentTypes_Header",
+            data: { "id": id,"did":did },
+            async: true,
+            success: function (result) {
+                debugger
+                //$("#Extended").val(result.Name);
+                AllExtendedFields(id,did)
+            },
+            error: function () {
+
+            }
+        });
+    }
+    Type_Code();
+
+    function AllExtendedFields(id,did) {
+        debugger
+        //GetManualPaymentTypes_DetailByManualPaymentTypesHeader
+        $.ajax({
+            type: "post",
+            url: "/Helper/AllManual",
+            data: { "id": id,"did":did },
+            async: true,
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    debugger
+                    if (r.Value != undefined) {
+                        var tt = '<tr><td><input readonly class= "form-control" value = ' + r.SalaryCodeID + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + r.Salarycodedescription + ' name="SalaryDes"></td><td><input readonly class= "form-control" value = ' + r.Type + ' name="Type"></td><td><input readonly class= "form-control" value = ' + r.ValueType + ' name="ValueType"></td><td><input  class= "form-control" value = ' + r.Value + '  name="DefaultValue" ></td></tr>'
+                        //ManualPaymentTransactionEntryDetail(id)
+                        $("#cars").append(tt)
+                    }
+                    else {
+                        var tt = '<tr><td><input readonly class= "form-control" value = ' + r.SalaryCodeID + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + r.Salarycodedescription + ' name="SalaryDes"></td><td><input readonly class= "form-control" value = ' + r.Type + ' name="Type"></td><td><input readonly class= "form-control" value = ' + r.ValueType + ' name="ValueType"></td><td><input  class= "form-control" value = ' + 0 + '  name="DefaultValue" ></td></tr>'
+                        //ManualPaymentTransactionEntryDetail(id)
+                        $("#cars").append(tt)
+                    }
+
+                })
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
+        });
+    }
+        function ManualPaymentTransactionEntryDetail(id) {
+            debugger
+
+            $.ajax({
+                type: "post",
+                url: "/Helper/GetManualPaymentTransactionEntry_Detail",
+                data: { "id": id },
+                async: true,
+                success: function (result) {
+                    debugger
+                    $(".testcode").val(result.Value);
+                    //$.each(result, function (i, r) {
+
+                    //    $(".testcode").val(r.Value);
+
+                    //})
+                },
+                error: function () {
+                }
+            });
+        }
+
+</script>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+    //  Layout = "~/Views/Shared/View.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("Details", "ManualPaymentTransactionEntry", FormMethod.Post, new { TransactionNumber = @ViewBag.Trans, enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("Details", "ManualPaymentTransactionEntry")" class="create-btn">@pers_2.new_</a></div>
+                <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","ManualPaymentTransactionEntry")" class="create-btn" value=@organ.delete /></div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "ManualPaymentTransactionEntry")" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+            @Html.AntiForgeryToken()
+            @*<input name="ID_item" value="" hidden />*@
+            <input name="codeid" value="" hidden />
+            <input name="SalaryDes" value="" hidden />
+            <input name="Type" value="" hidden />
+            <input name="ValueType" value="" hidden />
+            <input name="DefaultValue" value="" hidden />
+
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        <label style="color:red">
+                            @Payroll.Transactionnumber
+                        </label>
+                        <input class="form-control" value="@ViewBag.Trans" readonly />
+
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Employeeid</label>
+                        <input class="form-control" value="@ViewBag.Empcode -- @ViewBag.Emp" id="Country" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Manualpaymenttype</label>
+                        <input class="form-control" value="@ViewBag.Man" readonly id="Manual" />
+                    </div>
+                    <div class="col-md-4">
+                        <label style="color:red">@Payroll.Documenttype</label>
+                        @if (ViewBag.Source == "1")
+                        {
+                            <input class="form-control" value="Manual" readonly />
+                        }
+                        else if (@ViewBag.Source == "2")
+                        {
+                            <input class="form-control" value="Loan" readonly />
+                        }
+                        else if (@ViewBag.Source == "0")
+                        {
+                            <input class="form-control" value="" readonly />
+                        }
+                        else if (@ViewBag.Source == "3")
+                        {
+                            <input class="form-control" value="Vacation" readonly />
+                        }
+                        else if (@ViewBag.Source == "4")
+                        {
+                            <input class="form-control" value="EOS" readonly />
+                        }
+                        else if (@ViewBag.Source == "5")
+                        {
+                            <input class="form-control" value="Variable_compensation" readonly />
+                        }
+                        else if (@ViewBag.Source == "6")
+                        {
+                            <input class="form-control" value="Fixed_compensation" readonly />
+                        }
+                        else if (@ViewBag.Source == "7")
+                        {
+                            <input class="form-control" value="Retro_active" readonly />
+                        }
+                        else if (@ViewBag.Source == "8")
+                        {
+                            <input class="form-control" value="Business_trip" readonly />
+                        }
+                        else if (@ViewBag.Source == "9")
+                        {
+                            <input class="form-control" value="Government_expense" readonly />
+                        }
+                        else if (@ViewBag.Source == "10")
+                        {
+                            <input class="form-control" value="Air_Lines_Booking_expense" readonly />
+                        }
+                        else if (@ViewBag.Source == "11")
+                        {
+                            <input class="form-control" value="HR_records" readonly />
+                        }
+                        else if (@ViewBag.Source == "12")
+                        {
+                            <input class="form-control" value="Miscellaneous" readonly />
+                        }
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs bordered">
+                        <!-- available classes "bordered", "right-aligned" -->
+                        <li class="active">
+                            <a href="#Budgetdetails" data-toggle="tab">
+                                <span class="visible-xs"><i class="entypo-home"></i></span>
+                                <span class="hidden-xs">@pers_2.Salarycode</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+
+                            <div class="form-group">
+                                <table id="categories" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                            <td hidden></td>
+                                            <td class="col-md-1">
+                                                @Payroll.Salarycodeid
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Salarycodedescription
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Type
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.ValueType
+                                            </td>
+                                            <td class="col-md-1">
+                                                @Payroll.Value
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cars">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+@section scripts{}
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

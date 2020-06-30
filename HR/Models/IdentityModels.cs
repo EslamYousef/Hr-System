@@ -287,6 +287,12 @@ namespace HR.Models
         public DbSet<ManualPaymentTransactionEntry_Detail> ManualPaymentTransactionEntry_Detail { get; set; }
 
         public DbSet<ManualPaymentTransactionEntry_ExtendedFieldsDetail> ManualPaymentTransactionEntry_ExtendedFieldsDetail { get; set; }
+        public DbSet<Employee_Payroll_Transactions> Employee_Payroll_Transactions { get; set; }
+        public DbSet<Employee_Payroll_Transactions_ExtendedFieldsDetail> Employee_Payroll_Transactions_ExtendedFieldsDetail { get; set; }
+        public DbSet<EmployeeAnnualIncreaseHistory> EmployeeAnnualIncreaseHistory { get; set; }
+        public DbSet<Employee_BasicSalary_History> Employee_BasicSalary_History { get; set; }
+        public DbSet<LedgerTransaction> LedgerTransaction { get; set; }
+        public DbSet<LedgerTransactionLine> LedgerTransactionLine { get; set; }
         public DbSet<LoanTransfer> LoanTransfer { get; set; }
         public DbSet<LoanAdjustment> LoanAdjustment { get; set; }
         public DbSet<TrainingCenter> TrainingCenter { get; set; }

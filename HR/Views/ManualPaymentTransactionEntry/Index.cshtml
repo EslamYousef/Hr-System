@@ -1,0 +1,294 @@
+﻿@*@model IEnumerable<HR.Models.TransactionsPayroll.ManualPaymentTransactionEntry>*@
+@model IEnumerable<HR.Controllers.TransactionsPayroll.ManualPaymentTransactionEntryEmployee_VM>
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+
+}
+<script>
+    $(function () {
+        filt();
+    })
+    function filt() {
+        debugger
+        var ht = "";
+        $.ajax
+            ({
+                type: "post",
+                url: "/ManualPaymentTransactionEntry/getallstatues",
+                data: {},
+                success: function (result) {
+                    debugger
+                    $.each(result, function (key, value) {
+                        ht += "<option  value='" + value + "'>" + value + "</option>";
+
+                    });
+                    $("#filter").html(ht);
+                }
+            });
+    }
+</script>
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
+        });
+    });
+
+    function getrequest() {
+        debugger
+        var c = $("#filter").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        var status = $("#filter").val();
+        var type = $("#filter_eos_type").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val(); 
+        var types = $("#datetype").val();
+        if (from == "") {
+            from = "1/1/1900";
+        }
+        if (to == "") {
+            to = "1/1/3000"
+        }
+        if (c == null) {
+            c = "all";
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/ManualPaymentTransactionEntry/Getone",
+            data: { "from": from, "to": to, "status": c, "types": types },
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+                    var dt = new Date(parseInt(value.ManualPaymentTransactionEntry.TransactionDate.replace('/Date(', '')))
+                    var dtfinal = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+                    var EffectiveDate = new Date(parseInt(value.ManualPaymentTransactionEntry.EffectiveDate.replace('/Date(', '')))
+                    var EffectiveDateTrans = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+
+                    var tr =
+                        "<tr id='tr'><td>" + value.ManualPaymentTransactionEntry.TransactionNumber + "</td>" +
+                        "<td class='col-md-0'>" + value.fullname + "</td>" +
+                        "<td class='col-md-0' >" + value.Paymenttypedescription + "</td>" +
+                        "<td class='col-md-0'>" + dtfinal + "</td>" +
+                        "<td class='col-md-0'>" + EffectiveDateTrans + "</td>" +
+                        "<td class='col-md-0' >" + value.ManualPaymentTransactionEntry.name_state + "</td>" + 
+                        "<td>" +
+                        "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ManualPaymentTransactionEntry.ID + ")' />" + " " +
+                        "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:100px' onclick='history(" + value.ManualPaymentTransactionEntry.ID + ")' />" + " " +
+                        "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ManualPaymentTransactionEntry.ID + ")' /></td>";
+                    $("#tbody11").append(tr);
+                });
+                function AddLeadingZeros(number, size) {
+
+                    var s = "0000" + number;
+                    return s.substr(s.length - size);
+
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function getallrequest() {
+        debugger
+        var c = $("#filter").val();
+        $.ajax({
+            type: "post",
+            url: "/ManualPaymentTransactionEntry/Getalll",
+            data: { "c": c },
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+
+                    var dt = new Date(parseInt(value.ManualPaymentTransactionEntry.TransactionDate.replace('/Date(', '')))
+                    var dtfinal = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+                    var EffectiveDate = new Date(parseInt(value.ManualPaymentTransactionEntry.EffectiveDate.replace('/Date(', '')))
+                    var EffectiveDateTrans = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+                                                        
+                    var tr =
+                        "<tr id='tr'><td>" + value.ManualPaymentTransactionEntry.TransactionNumber + "</td>" +
+                        "<td class='col-md-0'>" + value.fullname + "</td>" +
+                        "<td class='col-md-0' >" + value.Paymenttypedescription + "</td>" +
+                        "<td class='col-md-0'>" + dtfinal + "</td>" +
+                        "<td class='col-md-0'>" + EffectiveDateTrans + "</td>" +
+                        "<td class='col-md-0' >" + value.ManualPaymentTransactionEntry.name_state + "</td>" + 
+                        
+                        "<td>" + "<input type='button' value='change' class='btn btn-primary btn-sm' onclick='change(" + value.ManualPaymentTransactionEntry.ID + ")' />" + " " +
+                        "<input type='button' value='status' class='btn btn-primary btn-sm' style='width:100px' onclick='history(" + value.ManualPaymentTransactionEntry.ID + ")' />" + " " +
+                        "<input type='button' value='Delete' class='btn btn-danger btn-sm' onclick='deletee(" + value.ManualPaymentTransactionEntry.ID + ")' /></td>";
+                    $("#tbody11").append(tr);
+                });
+                function AddLeadingZeros(number, size) {
+                    
+                    var s = "0000" + number;
+                    return s.substr(s.length - size);
+
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+
+    function change(id) {
+        window.open("/ManualPaymentTransactionEntry/Edit?id=" + id);
+    }
+    function history(id) {
+
+        window.open("/ManualPaymentTransactionEntry/status?id=" + id);
+    }
+    function deletee(id) {
+
+        window.open("/ManualPaymentTransactionEntry/Delete/" + id);
+    }
+</script>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    <a href="@Url.Action("Create", "ManualPaymentTransactionEntry")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Payroll.AddNewManualPaymentTypes</a>
+                </p>
+            </div>
+            </div>
+            <!-- /.box-header -->
+        <div class="box-body">
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @TempData["Message"]
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="col-md-2">
+                    <select name="test" class="select2" id="filter" placeholder="Choose your status" multiple>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="datetype" class="select2">
+                        <option value="1">@Payroll.Effectivedate</option>
+                        <option value="2">@Payroll.Transactiondate</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
+                </div>
+                <div class="col-md-3">
+                    <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
+                </div>
+
+            </div>
+            <hr />
+            <hr />
+            <hr />
+
+            <div class="form-group">
+                <div class="col-md-3">
+                    <input autocomplete="off" placeholder=@pers_2.fromdate onfocus="(this.type='date')" value="" class="form-control" id="datefrom" style="margin:15px,15px,15px,0px !important" />
+                </div>
+
+                <div class="col-md-4">
+                    <input autocomplete="off" placeholder=@pers_2.todate onfocus="(this.type='date')" class="form-control" id="dateto" style="margin:0px,15px,15px,0px !important" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-group" style="margin-top:70px;margin-left:30px">
+                <table id="categories" style="margin-top:20px" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Payroll.Transactionnumber</th>
+                            <th>@Payroll.EmployeeName</th>
+                            <th>@Payroll.Paymenttypedescription</th>
+                            <th>@Payroll.Transactiondate</th>
+                            <th>@Payroll.Effectivedate</th>
+                            <th>@Payroll.Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody11">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ManualPaymentTransactionEntry.TransactionNumber</td>
+                                <td>@item.fullname</td>
+                                <td>@item.Paymenttypedescription</td>
+                                <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.ManualPaymentTransactionEntry.TransactionDate))</td>
+                                <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.ManualPaymentTransactionEntry.EffectiveDate))</td>
+                                <td>@item.ManualPaymentTransactionEntry.check_status</td>
+                                <td>
+
+                                    @if (item.ManualPaymentTransactionEntry.check_status != HR.Models.Infra.check_status.Approved && item.ManualPaymentTransactionEntry.check_status != HR.Models.Infra.check_status.Rejected)
+                                    {<a href="@Url.Action("Edit", "ManualPaymentTransactionEntry", new { id = item.ManualPaymentTransactionEntry.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                }
+                                    <a href="@Url.Action("Delete", "ManualPaymentTransactionEntry" , new {id=item.ManualPaymentTransactionEntry.ID})" class="create-btn"><i class="far fa-trash-alt"></i> @pers_2.delete</a>
+                                    <a href="@Url.Action("status", "ManualPaymentTransactionEntry" , new {id=item.ManualPaymentTransactionEntry.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+         
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000
+    }
+
+        .create-btn svg {
+            color: #0d62aa
+        }
+</style>

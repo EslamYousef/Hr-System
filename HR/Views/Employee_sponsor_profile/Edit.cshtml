@@ -51,87 +51,56 @@
                         @Html.HiddenFor(m => m.Employee_Profile.ID)
                         @Html.HiddenFor(m => m.Sponsor.ID)
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.EmployeeName</label>
-                            <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
-                                @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
-
-                            </div>
-                           
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label style="color:red">@Personnel.EmployeeName</label>
+                            @Html.DropDownListFor(m => m.Employee_ProfileId, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), @Personnel.SelectEmployee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                            @Html.ValidationMessageFor(model => model.Employee_ProfileId, "", new { @class = "text-danger" })
                         </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2" style="color:red">@Personnel.SponsorprofileNo</label>
-                            <div class="col-md-3">
-                                @Html.DropDownListFor(m => m.SponsorId, new SelectList(ViewBag.Sponsor, "ID", "Code"), Personnel.SelectSponsor, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
-                                @Html.ValidationMessageFor(model => model.SponsorId, "", new { @class = "text-danger" })
-
-                            </div>
+                        <div class="col-md-4">
+                            <label style="color:red">@Personnel.SponsorprofileNo</label>
+                            @Html.DropDownListFor(m => m.SponsorId, new SelectList(ViewBag.Sponsor, "ID", "Code"), Personnel.SelectSponsor, new { @readonly = true, @class = "select2", @onchange = "employee2()", id = "employeeId2" })
+                            @Html.ValidationMessageFor(model => model.SponsorId, "", new { @class = "text-danger" })
                         </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.ResidenceId</label>
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Residence_Id, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Residence_Id, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="col-md-4">
+                            <label>@Personnel.ResidenceId</label>
+                            @Html.EditorFor(model => model.Residence_Id, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.Residence_Id, "", new { @class = "text-danger" })
                         </div>
-
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Issueplace</label>
-                            <div class="col-md-3">
-                                @Html.EditorFor(model => model.Issue_place, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.Issue_place, "", new { @class = "text-danger" })
-                            </div>
+                        <div class="col-md-4">
+                            <label>@Personnel.Issueplace</label>
+                            @Html.EditorFor(model => model.Issue_place, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.Issue_place, "", new { @class = "text-danger" })
                         </div>
-
-
+                        <div class="col-md-4">
+                            <label>@Personnel.Issuedate</label>
+                            @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control", @id = "Issue_date", @autocomplete = "off", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Issuedate</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control", @id = "Issue_date", @autocomplete = "off", @type = "date" } })
-                                @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
-                            </div>
-
-                            <label class="control-label col-md-2">@Personnel.Birthdate</label>
-                            <div class="col-md-4">
+                                <label>@Personnel.Birthdate</label>
                                 @Html.EditorFor(model => model.Birth_date, new { htmlAttributes = new { @class = "form-control", @id = "Birth_date", @autocomplete = "off", @type = "date" } })
                                 @Html.ValidationMessageFor(model => model.Birth_date, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Owner</label>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label>@Personnel.Owner</label>
                                 @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Job</label>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label>@Personnel.Job</label>
                                 @Html.EditorFor(model => model.Job, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Job, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Nationality</label>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label>@Personnel.Nationality</label>
                                 @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">@Personnel.Religin</label>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <label>@Personnel.Religin</label>
                                 @Html.EditorFor(model => model.Religin, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.Religin, "", new { @class = "text-danger" })
                             </div>
