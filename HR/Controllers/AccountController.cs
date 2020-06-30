@@ -47,6 +47,7 @@ namespace HR.Controllers
                 user_edit.name = Login_User.UserName;
                 user_edit.mail = Login_User.Email;
                 user_edit.image_profile = Login_User.ImagePath;
+                user_edit.company_name = Login_User.company_name;
                 return View(user_edit);
 
             }
@@ -62,6 +63,7 @@ namespace HR.Controllers
             var userId = User.Identity.GetUserId();
             var Login_User = await UserManager.FindByIdAsync(userId);
             model.image_profile = Login_User.ImagePath;
+          //  model.company_name = Login_User.company_name;
             if (!ModelState.IsValid)
             {
                 TempData["Message"] = "ERROR.";
@@ -73,6 +75,7 @@ namespace HR.Controllers
 
                 Login_User.UserName = model.name;
                 Login_User.Email = model.mail;
+                Login_User.company_name = model.company_name;
                 if(model.image_profile!=null)
                 Login_User.ImagePath = model.image_profile;
 
@@ -259,7 +262,7 @@ namespace HR.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { company_name=model.company_name,UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

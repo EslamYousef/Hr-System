@@ -1,0 +1,109 @@
+﻿@model IEnumerable<HR.Controllers.payroll_tran1.salaryVM>
+@using HR.Resource;
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+              
+               
+
+
+
+
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@pers_2.employee</th>
+                                <th>@pers_2.months</th>
+                                <th>@Personnel.Years</th>
+                                <th>@pers_2.netamount</th>
+                               
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.emp_id</td>
+                                    <td>@item.Month</td>
+                                    <td>@item.Year</td>
+                                    <td>@item.total</td>
+                                
+                                    <td>
+                                       
+                                        <a href="@Url.Action("preview", "Salary_calcualtion" , new {id=item.emp_id,month=item.Month,year=item.Year,total=item.total})" class="create-btn"><i class="far fa-trash-alt"></i>@pers_2.preview</a>
+                                        
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

@@ -1,0 +1,649 @@
+﻿@model HR.Models.Training.setup.TrainingCenters_Branch
+
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("edit", "Training_center_branches", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Training_center_branches")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Training_center_branches")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Training_center_branches")" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
+                    <input name="contact_id" value="" />
+                    <input name="contact_details1" value="" />
+                    @Html.HiddenFor(m => m.ID);
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @training.centerbranches
+                            </h1>
+                        </section>
+                        <div class="form-group">
+
+
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.Trainigcenter
+                                </label>
+                                @Html.DropDownListFor(m => m.TrainingCenters_Code, new SelectList(ViewBag.centers, "ID", "Code"), training.Trainigcenter, new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.TrainingCenters_Code, "", new { @class = "text-danger" })
+                                <input type="hidden" value=" " class="form-control" id="countryname" disabled />
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.code</label>
+                                @Html.EditorFor(model => model.Branch_Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Branch_Code, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.description</label>
+                                @Html.EditorFor(model => model.Branch_Desc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Branch_Desc, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <label>@organ.AlterunitDescription</label>
+                                @Html.EditorFor(model => model.Branch_AltDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Branch_AltDesc, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+
+
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#homee" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@training.address_info</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#profile" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-user"></i></span>
+                                        <span class="hidden-xs">@training.contact_info</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
+
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Basic.Country
+                                            </label>
+                                            @Html.DropDownListFor(m => m.CountryCode, new SelectList(ViewBag.country, "ID", "Code"), Basic.Country, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                            @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
+                                            <input type="hidden" value=" " class="form-control" id="countryname" disabled />
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Basic.Region
+                                            </label>
+                                            @Html.DropDownListFor(m => m.Region_Code, new SelectList(ViewBag.area, "ID", "Code"), Basic.Region, new { @class = "select2", @onchange = "areaName()", id = "area", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Region_Code, "", new { @class = "text-danger" })
+                                            <input type="hidden" value=" " class="form-control" id="areaname" disabled />
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Basic.State
+                                            </label>
+                                            @Html.DropDownListFor(m => m.State_Governorate_Code, new SelectList(ViewBag.state, "ID", "Code"), Basic.State, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.State_Governorate_Code, "", new { @class = "text-danger" })
+                                            <input type="hidden" value=" " class="form-control" id="statename" disabled />
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Basic.County
+                                            </label>
+                                            @Html.DropDownListFor(m => m.County_Code, new SelectList(ViewBag.ter, "ID", "Code"), Basic.County, new { @class = "select2", @onchange = "getter()", id = "ter", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.County_Code, "", new { @class = "text-danger" })
+                                            <input type="hidden" value=" " class="form-control" id="tername" disabled />
+
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Basic.City
+                                            </label>
+                                            @Html.DropDownListFor(m => m.City_Code, new SelectList(ViewBag.city, "ID", "Code"), Basic.City, new { @class = "select2", @onchange = "getcity()", id = "city", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.City_Code, "", new { @class = "text-danger" })
+                                            <input type="hidden" value=" " class="form-control" id="cityname" disabled />
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @Basic.Postal_code
+                                            </label>
+                                            @Html.DropDownListFor(m => m.Zip_Postal_Code, new SelectList(ViewBag.postal, "ID", "Code"), Basic.Postal_code, new { @class = "select2", id = "postal", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Zip_Postal_Code, "", new { @class = "text-danger" })
+                                            <input type="hidden" value=" " class="form-control" id="cityname" disabled />
+
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <label>@Basic.street_name</label>
+                                            @Html.EditorFor(model => model.Street_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Street_Name, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <label>@training.street_number</label>
+                                            @Html.EditorFor(model => model.StreetNumber, new { htmlAttributes = new { @type = "number", @min = "0", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.StreetNumber, "", new { @class = "text-danger" })
+                                        </div>
+
+
+                                        <div class="col-md-4">
+
+                                            <label>@training.p0x</label>
+                                            @Html.EditorFor(model => model.PO_Box, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.PO_Box, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane" id="profile">
+
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-4">
+                                            <label>@Basic.contactmethod</label>
+                                            @Html.DropDownList("category", new SelectList(ViewBag.contact_method, "ID", "Code"), @Basic.contactmethod, new { @class = "select2", id = "contact" })
+
+                                        </div>
+
+
+
+
+
+                                        <div class="col-md-4">
+                                            <label> - </label>
+                                            <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <td>@Basic.contactmethod</td>
+                                                <td>@organ.details</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="emp2"></tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+ss
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+<script>
+    function CountryName() {
+
+        var id = $("#country").val();
+        $("#area").empty();
+        $("#state").empty();
+        $("#ter").empty();
+        $("#area").select2("val", "");
+        $("#state").select2("val", "");
+        $("#ter").select2("val", "");
+        $("#city").empty();
+        $("#city").select2("val", "");
+        $("#postal").empty();
+        $("#postal").select2("val", "");
+
+
+
+                getallarea(id);
+
+    }
+    function getallarea(id)
+    {
+
+
+       $.ajax({
+          type: "post",
+          url: "/Helper/getareabycountry",
+          data: { "id": id, "flag": "0" },
+          success: function (result) {
+
+              $("#area").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+                   finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+              });
+              $("#area").html(finalresult);
+              $("#area").select2("val", "0");
+          },
+          error: function () {
+
+              $("#area").val(" ");
+          }
+      });
+    }
+    function areaName() {
+
+        var id = $("#area").val();
+        $("#state").empty();
+        $("#ter").empty();
+        $("#city").empty();
+        $("#state").select2("val", "0");
+        $("#city").select2("val", "0");
+        $("#ter").select2("val", "0");
+
+        $("#postal").empty();
+        $("#postal").select2("val", "");
+
+
+
+                getallstate(id);
+
+    }
+    function getallstate(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getstatebycountry",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+
+                $("#state").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose state </option>";
+                $.each(result, function (key, value) {
+                     finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#state").html(finalresult);
+                $("#state").select2("val", "0");
+            },
+            error: function () {
+
+                $("#state").val(" ");
+            }
+        });
+    }
+    function getstate()
+    {
+
+        var id = $("#state").val();
+        $("#ter").empty();
+        $("#city").empty();
+        $("#ter").select2("val", "0");
+        $("#city").select2("val", "0");
+        $("#postal").empty();
+        $("#postal").select2("val", "");
+
+
+
+
+
+
+                $("#ter").removeAttr("disabled");
+
+                getallter(id);
+
+    }
+    function getallter(id)
+    {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallter",
+            data: { "id": id, "flag": "0" },
+            success: function (result) {
+                debugger
+                $("#ter").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose ter </option>";
+                $.each(result, function (key, value) {
+                    debugger
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#ter").html(finalresult);
+                $("#ter").select2("val", "0");
+            },
+            error: function () {
+
+                $("#ter").val(" ");
+            }
+        });
+
+    }
+    function getter()
+    {
+
+        var id = $("#ter").val();
+        $("#city").empty();
+        $("#city").select2("val", "0");
+        $("#postal").empty();
+        $("#postal").select2("val", "");
+
+
+
+                getallcity(id);
+
+    }
+    function getallcity(id)
+    {
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/getallCity",
+            data: { "id": id},
+            success: function (result) {
+
+                $("#city").removeAttr("disabled");
+                var finalresult = "<option value='0' > Choose City </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#city").html(finalresult);
+                $("#city").select2("val", "0");
+            },
+            error: function () {
+
+                $("#city").val(" ");
+            }
+        });
+    }
+    function getcity()
+    {
+
+        var id = $("#city").val();
+
+        $("#city").removeAttr("disabled");
+        $("#postal").removeAttr("disabled");
+
+        getallpostal(id);
+
+    }
+    function getallpostal(id) {
+
+        $.ajax({
+            type: "post",
+            url: "/Training_center_branches/getallpostal",
+            data: { "id": id },
+            success: function (result) {
+
+
+                var finalresult = "<option value='0' > Choose postal </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#postal").html(finalresult);
+                $("#postal").select2("val", "0");
+            },
+            error: function () {
+
+                $("#city").val(" ");
+            }
+        });
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+
+    }
+    function getemp() {
+        var finalresult = "";
+        var contact_id =parseInt($("#contact").val());
+        var contact_text = $("#contact").find("option:selected").text();
+
+        debugger
+
+        if (contact_id > 0) {
+                        debugger
+                        finalresult +=
+                            "<tr>" +
+                            "<td hidden><input hidden  class = 'form-control' required type='number'  name='contact_id'   value='" + contact_id + "' /></td>" +
+                            "<td><input class = 'form-control' required   value='" + contact_text + "'  readonly='readonly'/></td>" +
+                            "<td><input class = 'form-control' required   value=' ' name='contact_details1'/></td>" +
+                            "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+            $("#emp2").append(finalresult);
+        }
+
+    }
+    function getcontent() {
+        debugger
+        var finalresult2 = "";
+        var id = '@Model.Branch_Code';
+
+
+        $.ajax({
+            type: "post",
+            url: "/Training_center_branches/getallcontent",
+            data: {  "id": id },
+            success: function (result) {
+                debugger
+
+                $.each(result, function (key, value) {
+                    debugger
+                    finalresult2 +=
+                 "<tr>" +
+                 "<td hidden><input hidden  class = 'form-control' required type='number'  name='contact_id'   value='" + value.contact_id + "' /></td>" +
+                 "<td><input class = 'form-control' required   value='" + value.contact_name + "'  readonly='readonly'/></td>" +
+                 "<td><input class = 'form-control' required   value='" + value.Contact_Method_Detail + " ' name='contact_details1'/></td>" +
+                 "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+           
+                });
+              
+                $("#emp2").append(finalresult2);
+            },
+            error: function () {
+
+              
+            }
+        });
+       
+       
+       
+
+    }
+</script>
+
+
+<script>
+
+    $(function () {
+        var id = $("#country").val();
+        if (id != null && id != "") {
+            $("#area").removeAttr("disabled");
+            $("#country").select2("val", "0");
+            var id1 = $("#area").val();
+            if (id1 != null && id1 != "") {
+                $("#state").removeAttr("disabled");
+                $("#area").select2("val", "0");
+                var id2 = $("#state").val();
+
+                if (id2 != null && id2 != "") {
+                    $("#ter").removeAttr("disabled");
+                    $("#state").select2("val", "0");
+                    var id3 = $("#ter").val();
+                    if (id3 != null && id3 != "") {
+                        $("#city").removeAttr("disabled");
+                        $("#ter").select2("val", "0");
+                        var id4 = $("#city").val();
+                        if (id4 != null && id4 != "") {
+                            $("#postal").removeAttr("disabled");
+                            $("#city").select2("val", "0");
+                            var id5 = $("#postal").val();
+                            if (id5 != null && id5 != "") {
+
+                                $("#postal").select2("val", "0");
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        getcontent();
+    })
+  
+    
+</script>

@@ -1,8 +1,12 @@
 ﻿@model HR.Models.Country
 @using HR.Resource;
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "الصفحة الرئيسية";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
+    var userId = User.Identity.GetUserId();
+    var context = new HR.Models.ApplicationDbContext();
+    var user = context.Users.Find(userId);
 }
 <link href="~/Content/layout_style/css/all.css" rel="stylesheet" />
 <link href="~/Content/layout_style/css/font-awesome.min.css" rel="stylesheet" />
@@ -12,7 +16,9 @@
 {
     <div class="row" style="padding: 83px;background-image: url(/1.jpg);background-size: cover;">
         <div col-lg-12>
-            <h3 style="color: #fff">-</h3>
+            <h3 style="color: #fff">
+                @user.company_name  
+            </h3>
         </div>
     </div>
 }

@@ -14,6 +14,8 @@ using HR.Models.SetupPayroll;
 using HR.Models.CardPayroll;
 using HR.Models.payroll_trans;
 using HR.Models.TransactionsPayroll;
+using HR.Models.Training.setup;
+using HR.Models.Training.trans;
 
 namespace HR.Models
 {
@@ -21,6 +23,7 @@ namespace HR.Models
     public class ApplicationUser : IdentityUser
     {
         public string ImagePath { get; internal set; }
+        public string company_name { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -284,6 +287,30 @@ namespace HR.Models
         public DbSet<ManualPaymentTransactionEntry_Detail> ManualPaymentTransactionEntry_Detail { get; set; }
 
         public DbSet<ManualPaymentTransactionEntry_ExtendedFieldsDetail> ManualPaymentTransactionEntry_ExtendedFieldsDetail { get; set; }
+        public DbSet<LoanTransfer> LoanTransfer { get; set; }
+        public DbSet<LoanAdjustment> LoanAdjustment { get; set; }
+        public DbSet<TrainingCenter> TrainingCenter { get; set; }
+        public DbSet<TrainingCenters_Branch> TrainingCenters_Branch { get; set; }
+        public DbSet<TrainingCenters_Branch_Contact> TrainingCenters_Branch_Contact { get; set; }
+        public DbSet<ClassRoom_Group> ClassRoom_Group { get; set; }
+        public DbSet<ClassRoom> ClassRoom { get; set; }
+        public DbSet<CourseClassification> CourseClassification { get; set; }
+        public DbSet<Course_Groups> Course_Groups { get; set; }
+        public DbSet<Course_SubGroups> Course_SubGroups { get; set; }
+        public DbSet<CostElement> CostElement { get; set; }
+        public DbSet<Provider> Provider { get; set; }
+        public DbSet<Training_Facilities> Training_Facilities { get; set; }
+        public DbSet<TrainingType_Detail> TrainingType_Detail { get; set; }
+        public DbSet<TrainingType_Header> TrainingType_Header { get; set; }
+        public DbSet<TrainingPolicy> TrainingPolicy { get; set; }
+
+        public DbSet<Instructor> Instructor { get; set; }
+        public DbSet<Instructor_Contact> Instructor_Contact { get; set; }
+        public DbSet<Cours> Cours { get; set; }
+        public DbSet<CourceQualification> CourceQualification { get; set; }
+        public DbSet<Course_Centers> Course_Centers { get; set; }
+        public DbSet<Course_Skills> Course_Skills { get; set; }
+        public DbSet<Course_TrainingType> Course_TrainingType { get; set; }
     }
 
 }

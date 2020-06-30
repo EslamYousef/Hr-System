@@ -394,6 +394,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Profile.
+        /// </summary>
+        public static string EditProfile {
+            get {
+                return ResourceManager.GetString("EditProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Education level.
         /// </summary>
         public static string education_level {
@@ -1191,6 +1200,15 @@ namespace HR.Resource {
         public static string SalaryItemsGroup {
             get {
                 return ResourceManager.GetString("SalaryItemsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string setting {
+            get {
+                return ResourceManager.GetString("setting", resourceCulture);
             }
         }
         

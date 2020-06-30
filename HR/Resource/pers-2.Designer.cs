@@ -61,24 +61,6 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0.
-        /// </summary>
-        public static string _0 {
-            get {
-                return ResourceManager.GetString("0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string _4 {
-            get {
-                return ResourceManager.GetString("4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Accomplish.
         /// </summary>
         public static string accomplish {
@@ -835,6 +817,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new Loane transfer.
+        /// </summary>
+        public static string createnewloantransfer {
+            get {
+                return ResourceManager.GetString("createnewloantransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Performance Evaluation Group.
         /// </summary>
         public static string CreatePerformanceEvaluationGroup {
@@ -1119,6 +1110,15 @@ namespace HR.Resource {
         public static string deletemessage {
             get {
                 return ResourceManager.GetString("deletemessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string details {
+            get {
+                return ResourceManager.GetString("details", resourceCulture);
             }
         }
         
@@ -1645,6 +1645,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From employee.
+        /// </summary>
+        public static string fromemp {
+            get {
+                return ResourceManager.GetString("fromemp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From Score.
         /// </summary>
         public static string Fromscore {
@@ -2023,6 +2032,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loan Adjustment.
+        /// </summary>
+        public static string loanadjustment {
+            get {
+                return ResourceManager.GetString("loanadjustment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location .
         /// </summary>
         public static string Locationdesc {
@@ -2257,11 +2275,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Net Amount.
+        /// </summary>
+        public static string netamount {
+            get {
+                return ResourceManager.GetString("netamount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         public static string new_ {
             get {
                 return ResourceManager.GetString("new_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Request.
+        /// </summary>
+        public static string newrequest {
+            get {
+                return ResourceManager.GetString("newrequest", resourceCulture);
             }
         }
         
@@ -2334,6 +2370,15 @@ namespace HR.Resource {
         public static string numberreq {
             get {
                 return ResourceManager.GetString("numberreq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Request.
+        /// </summary>
+        public static string Oldrequest {
+            get {
+                return ResourceManager.GetString("Oldrequest", resourceCulture);
             }
         }
         
@@ -2455,6 +2500,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paid Amount.
+        /// </summary>
+        public static string pidAmount {
+            get {
+                return ResourceManager.GetString("pidAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plan.
         /// </summary>
         public static string plan {
@@ -2550,6 +2604,15 @@ namespace HR.Resource {
         public static string PositionTransactionno {
             get {
                 return ResourceManager.GetString("PositionTransactionno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to preview.
+        /// </summary>
+        public static string preview {
+            get {
+                return ResourceManager.GetString("preview", resourceCulture);
             }
         }
         
@@ -2770,6 +2833,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request Date.
+        /// </summary>
+        public static string requestedate {
+            get {
+                return ResourceManager.GetString("requestedate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requset date.
         /// </summary>
         public static string Requsetdate {
@@ -2901,6 +2973,15 @@ namespace HR.Resource {
         public static string security {
             get {
                 return ResourceManager.GetString("security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string select {
+            get {
+                return ResourceManager.GetString("select", resourceCulture);
             }
         }
         
@@ -3076,6 +3157,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To employee.
+        /// </summary>
+        public static string tomployee {
+            get {
+                return ResourceManager.GetString("tomployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To Score.
         /// </summary>
         public static string Toscore {
@@ -3171,6 +3261,15 @@ namespace HR.Resource {
         public static string Transactiontype {
             get {
                 return ResourceManager.GetString("Transactiontype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer.
+        /// </summary>
+        public static string transfer {
+            get {
+                return ResourceManager.GetString("transfer", resourceCulture);
             }
         }
         

@@ -18,12 +18,12 @@
             "order" : 1
         });
     });
-   
+
     function getrequest()
     {
-
+        debugger
         $("#tbody11 tr").remove();
-     
+
         var from = $("#datefrom").val();
         var to = $("#dateto").val();
         if (from == "")
@@ -33,34 +33,45 @@
         if (to == "") {
             to="1/1/3000"
         }
-       
-        
+
+
 
             $.ajax({
                 type: "post",
                 url: "/LoanRequest/Getone",
                 data: { "from": from, "to": to},
                 success: function (result) {
-
+                    debugger
                     $("#tbody11 tr").remove();
                     $.each(result, function (key, value) {
-                        
+                        debugger
                             var tr =
                   "<tr id='tr'><td>" + value.LoanRequestNumber + "</td>" +
                  "<td style='width:60px'>" + value.EmployeeID +"--"+ value.emp_name+ "</td>" +
-                
+
                   "<td>" + value.CanceledBy + "</td>" +
                  "<td>" + value.RejectedBy + "</td>" +
                  "<td>" + value.LoanAmount + "</td>" +
-                  "<td >" + value.status + "</td>" +
+                  "<td >" + value.check_status + "</td>" +
                  "<td>" +
-                 "<input type='button' value='change' class='create-btn' onclick='change(" + value.ID + ")' />" + " " +
                  "<input type='button' value='status' class='create-btn' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
-                 "<input type='button' value='Delete' class='create-btn' onclick='deletee(" + value.ID + ")' /></td>";
+                 "<input type='button' value='Delete' class='create-btn' onclick='deletee(" + value.ID + ")' />"+" ";
+
+                            if (value.check_status != "Approved" && value.check_status != "Rejected") {
+
+                                tr = tr + "<input type='button' value='change' class='create-btn' onclick='change(" + value.ID + ")' />" + " ";
+
+                            }
+                            if (value.check_status == "Approved") {
+                                tr = tr + "<input type='button' value='@pers_2.transfer' class='create-btn' onclick='Loan_transfer(" + value.ID + ")' />" + " " +
+                                "<input type='button' value='@pers_2.loanadjustment' class='create-btn' onclick='loanadjustment(" + value.ID + ")' />";
+
+                            }
+
+
+
+                            tr = tr + "</td></tr>";
                             $("#tbody11").append(tr);
-
-
-
                                    });
 
                 },
@@ -72,7 +83,7 @@
         }
     function getallrequest() {
 
-       
+
         $.ajax({
             type: "post",
             url: "/LoanRequest/Getalll",
@@ -82,7 +93,7 @@
                 $("#tbody11 tr").remove();
                 $.each(result, function (key, value) {
 
-                   
+
 
                     var tr =
           "<tr id='tr'><td>" + value.LoanRequestNumber + "</td>" +
@@ -92,9 +103,27 @@
                  "<td>" + value.RejectedBy + "</td>" +
                  "<td>" + value.LoanAmount + "</td>" +
                   "<td >" + value.status + "</td>" +
-         "<td>" + "<input type='button' value='change' class='create-btn' onclick='change(" + value.ID + ")' />" + " " +
-         "<input type='button' value='status' class='create-btn' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
-         "<input type='button' value='Delete' class='create-btn' onclick='deletee(" + value.ID + ")' /></td>";
+
+         "<td><input type='button' value='status' class='create-btn' style='width:50px' onclick='history(" + value.ID + ")' />" + " " +
+         "<input type='button' value='Delete' class='create-btn' onclick='deletee(" + value.ID + ")' />"+" ";
+
+                    if (value.check_status != "Approved" && value.check_status != "Rejected")
+                    {
+                           
+                             tr = tr + "<input type='button' value='change' class='create-btn' onclick='change(" + value.ID + ")' />" + " ";
+
+                    }
+                    if (value.check_status == "Approved")
+                    {
+                        tr = tr + "<input type='button' value='@pers_2.transfer' class='create-btn' onclick='Loan_transfer(" + value.ID + ")' />" + " "+
+                        "<input type='button' value='@pers_2.loanadjustment' class='create-btn' onclick='loanadjustment(" + value.ID + ")' />";
+
+                    }
+                                
+
+
+                         tr = tr + "</td></tr>";
+
 
                     $("#tbody11").append(tr);
                 });
@@ -107,6 +136,17 @@
         });
     }
 
+    function Loan_transfer(id)
+    {
+
+        window.open("/Loan_transfer/Loan_transfer_entry?id=" + id);
+
+    }
+    function loanadjustment(id)
+    {
+
+        window.open("/LoanAdjustment/create?id=" + id);
+    }
     function change(id)
     {
         window.open("/LoanRequest/Edit?id=" + id);
@@ -208,26 +248,22 @@
                                         {
                                             <a href="@Url.Action("Edit", "LoanRequest", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                         }
+                                       
                                         <a href="@Url.Action("Delete", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="far fa-trash-alt"></i>@pers_2.delete</a>
                                         <a href="@Url.Action("status", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
 
-                                       
+                                        <a href="@Url.Action("Details", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.details</a>
+                                        @if (item.check_status == "Approved")
+                                        {
+                                            <a href="@Url.Action("Loan_transfer_entry", "Loan_transfer", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@pers_2.transfer</a>
+                                            <a href="@Url.Action("create", "LoanAdjustment", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@pers_2.loanadjustment</a>
+
+                                        }
                                     </td>
                                 </tr>
                             }
                         </tbody>
-                        <tfoot>
-                            @*<tr>
-                                    <th>@pers_2.number</th>
-                                    <th>@pers_2.empid</th>
-                                    <th>@pers_2.empname</th>
-                                    <th>@pers_2.requestdate</th>
-                                    <th>@pers_2.eosdate</th>
-                                    <th>@pers_2.status</th>
-                                    <th>@pers_2.type</th>
-                                    <th></th>
-                                </tr>*@
-                        </tfoot>
+                      
                     </table>
                 </div>
             </div>

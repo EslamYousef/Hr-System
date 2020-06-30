@@ -1,0 +1,330 @@
+﻿@model HR.Models.Training.trans.CourceQualification
+ 
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("edit", "CourceQualification",new { course_code99 = @ViewBag.course_code5 }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "CourceQualification")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <input name="quli_id" value="" />
+                    <input name="spec_id" value="" />
+                    @Html.HiddenFor(m=>m.ID)
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @training.CourceQualification
+                            </h1>
+                        </section>
+                        <div class="form-group">
+
+
+
+
+
+                            <div class="col-md-4">
+
+                                <label style="color:red">@training.Courses</label>
+                                @Html.DropDownListFor(m => m.Course_Code, new SelectList(ViewBag.course, "ID", "Code"), training.Courses, new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Course_Code, "", new { @class = "text-danger" })
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#homee" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@training.Qualification</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
+
+
+                                <div class="form-group">
+
+
+                                    <div class="col-md-4">
+                                        <label>@Basic.qulificationname</label>
+                                        @Html.DropDownList("Q", new SelectList(ViewBag.quli_name, "ID", "Code"), Basic.qulificationname, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label>@Basic.qulification_specialty</label>
+                                        @Html.DropDownList("spw", new SelectList(ViewBag.spe1, "ID", "Code"), Basic.qulification_specialty, new { @class = "select2", id = "spe", @disabled = "true" })
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label> - </label>
+                                        <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
+
+                                    </div>
+
+                                </div>
+
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+
+                                            <td hidden></td>
+                                            <td>@Basic.qulificationname</td>
+                                            <td hidden></td>
+                                            <td>@Basic.qulification_specialty</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp2"></tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+<script>
+    function CountryName() {
+        var id = $("#country").val();
+        $("#spe").empty();
+        $("#spe").removeAttr("disabled");
+        getallarea(id);
+
+    }
+    function getallarea(id) {
+
+
+        $.ajax({
+            type: "post",
+            url: "/CourceQualification/get_spec",
+            data: { "id_quli": id},
+            success: function (result) {
+                var finalresult = "<option value='0' > Choose specialty </option>";
+                $.each(result, function (key, value) {
+                    finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                });
+                $("#spe").html(finalresult);
+                $("#spe").select2("val", "0");
+            },
+            error: function () {
+
+                $("#area").val(" ");
+            }
+        });
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+
+    }
+    function getemp() {
+        var finalresult = "";
+        var quli_id = parseInt($("#country").val());
+        var quli_text = $("#country").find("option:selected").text();
+
+        var spec_id = parseInt($("#spe").val());
+        var spe_text = $("#spe").find("option:selected").text();
+
+        if (parseInt(quli_id) > 0 && parseInt(spec_id) > 0)
+        {
+
+
+            debugger
+
+
+                debugger
+                finalresult +=
+                    "<tr>" +
+                    "<td hidden><input hidden  class = 'form-control' required type='number'  name='quli_id'   value='" + quli_id + "' /></td>" +
+                    "<td><input class = 'form-control' required   value='" + quli_text + "'  readonly='readonly'/></td>" +
+                    "<td hidden><input hidden  class = 'form-control' required type='number'  name='spec_id'   value='" + spec_id + "' /></td>" +
+                    "<td><input class = 'form-control' required   value='" + spe_text + "'  readonly='readonly'/></td>" +
+                    "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                $("#emp2").append(finalresult);
+
+        }
+
+    }
+    function getcontent() {
+        debugger
+        var finalresult2 = "";
+        var code = '@ViewBag.course_code5';
+        $.ajax({
+            type: "post",
+            url: "/CourceQualification/getallcontent",
+            data: { "coures_code": code },
+            success: function (result) {
+                debugger
+
+                $.each(result, function (key, value) {
+                    debugger
+                    finalresult2 +=
+                 "<tr>" +
+                 "<td hidden><input hidden  class = 'form-control' required type='number'  name='quli_id'   value='" + value.QualificationName_Code + "' /></td>" +
+                 "<td><input class = 'form-control' required   value='" + value.quli_name_des + "'  readonly='readonly'/></td>" +
+                  "<td hidden><input hidden  class = 'form-control' required type='number'  name='spec_id'   value='" + value.QualificationSpecialty_Code + "' /></td>" +
+                 "<td><input class = 'form-control' required   value='" + value.quli_spec_des + "'  readonly='readonly'/></td>" +
+                 "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+
+                });
+
+                $("#emp2").append(finalresult2);
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+</script>
+
+
+<script>
+    $(function () {
+        var id = $("#country").val();
+        if (id != null && id != "") {
+            $("#spe").removeAttr("disabled");
+        }
+        getcontent();
+    })
+</script>

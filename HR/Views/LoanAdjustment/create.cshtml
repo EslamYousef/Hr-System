@@ -1,0 +1,385 @@
+﻿@model HR.Controllers.payroll_tran1.adjustmentVM
+
+@using HR.Resource
+@{
+    ViewBag.Title = "create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+
+                @using (Html.BeginForm("create", "LoanAdjustment", new { id = ViewBag.id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "LoanRequest")" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
+                    <div class="form-horizontal">
+                        <section style="margin-top: 70px" class="content-header">
+                            <h1>
+                                @pers_2.loanadjustment
+                            </h1>
+                        </section>
+                        @Html.HiddenFor(m => m.loan.ID);
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @Personnel.transactionnumber
+                                    </label>
+                                    @Html.EditorFor(model => model.adjustment.TransactionNumber, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.adjustment.TransactionNumber, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @Personnel.requestnumber
+                                    </label>
+                                    @Html.EditorFor(model => model.loan.LoanRequestNumber, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.loan.LoanRequestNumber, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.TransactionDate
+                                    </label>
+                                    @Html.EditorFor(model => model.adjustment.TransactionDate, new { htmlAttributes = new { @class = "form-control StartDate yy", @type = "date", @id = "Contract_start_date_s", @onchange = "Save()" } })
+                                    @Html.ValidationMessageFor(model => model.adjustment.TransactionDate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @pers_2.employee
+                                    </label>
+                                    @Html.DropDownListFor(m => m.loan.EmployeeID, new SelectList(ViewBag.emp, "ID", "Code"), pers_2.employee, new { @readonly = true, @class = "select2", @onchange = "employee()", id = "employeeId" })
+                                    @Html.ValidationMessageFor(model => model.loan.EmployeeID, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @Personnel.loanamount
+                                    </label>
+                                    @Html.EditorFor(model => model.loan.LoanAmount, new { htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number", id = "loanamount" } })
+                                    @Html.ValidationMessageFor(model => model.loan.LoanAmount, "", new { @class = "text-danger" })
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.numberofinstallment
+                                    </label>
+                                    @Html.EditorFor(model => model.loan.NumberOfInstallment, new { htmlAttributes = new {@readonly=true, @class = "form-control", @type = "number", id = "numberofinstall" } })
+                                    @Html.ValidationMessageFor(model => model.loan.NumberOfInstallment, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.loaninstallmentamount
+                                    </label>
+                                    @Html.EditorFor(model => model.loan.LoanInstallmentAmount, new { htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number", id = "loaninstallamount" } })
+                                    @Html.ValidationMessageFor(model => model.loan.LoanInstallmentAmount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.pidAmount
+                                    </label>
+                                    @Html.EditorFor(model => model.adjustment.PaidAmount, new { htmlAttributes = new { @readonly = true, @max = Model.loan.NumberOfInstallment, @class = "form-control", id = "Deducttion", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.loan.NumberOfDeductedInstallments, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.totalpaidamount
+                                    </label>
+                                    @Html.EditorFor(model => model.loan.TotalPaidAmount, new { htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.loan.TotalPaidAmount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.totalremainingamount
+                                    </label>
+                                    @Html.EditorFor(model => model.loan.TotalRemainingAmount, new { htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number", id = "remain" } })
+                                    @Html.ValidationMessageFor(model => model.loan.TotalRemainingAmount, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        <div style="margin-top:50px">
+
+                        </div>
+                        <div class="form-group" style="margin-top:70px;margin-left:30px">
+                            <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                                <thead>
+                                    <tr>
+                                        <th>@pers_2.select
+
+                                            <input  type="checkbox"  onclick="change((this))" />
+                                        </th>
+                                        <th>@pers_2.seq</th>
+                                        <th>@pers_2.months</th>
+                                        <th>@pers_2.years</th>
+                                        <th>@pers_2.installment_amount</th>
+                                        <th>@pers_2.ispaid</th>
+                                        <th>@pers_2.paidamount</th>
+                                        <th>@pers_2.unpaidmount</th>
+                                        <th>@pers_2.active</th>
+                                        <th>@pers_2.notes</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody11">
+                                    <input hidden type="checkbox" name="frezz" checked value=" " />
+
+                                    @foreach (var item in Model.installment)
+                                {
+                                <tr>
+                                    <td>
+                                        <div class="checkbox">
+                                            @if (item.LoanInstallment.IsActive == false || item.LoanInstallment.IsPaid==true)
+                                                {
+                                                <span>
+                                                    <input disabled class="centered AmountN" type="checkbox" name="frezz" value="@item.LoanInstallment.ID" />
+                                                </span>
+                                                }
+                                                else
+                                                {
+                                                <span>
+                                                    <input class="center AmountN" type="checkbox" name="frezz" value="@item.LoanInstallment.ID" />
+                                                </span>
+                                                }
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.InstallmentNumber
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.InstallmentMonth
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.InstallmentYear
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.InstallmentAmount
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.IsPaid
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.PaidAmount
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.UnpaidAmount
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.IsActive
+                                    </td>
+                                    <td>
+                                        @item.LoanInstallment.InstallmenNotes
+                                    </td>
+                                </tr>
+                                }
+                                </tbody>
+
+                            </table>
+                        </div>
+                        </div>
+                        }
+                    </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>
+
+<style>
+    /*Create Page*/
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+<script>
+    $(function () {
+        GetDataById2('@Model.adjustment.TransactionDate', "Contract_start_date_s");
+    })
+    function change(check)
+    {
+        if(check.checked==true)
+        {
+           
+            var tr = document.getElementsByClassName("AmountN");
+            $.each(tr, function (key, value) {
+                
+                value.checked=true;
+                
+            });
+        }
+        else if(check.checked==false)
+        {
+
+            var tr = document.getElementsByClassName("AmountN");
+            $.each(tr, function (key, value) {
+
+                value.checked = false;
+
+            });
+        }
+    }
+    function GetDataById2(date, id) {
+
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+</script>

@@ -302,6 +302,7 @@ namespace HR.Controllers.payroll_tran1
                 return View(Model);
             }
         }
+       
         public ActionResult delete(int id)
         {
             try
@@ -353,6 +354,7 @@ namespace HR.Controllers.payroll_tran1
                 return RedirectToAction("index");
             }
         }
+
         [HttpPost]
         public ActionResult loan_installment(FormCollection form,int id)
         {
@@ -411,6 +413,109 @@ namespace HR.Controllers.payroll_tran1
                 return RedirectToAction("index");
             }
         }
+
+
+
+
+        public ActionResult details(int id)
+        {
+            ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
+            ViewBag.loan_type = dbcontext.LoanInAdvanceSetup.ToList().Select(m => new { Code = m.LoanTypeCode + "--[" + m.LoanTypeDesc + ']', ID = m.ID });
+
+            var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == id);
+            return View(loan);
+        }
+        [HttpPost]
+        public ActionResult details(LoanRequest Model, string command)
+        {
+            ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
+            ViewBag.loan_type = dbcontext.LoanInAdvanceSetup.ToList().Select(m => new { Code = m.LoanTypeCode + "--[" + m.LoanTypeDesc + ']', ID = m.ID });
+
+            if (command == "Submit")
+            {
+                return RedirectToAction("loan_installment2", "LoanRequest", new { number = Model.LoanRequestNumber, id = Model.ID });
+            }
+            return RedirectToAction("index");
+        }
+
+       
+        public ActionResult loan_installment2(string number, int id)
+        {
+            try
+            {
+                ViewBag.id = id;
+                var instal = dbcontext.LoanInstallment.Where(m => m.LoanRequestNumber == number).ToList();
+                var VM = new List<loan_installmentVM>();
+                foreach (var item in instal)
+                {
+                    VM.Add(new loan_installmentVM { freez = false, LoanInstallment = item });
+                }
+                return View(VM);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("index");
+            }
+        }
+        [HttpPost]
+        public ActionResult loan_installment2(FormCollection form, int id)
+        {
+            try
+            {
+                ViewBag.id = id;
+                var ID_LIST = form["frezz"].Split(',');
+                DateTime new_date;
+                foreach (var item in ID_LIST)
+                {
+                    if (item != " ")
+                    {
+                        var Id = int.Parse(item);
+                        var inst = dbcontext.LoanInstallment.FirstOrDefault(m => m.ID == Id);
+                        var loan = dbcontext.LoanInstallment.Where(m => m.LoanRequestNumber == inst.LoanRequestNumber).OrderBy(m => m.InstallmentNumber).ToList();
+                        var i = loan.Last().InstallmentNumber;
+                        new_date = new DateTime((int)(loan.Last().InstallmentYear), (int)(loan.Last().InstallmentMonth), 1);
+                        new_date = new_date.AddMonths(1);
+                        inst.IsActive = false;
+                        var UN = inst.UnpaidAmount;
+                        inst.UnpaidAmount = 0;
+                        dbcontext.SaveChanges();
+
+                        i++;
+
+                        var loan_installment = new LoanInstallment
+                        {
+                            Created_By = User.Identity.Name,
+                            Created_Date = DateTime.Now.Date,
+                            LoanRequestNumber = inst.LoanRequestNumber,
+                            InstallmentNumber = i,
+                            InstallmentAmount = inst.InstallmentAmount,
+                            IsPaid = false,
+                            IsFreeze = false,
+                            IsActive = true,
+                            IsTransfered = false,
+                            PaidAmount = 0,
+                            InstallmentMonth = (short)new_date.Month,
+                            InstallmentYear = (short)new_date.Year,
+                            UnpaidAmount = UN,
+                            InstallmenNotes = null
+
+                        };
+
+                        dbcontext.LoanInstallment.Add(loan_installment);
+                        dbcontext.SaveChanges();
+                    }
+
+
+
+                }
+                return RedirectToAction("index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("index");
+            }
+        }
+
         public DateTime cal_end_date(DateTime? start,double? num_inst,double? deduction)
         {
             int Num =(int)(num_inst/deduction);
@@ -848,5 +953,8 @@ namespace HR.Controllers.payroll_tran1
 
             return RedirectToAction("index");
         }
+
+
+       
     }
 }

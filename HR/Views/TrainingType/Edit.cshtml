@@ -1,0 +1,362 @@
+﻿@model HR.Controllers.training.setup.VM
+
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("edit", "TrainingType", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "TrainingType")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","TrainingType")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "TrainingType")" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
+                    <input name="cost_id" value="" />
+                    <input value="" hidden name="check_A" />
+                    @Html.HiddenFor(m => m.TrainingType_Header.ID);
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @training.TrainingType
+                            </h1>
+                        </section>
+                        <div class="form-group">
+
+
+
+
+
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.code</label>
+                                @Html.EditorFor(m => m.TrainingType_Header.TrainingType_Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.TrainingType_Header.TrainingType_Code, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.description</label>
+                                @Html.EditorFor(model => model.TrainingType_Header.TrainingType_Desc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TrainingType_Header.TrainingType_Desc, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <label>@organ.AlterunitDescription</label>
+                                @Html.EditorFor(model => model.TrainingType_Header.TrainingType_AltDesc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TrainingType_Header.TrainingType_AltDesc, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+
+                                <label>
+                                    @training.MaxNoattended
+                                </label>
+                                @if (Model.TrainingType_Header.Max_No_Attended_Group_Of_Cources == true)
+                                {
+                                    <div class="col-md-3">
+                                        <input type="checkbox" onchange="check1(this)" value="on" checked class="icheck" name="check_A" id="ch3" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-1">
+                                        <input type="checkbox" onchange="check1(this)" value="on" class="icheck" name="check_A" id="ch3" />
+                                    </div>
+                                }
+
+
+
+                            </div>
+                            <div class="col-md-4">
+
+                                <label>-</label>
+                                @Html.EditorFor(m => m.TrainingType_Header.No_Attended_Group_Of_Cources, new { htmlAttributes = new { id = "c1", @disabled = true, @type = "number", @min = "0", @class = "form-control" } })
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>
+                                    @training.training_place
+                                </label>
+                                @Html.EnumDropDownListFor(m => m.traning_place, new { @class = "select2" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>
+                                    @training.Budget
+                                </label>
+                                @Html.EnumDropDownListFor(m => m.Budget, new { @class = "select2" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    @training.course_sub_group
+                                </label>
+                                @Html.DropDownListFor(m => m.TrainingType_Header.SubGroup_Code, new SelectList(ViewBag.sub_group, "ID", "Code"), training.course_sub_group, new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.TrainingType_Header.SubGroup_Code, "", new { @class = "text-danger" })
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#homee" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@training.CostElement</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
+
+
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-4">
+                                            <label>@training.CostElement</label>
+                                            @Html.DropDownList("category", new SelectList(ViewBag.cost, "ID", "Code"), training.CostElement, new { @class = "select2", id = "contact" })
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label> - </label>
+                                            <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <td>@training.CostElement</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="emp2"></tbody>
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+<script>
+    function check1(checkbox) {
+        debugger
+        if (checkbox.checked == true) {
+            $("#c1").removeAttr('disabled');
+        }
+        else {
+            $("#c1").attr('disabled', true);
+            $("#c1").val(0);
+
+        }
+    }
+
+    function remove(thi) {
+        thi.parent().parent().remove();
+
+    }
+    function getemp() {
+        var finalresult = "";
+        var cost_id =parseInt($("#contact").val());
+        var cost_text = $("#contact").find("option:selected").text();
+
+        debugger
+
+        if (cost_id > 0) {
+                        debugger
+                        finalresult +=
+                            "<tr>" +
+                            "<td hidden><input hidden  class = 'form-control' required type='number'  name='cost_id'   value='" + cost_id + "' /></td>" +
+                            "<td><input class = 'form-control' required   value='" + cost_text + "'  readonly='readonly'/></td>" +
+                            "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+            $("#emp2").append(finalresult);
+        }
+
+    }
+    function getcost() {
+        debugger
+        var finalresult2 = "";
+        var code = '@Model.TrainingType_Header.TrainingType_Code';
+
+
+        $.ajax({
+            type: "post",
+            url: "/TrainingType/get_details_cost",
+            data: { "code": code },
+            success: function (result) {
+                debugger
+
+                $.each(result, function (key, value) {
+                    debugger
+                    finalresult2 +=
+                 "<tr>" +
+                 "<td hidden><input hidden  class = 'form-control' required type='number'  name='cost_id'   value='" + value.cost_ID + "' /></td>" +
+                 "<td><input class = 'form-control' required   value='" + value.cost_des + "'  readonly='readonly'/></td>" +
+                 "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+
+                });
+
+                $("#emp2").append(finalresult2);
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+</script>
+
+
+<script>
+
+    $(function () {
+        var a1 = document.getElementById("ch3");
+        check1(a1);
+        getcost();
+    })
+</script>

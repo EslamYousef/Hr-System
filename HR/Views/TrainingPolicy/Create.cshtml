@@ -1,0 +1,480 @@
+﻿@model HR.Models.Training.setup.TrainingPolicy
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "TrainingPolicy", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "TrainingPolicy")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","TrainingPolicy")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "TrainingPolicy")" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
+                    <input value="" hidden name="check1" />
+                    <input value="" hidden name="check2" />
+                    <input value="" hidden name="check3" />
+                    <input value="" hidden name="check4" />
+                    <input value="" hidden name="check5" />     
+                    <input value="" hidden name="check6" /> 
+                    <input value="" hidden name="check7" />
+                    <input value="" hidden name="check8" />
+                    <input value="" hidden name="check9" />
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @training.TrainingPolicy
+                            </h1>
+                        </section>
+                        <div class="form-group">
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.Year</label>
+                                @Html.EditorFor(m => m.Year, new { htmlAttributes = new { @id="year1",@type ="number",@min="1900",  @class = "form-control" } })
+                                @Html.ValidationMessageFor(m=>m.Year, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+
+                              <label>-</label>
+                                <input type="number" readonly id="next_year"  class = "form-control" />
+                             
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.TrainingType
+                                </label>
+                                @Html.DropDownListFor(m => m.TrainingType_Code, new SelectList(ViewBag.training_type, "ID", "Code"), training.TrainingType, new { @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.TrainingType_Code, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                       
+                       
+                            <ul class="nav nav-tabs bordered">
+                                <!-- available classes "bordered", "right-aligned" -->
+                                <li class="active">
+                                    <a href="#homee" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@mainlayout.Setup</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#profile" data-toggle="tab">
+                                        <span class="visible-xs"><i class="entypo-home"></i></span>
+                                        <span class="hidden-xs">@training.option</span>
+                                    </a>
+                                </li>
+                              
+
+                            </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="form-group">
+                                    <div class="col-md-11">
+                                        <label>
+                                            @training.check_em
+                                        </label>
+                                        @if (Model.Check_Employee_Resident_City == true)
+                                        {
+
+                                            <input type="checkbox" value="on" checked class="icheck" name="check1" />
+
+                                        }
+                                        else
+                                        {
+
+                                            <input type="checkbox" value="on" class="icheck" name="check1" />
+
+                                        }
+                                    </div>
+
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.max_atten
+                                        </label>
+                                        @if (Model.Max_No_Attended_Cources == true)
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c2N2')" value="on" checked class="icheck" name="check2" id="c2" />
+
+                                        }
+                                        else
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c2N2')" value="on" class="icheck" name="check2" id="c2" />
+
+                                        }
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>-</label>
+                                        @Html.EditorFor(m => m.Attended_Cources, new { htmlAttributes = new { id = "c2N2", @disabled = true, @type = "number", @min = "0", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.min_emp
+                                        </label>
+                                        @if (Model.Min_Employee_Working_Months == true)
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c3N3')" value="on" checked class="icheck" name="check3" id="c3" />
+
+                                        }
+                                        else
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c3N3')" value="on" class="icheck" name="check3" id="c3" />
+
+                                        }
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>-</label>
+                                        @Html.EditorFor(m => m.Employee_Working_Months, new { htmlAttributes = new { id = "c3N3", @disabled = true, @type = "number", @min = "0", @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.min_app
+                                        </label>
+                                        @if (Model.Min_Appraisal_Grade == true)
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c4N4')" value="on" checked class="icheck" name="check4" id="c4" />
+
+                                        }
+                                        else
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c4N4')" value="on" class="icheck" name="check4" id="c4" />
+
+                                        }
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>-</label>
+                                        @Html.EditorFor(m => m.Appraisal_Grade, new { htmlAttributes = new { id = "c4N4", @disabled = true, @type = "number", @min = "0", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.min_year
+                                        </label>
+                                        @if (Model.Min_Years_Of_Experience == true)
+                                        {
+
+                                            <input type="checkbox" onchange="check(this , 'c5N5')" value="on" checked class="icheck" name="check5" id="c5" />
+
+                                        }
+                                        else
+                                        {
+
+                                            <input type="checkbox" onchange="check(this, 'c5N5')" value="on" class="icheck" name="check5" id="c5" />
+
+                                        }
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>-</label>
+                                        @Html.EditorFor(m => m.Years_Of_Experience, new { htmlAttributes = new { id = "c5N5", @disabled = true, @type = "number", @min = "0", @class = "form-control" } })
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+                            <div class="tab-pane" id="profile">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.review_h
+                                        </label>
+                                        @if (Model.Review_HRGM_Required == true)
+                                        {
+
+                                        <input type="checkbox" value="on" checked class="icheck" name="check6" />
+
+                                        }
+                                        else
+                                        {
+
+                                        <input type="checkbox" value="on" class="icheck" name="check6" />
+
+                                        }
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.review_a
+                                        </label>
+                                        @if (Model.Review_AdminGM_Required == true)
+                                        {
+
+                                        <input type="checkbox" value="on" checked class="icheck" name="check7" />
+
+                                        }
+                                        else
+                                        {
+
+                                        <input type="checkbox" value="on" class="icheck" name="check7" />
+
+                                        }
+
+
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.approve_h
+                                        </label>
+                                        @if (Model.Approve_HRGM_Required == true)
+                                        {
+
+                                        <input type="checkbox" value="on" checked class="icheck" name="check8" />
+
+                                        }
+                                        else
+                                        {
+
+                                        <input type="checkbox" value="on" class="icheck" name="check8" />
+
+                                        }
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @training.approve_a
+                                        </label>
+                                        @if (Model.Approve_AdminGM_Required == true)
+                                        {
+
+                                        <input type="checkbox" value="on" checked class="icheck" name="check9" />
+
+                                        }
+                                        else
+                                        {
+
+                                        <input type="checkbox" value="on" class="icheck" name="check9" />
+
+                                        }
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                                
+                         
+                       
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+        input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 260px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+<script>
+    function check(checkbox,id) {
+        debugger
+        if (checkbox.checked == true) {
+            $('#'+id).removeAttr('disabled');
+        }
+        else {
+            $('#' + id).val(0);
+            $('#'+id).attr('disabled', true);
+          
+
+        }
+    }
+    $("#year1").keyup(function (e) {
+        var value = $("#year1").val();
+        $("#next_year").val(parseInt(parseInt(value) + parseInt(1)));
+    });
+    
+  
+</script>
+
+
+<script>
+    $(function () {
+        var a1 = document.getElementById("c2");
+        var a2 = document.getElementById("c3");
+        var a3 = document.getElementById("c4");
+        var a4 = document.getElementById("c5");
+        check(a1, "c2N2");
+        check(a2, "c3N3");
+        check(a3, "c4N4");
+        check(a4, "c5N5");
+
+        $("#next_year").val(parseInt(@Model.Year)  + parseInt(1));
+   
+    })
+</script>

@@ -1,0 +1,129 @@
+﻿@model HR.Controllers.payroll_tran1.preview
+@using HR.Resource;
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="col-md-4">
+
+                        <label>@pers_2.employee</label>
+                        @Html.EditorFor(model => model.emp, new { htmlAttributes = new {@readonly=true, @class = "form-control", @type = "text" } })
+                    </div>
+                    <div class="col-md-4">
+
+                        <label>@Personnel.Months</label>
+                        @Html.EditorFor(model => model.Month, new { htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number" } })
+                      </div>
+                    <div class="col-md-4">
+
+                        <label>@Personnel.Years</label>
+                        @Html.EditorFor(model => model.Year, new {  htmlAttributes = new { @readonly = true,@class = "form-control", @type = "number" } })
+                    </div>
+                    <div class="col-md-4">
+
+                        <label>@pers_2.netamount</label>
+                        @Html.EditorFor(model => model.total, new {  htmlAttributes = new { @readonly = true, @class = "form-control", @type = "number" } })
+                     </div>
+                   
+
+                </div>
+
+
+
+
+
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@organ.description</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model.earning)
+                            {
+                                <tr>
+                                    <td>@item</td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <table id="categories" style="margin-top:20px" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>@organ.description</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                            @foreach (var item in Model.deduction)
+                            {
+                                <tr>
+                                    <td>@item</td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>
