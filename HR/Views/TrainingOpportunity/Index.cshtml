@@ -1,12 +1,11 @@
-﻿@model IEnumerable<HR.Models.PayrollGeneralSetup>
+﻿@model IEnumerable<HR.Models.Training.transaction.TrainingOpportunity_Header>
+@using HR.Models.Infra;
 @using HR.Resource;
-
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-@using HR.Resource;
+
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -14,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "PayrollGeneralSetup")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.Addpayrollgeneralsetup1</a>
+                    <a href="@Url.Action("Create", "TrainingOpportunity")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@training.Addtraining_opportunity</a>
                 </p>
             </div>
 
@@ -31,8 +30,8 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>@pers_2.lenghtoferpsegment</th>
-                            <th>@pers_2.numberoferpsegment</th>
+                            <th>@organ.Year</th>
+                            <th>@organ.status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,13 +39,16 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Length_Of_Segment</td>
-                                <td>@item.Number_Of_Account_Segments</td>
-                               
-                            
+                                <td>@item.Year</td>
+                                <td>(@item.status.statu)</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "PayrollGeneralSetup", new {id = item.ID})" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
-                                    <a href="@Url.Action("Delete", "PayrollGeneralSetup", new {id = item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@organ.delete</a>
+                                    @if (item.Transaction_Status != (Int16)HR.Models.Infra.check_status.Approved && item.Transaction_Status != (Int16 )HR.Models.Infra.check_status.Rejected)
+                                    {
+                                    <a href="@Url.Action("Edit", "TrainingOpportunity", new { id = item.ID })" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    }
+                                       <a href="@Url.Action("delete", "TrainingOpportunity", new {id = item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@organ.delete</a>
+                                    <a href="@Url.Action("status", "TrainingOpportunity" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
+
                                 </td>
                             </tr>
                         }

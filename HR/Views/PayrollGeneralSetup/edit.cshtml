@@ -22,6 +22,13 @@
 
                 @using (Html.BeginForm("edit", "PayrollGeneralSetup", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save    </div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "PayrollGeneralSetup")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","PayrollGeneralSetup")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "PayrollGeneralSetup")" class="create-btn"> @pers_2.Back</a></div>
+                   
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -35,15 +42,7 @@
                                 @TempData["Message"]
                             </div>
                         }
-                        <div class="form-group">
-                            <div class="col-md-7"></div>
-                            <div class="col-md-2">
-                                <input style="width:100%" type="submit" value=@organ.Save class="btn btn-success" />
-                            </div>
-                            <div class="col-md-2">
-                                <a style="width:100%" href="@Url.Action("index","PayrollGeneralSetup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-                            </div>
-                        </div>
+                      
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <ul class="nav nav-tabs bordered">
@@ -78,194 +77,209 @@
                             <div id="General" class="tab-pane active" style="overflow: hidden;width: auto;height: auto;">
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.defaultpayrollperiod
-                                    </label>
-                                    <div class="col-md-3">
 
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.defaultpayrollperiod
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.DefaultPayrollPeriod, new SelectList(ViewBag.defaultpayrollperiod, "ID", "Code"), pers_2.defaultpayrollperiod, new { @class = "select2" })
 
 
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @pers_2.accountnumberforaccruedasallery
-                                    </label>
-                                    <div class="col-md-3">
 
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.accountnumberforaccruedasallery
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.AccountNumberForNetSalary, new SelectList(ViewBag.accountnumberforaccruedasallery, "ID", "Code"), pers_2.accountnumberforaccruedasallery, new { @class = "select2" })
 
 
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.defaultaccountnumberforaccruedpayment
-                                    </label>
-                                    <div class="col-md-3">
 
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.defaultaccountnumberforaccruedpayment
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.DefaultAccountNumberForNetPayment, new SelectList(ViewBag.defaultaccountnumberforaccruedpayment, "ID", "Code"), pers_2.defaultaccountnumberforaccruedpayment, new { @class = "select2" })
 
 
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @pers_2.Basicsallarycode
-                                    </label>
-                                    <div class="col-md-3">
 
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.Basicsallarycode
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.SalaryCodeID_BasicSalary, new SelectList(ViewBag.Basicsallarycode, "ID", "Code"), pers_2.Basicsallarycode, new { @class = "select2" })
 
 
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.totalexcludedallwencecode
-                                    </label>
-                                    <div class="col-md-3">
 
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.totalexcludedallwencecode
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.AllowToRounding, new SelectList(ViewBag.totalexcludedallwencecode, "ID", "Code"), pers_2.totalexcludedallwencecode, new { @class = "select2" })
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.GLcostcenterdistriburionbehavior
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.GLcostcenterdistriburionbehavior
+                                        </label>
                                         @Html.EnumDropDownListFor(m => m.GL_cost_center_distribution_behavior, pers_2.GLcostcenterdistriburionbehavior, new { @class = "select2" })
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @pers_2.ERPintegrationtype
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.ERPintegrationtype
+                                        </label>
                                         @Html.EnumDropDownListFor(m => m.ERP_INTERGRATION_TYPE, pers_2.ERPintegrationtype, new { @class = "select2" })
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.lenghtoferpsegment
-                                    </label>
-                                    <div class="col-md-3">
+
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.lenghtoferpsegment
+                                        </label>
                                         @Html.EditorFor(model => model.PayrollGeneralSetup.Length_Of_Segment, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
                                     </div>
 
-                                    <label class="control-label col-md-2">
-                                        @pers_2.numberoferpsegment
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.numberoferpsegment
+                                        </label>
                                         @Html.EditorFor(model => model.PayrollGeneralSetup.Number_Of_Account_Segments, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
                                     </div>
 
-                                </div>
-                                <div class="form-group">
 
-                                    <label class="control-label col-md-2">
-                                        @pers_2.checktype
-                                    </label>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
+
+                                        <label>
+                                            @pers_2.checktype
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.Type_Code, new SelectList(ViewBag.checktype, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="Rounding" style="overflow: hidden;width: auto;height: auto;">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.roundingmethd
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.roundingmethd
+                                        </label>
                                         @Html.EnumDropDownListFor(m => m.Rounding_method, pers_2.roundingmethd, new { @class = "select2" })
                                     </div>
-                                    <label class="control-label col-md-2">
 
-                                        @pers_2.value
-                                    </label>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
+                                        <label>
+
+                                            @pers_2.value
+                                        </label>
                                         @Html.EditorFor(model => model.PayrollGeneralSetup.Value, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-2"></div>
+
+
                                     @if (Model.PayrollGeneralSetup.AllowToRounding == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.allowtoroundingdifferenttosettled
+                                            </label>
                                             <input type="checkbox" value="on" checked class="icheck" name="check_A" id="ch3" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.allowtoroundingdifferenttosettled
+                                            </label>
                                             <input type="checkbox" value="on" class="icheck" name="check_A" id="ch3" />
                                         </div>
                                     }
 
 
-                                    <label class="control-label col-md-2">
-                                        @pers_2.allowtoroundingdifferenttosettled
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.earnedsallarycode
-                                    </label>
-                                    <div class="col-md-3">
+
+
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.earnedsallarycode
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.SalaryCodeID_E, new SelectList(ViewBag.earnedsallarycode, "ID", "Code"), pers_2.earnedsallarycode, new { @class = "select2" })
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @pers_2.deductedsallerycode
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.deductedsallerycode
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.SalaryCodeID_D, new SelectList(ViewBag.deductedsallerycode, "ID", "Code"), pers_2.deductedsallerycode, new { @class = "select2" })
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="Death" style="overflow: hidden;width: auto;height: auto;">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.Deathdaysallarycode
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.Deathdaysallarycode
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.SalaryCodeID_DeathDate, new SelectList(ViewBag.Deathdaysallarycode, "ID", "Code"), pers_2.Deathdaysallarycode, new { @class = "select2" })
                                     </div>
-                                    <label class="control-label col-md-2">
-                                        @pers_2.deathdaysubscriptioncode
-                                    </label>
-                                    <div class="col-md-3">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.deathdaysubscriptioncode
+                                        </label>
                                         @Html.DropDownListFor(m => m.PayrollGeneralSetup.Subscription_Code_DeathDate, new SelectList(ViewBag.deathdaysubscriptioncode, "ID", "Code"), @pers_2.deathdaysubscriptioncode, new { @class = "select2" })
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="Punishment" style="overflow: hidden;width: auto;height: auto;">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.restonthefirstpunishment
-                                    </label>
+
                                     @if (Model.PayrollGeneralSetup.Rest_On_The_First_Punishment == true)
                                     {
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.restonthefirstpunishment
+                                            </label>
                                             <input type="radio" id="ch2" class="icheck" value="first" name="check_B" checked />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.restonthefirstpunishment
+                                            </label>
                                             <input type="radio" id="ch2" class="icheck" value="first" name="check_B" />
                                         </div>
                                     }
 
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.restonlatpunishment
-                                    </label>
+
+
                                     @if (Model.PayrollGeneralSetup.Rest_On_The_Last_Punishment == true)
                                     {
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.restonlatpunishment
+                                            </label>
                                             <input type="radio" class="icheck" value="last" name="check_B" id="ch2" checked />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.restonlatpunishment
+                                            </label>
                                             <input type="radio" class="icheck" value="last" name="check_B" id="ch2" />
                                         </div>
                                     }
@@ -274,6 +288,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
 
@@ -286,3 +301,95 @@
     </section>
 </div>
 @section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

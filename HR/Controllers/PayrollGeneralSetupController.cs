@@ -124,7 +124,7 @@ namespace HR.Controllers
                 var model = new PayrollGeneralSetupVM { PayrollGeneralSetup = rec, Rounding_method = (Rounding_method)rec.Rounding_Method , ERP_INTERGRATION_TYPE =  (ERP_INTERGRATION_TYPE)rec.IntegrationType, GL_cost_center_distribution_behavior =  (GL_cost_center_distribution_behavior)rec.GL_DistrbutionBehavior };
                 return View(model);
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return RedirectToAction("index");
             }

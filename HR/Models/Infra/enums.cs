@@ -42,6 +42,8 @@ namespace HR.Models.Infra
         public int id { get; set; }
         public string Name { get; set; }
         public float value { get; set; }
+        public Exchange_Rate Exchange_Rate { get; set; }
+        public int Exchange_RateID { get; set; }
 
     }
     public enum ClassType

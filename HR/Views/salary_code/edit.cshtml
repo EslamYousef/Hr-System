@@ -22,6 +22,14 @@
 
                 @using (Html.BeginForm("edit", "salary_code", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" id="btnSubmit" name="Command" value="Submit2" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "salary_code")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","salary_code")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "salary_code")" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -43,52 +51,48 @@
                         <input name="check_c3" value="" hidden />
                         @Html.HiddenFor(m => m.salary_code.ID);
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @pers_2.salarycodeid
-                            </label>
+                         
                             <div class="col-md-3">
+                                <label style="color:red">
+                                    @pers_2.salarycodeid
+                                </label>
                                 @Html.EditorFor(model => model.salary_code.SalaryCodeID, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.salary_code.SalaryCodeID, "", new { @class = "text-danger" })
                             </div>
 
-                            <label style="color:red" class="control-label col-md-1">
-                                <span> @Personnel.Name </span>
-                            </label>
+                          
                             <div class="col-md-3">
+                                <label style="color:red">
+                                    <span> @Personnel.Name </span>
+                                </label>
                                 @Html.EditorFor(model => model.salary_code.SalaryCodeDesc, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.salary_code.SalaryCodeDesc, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-md-1"></div>
-                            <div>
-                                <div class="col-md-2" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit2" class="btn btn-success"> @organ.Save</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <a style="width:100%" href="@Url.Action("index","salary_code")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@pers_2.Back</a>
-                                </div>
-                            </div>
-
+                          
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-1">
-                                <span> @organ.description </span>
-                            </label>
+                         
                             <div class="col-md-3">
+                                <label>
+                                    <span> @organ.description </span>
+                                </label>
                                 @Html.EditorFor(model => model.salary_code.SalaryCodeAltDesc, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.salary_code.SalaryCodeAltDesc, "", new { @class = "text-danger" })
                             </div>
 
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.codetype </span>
-                            </label>
+                          
                             <div class="col-md-3">
+                                <label>
+                                    <span> @pers_2.codetype </span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.code_type, pers_2.codetype, new { @class = "select2", @id = "Country1" })
                             </div>
 
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.codevaluetype </span>
-                            </label>
+                          
                             <div class="col-md-3">
+                                <label>
+                                    <span> @pers_2.codevaluetype </span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.code_value_type, pers_2.codevaluetype, new { @class = "select2", @id = "Country1" })
                             </div>
                         </div>
@@ -101,20 +105,22 @@
                                     @Html.ValidationMessageFor(model => model.selected_employee, "", new { @class = "text-danger" })
 
                                 </div>*@
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.checktype </span>
-                            </label>
+                          
                             <div class="col-md-3">
+                                <label>
+                                    <span> @pers_2.checktype </span>
+                                </label>
                                 @Html.DropDownListFor(m => m.salary_code.Type_Code, new SelectList(ViewBag.checktype, "ID", "Code"), pers_2.checktype, new { @class = "select2", @id = "Country1" })
 
                             </div>
                         </div>
                         <div class="form-group">
 
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.documententry </span>
-                            </label>
+                          
                             <div class="col-md-3">
+                                <label>
+                                    <span> @pers_2.documententry </span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.Document_entry, pers_2.documententry, new { @class = "select2", @id = "Country78", onclick="dis()" })
                             </div>
                             <div class="col-md-1"></div>
@@ -125,41 +131,47 @@
                         </div>
                         <div class="form-group">
 
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.costcnetertype </span>
-                            </label>
+                          
                             <div class="col-md-3">
+                                <label>
+                                    <span> @pers_2.costcnetertype </span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.cost_center_type, pers_2.costcnetertype, new { @class = "select2", @id = "Country1" })
                             </div>
-                            <div class="col-md-1"></div>
+                           
                             <div class="col-3">
                                 <button type="submit" name="Command" value="deleteitem" class="btn">delete value of this item from all financial contract for all employees</button>
 
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-1"></div>
+                           
 
                             @if (Model.salary_code.EnableExtendedFields == true)
                             {
-                                <div class="col-md-1">
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.Enableextendedfileds
+                                    </label>
                                     <input type="checkbox" value="on" onchange="check1(this)" checked class="icheck" name="check_A" id="ch3" />
                                 </div>
                             }
                             else
                             {
-                                <div class="col-md-1">
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.Enableextendedfileds
+                                    </label>
                                     <input type="checkbox" onchange="check1(this)" value="on" class="icheck" name="check_A" id="ch3" />
                                 </div>
                             }
-                            <label class="control-label col-md-2">
-                                @pers_2.Enableextendedfileds
-                            </label>
+                           
 
-                            <label class="control-label col-md-1">
-                                <span id="c11"> @pers_2.Extendedfile </span>
-                            </label>
+                         
                             <div class="col-md-3">
+                                <label>
+                                    <span id="c11"> @pers_2.Extendedfile </span>
+                                </label>
                                 @Html.DropDownListFor(m => m.salary_code.ExtendedFields_Code, new SelectList(ViewBag.extedned, "ID", "Code"), pers_2.Extendedfile, new { @class = "select2", @id = "c1", @disabled = true })
 
                             </div>
@@ -185,134 +197,162 @@
                         <div class="tab-content">
                             <div id="General" class="tab-pane active" style="overflow: hidden;width: auto;height: auto;">
                                 <div class="form-group">
-                                    <div class="col-md-1"></div>
+                                  
                                     @if (Model.salary_code.PrintableInPayslip == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.printableinpayslip
+                                            </label>
+
                                             <input type="checkbox" value="on" checked class="icheck" name="check_c1" id="c1" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.printableinpayslip
+                                            </label>
+
                                             <input type="checkbox" value="on" class="icheck" name="check_c1" id="c1" />
                                         </div>
                                     }
 
-                                    <label class="control-label col-md-2">
-                                        @pers_2.printableinpayslip
-                                    </label>
-
-                                    <div class="col-md-1"></div>
+                                
+                                   
 
                                     @if (Model.salary_code.AffectToNetAmount == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.affecttonetamount
+                                            </label>
+
                                             <input type="checkbox" value="on" checked class="icheck" name="check_c2" id="c2" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.affecttonetamount
+                                            </label>
+
                                             <input type="checkbox" value="on" class="icheck" name="check_c2" id="c2" />
                                         </div>
                                     }
-                                    <label class="control-label col-md-2">
-                                        @pers_2.affecttonetamount
-                                    </label>
-
-                                    <div class="col-md-1"></div>
+                                 
+                                    
                                     @if (Model.salary_code.AllowToUseInHRModules == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.allowtouseinhrmodules
+                                            </label>
                                             <input type="checkbox" value="on" checked class="icheck" name="check_c3" id="c3" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.allowtouseinhrmodules
+                                            </label>
                                             <input type="checkbox" value="on" class="icheck" name="check_c3" id="c3" />
                                         </div>
                                     }
-                                    <label class="control-label col-md-2">
-                                        @pers_2.allowtouseinhrmodules
-                                    </label>
+                                  
 
                                 </div>
                                 <div class="form-group">
 
-                                    <label class="control-label col-md-1">
-                                        <span> @pers_2.sortindex </span>
-                                    </label>
+                                  
                                     <div class="col-md-3">
+                                        <label>
+                                            <span> @pers_2.sortindex </span>
+                                        </label>
                                         @Html.EditorFor(model => model.salary_code.SortingIndex, new { htmlAttributes = new { @min = "0", @type = "number", @class = "form-control" } })
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        <span> @pers_2.frequency </span>
-                                    </label>
+                                   
                                     <div class="col-md-3">
+                                        <label>
+                                            <span> @pers_2.frequency </span>
+                                        </label>
                                         @Html.EditorFor(model => model.salary_code.FrequencyPerPeriod, new { htmlAttributes = new { @min = "0", @type = "number", @class = "form-control" } })
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        <span> @organ.description </span>
-                                    </label>
+                                   
                                     <div class="col-md-3">
+                                        <label>
+                                            <span> @organ.description </span>
+                                        </label>
                                         @Html.EditorFor(model => model.salary_code.Description, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                                 <div class="form-group">
 
-                                    <div class="col-md-1"></div>
+                                
                                     @if (Model.salary_code.LinkedWithAccumulators == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.linkedtosubscriptionsyndicate
+                                            </label>
                                             <input type="checkbox" value="on" onchange="check2(this)" checked class="icheck" name="check_c5" id="c5" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.linkedtosubscriptionsyndicate
+                                            </label>
                                             <input type="checkbox" value="on" onchange="check2(this)" class="icheck" name="check_c5" id="c5" />
                                         </div>
                                     }
-                                    <label class="control-label col-md-2">
-                                        @pers_2.linkedtosubscriptionsyndicate
-                                    </label>
-                                    <label class="control-label col-md-1">
-                                        <span> @Personnel.SelectSubscription </span>
-                                    </label>
+                                  
+                                   
                                     <div class="col-md-3">
+                                        <label>
+                                            <span> @Personnel.SelectSubscription </span>
+                                        </label>
                                         @Html.DropDownListFor(m => m.salary_code.Subscription_Code, new SelectList(ViewBag.Subscription_Syndicate, "ID", "Code"), Personnel.Subscribed, new { @class = "select2", @id = "C2", @disabled = true })
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-1"></div>
+                                 
                                     @if (Model.salary_code.ApplayRangeConstrains == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.applayrangeconstrains
+                                            </label>
                                             <input type="checkbox" value="on" onchange="check3(this)" checked class="icheck" name="check_c6" id="c6" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.applayrangeconstrains
+                                            </label>
                                             <input type="checkbox" value="on" onchange="check3(this)" class="icheck" name="check_c6" id="c6" />
                                         </div>
                                     }
-                                    <label class="control-label col-md-2">
-                                        @pers_2.applayrangeconstrains
-                                    </label>
-                                    <label class="control-label col-md-1">
-                                        <span> @pers_2.minimumamount </span>
-                                    </label>
+                                   
+                                  
                                     <div class="col-md-3">
+                                        <label>
+                                            <span> @pers_2.minimumamount </span>
+                                        </label>
                                         @Html.EditorFor(model => model.salary_code.MinimumAmount, new { htmlAttributes = new { @min = "0", @type = "number", @class = "form-control", id = "c44", @disabled = true } })
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        <span> @pers_2.maximumamount </span>
-                                    </label>
+                                   
                                     <div class="col-md-3">
+                                        <label>
+                                            <span> @pers_2.maximumamount </span>
+                                        </label>
                                         @Html.EditorFor(model => model.salary_code.MaximumAmount, new { htmlAttributes = new { @min = "0", @type = "number", id = "c55", @class = "form-control", @disabled = true } })
                                     </div>
                                 </div>
@@ -320,33 +360,40 @@
                             </div>
                             <div class="tab-pane" id="Rounding" style="overflow: hidden;width: auto;height: auto;">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        @pers_2.allowtopostingitemtogl
-                                    </label>
-
+                                
                                     @if (Model.salary_code.AllowToPostingItemToGL == true)
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.allowtopostingitemtogl
+                                            </label>
+
                                             <input type="checkbox" value="on" onchange="check4(this)" checked class="icheck" name="check_c4" id="c4" />
                                         </div>
                                     }
                                     else
                                     {
-                                        <div class="col-md-1">
+                                        <div class="col-md-4">
+                                            <label>
+                                                @pers_2.allowtopostingitemtogl
+                                            </label>
+
                                             <input type="checkbox" value="on" onchange="check4(this)" class="icheck" name="check_c4" id="c4" />
                                         </div>
                                     }
-                                    <label class="control-label col-md-1">
-                                        <span id="c22"> @pers_2.debitaccount </span>
-                                    </label>
+                                   
                                     <div class="col-md-3">
+                                        <label>
+                                            <span id="c22"> @pers_2.debitaccount </span>
+                                        </label>
                                         @Html.DropDownListFor(m => m.salary_code.DebitAccount, new SelectList(ViewBag.debit, "ID", "Code"), pers_2.debitaccount, new { @class = "select2", @id = "C4", @disabled = true })
 
                                     </div>
-                                    <label class="control-label col-md-1">
-                                        <span id="c33"> @pers_2.creditaccount </span>
-                                    </label>
+                                  
                                     <div class="col-md-3">
+                                        <label>
+                                            <span id="c33"> @pers_2.creditaccount </span>
+                                        </label>
                                         @Html.DropDownListFor(m => m.salary_code.CreditAccount, new SelectList(ViewBag.credit, "ID", "Code"), pers_2.creditaccount, new { @class = "select2", @id = "C5", @disabled = true })
 
                                     </div>
@@ -443,3 +490,95 @@
     }
 </script>
 @section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

@@ -16,6 +16,7 @@ using HR.Models.payroll_trans;
 using HR.Models.TransactionsPayroll;
 using HR.Models.Training.setup;
 using HR.Models.Training.trans;
+using HR.Models.Training.transaction;
 
 namespace HR.Models
 {
@@ -119,7 +120,7 @@ namespace HR.Models
         public DbSet<Allergy_Type> Allergy_Type { get; set; }
         public DbSet<Disease> Disease { get; set; }
         public DbSet<Sings_Symptom> Sings_Symptom { get; set; }
-        public DbSet<Special_Allwonce_History> Special_Allwonce_History{get;set;}
+        public DbSet<Special_Allwonce_History> Special_Allwonce_History { get; set; }
         public DbSet<Medical_Service_Group> Medical_Service_Group { get; set; }
         public DbSet<Medical_Service_Classification> Medical_Service_Classification { get; set; }
         public DbSet<Medical_Service> Medical_Service { get; set; }
@@ -132,13 +133,13 @@ namespace HR.Models
         public DbSet<EOS_Interview_Questions_Groups> EOS_Interview_Questions_Groups { get; set; }
         public DbSet<Definition_of_EOS_Interview_Questions> Definition_of_EOS_Interview_Questions { get; set; }
         public DbSet<Check_List_Item_Groups> Check_List_Item_Groups { get; set; }
-        
+
         public DbSet<Check_Lists_Items> Check_Lists_Items { get; set; }
         public DbSet<Budget> Budget { get; set; }
         public DbSet<Budget_details> Budget_details { get; set; }
         public DbSet<Employee_Recodes_Group> Employee_Recodes_Group { get; set; }
         public DbSet<Subscription_Syndicate> Subscription_Syndicate { get; set; }
-       public DbSet<Employee_Profile> Employee_Profile { get; set; }
+        public DbSet<Employee_Profile> Employee_Profile { get; set; }
         public DbSet<status> status { get; set; }
         public DbSet<justification> justification { get; set; }
         public DbSet<Ability> Ability { get; set; }
@@ -180,7 +181,7 @@ namespace HR.Models
         public DbSet<EvaluationQuestionsandanswers> EvaluationQuestionsandanswers { get; set; }
         public DbSet<Shift_day_status_setup> Shift_day_status_setup { get; set; }
         public DbSet<Public_Holiday_Events> Public_Holiday_Events { get; set; }
-        public DbSet<Weekend_setup> Weekend_setup { get; set; }      
+        public DbSet<Weekend_setup> Weekend_setup { get; set; }
         public DbSet<Vacations_Setup> Vacations_Setup { get; set; }
         public DbSet<Public_Holidays_Dates> Public_Holidays_Dates { get; set; }
         public DbSet<Append_Public_Holidays_Dates> Append_Public_Holidays_Dates { get; set; }
@@ -192,9 +193,9 @@ namespace HR.Models
         public DbSet<EvaluationPlan> EvaluationPlan { get; set; }
         public DbSet<per_emp> per_emp { get; set; }
 
-        public DbSet<EvaluationTransaction> EvaluationTransaction { get;set;}
+        public DbSet<EvaluationTransaction> EvaluationTransaction { get; set; }
 
-       // public DbSet<groupevaluation_evaluation_transaction> groupevaluation_evaluation_transaction { get;set;}
+        // public DbSet<groupevaluation_evaluation_transaction> groupevaluation_evaluation_transaction { get;set;}
 
         //public DbSet<QuestionsANDAnswers_EvaluationTransaction> QuestionsANDAnswers_EvaluationTransaction { get;set;}
         public DbSet<exper_jobdetails> exper_jobdetails { get; set; }
@@ -210,7 +211,7 @@ namespace HR.Models
 
         public DbSet<obje_eval_tran> obje_eval_tran { get; set; }
         public DbSet<skill_eval> skill_eval { get; set; }
-        public DbSet<Applicant_Profile> Applicant_Profile { get; set; }     
+        public DbSet<Applicant_Profile> Applicant_Profile { get; set; }
         public DbSet<Applicant_Address_Profile> Applicant_Address_Profile { get; set; }
         public DbSet<Applicant_Attachment_Profile> Applicant_Attachment_Profile { get; set; }
         public DbSet<Applicant_Qualification_Profile> Applicant_Qualification_Profile { get; set; }
@@ -278,7 +279,7 @@ namespace HR.Models
 
         public DbSet<SalaryItemCollectionGroup_Header> SalaryItemCollectionGroup_Header { get; set; }
         public DbSet<SalaryItemCollectionGroup_Detail> SalaryItemCollectionGroup_Detail { get; set; }
-        
+
         public DbSet<LinkLoanDeductionsWithOtherManualPayment> LinkLoanDeductionsWithOtherManualPayment { get; set; }
         public DbSet<LoanInstallment> LoanInstallment { get; set; }
         public DbSet<LoanRequest> LoanRequest { get; set; }
@@ -317,6 +318,15 @@ namespace HR.Models
         public DbSet<Course_Centers> Course_Centers { get; set; }
         public DbSet<Course_Skills> Course_Skills { get; set; }
         public DbSet<Course_TrainingType> Course_TrainingType { get; set; }
+        public DbSet<Distributed_Opportunity> Distributed_Opportunity { get; set; }
+        public DbSet<TrainingOpportunity_Detail> TrainingOpportunity_Detail { get; set; }
+        public DbSet<TrainingOpportunity_Header> TrainingOpportunity_Header { get; set; }
+        public DbSet<TrainingPlan_Header> TrainingPlan_Header { get; set; }
+        public DbSet<TrainingPlan_Detail> TrainingPlan_Detail { get; set; }
+        public DbSet<Course_CostElement_Header> Course_CostElement_Header { get; set; }
+        public DbSet<Course_CostElement_Detail> Course_CostElement_Detail { get; set; }
+        public DbSet<TrainingParticipants_Header> TrainingParticipants_Header { get; set; }
+        public DbSet<TrainingParticipants_Detail> TrainingParticipants_Detail { get; set; }
     }
 
 }

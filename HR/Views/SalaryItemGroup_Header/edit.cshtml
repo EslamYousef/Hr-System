@@ -10,6 +10,14 @@
     <div class="panel-body">
         @using (Html.BeginForm("edit", "SalaryItemGroup_Header", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
         {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" id="btnSubmit" name="Command" value="Submit2" class="create-btn" />@organ.Save</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "SalaryItemGroup_Header")" class="create-btn">@pers_2.new_</a></div>
+                <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","SalaryItemGroup_Header")" class="create-btn" value=@organ.delete /></div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "SalaryItemGroup_Header")" class="create-btn"> @pers_2.Back</a></div>
+
+
+            </div>
             @Html.AntiForgeryToken()
             <input name="item" value="" hidden />
             <input name="ID_item" value="" hidden />
@@ -27,70 +35,65 @@
                         }
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @organ.code
-                            </label>
-                            <div class="col-md-3">
+                           
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.code
+                                </label>
                                 @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupID, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupID, "", new { @class = "text-danger" })
 
                             </div>
-                            <div class="col-md-1">
-
-                            </div>
-                            <div class="col-md-2">
-
-                                <input type="submit" id="btnSave" class="btn btn-success" value=@organ.Save />
-                            </div>
-                            <div class="col-md-2">
-                                <a href="@Url.Action("index", "SalaryItemGroup_Header")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@organ.Back</a>
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label style="color:red" class="control-label col-md-1">
-                                @organ.name
-                            </label>
-                            <div class="col-md-3">
+                           
+                           
+                        
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.name
+                                </label>
                                 @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupDesc, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupDesc, "", new { @class = "text-danger" })
 
                             </div>
-                            <label class="control-label col-md-1">
-                                @organ.description
-                            </label>
-                            <div class="col-md-3">
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    @organ.description
+                                </label>
                                 @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.CodeGroupAltDesc, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.codegrouptype</span>
-                            </label>
-                            <div class="col-md-3">
+                       
+                           
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.codegrouptype</span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.Header.code_group_type, "Select budget type", new { @class = "select2" })
 
                             </div>
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.grouppurpose</span>
-                            </label>
-                            <div class="col-md-3">
+
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.grouppurpose</span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.Header.group_purpose, "Select budget type", new { @class = "select2" })
 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.Eligibilitytype</span>
-                            </label>
-                            <div class="col-md-3">
+
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.Eligibilitytype</span>
+                                </label>
                                 @Html.EnumDropDownListFor(m => m.Header.Eligibility, "Select budget type", new { @class = "select2" })
 
                             </div>
-                            <label class="control-label col-md-1">
-                                <span> @pers_2.payrolleligibility</span>
-                            </label>
-                            <div class="col-md-3">
+                        
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.payrolleligibility</span>
+                                </label>
                                 @Html.EditorFor(model => model.Header.SalaryItemCollectionGroup_Header.PayrollEligibility, new { htmlAttributes = new { @class = "form-control" } })
 
 
@@ -111,10 +114,11 @@
                                 <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
 
                                     <div style="margin-bottom:15px" class="form-group">
-                                        <label class="control-label col-md-1">
-                                            <span> @pers_2.salarycodeid </span>
-                                        </label>
-                                        <div class="col-md-3">
+                                       
+                                        <div class="col-md-4">
+                                            <label>
+                                                <span> @pers_2.salarycodeid </span>
+                                            </label>
                                             @Html.DropDownList("items", new SelectList(ViewBag.salaryitem, "ID", "Code"), pers_2.salarycodeid, new { @class = "select2", @id = "ite" })
                                         </div>
                                         <div class="col-md-1">
@@ -224,3 +228,96 @@
     }
 
 </script>
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>    

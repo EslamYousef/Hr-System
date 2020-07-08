@@ -1,6 +1,7 @@
 ﻿using HR.Models.Infra;
 using HR.Models.payroll_trans;
 using HR.Models.Time_management;
+using HR.Models.Training.transaction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

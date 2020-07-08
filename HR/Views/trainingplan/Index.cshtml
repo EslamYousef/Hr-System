@@ -1,12 +1,10 @@
-﻿@model IEnumerable<HR.Models.PayrollGeneralSetup>
+﻿@model IEnumerable<HR.Models.Training.transaction.TrainingPlan_Header>
 @using HR.Resource;
-
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-@using HR.Resource;
+
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -14,7 +12,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "PayrollGeneralSetup")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.Addpayrollgeneralsetup1</a>
+                    <a href="@Url.Action("Create", "trainingplan")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@training.addTrainingPolicy</a>
                 </p>
             </div>
 
@@ -31,8 +29,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>@pers_2.lenghtoferpsegment</th>
-                            <th>@pers_2.numberoferpsegment</th>
+                            <th>@organ.Year</th>
+                            <th>@training.TrainingType</th>
+                          
                             <th></th>
                         </tr>
                     </thead>
@@ -40,13 +39,15 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Length_Of_Segment</td>
-                                <td>@item.Number_Of_Account_Segments</td>
-                               
-                            
+                                <td>@item.Year</td>
+                                <td>@item.training_type</td>
+                                
+                              
+
+
                                 <td>
-                                    <a href="@Url.Action("Edit", "PayrollGeneralSetup", new {id = item.ID})" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
-                                    <a href="@Url.Action("Delete", "PayrollGeneralSetup", new {id = item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@organ.delete</a>
+                                    <a href="@Url.Action("Edit", "trainingplan", new {id = item.ID})" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    <a href="@Url.Action("delete", "trainingplan", new {id = item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@organ.delete</a>
                                 </td>
                             </tr>
                         }
