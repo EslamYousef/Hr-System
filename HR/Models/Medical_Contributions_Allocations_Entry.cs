@@ -12,17 +12,18 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         [Display(Name ="Allo.Con. Code")]
-        public double Code { get; set; }
-        [Required]
+        public string Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Name { get; set; }
         public string TName { get; set; }
         [Display(Name = "Is Contribution")]
         public bool Is_Contribution { get; set; }
         [Display(Name = "Allowed To")]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public gender Allowed_To { get; set; }
     }
 }

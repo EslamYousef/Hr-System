@@ -20,7 +20,21 @@ namespace HR.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Medical);
+            var model = dbcontext.Medical_Contributions_Allocations_Entry.ToList();
+            var count = 0;
+            if (model.Count() == 0)
+            {
+                count = 1;
+            }
+            else
+            {
+                var te = model.LastOrDefault().ID;
+                count = te + 1;
+            }
+
+            var model_ = new Medical_Contributions_Allocations_Entry { Code = stru.Structure_Code + count };
+            return View(model_);
         }
         [HttpPost]
         public ActionResult Create(Medical_Contributions_Allocations_Entry model, string command, string command2)

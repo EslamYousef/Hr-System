@@ -248,7 +248,24 @@
         }
     }
 </script>
-
+<script>
+    function Chk_AdminClick2(sender) {
+        debugger
+        var chkBox = sender;
+        var Checked = chkBox.checked;
+        if (Checked == true) {
+            debugger
+            $("#SpeAmo").removeAttr("readonly", true);
+            $("#SpePer").attr('readonly', true);
+            $("#SpePer").val("0");
+        }
+        else {
+            $("#SpePer").removeAttr("readonly", true);
+            $("#SpeAmo").attr('readonly', true);
+            $("#SpeAmo").val("0");
+        }
+    }
+</script>
 
 
 
@@ -297,117 +314,160 @@
                     </div>
                 }
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label>@Payroll.Currentyear</label>
-                        @Html.EditorFor(model => model.EmployeeAnnualIncreaseHistory.Month, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, id = "name1" } })
-                        @Html.ValidationMessageFor(model => model.EmployeeAnnualIncreaseHistory.Month, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="col-md-4">
-                        <label>@Payroll.Previousyear</label>
-                        @Html.EditorFor(model => model.EmployeeAnnualIncreaseHistory.Year, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1900, id = "name2" } })
-                        @Html.ValidationMessageFor(model => model.EmployeeAnnualIncreaseHistory.Year, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="col-md-4">
-                        <label>@Payroll.IncreaseMoney</label>
-                        <input type="number" onclick="dropAbility()" min="1" name="money" id="money" value="0" class="form-control" readonly />
-                    </div>
-                    <div class="col-md-4">
-                        <label>@Payroll.IncreasePrecentage</label>
-                        <input type="number" onclick="dropAbility()" min="1" name="percentage" id="Percentage" value="1" class="form-control" />
-                    </div>
-                    <div class="col-md-4">
-                        <label>@Payroll.SelectBetweenIncreasePrecentageorIncreaseMoney</label>
-                        <input type="checkbox" name="ChkAdmin" value="Chk_Admin" id="Chk_Admins" onclick="Chk_AdminClick(this)" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label>@Payroll.IncreaseType</label>
-                        @Html.EnumDropDownListFor(model => model.IncreaseType, new { @class = "select2", @style = "margin-bottom: 15px;" })
-
-                        @Html.ValidationMessageFor(model => model.IncreaseType, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-md-4">
-                        <label>@Payroll.Comments </label>
-                        @Html.EditorFor(model => model.EmployeeAnnualIncreaseHistory.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EmployeeAnnualIncreaseHistory.Notes, "", new { @class = "text-danger" })
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>@Payroll.ImportFromExcel : </label> <input type="file" name="MyItem" /><br />
-                    </div>
-                </div>
-                <table id="categories" class="table table-bordered table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th>@Payroll.Employeeid</th>
-                            <th>@Payroll.EmployeeName</th>
-                            <th>@Payroll.Year</th>
-                            <th>@Payroll.Month</th>
-                            <th>@Payroll.IncreasePrecentage</th>
-                        </tr>
-                    </thead>
-
-                </table>
-
                 <ul class="nav nav-tabs bordered">
                     <!-- available classes "bordered", "right-aligned" -->
                     <li class="active">
-                        <a href="#homepagep" data-toggle="tab">
+                        <a href="#empennual" data-toggle="tab">
                             <span class="visible-xs"><i class="entypo-home"></i></span>
-                            <span class="hidden-xs">@pers_2.employee</span>
+                            <span class="hidden-xs">@Payroll.AnnualPormotionIncrease</span>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="homepagep" style="overflow: hidden;width: auto;height: auto;">
-                        <input name="ID_emp" value="" hidden />
-
+                    <div class="tab-pane active" id="empennual" style="overflow: hidden;width: auto;height: auto;">
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label>@Basic.category</label>
-                                @Html.DropDownList("category", new SelectList(ViewBag.Object, "Value", "Text"), @Basic.category, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                <label>@Payroll.Currentyear</label>
+                                @Html.EditorFor(model => model.EmployeeAnnualIncreaseHistory.Month, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, id = "name1" } })
+                                @Html.ValidationMessageFor(model => model.EmployeeAnnualIncreaseHistory.Month, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>@Payroll.Previousyear</label>
+                                @Html.EditorFor(model => model.EmployeeAnnualIncreaseHistory.Year, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1900, id = "name2" } })
+                                @Html.ValidationMessageFor(model => model.EmployeeAnnualIncreaseHistory.Year, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>@Payroll.IncreaseMoney</label>
+                                <input type="number" onclick="dropAbility()" min="1" name="money" id="money" value="0" class="form-control" readonly />
                             </div>
                             <div class="col-md-4">
-                                <label>@pers_2.items</label>
-                                <select multiple id="ter" class="select2" disabled></select>
-
+                                <label>@Payroll.IncreasePrecentage</label>
+                                <input type="number" onclick="dropAbility()" min="1" name="percentage" id="Percentage" value="1" class="form-control" />
                             </div>
                             <div class="col-md-4">
-                                <label> - </label>
-                                <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
-
+                                <label>@Payroll.SelectBetweenIncreasePrecentageorIncreaseMoney</label>
+                                <input type="checkbox" name="ChkAdmin" value="Chk_Admin" id="Chk_Admins" onclick="Chk_AdminClick(this)" />
                             </div>
-
                         </div>
-                        <table class="table table-bordered">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>@Payroll.IncreaseType</label>
+                                @Html.EnumDropDownListFor(model => model.IncreaseType, new { @class = "select2", @style = "margin-bottom: 15px;" })
+
+                                @Html.ValidationMessageFor(model => model.IncreaseType, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>@Payroll.Comments </label>
+                                @Html.EditorFor(model => model.EmployeeAnnualIncreaseHistory.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EmployeeAnnualIncreaseHistory.Notes, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>@Payroll.ImportFromExcel : </label> <input type="file" name="MyItem" /><br />
+                            </div>
+                        </div>
+                        <table id="categories" class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>
-
-                                    <td>@pers_2.code</td>
-                                    <td>@organ.name</td>
-                                    <td></td>
+                                    <th>@Payroll.Employeeid</th>
+                                    <th>@Payroll.EmployeeName</th>
+                                    <th>@Payroll.Year</th>
+                                    <th>@Payroll.Month</th>
+                                    <th>@Payroll.IncreasePrecentage</th>
                                 </tr>
                             </thead>
-                            <tbody id="emp2"></tbody>
+
                         </table>
-
                     </div>
-
-
-
+                </div>
+                <ul class="nav nav-tabs bordered">
+                    <!-- available classes "bordered", "right-aligned" -->
+                    <li class="active">
+                        <a href="#Special" data-toggle="tab">
+                            <span class="visible-xs"><i class="entypo-home"></i></span>
+                            <span class="hidden-xs">@Payroll.SpecialAllwanceIncrease</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="Special" style="overflow: hidden;width: auto;height: auto;">
+                        <div class="form-group">
+                           
+                            <div class="col-md-4">
+                                <label>@Payroll.IncreaseMoney</label>
+                                <input type="number" onclick="dropAbility2()" min="1" name="SpeAmo" id="SpeAmo" value="0" class="form-control" readonly />
+                            </div>
+                            <div class="col-md-4">
+                                <label>@Payroll.IncreasePrecentage</label>
+                                <input type="number" onclick="dropAbility2()" min="1" name="SpePer" id="SpePer" value="1" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label>@Payroll.SelectBetweenIncreasePrecentageorIncreaseMoney</label>
+                                <input type="checkbox" name="ChkAdmin2" value="Chk_Admin2" id="Chk_Admins2" onclick="Chk_AdminClick2(this)" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" name="SpecialConfirm" id="SpecialConfirm" value="Calculate" class="form-control" style="line-height:0px; background:deepskyblue;" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#homepagep" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@pers_2.employee</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="homepagep" style="overflow: hidden;width: auto;height: auto;">
+                                <input name="ID_emp" value="" hidden />
 
-        }
-    </div>
-</div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label>@Basic.category</label>
+                                        @Html.DropDownList("category", new SelectList(ViewBag.Object, "Value", "Text"), @Basic.category, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>@pers_2.items</label>
+                                        <select multiple id="ter" class="select2" disabled></select>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label> - </label>
+                                        <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
+
+                                    </div>
+
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+
+                                            <td>@pers_2.code</td>
+                                            <td>@organ.name</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp2"></tbody>
+                                </table>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+                    }
+                </div>
+            </div>
 @section scripts{}
 <style>
 

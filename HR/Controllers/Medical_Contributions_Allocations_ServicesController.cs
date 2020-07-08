@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
 using HR.Models;
+using HR.Models.Infra;
 
 namespace HR.Controllers
 {
@@ -20,18 +21,33 @@ namespace HR.Controllers
         }
         public ActionResult Create(string id)
         {
-            ViewBag.ContributionAllocations = dbcontext.Medical_Contributions_Allocations_Entry.ToList().Select(m => new { Code = +m.Code + "-----[" + m.Name + ']', ID = m.ID });
-            ViewBag.Classifiaction = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = +m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
+            ViewBag.ContributionAllocations = dbcontext.Medical_Contributions_Allocations_Entry.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+            ViewBag.Classifiaction = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
             ViewBag.Services = dbcontext.Medical_Service.ToList().Select(m => new { Code = +m.Service_Code + "-----[" + m.Name + ']', ID = m.ID });
 
-            if (id != null)
-            {
-                var ID = int.Parse(id);
-                var ContributionAllocations_Entry = dbcontext.Medical_Contributions_Allocations_Entry.FirstOrDefault(m => m.ID == ID);
-            
-                var model = new Medical_Contributions_Allocations_Services { Medical_Contributions_Allocations_EntryId = ContributionAllocations_Entry.ID.ToString()};
-                return View(model);
-            }
+            //if (id != null)
+            //{
+            //    var ID = int.Parse(id);
+            //    var ContributionAllocations_Entry = dbcontext.Medical_Contributions_Allocations_Entry.FirstOrDefault(m => m.ID == ID);
+
+            //    var model = new Medical_Contributions_Allocations_Services { Medical_Contributions_Allocations_EntryId = ContributionAllocations_Entry.ID.ToString()};
+            //    return View(model);
+            //}
+            //var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Medical);
+            //var model = dbcontext.Medical_Contributions_Allocations_Services.ToList();
+            //var count = 0;
+            //if (model.Count() == 0)
+            //{
+            //    count = 1;
+            //}
+            //else
+            //{
+            //    var te = model.LastOrDefault().ID;
+            //    count = te + 1;
+            //}
+
+            //var model_ = new Medical_Contributions_Allocations_Services { Disease_Code = stru.Structure_Code + count };
+            //return View(model_);
             return View();
         }
         [HttpPost]
@@ -39,8 +55,8 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.ContributionAllocations = dbcontext.Medical_Contributions_Allocations_Entry.ToList().Select(m => new { Code = +m.Code + "-----[" + m.Name + ']', ID = m.ID });
-                ViewBag.Classifiaction = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = +m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.ContributionAllocations = dbcontext.Medical_Contributions_Allocations_Entry.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Classifiaction = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
                 ViewBag.Services = dbcontext.Medical_Service.ToList().Select(m => new { Code = +m.Service_Code + "-----[" + m.Name + ']', ID = m.ID });
                 if (ModelState.IsValid)
                 {

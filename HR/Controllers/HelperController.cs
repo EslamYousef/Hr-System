@@ -1584,8 +1584,20 @@ namespace HR.Controllers
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
             var ID = int.Parse(id);
-            var Employee_Profile_Groups = dbcontext.Employee_Profile_Groups.FirstOrDefault(m => m.ID == ID);
+            var Employee_Profile_Groups = dbcontext.Employee_Profile_Groups.ToList();
             return Json(Employee_Profile_Groups);
+        }
+        public JsonResult GetBusiness_Trip(string id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.Business_Trip.FirstOrDefault(a => a.Code == id);
+            return Json(item);
+        }
+        public JsonResult GetsalarycodeTime(int id)
+        {
+            dbcontext.Configuration.ProxyCreationEnabled = false;
+            var item = dbcontext.salary_code.FirstOrDefault(a => a.ID == id);
+            return Json(item);
         }
     }
 

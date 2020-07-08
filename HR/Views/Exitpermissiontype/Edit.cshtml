@@ -81,10 +81,10 @@
                         </div>
 
                         <div class="form-group">
-                             <div class="col-md-4">
-                                 <label>
-                                     @pers_2.fromtime
-                                 </label>
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.fromtime
+                                </label>
                                 @Html.EditorFor(model => model.from, new { htmlAttributes = new { @name = "start", id = "start", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                             </div>
@@ -95,20 +95,23 @@
                                 @Html.EditorFor(model => model.to, new { htmlAttributes = new { @name = "end", id = "end", @class = "form-control timepicker", @data_template = "dropdown", @data_show_seconds = "true", @data_show_meridian = "true", @data_minute_step = "1" } })
 
                             </div>
-                      
-                           
+
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.integratewithpayroll
                                 </label>
                                 @Html.CheckBoxFor(model => model.integrate_with_payroll, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
-                           
+
+                               
                             <div class="col-md-4">
-                                <label>
+                                <label style="color:red">
                                     @pers_2.Salarycode
                                 </label>
-                                <input type="text" class="form-control" />
+                                @Html.DropDownListFor(model => model.SalaryCode, new SelectList(ViewBag.salary_code, "ID", "Code"), Payroll.SelectSalaryCode, new { id = "Salary", @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.SalaryCode, "", new { @class = "text-danger" })
+
                             </div>
                         </div>
 

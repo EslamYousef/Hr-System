@@ -109,10 +109,11 @@
                             </div>
                          
                             <div class="col-md-4">
-                                <label>
+                                <label style="color:red">
                                     @pers_2.Salarycode
                                 </label>
-                                <input type="text" class="form-control" />
+                                @Html.DropDownListFor(model => model.SalaryCode, new SelectList(ViewBag.salary_code, "ID", "Code"), Payroll.SelectSalaryCode, new { id = "Salary", @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.SalaryCode, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

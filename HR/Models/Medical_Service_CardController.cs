@@ -19,7 +19,7 @@ namespace HR.Models
         }
         public ActionResult Create(string id)
         {
-            ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = +m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
+            ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
             if (id != null)
             {
                 var ID = int.Parse(id);
@@ -34,7 +34,7 @@ namespace HR.Models
         {
             try
             {
-                ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = +m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
 
                 if (ModelState.IsValid)
                 {
@@ -78,7 +78,7 @@ namespace HR.Models
         {
             try
             {
-                ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = +m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
                 var record = dbcontext.Medical_Service.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -97,7 +97,7 @@ namespace HR.Models
         {
             try
             {
-                ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = +m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.Medical_Service_Classification = dbcontext.Medical_Service_Classification.ToList().Select(m => new { Code = m.Classification_Code + "-----[" + m.Description + ']', ID = m.ID });
                 if (model.Medical_Service_ClassificationId == "0" || model.Medical_Service_ClassificationId == null)
                 {
                     ModelState.AddModelError("", "Medical Service Classification Code must enter");

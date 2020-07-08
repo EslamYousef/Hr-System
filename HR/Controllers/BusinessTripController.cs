@@ -24,8 +24,10 @@ namespace HR.Controllers
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.trans = dbcontext.TransportationMethod.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.ManualPaymentTypes_Header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeDesc + ']', ID = m.ID });
 
-                var record = new Business_Trip();
+                var record = new Business_Trip { linkedtomnothelypayroll = true };
                 var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel).Structure_Code;
                 var model = dbcontext.Business_Trip.ToList();
                 if (model.Count() == 0)
@@ -50,6 +52,8 @@ namespace HR.Controllers
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.trans = dbcontext.TransportationMethod.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.ManualPaymentTypes_Header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeDesc + ']', ID = m.ID });
 
                 if (model.transporation_return_ID != null)
                     model.transporation_return_name = dbcontext.TransportationMethod.FirstOrDefault(m => m.ID == model.transporation_return_ID).Name;
@@ -71,6 +75,8 @@ namespace HR.Controllers
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.trans = dbcontext.TransportationMethod.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.ManualPaymentTypes_Header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeDesc + ']', ID = m.ID });
 
                 var model = dbcontext.Business_Trip.FirstOrDefault(m => m.ID == id);
                 return View(model);
@@ -87,6 +93,8 @@ namespace HR.Controllers
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.trans = dbcontext.TransportationMethod.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+                ViewBag.ManualPaymentTypes_Header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "------[" + m.PaymentTypeDesc + ']', ID = m.ID });
 
                 var record = dbcontext.Business_Trip.FirstOrDefault(m => m.ID == model.ID);
                 record.Name = model.Name;
@@ -97,6 +105,8 @@ namespace HR.Controllers
                 record.transporation_return_ID = model.transporation_return_ID;
                 record.linkedtomanyalpayment = model.linkedtomanyalpayment;
                 record.linkedtomnothelypayroll = model.linkedtomnothelypayroll;
+                record.Salarycode = model.Salarycode;
+                record.Manualpaymenttypecode = model.Manualpaymenttypecode;
                 if (model.transporation_return_ID != null)
                     record.transporation_return_name = dbcontext.TransportationMethod.FirstOrDefault(m => m.ID == model.transporation_return_ID).Name;
                 else

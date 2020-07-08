@@ -6,10 +6,57 @@
 }
 
 @using HR.Resource;
+    <script>
+
+        $(document).ready(function () {
+            debugger
+            //document.getElementById("linkedtomanyalpayment").disabled = true;
+            $("#manu").prop('disabled', true);
+    });
+    function employee(sender) {
+        debugger
+        var chkBox = sender;
+        var Checked = chkBox.checked;
+        if (Checked == true) {
+            debugger
+            //document.getElementById("linkedtomanyalpayment").disabled = true;
+            $("#salary").prop('disabled', false);
+            $("#manu").prop('disabled', true);
+            $("#s2id_manu").select2("val", "");
+            $("#linkedtomanyalpayment").prop('checked', false).checkboxradio("refresh");
+        }
+        else
+        {
+            $("#salary").prop('disabled', true);
+            $("#manu").prop('disabled', false);
+            $("#linkedtomanyalpayment").prop('checked', true).checkboxradio("refresh");;
+            //document.getElementById("linkedtomanyalpayment").disabled = false;
+        }
+        }
+        function employee55(sender) {
+            debugger
+            var chkBox = sender;
+            var Checked = chkBox.checked;
+            if (Checked == true) {
+                debugger
+                $("#salary").prop('disabled', true);
+                $("#manu").prop('disabled', false);
+                $("#s2id_salary").select2("val", "");
+                $("#linkedtomnothelypayroll").prop('checked', false).checkboxradio("refresh");
+            }
+            else {
+                $("#salary").prop('disabled', false);
+                $("#manu").prop('disabled', true);
+                $("#linkedtomnothelypayroll").prop('checked', true).checkboxradio("refresh");;
+            }
+
+        }
+
+    </script>
 
 <div class="content-wrapper">
 
-   
+
 
     <!-- Main content -->
     <section class="content">
@@ -52,20 +99,20 @@
                             <div class="col-md-4">
                                 <label style="color:red">
                                     @organ.code
-                                </label> 
+                                </label>
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                             <div class="col-md-4">
-                                 <label style="color:red">
-                                     @organ.name
-                                 </label>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.name
+                                </label>
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
 
-                           
-                          
+
+
                             <div class="col-md-4">
                                 <label>
                                     @organ.description
@@ -73,7 +120,7 @@
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
-                          
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.Allowancerateperday
@@ -81,76 +128,57 @@
                                 @Html.EditorFor(model => model.alloeancereateberdaye, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.alloeancereateberdaye, "", new { @class = "text-danger" })
                             </div>
-                           
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.shiftsetup
                                 </label>
 
                                 @Html.DropDownListFor(m => m.ShiftdaystatusID, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
-
-                           
-
                             </div>
-                           
                         </div>
 
-
-
                         <div class="form-group">
-                          
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.defulttransportaion_GO
                                 </label>
-
                                 @Html.DropDownListFor(m => m.TransportationMethodID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.trans, new { @class = "select2" })
-                              
                             </div>
-                          
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.defalulttransportation_return
                                 </label>
                                 @Html.DropDownListFor(m => m.transporation_return_ID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.trans, new { @class = "select2" })
-                              
                             </div>
-                       
-                           
                             <div class="col-md-4">
                                 <label>
-                                    linked to mnothely payroll
+                                    @Payroll.linkedtomonthlypayroll
                                 </label>
-                                @Html.CheckBoxFor(model => model.linkedtomnothelypayroll, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.CheckBoxFor(model => model.linkedtomnothelypayroll, new { @onclick = "employee(this)", htmlAttributes = new { @class = "form-control", @id = "linksalary", @onclick = "employee(this)", @value = "Chk_Admin" } })
                             </div>
-                           
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.Salarycode
                                 </label>
-                                <input type="text" class="form-control" />
+                                @Html.DropDownListFor(m => m.Salarycode, new SelectList(ViewBag.salary_code, "ID", "Code"), Payroll.SelectSalaryCode, new { @class = "select2", @id = "salary" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                          
                             <div class="col-md-4">
                                 <label>
-                                    linked to manual payment
+                                    @Payroll.linkedtomanualpayment
                                 </label>
-                                @Html.CheckBoxFor(model => model.linkedtomanyalpayment, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.CheckBoxFor(model => model.linkedtomanyalpayment, new { @onclick = "employee55(this)", htmlAttributes = new { @class = "form-control", @id = "linkpay" } })
                             </div>
-
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.manualcode
                                 </label>
-                                <input type="text" class="form-control" />
+                                @Html.DropDownListFor(m => m.Manualpaymenttypecode, new SelectList(ViewBag.ManualPaymentTypes_Header, "ID", "Code"), Payroll.SelectManualpaymenttype, new { @class = "select2", @id = "manu" })
                             </div>
-                           
                         </div>
-                     
-
                     </div>
                 }
 
@@ -161,7 +189,6 @@
     </section>
 </div>
 @section scripts{}
-
 <style>
     /*Create Page*/
 

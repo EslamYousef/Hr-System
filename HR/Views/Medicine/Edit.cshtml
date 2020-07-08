@@ -5,15 +5,11 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-
+@using HR.Resource;
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-            Edit Medicine
-        </h1>
-    </section>
+  
 
     <!-- Main content -->
     <section class="content">
@@ -25,6 +21,18 @@
 
                 @using (Html.BeginForm("Edit", "Medicine", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Medicine")" class="create-btn">@pers_2.new_</a></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Medicine")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Medicine")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /> <hr />
+                    <section class="content-header">
+                        <h1>
+                            @Medical.EditMedicine
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -42,81 +50,66 @@
 
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Medical_Medicine_ClassficationId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
+                                <label style="color:red">@Medical.ClassCode</label>
                                 @Html.DropDownListFor(m => m.Medical_Medicine_ClassficationId, new SelectList(ViewBag.Medical_Medicine_Classfication, "ID", "Code"), "Select MedicalMedicineClassfication", new { @class = "select2", @onchange = "MedicalMedicineClassficationName()", @id = "Medical_Medicine_Classfication" })
                                 @Html.ValidationMessageFor(model => model.Medical_Medicine_ClassficationId, "", new { @class = "text-danger" })
-                                <input type="text" value=" " class="form-control" id="medicalmedicineclassficationname" disabled />
                             </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-4">
+                                <label style="color:red">@Medical.MedicineCode</label>
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
+                                <label style="color:red">@Personnel.Name</label>
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">TName</label>
                             <div class="col-md-4">
+                                <label>@Medical.TName</label>
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
+                                <label style="color:red">@Medical.Price</label>
                                 @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 0 } })
                                 @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Is_Foreign, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-4">
+                                <label>@Medical.IsForeign</label>
                                 @Html.CheckBoxFor(model => model.Is_Foreign, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Is_Foreign, "", new { @class = "text-danger" })
                             </div>
 
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Indication, htmlAttributes: new { @class = "control-label col-md-2" })
+
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Indication, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                <label>@Medical.Indication</label>
+                                @Html.TextAreaFor(model => model.Indication, 4, 40, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Indication, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Usual_Dosage, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Usual_Dosage, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                <label style="color:red">@Medical.UsualDosage</label>
+                                @Html.TextAreaFor(model => model.Usual_Dosage, 4, 40, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Usual_Dosage, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Contraindication, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Contraindication, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                <label>@Medical.Contraindication</label>
+                                @Html.TextAreaFor(model => model.Contraindication, 4, 40, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Contraindication, "", new { @class = "text-danger" })
                             </div>
-                            @Html.LabelFor(model => model.Precaution_Warnings, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-4">
-                                @Html.TextAreaFor(model => model.Precaution_Warnings, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                                <label>@Medical.PrecaultionWarnings</label>
+                                @Html.TextAreaFor(model => model.Precaution_Warnings, 4, 40, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Precaution_Warnings, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.Note, 4, 100, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-4">
+                                <label>@Medical.Notes</label>
+                                @Html.TextAreaFor(model => model.Note, 4, 40, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -125,7 +118,7 @@
 
 
 
-                        <div class="form-group">
+                        <div class="form-group" hidden>
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Edit" class="btn btn-success" />
                                 <a href="@Url.Action("index","Medicine")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
@@ -143,29 +136,119 @@
 </div>
 
 <script>
-  $(function () {
-      CKEDITOR.replace('Description');
-  });
+    $(function () {
+        CKEDITOR.replace('Description');
+    });
 </script>
 
 <script>
-    function MedicalMedicineClassficationName()
-    {
-         
+    function MedicalMedicineClassficationName() {
+
         var id = $("#Medical_Medicine_Classfication").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetMedical_Medicine_Classfication",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#medicalmedicineclassficationname").val(result.Name);
             },
             error: function () {
-                 
+
                 $("#medicalmedicineclassficationname").val(" ");
             }
         });
     }
     MedicalMedicineClassficationName();
 </script>
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

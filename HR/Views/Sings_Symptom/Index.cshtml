@@ -4,6 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
+@using HR.Resource;
 
 <div class="content-wrapper">
     <!-- Main content -->
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Sings_Symptom")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Sings Symptom  </a>
+                    <a href="@Url.Action("Create", "Sings_Symptom")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Medical.AddNewSingsSymptom  </a>
                 </p>
             </div>
 
@@ -29,9 +30,9 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Sing Code</th>
-                            <th>Sing Name</th>     
-                            <th>Notes</th>
+                            <th>@Medical.SingCode</th>
+                            <th>@Medical.SingName</th>
+                            <th>@Medical.Notes</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,23 +41,15 @@
                         {
                             <tr>
                                 <td>@item.Sing_Code</td>
-                                <td>@item.Sing_Name</td>                 
+                                <td>@item.Sing_Name</td>
                                 <th>@item.Notes</th>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Sings_Symptom", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Sings_Symptom", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Sings_Symptom", new {id = item.ID})" class="create-btn" style="width:80px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Sings_Symptom", new {id = item.ID})" class="create-btn" style="width:80px"><i class="far fa-trash-alt"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Sing Code</th>
-                            <th>Sing Name</th>
-                            <th>Notes</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -77,7 +70,29 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "order" : 1
+            "order": 1
         });
     });
 </script>
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000
+    }
+
+        .create-btn svg {
+            color: #0d62aa
+        }
+</style>

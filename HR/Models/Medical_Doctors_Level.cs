@@ -11,13 +11,15 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         [Display(Name = "Level Code")]
-        public double Level_Code { get; set; }
-        [Required]
+        public string Level_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Level Name")]
         public string Level_Name { get; set; }
         public string Notes { get; set; }
+     
     }
 }

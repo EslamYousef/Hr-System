@@ -5,10 +5,77 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 @using HR.Resource;
+<script>
+
+        $(document).ready(function () {
+            debugger
+
+                var id = $("#code").val();
+                $.ajax({
+                    type: "post",
+                    url: "/Helper/GetBusiness_Trip",
+                    data: { "id": id },
+                    success: function (result) {
+                        debugger
+                        var Chsalary = result.linkedtomnothelypayroll;
+                        var ChMan = result.linkedtomanyalpayment;
+                        if (Chsalary == true) {
+                            $("#salary").prop('disabled', false);
+                            $("#manu").prop('disabled', true);
+                            $("#linkedtomanyalpayment").prop('checked', false).checkboxradio("refresh");
+                        }
+                        else
+                        {
+                            $("#salary").prop('disabled', true);
+                            $("#manu").prop('disabled', false);
+                            $("#linkedtomnothelypayroll").prop('checked', false).checkboxradio("refresh");
+                        }
+                    },
+                });
+          
+
+    });
+    function employee(sender) {
+        debugger
+        var chkBox = sender;
+        var Checked = chkBox.checked;
+        if (Checked == true) {
+            debugger
+            //document.getElementById("linkedtomanyalpayment").disabled = true;
+            $("#salary").prop('disabled', false);
+            $("#manu").prop('disabled', true);
+            $("#s2id_manu").select2("val", "");
+            $("#linkedtomanyalpayment").prop('checked', false).checkboxradio("refresh");
+        }
+        else
+        {
+            $("#salary").prop('disabled', true);
+            $("#manu").prop('disabled', false);
+            $("#linkedtomanyalpayment").prop('checked', true).checkboxradio("refresh");;
+            //document.getElementById("linkedtomanyalpayment").disabled = false;
+        }
+    }
+        function employee55(sender) {
+            debugger
+            var chkBox = sender;
+            var Checked = chkBox.checked;
+            if (Checked == true) {
+                debugger
+                $("#salary").prop('disabled', true);
+                $("#manu").prop('disabled', false);
+                $("#s2id_salary").select2("val", "");
+                $("#linkedtomnothelypayroll").prop('checked', false).checkboxradio("refresh");
+            }
+            else {
+                $("#salary").prop('disabled', false);
+                $("#manu").prop('disabled', true);
+                $("#linkedtomnothelypayroll").prop('checked', true).checkboxradio("refresh");;
+            }
+
+        }
+</script>
 
 <div class="content-wrapper">
-
- 
     <!-- Main content -->
     <section class="content">
 
@@ -22,7 +89,7 @@
                     <div class="sec-nav">
                         <div><i class="far fa-save"></i><button type="submit" class="create-btn" /> @organ.Save</div>
                         <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "BusinessTrip")" class="create-btn">@pers_2.new_</a></div>
-                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","BusinessTrip")" class="create-btn" value=@organ.delete /></div>
+                        <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index", "BusinessTrip")" class="create-btn" value=@organ.delete /></div>
                         <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "BusinessTrip")" class="create-btn"> @pers_2.Back</a></div>
 
                     </div>
@@ -47,22 +114,22 @@
                         </section>
 
                         <div class="form-group">
-                         <div class="col-md-4">
-                             <label style="color:red">
-                                 @organ.code
-                             </label> 
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.code
+                                </label>
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control", @id = "code" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                             <div class="col-md-4">
-                                 <label style="color:red">
-                                     @organ.name
-                                 </label>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.name
+                                </label>
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
 
-                          
+
                             <div class="col-md-4">
                                 <label>
 
@@ -71,15 +138,15 @@
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
-                           
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.Allowancerateperday
                                 </label>
-                                @Html.EditorFor(model => model.alloeancereateberdaye, new { htmlAttributes = new {@type="number", @class = "form-control" } })
+                                @Html.EditorFor(model => model.alloeancereateberdaye, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.alloeancereateberdaye, "", new { @class = "text-danger" })
                             </div>
-                         
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.shiftsetup
@@ -96,7 +163,7 @@
 
 
                         <div class="form-group">
-                           
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.defulttransportaion_GO
@@ -105,7 +172,7 @@
                                 @Html.DropDownListFor(m => m.TransportationMethodID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.trans, new { @class = "select2" })
 
                             </div>
-                        
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.defalulttransportation_return
@@ -113,37 +180,41 @@
                                 @Html.DropDownListFor(m => m.transporation_return_ID, new SelectList(ViewBag.trans, "ID", "Code"), pers_2.trans, new { @class = "select2" })
 
                             </div>
-                       
-                      
+
+
                             <div class="col-md-4">
                                 <label>
-                                    linked to mnothely payroll
+                                   @Payroll.linkedtomonthlypayroll 
                                 </label>
-                                @Html.CheckBoxFor(model => model.linkedtomnothelypayroll, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.CheckBoxFor(model => model.linkedtomnothelypayroll, new { @onclick = "employee(this)", htmlAttributes = new { @class = "form-control", @id = "linksalary", @onclick = "employee(this)", @value = "Chk_Admin" } })
                             </div>
-                           
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.Salarycode
                                 </label>
-                                <input type="text" class="form-control" />
+                                @Html.DropDownListFor(m => m.Salarycode, new SelectList(ViewBag.salary_code, "ID", "Code"), Payroll.SelectSalaryCode, new { @class = "select2", @id = "salary" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                           
+
                             <div class="col-md-4">
                                 <label>
-                                    linked to manyal payment
+                                    @Payroll.linkedtomanualpayment
                                 </label>
-                                @Html.CheckBoxFor(model => model.linkedtomanyalpayment, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.CheckBoxFor(model => model.linkedtomanyalpayment, new { @onclick = "employee55(this)", htmlAttributes = new { @class = "form-control", @id = "linkpay" } })
                             </div>
-                            
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.manualcode
                                 </label>
-                                <input type="text" class="form-control" />
+                                @Html.DropDownListFor(m => m.Manualpaymenttypecode, new SelectList(ViewBag.ManualPaymentTypes_Header, "ID", "Code"), Payroll.SelectManualpaymenttype, new
+                           {
+                               @class = "select2",
+                               @id = "manu"
+                           })
                             </div>
 
                         </div>

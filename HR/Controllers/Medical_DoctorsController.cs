@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HR.Models;
 using System.Data.Entity.Infrastructure;
+using HR.Models.Infra;
 
 namespace HR.Controllers
 {
@@ -20,22 +21,39 @@ namespace HR.Controllers
         }
         public ActionResult Create(string id)
         {
-            ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = +m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
-            if (id != null)
+            ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+            ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a=>a.Active == true).ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+
+            //if (id != null)
+            //{
+            //    var ID = int.Parse(id);
+            //    var Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.FirstOrDefault(m => m.ID == ID);
+            //    var models = new Medical_Doctors { Medical_Doctors_Level = Medical_Doctors_Level, Medical_Doctors_LevelId = Medical_Doctors_Level.ID.ToString() };
+            //    return View(models);
+            //}
+            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Medical);
+            var model = dbcontext.Medical_Doctors.ToList();
+            var count = 0;
+            if (model.Count() == 0)
             {
-                var ID = int.Parse(id);
-                var Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.FirstOrDefault(m => m.ID == ID);
-                var model = new Medical_Doctors { Medical_Doctors_Level = Medical_Doctors_Level, Medical_Doctors_LevelId = Medical_Doctors_Level.ID.ToString() };
-                return View(model);
+                count = 1;
             }
-            return View();
+            else
+            {
+                var te = model.LastOrDefault().ID;
+                count = te + 1;
+            }
+
+            var model_ = new Medical_Doctors { Code = stru.Structure_Code + count };
+            return View(model_);
         }
         [HttpPost]
         public ActionResult Create(Medical_Doctors model, string command)
         {
             try
             {
-                ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = +m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+                ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
 
                 if (ModelState.IsValid)
                 {
@@ -45,10 +63,11 @@ namespace HR.Controllers
                         return View(model);
                     }
                     Medical_Doctors record = new Medical_Doctors();
-                    //record.Code = model.Code;
+                    record.Code = model.Code;
                     record.Doctor_Name = model.Doctor_Name;
                     record.Doctor_TName = model.Doctor_TName;
-                    record.Notes = model.Notes;             
+                    record.Notes = model.Notes;
+                    record.EmpCode = model.EmpCode;
                     record.Medical_Doctors_LevelId = model.Medical_Doctors_LevelId;
                     var Medical_Doctors_LevelId = int.Parse(model.Medical_Doctors_LevelId);
                     record.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.FirstOrDefault(m => m.ID == Medical_Doctors_LevelId);
@@ -79,7 +98,9 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = +m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+                ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+
                 var record = dbcontext.Medical_Doctors.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -98,16 +119,20 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = +m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+                ViewBag.Medical_Doctors_Level = dbcontext.Medical_Doctors_Level.ToList().Select(m => new { Code = m.Level_Code + "-----[" + m.Level_Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+
                 if (model.Medical_Doctors_LevelId == "0" || model.Medical_Doctors_LevelId == null)
                 {
                     ModelState.AddModelError("", "Medical Doctors Level Code must enter");
                     return View(model);
                 }
                 var record = dbcontext.Medical_Doctors.FirstOrDefault(m => m.ID == model.ID);
-                //record.Code = model.Code;
+                record.Code = model.Code;
                 record.Doctor_Name = model.Doctor_Name;
                 record.Doctor_TName = model.Doctor_TName;
+                record.EmpCode = model.EmpCode;
+
                 record.Notes = model.Notes;
                 record.Medical_Doctors_LevelId = model.Medical_Doctors_LevelId;
                 var Medical_Doctors_LevelId = int.Parse(model.Medical_Doctors_LevelId);

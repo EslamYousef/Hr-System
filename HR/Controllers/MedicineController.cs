@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HR.Models;
 using System.Data.Entity.Infrastructure;
+using HR.Models.Infra;
 
 namespace HR.Controllers
 {
@@ -20,22 +21,35 @@ namespace HR.Controllers
         }
         public ActionResult Create(string id)
         {
-            ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = +m.Code + "-----[" + m.Name + ']', ID = m.ID });
-            if (id !=null)
+            ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
+            //if (id !=null)
+            //{
+            //    var ID = int.Parse(id);
+            //    var Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.FirstOrDefault(m => m.ID == ID);
+               
+            //}
+            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Medical);
+            var model = dbcontext.Medicine.ToList();
+            var count = 0;
+            if (model.Count() == 0)
             {
-                var ID = int.Parse(id);
-                var Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.FirstOrDefault(m => m.ID == ID);
-                var model = new Medicine { Medical_Medicine_Classfication = Medical_Medicine_Classfication, Medical_Medicine_ClassficationId = Medical_Medicine_Classfication.ID.ToString() };
-                return View(model);
+                count = 1;
             }
-            return View();
+            else
+            {
+                var te = model.LastOrDefault().ID;
+                count = te + 1;
+            }
+
+            var model_ = new Medicine { Code = stru.Structure_Code + count };
+            return View(model_);
         }
         [HttpPost]
         public ActionResult Create(Medicine model,string command)
         {
             try
             {
-                ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = +m.Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = m.Code + "-----[" + m.Name + ']', ID = m.ID });
 
                 if (ModelState.IsValid)
                 {
@@ -85,7 +99,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = +m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Medicine.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -104,7 +118,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = +m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.Medical_Medicine_Classfication = dbcontext.Medical_Medicine_Classfication.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 if (model.Medical_Medicine_ClassficationId == "0" || model.Medical_Medicine_ClassficationId == null)
                 {
                     ModelState.AddModelError("", "Country Code must enter");

@@ -34,11 +34,9 @@ namespace HR.Models
         public Gender Gender { get; set; } = Gender.male;
         [Display(Name = "Marital Status")]
         public Marital_Status Marital_Status { get; set; } = Marital_Status.Single;
-
         [Display(Name = "Religion")]
         public string ReligionId { get; set; }
         public virtual Religion Religion { get; set; }
-         
         [Display(Name = "Nationality")]
         public string NationalityId { get; set; }
         public virtual Nationality Nationality { get; set; }
@@ -62,39 +60,28 @@ namespace HR.Models
         [Display(Name = "Expire date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Expire_date { get; set; }
- 
-         
         [Display(Name = "Country Code")]
         public string Countryid { get; set; }
-         
         [Display(Name = "Country Code")]
         public string Countryaddressid { get; set; }
         public virtual Country Country { get; set; }
-         
         [Display(Name = "Area Code")]
         public string Areaid { get; set; }
-         
         [Display(Name = "Area Code")]
         public string Areaaddressid { get; set; }
         public virtual Area Area { get; set; }
-         
         [Display(Name = "State / Governorate")]
         public string the_statesid { get; set; }
-         
         [Display(Name = "State / Governorate")]
         public string the_statesaddressid { get; set; }
         public virtual the_states the_states { get; set; }
-         
         [Display(Name = "County Code")]
         public string Territoriesid { get; set; }
-         
         [Display(Name = "County Code")]
         public string Territoriesaddressid { get; set; }
         public virtual Territories Territories { get; set; }
-         
         [Display(Name = "Cite Code")]
         public string citiesid { get; set; }
-         
         [Display(Name = "Cite Code")]
         public string citiesaddressid { get; set; }
         public virtual cities cities { get; set; }
@@ -108,7 +95,19 @@ namespace HR.Models
         public virtual List<Employee_family_profile> Employee_family_profile { get; set; }
         public bool Active { get; set; }
         public string EmpProfileIMG { get; set; }
-        //public HttpPostedFileBase MyItem { get; set; }
+        public Nullable<int> PayrollPeriodcode { get; set; }
+        public Nullable<int> Weekendcode { get; set; }
+        public Nullable<int> Groupcode { get; set; }
+        public double Startbasicsalary { get; set; }
+        public double BasicSalary_A { get; set; }
+        public double Otherallowances { get; set; }
+        public double Totalincludedallowances { get; set; }
+        public double Totalexecludedallowances { get; set; }
+        public double Totalbasicsalary { get; set; }
+        public double Totalremuneration { get; set; }
+        public double Insurancebasicsalary { get; set; }
+        public double Insurancevariablesalary { get; set; }
+
         public virtual List<Employee_contact_profile> Employee_contact_profile { get; set; }
         public virtual List<Employee_military_service_profile> Employee_military_service_profile { get; set; }
 

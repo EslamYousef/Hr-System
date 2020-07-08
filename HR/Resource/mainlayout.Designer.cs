@@ -19,7 +19,7 @@ namespace HR.Resource {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class mainlayout {
@@ -138,6 +138,24 @@ namespace HR.Resource {
         public static string Basic {
             get {
                 return ResourceManager.GetString("Basic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch Transactions-horizntal.
+        /// </summary>
+        public static string BatchTransactionshorizntal {
+            get {
+                return ResourceManager.GetString("BatchTransactionshorizntal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch Transactions-vertical.
+        /// </summary>
+        public static string BatchTransactionsvertical {
+            get {
+                return ResourceManager.GetString("BatchTransactionsvertical", resourceCulture);
             }
         }
         
@@ -475,6 +493,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Annual and Special Allowance.
+        /// </summary>
+        public static string EmployeeAnnualandSpecialAllowance {
+            get {
+                return ResourceManager.GetString("EmployeeAnnualandSpecialAllowance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee shift schedule.
         /// </summary>
         public static string Employeeshiftschedule {
@@ -727,6 +754,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import Transaction Entry From Excel.
+        /// </summary>
+        public static string ImportTransactionEntryFromExecl {
+            get {
+                return ResourceManager.GetString("ImportTransactionEntryFromExecl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to inquery.
         /// </summary>
         public static string inquery {
@@ -804,6 +840,15 @@ namespace HR.Resource {
         public static string job_title_sub_class {
             get {
                 return ResourceManager.GetString("job_title_sub_class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ledger Transactions.
+        /// </summary>
+        public static string LedgerTransactions {
+            get {
+                return ResourceManager.GetString("LedgerTransactions", resourceCulture);
             }
         }
         
@@ -957,6 +1002,24 @@ namespace HR.Resource {
         public static string organization_view_related_to_jobs {
             get {
                 return ResourceManager.GetString("organization_view_related_to_jobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment-Settlement Mass Transaction.
+        /// </summary>
+        public static string PaymentSettlementMassTransaction {
+            get {
+                return ResourceManager.GetString("PaymentSettlementMassTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment Settlement Transaction Entry.
+        /// </summary>
+        public static string PaymentSettlementTransactionEntry {
+            get {
+                return ResourceManager.GetString("PaymentSettlementTransactionEntry", resourceCulture);
             }
         }
         
@@ -1267,6 +1330,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specail allwances increase for job cadres.
+        /// </summary>
+        public static string Specailallwancesincreaseforjobcadres {
+            get {
+                return ResourceManager.GetString("Specailallwancesincreaseforjobcadres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sponsor.
         /// </summary>
         public static string Sponsor {
@@ -1326,6 +1398,15 @@ namespace HR.Resource {
         public static string Timemanagmentactionsetup {
             get {
                 return ResourceManager.GetString("Timemanagmentactionsetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction Entry.
+        /// </summary>
+        public static string TransactionEntry {
+            get {
+                return ResourceManager.GetString("TransactionEntry", resourceCulture);
             }
         }
         

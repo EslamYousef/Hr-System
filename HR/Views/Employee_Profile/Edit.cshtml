@@ -163,7 +163,7 @@
                             <button type="submit" id="btnSubmit" name="Command" value="Submit4" class="btn btn-success" style="width:200px;">@Personnel.FinancialContract</button>
                         </div>
                         <div class="col-md-3" style="color:black;margin-bottom:10px;">
-                            <button type="submit" id="btnSubmit" name="#" value="#" class="btn btn-success" style="width:200px;">@Personnel.EmployeeBasicSalaryHistory</button>
+                            <button type="submit" id="btnSubmit" name="Command" value="Submit6" class="btn btn-success" style="width:200px;">@Personnel.EmployeeBasicSalaryHistory</button>
                         </div>
                         <div class="col-md-3" style="color:black;margin-bottom:10px;">
                             <button type="submit" id="btnSubmit" name="Command" value="Submit5" class="btn btn-success" style="width:200px;">@Personnel.EmployeeAnnualIncreaseHistory</button>
@@ -191,7 +191,7 @@
                             <ul class="nav nav-tabs bordered">
                                 <!-- available classes "bordered", "right-aligned" -->
                                 <li class="active">
-                                    <a href="#home" data-toggle="tab">
+                                    <a href="#homes" data-toggle="tab">
                                         <span class="visible-xs"><i class="entypo-home"></i></span>
                                         <span class="hidden-xs">@Personnel.Home</span>
                                     </a>
@@ -217,7 +217,7 @@
 
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="home" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="tab-pane active" id="homes" style="overflow: hidden;width: auto;height: auto;">
 
 
                                     @Html.HiddenFor(model => model.Employee_Profile.ID, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
@@ -895,6 +895,235 @@
 
                                         </div>
                                     </div>
+
+
+
+
+                                    <div class="form-group">
+
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input href="javascript:;" onclick="jQuery('#modal-5').modal('show', {backdrop: 'static'});" class="btn btn-default" style="width:500px;margin-top: 20px;" value="@Personnel.Payroll_information___Start_Basic_salary_info___Payroll_payment_info___Stop_salary_info" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="modal fade" id="modal-5">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">@Personnel.PayrollInformation</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2" style="width: 25.666667%">@Personnel.PayrollPeriodSetup</label>
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownListFor(m => m.Employee_Profile.PayrollPeriodcode, new SelectList(ViewBag.PayrollPeriodSetup, "ID", "Code"), Personnel.SelectCountry, new { @class = "select2-search", @onchange = "PayrollPeriod()", id = "PayrollPeriodSetupId", @style = "margin-bottom: 15px;" })
+                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Countryaddressid, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2" style="width: 25.666667%">@Personnel.WeekendCode</label>
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownListFor(m => m.Employee_Profile.Weekendcode, new SelectList(ViewBag.Weekend_setup, "ID", "Code"), Personnel.SelectArea, new { @class = "select2-search", @onchange = "Weekendsetup()", id = "Weekend_setupId", @style = "margin-bottom: 15px;" })
+                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.Areaaddressid, "", new { @class = "text-danger" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2" style="width: 25.666667%">@Personnel.GroupCode</label>
+
+                                                            <div class="col-md-8">
+                                                                @Html.DropDownListFor(m => m.Employee_Profile.Groupcode, new SelectList(ViewBag.Employee_Profile_Groups, "ID", "Code"), Personnel.Selectstate, new { @class = "select2-search", @onchange = "EmployeeProfileGroups()", id = "Employee_Profile_GroupsId", @style = "margin-bottom: 15px;" })
+                                                                @Html.ValidationMessageFor(model => model.Employee_Profile.the_statesaddressid, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="form-group">
+
+
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td>
+                                                                                @*jQuery('#modal-8','#modal-5').modal('show', {backdrop: 'static'},'hide');*@
+                                                                                <input href="javascript:;" onclick="OpenPayrollPeriodSetup()" class="btn btn-default" style="width:200px;margin-left: 100px;" value="@Personnel.StartBasicSalary" />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="modal fade Salary" id="modal-8">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title">@Personnel.StartBasicSalary</h4>
+                                                                            </div>
+
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>  @Personnel.StartBasicSalary </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Startbasicsalary, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+
+
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>   @Personnel.BasicSalary_A </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.BasicSalary_A, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+
+
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>  @Personnel.Otherallowances </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Otherallowances, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>       @Personnel.TotalIncludedAllowances </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Totalincludedallowances, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+
+
+
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>  @Personnel.TotalExecludedAllowances </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Totalexecludedallowances, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+
+
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>  @Personnel.TotalBasicSalary  </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Totalbasicsalary, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+
+
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>
+                                                                                                @Personnel.TotalRemuneration
+                                                                                            </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Totalremuneration, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>        @Personnel.InsuranceBasicSalary </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Insurancebasicsalary, new { htmlAttributes = new { @class = "form-control size-1", value = "1", @style = "width: 47.33333333% !important;" } })
+
+
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-4" style="width: 47.33333333% !important;">
+                                                                                            <label>    @Personnel.InsuranceVariableSalary </label>
+                                                                                            <!-- Spinner Markup -->
+                                                                                            <div class="input-spinner">
+                                                                                                <button type="button" class="btn btn-default">-</button>
+                                                                                                @Html.EditorFor(model => model.Employee_Profile.Insurancevariablesalary, new { htmlAttributes = new { @class = "form-control size-1", value = "1", min = "0", @style = "width: 47.33333333% !important;" } })
+
+                                                                                                <button type="button" class="btn btn-default">+</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" @*data-dismiss="modal"*@ onclick="BackPayrollPeriodSetup()">@Personnel.Back</button>
+                                                                                <button type="button" class="btn btn-info" @*data-dismiss="modal"*@ onclick="SavePayrollPeriodSetup()">@Personnel.Edit</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
                                 </div>
 
                             </div>
@@ -909,8 +1138,108 @@
 </div>
 @section scripts{}
 
+<style>
+    #modal-8 {
+        border: 0;
+        width: 620px;
+        height: 900px;
+        display: none;
+        position: absolute;
+        left: 8%;
+        top: -530%;
+        margin: -25px 0 0 -50px;
+        border-radius: 5px;
+    }
 
+        #modal-8.modal-footer {
+            padding: 15px;
+            text-align: right;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        #modal-8.modal-header {
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        #modal-8.modal .modal-content {
+            border: 0;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+</style>
 <script>
+    function BackPayrollPeriodSetup() {
+        $('.Salary').hide();
+        $('div').removeClass("modal-backdrop fade in");
+    }
+    function SavePayrollPeriodSetup() {
+        $('.Salary').hide();
+        $('div').removeClass("modal-backdrop fade in");
+
+    }
+    function OpenPayrollPeriodSetup() {
+
+        $('.Salary').show();
+        $('#modal-8').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $('#modal-8').draggable();
+
+    }
+
+    function PayrollPeriod() {
+
+        var id = $("#PayrollPeriodSetupId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetPayrollPeriodSetup",
+            data: { "id": id },
+            success: function (result) {
+                //$("#citynamea").val(result.Name);
+
+            },
+            error: function () {
+                //$("#citynamea").val(" ");
+            }
+        });
+    }
+    function Weekendsetup() {
+
+        var id = $("#Weekend_setupId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetWeekendsetup",
+            data: { "id": id },
+            success: function (result) {
+                //$("#citynamea").val(result.Name);
+
+            },
+            error: function () {
+                //$("#citynamea").val(" ");
+            }
+        });
+    }
+    function EmployeeProfileGroups() {
+
+        var id = $("#Employee_Profile_GroupsId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee_Profile_Groups",
+            data: { "id": id },
+            success: function (result) {
+                //$("#citynamea").val(result.Name);
+
+            },
+            error: function () {
+                //$("#citynamea").val(" ");
+            }
+        });
+    }
+
+
     function Religion() {
          
         var id = $("#religion").val();
@@ -929,8 +1258,7 @@
         });
     }
     Religion();
-</script>
-<script>
+
     function Nationality() {
          
         var id = $("#nationality").val();

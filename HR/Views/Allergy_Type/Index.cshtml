@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HR.Models.Allergy_Type>
+@using HR.Resource;
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-header">
                 <p class="lead">
-                    <a href="@Url.Action("Create", "Allergy_Type")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>Add New Allergy Type  </a>
+                    <a href="@Url.Action("Create", "Allergy_Type")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Medical.AddNewAllergyTypes  </a>
                 </p>
             </div>
 
@@ -29,10 +30,10 @@
                 <table id="categories" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            <th>Allergy Code</th>
-                            <th>Allergy Name</th>
-                            <th>Allergy TName</th>
-                            <th>Notes</th>
+                            <th>@Medical.AllergyCode</th>
+                            <th>@Medical.AllergyName</th>
+                            <th>@Medical.AllergyTName</th>
+                            <th>@Medical.Notes</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -45,21 +46,12 @@
                                 <td>@item.Allergy_TName</td>
                                 <th>@item.Notes</th>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Allergy_Type", new {id = item.ID})" class="btn btn-primary btn-sm" style="width:80px"><i class="fa fa-edit"></i>Edit</a>
-                                    <a href="@Url.Action("delete", "Allergy_Type", new {id = item.ID})" class="btn btn-danger btn-sm" style="width:80px"><i class="fa fa-trash-o"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Allergy_Type", new {id = item.ID})" class="create-btn" style="width:80px"><i class="fa fa-edit"></i>@Personnel.Edit1</a>
+                                    <a href="@Url.Action("delete", "Allergy_Type", new {id = item.ID})" class="create-btn" style="width:80px"><i class="far fa-trash-alt"></i>@Personnel.Delete</a>
                                 </td>
                             </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Allergy Code</th>
-                            <th>Allergy Name</th>
-                            <th>Allergy TName</th>
-                            <th>Notes</th>
-                            <th></th>           
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -80,7 +72,29 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-            "order" : 1
+            "order": 1
         });
     });
 </script>
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000
+    }
+
+        .create-btn svg {
+            color: #0d62aa
+        }
+</style>

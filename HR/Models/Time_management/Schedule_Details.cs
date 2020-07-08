@@ -22,5 +22,7 @@ namespace HR.Models.Time_management
 
         public virtual Employee_Shift_schedule Employee_Shift_schedule { get; set; }
         public int Employee_Shift_scheduleID { get; set; }
+        public string Template { get; set; }
+
     }
 }

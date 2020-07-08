@@ -1,4 +1,4 @@
-﻿@model HR.Models.Shiftdaystatus
+﻿@model HR.Controllers.ShiftVMs
 
 @{
     ViewBag.Title = "Edit";
@@ -9,7 +9,7 @@
 
 <div class="content-wrapper">
 
-   
+
 
     <!-- Main content -->
     <section class="content">
@@ -31,6 +31,11 @@
 
                     </div>
                     @Html.AntiForgeryToken()
+                    <input name="codeid" value="" hidden />
+                    <input name="SalaryDes" value="" hidden />
+                    <input name="DefaultValue" value="" hidden />
+
+                    @Html.HiddenFor(a=>a.Shiftdaystatus.ID)
                     <div class="form-horizontal">
 
                         <hr />
@@ -55,46 +60,46 @@
                                 <label style="color:red">
                                     @organ.code
                                 </label>
-                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Shiftdaystatus.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Shiftdaystatus.Code, "", new { @class = "text-danger" })
                             </div>
-                           <div class="col-md-4">
-                               <label style="color:red">
-                                   @organ.name
-                               </label>
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @organ.name
+                                </label>
+                                @Html.EditorFor(model => model.Shiftdaystatus.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Shiftdaystatus.Name, "", new { @class = "text-danger" })
                             </div>
-                            
-                          
-                         <div class="col-md-4">
-                             <label>
-                                 @organ.description
-                             </label>  
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+
+                            <div class="col-md-4">
+                                <label>
+                                    @organ.description
+                                </label>
+                                @Html.EditorFor(model => model.Shiftdaystatus.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Shiftdaystatus.Description, "", new { @class = "text-danger" })
                             </div>
-                              <div class="col-md-4">
-                                  <label>
-                                      @pers_2.alias
-                                  </label>
-                                @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.alias
+                                </label>
+                                @Html.EditorFor(model => model.Shiftdaystatus.Alias, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Shiftdaystatus.Alias, "", new { @class = "text-danger" })
                             </div>
-                           
-                          
+
+
                         </div>
 
 
 
                         <div class="form-group">
-                        
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.shiftsetup
                                 </label>
 
-                                @Html.DropDownListFor(m => m.Shift_setupID, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
+                                @Html.DropDownListFor(m => m.Shiftdaystatus.Shift_setupID, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
 
                                 <input type="hidden" value=" " class="form-control" id="countryname1" disabled />
 
@@ -103,37 +108,67 @@
                             <div class="col-md-4">
 
                                 <label>@pers_2.daystatuscolor</label>
-                                
-                                                                    <input style="width:100%"  type="color" name="color" class="form-control colorpicker" data-format="hex" value="#5a3d3d" />
-                                
-                                       </div>
-                        
+
+                                <input style="width:100%" type="color" name="color" class="form-control colorpicker" data-format="hex" value="#5a3d3d" />
+
+                            </div>
+
                             <div class="col-md-4">
                                 <label>
                                     @pers_2.disableediting
                                 </label>
-                                @Html.CheckBoxFor(model => model.Disable_Editing, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                @Html.CheckBoxFor(model => model.Shiftdaystatus.Disable_Editing, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Shiftdaystatus.Alias, "", new { @class = "text-danger" })
                             </div>
-                         
-
-                        </div>
-                        <div class="form-group">
-                            <table id="categories" class="table table-bordered table-striped text-center">
-                                <thead>
-                                    <tr>
-                                        <td>@pers_2.payrollitemcode</td>
-                                        <td> @pers_2.payrollitemdesc</td>
-                                        <td>@pers_2.defalutvalue</td>
-                                        <td>@pers_2.conditionalvalue</td>
-                                        <td>@pers_2.conditionalvaluedesc</td>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-
                         </div>
 
+                        <div class="tab-content">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label style="color:red">
+                                        @pers_2.shiftdaystatussetup
+                                    </label>
+                                    @Html.DropDownList("s", new SelectList(ViewBag.salary_code, "ID", "Code"), Payroll.SelectSalaryCode, new { id = "Salary", @class = "select2" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label> - </label>
+                                    <input type="button" onclick="AddRow()" value='@pers_2.addelement' class="btn btn-success" />
+                                </div>
+                            </div>
+                            <div class="tab-pane active" id="Budgetdetails" style="overflow: hidden;width: auto;height: auto;">
+                                <div class="form-group">
+                                    <table id="categories" class="table table-bordered table-striped text-center">
+                                        <thead>
+                                            <tr>
+                                                <td>@pers_2.payrollitemcode</td>
+                                                <td> @pers_2.payrollitemdesc</td>
+                                                <td>@pers_2.defalutvalue</td>
+                                                @*<td>@pers_2.conditionalvalue</td>
+                                        <td>@pers_2.conditionalvaluedesc</td>*@
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cars">
+                                            @foreach (var item in Model.ShiftdaystatusDetials)
+                                            {
+                                                <tr>
+                                                    @*<td hidden><input hidden name='ID_item' value="@item.salary_code.ID" /></td>*@
+                                                    <td class="col-md-2"><input class='form-control' value="@item.PayrollItemCode" readonly name="codeid" /></td>
+                                                    <td class="col-md-2"><input class='form-control' value="@item.PayrollItemDescription" readonly name="SalaryDes" /></td>
+                                                    <td class="col-md-1"><input class='form-control' name='DefaultValue' type="number" value="@item.DefaultValue" min="0" /></td>
+                                                    <td class="col-md-1"><input type='button' style='margin-left:3px' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td>
+
+                                                </tr>
+
+                                            }
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
 
@@ -146,20 +181,49 @@
 
 @section scripts{}
 <script>
-    var $ = jQuery;
+    function remove(thi) {
+        thi.parent().parent().remove();
+    }
 
-    $(document).ready(function () {
-        $('#categories').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-            "order" : 1
+    function AddRow() {
+        debugger
+
+        var id = $("#Salary").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetsalarycodeTime",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                var pp = $("#cars").find("tr");
+                var flag = 0;
+                for (var o = 0; o < pp.length; o++) {
+
+                    var inputs = pp[o].children;
+                    codeid_ = inputs[0].children;
+                    if (codeid_[0].value == result.SalaryCodeID) {
+                        flag = 1;
+                    }
+                }
+                if (flag == 0) {
+                    debugger
+                    var tt = '<tr><td><input readonly class= "form-control" value = ' + result.SalaryCodeID + ' name="codeid"></td><td><input readonly class= "form-control" value = ' + result.SalaryCodeDesc + ' name="SalaryDes"></td><td class="col-md-1"><input class = "form-control" name="DefaultValue" value="0" min="0" type="number" /></td><td class="col-md-1"><input type="button" style="margin-left:3px" value=@organ.remove class="remove btn btn-danger" onclick="remove($(this))" /></td></tr>'
+                    $("#cars").append(tt)
+                    $("#Salary").select2("val", "");
+
+                }
+                else {
+                    alert("The payroll item code '" + result.SalaryCodeID + "' inserted before");
+                }
+            },
+            error: function () {
+                //$("#Extended").val(" ");
+            }
         });
-    });
+    }
+
 </script>
+
 
 <style>
     /*Create Page*/

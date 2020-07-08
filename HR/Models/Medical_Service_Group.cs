@@ -12,11 +12,12 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
         [Index(IsUnique = true)]
         [Display(Name = "Group Code")]
-        public double Group_Code { get; set; }
-        [Required]
+        public string Group_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Name { get; set; }
         public string TName { get; set; }
     }

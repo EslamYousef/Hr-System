@@ -73,7 +73,7 @@ namespace HR.Controllers
                     var t_D = Convert.ToDateTime(to_D[i]);
                     var f_t = Convert.ToDateTime(from_T[i]).TimeOfDay;
                     var t_t = Convert.ToDateTime(from_T[i]).TimeOfDay;
-                    var details = new Schedule_Details { Employee_Shift_scheduleID=actual_shift.ID,Shift_setupID=Si_id,ShiftdaystatusID=St_id,From_date=f_D,To_date=t_D,From=f_t,To=t_t};
+                    var details = new Schedule_Details {Template = actual_shift.TemplateCode, Employee_Shift_scheduleID=actual_shift.ID,Shift_setupID=Si_id,ShiftdaystatusID=St_id,From_date=f_D,To_date=t_D,From=f_t,To=t_t};
                     dbcontext.Schedule_Details.Add(details);
                     dbcontext.SaveChanges();
                 }

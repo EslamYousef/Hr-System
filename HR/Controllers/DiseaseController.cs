@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HR.Models;
 using System.Data.Entity.Infrastructure;
+using HR.Models.Infra;
 
 namespace HR.Controllers
 {
@@ -20,7 +21,21 @@ namespace HR.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Medical);
+            var model = dbcontext.Disease.ToList();
+            var count = 0;
+            if (model.Count() == 0)
+            {
+                count = 1;
+            }
+            else
+            {
+                var te = model.LastOrDefault().ID;
+                count = te + 1;
+            }
+
+            var model_ = new Disease { Disease_Code = stru.Structure_Code + count };
+            return View(model_);
         }
         [HttpPost]
         public ActionResult Create(Disease model)

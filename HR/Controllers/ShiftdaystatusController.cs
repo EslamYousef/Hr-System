@@ -23,7 +23,8 @@ namespace HR.Controllers
             try
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-              
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+
                 var req = dbcontext.Shiftdaystatus.ToList();
                 var model = new Shiftdaystatus();
                 var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Personnel).Structure_Code;
@@ -45,14 +46,29 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(Shiftdaystatus model, string command ,FormCollection reco)
+        public ActionResult Create(Shiftdaystatus model, string command ,FormCollection form)
         {
             try
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                model.Color = reco["color"].Split(',')[0];
-           var mo=  dbcontext.Shiftdaystatus.Add(model);
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+
+                model.Color = form["color"].Split(',')[0];
+                var codeid = form["codeid"].Split(',');
+                var SalaryDes = form["SalaryDes"].Split(',');
+                var DefaultValue = form["DefaultValue"].Split(',');
+                var mo=  dbcontext.Shiftdaystatus.Add(model);
                 dbcontext.SaveChanges();
+                for (var i = 0; i < codeid.Length; i++)
+                {
+                    if (codeid[i] != "")
+                    {
+                        var new_details = new ShiftdaystatusDetials { ShiftdaystatusId = mo.ID.ToString(), Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date, PayrollItemCode = codeid[i], DefaultValue = int.Parse(DefaultValue[i]), PayrollItemDescription = SalaryDes[i]};
+                        dbcontext.ShiftdaystatusDetials.Add(new_details);
+                        dbcontext.SaveChanges();
+                    }
+                }
+
                 if (command == "submit2")
                 {
                     return RedirectToAction("Link", new { id = mo.ID });
@@ -69,8 +85,13 @@ namespace HR.Controllers
             try
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+
                 var model = dbcontext.Shiftdaystatus.FirstOrDefault(m => m.ID == id);
-                return View(model);
+                var old_details = dbcontext.ShiftdaystatusDetials.Where(m => m.ShiftdaystatusId == model.ID.ToString()).ToList();
+                var new_model = new ShiftVMs { ShiftdaystatusDetials = old_details, Shiftdaystatus = model };
+
+                return View(new_model);
             }
             catch (Exception)
             {
@@ -78,20 +99,41 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(Shiftdaystatus model, string command, FormCollection reco)
+        public ActionResult Edit(ShiftVMs model, string command, FormCollection form)
         {
 
             try
             {
                 ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
-                var original_model = dbcontext.Shiftdaystatus.FirstOrDefault(m => m.ID == model.ID);
-                original_model.Description = model.Description;
-                original_model.Name = model.Name;
-                original_model.Alias = model.Alias;
-                original_model.Shift_setupID = model.Shift_setupID;
-                original_model.Color = reco["color"].Split(',')[0];
-                original_model.Disable_Editing = model.Disable_Editing;
+                ViewBag.salary_code = dbcontext.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "------[" + m.SalaryCodeDesc + ']', ID = m.ID });
+
+                var original_model = dbcontext.Shiftdaystatus.FirstOrDefault(m => m.ID == model.Shiftdaystatus.ID);
+                original_model.Description = model.Shiftdaystatus.Description;
+                original_model.Name = model.Shiftdaystatus.Name;
+                original_model.Alias = model.Shiftdaystatus.Alias;
+                original_model.Shift_setupID = model.Shiftdaystatus.Shift_setupID;
+                original_model.Color = form["color"].Split(',')[0];
+                original_model.Disable_Editing = model.Shiftdaystatus.Disable_Editing;
                 dbcontext.SaveChanges();
+                ///////////delete//////////
+                var update_details = dbcontext.ShiftdaystatusDetials.Where(m => m.ShiftdaystatusId == original_model.ID.ToString()).ToList();
+                dbcontext.ShiftdaystatusDetials.RemoveRange(update_details);
+                dbcontext.SaveChanges();
+                var codeid = form["codeid"].Split(',');
+                var SalaryDes = form["SalaryDes"].Split(',');
+                var DefaultValue = form["DefaultValue"].Split(',');
+                ///////////////////add///////
+
+                for (var i = 0; i < codeid.Length; i++)
+                {
+                    if (codeid[i] != "")
+                    {
+                        var new_details = new ShiftdaystatusDetials { ShiftdaystatusId = original_model.ID.ToString(), Created_By = User.Identity.Name, Created_Date = DateTime.Now.Date, PayrollItemCode = codeid[i], DefaultValue = int.Parse(DefaultValue[i]), PayrollItemDescription = SalaryDes[i] };
+                        dbcontext.ShiftdaystatusDetials.Add(new_details);
+                        dbcontext.SaveChanges();
+                    }
+                }
+
                 if (command == "submit2")
                 {
                     return RedirectToAction("Link", new { id = original_model.ID });
@@ -196,6 +238,12 @@ namespace HR.Controllers
             }
         }
     }
+    public class ShiftVMs
+    {
+        public Shiftdaystatus Shiftdaystatus { get; set; }
+        public List<ShiftdaystatusDetials> ShiftdaystatusDetials { get; set; }
+    }
+
     public class linkVM
     {
         public bool check { get; set; }

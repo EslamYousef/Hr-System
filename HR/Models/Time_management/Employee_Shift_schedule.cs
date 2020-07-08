@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -17,5 +18,12 @@ namespace HR.Models.Time_management
         public virtual Employee_Profile Employee_Profile { get; set; }
         public int? Employee_ProfileID { get; set; }
         public virtual List<Schedule_Details> Schedule_Details { get; set; }
+        [StringLength(50)]
+        [Index(IsUnique = true)]
+        public string TemplateCode { get; set; }
+        [StringLength(50)]
+        [Index(IsUnique = true)]
+        public string TemplateDescription { get; set; }
+        public string TemplateAllternativeDescription { get; set; }
     }
 }

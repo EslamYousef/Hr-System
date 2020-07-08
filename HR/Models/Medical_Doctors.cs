@@ -11,19 +11,23 @@ namespace HR.Models
     {
         [Key]
         public int ID { get; set; }
-        //[Required]
-        //[Index(IsUnique = true)]
-        //public double Code { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
+        [Display(Name = "Code")]
+        public string Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Doctor Name")]
         public string Doctor_Name { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Doctor TName")]
         public string Doctor_TName { get; set; }
         public string Notes { get; set; }
         [Display(Name = "Medical Doctors Level")]
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Medical_Doctors_LevelId { get; set; }
         public virtual Medical_Doctors_Level Medical_Doctors_Level { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        public int EmpCode { get; set; }
     }
 }

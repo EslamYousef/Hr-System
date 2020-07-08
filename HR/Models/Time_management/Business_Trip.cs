@@ -19,6 +19,8 @@ namespace HR.Models.Time_management
         public bool linkedtomnothelypayroll { get; set; }
         public bool linkedtomanyalpayment { get; set; }
         public virtual List<business_trip_request> business_trip_request { get; set; }
+        public int? Salarycode { get; set; }
+        public int? Manualpaymenttypecode { get; set; }
 
     }
 }

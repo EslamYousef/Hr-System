@@ -327,6 +327,8 @@ namespace HR.Models
         public DbSet<Course_CostElement_Detail> Course_CostElement_Detail { get; set; }
         public DbSet<TrainingParticipants_Header> TrainingParticipants_Header { get; set; }
         public DbSet<TrainingParticipants_Detail> TrainingParticipants_Detail { get; set; }
+        public DbSet<ShiftdaystatusDetials> ShiftdaystatusDetials { get; set; }
+
     }
 
 }

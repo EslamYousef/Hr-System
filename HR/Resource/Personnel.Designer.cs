@@ -19,7 +19,7 @@ namespace HR.Resource {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Personnel {
@@ -4795,6 +4795,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other allowances.
+        /// </summary>
+        public static string Otherallowances {
+            get {
+                return ResourceManager.GetString("Otherallowances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Out Organization.
         /// </summary>
         public static string OutOrganization {
@@ -4822,6 +4831,16 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payroll information , Start Basic salary info , Payroll payment info , Stop salary info.
+        /// </summary>
+        public static string Payroll_information___Start_Basic_salary_info___Payroll_payment_info___Stop_salary_info {
+            get {
+                return ResourceManager.GetString("Payroll information , Start Basic salary info , Payroll payment info , Stop salar" +
+                        "y info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payroll Information.
         /// </summary>
         public static string PayrollInformation {
@@ -4836,6 +4855,15 @@ namespace HR.Resource {
         public static string PayrollIntegration {
             get {
                 return ResourceManager.GetString("PayrollIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payroll Period Setup.
+        /// </summary>
+        public static string PayrollPeriodSetup {
+            get {
+                return ResourceManager.GetString("PayrollPeriodSetup", resourceCulture);
             }
         }
         
@@ -5610,6 +5638,15 @@ namespace HR.Resource {
         public static string Salarycodeid {
             get {
                 return ResourceManager.GetString("Salarycodeid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salary Code must enter.
+        /// </summary>
+        public static string SalaryCodemustenter {
+            get {
+                return ResourceManager.GetString("SalaryCodemustenter", resourceCulture);
             }
         }
         

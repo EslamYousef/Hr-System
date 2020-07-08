@@ -250,6 +250,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Special Allowance.
+        /// </summary>
+        public static string AddNewSpecialAllowance {
+            get {
+                return ResourceManager.GetString("AddNewSpecialAllowance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add New Transaction Entry.
         /// </summary>
         public static string AddNewTransactionEntry {
@@ -282,6 +291,15 @@ namespace HR.Resource {
         public static string AlternativeDescription {
             get {
                 return ResourceManager.GetString("AlternativeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Annual / Pormotion Increase.
+        /// </summary>
+        public static string AnnualPormotionIncrease {
+            get {
+                return ResourceManager.GetString("AnnualPormotionIncrease", resourceCulture);
             }
         }
         
@@ -889,6 +907,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee Basic Salary History.
+        /// </summary>
+        public static string EmployeeBasicSalaryHistory {
+            get {
+                return ResourceManager.GetString("EmployeeBasicSalaryHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee id.
         /// </summary>
         public static string Employeeid {
@@ -1182,6 +1209,24 @@ namespace HR.Resource {
         public static string LedgerTransactions {
             get {
                 return ResourceManager.GetString("LedgerTransactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to linked to manual payment.
+        /// </summary>
+        public static string linkedtomanualpayment {
+            get {
+                return ResourceManager.GetString("linkedtomanualpayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to linked to monthly payroll.
+        /// </summary>
+        public static string linkedtomonthlypayroll {
+            get {
+                return ResourceManager.GetString("linkedtomonthlypayroll", resourceCulture);
             }
         }
         
@@ -1722,6 +1767,15 @@ namespace HR.Resource {
         public static string Specailallwancesincreaseforjobcadres {
             get {
                 return ResourceManager.GetString("Specailallwancesincreaseforjobcadres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special Allwance Increase.
+        /// </summary>
+        public static string SpecialAllwanceIncrease {
+            get {
+                return ResourceManager.GetString("SpecialAllwanceIncrease", resourceCulture);
             }
         }
         

@@ -20,7 +20,7 @@ namespace HR.Controllers
         }
         public ActionResult Create(string id)
         {
-            ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = +m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
+            ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
             if (id != null)
             {
                 var ID = int.Parse(id);
@@ -35,7 +35,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = +m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
 
                 if (ModelState.IsValid)
                 {
@@ -79,7 +79,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = +m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.Medical_Service_Classification.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -98,7 +98,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = +m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
+                ViewBag.Medical_Service_Group = dbcontext.Medical_Service_Group.ToList().Select(m => new { Code = m.Group_Code + "-----[" + m.Name + ']', ID = m.ID });
                 if (model.Group_Medical_Service_GroupId == "0" || model.Group_Medical_Service_GroupId == null)
                 {
                     ModelState.AddModelError("", "Group Medical Service_Group Code must enter");
