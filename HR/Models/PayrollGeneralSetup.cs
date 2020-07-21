@@ -13,6 +13,7 @@ namespace HR.Models
         public int ID { get; set; }
         public int SetupKey { get; set; }
         public string DefaultPayrollPeriod { get; set; }
+        public string DefaultPayrollPeriod_des { get; set; }
         public string AccountNumberForNetSalary { get; set; }
         public string DefaultAccountNumberForNetPayment { get; set; }
         public string SalaryCodeID_BasicSalary { get; set; }

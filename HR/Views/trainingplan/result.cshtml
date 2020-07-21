@@ -1,0 +1,421 @@
+﻿@model HR.Models.Training.transaction.TrainingCourseResult_Header
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("result", "trainingplan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("Edit_Details", "trainingplan",new { id=Model.details_id})" class="create-btn"> @pers_2.Back</a></div>
+
+
+                    </div>
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m=>m.details_id)
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @training.courseresult
+                            </h1>
+                        </section>
+                        @Html.HiddenFor(m => m.ID)
+                        <div class="form-group">
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.Year</label>
+                                @Html.EditorFor(m => m.Year, new { htmlAttributes = new { @readonly = true, @id = "year1", @type = "number", @min = "1900", @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+
+                                <label>-</label>
+                                <input type="number" readonly id="next_year" class="form-control" />
+
+                            </div>
+                          
+
+                        </div>
+                        <div class="form-group">
+                           
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.TrainingType
+                                </label>
+                                @Html.DropDownListFor(m => m.TrainingType_Code, new SelectList(ViewBag.type, "ID", "Code"), training.TrainingType, new { @disabled=true, @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.TrainingType_Code, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.CourseClassification
+                                </label>
+                                @Html.DropDownListFor(m => m.CourseClassification_Code, new SelectList(ViewBag.classification, "ID", "Code"), training.CourseClassification, new { @disabled = true, @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.CourseClassification_Code, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.Courses
+                                </label>
+                                @Html.DropDownListFor(m => m.Course_Code, new SelectList(ViewBag.courses, "ID", "Code"), training.Courses, new { @disabled = true, @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Course_Code, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.centers
+                                </label>
+                                @Html.DropDownListFor(m => m.TrainingCenters_Code, new SelectList(ViewBag.center, "ID", "Code"), training.centers, new { @disabled = true, @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.TrainingCenters_Code, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @training.centerbranches
+                                </label>
+                                @Html.DropDownListFor(m => m.Branch_Code, new SelectList(ViewBag.Bransh, "ID", "Code"), training.centerbranches, new { @disabled = true, @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Branch_Code, "", new { @class = "text-danger" })
+
+                            </div>  
+                           
+
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.Startdate
+                                    </label>
+                                    @Html.EditorFor(model => model.From_Date, new { htmlAttributes = new { @onchange = "Save()", @class = "form-control StartDate yy", @type = "date", @id = "start_date_s" } })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>
+                                        @Personnel.Enddate
+                                    </label>
+                                    @Html.EditorFor(model => model.To_Date, new { htmlAttributes = new { @onchange = "Save()", @class = "form-control StartDate yy", @type = "date", @id = "end_date_D" } })
+                                </div>
+                                <div class="col-md-4">
+                                   
+                                        <label>@training.numberofdays</label>
+                                        @Html.EditorFor(model => model.Number_Of_Days, new { htmlAttributes = new {@readonly=true,@class = "form-control", @type = "number", id = "num_days" } })
+                                   
+                                </div>
+                               
+                            </div>
+                        </div>
+
+
+                        <ul class="nav nav-tabs bordered">
+                            <!-- available classes "bordered", "right-aligned" -->
+                            <li class="active">
+                                <a href="#homee" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@mainlayout.Setup</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
+
+                               
+                               
+                              
+                                <input hidden value="" name="emp_id" />
+                                <input hidden value="" name="attened_days" />
+                                <input hidden value="" name="absent_days" />
+                                <input hidden value="" name="grade" />
+                                <input hidden value="" name="comment" />
+                               
+
+                                <div style="margin-top:15px;width: 1200px; overflow-x: auto;">
+                                    <table class="table table-bordered">
+
+                                        <thead>
+                                            <tr>
+                                                <td>@pers_2.employee</td>
+                                                <td>@training.attendeddays</td>
+                                                <td>@training.absentdays</td>
+                                                <td>@training.grade </td>
+                                                <td>@organ.comment</td>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody id="emp2"></tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+   
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 260px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+<script>
+    $(function () {
+     
+        $("#next_year").val(parseInt(@Model.Year) + parseInt(1));
+        GetDataById2('@Model.From_Date', "start_date_s");
+        GetDataById2('@Model.To_Date', "end_date_D");
+        Save();
+        getcontent();
+    })
+    $("#year1").keyup(function (e) {
+        var value = $("#year1").val();
+        $("#next_year").val(parseInt(parseInt(value) + parseInt(1)));
+
+    });
+   
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = valx.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+  
+    //function remove(thi) {
+    //    debugger
+    //    var coast = thi.parent().parent().children()[9];
+    //    var val = parseFloat(coast.children[0].value);
+    //    var local_cost = parseFloat($("#L").val());
+    //    var t = local_cost - val;
+    //    $("#L").val(t);
+    //    //=======
+    //    var coast = thi.parent().parent().children()[10];
+    //    var val = parseFloat(coast.children[0].value);
+    //    var for_cost = parseFloat($("#F").val());
+    //    var t = for_cost - val;
+    //    $("#F").val(t);
+    //    //=======
+    //    thi.parent().parent().remove();
+
+    //}
+   
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/Employee_military_service_calling/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+                debugger
+                if (data) {
+                    $("#num_days").val((data.DateDiff.Days +1) + (data.DateDiff.Months * 31) + (data.DateDiff.Years * 365));
+                }
+            });
+        }
+    }
+    function Save() {
+        var from = $("#start_date_s").val();
+        var to = $("#end_date_D").val();
+        if (to >= from) {
+            GetDiffDates(from, to);
+        }
+        else {
+            $("#num_days").val("0");
+
+        }
+
+    }
+    function getabset(input)
+    {
+        debugger
+        var num_days = $("#num_days").val();
+        var Attended_Days = input.val();
+        if (parseInt(Attended_Days) > parseInt(num_days))
+        {
+            debugger
+            alert("Attended Days must be less than or equla num days of course");
+            input.val("0");
+            var absent = input.parent().parent().children()[3];
+            absent.children[0].value = 0;
+
+        }
+        else
+        {
+            debugger
+            var absent = input.parent().parent().children()[3];
+            var A =parseInt(num_days) - parseInt(Attended_Days);
+            absent.children[0].value=A;
+        }
+    }
+    function getcontent() {
+        debugger
+        var finalresult2 = "";
+        var ID = '@Model.ID';
+        $.ajax({
+            type: "post",
+            url: "/trainingplan/getallresult",
+            data: { "header_id": ID },
+            success: function (result) {
+                debugger
+
+                $.each(result, function (key, value) {
+                    debugger
+                    finalresult2 +=
+                 "<tr>" +
+                 "<td hidden><input hidden  class = 'form-control' required type='number'  name='emp_id__'   value='" + value.Employee_Code + "' /></td>" +
+                 "<td><input class = 'form-control' required type='text'  value='" + value.emp_des + "'  readonly='readonly'/></td>" +
+                 "<td><input  type='number' class = 'form-control' onKeyDown='return false'  value='" + value.Attended_Days + "' onclick='getabset($(this))' min='0' name='Attended_Days__'  /></td>" +
+                 "<td><input  type='number' readonly class = 'form-control' value='" + value.Absent_Days + "' min='0' name='absent__'  /></td>" +
+                 "<td><input  type='number' class = 'form-control' value='" + value.Grade + "' min='0' name='grade__'  /></td>" +
+                 "<td><input class = 'form-control'    value='" + value.Comments + "' name='Comment__' /></td></tr>";
+
+                });
+
+                $("#emp2").append(finalresult2);
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+   
+</script>

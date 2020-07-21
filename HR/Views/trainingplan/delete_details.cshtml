@@ -1,19 +1,22 @@
-﻿@model HR.Models.Training.transaction.TrainingPlan_Header
+﻿@model HR.Models.Training.transaction.TrainingPlan_Detail
 @using HR.Resource;
+
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
-<h3>@organ.message_delete</h3>
-@using (Html.BeginForm("Delete", "trainingplan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("delete_details", "trainingplan", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="sec-nav">
         <div><i class="far fa-save"></i><input type="submit" value=@organ.Save class="create-btn" /></div>
-        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "trainingplan")" class="create-btn">@pers_2.new_</a></div>
         <div><i class="far fa-trash-alt"></i><input type="submit" value=@pers_2.delete class="create-btn" /></div>
-        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "trainingplan")" class="create-btn">@pers_2.Back</a></div>
+        <div><i class="fas fa-undo"></i> <a href="@Url.Action("Edit_Details", "trainingplan",new { id=Model.ID})" class="create-btn">@pers_2.Back</a></div>
     </div>
+    <hr />
+    <hr />
+    <hr />
+    <h3>@Personnel.message_delete</h3>
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
 
@@ -28,27 +31,10 @@
         }
 
 
-        <div class="form-group">
-            <div class="col-md-4">
-
-                <label>@organ.Year</label>
-                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
-            </div>
-            <div class="col-md-4">
-
-                <label>@training.TrainingType</label>
-                @Html.EditorFor(model => model.TrainingType_des, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
-
-            </div>
-      
-           
-        </div>
+        
        
     </div>
 }
-
-@section scripts{}
-
 <style>
     /*Create Page*/
 

@@ -328,6 +328,12 @@ namespace HR.Models
         public DbSet<TrainingParticipants_Header> TrainingParticipants_Header { get; set; }
         public DbSet<TrainingParticipants_Detail> TrainingParticipants_Detail { get; set; }
         public DbSet<ShiftdaystatusDetials> ShiftdaystatusDetials { get; set; }
+        public DbSet<TrainingCourseResult_Detail> TrainingCourseResult_Detail { get; set; }
+        public DbSet<TrainingCourseResult_Header> TrainingCourseResult_Header { get; set; }
+        public DbSet<TrainingCourceEvaluationElement> TrainingCourceEvaluationElement { get; set; }
+        public DbSet<TrainingCourceEvaluation_Details> TrainingCourceEvaluation_Details { get; set; }
+        public DbSet<TrainingCourceEvaluation_Header> TrainingCourceEvaluation_Header { get; set; }
+
 
     }
 

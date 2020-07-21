@@ -1,4 +1,4 @@
-﻿@model HR.Models.Training.transaction.TrainingPlan_Header
+﻿@model HR.Models.Training.transaction.TrainingCourceEvaluationElement
 @using HR.Resource;
 @{
     ViewBag.Title = "Delete";
@@ -6,13 +6,13 @@
 }
 
 <h3>@organ.message_delete</h3>
-@using (Html.BeginForm("Delete", "trainingplan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Delete", "Evalution_elementt", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="sec-nav">
         <div><i class="far fa-save"></i><input type="submit" value=@organ.Save class="create-btn" /></div>
-        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "trainingplan")" class="create-btn">@pers_2.new_</a></div>
+        <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "Evalution_elementt")" class="create-btn">@pers_2.new_</a></div>
         <div><i class="far fa-trash-alt"></i><input type="submit" value=@pers_2.delete class="create-btn" /></div>
-        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "trainingplan")" class="create-btn">@pers_2.Back</a></div>
+        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index", "Evalution_elementt")" class="create-btn">@pers_2.Back</a></div>
     </div>
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -31,13 +31,13 @@
         <div class="form-group">
             <div class="col-md-4">
 
-                <label>@organ.Year</label>
-                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                <label>@organ.code</label>
+                @Html.EditorFor(model => model.Element_Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
             </div>
             <div class="col-md-4">
 
-                <label>@training.TrainingType</label>
-                @Html.EditorFor(model => model.TrainingType_des, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                <label>@organ.description</label>
+                @Html.EditorFor(model => model.Element_Desc, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
 
             </div>
       

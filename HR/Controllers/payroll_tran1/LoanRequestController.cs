@@ -192,7 +192,12 @@ namespace HR.Controllers.payroll_tran1
                 var edit_model = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == Model.ID);
                 ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 ViewBag.loan_type = dbcontext.LoanInAdvanceSetup.ToList().Select(m => new { Code = m.LoanTypeCode + "--[" + m.LoanTypeDesc + ']', ID = m.ID });
-
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == edit_model.statusID);
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Recervied || sta.statu == check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 if (Model.NumberOfDeductedInstallments > Model.NumberOfInstallment)
                 {
                     return View(Model);
@@ -320,7 +325,12 @@ namespace HR.Controllers.payroll_tran1
         public ActionResult delete_method(int id)
         {
             var model = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == id);
-
+            var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.statusID);
+            if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Recervied || sta.statu == check_status.Canceled)
+            {
+                TempData["message"] = HR.Resource.training.status_message;
+                return RedirectToAction("index");
+            }
             try
             {
 
@@ -883,6 +893,10 @@ namespace HR.Controllers.payroll_tran1
                     my_model.status.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 if (my_model.status.cancaled_by == null)
                     my_model.status.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.closed_by == null)
+                    my_model.status.closed_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (my_model.status.Recervied_by == null)
+                    my_model.status.Recervied_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 return View(my_model);
             }
             catch (Exception e)
@@ -908,26 +922,42 @@ namespace HR.Controllers.payroll_tran1
                 var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.opertion_id);
                
             }
-            //else if (model.check_status == check_status.Canceled)
-            //{
-            //    sta.cancaled_by = model.status.cancaled_by;
-            //    sta.cancaled_bydate = model.status.cancaled_bydate;
-            //    sta.statu = check_status.Canceled;
-            //    record.check_status = check_status.Canceled;
-            //    record.sss = record.check_status.GetType().ToString();
-            //    record.name_state = nameof(check_status.Canceled);
-            //    dbcontext.SaveChanges();
-            //}
-            //else if (model.check_status == check_status.created)
-            //{
-            //    sta.created_by = model.status.created_by;
-            //    sta.created_bydate = model.status.created_bydate;
-            //    sta.statu = check_status.created;
-            //    record.check_status = check_status.created;
-            //    record.sss = record.check_status.GetType().ToString();
-            //    record.name_state = nameof(check_status.created);
-            //    dbcontext.SaveChanges();
-            //}
+            else if (model.check_status == check_status.Closed)
+            {
+                sta.closed_by = User.Identity.Name;
+                sta.closed_bydate = model.status.closed_bydate;
+                sta.statu = check_status.Closed;
+                record.check_status = "Closed";
+                record.RequestStatus = check_status.Closed.GetHashCode();
+
+                dbcontext.SaveChanges();
+                var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.opertion_id);
+
+            }
+            else if (model.check_status == check_status.Canceled)
+            {
+                sta.cancaled_by = User.Identity.Name;
+                sta.cancaled_bydate = model.status.cancaled_bydate;
+                sta.statu = check_status.Canceled;
+                record.check_status = "Canceled";
+                record.RequestStatus = check_status.Canceled.GetHashCode();
+
+                dbcontext.SaveChanges();
+                var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.opertion_id);
+
+            }
+            else if (model.check_status == check_status.Recervied)
+            {
+                sta.Recervied_by = User.Identity.Name;
+                sta.Recervied_bydate = model.status.Recervied_bydate;
+                sta.statu = check_status.Recervied;
+                record.check_status = "Recervied";
+                record.RequestStatus = check_status.Recervied.GetHashCode();
+
+                dbcontext.SaveChanges();
+                var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.opertion_id);
+
+            }
             else if (model.check_status == check_status.Rejected)
             {
                 sta.Rejected_by = User.Identity.Name;

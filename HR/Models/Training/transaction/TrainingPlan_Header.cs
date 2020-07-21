@@ -9,24 +9,37 @@
 
 namespace HR.Models.Training.transaction
 {
+    using Controllers.TransactionsPayroll;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("TrainingPlan_Header")]
     public  class TrainingPlan_Header
     {
         public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int Year { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string TrainingType_Code { get; set; }
         public string Description { get; set; }
         public Nullable<short> Status { get; set; }
-        public Nullable<double> Approved_Budget_Amount { get; set; }
-        public Nullable<double> Total_Estimated_Cost { get; set; }
-        public Nullable<int> Deviation { get; set; }
+        public Nullable<double> Approved_Budget_Amount { get; set; } = 0;
+        public Nullable<double> Total_Estimated_Cost { get; set; } = 0;
+        public Nullable<int> Deviation { get; set; } = 0;
         public string Company_ID { get; set; }
         public string Created_By { get; set; }
         public Nullable<System.DateTime> Created_Date { get; set; }
         public string Modified_By { get; set; }
         public Nullable<System.DateTime> Modified_Date { get; set; }
         public int RowIndx { get; set; }
+        //=============
+        public string TrainingType_des { get; set; }
+        public status status_ { get; set; }
+        public int status_ID { get; set; }
+        public Models.Infra.check_status statu { get; set; }
+
+
     }
 }

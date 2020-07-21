@@ -95,7 +95,7 @@
                                     <label>
                                         @pers_2.pidAmount
                                     </label>
-                                    @Html.EditorFor(model => model.adjustment.PaidAmount, new { htmlAttributes = new { @readonly = true, @max = Model.loan.NumberOfInstallment, @class = "form-control", id = "Deducttion", @type = "number" } })
+                                    @Html.EditorFor(model => model.adjustment.PaidAmount, new { htmlAttributes = new {@class = "form-control", id = "Deducttion", @type = "number" } })
                                     @Html.ValidationMessageFor(model => model.loan.NumberOfDeductedInstallments, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-md-4">
@@ -116,7 +116,15 @@
                             </div>
 
 
-
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.type
+                                    </label>
+                                    @Html.EnumDropDownListFor(model => model.type, new {  @class = "select2"})
+                                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
 
                         </div>
@@ -346,8 +354,11 @@
            
             var tr = document.getElementsByClassName("AmountN");
             $.each(tr, function (key, value) {
-                
-                value.checked=true;
+                debugger
+                if (value.disabled == false) {
+                    debugger
+                    value.checked = true;
+                }
                 
             });
         }
@@ -356,8 +367,12 @@
 
             var tr = document.getElementsByClassName("AmountN");
             $.each(tr, function (key, value) {
-
-                value.checked = false;
+                debugger
+                if (value.disabled == false) {
+                    debugger
+                    value.checked = false;
+                }
+               
 
             });
         }

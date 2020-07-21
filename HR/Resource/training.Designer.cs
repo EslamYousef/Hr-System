@@ -61,6 +61,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Absent days.
+        /// </summary>
+        public static string absentdays {
+            get {
+                return ResourceManager.GetString("absentdays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add  new course-center.
         /// </summary>
         public static string add_course_center {
@@ -196,6 +205,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new training course evalution element.
+        /// </summary>
+        public static string addtrainin_Eva {
+            get {
+                return ResourceManager.GetString("addtrainin_Eva", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new Training facilities.
         /// </summary>
         public static string addTraining_Facilities {
@@ -210,6 +228,15 @@ namespace HR.Resource {
         public static string Addtraining_opportunity {
             get {
                 return ResourceManager.GetString("Addtraining_opportunity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add training plan.
+        /// </summary>
+        public static string addtrainingplan {
+            get {
+                return ResourceManager.GetString("addtrainingplan", resourceCulture);
             }
         }
         
@@ -246,6 +273,24 @@ namespace HR.Resource {
         public static string approve_h {
             get {
                 return ResourceManager.GetString("approve_h", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approved budget amount.
+        /// </summary>
+        public static string approvedbudgetamount {
+            get {
+                return ResourceManager.GetString("approvedbudgetamount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attentded days.
+        /// </summary>
+        public static string attendeddays {
+            get {
+                return ResourceManager.GetString("attendeddays", resourceCulture);
             }
         }
         
@@ -304,6 +349,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Closed Date.
+        /// </summary>
+        public static string closedate {
+            get {
+                return ResourceManager.GetString("closedate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed by.
+        /// </summary>
+        public static string closedby {
+            get {
+                return ResourceManager.GetString("closedby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact info.
         /// </summary>
         public static string contact_info {
@@ -327,6 +390,15 @@ namespace HR.Resource {
         public static string costperopport {
             get {
                 return ResourceManager.GetString("costperopport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cost per person.
+        /// </summary>
+        public static string costperperson {
+            get {
+                return ResourceManager.GetString("costperperson", resourceCulture);
             }
         }
         
@@ -385,6 +457,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Course evalution.
+        /// </summary>
+        public static string courseevalution {
+            get {
+                return ResourceManager.GetString("courseevalution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Course group.
         /// </summary>
         public static string coursegroup {
@@ -394,11 +475,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Course result.
+        /// </summary>
+        public static string courseresult {
+            get {
+                return ResourceManager.GetString("courseresult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Courses.
         /// </summary>
         public static string Courses {
             get {
                 return ResourceManager.GetString("Courses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Degree.
+        /// </summary>
+        public static string degree {
+            get {
+                return ResourceManager.GetString("degree", resourceCulture);
             }
         }
         
@@ -439,6 +538,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deviation.
+        /// </summary>
+        public static string deviation {
+            get {
+                return ResourceManager.GetString("deviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evalution type.
+        /// </summary>
+        public static string Evalution_type {
+            get {
+                return ResourceManager.GetString("Evalution_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total foreign estimated cost.
         /// </summary>
         public static string foreign_cost {
@@ -453,6 +570,15 @@ namespace HR.Resource {
         public static string Full_Name {
             get {
                 return ResourceManager.GetString("Full_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grade.
+        /// </summary>
+        public static string grade {
+            get {
+                return ResourceManager.GetString("grade", resourceCulture);
             }
         }
         
@@ -498,6 +624,15 @@ namespace HR.Resource {
         public static string local_price_trainee {
             get {
                 return ResourceManager.GetString("local_price_trainee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mass Loan Request.
+        /// </summary>
+        public static string Mass_Loan_Request {
+            get {
+                return ResourceManager.GetString("Mass_Loan_Request", resourceCulture);
             }
         }
         
@@ -619,6 +754,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of days.
+        /// </summary>
+        public static string numberofdays {
+            get {
+                return ResourceManager.GetString("numberofdays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of participant.
+        /// </summary>
+        public static string numberofparticipant {
+            get {
+                return ResourceManager.GetString("numberofparticipant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string option {
@@ -646,6 +799,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Percentage.
+        /// </summary>
+        public static string percentage {
+            get {
+                return ResourceManager.GetString("percentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provider.
         /// </summary>
         public static string Provider {
@@ -660,6 +822,24 @@ namespace HR.Resource {
         public static string Qualification {
             get {
                 return ResourceManager.GetString("Qualification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recervied by.
+        /// </summary>
+        public static string recervied {
+            get {
+                return ResourceManager.GetString("recervied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recervied date.
+        /// </summary>
+        public static string recerviedDate {
+            get {
+                return ResourceManager.GetString("recerviedDate", resourceCulture);
             }
         }
         
@@ -709,11 +889,47 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to you can&apos;t make edit or delete this item after status changes from create.
+        /// </summary>
+        public static string status_message {
+            get {
+                return ResourceManager.GetString("status_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this item closed.
+        /// </summary>
+        public static string status_message1 {
+            get {
+                return ResourceManager.GetString("status_message1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this item canceld.
+        /// </summary>
+        public static string status_message2 {
+            get {
+                return ResourceManager.GetString("status_message2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Street number.
         /// </summary>
         public static string street_number {
             get {
                 return ResourceManager.GetString("street_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Talent Development.
+        /// </summary>
+        public static string talent_development {
+            get {
+                return ResourceManager.GetString("talent_development", resourceCulture);
             }
         }
         
@@ -727,11 +943,29 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total estimated cost.
+        /// </summary>
+        public static string totalestimatedcost {
+            get {
+                return ResourceManager.GetString("totalestimatedcost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trainig Center.
         /// </summary>
         public static string Trainigcenter {
             get {
                 return ResourceManager.GetString("Trainigcenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Training course evalution elements.
+        /// </summary>
+        public static string training_Eva {
+            get {
+                return ResourceManager.GetString("training_Eva", resourceCulture);
             }
         }
         
@@ -763,6 +997,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Training participant.
+        /// </summary>
+        public static string trainingparticipant {
+            get {
+                return ResourceManager.GetString("trainingparticipant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Training plan.
+        /// </summary>
+        public static string trainingplan {
+            get {
+                return ResourceManager.GetString("trainingplan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Training Policy.
         /// </summary>
         public static string TrainingPolicy {
@@ -777,6 +1029,24 @@ namespace HR.Resource {
         public static string TrainingType {
             get {
                 return ResourceManager.GetString("TrainingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used for.
+        /// </summary>
+        public static string used_for {
+            get {
+                return ResourceManager.GetString("used_for", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes No.
+        /// </summary>
+        public static string yes_no {
+            get {
+                return ResourceManager.GetString("yes_no", resourceCulture);
             }
         }
     }

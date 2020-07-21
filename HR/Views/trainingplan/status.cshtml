@@ -1,5 +1,5 @@
 ﻿@model HR.Models.status
-    @using HR.Resource;
+@using HR.Resource;
 <script>
     $(function () {
         close();
@@ -106,14 +106,14 @@
     ViewBag.Title = "status";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
-@using (Html.BeginForm("status", "TrainingOpportunity",new{ header_id2 = @ViewBag.header_id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("status", "trainingplan", new { header_id2 = @ViewBag.header_id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-  
+
 
     <div class="sec-nav">
         <div><i class="far fa-save"></i><input type="submit" value=@organ.Save class="create-btn" /></div>
-        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index","TrainingOpportunity")" class="create-btn">@organ.backtoindex</a></div>
+        <div><i class="fas fa-undo"></i> <a href="@Url.Action("index","trainingplan")" class="create-btn">@organ.backtoindex</a></div>
 
     </div>
     <div class="form-horizontal">
@@ -127,117 +127,117 @@
                 @TempData["Message"]
             </div>
         }
-      
 
-       @Html.HiddenFor(m => m.ID);
+
+        @Html.HiddenFor(m => m.ID);
         <div class="form-group">
-           
+
             <div class="col-md-4">
                 <label>
                     @pers_2.check_status
                 </label>
-                @Html.EnumDropDownListFor(m => m.statu, pers_2.status, new { @class = "select2",@onchange="go($(this))" })
+                @Html.EnumDropDownListFor(m => m.statu, pers_2.status, new { @class = "select2", @onchange = "go($(this))" })
                 @Html.ValidationMessageFor(model => model.statu, "", new { @class = "text-danger" })
-               
+
             </div>
         </div>
-       
 
-      
-                                           <div class="form-group" id="created">
 
-                                             
-                                               <div class="col-md-4">
-                                                   <label>
-                                                       <span> @organ.createdby</span>
-                                                   </label>
-                                                   @Html.EditorFor(model => model.created_by, new { htmlAttributes = new { id= "created1", @class = "form-control"} })
-                                                   @Html.ValidationMessageFor(model => model.created_by, "", new { @class = "text-danger" })
 
-                                               </div>
-                                               <div id="created1d" >
-                                               
-                                                   <div class="col-md-4">
-                                                       <label>
-                                                           <span> @organ.createdDate</span>
-                                                       </label>
-                                                       @Html.EditorFor(model => model.created_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CR" } })
-                                                       @Html.ValidationMessageFor(model => model.created_bydate, "", new { @class = "text-danger" })
+        <div class="form-group" id="created">
 
-                                                   </div>
-                                                   </div>
-                                               </div>
 
-                                                    <div class="form-group" id="ready">
-                                                       
-                                                        <div class="col-md-4">
-                                                            <label>
-                                                                <span>@organ.Reportasreadyby</span>
-                                                            </label>
-                                                            @Html.EditorFor(model => model.return_to_reviewby, new { htmlAttributes = new { id = "report1", @class = "form-control" } })
-                                                            @Html.ValidationMessageFor(model => model.return_to_reviewby, "", new { @class = "text-danger" })
+            <div class="col-md-4">
+                <label>
+                    <span> @organ.createdby</span>
+                </label>
+                @Html.EditorFor(model => model.created_by, new { htmlAttributes = new { id = "created1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.created_by, "", new { @class = "text-danger" })
 
-                                                        </div>
-                                                        <div id="report1d" >
-                                                          
-                                                            <div class="col-md-4">
-                                                                <label>
-                                                                    <span>@organ.ReportasreadyDate</span>
-                                                                </label>
-                                                                @Html.EditorFor(model => model.return_to_reviewdate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "RE" } })
-                                                                @Html.ValidationMessageFor(model => model.return_to_reviewdate, "", new { @class = "text-danger" })
+            </div>
+            <div id="created1d">
 
-                                                            </div>
+                <div class="col-md-4">
+                    <label>
+                        <span> @organ.createdDate</span>
+                    </label>
+                    @Html.EditorFor(model => model.created_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CR" } })
+                    @Html.ValidationMessageFor(model => model.created_bydate, "", new { @class = "text-danger" })
 
-                                                        </div>
-                                                    </div>
+                </div>
+            </div>
+        </div>
 
-                                           <div class="form-group" id="approved">
-                                             
-                                               <div class="col-md-4">
-                                                   <label>
-                                                       <span>@organ.approvedby</span>
-                                                   </label>
-                                                   @Html.EditorFor(model => model.approved_by, new { htmlAttributes = new { id = "approved1", @class = "form-control" } })
-                                                   @Html.ValidationMessageFor(model => model.approved_by, "", new { @class = "text-danger" })
+        <div class="form-group" id="ready">
 
-                                               </div>
-                                               <div id="approved1d" >
-                                           
-                                                                <div class="col-md-4">
-                                                                    <label>
-                                                                        <span>@organ.approvedDate</span>
-                                                                    </label>
-                                                                    @Html.EditorFor(model => model.approved_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "AP" } })
-                                                                    @Html.ValidationMessageFor(model => model.approved_bydate, "", new { @class = "text-danger" })
+            <div class="col-md-4">
+                <label>
+                    <span>@organ.Reportasreadyby</span>
+                </label>
+                @Html.EditorFor(model => model.return_to_reviewby, new { htmlAttributes = new { id = "report1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.return_to_reviewby, "", new { @class = "text-danger" })
 
-                                                                </div>
+            </div>
+            <div id="report1d">
 
-                                                            </div>
-                                                            </div>
+                <div class="col-md-4">
+                    <label>
+                        <span>@organ.ReportasreadyDate</span>
+                    </label>
+                    @Html.EditorFor(model => model.return_to_reviewdate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "RE" } })
+                    @Html.ValidationMessageFor(model => model.return_to_reviewdate, "", new { @class = "text-danger" })
 
-                                           <div class="form-group" id="Rejected">
-                                          
-                                               <div class="col-md-4">
-                                                   <label>
-                                                       <span>@organ.Rejectedby</span>
-                                                   </label>
-                                                   @Html.EditorFor(model => model.Rejected_by, new { htmlAttributes = new { id = "Rejected1", @class = "form-control"} })
-                                                   @Html.ValidationMessageFor(model => model.Rejected_by, "", new { @class = "text-danger" })
+                </div>
 
-                                               </div>
-                                               <div id="Rejected1d" >
-                                                 
-                                                   <div class="col-md-4">
-                                                       <label>
-                                                           <span>@organ.RejectedDate</span>
-                                                       </label>
-                                                       @Html.EditorFor(model => model.Rejected_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Rj" } })
-                                                       @Html.ValidationMessageFor(model => model.Rejected_bydate, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                                                   </div>
-                                               </div>
-                                               </div>
+        <div class="form-group" id="approved">
+
+            <div class="col-md-4">
+                <label>
+                    <span>@organ.approvedby</span>
+                </label>
+                @Html.EditorFor(model => model.approved_by, new { htmlAttributes = new { id = "approved1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.approved_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="approved1d">
+
+                <div class="col-md-4">
+                    <label>
+                        <span>@organ.approvedDate</span>
+                    </label>
+                    @Html.EditorFor(model => model.approved_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "AP" } })
+                    @Html.ValidationMessageFor(model => model.approved_bydate, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group" id="Rejected">
+
+            <div class="col-md-4">
+                <label>
+                    <span>@organ.Rejectedby</span>
+                </label>
+                @Html.EditorFor(model => model.Rejected_by, new { htmlAttributes = new { id = "Rejected1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rejected_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="Rejected1d">
+
+                <div class="col-md-4">
+                    <label>
+                        <span>@organ.RejectedDate</span>
+                    </label>
+                    @Html.EditorFor(model => model.Rejected_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Rj" } })
+                    @Html.ValidationMessageFor(model => model.Rejected_bydate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
 
 
         <div class="form-group" id="cancaled">
@@ -309,9 +309,8 @@
             </div>
 
         </div>
-                                 
-      
-        
+
+
     </div>
 }
 

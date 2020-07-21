@@ -11,8 +11,8 @@ namespace HR.Models.Training.transaction
 {
     using System;
     using System.Collections.Generic;
-    
-    public  class Course_CostElement_Detail
+
+    public class Course_CostElement_Detail
     {
         public int ID { get; set; }
         public int Year { get; set; }
@@ -31,5 +31,7 @@ namespace HR.Models.Training.transaction
         public int RowIndx { get; set; }
         public int TrainingPlan_HeaderID { get; set; }
         public int Course_CostElement_HeaderID { get; set; }
+        public string cost_des { get; set; }
     }
+
 }

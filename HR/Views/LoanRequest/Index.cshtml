@@ -244,14 +244,9 @@
                                     <td>@item.check_status</td>
                                  
                                     <td>
-                                        @if (item.check_status !="Approved" && item.check_status !="Rejected")
-                                        {
-                                            <a href="@Url.Action("Edit", "LoanRequest", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
-                                        }
-                                       
+                                        <a href="@Url.Action("Edit", "LoanRequest", new { id = item.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                         <a href="@Url.Action("Delete", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="far fa-trash-alt"></i>@pers_2.delete</a>
                                         <a href="@Url.Action("status", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
-
                                         <a href="@Url.Action("Details", "LoanRequest" , new {id=item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.details</a>
                                         @if (item.check_status == "Approved")
                                         {

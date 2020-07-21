@@ -199,7 +199,13 @@ namespace HR.Controllers.training.Transaction
                 ViewBag.classification = dbcontext.CourseClassification.ToList().Select(m => new { Code = m.CourseClassification_Code + "-[" + m.CourseClassification_Desc + ']', ID = m.ID });
                 ViewBag.cadre = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }).ToList();
                 ViewBag.E_level = dbcontext.Educate_Title.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID }).ToList();
-               
+                var H_ = dbcontext.TrainingOpportunity_Header.FirstOrDefault(m => m.ID == model.TrainingOpportunity_Header.ID);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statusID);
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Recervied || sta.statu == check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 //==================== Remove old data
                 var detail = dbcontext.TrainingOpportunity_Detail.Where(m => m.headerID == model.TrainingOpportunity_Header.ID).ToList();
                 var distributed = dbcontext.Distributed_Opportunity.Where(m => m.headerID == model.TrainingOpportunity_Header.ID).ToList();
@@ -350,9 +356,17 @@ namespace HR.Controllers.training.Transaction
         public ActionResult Deletemethod(int id)
         {
             var header = dbcontext.TrainingOpportunity_Header.FirstOrDefault(m => m.ID == id);
+            var H_ = dbcontext.TrainingOpportunity_Header.FirstOrDefault(m => m.ID == header.ID);
+            var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statusID);
+            if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Recervied || sta.statu == check_status.Canceled)
+            {
+                TempData["message"] = HR.Resource.training.status_message;
+                return RedirectToAction("index");
+            }
             var details = dbcontext.TrainingOpportunity_Detail.Where(m => m.headerID == id).ToList();
             var destr = dbcontext.Distributed_Opportunity.Where(m => m.headerID == id).ToList();
             var status = dbcontext.status.FirstOrDefault(m => m.ID == header.statusID);
+
             try
             {
                 dbcontext.TrainingOpportunity_Header.Remove(header);
@@ -379,8 +393,20 @@ namespace HR.Controllers.training.Transaction
         {
             ViewBag.header_id = id;
             var hearder = dbcontext.TrainingOpportunity_Header.FirstOrDefault(m => m.ID == id);
-            var stat = dbcontext.status.FirstOrDefault(m => m.ID == hearder.statusID);
-            return View(stat);
+            var my_model = dbcontext.status.FirstOrDefault(m => m.ID == hearder.statusID);
+            if (my_model.approved_by == null)
+                my_model.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+            if (my_model.Rejected_by == null)
+                my_model.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+            if (my_model.return_to_reviewby == null)
+                my_model.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+            if (my_model.cancaled_by == null)
+                my_model.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+            if (my_model.closed_by == null)
+                my_model.closed_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+            if (my_model.Recervied_by == null)
+                my_model.Recervied_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+            return View(my_model);
         }
         [HttpPost]
         public ActionResult status(status model,int header_id2)
@@ -395,32 +421,55 @@ namespace HR.Controllers.training.Transaction
                 sta.approved_bydate = model.approved_bydate;
                 sta.statu = check_status.Approved;
                 dbcontext.SaveChanges();
+
                 record.Transaction_Status = (Int16)check_status.Approved;
                 dbcontext.SaveChanges();
 
 
                 
             }
-            //else if (model.check_status == check_status.Canceled)
-            //{
-            //    sta.cancaled_by = model.status.cancaled_by;
-            //    sta.cancaled_bydate = model.status.cancaled_bydate;
-            //    sta.statu = check_status.Canceled;
-            //    record.check_status = check_status.Canceled;
-            //    record.sss = record.check_status.GetType().ToString();
-            //    record.name_state = nameof(check_status.Canceled);
-            //    dbcontext.SaveChanges();
-            //}
-            //else if (model.check_status == check_status.created)
-            //{
-            //    sta.created_by = model.status.created_by;
-            //    sta.created_bydate = model.status.created_bydate;
-            //    sta.statu = check_status.created;
-            //    record.check_status = check_status.created;
-            //    record.sss = record.check_status.GetType().ToString();
-            //    record.name_state = nameof(check_status.created);
-            //    dbcontext.SaveChanges();
-            //}
+            else if (model.statu == check_status.Closed)
+            {
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == record.statusID);
+
+                sta.closed_by = User.Identity.Name;
+                sta.closed_bydate = model.closed_bydate;
+                sta.statu = check_status.Closed;
+                dbcontext.SaveChanges();
+
+                record.Transaction_Status = (Int16)check_status.Closed;
+            
+                dbcontext.SaveChanges();
+
+
+            }
+            else if (model.statu == check_status.Canceled)
+            {
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == record.statusID);
+
+                sta.cancaled_by = User.Identity.Name;
+                sta.cancaled_bydate = model.cancaled_bydate;
+                sta.statu = check_status.Canceled;
+                dbcontext.SaveChanges();
+                record.Transaction_Status = (Int16)check_status.Canceled;
+              
+                dbcontext.SaveChanges();
+
+            }
+            else if (model.statu == check_status.Recervied)
+            {
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == record.statusID);
+
+                sta.Recervied_by = User.Identity.Name;
+                sta.Recervied_bydate = model.Recervied_bydate;
+                sta.statu = check_status.Recervied;
+                dbcontext.SaveChanges();
+                record.Transaction_Status = (Int16)check_status.Recervied;
+                
+                dbcontext.SaveChanges();
+
+
+            }
             else if (model.statu == check_status.Rejected)
             {
                 var sta = dbcontext.status.FirstOrDefault(m => m.ID == record.statusID);
@@ -447,6 +496,7 @@ namespace HR.Controllers.training.Transaction
             return RedirectToAction("index");
         }
 
+        //===========================================ajax================================
         public JsonResult get_num_emp(int cadre,int educ)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;

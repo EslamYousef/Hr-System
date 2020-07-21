@@ -153,14 +153,27 @@
         var sta = new Date(t2).getHours();
 
         var total=end-sta;
-        if(total<0)
+        //if(total<0)
+        //{
+        //   $("#total").val(total * -1);
+        //}
+        //else
+        //{
+        //    $("#total").val(total);
+        //}
+        if (total == 0)
         {
-           $("#total").val(total * -1);
+            $("#total").val("24");
+        }
+        else if(parseInt(total)<0)
+        {
+            $("#total").val(total + 24);
         }
         else
         {
             $("#total").val(total);
         }
+       
     }
    
 </script>

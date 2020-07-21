@@ -31,6 +31,13 @@ namespace HR.Models
         public DateTime cancaled_bydate { get; set; } = Convert.ToDateTime("1/1/2020").Date;
         public Infra.Type Type {get;set;}
 
+        public string closed_by { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime closed_bydate { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+        public string Recervied_by { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        public DateTime Recervied_bydate { get; set; } = Convert.ToDateTime("1/1/2020").Date;
+
         public virtual List<workpermissionrequest> workpermissionrequest { get; set; }
         public virtual List<business_trip_request> business_trip_request { get; set; }
         public virtual List<Exit_permission_request> Exit_permission_request { get; set; }

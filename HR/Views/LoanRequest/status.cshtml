@@ -8,7 +8,9 @@
         GetDataById2('@Model.status.Rejected_bydate', "Rj");
         GetDataById2('@Model.status.return_to_reviewdate', "RE");
         GetDataById2('@Model.status.approved_bydate', "AP");
-        GetDataById2('@Model.status.cancaled_bydate', "CA");
+        GetDataById2('@Model.status.cancaled_bydate', "CA11");
+        GetDataById2('@Model.status.closed_bydate', "11D");
+        GetDataById2('@Model.status.Recervied_bydate', "D15");
     });
 
     function GetDataById2(date, id) {
@@ -36,6 +38,7 @@
 
 
         var value = input.val();
+        debugger
         if(value==1)
         {
             close();
@@ -64,25 +67,26 @@
             $("#Rj").attr("readonly", false);
         //    $("#Rejected1").prop("readonly", false);
      //       $("#Rejected1d").prop("hidden", false);
-        } else if (value == 5)
-        {
-            close();
-            $("#CA").attr("readonly", false);
-         //   $("#cancaled1").prop("readonly", false);
-       //     $("#cancaled1d").prop("hidden", false);
-        }
+        } 
         else if (value == 6) {
             close();
-
+            $("#D15").attr("readonly", false);
+           
         }
         else if (value ==7) {
             close();
-
+            $("#11D").attr("readonly", false);
+        }
+        else if (value == 5) {
+            close();
+            $("#CA11").attr("readonly", false);
         }
     }
     function close()
     {
         $("#cancaled1").attr("readonly", true);
+        $("#closed1").attr("readonly", true);
+        $("#recervied1").attr("readonly", true);
         $("#Rejected1").attr("readonly", true);
         $("#approved1").attr("readonly", true);
         $("#ready1").attr("readonly", true);
@@ -94,6 +98,9 @@
         $("#RE").attr("readonly", true);
         $("#AP").attr("readonly", true);
         $("#CA").attr("readonly", true);
+        $("#CA11").attr("readonly", true);
+        $("#11D").attr("readonly", true);
+        $("#D15").attr("readonly", true);
     }
 
 </script>
@@ -252,8 +259,54 @@
                     <label>
                         <span>@organ.cancaledDate</span>
                     </label>
-                    @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CA" } })
+                    @Html.EditorFor(model => model.status.cancaled_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "CA11" } })
                     @Html.ValidationMessageFor(model => model.status.cancaled_bydate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group" id="closed">
+
+            <div class="col-md-4">
+                <label>
+                    <span>@training.closedby</span>
+                </label>
+                @Html.EditorFor(model => model.status.closed_by, new { htmlAttributes = new { id = "closed1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.status.closed_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="cancaled1d">
+
+                <div class="col-md-4">
+                    <label>
+                        <span>@training.closedate</span>
+                    </label>
+                    @Html.EditorFor(model => model.status.closed_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "11D" } })
+                    @Html.ValidationMessageFor(model => model.status.closed_bydate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group" id="recervied">
+
+            <div class="col-md-4">
+                <label>
+                    <span>@training.recervied</span>
+                </label>
+                @Html.EditorFor(model => model.status.Recervied_by, new { htmlAttributes = new { id = "recervied1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.status.Recervied_by, "", new { @class = "text-danger" })
+
+            </div>
+            <div id="cancaled1d">
+
+                <div class="col-md-4">
+                    <label>
+                        <span>@training.recerviedDate</span>
+                    </label>
+                    @Html.EditorFor(model => model.status.Recervied_bydate, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "D15" } })
+                    @Html.ValidationMessageFor(model => model.status.Recervied_bydate, "", new { @class = "text-danger" })
 
                 </div>
             </div>

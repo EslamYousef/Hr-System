@@ -40,5 +40,6 @@ namespace HR.Models.Training.transaction
         public string classifiaction_des { get; set; }
        
         public string card_des { get; set; }
+        
     }
 }

@@ -11,23 +11,34 @@ namespace HR.Models.Training.transaction
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("TrainingPlan_Detail")]
     public class TrainingPlan_Detail
     {
         public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int Year { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string TrainingType_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string CourseClassification_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Course_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string TrainingCenters_Code { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string Branch_Code { get; set; }
         public string InstructorID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public Nullable<System.DateTime> From_Date { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public Nullable<System.DateTime> To_Date { get; set; }
-        public Nullable<short> Number_Of_Days { get; set; }
-        public Nullable<double> Cost_Per_Person { get; set; }
-        public Nullable<short> Number_Of_Participant { get; set; }
-        public Nullable<double> Total_Cost { get; set; }
+        public Nullable<short> Number_Of_Days { get; set; } = 0;
+        public Nullable<double> Cost_Per_Person { get; set; } = 0;
+        public Nullable<short> Number_Of_Participant { get; set; } = 0;
+        public Nullable<double> Total_Cost { get; set; } = 0;
         public Nullable<short> Course_Status { get; set; }
         public string Company_ID { get; set; }
         public string Created_By { get; set; }
@@ -36,5 +47,12 @@ namespace HR.Models.Training.transaction
         public Nullable<System.DateTime> Modified_Date { get; set; }
         public int RowIndx { get; set; }
         public int TrainingPlan_HeaderID { get; set; }
+        //=====
+        public string classification_des { get; set; }
+        public string course_des { get; set; }
+        public string center_des { get; set; }
+        public string bransh_des { get; set; }
+        public string instructor_des { get; set; }
+        public string stat_course { get; set; }
     }
 }

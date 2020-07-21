@@ -35,7 +35,7 @@ namespace HR.Controllers
                 ViewBag.Deathdaysallarycode = dbcontext.salary_code.Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + "-]", ID = m.ID }).ToList();
 
                 var recod = new PayrollGeneralSetup {AllowToRounding=false, Length_Of_Segment=0,Number_Of_Account_Segments=0,Value=0,Rest_On_The_First_Punishment=true};
-                var model = new PayrollGeneralSetupVM {PayrollGeneralSetup=recod, Rounding_method=new Rounding_method(),ERP_INTERGRATION_TYPE=new ERP_INTERGRATION_TYPE(),GL_cost_center_distribution_behavior=new GL_cost_center_distribution_behavior()};
+                var model = new PayrollGeneralSetupVM {PayrollGeneralSetup=recod, Rounding_method= Rounding_method.Down,ERP_INTERGRATION_TYPE= ERP_INTERGRATION_TYPE.microsoft_AX2009,GL_cost_center_distribution_behavior= GL_cost_center_distribution_behavior.primary_location_organization_behavior};
                 return View(model);
             }
             catch(Exception e)
@@ -91,6 +91,21 @@ namespace HR.Controllers
                 new_model.Created_Date = DateTime.Now.Date;
 
                 new_model.SetupKey = 0;
+                if(new_model.DefaultPayrollPeriod ==null || new_model.DefaultPayrollPeriod == "")
+                {
+                    new_model.DefaultPayrollPeriod_des = "empty";
+                }
+                else if (int.Parse (new_model.DefaultPayrollPeriod )> 0)
+                {
+                    var id_ = int.Parse(new_model.DefaultPayrollPeriod);
+                    var dd = dbcontext.PayrollPeriodSetup.FirstOrDefault(m => m.ID == id_);
+                    new_model.DefaultPayrollPeriod_des = dd.PeriodCode + "-" + dd.PeriodDesc;
+                }
+                else
+                {
+                    new_model.DefaultPayrollPeriod_des = "empty";
+
+                }
                 var saved=dbcontext.PayrollGeneralSetup.Add(new_model);
                 dbcontext.SaveChanges();
                 saved.SetupKey = saved.ID;

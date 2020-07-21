@@ -2374,7 +2374,7 @@ namespace HR.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Old Request.
+        ///   Looks up a localized string similar to Orignal Request.
         /// </summary>
         public static string Oldrequest {
             get {
@@ -3099,6 +3099,15 @@ namespace HR.Resource {
         public static string status {
             get {
                 return ResourceManager.GetString("status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

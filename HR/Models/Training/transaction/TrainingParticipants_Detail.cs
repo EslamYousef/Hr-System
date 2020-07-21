@@ -11,11 +11,16 @@ namespace HR.Models.Training.transaction
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("TrainingParticipants_Detail")]
     public  class TrainingParticipants_Detail
     {
         public int ID { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public int Year { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         public string TrainingType_Code { get; set; }
         public string CourseClassification_Code { get; set; }
         public string Course_Code { get; set; }
@@ -42,5 +47,6 @@ namespace HR.Models.Training.transaction
 
         public int TrainingPlan_HeaderID { get; set; }
         public int TrainingParticipants_HeaderID { get; set; }
+        public string emp_des { get; set; }
     }
 }

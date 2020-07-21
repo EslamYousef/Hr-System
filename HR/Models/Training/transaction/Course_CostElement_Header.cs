@@ -31,6 +31,7 @@ namespace HR.Models.Training.transaction
         public Nullable<System.DateTime> Modified_Date { get; set; }
         public int RowIndx { get; set; }
         public int TrainingPlan_HeaderID { get; set; }
+        public int details_id { get; set; }
        
     }
 }
