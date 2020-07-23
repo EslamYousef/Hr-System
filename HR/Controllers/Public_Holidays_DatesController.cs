@@ -12,7 +12,8 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
-    public class Public_Holidays_DatesController : Controller
+    [Authorize]
+    public class Public_Holidays_DatesController : BaseController
     {
         ApplicationDbContext db = new ApplicationDbContext();
         private readonly IStructure reposatorystructure;

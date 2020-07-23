@@ -20,6 +20,11 @@
                 <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "ManualPaymentTypes")" class="create-btn"> @pers_2.Back</a></div>
             </div>
             <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Payroll.CreateManualPaymentTypes
+                </h1>
+            </section>
             @Html.AntiForgeryToken()
             @*<input name="ID_item" value="" hidden />*@
             <input name="codeid" value="" hidden />
@@ -102,7 +107,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2"style="color:red">@Payroll.Journalname_Batchcode</label>
+                    <label class="control-label col-md-2" style="color:red">@Payroll.Journalname_Batchcode</label>
                     <div class="col-md-3">
                         @Html.DropDownListFor(m => m.ManualPaymentTypes_Header.JournalName_BatchCode, new SelectList(ViewBag.PayrollTransactionJournalSetup, "ID", "Code"), Payroll.SelectJournalname_Batchcode, new { @class = "select2", @onchange = "JournalName()", id = "Journal" })
                         @Html.ValidationMessageFor(model => model.ManualPaymentTypes_Header.JournalName_BatchCode, "", new { @class = "text-danger" })

@@ -10,6 +10,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Weekend_setupController : BaseController
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -21,7 +22,7 @@ namespace HR.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code= "" + m.Code + "-----[" + m.Description + ']' ,ID=m.ID});
+            ViewBag.Shiftdaystatus = db.Shiftdaystatus.ToList().Select(m => new { Code= "" + m.Code + "-----[" + m.Name + ']' ,ID=m.ID});
             var stru = db.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel);
             var model = db.Weekend_setup.ToList();
             var count = 0;
@@ -42,7 +43,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.Shiftdaystatus = db.Shiftdaystatus.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 if (ModelState.IsValid)
                 {
                     Weekend_setup recode = new Weekend_setup();
@@ -80,7 +81,7 @@ namespace HR.Controllers
         {
             try
             {
-                ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.Shiftdaystatus = db.Shiftdaystatus.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Name + ']', ID = m.ID });
                 var recode = db.Weekend_setup.FirstOrDefault(a => a.ID == Id);
                 if (recode != null)
                 {
@@ -100,7 +101,7 @@ namespace HR.Controllers
         [HttpPost]
         public ActionResult Edit(Weekend_setup model)
         {
-            ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+            ViewBag.Shiftdaystatus = db.Shiftdaystatus.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Name + ']', ID = m.ID });
             try
             {
                 var recode = db.Weekend_setup.FirstOrDefault(a => a.ID == model.ID);

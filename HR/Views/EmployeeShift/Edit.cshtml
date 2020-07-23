@@ -158,7 +158,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                 
+
                                     <div class="col-md-4">
                                         <label>
                                             <span> @pers_2.fromtime </span>
@@ -167,7 +167,7 @@
                                     </div>
 
 
-                                  
+
                                     <div class="col-md-4">
                                         <label>
                                             <span> @pers_2.totime </span>
@@ -175,12 +175,66 @@
                                         <input class="form-control timepicker" id="TT" data-template="dropdown" data-show-seconds="true" data-default-time="11:25 AM" data-show-meridian="true" data-minute-step="1" />
 
                                     </div>
-                             
+
                                     <div class="col-md-4">
                                         <label> - </label>
                                         <input type="button" onclick="add()" value='@pers_2.addelement' class="btn btn-success" />
                                     </div>
-                                
+                                    <div class="col-md-4">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input href="javascript:;" onclick="jQuery('#modal-2').modal('show', {backdrop: 'static'});" class="btn btn-default " style="width:180px;margin-top: 30px;" value="@Personnel.Addasatemplate" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="modal-2">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 300px;">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">@Personnel.Shiftscheduletemplate</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4" style="padding-right: 0px !important;margin-right: 70px;color:red;overflow:inherit">@Personnel.Templatecode</label>
+                                                            <div class="col-md-3">
+                                        <input type="text" class = "form-control" readonly style="margin-bottom: 10px;width:150px!important;" id="Temco" name="Temco" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4" style="padding-right: 0px !important;margin-right: 70px;color:red;overflow:inherit;">@Personnel.Description</label>
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control"  style="margin-bottom: 10px;width:150px!important;" id="TemDe" name="TemDe" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-4" style="padding-right: 0px !important;margin-right: 70px;overflow:inherit">@Personnel.DescriptionAlternative</label>
+                                                            <div class="col-md-3">
+                                                                <input type="text" class="form-control"  style="margin-bottom: 10px;width:150px!important;" id="TemDeAl" name="TemDeAl" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">@Personnel.Back</button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">@Personnel.Edit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -325,12 +379,33 @@
 
 @section scripts{}
 <script>
+    function employee() {
+        debugger
+        //var id = $("#employeeId88").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetTemCodeByEmployee_Shift_schedule",
+            data: { },
+            success: function (result) {
+                debugger
+                var tt = $("#Temco").val(result.TemplateCode_Shifts);
+            },
+            error: function () {
+                debugger
+                //      $("#employeeId88").val();
+                //$("#codeid").val("");
+            }
+        });
+    }
+    
+</script>
+<script>
     $(document).ready(function () {
 
         GetDataById2('@Model.From_date' , "fromD");
         GetDataById2('@Model.To_date', "toD");
         setto();setform();
-
+        employee();
     });
     function GetDataById2(date, id) {
         debugger

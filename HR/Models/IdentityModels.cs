@@ -17,6 +17,7 @@ using HR.Models.TransactionsPayroll;
 using HR.Models.Training.setup;
 using HR.Models.Training.trans;
 using HR.Models.Training.transaction;
+using HR.Models.Vacations;
 
 namespace HR.Models
 {
@@ -333,6 +334,13 @@ namespace HR.Models
         public DbSet<TrainingCourceEvaluationElement> TrainingCourceEvaluationElement { get; set; }
         public DbSet<TrainingCourceEvaluation_Details> TrainingCourceEvaluation_Details { get; set; }
         public DbSet<TrainingCourceEvaluation_Header> TrainingCourceEvaluation_Header { get; set; }
+        public DbSet<Shiftscheduletemplate> Shiftscheduletemplate { get; set; }
+        public DbSet<Template> Template { get; set; }
+        public DbSet<TimeManagement_EmployeeTimeAttendanceTransaction_Header> TimeManagement_EmployeeTimeAttendanceTransaction_Header { get; set; }
+        public DbSet<TimeManagement_EmployeeTimeAttendanceTransaction_Detail> TimeManagement_EmployeeTimeAttendanceTransaction_Detail { get; set; }
+        public DbSet<TimeManagement_EmployeeTimeAttendanceTransaction_Clc_Results> TimeManagement_EmployeeTimeAttendanceTransaction_Clc_Results { get; set; }
+        public DbSet<LeavesBalance> LeavesBalance { get; set; }
+        public DbSet<LeavesRequestMaster> LeavesRequestMaster { get; set; }
 
 
     }

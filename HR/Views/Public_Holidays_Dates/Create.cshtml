@@ -6,16 +6,10 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
-<link href="~/Content/StyleTableBeneficiary.css" rel="stylesheet" />
-
 
 <div class="content-wrapper">
 
-    <section class="content-header">
-        <h1>
-           Create Public Holidays Dates
-        </h1>
-    </section>
+  
 
     <!-- Main content -->
     <section class="content">
@@ -24,6 +18,21 @@
             <div class="box-body">
                 @using (Html.BeginForm("Create", "Public_Holidays_Dates", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-plus"></i><a href="@Url.Action("Create", "Public_Holidays_Dates")" class="create-btn">@pers_2.new_</a></div>
+                        <div>
+                            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","Public_Holidays_Dates")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                        </div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Public_Holidays_Dates")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <hr /><hr /><hr />
+                    <section class="content-header">
+                        <h1>
+                            @Personnel.CreatePublicHolidaysDates
+                        </h1>
+                    </section>
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
 
@@ -38,91 +47,80 @@
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    
-                            <input name="ID_5" hidden />
+
+                        <input name="ID_5" hidden />
                         <input name="Fromdate" hidden />
                         <input name="Todate" hidden />
                         <input name="Notes" hidden />
                         <input name="locationdown" value="" hidden />
                         <div>
 
-                  
+
 
                             <div class="form-group">
-                                <label class="control-label col-md-2">Holidays Code</label>
                                 <div class="col-md-4">
+                                    <label style="color:red">@Personnel.HolidaysCode</label>
                                     @Html.EditorFor(model => model.Holidays_Code, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                                     @Html.ValidationMessageFor(model => model.Holidays_Code, "", new { @class = "text-danger" })
                                 </div>
-                                <label class="control-label col-md-2">Holidays year</label>
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Holidaysyear, new { htmlAttributes = new { @class = "form-control",@number=true } })
+                                    <label style="color:red">@Personnel.Holidayyear</label>
+                                    @Html.EditorFor(model => model.Holidaysyear, new { htmlAttributes = new { @class = "form-control", @number = true } })
                                     @Html.ValidationMessageFor(model => model.Holidaysyear, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Holiday Description</label>
                                 <div class="col-md-4">
-                                    @Html.EditorFor(model => model.Holiday_description, new { htmlAttributes = new { @class = "form-control"} })
+                                    <label style="color:red">@Personnel.Holidaydescription</label>
+                                    @Html.EditorFor(model => model.Holiday_description, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Holiday_description, "", new { @class = "text-danger" })
-                                </div>    
+                                </div>
                                 @*<div class="col-md-3" style="color:black">
-                                    <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Link to locations</button>
-                                </div>*@          
-                                
-                                <label class="control-label col-md-2">
-                                    <span>locations</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("locationdown", new SelectList(ViewBag.locations, "ID", "Code"),  new { @multiple = "multiple", @required = "required", @class = "select2",@name= "locationdown" })
-                                </div>           
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">Holiday Alternative Description</label>
+                <button type="submit" id="btnSubmit" name="Command" value="Submit" class="btn btn-success">Link to locations</button>
+            </div>*@
+
                                 <div class="col-md-4">
+                                    <label> @Personnel.locations  </label>
+                                    @Html.DropDownList("locationdown", new SelectList(ViewBag.locations, "ID", "Code"), new { @multiple = "multiple", @required = "required", @class = "select2", @name = "locationdown", @style = "height: 28px !important; width :230px !important;" })
+                                </div>
+                                <div class="col-md-4">
+                                    <label>@Personnel.Holidayalternativedescription</label>
                                     @Html.EditorFor(model => model.Holiday_alternative_description, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Holiday_alternative_description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-
                             <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    <span>Public_Holiday_Events</span>
-                                </label>
-                                <div class="col-md-3">
-                                    @Html.DropDownList("fd", new SelectList(ViewBag.Public_Holiday_Events, "ID", "Code"), Personnel.SelectFamilyProfile, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
+                                <div class="col-md-4">
+                                    <label> @Personnel.PublicHolidayEvents</label>
+                                    @Html.DropDownList("fd", new SelectList(ViewBag.Public_Holiday_Events, "ID", "Code")@*, Personnel.SelectFamilyProfile*@, new { @required = "required", @class = "select2", @onchange = "employee3()", id = "employeeId3" })
                                 </div>
-                                <div class="col-md-3">
-                                    <input type="button" onclick="myibtn()" value="@Personnel.Add" class="btn"/>
+                                <div class="col-md-4">
+                                    <input type="button" onclick="myibtn()" value="@Personnel.Add" class="btn" style="margin-top: 30px;" />
                                 </div>
                             </div>
-                            <table id="tb_Holidays" border="1" style="display: table; width:400px;" hidden>
-                                <thead id="thead" hidden>
-                                    <tr>
-                                        <th></th>
-                                        <th id="fa">Holidays / Event Code</th>
-                                        <th id="na">Holidays / Event Description</th>
-                                        <th id="per">From date</th>
-                                        <th id="De">To date</th>
-                                        <th id="No">Notes</th>
-                                        <th id="dele">@Personnel.Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bodyappend">
 
-                                </tbody>
-                            </table>
-                            <div class="form-group" style="margin-top:10px;">
-                                <div class="col-md-offset-2 col-md-6">
-                                    <div class="col-md-8"></div>
-                                    <a href="@Url.Action("index","Public_Holidays_Dates")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
-                                    <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
+                                <table id="tb_Holidays" class="table table-bordered table-striped text-center" style="margin-top: 15px;" hidden>
+                                    <thead id="thead" hidden>
+                                        <tr>
+                                            <th id="fa" class="col-md-1">@Personnel.HolidayEventCode</th>
+                                            <th id="na" class="col-md-1">@Personnel.HolidayEventDescription</th>
+                                            <th id="per" class="col-md-1">@Personnel.Fromdate</th>
+                                            <th id="De" class="col-md-1">@Personnel.Todate</th>
+                                            <th id="No" class="col-md-1">@Personnel.Notes</th>
+                                            <th id="dele" class="col-md-1">@Personnel.Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyappend">
+                                    </tbody>
+                                </table>
+                                <div class="form-group" style="margin-top:10px;" hidden>
+                                    <div class="col-md-offset-2 col-md-6">
+                                        <div class="col-md-8"></div>
+                                        <a href="@Url.Action("index","Public_Holidays_Dates")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Personnel.Back</a>
+                                        <button type="submit" id="btnSave" class="btn btn-success" name="Command" value="Save">@Personnel.Create</button>
 
-                                   </div>
+                                    </div>
                                 </div>
 
-                            </div>
+</div>
 
                     </div>
 
@@ -179,12 +177,9 @@
                         $("#thead").show();
 
                         var T = "";
-                        T = "<tr><td><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='del-btn tb-btn' value='@Personnel.Delete'/></td></tr>";
+                        T = "<tr><td hidden><input type='text' name='ID_5' value='" + result.ID + "' hidden/></td><td><input type='text' value='" + result.Code + "' readonly class='cs'/></td><td><input type='text' value='" + result.Description + "' readonly/><td><input type='date' name='Fromdate'/></td><td><input type='date' name='Todate' /></td> <td><input type='text' name='Notes'/></td><td><input type='button' class='form-control remove btn btn-danger del-btn' style='    height: 35px !important; width :80px !important;' value='@Personnel.Delete' onclick='Remove()'/></td></tr>";
                         $("#tb_Holidays").append(T)
                     }
-
-                
-                
 
                 },
                 error: function ()
@@ -239,3 +234,95 @@
         $('#' + id).val(d);
     }
 </script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

@@ -9,6 +9,7 @@ using HR.Models.Infra;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Public_Holiday_EventsController : BaseController
     {
         // GET: Public_Holiday_Events
@@ -43,7 +44,7 @@ namespace HR.Controllers
                 var te = model.LastOrDefault().ID;
                 count = te + 1;
             }
-            var modell = new Public_Holiday_Events { Code = stru.Structure_Code + count };
+            var modell = new Public_Holiday_Events { Code = stru.Structure_Code + count , Type_Holiday = Type_Holiday.Public_Holiday};
             return View(modell);
 
         }

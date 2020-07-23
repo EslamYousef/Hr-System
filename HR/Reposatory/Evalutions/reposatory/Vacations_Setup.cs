@@ -31,6 +31,19 @@ namespace HR.Reposatory.Evalutions.reposatory
         {
             try
             {
+               
+                if (model.LeavesPayItemsCashDays == null)
+                {
+                    model.LeavesPayItemsCashDays = 0;
+                }
+                if (model.PRWorkDayPayCode == null)
+                {
+                    model.PRWorkDayPayCode = 0;
+                }
+                if (model.EOSCashmandayAmount == null)
+                {
+                    model.EOSCashmandayAmount = 0;
+                }
                 context.Vacations_Setup.Add(model);
                 context.SaveChanges();
                 return true;

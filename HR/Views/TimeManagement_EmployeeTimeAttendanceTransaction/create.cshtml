@@ -1,0 +1,602 @@
+﻿@model HR.Models.Time_management.TimeManagement_EmployeeTimeAttendanceTransaction_Header
+<script src="~/Content/neon/assets/js/jquery-1.11.3.min.js"></script>
+<script>
+    function da() {
+        $("#FD").datepicker({
+            datepicker: true,
+            onshow: function () {
+                $("#FD").setoptions({
+                    minDate: $("#fromD").val()
+                })
+            }
+        });
+    }
+    function setform() {
+        debugger
+        var val1 = $("#fromD").val();
+        $("#FD").val(val1);
+
+    }
+    function setto() {
+        var val1 = $("#toD").val();
+        $("#TD").val(val1);
+    }
+</script>
+
+<script>
+    function CountryName() {
+        debugger
+        $("#LocationCode").val("");
+        $("#ShiftCode").val("");
+        $("#WorkingSystem").val("");
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataforTimeManagement_EmployeeTimeAttendanceTransaction",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#LocationCode").val(result[0].work_location);
+                $("#ShiftCode").val(result[0].Shiftsetup);
+                if (result[0].working_system == 1) {
+                    var Day = "Day";
+                    $("#WorkingSystem").val(Day);
+                }
+                else if (result[0].working_system == 2) {
+                    var Day = "shift -8 Hours";
+                    $("#WorkingSystem").val(Day);
+                }
+                else if (result[0].working_system == 3) {
+                    var Day = "shift -12 Hours";
+                    $("#WorkingSystem").val(Day);
+                }
+                appenttime()
+            },
+            error: function () {
+
+            }
+        });
+    }
+    CountryName();
+    function chk() {
+        debugger
+        $("#LocationCode").val("");
+        $("#ShiftCode").val("");
+        $("#WorkingSystem").val("");
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetDataforTimeManagement_EmployeeTimeAttendanceTransaction",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#LocationCode").val(result[0].work_location);
+                $("#ShiftCode").val(result[0].Shiftsetup);
+                if (result[0].working_system == 1) {
+                    var Day = "Day";
+                    $("#WorkingSystem").val(Day);
+                }
+                else if (result[0].working_system == 2) {
+                    var Day = "shift -8 Hours";
+                    $("#WorkingSystem").val(Day);
+                }
+                else if (result[0].working_system == 3) {
+                    var Day = "shift -12 Hours";
+                    $("#WorkingSystem").val(Day);
+                }
+                appenttime()
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function appenttime() {
+        var year = $("#name1").val();
+        var month = $("#name2").val();
+        var shift = $("#ShiftCode").val();
+        var location = $("#LocationCode").val();
+        var emp = $("#Country").val();
+        var from_time = $("#FT").val();
+        var to_time = $("#TT").val();
+        $("#cars").empty();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetfullmonthforTimeManagement",
+            data: { "year": year, "month": month, "shift": shift, "location": location, "emp": emp },
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    debugger
+                    if (r.Start_time.Hours == 0) {
+                        debugger
+                        var def = 12;
+                        var min = r.Start_time.Minutes;
+                        var sec = r.Start_time.Seconds;
+                        var fromtime = def + ":" + min + ":" + sec + " AM";
+
+                    }
+                    else if (r.Start_time.Hours > 12) {
+                        debugger
+                        var def = r.Start_time.Hours - 12;
+                        var min = r.Start_time.Minutes;
+                        var sec = r.Start_time.Seconds;
+                        var fromtime = def + ":" + min + ":" + sec + " PM";
+
+                    }
+                    else {
+                        debugger
+                        var def = r.Start_time.Hours;
+                        var min = r.Start_time.Minutes;
+                        var sec = r.Start_time.Seconds;
+                        var fromtime = def + ":" + min + ":" + sec + " AM";
+                    }
+
+
+                    if (r.End_time.Hours == 0) {
+
+                        var def = 12;
+                        var min = r.End_time.Minutes;
+                        var sec = r.End_time.Seconds;
+                        var totime = def + ":" + min + ":" + sec + " AM";
+                    }
+                    else if (r.End_time.Hours > 12) {
+
+                        var def = r.End_time.Hours - 12;
+                        var min = r.End_time.Minutes;
+                        var sec = r.End_time.Seconds;
+                        var totime = def + ":" + min + ":" + sec + " PM";
+
+                    }
+                    else {
+
+                        var def = r.End_time.Hours;
+                        var min = r.End_time.Minutes;
+                        var sec = r.End_time.Seconds;
+                        var totime = def + ":" + min + ":" + sec + " AM";
+
+                    }
+                   // if (r.working_system == 1) {
+                   //     var day = "Day";
+                   // }
+                   
+                   //else if (r.working_system == 2) {
+                   //     var shift8 = "shift -8 Hours";
+                   // }
+                   // else if (r.working_system == 3) {
+                   //     var shift12 = "shift -12 Hours";
+                   // }
+                    var day = "Day";
+                    var shift8 = "shift -8 Hours";
+                    var shift12 = "shift -12 Hours";
+                          
+                    var OnDuty = "On Duty";
+                    var OnVacation = "On Vacation";
+                    var OnBusinessTrip = "On Business Trip";
+                    var WeekEnd = "Week End";
+                    var PublicHoliday = "Public Holiday";
+                    var Events = "Events";
+                    var PublicHolidayWeekEnd = "Public Holiday / Week End";
+                    var EventsWeekEnd = "Events / Week End";
+                    var PublicHolidayEventsWeekEnd = "Public Holiday / Events / Week End";
+                    var ExitPermission = "Exit Permission";
+                    var Absence = "Absence";
+                    if (r.EmployeeStat == 4 ) {
+                        var tt = '<tr><td hidden><input class="form-control" value="' + r.ID + '" name="ID" hidden></td><td><input readonly class= "form-control" value = ' + r.AttendDate + ' name="AttendDate"></td><td><input readonly class= "form-control" value = ' + r.week + ' name="week"></td><td><input readonly class= "form-control" value = "' + fromtime + '" name="fromtime"></td><td><input readonly class= "form-control" value = "' + totime + '" name="totime"></td><td><input readonly class= "form-control" value = ' + r.worklocationcode + ' name="worklocationcode"></td><td><input readonly class= "form-control" value = "' + r.worklocationDes + '" name="worklocationDes"></td><td><input readonly class= "form-control" value = ' + r.LocationCode + ' name="LocationCode"></td><td><input readonly class= "form-control" value = "' + r.LocationDescription + '" name="LocationDescription"></td><td><input readonly class= "form-control" value = "" name="tmcode"></td><td><input readonly class= "form-control" value = "" name="tmdes"></td><td><input readonly class= "form-control" value = ' + r.ShiftCode + ' name="ShiftCode"></td><td><input readonly class= "form-control" value = "' + r.ShiftDescription + '" name="ShiftDescription"></td><td><input type="checkbox" class="form-control" name="che" value="' + r.ID + '" ></td><td><input  class="form-control" name="from_time" value="' + from_time + '" readonly="readonly" /></td><td><input  class="form-control timepicker" name="to_time" value="' + to_time + '" readonly="readonly"/></td><td><select class="form-control" style="height: fit-content !important;" name="empsta"><option value = "1" selected> ' + OnDuty + '</option > <option value="2" >' + OnVacation + '</option> <option value="3" >' + OnBusinessTrip + '</option><option value="4" > ' + WeekEnd + '</option > <option value="5" >' + PublicHoliday + '</option> <option value="6" >' + Events + '</option><option value="7" > ' + PublicHolidayWeekEnd + '</option > <option value="8" >' + EventsWeekEnd + '</option> <option value="9" >' + PublicHolidayEventsWeekEnd + '</option><option value="10"> ' + Absence + '</option > <option value="11" >' + OnVacation + '</option> <option value="12" >' + ExitPermission + '</option> </select ></td > <td> <input class="form-control" type="number" min= 0 value = "' + 0 + '" name = "staref" ></td > <td><input class="form-control" type="text" value="" name="activ"></td><td>   <select class="form-control" style="height: fit-content !important;" name="worksys"> <option value="1" selected>' + day + '</option><option value="2" >' + shift8 + '</option> <option value="3" >' + shift12 + '</option> </select></td><td><input class="form-control" type="text" value="" name="comm"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="proqty"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="damqty"></td></tr>'
+                        $("#cars").append(tt)
+                        setto();
+                        setform();
+                    }
+                    else {
+                        var tt = '<tr><td hidden><input class="form-control" value="' + r.ID + '" name="ID" hidden></td><td><input readonly class= "form-control" value = ' + r.AttendDate + ' name="AttendDate"></td><td><input readonly class= "form-control" value = ' + r.week + ' name="week"></td><td><input readonly class= "form-control" value = "' + fromtime + '" name="fromtime"></td><td><input readonly class= "form-control" value = "' + totime + '" name="totime"></td><td><input readonly class= "form-control" value = ' + r.worklocationcode + ' name="worklocationcode"></td><td><input readonly class= "form-control" value = "' + r.worklocationDes + '" name="worklocationDes"></td><td><input readonly class= "form-control" value = ' + r.LocationCode + ' name="LocationCode"></td><td><input readonly class= "form-control" value = "' + r.LocationDescription + '" name="LocationDescription"></td><td><input readonly class= "form-control" value = "" name="tmcode"></td><td><input readonly class= "form-control" value = "" name="tmdes"></td><td><input readonly class= "form-control" value = ' + r.ShiftCode + ' name="ShiftCode"></td><td><input readonly class= "form-control" value = "' + r.ShiftDescription + '" name="ShiftDescription"></td><td><input type="checkbox" class="form-control" name="che"  value="' + r.ID + '"></td><td><input  class="form-control" name="from_time" value="' + from_time + '" readonly="readonly" /></td><td><input  class="form-control timepicker" name="to_time" value="' + to_time + '" readonly="readonly"/></td><td><select class="form-control" style="height: fit-content !important;"  name="empsta"><option value = "1"  > ' + OnDuty + '</option > <option value="2" >' + OnVacation + '</option> <option value="3" >' + OnBusinessTrip + '</option><option value="4" selected > ' + WeekEnd + '</option > <option value="5" >' + PublicHoliday + '</option> <option value="6" >' + Events + '</option><option value="7" > ' + PublicHolidayWeekEnd + '</option > <option value="8" >' + EventsWeekEnd + '</option> <option value="9" >' + PublicHolidayEventsWeekEnd + '</option><option value="10"> ' + Absence + '</option > <option value="11" >' + OnVacation + '</option> <option value="12" >' + ExitPermission + '</option> </select ></td > <td> <input class="form-control" type="number" min= 0 value = "' + 0 + '" name = "staref" ></td > <td><input class="form-control" type="text" value="" name="activ"></td><td>   <select class="form-control" style="height: fit-content !important;" name="worksys"> <option value="1" selected>' + day + '</option><option value="2" >' + shift8 + '</option> <option value="3" >' + shift12 + '</option> </select></td><td><input class="form-control" type="text" value="" name="comm"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="proqty"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="damqty"></td></tr>'
+                        $("#cars").append(tt)
+                        setto();
+                        setform();
+                    }
+                
+                })
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function ApplyDefault() {
+        var year = $("#name1").val();
+        var month = $("#name2").val();
+        var shift = $("#ShiftCode").val();
+        var location = $("#LocationCode").val();
+        var emp = $("#Country").val();
+        var from_time = $("#FT").val();
+        var to_time = $("#TT").val();
+        $("#cars").empty();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetApplyDefaultforTimeManagement",
+            data: { "year": year, "month": month, "shift": shift, "location": location, "emp": emp },
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    debugger
+                    if (r.Start_time.Hours == 0) {
+                        debugger
+                        var def = 12;
+                        var min = r.Start_time.Minutes;
+                        var sec = r.Start_time.Seconds;
+                        var fromtime = def + ":" + min + ":" + sec + " AM";
+
+                    }
+                    else if (r.Start_time.Hours > 12) {
+                        debugger
+                        var def = r.Start_time.Hours - 12;
+                        var min = r.Start_time.Minutes;
+                        var sec = r.Start_time.Seconds;
+                        var fromtime = def + ":" + min + ":" + sec + " PM";
+
+                    }
+                    else {
+                        debugger
+                        var def = r.Start_time.Hours;
+                        var min = r.Start_time.Minutes;
+                        var sec = r.Start_time.Seconds;
+                        var fromtime = def + ":" + min + ":" + sec + " AM";
+                    }
+
+
+                    if (r.End_time.Hours == 0) {
+
+                        var def = 12;
+                        var min = r.End_time.Minutes;
+                        var sec = r.End_time.Seconds;
+                        var totime = def + ":" + min + ":" + sec + " AM";
+                    }
+                    else if (r.End_time.Hours > 12) {
+
+                        var def = r.End_time.Hours - 12;
+                        var min = r.End_time.Minutes;
+                        var sec = r.End_time.Seconds;
+                        var totime = def + ":" + min + ":" + sec + " PM";
+
+                    }
+                    else {
+
+                        var def = r.End_time.Hours;
+                        var min = r.End_time.Minutes;
+                        var sec = r.End_time.Seconds;
+                        var totime = def + ":" + min + ":" + sec + " AM";
+
+                    }
+                    // if (r.working_system == 1) {
+                    //     var day = "Day";
+                    // }
+
+                    //else if (r.working_system == 2) {
+                    //     var shift8 = "shift -8 Hours";
+                    // }
+                    // else if (r.working_system == 3) {
+                    //     var shift12 = "shift -12 Hours";
+                    // }
+                    var day = "Day";
+                    var shift8 = "shift -8 Hours";
+                    var shift12 = "shift -12 Hours";
+
+                    var OnDuty = "On Duty";
+                    var OnVacation = "On Vacation";
+                    var OnBusinessTrip = "On Business Trip";
+                    var WeekEnd = "Week End";
+                    var PublicHoliday = "Public Holiday";
+                    var Events = "Events";
+                    var PublicHolidayWeekEnd = "Public Holiday / Week End";
+                    var EventsWeekEnd = "Events / Week End";
+                    var PublicHolidayEventsWeekEnd = "Public Holiday / Events / Week End";
+                    var ExitPermission = "Exit Permission";
+                    var Absence = "Absence";
+                    if (r.EmployeeStat == 4) {
+                        var tt = '<tr><td hidden><input class="form-control" value="' + r.ID + '" name="ID" hidden></td><td><input readonly class= "form-control" value = ' + r.AttendDate + ' name="AttendDate"></td><td><input readonly class= "form-control" value = ' + r.week + ' name="week"></td><td><input readonly class= "form-control" value = "' + fromtime + '" name="fromtime"></td><td><input readonly class= "form-control" value = "' + totime + '" name="totime"></td><td><input readonly class= "form-control" value = ' + r.worklocationcode + ' name="worklocationcode"></td><td><input readonly class= "form-control" value = "' + r.worklocationDes + '" name="worklocationDes"></td><td><input readonly class= "form-control" value = ' + r.LocationCode + ' name="LocationCode"></td><td><input readonly class= "form-control" value = "' + r.LocationDescription + '" name="LocationDescription"></td><td><input readonly class= "form-control" value = "" name="tmcode"></td><td><input readonly class= "form-control" value = "" name="tmdes"></td><td><input readonly class= "form-control" value = ' + r.ShiftCode + ' name="ShiftCode"></td><td><input readonly class= "form-control" value = "' + r.ShiftDescription + '" name="ShiftDescription"></td><td><input type="checkbox" class="form-control" name="che" value="' + r.ID + '" ></td><td><input  class="form-control" name="from_time" value="' + from_time + '" readonly="readonly" /></td><td><input  class="form-control timepicker" name="to_time" value="' + to_time + '" readonly="readonly"/></td><td><select class="form-control" style="height: fit-content !important;" name="empsta"><option value = "1" selected> ' + OnDuty + '</option > <option value="2" >' + OnVacation + '</option> <option value="3" >' + OnBusinessTrip + '</option><option value="4" > ' + WeekEnd + '</option > <option value="5" >' + PublicHoliday + '</option> <option value="6" >' + Events + '</option><option value="7" > ' + PublicHolidayWeekEnd + '</option > <option value="8" >' + EventsWeekEnd + '</option> <option value="9" >' + PublicHolidayEventsWeekEnd + '</option><option value="10"> ' + Absence + '</option > <option value="11" >' + OnVacation + '</option> <option value="12" >' + ExitPermission + '</option> </select ></td > <td> <input class="form-control" type="number" min= 0 value = "' + 0 + '" name = "staref" ></td > <td><input class="form-control" type="text" value="" name="activ"></td><td>   <select class="form-control" style="height: fit-content !important;" name="worksys"> <option value="1" selected>' + day + '</option><option value="2" >' + shift8 + '</option> <option value="3" >' + shift12 + '</option> </select></td><td><input class="form-control" type="text" value="" name="comm"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="proqty"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="damqty"></td></tr>'
+                        $("#cars").append(tt)
+                        setto();
+                        setform();
+                    }
+                    else {
+                        var tt = '<tr><td hidden><input class="form-control" value="' + r.ID + '" name="ID" hidden></td><td><input readonly class= "form-control" value = ' + r.AttendDate + ' name="AttendDate"></td><td><input readonly class= "form-control" value = ' + r.week + ' name="week"></td><td><input readonly class= "form-control" value = "' + fromtime + '" name="fromtime"></td><td><input readonly class= "form-control" value = "' + totime + '" name="totime"></td><td><input readonly class= "form-control" value = ' + r.worklocationcode + ' name="worklocationcode"></td><td><input readonly class= "form-control" value = "' + r.worklocationDes + '" name="worklocationDes"></td><td><input readonly class= "form-control" value = ' + r.LocationCode + ' name="LocationCode"></td><td><input readonly class= "form-control" value = "' + r.LocationDescription + '" name="LocationDescription"></td><td><input readonly class= "form-control" value = "" name="tmcode"></td><td><input readonly class= "form-control" value = "" name="tmdes"></td><td><input readonly class= "form-control" value = ' + r.ShiftCode + ' name="ShiftCode"></td><td><input readonly class= "form-control" value = "' + r.ShiftDescription + '" name="ShiftDescription"></td><td><input type="checkbox" class="form-control" name="che"  value="' + r.ID + '"></td><td><input  class="form-control" name="from_time" value="' + from_time + '" readonly="readonly" /></td><td><input  class="form-control timepicker" name="to_time" value="' + to_time + '" readonly="readonly"/></td><td><select class="form-control" style="height: fit-content !important;"  name="empsta"><option value = "1"  > ' + OnDuty + '</option > <option value="2" >' + OnVacation + '</option> <option value="3" >' + OnBusinessTrip + '</option><option value="4" selected > ' + WeekEnd + '</option > <option value="5" >' + PublicHoliday + '</option> <option value="6" >' + Events + '</option><option value="7" > ' + PublicHolidayWeekEnd + '</option > <option value="8" >' + EventsWeekEnd + '</option> <option value="9" >' + PublicHolidayEventsWeekEnd + '</option><option value="10"> ' + Absence + '</option > <option value="11" >' + OnVacation + '</option> <option value="12" >' + ExitPermission + '</option> </select ></td > <td> <input class="form-control" type="number" min= 0 value = "' + 0 + '" name = "staref" ></td > <td><input class="form-control" type="text" value="" name="activ"></td><td>   <select class="form-control" style="height: fit-content !important;" name="worksys"> <option value="1" selected>' + day + '</option><option value="2" >' + shift8 + '</option> <option value="3" >' + shift12 + '</option> </select></td><td><input class="form-control" type="text" value="" name="comm"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="proqty"></td><td><input class="form-control" type="number" min= 0 value = "' + 0 + '" name="damqty"></td></tr>'
+                        $("#cars").append(tt)
+                        setto();
+                        setform();
+                    }
+
+                })
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+    //  Layout = "~/Views/Shared/View.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("Create", "TimeManagement_EmployeeTimeAttendanceTransaction", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "TimeManagement_EmployeeTimeAttendanceTransaction")" class="create-btn">@pers_2.new_</a></div>
+                <div>
+                    <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","TimeManagement_EmployeeTimeAttendanceTransaction")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                </div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "TimeManagement_EmployeeTimeAttendanceTransaction")" class="create-btn"> @pers_2.Back</a></div>
+
+                <div><i class="far fa-save"></i> <button type="submit" id="btnSubmit" name="Command" value="Submit" class="create-btn" />@Payroll.Viewdetail</div>
+            </div>
+            <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Payroll.CreatePaymentSettlementTransactionEntry
+                </h1>
+            </section>
+            @Html.AntiForgeryToken()
+            @*<input name="ID_item" value="" hidden />*@
+            <input name="codeid" value="" hidden />
+            <input name="SalaryDes" value="" hidden />
+            <input name="TypeE" value="" hidden />
+            <input name="ValueType" value="" hidden />
+            <input name="che" value="" hidden />
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+              
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Year</label>
+                    @Html.EditorFor(model => model.EffectiveYear, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, id = "name1" } })
+                    @Html.ValidationMessageFor(model => model.EffectiveYear, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Month</label>
+                    @Html.EditorFor(model => model.EffectiveMonth, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, id = "name2" } })
+                    @Html.ValidationMessageFor(model => model.EffectiveMonth, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Payroll.Employeeid</label>
+                    @Html.DropDownListFor(m => m.Employee_Code, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @class = "select2", @onchange = "CountryName()", id = "Country"  })
+                    @Html.ValidationMessageFor(model => model.Employee_Code, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.Location </label>
+                    @Html.EditorFor(model => model.Location_Code, new { htmlAttributes = new { @class = "form-control", id = "LocationCode", @readonly = "readonly", name = "LocationCode" } })
+                    @Html.ValidationMessageFor(model => model.Location_Code, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.Workingsystem </label>
+                    @Html.EditorFor(model => model.Working_System, new { htmlAttributes = new { @class = "form-control", id = "WorkingSystem", @readonly = "readonly", name = "WorkingSystem" } })
+                    @Html.ValidationMessageFor(model => model.Working_System, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label> @pers_2.shiftsetup </label>
+                    @Html.EditorFor(model => model.Shift_Code, new { htmlAttributes = new { @class = "form-control", id = "ShiftCode", @readonly = "readonly", name = "ShiftCode" } })
+                    @Html.ValidationMessageFor(model => model.Shift_Code, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <input type="button" value="@Personnel.ApplyDefaultWorkingSystem" id="btn" onclick="ApplyDefault()" />
+                </div>
+                <div class="col-md-4">
+                    <input type="button" value="@Personnel.Addfullmonth" id="btn" onclick="appenttime()" />
+                </div>
+
+
+                <div class="col-md-4" hidden>
+                    <label>
+                        <span> @pers_2.fromtime </span>
+                    </label>
+                    <input class="form-control timepicker" id="FT" data-template="dropdown" data-show-seconds="true" data-default-time="11:25 AM" data-show-meridian="true" data-minute-step="1" hidden />
+                </div>
+                <div class="col-md-4" hidden>
+                    <label>
+                        <span> @pers_2.totime </span>
+                    </label>
+                    <input class="form-control timepicker" id="TT" data-template="dropdown" data-show-seconds="true" data-default-time="11:25 AM" data-show-meridian="true" data-minute-step="1" hidden />
+                </div>
+            </div>
+               
+                <div class="form-group">
+                    <table id="categories" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <td hidden></td>
+                                <td class="col-md-1">
+                                    @Personnel.AttendanceDate
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.AttendanceDay
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.TimeIn
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.TimeOut
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.DayStatusCode
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.DayStatusDescription
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.LocationCode
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.LocationDescription
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.TMLocationCode
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.TMLocationDescription
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.ShiftCode
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.ShiftDescription
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.IsOfficial
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.TimeInAfterCalling
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.TimeOutAfterCalling
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.EmployeeStatus
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.StatusRefrence
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.Activity
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.Workingsystem
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.Comments
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.ProductivityQty
+                                </td>
+                                <td class="col-md-1">
+                                    @Personnel.DamagedQty
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody id="cars">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+@section scripts{}
+
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

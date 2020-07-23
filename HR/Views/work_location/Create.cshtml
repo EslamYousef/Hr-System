@@ -6,6 +6,25 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+<script>
+      function CountryName() {
+    
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetShiftdaystatus",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+            
+            },
+            error: function () {
+            
+            }
+        });
+    }
+    CountryName();
+
+</script>
 <div class="content-wrapper">
 
    
@@ -47,38 +66,43 @@
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                             </div>
-                       
+
                             <div class="col-md-4">
 
                                 <label style="color:red">@organ.name</label>
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
-                          
-                      
+
+
                             <div class="col-md-4">
 
                                 <label>@organ.description</label>
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
-                       
-                            <div class="col-md-4">
 
+                            <div class="col-md-4">
                                 <label>@organ.Locationname</label>
                                 @Html.EditorFor(model => model.Location_name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Location_name, "", new { @class = "text-danger" })
                             </div>
+                            <div class="col-md-4">
+                                <label>@Payroll.Employeeid</label>
+                                @Html.DropDownListFor(m => m.Defaultdaystatuscode, new SelectList(ViewBag.Shiftdaystatus, "ID", "Code"), "", new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                                @Html.ValidationMessageFor(model => model.Defaultdaystatuscode, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                        @*<div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" name="action"  value="Create" class="btn btn-success" />
-                                    <a href="@Url.Action("index","Country")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Back</a>
-
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label>@Payroll.Employeeid</label>
+                                    @Html.DropDownListFor(m => m.Absencedaystatus, new SelectList(ViewBag.Shiftdaystatus, "ID", "Code"), "", new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                                    @Html.ValidationMessageFor(model => model.Absencedaystatus, "", new { @class = "text-danger" })
                                 </div>
-                            </di v>*@
-                       
-                    </div>
+                            </div>
+
+
+                        </div>
                 }
 
             </div>

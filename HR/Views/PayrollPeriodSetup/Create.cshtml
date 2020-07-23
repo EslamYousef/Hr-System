@@ -7,12 +7,34 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+    <script>
+       $(document).ready(function () {
+           PayrollPeriod()
+       });
+
+    function PayrollPeriod() {
+        debugger
+        var drop = $("#dropdown").val();
+
+        debugger
+        if (drop == 1)
+        {
+            $("#num").val("30");
+            $("#start").val("1");
+            $("#end").val("31");
+        }
+        else
+        {
+            $("#num").val("30");
+            $("#start").val("25");
+            $("#end").val("26");
+        }
+
+    }
+    </script>
 
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
-
-    
-
     <!-- Main content -->
     <section class="content">
 
@@ -86,7 +108,7 @@
                                 @Payroll.PeriodType
                             </label>
                             <div class="col-md-4">
-                                <select name="Type" class="select2">
+                                <select name="Type" class="select2" id="dropdown" onchange="PayrollPeriod()">
                                     <option value="1">Full month</option>
                                     <option value="2">Cut of month</option>
                                 </select>
@@ -97,7 +119,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Payroll.NumberOfDays</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.NumberOfDays, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.EditorFor(model => model.NumberOfDays, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @max = 31, @id = "num" } })
                                 @Html.ValidationMessageFor(model => model.NumberOfDays, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -105,7 +127,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Payroll.StartPayMonthFromDay</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.StartPayMonthFromDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.EditorFor(model => model.StartPayMonthFromDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @max = 31, @id = "start" } })
                                 @Html.ValidationMessageFor(model => model.StartPayMonthFromDay, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -113,7 +135,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Payroll.EndPayMonthFromDay</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EndPayMonthToDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.EditorFor(model => model.EndPayMonthToDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @max = 31, @id = "end" } })
                                 @Html.ValidationMessageFor(model => model.EndPayMonthToDay, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -122,7 +144,7 @@
 
                         <div class="form-group" hidden>
                             <div class="col-md-offset-2 col-md-10">
-                                <a href="@Url.Action("index","PayrollPeriodSetup")" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o"></i>@Basic.Back</a>
+                                <a href="@Url.Action("index","PayrollPeriodSetup")" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>@Basic.Back</a>
                                 <input type="submit" value=@Basic.Create class="btn btn-success" />
 
                             </div>
@@ -132,7 +154,7 @@
 
             </div>
 
-                </div>
+        </div>
 
     </section>
 </div>
@@ -229,5 +251,4 @@
         width: 20% !important;
         margin-bottom: 15px;
     }
-
 </style>

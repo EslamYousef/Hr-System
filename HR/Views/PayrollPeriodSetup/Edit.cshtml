@@ -7,7 +7,28 @@
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 
+<script>
 
+    function PayrollPeriod() {
+        debugger
+        var drop = $("#dropdown").val();
+
+        debugger
+        if (drop == 1)
+        {
+            $("#num").val("30");
+            $("#start").val("1");
+            $("#end").val("31");
+        }
+        else
+        {
+            $("#num").val("30");
+            $("#start").val("25");
+            $("#end").val("26");
+        }
+
+    }
+</script>
 @Scripts.Render("~/bundles/jqueryval")
 <div class="content-wrapper">
 
@@ -79,20 +100,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2"style="color:red">
+                            <label class="control-label col-md-2" style="color:red">
                                 @Payroll.PeriodType
                             </label>
                             <div class="col-md-4">
                                 @if (Model.PeriodType == 1)
                                 {
-                                    <select name="Type" class="select2">
+                                    <select name="Type" class="select2" id="dropdown" onchange="PayrollPeriod()">
                                         <option value="1" selected>Full month</option>
                                         <option value="2">Cut of month</option>
                                     </select>
                                 }
                                 else
                                 {
-                                    <select name="Type" class="select2">
+                                    <select name="Type" class="select2" id="dropdown" onchange="PayrollPeriod()">
                                         <option value="1">Full month</option>
                                         <option value="2" selected>Cut of month</option>
                                     </select>
@@ -103,7 +124,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Payroll.NumberOfDays</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.NumberOfDays, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.EditorFor(model => model.NumberOfDays, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @max = 31, @id = "num" } })
                                 @Html.ValidationMessageFor(model => model.NumberOfDays, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -111,7 +132,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Payroll.StartPayMonthFromDay</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.StartPayMonthFromDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.EditorFor(model => model.StartPayMonthFromDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @max = 31, @id = "start" } })
                                 @Html.ValidationMessageFor(model => model.StartPayMonthFromDay, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -119,7 +140,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">@Payroll.EndPayMonthFromDay</label>
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.EndPayMonthToDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1 } })
+                                @Html.EditorFor(model => model.EndPayMonthToDay, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = 1, @max = 31, @id = "end" } })
                                 @Html.ValidationMessageFor(model => model.EndPayMonthToDay, "", new { @class = "text-danger" })
                             </div>
                         </div>

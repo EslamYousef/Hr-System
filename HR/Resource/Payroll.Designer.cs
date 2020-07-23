@@ -1231,6 +1231,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manaual Payment Settelment.
+        /// </summary>
+        public static string ManaualPaymentSettelment {
+            get {
+                return ResourceManager.GetString("ManaualPaymentSettelment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual Payment Transaction Entry.
+        /// </summary>
+        public static string ManualPaymentTransactionEntry {
+            get {
+                return ResourceManager.GetString("ManualPaymentTransactionEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manual payment type.
         /// </summary>
         public static string Manualpaymenttype {

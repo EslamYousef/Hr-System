@@ -13,7 +13,6 @@ namespace HR.Models.TransactionsPayroll
     {
         [Key]
         public int ID { get; set; }
-       
         public string TransactionNumber { get; set; }
         public string ExtendedFields_Code { get; set; }
         public string Detail_Code { get; set; }

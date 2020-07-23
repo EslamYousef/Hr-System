@@ -170,15 +170,21 @@
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-
+        <div class="form-group">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-6">
+                <h1>@Payroll.ManualPaymentTransactionEntry</h1>
+            </div>
+        </div>
         <div class="box">
             <div class="box-header">
                 <p class="lead">
                     <a href="@Url.Action("Create", "ManualPaymentTransactionEntry")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@Payroll.AddNewManualPaymentTypes</a>
                 </p>
             </div>
-            </div>
-            <!-- /.box-header -->
+        </div>
+        <!-- /.box-header -->
         <div class="box-body">
             @if (TempData["Message"] != null)
             {
@@ -246,9 +252,10 @@
                                 <td>@item.ManualPaymentTransactionEntry.check_status</td>
                                 <td>
 
-                                    @if (item.ManualPaymentTransactionEntry.check_status != HR.Models.Infra.check_status.Approved && item.ManualPaymentTransactionEntry.check_status != HR.Models.Infra.check_status.Rejected)
+                                    @*@if (item.ManualPaymentTransactionEntry.check_status != HR.Models.Infra.check_status.Approved && item.ManualPaymentTransactionEntry.check_status != HR.Models.Infra.check_status.Rejected)
                                     {<a href="@Url.Action("Edit", "ManualPaymentTransactionEntry", new { id = item.ManualPaymentTransactionEntry.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
-                                }
+                                }*@
+                                    <a href="@Url.Action("Edit", "ManualPaymentTransactionEntry", new { id = item.ManualPaymentTransactionEntry.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                     <a href="@Url.Action("Delete", "ManualPaymentTransactionEntry" , new {id=item.ManualPaymentTransactionEntry.ID})" class="create-btn"><i class="far fa-trash-alt"></i> @pers_2.delete</a>
                                     <a href="@Url.Action("status", "ManualPaymentTransactionEntry" , new {id=item.ManualPaymentTransactionEntry.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
 
@@ -261,7 +268,7 @@
                 </table>
             </div>
         </div>
-         
+
 
     </section>
 

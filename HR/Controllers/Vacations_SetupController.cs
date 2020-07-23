@@ -7,9 +7,11 @@ using System.Web.Mvc;
 using HR.Reposatory;
 using HR.Reposatory.Evalutions.reposatory;
 using HR.Models;
+using System.Data.Entity;
 
 namespace HR.Controllers
 {
+    [Authorize]
     public class Vacations_SetupController : BaseController
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -43,7 +45,7 @@ namespace HR.Controllers
             {
                 var stru = reposatorystructure.find(Models.Infra.ChModels.Personnel).Structure_Code;
                 var list = model.GetAll();
-                var modeles = new HR.Models.Vacations_Setup();
+                var modeles = new HR.Models.Vacations_Setup { LeavesType = Models.Infra.LeavesType.Annual};
                 if (list.Count()==0)
                 {
                     modeles.LeaveTypeCode = stru+ "1";
@@ -53,6 +55,7 @@ namespace HR.Controllers
                 modeles.LeaveTypeCode= stru+ (list.LastOrDefault().ID + 1).ToString();
                 }
                 ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.salary_code = db.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
                 return View(modeles);
             }
             catch (Exception e)
@@ -68,7 +71,8 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
-
+                ViewBag.salary_code = db.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
+               
                 if (ModelState.IsValid)
                 {
                     if (Model.LeavesType == 0)
@@ -76,7 +80,7 @@ namespace HR.Controllers
                         ModelState.AddModelError("", "Please Choose from LeavesType");
                         return View(Model);
                     }
-
+                    
                     var flag = model.AddOne(Model);
                     if (flag)
                     {
@@ -105,6 +109,8 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.salary_code = db.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
+
                 var modeled = model.Find(id);
                 if (modeled != null) { return View(modeled); }
                 else
@@ -126,6 +132,7 @@ namespace HR.Controllers
             try
             {
                 ViewBag.Shift_day_status_setup = db.Shift_day_status_setup.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Description + ']', ID = m.ID });
+                ViewBag.salary_code = db.salary_code.ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
 
                 if (ModelState.IsValid)
                 {

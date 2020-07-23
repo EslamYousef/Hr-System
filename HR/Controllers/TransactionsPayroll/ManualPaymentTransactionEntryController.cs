@@ -57,7 +57,7 @@ namespace HR.Controllers.TransactionsPayroll
                     new_record.TransactionNumber = stru + (model_.LastOrDefault().ID + 1).ToString();
                 }
 
-                var model = new HeaderManual { ManualPaymentTransactionEntry = new_record, Payment_Type_Source_Document =  Payment_Type_Source_Document.Manual, check_status = check_status.Created };
+                var model = new HeaderManual { ManualPaymentTransactionEntry = new_record, Payment_Type_Source_Document = Payment_Type_Source_Document.Manual, check_status = check_status.Created };
 
                 return View(model);
             }
@@ -178,6 +178,13 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
                 ViewBag.ManualPaymentTypes_Header = dbcontext.ManualPaymentTypes_Header.ToList().Select(m => new { Code = m.PaymentTypeCode + "-[" + m.PaymentTypeDesc + ']', ID = m.ID });
+                var H_ = dbcontext.ManualPaymentTransactionEntry.FirstOrDefault(m => m.ID == model.Header.ManualPaymentTransactionEntry.ID);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statID);
+                if (sta.statu == Models.Infra.check_status.Approved || sta.statu == Models.Infra.check_status.Rejected || sta.statu == Models.Infra.check_status.Closed || sta.statu == Models.Infra.check_status.Recervied || sta.statu == Models.Infra.check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 ///update////
                 var updated_model = dbcontext.ManualPaymentTransactionEntry.FirstOrDefault(m => m.ID == model.Header.ManualPaymentTransactionEntry.ID);
 
@@ -250,24 +257,46 @@ namespace HR.Controllers.TransactionsPayroll
         [ActionName("delete")]
         public ActionResult delete_method(int id)
         {
-            var model = dbcontext.ManualPaymentTransactionEntry.FirstOrDefault(m => m.ID == id);
-            var status = model.status;
+            //var model = dbcontext.ManualPaymentTransactionEntry.FirstOrDefault(m => m.ID == id);
+            //var status = model.status;
+
+            //try
+            //{
+            //    dbcontext.status.Remove(status);
+            //    dbcontext.SaveChanges();
+            //    var details = dbcontext.ManualPaymentTransactionEntry_ExtendedFieldsDetail.Where(m => m.TransactionNumber == model.ID.ToString());
+            //    dbcontext.ManualPaymentTransactionEntry_ExtendedFieldsDetail.RemoveRange(details);
+            //    dbcontext.SaveChanges();
+
+            //    dbcontext.ManualPaymentTransactionEntry.Remove(model);
+            //    dbcontext.SaveChanges();
+            //    return RedirectToAction("index");
+            //}
+             var header = dbcontext.ManualPaymentTransactionEntry.FirstOrDefault(m => m.ID == id);
+            var H_ = dbcontext.ManualPaymentTransactionEntry.FirstOrDefault(m => m.ID == header.ID);
+            var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statID);
+            if (sta.statu == Models.Infra.check_status.Approved || sta.statu == Models.Infra.check_status.Rejected || sta.statu == Models.Infra.check_status.Closed || sta.statu == Models.Infra.check_status.Recervied || sta.statu == Models.Infra.check_status.Canceled)
+            {
+                TempData["message"] = HR.Resource.training.status_message;
+                return RedirectToAction("index");
+            }
+            var details = dbcontext.ManualPaymentTransactionEntry_ExtendedFieldsDetail.Where(m => m.TransactionNumber == header.ID.ToString()).ToList();
+            var status = dbcontext.status.FirstOrDefault(m => m.ID == header.statID);
 
             try
             {
+                dbcontext.ManualPaymentTransactionEntry.Remove(header);
+                if (details.Count > 0)
+                    dbcontext.ManualPaymentTransactionEntry_ExtendedFieldsDetail.RemoveRange(details);
+               
                 dbcontext.status.Remove(status);
-                dbcontext.SaveChanges();
-                var details = dbcontext.ManualPaymentTransactionEntry_ExtendedFieldsDetail.Where(m => m.TransactionNumber == model.ID.ToString());
-                dbcontext.ManualPaymentTransactionEntry_ExtendedFieldsDetail.RemoveRange(details);
-                dbcontext.SaveChanges();
 
-                dbcontext.ManualPaymentTransactionEntry.Remove(model);
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
             catch (Exception)
             {
-                return View(model);
+                return View(header);
             }
         }
         public ActionResult Details(int id, string Trans, string Emp, string Man, string Source)
@@ -450,18 +479,19 @@ namespace HR.Controllers.TransactionsPayroll
                 }
                 foreach (var item2 in list_emp)
                 {
-                    var ManualPaymentTransactionEntry = dbcontext.ManualPaymentTransactionEntry.ToList();
+                    ManualPaymentTransactionEntry new_Record = new ManualPaymentTransactionEntry();
+
+                    var model_ = dbcontext.ManualPaymentTransactionEntry.ToList();
                     var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Payroll).Structure_Code;
-                    if (ManualPaymentTransactionEntry.Count() == 0)
+                    if (model_.Count() == 0)
                     {
-                        model.ManualPaymentTransactionEntry.TransactionNumber = stru + "1";
+                        new_Record.TransactionNumber = stru + "1";
                     }
                     else
                     {
-                        var te = ManualPaymentTransactionEntry.LastOrDefault();
-                        model.ManualPaymentTransactionEntry.TransactionNumber = stru + (te.ID + 1).ToString();
+                        new_Record.TransactionNumber = stru + (model_.LastOrDefault().ID + 1).ToString();
                     }
-                    var new_Record = model.ManualPaymentTransactionEntry;
+
                     new_Record.Employee_Code = item2.ID.ToString();
                     new_Record.ManualPaymentType = model.ManualPaymentTransactionEntry.ManualPaymentType;
                     new_Record.TransactionDate = model.ManualPaymentTransactionEntry.TransactionDate;
@@ -491,7 +521,7 @@ namespace HR.Controllers.TransactionsPayroll
 
 
 
-             
+
                 ////////////////
                 return RedirectToAction("index");
             }
@@ -509,7 +539,18 @@ namespace HR.Controllers.TransactionsPayroll
                 var st = dbcontext.status.FirstOrDefault(m => m.ID == model.statID);
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = st, empid = ID };
-
+                if (st.approved_by == null)
+                    st.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.Rejected_by == null)
+                    st.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.return_to_reviewby == null)
+                    st.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.cancaled_by == null)
+                    st.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.closed_by == null)
+                    st.closed_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.Recervied_by == null)
+                    st.Recervied_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 return View(my_model);
             }
             catch (Exception e)
@@ -526,6 +567,7 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 sta.approved_by = User.Identity.GetUserName();
                 sta.approved_bydate = model.status.approved_bydate;
+                sta.statu = Models.Infra.check_status.Approved;
                 record.check_status = HR.Models.Infra.check_status.Approved;
                 record.name_state = nameof(check_status.Approved);
                 record.TransactionStatus = check_status.Approved.GetHashCode();
@@ -538,6 +580,7 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 sta.Rejected_by = User.Identity.GetUserName();
                 sta.Rejected_bydate = model.status.Rejected_bydate;
+                sta.statu = Models.Infra.check_status.Rejected;
                 record.check_status = HR.Models.Infra.check_status.Rejected;
                 record.name_state = nameof(check_status.Rejected);
                 record.TransactionStatus = check_status.Rejected.GetHashCode();
@@ -549,15 +592,50 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 sta.return_to_reviewby = User.Identity.GetUserName();
                 sta.return_to_reviewdate = model.status.return_to_reviewdate;
+                sta.statu = Models.Infra.check_status.Return_To_Review;
                 record.check_status = HR.Models.Infra.check_status.Return_To_Review;
                 record.name_state = nameof(check_status.Return_To_Review);
                 record.TransactionStatus = check_status.Return_To_Review.GetHashCode();
                 record.ReportAsReadyBy = User.Identity.Name;
                 record.ReportAsReadyDate = DateTime.Now.Date;
-
                 dbcontext.SaveChanges();
             }
+            else if (model.check_status == HR.Models.Infra.check_status.Closed)
+            {
+                sta.closed_by = User.Identity.GetUserName();
+                sta.closed_bydate = model.status.closed_bydate;
+                sta.statu = HR.Models.Infra.check_status.Closed;
+                dbcontext.SaveChanges();
+                record.check_status = HR.Models.Infra.check_status.Closed;
+                record.name_state = nameof(check_status.Closed);
+                record.TransactionStatus = check_status.Closed.GetHashCode();
+                dbcontext.SaveChanges();
 
+            }
+            else if (model.check_status == HR.Models.Infra.check_status.Canceled)
+            {
+                sta.cancaled_by = User.Identity.GetUserName();
+                sta.cancaled_bydate = model.status.cancaled_bydate;
+                sta.statu = Models.Infra.check_status.Canceled;
+                dbcontext.SaveChanges();
+                record.check_status = HR.Models.Infra.check_status.Canceled;
+                record.name_state = nameof(check_status.Canceled);
+                record.TransactionStatus = check_status.Canceled.GetHashCode();
+                record.CanceledBy = User.Identity.Name;
+                record.CanceledDate = DateTime.Now.Date;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == HR.Models.Infra.check_status.Recervied)
+            {
+                sta.Recervied_by = User.Identity.GetUserName();
+                sta.Recervied_bydate = model.status.Recervied_bydate;
+                sta.statu = Models.Infra.check_status.Recervied;
+                dbcontext.SaveChanges();
+                record.check_status = HR.Models.Infra.check_status.Recervied;
+                record.name_state = nameof(check_status.Recervied);
+                record.TransactionStatus = check_status.Recervied.GetHashCode();
+                dbcontext.SaveChanges();
+            }
             return RedirectToAction("index");
         }
         public JsonResult Getalll(List<string> c)
@@ -586,7 +664,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return Json(false);
             }
         }
-        public JsonResult Getone(DateTime from, DateTime to, List<string> status , string types)
+        public JsonResult Getone(DateTime from, DateTime to, List<string> status, string types)
         {
             try
             {
@@ -636,7 +714,7 @@ namespace HR.Controllers.TransactionsPayroll
                                 };
                     return Json(model, JsonRequestBehavior.AllowGet);
                 }
-               else if (status[0] != "all" && types == "1")
+                else if (status[0] != "all" && types == "1")
                 {
                     var req = dbcontext.ManualPaymentTransactionEntry.Where(m => DateTime.Compare(m.EffectiveDate, from) >= 0 && DateTime.Compare(m.EffectiveDate, to) <= 0).ToList();
                     var Employee_Profile = dbcontext.Employee_Profile.ToList();
@@ -667,7 +745,7 @@ namespace HR.Controllers.TransactionsPayroll
                     {
                         re1.AddRange(req.Where(m => m.check_status == item).ToList());
                     }
-                   
+
                     var model = from a in Employee_Profile
                                 join b in re1 on a.ID equals int.Parse(b.Employee_Code)
                                 join s in ManualPaymentTypes_Header on b.ManualPaymentType equals s.ID.ToString()

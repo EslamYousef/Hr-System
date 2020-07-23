@@ -5,6 +5,9 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HR.Models.Infra;
+using HR.Controllers;
+using HR.Models.Time_management;
+
 namespace HR.Models
 {
     public class Position_Information
@@ -67,6 +70,8 @@ namespace HR.Models
         public virtual Position_Transaction_Information Position_Transaction_Information { get; set; }
         public virtual Employee_Profile Employee_Profile { get; set; }
 
+        public string Shift_setupId { get; set; }
+        public virtual Shift_setup Shift_setup { get; set; }
     }
 
 }

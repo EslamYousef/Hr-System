@@ -17,7 +17,10 @@ namespace HR.Models
         [StringLength(50)]
         [Index(IsUnique = true)]
         public string LeaveTypeCode { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
         [Display(Name = "Leave Type Name(English)")]
+        [StringLength(50)]
+        [Index(IsUnique = true)]
         public string LeaveTypeNameEnglish { get; set; }
         [Display(Name = "Leave Type Name (Arabic)")]
         public string LeaveTypeNameArabic { get; set; }
@@ -48,6 +51,10 @@ namespace HR.Models
         public int ShiftdaystatussetupId { get; set; }
         public virtual Shift_day_status_setup Shift_day_status_setup { get; set; }
 
-    
+        public int TestFormula { get; set; } = 0;
+        public int? LeavesPayItemsCashDays { get; set; }
+        public int? PRWorkDayPayCode { get; set; }
+        public int? EOSCashmandayAmount { get; set; }
+          
     }
 }

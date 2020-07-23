@@ -176,7 +176,7 @@ namespace HR.Controllers.TransactionsPayroll
         {
             try
             {
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
                 DateTime Statis = Convert.ToDateTime("1/1/1900");
@@ -207,7 +207,7 @@ namespace HR.Controllers.TransactionsPayroll
             try
             {
 
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
 
@@ -305,7 +305,7 @@ namespace HR.Controllers.TransactionsPayroll
             try
             {
                 var ID = int.Parse(id);
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.Code });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.SalaryCodeID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
                 var x = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(a => a.ID == ID).SalaryCodeID;
@@ -328,9 +328,16 @@ namespace HR.Controllers.TransactionsPayroll
         {
             try
             {
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.Code });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.SalaryCodeID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
+                var H_ = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.ID == model.Header.Employee_Payroll_Transactions.ID);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statID);
+                if (sta.statu == Models.Infra.check_status.Approved || sta.statu == Models.Infra.check_status.Rejected || sta.statu == Models.Infra.check_status.Closed || sta.statu == Models.Infra.check_status.Recervied || sta.statu == Models.Infra.check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 ///update////
                 var new_Record = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.ID == model.Header.Employee_Payroll_Transactions.ID);
 
@@ -424,25 +431,31 @@ namespace HR.Controllers.TransactionsPayroll
         [ActionName("delete")]
         public ActionResult delete_method(int id)
         {
-            var model = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.ID == id);
-            var status = model.status;
+            var header = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.ID == id);
+            var H_ = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.ID == header.ID);
+            var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statID);
+            if (sta.statu == Models.Infra.check_status.Approved || sta.statu == Models.Infra.check_status.Rejected || sta.statu == Models.Infra.check_status.Closed || sta.statu == Models.Infra.check_status.Recervied || sta.statu == Models.Infra.check_status.Canceled)
+            {
+                TempData["message"] = HR.Resource.training.status_message;
+                return RedirectToAction("index");
+            }
+            var details = dbcontext.Employee_Payroll_Transactions_ExtendedFieldsDetail.Where(m => m.TransactionNumber == header.ID.ToString()).ToList();
+            var status = dbcontext.status.FirstOrDefault(m => m.ID == header.statID);
 
             try
             {
-                var details = dbcontext.Employee_Payroll_Transactions_ExtendedFieldsDetail.Where(m => m.TransactionNumber == model.TransactionNumber);
-                dbcontext.Employee_Payroll_Transactions_ExtendedFieldsDetail.RemoveRange(details);
-                dbcontext.SaveChanges();
+                dbcontext.Employee_Payroll_Transactions.Remove(header);
+                if (details.Count > 0)
+                    dbcontext.Employee_Payroll_Transactions_ExtendedFieldsDetail.RemoveRange(details);
 
                 dbcontext.status.Remove(status);
-                dbcontext.SaveChanges();
 
-                dbcontext.Employee_Payroll_Transactions.Remove(model);
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }
             catch (Exception)
             {
-                return View(model);
+                return View(header);
             }
         }
         public ActionResult status(string id)
@@ -454,15 +467,18 @@ namespace HR.Controllers.TransactionsPayroll
                 var st = dbcontext.status.FirstOrDefault(m => m.ID == model.statID);
                 ViewBag.statue = dbcontext.status.ToList().Select(m => new { code = m.approved_by });
                 var my_model = new employeestate { status = st, empid = ID };
-
-                //if (my_model.status.approved_by == null)
-                //    my_model.status.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
-                //if (my_model.status.Rejected_by == null)
-                //    my_model.status.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
-                //if (my_model.status.return_to_reviewby == null)
-                //    my_model.status.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
-                //if (my_model.status.cancaled_by == null)
-                //    my_model.status.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.approved_by == null)
+                    st.approved_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.Rejected_by == null)
+                    st.Rejected_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.return_to_reviewby == null)
+                    st.return_to_reviewdate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.cancaled_by == null)
+                    st.cancaled_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.closed_by == null)
+                    st.closed_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
+                if (st.Recervied_by == null)
+                    st.Recervied_bydate = Convert.ToDateTime(DateTime.Now.Date.ToShortDateString());
                 return View(my_model);
             }
             catch (Exception e)
@@ -480,6 +496,7 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 sta.approved_by = User.Identity.GetUserName();
                 sta.approved_bydate = model.status.approved_bydate;
+                sta.statu = Models.Infra.check_status.Approved;
                 record.check_status = HR.Models.Infra.check_status.Approved;
                 record.name_state = nameof(check_status.Approved);
                 record.TransactionStatus = check_status.Approved.GetHashCode();
@@ -492,6 +509,7 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 sta.Rejected_by = User.Identity.GetUserName();
                 sta.Rejected_bydate = model.status.Rejected_bydate;
+                sta.statu = Models.Infra.check_status.Rejected;
                 record.check_status = HR.Models.Infra.check_status.Rejected;
                 record.name_state = nameof(check_status.Rejected);
                 record.TransactionStatus = check_status.Rejected.GetHashCode();
@@ -503,12 +521,48 @@ namespace HR.Controllers.TransactionsPayroll
             {
                 sta.return_to_reviewby = User.Identity.GetUserName();
                 sta.return_to_reviewdate = model.status.return_to_reviewdate;
+                sta.statu = Models.Infra.check_status.Return_To_Review;
                 record.check_status = HR.Models.Infra.check_status.Return_To_Review;
                 record.name_state = nameof(check_status.Return_To_Review);
                 record.TransactionStatus = check_status.Return_To_Review.GetHashCode();
                 record.ReportAsReadyBy = User.Identity.Name;
                 record.ReportAsReadyDate = DateTime.Now.Date;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == HR.Models.Infra.check_status.Closed)
+            {
+                sta.closed_by = User.Identity.GetUserName();
+                sta.closed_bydate = model.status.closed_bydate;
+                sta.statu = HR.Models.Infra.check_status.Closed;
+                dbcontext.SaveChanges();
+                record.check_status = HR.Models.Infra.check_status.Closed;
+                record.name_state = nameof(check_status.Closed);
+                record.TransactionStatus = check_status.Closed.GetHashCode();
+                dbcontext.SaveChanges();
 
+            }
+            else if (model.check_status == HR.Models.Infra.check_status.Canceled)
+            {
+                sta.cancaled_by = User.Identity.GetUserName();
+                sta.cancaled_bydate = model.status.cancaled_bydate;
+                sta.statu = Models.Infra.check_status.Canceled;
+                dbcontext.SaveChanges();
+                record.check_status = HR.Models.Infra.check_status.Canceled;
+                record.name_state = nameof(check_status.Canceled);
+                record.TransactionStatus = check_status.Canceled.GetHashCode();
+                record.CanceledBy = User.Identity.Name;
+                record.CanceledDate = DateTime.Now.Date;
+                dbcontext.SaveChanges();
+            }
+            else if (model.check_status == HR.Models.Infra.check_status.Recervied)
+            {
+                sta.Recervied_by = User.Identity.GetUserName();
+                sta.Recervied_bydate = model.status.Recervied_bydate;
+                sta.statu = Models.Infra.check_status.Recervied;
+                dbcontext.SaveChanges();
+                record.check_status = HR.Models.Infra.check_status.Recervied;
+                record.name_state = nameof(check_status.Recervied);
+                record.TransactionStatus = check_status.Recervied.GetHashCode();
                 dbcontext.SaveChanges();
             }
 

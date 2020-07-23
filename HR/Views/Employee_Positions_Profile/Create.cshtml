@@ -135,7 +135,11 @@
                                             @Html.DropDownListFor(m => m.Position_Information.Organization_ChartId, new SelectList(ViewBag.Organization_Chart, "ID", "Code"), @Personnel.SelectUnitdesc, new { @class = "select2", @onchange = "getstate()", id = "state", @disabled = true })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <label>@Personnel.Shiftdaystatussetup</label>
+                                            @Html.DropDownListFor(m => m.Position_Information.Shift_setupId, new SelectList(ViewBag.Shift_setup, "ID", "Code"), @Personnel.SelectUnitdesc, new { @class = "select2", @onchange = "Shiftsetup()", id = "ShiftsetupId"})
+                                            @Html.ValidationMessageFor(model => model.Position_Information.Shift_setupId, "", new { @class = "text-danger" })
+                                        </div>
                                         <div class="col-md-4">
                                             <label>@Personnel.Fromdate</label>
                                             @Html.EditorFor(model => model.Position_Information.From_date, new { @value = "01/01/1900", htmlAttributes = new { @class = "form-control  StartDate yy", @onchange = "Save()", @id = "Start", @type = "date" } })
@@ -352,6 +356,22 @@
 </script>
 
 <script>
+    function getstate() {
+
+        var id = $("#ShiftsetupId").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetShift_setup",
+            data: { "id": id },
+            success: function (result) {
+
+              
+            },
+            error: function () {
+              
+            }
+        });
+    }
     function employee() {
          
         var id = $("#employeeId").val();

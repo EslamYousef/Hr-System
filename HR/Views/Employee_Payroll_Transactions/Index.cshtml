@@ -174,25 +174,31 @@
 @using HR.Resource;
 <div class="content-wrapper">
     <!-- Main content -->
+    <div class="form-group">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-6">
+            <h1>@Payroll.TransactionEntry</h1>
+        </div>
+    </div>
     <section class="content">
 
         <div class="box">
-            <div class="box-header">
-            </div>
 
             <!-- /.box-header -->
             <div class="box-body">
+                <div class="row">
+                    <a href="@Url.Action("Create", "Employee_Payroll_Transactions" )" style="width:180px;margin-left:10px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>'@Payroll.AddNewTransactionEntry</a>
+
+                </div>
                 @if (TempData["Message"] != null)
                 {
+                    <br />
                     <div class="alert alert-success alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         @TempData["Message"]
                     </div>
                 }
-                <div class="row">
-                    <a href="@Url.Action("Create", "Employee_Payroll_Transactions" )" style="width:130px;margin-left:10px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>'@Payroll.AddNewTransactionEntry</a>
-
-                </div>
                 <div style="margin-top:15px" class="form-group" id="buttons">
                     <input type="button" style="width:130px" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
                     <input type="button" style="width:130px" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
@@ -211,6 +217,7 @@
                         <input autocomplete="off" placeholder="year" onfocus="(this.type='number')" value="2020" class="form-control" id="dateto" />
                     </div>
                 </div>
+
 
                 <div class="form-group" style="margin-top:70px;margin-left:30px">
                     <table id="categories" style="margin-top:20px" class="table table-striped">
@@ -239,9 +246,10 @@
                                     <td>@item.Employee_Payroll_Transactions.check_status</td>
                                     <td>
 
-                                        @if (item.Employee_Payroll_Transactions.check_status != HR.Models.Infra.check_status.Approved && item.Employee_Payroll_Transactions.check_status != HR.Models.Infra.check_status.Rejected)
-                                        {<a href="@Url.Action("Edit", "Employee_Payroll_Transactions", new { id = item.Employee_Payroll_Transactions.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
-                                    }
+                                        @*@if (item.Employee_Payroll_Transactions.check_status != HR.Models.Infra.check_status.Approved && item.Employee_Payroll_Transactions.check_status != HR.Models.Infra.check_status.Rejected)
+                                    {<a href="@Url.Action("Edit", "Employee_Payroll_Transactions", new { id = item.Employee_Payroll_Transactions.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                }*@
+                                        <a href="@Url.Action("Edit", "Employee_Payroll_Transactions", new { id = item.Employee_Payroll_Transactions.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
                                         <a href="@Url.Action("Delete", "Employee_Payroll_Transactions" , new {id=item.Employee_Payroll_Transactions.ID})" class="create-btn"><i class="far fa-trash-alt"></i> @pers_2.delete</a>
                                         <a href="@Url.Action("status", "Employee_Payroll_Transactions" , new {id=item.Employee_Payroll_Transactions.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>
 

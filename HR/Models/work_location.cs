@@ -17,5 +17,7 @@ namespace HR.Models
         public virtual List<Shift_setup> Shift_setup { get; set; }
 
         public virtual List<Day_Status_Linkedto_Location> Day_Status_Linkedto_Location { get; set; }
+        public int? Defaultdaystatuscode  { get; set; }
+        public int? Absencedaystatus { get; set; }
     }
 }

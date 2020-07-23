@@ -23,7 +23,7 @@ namespace HR.Controllers
 
         public ActionResult Create()
         {
-            //////
+            ViewBag.Shiftdaystatus = dbcontext.Shiftdaystatus.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
             var modell = new work_location();
 
             var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Organization).Structure_Code;
@@ -44,6 +44,7 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.Shiftdaystatus = dbcontext.Shiftdaystatus.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
                 if (ModelState.IsValid)
                 {
                     work_location record = new work_location();
@@ -52,6 +53,8 @@ namespace HR.Controllers
                     record.Description = model.Description;
                     record.Code = model.Code;
                     record.Location_name = model.Location_name;
+                    record.Defaultdaystatuscode = model.Defaultdaystatuscode;
+                    record.Absencedaystatus = model.Absencedaystatus;
                     var location = dbcontext.work_location.Add(record);
                     dbcontext.SaveChanges();
                     return RedirectToAction("Index");
@@ -75,6 +78,7 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.Shiftdaystatus = dbcontext.Shiftdaystatus.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.work_location.FirstOrDefault(m => m.ID == id);
                 if (record != null)
                 { return View(record); }
@@ -93,11 +97,14 @@ namespace HR.Controllers
         {
             try
             {
+                ViewBag.Shiftdaystatus = dbcontext.Shiftdaystatus.ToList().Select(m => new { Code = m.Code + "-[" + m.Name + ']', ID = m.ID });
                 var record = dbcontext.work_location.FirstOrDefault(m => m.ID == model.ID);
                 record.Name = model.Name;
                 record.Description = model.Description;
                 record.Code = model.Code;
                 record.Location_name = model.Location_name;
+                record.Defaultdaystatuscode = model.Defaultdaystatuscode;
+                record.Absencedaystatus = model.Absencedaystatus;
                 dbcontext.SaveChanges();
                 return RedirectToAction("index");
             }

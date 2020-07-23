@@ -10,5 +10,7 @@ namespace HR.Models.ViewModel
         public int ID { get; set; }
         public string code { get; set; }
         public string Name { get; set; }
+        public bool check { get; set; }
+        public DateTime date { get; set; }
     }
 }

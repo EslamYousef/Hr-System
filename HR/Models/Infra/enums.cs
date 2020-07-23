@@ -600,4 +600,27 @@ namespace HR.Models.Infra
         [Display(Name = "Cut of month")]
         Cut_of_month = 2,
     }
+    public enum EmployeeStatus
+    {
+        [Display(Name = "On Duty")]
+        OnDuty = 1,
+        [Display(Name = "On Vacation")]
+        OnVacation = 2,
+        [Display(Name = "On Business Trip")]
+        OnBusinessTrip = 3,
+        [Display(Name = "Week End")]
+        WeekEnd = 4,
+        [Display(Name = "Public Holiday")]
+        PublicHoliday = 5,
+         Events = 6,
+        [Display(Name = "Public Holiday / Week End")]
+        PublicHolidayWeekEnd = 7,
+        [Display(Name = "Events / Week End")]
+        EventsWeekEnd = 8,
+        [Display(Name = "Public Holiday / Events / Week End")]
+        PublicHolidayEventsWeekEnd = 9,
+        [Display(Name = "Exit Permission")]
+        ExitPermission = 10,
+         Absence = 11
+    }
 }
