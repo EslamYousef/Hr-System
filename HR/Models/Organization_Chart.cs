@@ -52,5 +52,8 @@ namespace HR.Models
 
         public virtual List<man_power> man_power { get; set; }
 
+        public int cost_center_id { get; set; }
+        public int shift_code_id { get; set; }
+
     }
 }

@@ -42,6 +42,8 @@ namespace HR.Controllers
                 ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.cost = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "->" + m.CostCenterDesc, ID = m.ID });
+                ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
 
                 //ViewBag.Employee_Profile 
                 var all_e = new List<Employee_Profile>();
@@ -116,6 +118,8 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.cost = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "->" + m.CostCenterDesc, ID = m.ID });
+                ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
 
                 if (ModelState.IsValid)
                 {
@@ -297,6 +301,9 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.cost = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "->" + m.CostCenterDesc, ID = m.ID });
+                ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+
                 var ID = int.Parse(id);
                 var model = dbcontext.personnel_transaction.FirstOrDefault(m => m.ID ==ID);
                 var vm = new TRANS_VM { personnel_transaction = model };
@@ -327,6 +334,9 @@ namespace HR.Controllers
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
+                ViewBag.cost = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "->" + m.CostCenterDesc, ID = m.ID });
+                ViewBag.shift = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "->" + m.Name, ID = m.ID });
+
                 if (model.selected_employee == 0)
                 {
                     TempData["Message"] = HR.Resource.pers_2.youmustchooseemployee;
@@ -373,6 +383,8 @@ namespace HR.Controllers
                 record.transaction_date = model.personnel_transaction.transaction_date;
                 record.Transaction_type = model.personnel_transaction.Transaction_type;
                 record.Transaction_Type_ = model.personnel_transaction.Transaction_Type_;
+                record.cost_center_id = model.personnel_transaction.cost_center_id;
+                record.shift_id = model.personnel_transaction.shift_id;
                 if (model.personnel_transaction.Location_descId != "0")
                 {
                     var ID = int.Parse(model.personnel_transaction.Location_descId);

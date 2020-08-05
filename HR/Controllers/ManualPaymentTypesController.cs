@@ -241,6 +241,7 @@ namespace HR.Controllers
         Air_Lines_Booking_expense = 10 ,
         HR_records = 11 ,
         Miscellaneous = 12,
+        penalites=13,
     }
     public enum Frequency_Periodic_type
     {    

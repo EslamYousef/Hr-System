@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=5.1.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.1.2\lib\net45\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -172,6 +176,7 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Syncfusion.Licensing, Version=16.2451.0.46, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.Licensing.16.2.0.46\lib\net451\Syncfusion.Licensing.dll</HintPath>
       <Private>True</Private>
@@ -214,6 +219,7 @@
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -344,6 +350,19 @@
     <Compile Include="Controllers\Applicant_ProfileController.cs" />
     <Compile Include="Controllers\Applicant_Qualification_ProfileController.cs" />
     <Compile Include="Controllers\Applicant_Subscription_Syndicate_ProfileController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\Application_StatusController.cs" />
+    <Compile Include="Controllers\AssignscheduletemplatetomultiemployeeController.cs" />
+    <Compile Include="Controllers\Basic_Salary_Calculation_ResultController.cs" />
+    <Compile Include="Controllers\BusinessTripController.cs" />
+    <Compile Include="Controllers\Business_Test_ProfileController.cs" />
+    <Compile Include="Controllers\business_trip_requestController.cs" />
+    <Compile Include="Controllers\Commitee_AgendaController.cs" />
+    <Compile Include="Controllers\Committe_ActivitiesController.cs" />
+    <Compile Include="Controllers\Committe_Resolution_RecuirtmentController.cs" />
+    <Compile Include="Controllers\Contract_InformationController.cs" />
+    <Compile Include="Controllers\EmployeeShiftController.cs" />
+    <Compile Include="Controllers\Employee_Financial_ContractController.cs" />
     <Compile Include="Controllers\EvaluationElementCompeteniesController.cs" />
     <Compile Include="Controllers\EvaluationGradeController.cs" />
     <Compile Include="Controllers\EvaluationObjectiveController.cs" />
@@ -352,37 +371,116 @@
     <Compile Include="Controllers\EvaluationtypeController.cs" />
     <Compile Include="Controllers\EvalutionElementsController.cs" />
     <Compile Include="Controllers\EvalutionQuestionandAnswerController.cs" />
+    <Compile Include="Controllers\ExitPermissionReasonController.cs" />
+    <Compile Include="Controllers\ExitPermissionRequestController.cs" />
+    <Compile Include="Controllers\ExitpermissiontypeController.cs" />
+    <Compile Include="Controllers\Hiring_Check_ListController.cs" />
+    <Compile Include="Controllers\Hiring_InformationController.cs" />
+    <Compile Include="Controllers\ImportFromExcel_TimeManagementController.cs" />
+    <Compile Include="Controllers\In_OrganizationController.cs" />
+    <Compile Include="Controllers\Linked_to_TestingController.cs" />
+    <Compile Include="Controllers\LoanInAdvanceSetupController.cs" />
+    <Compile Include="Controllers\ManualPaymentTypesController.cs" />
+    <Compile Include="Controllers\Medical_Test_ProfileController.cs" />
+    <Compile Include="Controllers\Out_OrganizationController.cs" />
+    <Compile Include="Controllers\PayrollGeneralSetupController.cs" />
+    <Compile Include="Controllers\payroll_tran1\LoanAdjustmentController.cs" />
+    <Compile Include="Controllers\payroll_tran1\LoanRequestController.cs" />
+    <Compile Include="Controllers\payroll_tran1\Loan_transferController.cs" />
+    <Compile Include="Controllers\payroll_tran1\Salary_calcualtionController.cs" />
+    <Compile Include="Controllers\penalites\setup\penalityitemController.cs" />
+    <Compile Include="Controllers\penalites\setup\punishmentController.cs" />
+    <Compile Include="Controllers\penalites\setup\PunishmentgroupController.cs" />
+    <Compile Include="Controllers\penalites\setup\RestoptionsController.cs" />
+    <Compile Include="Controllers\penalites\Trnsaction\Punishment_TransactionController.cs" />
     <Compile Include="Controllers\PerformanceEvaluationGroupController.cs" />
+    <Compile Include="Controllers\Personnel_Committee_ProfileController.cs" />
+    <Compile Include="Controllers\Position_InformationController.cs" />
     <Compile Include="Controllers\Public_Holidays_DatesController.cs" />
     <Compile Include="Controllers\Public_Holiday_EventsController.cs" />
     <Compile Include="Controllers\Reports_organizationController.cs" />
+    <Compile Include="Controllers\Reports_RecuirtmentController.cs" />
+    <Compile Include="Controllers\SalaryItemCollectionGroupController.cs" />
+    <Compile Include="Controllers\SalaryItemCollectionGroup_HeaderController.cs" />
+    <Compile Include="Controllers\salary_codeController.cs" />
+    <Compile Include="Controllers\SetupPayroll\BankController.cs" />
+    <Compile Include="Controllers\SetupPayroll\BranchController.cs" />
+    <Compile Include="Controllers\SetupPayroll\CostCenterCategoryController.cs" />
+    <Compile Include="Controllers\SetupPayroll\CostCenterController.cs" />
+    <Compile Include="Controllers\SetupPayroll\ExtendedFields_DetailsController.cs" />
+    <Compile Include="Controllers\SetupPayroll\ExtendedFields_HeaderController.cs" />
+    <Compile Include="Controllers\SetupPayroll\GL_AccountSetupController.cs" />
+    <Compile Include="Controllers\SetupPayroll\LockerController.cs" />
+    <Compile Include="Controllers\SetupPayroll\PayrollPeriodSetupController.cs" />
+    <Compile Include="Controllers\SetupPayroll\PayrollTransactionJournalSetupController.cs" />
+    <Compile Include="Controllers\ShiftdaystatusController.cs" />
+    <Compile Include="Controllers\ShiftSetUpController.cs" />
     <Compile Include="Controllers\Shift_day_status_setupController.cs" />
+    <Compile Include="Controllers\TimemanagementactionsetupController.cs" />
+    <Compile Include="Controllers\TimeManagement_EmployeeTimeAttendanceTransactionController.cs" />
+    <Compile Include="Controllers\TimeSpan\DateTimeSpan.cs" />
+    <Compile Include="Controllers\TM_casesController.cs" />
+    <Compile Include="Controllers\training\setup\class_roomController.cs" />
+    <Compile Include="Controllers\training\setup\Class_room_groupController.cs" />
+    <Compile Include="Controllers\training\setup\CostElementController.cs" />
+    <Compile Include="Controllers\training\setup\CourseClassificationController.cs" />
+    <Compile Include="Controllers\training\setup\coursegroupController.cs" />
+    <Compile Include="Controllers\training\setup\course_sub_groupController.cs" />
+    <Compile Include="Controllers\training\setup\Evalution_elementtController.cs" />
+    <Compile Include="Controllers\training\setup\ProviderController.cs" />
+    <Compile Include="Controllers\training\setup\Trainig_centerController.cs" />
+    <Compile Include="Controllers\training\setup\TrainingPolicyController.cs" />
+    <Compile Include="Controllers\training\setup\TrainingTypeController.cs" />
+    <Compile Include="Controllers\training\setup\Training_center_branchesController.cs" />
+    <Compile Include="Controllers\training\setup\Training_FacilitiesController.cs" />
+    <Compile Include="Controllers\training\Transaction\TrainingOpportunityController.cs" />
+    <Compile Include="Controllers\training\Transaction\trainingplanController.cs" />
+    <Compile Include="Controllers\training\trans\CourceQualificationController.cs" />
+    <Compile Include="Controllers\training\trans\CoursController.cs" />
+    <Compile Include="Controllers\training\trans\Course_CentersController.cs" />
+    <Compile Include="Controllers\training\trans\Course_skillController.cs" />
+    <Compile Include="Controllers\training\trans\Course_training_typeController.cs" />
+    <Compile Include="Controllers\training\trans\instructorsController.cs" />
+    <Compile Include="Controllers\TransactionsPayroll\EmployeeAnnualandSpecialAllowanceController.cs" />
+    <Compile Include="Controllers\TransactionsPayroll\Employee_Payroll_TransactionsController.cs" />
+    <Compile Include="Controllers\TransactionsPayroll\LedgerTransactionController.cs" />
+    <Compile Include="Controllers\TransactionsPayroll\ManualPaymentTransactionEntryController.cs" />
+    <Compile Include="Controllers\TransactionsPayroll\SpecialallwancesincreaseforjobcadresController.cs" />
+    <Compile Include="Controllers\TransportationMethodController.cs" />
+    <Compile Include="Controllers\Vacations\CreateVacationBalanceController.cs" />
     <Compile Include="Controllers\Vacations_SetupController.cs" />
     <Compile Include="Controllers\Weekend_setupController.cs" />
-    <Compile Include="Migrations\202003251406023_op.cs" />
-    <Compile Include="Migrations\202003251406023_op.Designer.cs">
-      <DependentUpon>202003251406023_op.cs</DependentUpon>
+    <Compile Include="Controllers\workpermissionrequestController.cs" />
+    <Compile Include="Migrations\202007271538229_trans.cs" />
+    <Compile Include="Migrations\202007271538229_trans.Designer.cs">
+      <DependentUpon>202007271538229_trans.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251707408_opdd.cs" />
-    <Compile Include="Migrations\202003251707408_opdd.Designer.cs">
-      <DependentUpon>202003251707408_opdd.cs</DependentUpon>
+    <Compile Include="Migrations\202007281534403_trans1.cs" />
+    <Compile Include="Migrations\202007281534403_trans1.Designer.cs">
+      <DependentUpon>202007281534403_trans1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003271417593_lfgkfslgjslgs.cs" />
-    <Compile Include="Migrations\202003271417593_lfgkfslgjslgs.Designer.cs">
-      <DependentUpon>202003271417593_lfgkfslgjslgs.cs</DependentUpon>
+    <Compile Include="Migrations\202007281742028_trans3.cs" />
+    <Compile Include="Migrations\202007281742028_trans3.Designer.cs">
+      <DependentUpon>202007281742028_trans3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003291235571_new1.cs" />
-    <Compile Include="Migrations\202003291235571_new1.Designer.cs">
-      <DependentUpon>202003291235571_new1.cs</DependentUpon>
+    <Compile Include="Migrations\202008041339191_o.cs" />
+    <Compile Include="Migrations\202008041339191_o.Designer.cs">
+      <DependentUpon>202008041339191_o.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003291255090_new2.cs" />
-    <Compile Include="Migrations\202003291255090_new2.Designer.cs">
-      <DependentUpon>202003291255090_new2.cs</DependentUpon>
+    <Compile Include="Migrations\202008041401148_o2.cs" />
+    <Compile Include="Migrations\202008041401148_o2.Designer.cs">
+      <DependentUpon>202008041401148_o2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003291323525_new3.cs" />
-    <Compile Include="Migrations\202003291323525_new3.Designer.cs">
-      <DependentUpon>202003291323525_new3.cs</DependentUpon>
+    <Compile Include="Migrations\202008051112227_pp].cs" />
+    <Compile Include="Migrations\202008051112227_pp].Designer.cs">
+      <DependentUpon>202008051112227_pp].cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\All_Table_Commitee_Resolution\Commitee_Agenda.cs" />
+    <Compile Include="Models\All_Table_Commitee_Resolution\Committe_Activities.cs" />
+    <Compile Include="Models\All_Table_Commitee_Resolution\In_Organization.cs" />
+    <Compile Include="Models\All_Table_Commitee_Resolution\Linked_to_Testing.cs" />
+    <Compile Include="Models\All_Table_Commitee_Resolution\Out_Organization.cs" />
+    <Compile Include="Models\Append_Committe_Member.cs" />
     <Compile Include="Models\Append_Public_Holidays_Dates.cs" />
     <Compile Include="Models\Applicant_Address_Profile.cs" />
     <Compile Include="Models\Applicant_Attachment_Profile.cs" />
@@ -393,6 +491,24 @@
     <Compile Include="Models\Applicant_Profile.cs" />
     <Compile Include="Models\Applicant_Qualification_Profile.cs" />
     <Compile Include="Models\Applicant_Subscription_Syndicate_Profile.cs" />
+    <Compile Include="Models\Application\Application.cs" />
+    <Compile Include="Models\Application\Application_Status.cs" />
+    <Compile Include="Models\Application\Basic_Salary_Calculation_Result.cs" />
+    <Compile Include="Models\Application\Business_Test_Profile.cs" />
+    <Compile Include="Models\Application\Contract_Information.cs" />
+    <Compile Include="Models\Application\Hiring_Check_List.cs" />
+    <Compile Include="Models\Application\Hiring_Information.cs" />
+    <Compile Include="Models\Application\Medical_Test_Profile.cs" />
+    <Compile Include="Models\Application\Personnel_Committee_Profile.cs" />
+    <Compile Include="Models\Application\Position_Information_Rec.cs" />
+    <Compile Include="Models\CardPayroll\Employee_Financial_Contract_Detail.cs" />
+    <Compile Include="Models\CardPayroll\Employee_Financial_Contract_Header.cs" />
+    <Compile Include="Models\CardPayroll\FinancialContract_ExtendedFieldsDetails.cs" />
+    <Compile Include="Models\CardPayroll\SalaryItemCollectionGroup_Detail.cs" />
+    <Compile Include="Models\CardPayroll\SalaryItemCollectionGroup_Header.cs" />
+    <Compile Include="Models\CardPayroll\VMFin.cs" />
+    <Compile Include="Models\CardPayroll\VMs.cs" />
+    <Compile Include="Models\Committe_Resolution_Recuirtment.cs" />
     <Compile Include="Models\EvaluationElementCompetenies.cs" />
     <Compile Include="Models\EvaluationElements.cs" />
     <Compile Include="Models\EvaluationGrade.cs" />
@@ -405,6 +521,20 @@
     <Compile Include="Models\Evalution_and_competencies.cs" />
     <Compile Include="Models\exper_jobdetails.cs" />
     <Compile Include="Models\groupevaluation_evaluation_transaction.cs" />
+    <Compile Include="Models\PayrollGeneralSetup.cs" />
+    <Compile Include="Models\payroll_trans\LoanAdjustment.cs" />
+    <Compile Include="Models\payroll_trans\LoanInstallment.cs" />
+    <Compile Include="Models\payroll_trans\LoanRequest.cs" />
+    <Compile Include="Models\payroll_trans\LoanTransfer.cs" />
+    <Compile Include="Models\penalities\setup\Discipline_PenaltyItem_Detail.cs" />
+    <Compile Include="Models\penalities\setup\Discipline_PenaltyItem_Header.cs" />
+    <Compile Include="Models\penalities\setup\Discipline_Punishment.cs" />
+    <Compile Include="Models\penalities\setup\Discipline_PunishmentGroup.cs" />
+    <Compile Include="Models\penalities\setup\Discipline_PunishmentRestOption.cs" />
+    <Compile Include="Models\penalities\setup\Discipline_Punishment_Detail.cs" />
+    <Compile Include="Models\penalities\Transaction\Discipline_PunishmentTransaction.cs" />
+    <Compile Include="Models\penalities\Transaction\Discipline_PunishmentTransactionRecords.cs" />
+    <Compile Include="Models\penalities\Transaction\Discipline_PunishmentTransaction_Detail.cs" />
     <Compile Include="Models\PerformanceEvaluationGroup.cs" />
     <Compile Include="Models\PerformanceEvaluationGroupEvaluationElements.cs" />
     <Compile Include="Models\per_emp.cs" />
@@ -414,18 +544,110 @@
     <Compile Include="Models\QuestionsANDAnswers_EvaluationTransaction.cs" />
     <Compile Include="Models\Questions_Performance.cs" />
     <Compile Include="Models\Report_Job.cs" />
+    <Compile Include="Models\SetupPayroll\Bank.cs" />
+    <Compile Include="Models\SetupPayroll\Branch.cs" />
+    <Compile Include="Models\SetupPayroll\CostCenter.cs" />
+    <Compile Include="Models\SetupPayroll\CostCenterCategory.cs" />
+    <Compile Include="Models\SetupPayroll\ExtendedFields_Details.cs" />
+    <Compile Include="Models\SetupPayroll\ExtendedFields_Header.cs" />
+    <Compile Include="Models\SetupPayroll\GL_AccountSetup.cs" />
+    <Compile Include="Models\SetupPayroll\LinkLoanDeductionsWithOtherManualPayment.cs" />
+    <Compile Include="Models\SetupPayroll\LoanInAdvanceSetup.cs" />
+    <Compile Include="Models\SetupPayroll\Locker.cs" />
+    <Compile Include="Models\SetupPayroll\ManualPaymentTypes_Detail.cs" />
+    <Compile Include="Models\SetupPayroll\ManualPaymentTypes_Header.cs" />
+    <Compile Include="Models\SetupPayroll\PayrollPeriodSetup.cs" />
+    <Compile Include="Models\SetupPayroll\PayrollTransactionJournalSetup.cs" />
+    <Compile Include="Models\SetupPayroll\SalaryCodeGroup_Detail.cs" />
+    <Compile Include="Models\SetupPayroll\SalaryCodeGroup_Header.cs" />
+    <Compile Include="Models\SetupPayroll\salary_code.cs" />
+    <Compile Include="Models\ShiftdaystatusDetials.cs" />
+    <Compile Include="Models\Shiftscheduletemplate.cs" />
     <Compile Include="Models\Shift_day_status_setup.cs" />
     <Compile Include="Models\special.cs" />
     <Compile Include="Models\special_allowance_job_level_class.cs" />
     <Compile Include="Models\special_allowance_job_level_grade.cs" />
+    <Compile Include="Models\Template.cs" />
+    <Compile Include="Models\Time_management\business trip request.cs" />
+    <Compile Include="Models\Time_management\Business_Trip.cs" />
+    <Compile Include="Models\Time_management\CasesTM.cs" />
+    <Compile Include="Models\Time_management\Day_Status_Linkedto_Location.cs" />
+    <Compile Include="Models\Time_management\Employee_Shift_schedule.cs" />
+    <Compile Include="Models\Time_management\Enum_ex.cs" />
+    <Compile Include="Models\Time_management\Exit_Permission_Reason.cs" />
+    <Compile Include="Models\Time_management\Exit_permission_request.cs" />
+    <Compile Include="Models\Time_management\Exit_permission_type.cs" />
+    <Compile Include="Models\Time_management\Schedule_Details.cs" />
+    <Compile Include="Models\Time_management\Shiftdaystatus.cs" />
+    <Compile Include="Models\Time_management\Shift_setup.cs" />
+    <Compile Include="Models\Time_management\TimeManagement_EmployeeTimeAttendanceTransaction_Clc_Results.cs" />
+    <Compile Include="Models\Time_management\TimeManagement_EmployeeTimeAttendanceTransaction_Detail.cs" />
+    <Compile Include="Models\Time_management\TimeManagement_EmployeeTimeAttendanceTransaction_Header.cs" />
+    <Compile Include="Models\Time_management\Time_management_action_setup.cs" />
+    <Compile Include="Models\Time_management\Time_management_conditional_setup.cs" />
+    <Compile Include="Models\Time_management\TransportationMethod.cs" />
+    <Compile Include="Models\Time_management\workpermissionrequest.cs" />
+    <Compile Include="Models\Training\setup\Class1.cs" />
+    <Compile Include="Models\Training\setup\ClassRoom.cs" />
+    <Compile Include="Models\Training\setup\ClassRoom_Group.cs" />
+    <Compile Include="Models\Training\setup\CostElement.cs" />
+    <Compile Include="Models\Training\setup\CourseClassification.cs" />
+    <Compile Include="Models\Training\setup\Course_Groups.cs" />
+    <Compile Include="Models\Training\setup\Course_SubGroups.cs" />
+    <Compile Include="Models\Training\setup\Provider.cs" />
+    <Compile Include="Models\Training\setup\TrainingCenter.cs" />
+    <Compile Include="Models\Training\setup\TrainingCenters_Branch.cs" />
+    <Compile Include="Models\Training\setup\TrainingCenters_Branch_Contact.cs" />
+    <Compile Include="Models\Training\setup\TrainingPolicy.cs" />
+    <Compile Include="Models\Training\setup\TrainingType_Detail.cs" />
+    <Compile Include="Models\Training\setup\TrainingType_Header.cs" />
+    <Compile Include="Models\Training\setup\Training_Facilities.cs" />
+    <Compile Include="Models\Training\transaction\Course_CostElement_Detail.cs" />
+    <Compile Include="Models\Training\transaction\Course_CostElement_Header.cs" />
+    <Compile Include="Models\Training\transaction\Distributed_Opportunity.cs" />
+    <Compile Include="Models\Training\transaction\TrainingCourceEvaluationElement.cs" />
+    <Compile Include="Models\Training\transaction\TrainingCourceEvaluation_Details.cs" />
+    <Compile Include="Models\Training\transaction\TrainingCourceEvaluation_Header.cs" />
+    <Compile Include="Models\Training\transaction\TrainingCourseResult_Detail.cs" />
+    <Compile Include="Models\Training\transaction\TrainingCourseResult_Header.cs" />
+    <Compile Include="Models\Training\transaction\TrainingOpportunity_Detail.cs" />
+    <Compile Include="Models\Training\transaction\TrainingOpportunity_Header.cs" />
+    <Compile Include="Models\Training\transaction\TrainingParticipants_Detail.cs" />
+    <Compile Include="Models\Training\transaction\TrainingParticipants_Header.cs" />
+    <Compile Include="Models\Training\transaction\TrainingPlan_Detail.cs" />
+    <Compile Include="Models\Training\transaction\TrainingPlan_Header.cs" />
+    <Compile Include="Models\Training\trans\CourceQualification.cs" />
+    <Compile Include="Models\Training\trans\Cours.cs" />
+    <Compile Include="Models\Training\trans\Course_Centers.cs" />
+    <Compile Include="Models\Training\trans\Course_Skills.cs" />
+    <Compile Include="Models\Training\trans\Course_TrainingType.cs" />
+    <Compile Include="Models\Training\trans\Instructor.cs" />
+    <Compile Include="Models\Training\trans\Instructor_Contact.cs" />
+    <Compile Include="Models\TransactionsPayroll\EmployeeAnnualIncreaseHistory.cs" />
+    <Compile Include="Models\TransactionsPayroll\Employee_BasicSalary_History.cs" />
+    <Compile Include="Models\TransactionsPayroll\Employee_Payroll_Transactions.cs" />
+    <Compile Include="Models\TransactionsPayroll\Employee_Payroll_Transactions_ExtendedFieldsDetail.cs" />
+    <Compile Include="Models\TransactionsPayroll\LedgerTransaction.cs" />
+    <Compile Include="Models\TransactionsPayroll\LedgerTransactionLine.cs" />
+    <Compile Include="Models\TransactionsPayroll\ManualPaymentTransactionEntry.cs" />
+    <Compile Include="Models\TransactionsPayroll\ManualPaymentTransactionEntry_Detail.cs" />
+    <Compile Include="Models\TransactionsPayroll\ManualPaymentTransactionEntry_ExtendedFieldsDetail.cs" />
+    <Compile Include="Models\Vacations\LeavesBalance.cs" />
+    <Compile Include="Models\Vacations\LeavesRequestMaster.cs" />
     <Compile Include="Models\Vacations_Setup.cs" />
+    <Compile Include="Models\ViewModel\Applicant_VM.cs" />
     <Compile Include="Models\ViewModel\CheckRequestVM.cs" />
+    <Compile Include="Models\ViewModel\loan_installmentVM.cs" />
     <Compile Include="Models\ViewModel\OrganizationChartReportVM.cs" />
     <Compile Include="Models\ViewModel\performancEevaluationVM.cs" />
     <Compile Include="Models\ViewModel\per_em.cs" />
     <Compile Include="Models\ViewModel\PublicHolidaysDates_VM.cs" />
     <Compile Include="Models\ViewModel\reportJobVm.cs" />
+    <Compile Include="Models\ViewModel\ReportRc_VM.cs" />
+    <Compile Include="Models\ViewModel\Report_RecuirtmentVM.cs" />
+    <Compile Include="Models\ViewModel\SalaryCode_ExtendedFields_VM.cs" />
     <Compile Include="Models\ViewModel\uoi.cs" />
+    <Compile Include="Models\ViewModel\Vm_TimeManagement_EmployeeTimeAttendanceTransaction.cs" />
     <Compile Include="Models\ViewModel\Work_Location_Public_Holiday_VM.cs" />
     <Compile Include="Models\Weekend_setup.cs" />
     <Compile Include="Reposatory\Evalutions\IReposatory\IEvalutonplan.cs" />
@@ -456,6 +678,10 @@
     <Compile Include="Reposatory\Evalutions\reposatory\Structure.cs" />
     <Compile Include="Reposatory\Evalutions\reposatory\Vacations_Setup.cs" />
     <Compile Include="Reposatory\Evalutions\IReposatory\IAddSpecificListOfRoles.cs" />
+    <Compile Include="Resource\Medical.ar-EG.Designer.cs" />
+    <Compile Include="Resource\Medical.Designer.cs" />
+    <Compile Include="Resource\Payroll.ar-EG.Designer.cs" />
+    <Compile Include="Resource\Payroll.Designer.cs" />
     <Compile Include="Resource\pers-2.ar-EG.Designer.cs">
       <DependentUpon>pers-2.ar-EG.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -773,12 +999,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Personnel.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resource\training.ar-EG.Designer.cs">
+      <DependentUpon>training.ar-EG.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resource\training.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>training.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ProfileEditViewModel.cs" />
     <Compile Include="Models\Employee_records.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="1.jpg" />
+    <Content Include="App_Start\scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="App_Start\scripts\bootstrap.min.js" />
+    <Content Include="App_Start\scripts\jquery-1.10.2.min.js" />
+    <Content Include="App_Start\scripts\jquery.validate.min.js" />
+    <Content Include="App_Start\scripts\jsTree3\jstree.min.js" />
     <Content Include="ben-kolde-FaPxZ88yZrw-unsplash.jpg" />
     <Content Include="bootstrap-multiselect.css" />
     <Content Include="bootstrap-multiselect.js" />
@@ -798,6 +1039,22 @@
     <Content Include="Content\jsTree\themes\default\throbber.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\layout_style\css\all.css" />
+    <Content Include="Content\layout_style\css\bootstrap.min.css" />
+    <Content Include="Content\layout_style\css\font-awesome.min.css" />
+    <Content Include="Content\layout_style\css\javascript-calendar.css" />
+    <Content Include="Content\layout_style\css\jquery-ui.css" />
+    <Content Include="Content\layout_style\css\style.css" />
+    <Content Include="Content\layout_style\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\layout_style\js\all.js" />
+    <Content Include="Content\layout_style\js\bootstrap.min.js" />
+    <Content Include="Content\layout_style\js\javascript-calendar.js" />
+    <Content Include="Content\layout_style\js\jquery-3.2.1.min.js" />
+    <Content Include="Content\layout_style\js\main.js" />
+    <Content Include="Content\layout_style\js\popper.min.js" />
+    <Content Include="Content\layout_style\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\layout_style\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\layout_style\webfonts\fa-solid-900.svg" />
     <Content Include="Content\neon-rtl\assets\css\bootstrap.css" />
     <Content Include="Content\neon-rtl\assets\css\custom.css" />
     <Content Include="Content\neon-rtl\assets\css\font-icons\entypo\css\animation.css" />
@@ -3096,9 +3353,6 @@
     <Content Include="Content\neon\assets\js\datatables\jQuery-1.11.3\jquery-1.11.3.min.js" />
     <Content Include="Content\neon\assets\js\datatables\JSZip-2.5.0\jszip.js" />
     <Content Include="Content\neon\assets\js\datatables\JSZip-2.5.0\jszip.min.js" />
-    <Content Include="Content\neon\assets\js\datatables\pdfmake-0.1.18\build\pdfmake.js" />
-    <Content Include="Content\neon\assets\js\datatables\pdfmake-0.1.18\build\pdfmake.min.js" />
-    <Content Include="Content\neon\assets\js\datatables\pdfmake-0.1.18\build\vfs_fonts.js" />
     <Content Include="Content\neon\assets\js\datatables\Responsive-1.0.7\css\responsive.bootstrap.css" />
     <Content Include="Content\neon\assets\js\datatables\Responsive-1.0.7\css\responsive.bootstrap.min.css" />
     <Content Include="Content\neon\assets\js\datatables\Responsive-1.0.7\css\responsive.dataTables.css" />
@@ -3649,6 +3903,19 @@
     <Content Include="Content\neon\assets\js\zurb-responsive-tables\stylesheets\reveal.css" />
     <Content Include="Content\neon\assets\js\zurb-responsive-tables\stylesheets\typography.css" />
     <Content Include="Content\neon\assets\js\zurb-responsive-tables\stylesheets\ui.css" />
+    <Content Include="Content\neon\assets\layout\css\all.css" />
+    <Content Include="Content\neon\assets\layout\css\bootstrap.min.css" />
+    <Content Include="Content\neon\assets\layout\css\font-awesome.min.css" />
+    <Content Include="Content\neon\assets\layout\css\style.css" />
+    <Content Include="Content\neon\assets\layout\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\neon\assets\layout\js\all.js" />
+    <Content Include="Content\neon\assets\layout\js\bootstrap.min.js" />
+    <Content Include="Content\neon\assets\layout\js\jquery-3.2.1.min.js" />
+    <Content Include="Content\neon\assets\layout\js\main.js" />
+    <Content Include="Content\neon\assets\layout\js\popper.min.js" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-solid-900.svg" />
     <Content Include="Content\neon\data\ajax-content.txt" />
     <Content Include="Content\neon\data\index.html" />
     <Content Include="Content\print.css" />
@@ -3696,6 +3963,8 @@
     <Content Include="icon\aaa1.jpg" />
     <Content Include="image010.jpg" />
     <Content Include="jspdf.min.js" />
+    <Content Include="login-icon-3048.png" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3766,11 +4035,6 @@
     <Content Include="Content\neon\assets\js\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Content\neon\assets\js\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\neon\assets\js\codemirror\AUTHORS" />
-    <Content Include="Content\neon\assets\js\codemirror\bin\authors.sh" />
-    <Content Include="Content\neon\assets\js\codemirror\bin\compress" />
-    <Content Include="Content\neon\assets\js\codemirror\bin\lint" />
-    <Content Include="Content\neon\assets\js\codemirror\bin\release" />
-    <Content Include="Content\neon\assets\js\codemirror\bin\source-highlight" />
     <Content Include="Content\neon\assets\js\codemirror\bower.json" />
     <Content Include="Content\neon\assets\js\codemirror\CONTRIBUTING.md" />
     <Content Include="Content\neon\assets\js\codemirror\LICENSE" />
@@ -4245,8 +4509,58 @@
     <Content Include="Content\neon-rtl\assets\less\skins\white.less" />
     <Content Include="Content\neon-rtl\assets\less\skins\yellow.less" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Content\layout_style\fonts\Aqlaam-Regular.otf" />
+    <Content Include="Content\layout_style\fonts\AraAsmaaBeltajie-Regular.otf" />
+    <Content Include="Content\layout_style\fonts\AsmaaFont.otf" />
+    <Content Include="Content\layout_style\fonts\Avenir.otf" />
+    <Content Include="Content\layout_style\fonts\bader_al gorthabia.ttf" />
+    <Content Include="Content\layout_style\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\layout_style\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\layout_style\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\layout_style\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\layout_style\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\layout_style\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\layout_style\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\layout_style\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\layout_style\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\layout_style\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\layout_style\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\layout_style\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\layout_style\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\layout_style\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\layout_style\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\layout_style\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\neon\assets\layout\fonts\Aqlaam-Regular.otf" />
+    <Content Include="Content\neon\assets\layout\fonts\AraAsmaaBeltajie-Regular.otf" />
+    <Content Include="Content\neon\assets\layout\fonts\AsmaaFont.otf" />
+    <Content Include="Content\neon\assets\layout\fonts\Avenir.otf" />
+    <Content Include="Content\neon\assets\layout\fonts\bader_al gorthabia.ttf" />
+    <Content Include="Content\neon\assets\layout\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\neon\assets\layout\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\neon\assets\layout\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\neon\assets\layout\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\neon\assets\layout\webfonts\fa-solid-900.woff2" />
+    <Content Include="App_Start\scripts\jquery-1.10.2.min.map" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="EmployeeAnnualFromExcel\EmpAnn.xlsx2f29006c-68f9-446f-b41d-c27786f26c8e.xlsx" />
+    <Content Include="EmployeeAnnualFromExcel\EmpAnn.xlsx5bc0cf43-3be9-47ce-b273-203659fd40c5.xlsx" />
+    <Content Include="EmployeeAnnualFromExcel\EmpAnn.xlsx65eb54e9-8cab-4836-b024-74a1efae8bba.xlsx" />
     <None Include="Properties\PublishProfiles\MULTIMEGA.pubxml" />
     <None Include="Properties\PublishProfiles\multimeg_.pubxml" />
+    <None Include="Properties\PublishProfiles\new_mbs.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -4764,6 +5078,361 @@
     <Content Include="Views\EvaluationTransaction\Edit.cshtml" />
     <Content Include="Views\OrganizationChart\Index1.cshtml" />
     <Content Include="Views\OrganizationChart\Index2.cshtml" />
+    <Content Include="Views\Applicant_Address_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Address_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Address_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Address_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Attachment_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Attachment_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Attachment_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Attachment_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Contact_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Contact_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Contact_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Contact_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Family_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Family_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Family_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Family_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Military_Service_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Military_Service_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Military_Service_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Military_Service_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Previous_Experiences_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Previous_Experiences_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Previous_Experiences_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Previous_Experiences_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Qualification_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Qualification_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Qualification_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Qualification_Profile\Index.cshtml" />
+    <Content Include="Views\Applicant_Subscription_Syndicate_Profile\Create.cshtml" />
+    <Content Include="Views\Applicant_Subscription_Syndicate_Profile\Delete.cshtml" />
+    <Content Include="Views\Applicant_Subscription_Syndicate_Profile\Edit.cshtml" />
+    <Content Include="Views\Applicant_Subscription_Syndicate_Profile\Index.cshtml" />
+    <Content Include="Views\Application\Create.cshtml" />
+    <Content Include="Views\Application\Edit.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
+    <Content Include="Views\Application_Status\Create.cshtml" />
+    <Content Include="Views\Application_Status\Edit.cshtml" />
+    <Content Include="Views\Basic_Salary_Calculation_Result\Create.cshtml" />
+    <Content Include="Views\Basic_Salary_Calculation_Result\Edit.cshtml" />
+    <Content Include="Views\BusinessTrip\Create.cshtml" />
+    <Content Include="Views\BusinessTrip\delete.cshtml" />
+    <Content Include="Views\BusinessTrip\Edit.cshtml" />
+    <Content Include="Views\BusinessTrip\Index.cshtml" />
+    <Content Include="Views\Business_Test_Profile\Create.cshtml" />
+    <Content Include="Views\Business_Test_Profile\Edit.cshtml" />
+    <Content Include="Views\business_trip_request\create.cshtml" />
+    <Content Include="Views\business_trip_request\delete.cshtml" />
+    <Content Include="Views\business_trip_request\edit.cshtml" />
+    <Content Include="Views\business_trip_request\Index.cshtml" />
+    <Content Include="Views\business_trip_request\status.cshtml" />
+    <Content Include="Views\Commitee_Agenda\Create.cshtml" />
+    <Content Include="Views\Commitee_Agenda\Edit.cshtml" />
+    <Content Include="Views\Committe_Activities\Create.cshtml" />
+    <Content Include="Views\Committe_Activities\Edit.cshtml" />
+    <Content Include="Views\Committe_Resolution_Recuirtment\Create.cshtml" />
+    <Content Include="Views\Committe_Resolution_Recuirtment\Delete.cshtml" />
+    <Content Include="Views\Committe_Resolution_Recuirtment\Edit.cshtml" />
+    <Content Include="Views\Committe_Resolution_Recuirtment\Index.cshtml" />
+    <Content Include="Views\Committe_Resolution_Recuirtment\status.cshtml" />
+    <Content Include="Views\Contract_Information\Create.cshtml" />
+    <Content Include="Views\Contract_Information\Edit.cshtml" />
+    <Content Include="Views\EmployeeShift\Create.cshtml" />
+    <Content Include="Views\EmployeeShift\Delete.cshtml" />
+    <Content Include="Views\EmployeeShift\Edit.cshtml" />
+    <Content Include="Views\EmployeeShift\Index.cshtml" />
+    <Content Include="Views\ExitPermissionReason\Create.cshtml" />
+    <Content Include="Views\ExitPermissionReason\delete.cshtml" />
+    <Content Include="Views\ExitPermissionReason\Edit.cshtml" />
+    <Content Include="Views\ExitPermissionReason\Index.cshtml" />
+    <Content Include="Views\ExitPermissionRequest\Create.cshtml" />
+    <Content Include="Views\ExitPermissionRequest\delete.cshtml" />
+    <Content Include="Views\ExitPermissionRequest\Edit.cshtml" />
+    <Content Include="Views\ExitPermissionRequest\Index.cshtml" />
+    <Content Include="Views\ExitPermissionRequest\status.cshtml" />
+    <Content Include="Views\Exitpermissiontype\Create.cshtml" />
+    <Content Include="Views\Exitpermissiontype\Deltet_method.cshtml" />
+    <Content Include="Views\Exitpermissiontype\Edit.cshtml" />
+    <Content Include="Views\Exitpermissiontype\Index.cshtml" />
+    <Content Include="Views\Hiring_Check_List\Edit.cshtml" />
+    <Content Include="Views\Hiring_Information\Create.cshtml" />
+    <Content Include="Views\Hiring_Information\Edit.cshtml" />
+    <Content Include="Views\In_Organization\Create.cshtml" />
+    <Content Include="Views\In_Organization\Edit.cshtml" />
+    <Content Include="Views\Linked_to_Testing\Create.cshtml" />
+    <Content Include="Views\Linked_to_Testing\Edit.cshtml" />
+    <Content Include="Views\Medical_Test_Profile\Create.cshtml" />
+    <Content Include="Views\Medical_Test_Profile\Edit.cshtml" />
+    <Content Include="Views\Out_Organization\Create.cshtml" />
+    <Content Include="Views\Out_Organization\Edit.cshtml" />
+    <Content Include="Views\Personnel_Committee_Profile\Create.cshtml" />
+    <Content Include="Views\Personnel_Committee_Profile\Edit.cshtml" />
+    <Content Include="Views\Position_Information\Create.cshtml" />
+    <Content Include="Views\Position_Information\Edit.cshtml" />
+    <Content Include="Views\Reports_Recuirtment\Recuirtment.cshtml" />
+    <Content Include="Views\Reports_Recuirtment\viewReport.cshtml" />
+    <Content Include="Views\Shiftdaystatus\Create.cshtml" />
+    <Content Include="Views\Shiftdaystatus\Deltet_method.cshtml" />
+    <Content Include="Views\Shiftdaystatus\Edit.cshtml" />
+    <Content Include="Views\Shiftdaystatus\Index.cshtml" />
+    <Content Include="Views\Shiftdaystatus\Link.cshtml" />
+    <Content Include="Views\ShiftSetUp\Create.cshtml" />
+    <Content Include="Views\ShiftSetUp\Deltet_method.cshtml" />
+    <Content Include="Views\ShiftSetUp\Edit.cshtml" />
+    <Content Include="Views\ShiftSetUp\Index.cshtml" />
+    <Content Include="Views\Timemanagementactionsetup\Create.cshtml" />
+    <Content Include="Views\Timemanagementactionsetup\delete.cshtml" />
+    <Content Include="Views\Timemanagementactionsetup\Edit.cshtml" />
+    <Content Include="Views\Timemanagementactionsetup\Index.cshtml" />
+    <Content Include="Views\TM_cases\create.cshtml" />
+    <Content Include="Views\TM_cases\Delete.cshtml" />
+    <Content Include="Views\TM_cases\Edit.cshtml" />
+    <Content Include="Views\TM_cases\Index.cshtml" />
+    <Content Include="Views\TransportationMethod\Create.cshtml" />
+    <Content Include="Views\TransportationMethod\delete.cshtml" />
+    <Content Include="Views\TransportationMethod\Edit.cshtml" />
+    <Content Include="Views\TransportationMethod\Index.cshtml" />
+    <Content Include="Views\workpermissionrequest\create.cshtml" />
+    <Content Include="Views\workpermissionrequest\delete.cshtml" />
+    <Content Include="Views\workpermissionrequest\edit.cshtml" />
+    <Content Include="Views\workpermissionrequest\Index.cshtml" />
+    <Content Include="Views\workpermissionrequest\status.cshtml" />
+    <Content Include="Views\PayrollGeneralSetup\Index.cshtml" />
+    <Content Include="Views\PayrollGeneralSetup\delete.cshtml" />
+    <Content Include="Views\PayrollGeneralSetup\create.cshtml" />
+    <Content Include="Views\PayrollGeneralSetup\edit.cshtml" />
+    <Content Include="Views\salary_code\Create.cshtml" />
+    <Content Include="Views\salary_code\edit.cshtml" />
+    <Content Include="Views\salary_code\Index.cshtml" />
+    <Content Include="Views\salary_code\delete.cshtml" />
+    <Content Include="Views\SalaryItemGroup_Header\Create.cshtml" />
+    <Content Include="Views\SalaryItemGroup_Header\edit.cshtml" />
+    <Content Include="Views\SalaryItemGroup_Header\delete.cshtml" />
+    <Content Include="Views\SalaryItemGroup_Header\Index.cshtml" />
+    <Content Include="Views\LoanInAdvanceSetup\create.cshtml" />
+    <Content Include="Views\LoanInAdvanceSetup\edit.cshtml" />
+    <Content Include="Views\LoanInAdvanceSetup\Index.cshtml" />
+    <Content Include="Views\LoanInAdvanceSetup\delete.cshtml" />
+    <Content Include="Views\LoanInAdvanceSetup\link.cshtml" />
+    <Content Include="Views\Bank\Create.cshtml" />
+    <Content Include="Views\Bank\Delete.cshtml" />
+    <Content Include="Views\Bank\Edit.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Branch\Create.cshtml" />
+    <Content Include="Views\Branch\Delete.cshtml" />
+    <Content Include="Views\Branch\Edit.cshtml" />
+    <Content Include="Views\Branch\Index.cshtml" />
+    <Content Include="Views\CostCenterCategory\Create.cshtml" />
+    <Content Include="Views\CostCenterCategory\Delete.cshtml" />
+    <Content Include="Views\CostCenterCategory\Edit.cshtml" />
+    <Content Include="Views\CostCenterCategory\Index.cshtml" />
+    <Content Include="Views\CostCenter\Create.cshtml" />
+    <Content Include="Views\CostCenter\Delete.cshtml" />
+    <Content Include="Views\CostCenter\Edit.cshtml" />
+    <Content Include="Views\CostCenter\Index.cshtml" />
+    <Content Include="Views\Employee_Financial_Contract\Create.cshtml" />
+    <Content Include="Views\Employee_Financial_Contract\Delete.cshtml" />
+    <Content Include="Views\Employee_Financial_Contract\Edit.cshtml" />
+    <Content Include="Views\Employee_Financial_Contract\Index.cshtml" />
+    <Content Include="Views\ExtendedFields_Details\Create.cshtml" />
+    <Content Include="Views\ExtendedFields_Details\Delete.cshtml" />
+    <Content Include="Views\ExtendedFields_Details\Edit.cshtml" />
+    <Content Include="Views\ExtendedFields_Details\Index.cshtml" />
+    <Content Include="Views\ExtendedFields_Header\Create.cshtml" />
+    <Content Include="Views\ExtendedFields_Header\Delete.cshtml" />
+    <Content Include="Views\ExtendedFields_Header\Edit.cshtml" />
+    <Content Include="Views\ExtendedFields_Header\Index.cshtml" />
+    <Content Include="Views\GL_AccountSetup\Create.cshtml" />
+    <Content Include="Views\GL_AccountSetup\Delete.cshtml" />
+    <Content Include="Views\GL_AccountSetup\Edit.cshtml" />
+    <Content Include="Views\GL_AccountSetup\Index.cshtml" />
+    <Content Include="Views\Locker\Create.cshtml" />
+    <Content Include="Views\Locker\Delete.cshtml" />
+    <Content Include="Views\Locker\Edit.cshtml" />
+    <Content Include="Views\Locker\Index.cshtml" />
+    <Content Include="Views\ManualPaymentTypes\create.cshtml" />
+    <Content Include="Views\ManualPaymentTypes\delete.cshtml" />
+    <Content Include="Views\ManualPaymentTypes\edit.cshtml" />
+    <Content Include="Views\ManualPaymentTypes\Index.cshtml" />
+    <Content Include="Views\PayrollPeriodSetup\Create.cshtml" />
+    <Content Include="Views\PayrollPeriodSetup\Delete.cshtml" />
+    <Content Include="Views\PayrollPeriodSetup\Edit.cshtml" />
+    <Content Include="Views\PayrollPeriodSetup\Index.cshtml" />
+    <Content Include="Views\PayrollTransactionJournalSetup\Create.cshtml" />
+    <Content Include="Views\PayrollTransactionJournalSetup\Delete.cshtml" />
+    <Content Include="Views\PayrollTransactionJournalSetup\Edit.cshtml" />
+    <Content Include="Views\PayrollTransactionJournalSetup\Index.cshtml" />
+    <Content Include="Views\SalaryItemCollectionGroup\Create.cshtml" />
+    <Content Include="Views\SalaryItemCollectionGroup\Delete.cshtml" />
+    <Content Include="Views\SalaryItemCollectionGroup\Edit.cshtml" />
+    <Content Include="Views\SalaryItemCollectionGroup\Index.cshtml" />
+    <Content Include="Views\salary_code\EditAssign.cshtml" />
+    <Content Include="Views\Account\edit_profile.cshtml" />
+    <Content Include="Views\LoanRequest\Create.cshtml" />
+    <Content Include="Views\LoanRequest\edit.cshtml" />
+    <Content Include="Views\LoanRequest\Index.cshtml" />
+    <Content Include="Views\LoanRequest\delete.cshtml" />
+    <Content Include="Views\LoanRequest\loan_installment.cshtml" />
+    <Content Include="Views\LoanRequest\Mass_Loan_Request.cshtml" />
+    <Content Include="Views\LoanRequest\status.cshtml" />
+    <Content Include="Views\Loan_transfer\Loan_transfer_entry.cshtml" />
+    <Content Include="Views\Loan_transfer\Index.cshtml" />
+    <Content Include="Views\LoanAdjustment\create.cshtml" />
+    <Content Include="Views\LoanAdjustment\Index.cshtml" />
+    <Content Include="Views\LoanRequest\details.cshtml" />
+    <Content Include="Views\LoanRequest\loan_installment2.cshtml" />
+    <Content Include="Views\Salary_calcualtion\Index.cshtml" />
+    <Content Include="Views\Salary_calcualtion\view_salary_emp.cshtml" />
+    <Content Include="Views\Salary_calcualtion\preview.cshtml" />
+    <Content Include="Views\Trainig_center\Index.cshtml" />
+    <Content Include="Views\Trainig_center\Create.cshtml" />
+    <Content Include="Views\Trainig_center\Delete.cshtml" />
+    <Content Include="Views\Trainig_center\Edit.cshtml" />
+    <Content Include="Views\Training_center_branches\Create.cshtml" />
+    <Content Include="Views\Training_center_branches\Delete.cshtml" />
+    <Content Include="Views\Training_center_branches\Index.cshtml" />
+    <Content Include="Views\Class_room_group\Index.cshtml" />
+    <Content Include="Views\Class_room_group\Create.cshtml" />
+    <Content Include="Views\Class_room_group\Delete.cshtml" />
+    <Content Include="Views\Class_room_group\Edit.cshtml" />
+    <Content Include="Views\class_room\Index.cshtml" />
+    <Content Include="Views\class_room\Create.cshtml" />
+    <Content Include="Views\class_room\Delete.cshtml" />
+    <Content Include="Views\class_room\Edit.cshtml" />
+    <Content Include="Views\CourseClassification\Create.cshtml" />
+    <Content Include="Views\CourseClassification\Delete.cshtml" />
+    <Content Include="Views\CourseClassification\Edit.cshtml" />
+    <Content Include="Views\CourseClassification\Index.cshtml" />
+    <Content Include="Views\coursegroup\Create.cshtml" />
+    <Content Include="Views\coursegroup\Delete.cshtml" />
+    <Content Include="Views\coursegroup\Edit.cshtml" />
+    <Content Include="Views\coursegroup\Index.cshtml" />
+    <Content Include="Views\course_sub_group\Create.cshtml" />
+    <Content Include="Views\course_sub_group\Delete.cshtml" />
+    <Content Include="Views\course_sub_group\Edit.cshtml" />
+    <Content Include="Views\course_sub_group\Index.cshtml" />
+    <Content Include="Views\Training_center_branches\edit.cshtml" />
+    <Content Include="Views\CostElement\Create.cshtml" />
+    <Content Include="Views\CostElement\Delete.cshtml" />
+    <Content Include="Views\CostElement\Edit.cshtml" />
+    <Content Include="Views\CostElement\Index.cshtml" />
+    <Content Include="Views\Provider\Create.cshtml" />
+    <Content Include="Views\Provider\Delete.cshtml" />
+    <Content Include="Views\Provider\Edit.cshtml" />
+    <Content Include="Views\Provider\Index.cshtml" />
+    <Content Include="Views\Training_Facilities\Create.cshtml" />
+    <Content Include="Views\Training_Facilities\Delete.cshtml" />
+    <Content Include="Views\Training_Facilities\Edit.cshtml" />
+    <Content Include="Views\Training_Facilities\Index.cshtml" />
+    <Content Include="Views\TrainingType\Delete.cshtml" />
+    <Content Include="Views\TrainingType\Index.cshtml" />
+    <Content Include="Views\TrainingType\Create.cshtml" />
+    <Content Include="Views\TrainingType\Edit.cshtml" />
+    <Content Include="Views\TrainingPolicy\Delete.cshtml" />
+    <Content Include="Views\TrainingPolicy\Index.cshtml" />
+    <Content Include="Views\TrainingPolicy\Create.cshtml" />
+    <Content Include="Views\TrainingPolicy\Edit.cshtml" />
+    <Content Include="Views\instructors\Create.cshtml" />
+    <Content Include="Views\instructors\Delete.cshtml" />
+    <Content Include="Views\instructors\edit.cshtml" />
+    <Content Include="Views\instructors\Index.cshtml" />
+    <Content Include="Views\Cours\Delete.cshtml" />
+    <Content Include="Views\Cours\Index.cshtml" />
+    <Content Include="Views\Cours\create.cshtml" />
+    <Content Include="Views\Cours\edit.cshtml" />
+    <Content Include="Views\CourceQualification\Delete.cshtml" />
+    <Content Include="Views\CourceQualification\Index.cshtml" />
+    <Content Include="Views\CourceQualification\create.cshtml" />
+    <Content Include="Views\CourceQualification\edit.cshtml" />
+    <Content Include="Views\Course_Centers\create.cshtml" />
+    <Content Include="Views\Course_Centers\Delete.cshtml" />
+    <Content Include="Views\Course_Centers\edit.cshtml" />
+    <Content Include="Views\Course_Centers\Index.cshtml" />
+    <Content Include="Views\Course_skill\create.cshtml" />
+    <Content Include="Views\Course_skill\Delete.cshtml" />
+    <Content Include="Views\Course_skill\edit.cshtml" />
+    <Content Include="Views\Course_skill\Index.cshtml" />
+    <Content Include="Views\Course_training_type\create.cshtml" />
+    <Content Include="Views\Course_training_type\Delete.cshtml" />
+    <Content Include="Views\Course_training_type\edit.cshtml" />
+    <Content Include="Views\Course_training_type\Index.cshtml" />
+    <Content Include="Views\EmployeeAnnualandSpecialAllowance\Create.cshtml" />
+    <Content Include="Views\EmployeeAnnualandSpecialAllowance\Index.cshtml" />
+    <Content Include="Views\EmployeeAnnualandSpecialAllowance\ShowEmployeeAnnualIncrease.cshtml" />
+    <Content Include="Views\EmployeeAnnualandSpecialAllowance\ViewExecl.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\create.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\delete.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\edit.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\ImportTransactionEntryFromExcel.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\Index.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\PayrollTransactionHorizontalBatch.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\PayrollTransactionsVerticalBatch.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\status.cshtml" />
+    <Content Include="Views\Employee_Payroll_Transactions\ViewExecl.cshtml" />
+    <Content Include="Views\LedgerTransaction\create.cshtml" />
+    <Content Include="Views\LedgerTransaction\delete.cshtml" />
+    <Content Include="Views\LedgerTransaction\edit.cshtml" />
+    <Content Include="Views\LedgerTransaction\Index.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\create.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\delete.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\Details.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\edit.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\Index.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\PaymentSettlementMassTransaction.cshtml" />
+    <Content Include="Views\ManualPaymentTransactionEntry\status.cshtml" />
+    <Content Include="Views\Specialallwancesincreaseforjobcadres\Create.cshtml" />
+    <Content Include="Views\TrainingOpportunity\Delete.cshtml" />
+    <Content Include="Views\TrainingOpportunity\Index.cshtml" />
+    <Content Include="Views\TrainingOpportunity\create.cshtml" />
+    <Content Include="Views\TrainingOpportunity\edit.cshtml" />
+    <Content Include="Views\TrainingOpportunity\status.cshtml" />
+    <Content Include="Views\trainingplan\Delete.cshtml" />
+    <Content Include="Views\trainingplan\Index.cshtml" />
+    <Content Include="Views\EmployeeAnnualandSpecialAllowance\ShowEmployeeBasicSalaryHistory.cshtml" />
+    <Content Include="Views\trainingplan\Create.cshtml" />
+    <Content Include="Views\trainingplan\edit.cshtml" />
+    <Content Include="Views\trainingplan\coast.cshtml" />
+    <Content Include="Views\trainingplan\Edit_Details.cshtml" />
+    <Content Include="Views\trainingplan\delete_details.cshtml" />
+    <Content Include="Views\trainingplan\trainee.cshtml" />
+    <Content Include="Views\trainingplan\result.cshtml" />
+    <Content Include="Views\Evalution_elementt\Index.cshtml" />
+    <Content Include="Views\Evalution_elementt\Create.cshtml" />
+    <Content Include="Views\Evalution_elementt\Delete.cshtml" />
+    <Content Include="Views\Evalution_elementt\Edit.cshtml" />
+    <Content Include="Views\trainingplan\evalution.cshtml" />
+    <Content Include="Views\trainingplan\status.cshtml" />
+    <Content Include="Views\Restoptions\Create.cshtml" />
+    <Content Include="Views\Restoptions\Delete.cshtml" />
+    <Content Include="Views\Restoptions\Edit.cshtml" />
+    <Content Include="Views\Restoptions\Index.cshtml" />
+    <Content Include="Views\Punishmentgroup\Create.cshtml" />
+    <Content Include="Views\Punishmentgroup\Delete.cshtml" />
+    <Content Include="Views\Punishmentgroup\Edit.cshtml" />
+    <Content Include="Views\Punishmentgroup\Index.cshtml" />
+    <Content Include="Views\penalityitem\Create.cshtml" />
+    <Content Include="Views\penalityitem\Delete.cshtml" />
+    <Content Include="Views\penalityitem\Edit.cshtml" />
+    <Content Include="Views\penalityitem\Index.cshtml" />
+    <Content Include="Views\Assignscheduletemplatetomultiemployee\Create.cshtml" />
+    <Content Include="Views\CreateVacationBalance\Create.cshtml" />
+    <Content Include="Views\ImportFromExcel_TimeManagement\ImportTransactionEntryFromExcel.cshtml" />
+    <Content Include="Views\ImportFromExcel_TimeManagement\ViewExecl.cshtml" />
+    <Content Include="Views\punishment\create.cshtml" />
+    <Content Include="Views\punishment\Delete.cshtml" />
+    <Content Include="Views\punishment\edit.cshtml" />
+    <Content Include="Views\punishment\Index.cshtml" />
+    <Content Include="Views\Punishment_Transaction\Create.cshtml" />
+    <Content Include="Views\Punishment_Transaction\edit.cshtml" />
+    <Content Include="Views\Punishment_Transaction\Index.cshtml" />
+    <Content Include="Views\Punishment_Transaction\status.cshtml" />
+    <Content Include="Views\penalityitem\linkwithpayroll.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4774,7 +5443,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\suberAdmin\Views\Shared\" />
+    <Folder Include="Content\neon\assets\js\codemirror\bin\" />
+    <Folder Include="Content\neon\assets\js\datatables\pdfmake-0.1.18\build\" />
     <Folder Include="fonts\" />
+    <Folder Include="Images\Users\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Helper\" />
   </ItemGroup>
@@ -4784,24 +5456,28 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003251406023_op.resx">
-      <DependentUpon>202003251406023_op.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007271538229_trans.resx">
+      <DependentUpon>202007271538229_trans.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251707408_opdd.resx">
-      <DependentUpon>202003251707408_opdd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007281534403_trans1.resx">
+      <DependentUpon>202007281534403_trans1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003271417593_lfgkfslgjslgs.resx">
-      <DependentUpon>202003271417593_lfgkfslgjslgs.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007281742028_trans3.resx">
+      <DependentUpon>202007281742028_trans3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003291235571_new1.resx">
-      <DependentUpon>202003291235571_new1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008041339191_o.resx">
+      <DependentUpon>202008041339191_o.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003291255090_new2.resx">
-      <DependentUpon>202003291255090_new2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008041401148_o2.resx">
+      <DependentUpon>202008041401148_o2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003291323525_new3.resx">
-      <DependentUpon>202003291323525_new3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008051112227_pp].resx">
+      <DependentUpon>202008051112227_pp].cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource\Medical.ar-EG.resx" />
+    <EmbeddedResource Include="Resource\Medical.resx" />
+    <EmbeddedResource Include="Resource\Payroll.ar-EG.resx" />
+    <EmbeddedResource Include="Resource\Payroll.resx" />
     <EmbeddedResource Include="Resource\pers-2.ar-EG.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>pers-2.ar-EG.Designer.cs</LastGenOutput>
@@ -4842,6 +5518,43 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Personnel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource\training.ar-EG.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>training.ar-EG.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource\training.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>training.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

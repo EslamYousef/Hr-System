@@ -1,0 +1,117 @@
+﻿@model IEnumerable<HR.Models.penalities.setup.Discipline_PunishmentTransaction>
+@using HR.Resource;
+@using HR.Models.Infra;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+                    <a href="@Url.Action("Create", "Punishment_Transaction")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.Add_punishment_transaction</a>
+                </p>
+                <p class="lead">
+                    <a href="@Url.Action("post_to_poyroll", "Punishment_Transaction")" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>@pers_2.postetopayroll</a>
+                </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>@pers_2.numberreq</th>
+                            <th>@pers_2.requestdate</th>
+                            <th>@organ.empname</th>
+                            <th>@organ.status</th>
+                            <th>@pers_2.postetopayroll</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Transaction_Number</td>
+                                <td>@item.Transaction_Date.Value.ToString("dd/MM/yyyy")</td>
+                                <td>@item.em</td>
+                                <td>@item.stat.statu</td>
+                                <td>@item.Posted_to_payroll</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Punishment_Transaction", new {id = item.ID})" class="create-btn" style="width:50px"><i class="fa fa-edit"></i>@organ.change</a>
+                                    @*<a href="@Url.Action("delete", "Punishment_Transaction", new {id = item.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@organ.delete</a>*@
+                                 @if (item.stat.statu == check_status.created || item.stat.statu == check_status.Recervied || item.stat.statu == check_status.Return_To_Review)
+                                 {
+                                       <a href="@Url.Action("status", "Punishment_Transaction", new { id = item.ID })" class="create-btn"><i class="fas fa-shield-alt"></i>@organ.status</a>
+                                 }
+                                    @if (item.Posted_to_payroll==false)
+                                    {
+                                        <a href="@Url.Action("post_to_poyroll", "Punishment_Transaction", new { id = item.ID })" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.postetopayroll</a>
+                                    }
+                                  </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}
+
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

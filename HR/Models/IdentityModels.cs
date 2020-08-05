@@ -18,6 +18,7 @@ using HR.Models.Training.setup;
 using HR.Models.Training.trans;
 using HR.Models.Training.transaction;
 using HR.Models.Vacations;
+using HR.Models.penalities.setup;
 
 namespace HR.Models
 {
@@ -341,8 +342,14 @@ namespace HR.Models
         public DbSet<TimeManagement_EmployeeTimeAttendanceTransaction_Clc_Results> TimeManagement_EmployeeTimeAttendanceTransaction_Clc_Results { get; set; }
         public DbSet<LeavesBalance> LeavesBalance { get; set; }
         public DbSet<LeavesRequestMaster> LeavesRequestMaster { get; set; }
-
-
+        public DbSet<Discipline_PunishmentGroup> Discipline_PunishmentGroup { get; set; }
+        public DbSet<Discipline_PenaltyItem_Header> Discipline_PenaltyItem_Header { get; set; }
+        public DbSet<Discipline_PenaltyItem_Detail> Discipline_PenaltyItem_Detail { get; set; }
+        public DbSet<Discipline_PunishmentRestOption> Discipline_PunishmentRestOption { get; set; }
+        public DbSet<Discipline_Punishment> Discipline_Punishment { get; set; }
+        public DbSet<Discipline_Punishment_Detail> Discipline_Punishment_Detail { get; set; }
+        public DbSet<Discipline_PunishmentTransaction> Discipline_PunishmentTransaction { get; set; }
+        public DbSet<Discipline_PunishmentTransaction_Detail> Discipline_PunishmentTransaction_Detail { get; set; }
     }
 
 }

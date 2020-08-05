@@ -252,19 +252,24 @@
                         <div class="form-group">
                             
                           
+                       
                             <div class="col-md-4">
                                 <label>
-                                    cost center
+                                    @Payroll.Costcentercode
                                 </label>
-                                <input class="form-control" type="text" disabled />
+                                @Html.DropDownListFor(m => m.cost_center_id, new SelectList(ViewBag.cost, "ID", "Code"), Payroll.Costcentercode, new { @class = "select2" })
+                              
                             </div>
-                          
+
                             <div class="col-md-4">
                                 <label>
-                                    shift code
+                                    @pers_2.shiftsetup
                                 </label>
-                                <input class="form-control" type="text" disabled />
+                                @Html.DropDownListFor(m => m.shift_code_id, new SelectList(ViewBag.shift, "ID", "Code"), pers_2.shiftsetup, new { @class = "select2" })
+                              
                             </div>
+
+                         
                        
                            
                             <div class="col-md-4">

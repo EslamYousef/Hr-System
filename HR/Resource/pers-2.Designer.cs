@@ -97,6 +97,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add punishment transaction.
+        /// </summary>
+        public static string Add_punishment_transaction {
+            get {
+                return ResourceManager.GetString("Add_punishment_transaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Business trip Request.
         /// </summary>
         public static string addbusinesstriprequest1 {
@@ -187,11 +196,47 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add penality item.
+        /// </summary>
+        public static string addpenalityitem {
+            get {
+                return ResourceManager.GetString("addpenalityitem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add personnel transaction.
         /// </summary>
         public static string addpersonneltransaction {
             get {
                 return ResourceManager.GetString("addpersonneltransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new punishment.
+        /// </summary>
+        public static string addpunishment {
+            get {
+                return ResourceManager.GetString("addpunishment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add punishment rest options.
+        /// </summary>
+        public static string addpunishment_rest_options {
+            get {
+                return ResourceManager.GetString("addpunishment_rest_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add punishment group.
+        /// </summary>
+        public static string addpunishmentgroup {
+            get {
+                return ResourceManager.GetString("addpunishmentgroup", resourceCulture);
             }
         }
         
@@ -898,6 +943,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom rest option.
+        /// </summary>
+        public static string customrestoption {
+            get {
+                return ResourceManager.GetString("customrestoption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of EOS.
         /// </summary>
         public static string DateofEOS {
@@ -1065,6 +1119,15 @@ namespace HR.Resource {
         public static string defaultpayrollperiod {
             get {
                 return ResourceManager.GetString("defaultpayrollperiod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default rest option.
+        /// </summary>
+        public static string defaultrestoption {
+            get {
+                return ResourceManager.GetString("defaultrestoption", resourceCulture);
             }
         }
         
@@ -1546,6 +1609,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to event date.
+        /// </summary>
+        public static string event_date {
+            get {
+                return ResourceManager.GetString("event_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit Permission Type.
         /// </summary>
         public static string ExitPerissiontype {
@@ -1942,6 +2014,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string level {
+            get {
+                return ResourceManager.GetString("level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Line.
         /// </summary>
         public static string line {
@@ -1983,6 +2064,24 @@ namespace HR.Resource {
         public static string linkedtosubscriptionsyndicate {
             get {
                 return ResourceManager.GetString("linkedtosubscriptionsyndicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to penlaity items linked to salary items .
+        /// </summary>
+        public static string linkpenality {
+            get {
+                return ResourceManager.GetString("linkpenality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link to payroll.
+        /// </summary>
+        public static string linktopayroll {
+            get {
+                return ResourceManager.GetString("linktopayroll", resourceCulture);
             }
         }
         
@@ -2437,6 +2536,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Penality items.
+        /// </summary>
+        public static string penalityitems {
+            get {
+                return ResourceManager.GetString("penalityitems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Percentage.
         /// </summary>
         public static string percentage {
@@ -2608,6 +2716,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to post to payroll.
+        /// </summary>
+        public static string postetopayroll {
+            get {
+                return ResourceManager.GetString("postetopayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to preview.
         /// </summary>
         public static string preview {
@@ -2685,6 +2802,42 @@ namespace HR.Resource {
         public static string processtart {
             get {
                 return ResourceManager.GetString("processtart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punishment.
+        /// </summary>
+        public static string punishment {
+            get {
+                return ResourceManager.GetString("punishment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punishment rest options.
+        /// </summary>
+        public static string punishment_rest_options {
+            get {
+                return ResourceManager.GetString("punishment_rest_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to punishment transaction.
+        /// </summary>
+        public static string punishment_transaction {
+            get {
+                return ResourceManager.GetString("punishment_transaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punishment group.
+        /// </summary>
+        public static string punishmentgroup {
+            get {
+                return ResourceManager.GetString("punishmentgroup", resourceCulture);
             }
         }
         
@@ -2865,6 +3018,24 @@ namespace HR.Resource {
         public static string Resolutionnumber {
             get {
                 return ResourceManager.GetString("Resolutionnumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rest date.
+        /// </summary>
+        public static string restdate {
+            get {
+                return ResourceManager.GetString("restdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rest days.
+        /// </summary>
+        public static string restdays {
+            get {
+                return ResourceManager.GetString("restdays", resourceCulture);
             }
         }
         
@@ -3243,6 +3414,15 @@ namespace HR.Resource {
         public static string trans {
             get {
                 return ResourceManager.GetString("trans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction statment.
+        /// </summary>
+        public static string transaction_statment {
+            get {
+                return ResourceManager.GetString("transaction_statment", resourceCulture);
             }
         }
         

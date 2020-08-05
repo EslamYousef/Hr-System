@@ -1,0 +1,230 @@
+﻿@model IEnumerable<HR.Models.SetupPayroll.SalaryCodeGroup_Detail>
+@using HR.Resource;
+@using HR.Models.Infra;
+@using HR.Controllers;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+          
+
+            <!-- /.box-header -->
+            <div class="box-body">
+@using (Html.BeginForm("linkwithpayroll", "penalityitem", new { header_id_ = ViewBag.header_id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="sec-nav">
+        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save    </div>
+        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("edit", "penalityitem",new { id= ViewBag.header_id})" class="create-btn"> @pers_2.Back</a></div>
+
+        </div>
+        if (TempData["Message"] != null)
+        {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @TempData["Message"]
+        </div>
+        }
+        <input name="ID_value" value="" hidden />
+        <input name="value_" value="" hidden />
+        <section style="margin-top:60px" class="content-header">
+            <h1>
+               @pers_2.linkpenality
+            </h1>
+        </section>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label>
+                        <span> @pers_2.penalityitems </span>
+                    </label>
+                    <input value=@ViewBag.header_code type="text" readonly class="form-control" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-4">
+                    <label>
+                        <span> @pers_2.salarycodegroup </span>
+                    </label>
+                    <input value=@ViewBag.group type="text" readonly class="form-control" />
+                </div>
+            </div>
+
+            </div>
+            <table id="categories" class="table table-bordered table-striped text-center">
+                <thead>
+                    <tr>
+                        <th>@pers_2.Salarycode</th>
+                        <th>@pers_2.codetype</th>
+                        <th>@pers_2.codevaluetype</th>
+                        <th>@pers_2.value</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>@item.salary_code.SalaryCodeID - @item.salary_code.SalaryCodeDesc </td>
+                            <td> @Enum.GetName(typeof(code_group_type), @item.salary_code.CodeGroupType) </td>
+                            <td> @Enum.GetName(typeof(code_value_type), @item.salary_code.CodeValueType) </td>
+
+                            <td hidden><input hidden value=@item.ID min=0 name="ID_value" /></td>
+
+                            <td><input class="form-control" value=@item.DefaultValue min=0 type="number" name="value_" /></td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            }
+        </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}
+
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

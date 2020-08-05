@@ -1,0 +1,440 @@
+﻿@model HR.Models.penalities.setup.Discipline_PunishmentTransaction
+
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script>
+    $(function () {
+
+        GetDataById2('@Model.Transaction_Date', "Requset_date_D");
+        GetDataById2('@Model.Event_Date', "Requset_date_D2");
+        ch();
+        check2();
+    });
+    function ch()
+    {
+       
+        if('@Model.Custom_Rest'=="True")//custme
+        {
+            document.getElementsByClassName("B")[0].checked = 'checked';
+
+        }
+    else //default
+        {
+            debugger
+            document.getElementsByClassName("A")[0].checked = 'checked';
+
+            
+        }
+    }
+    function check2() {
+      
+        var a1 = document.getElementsByClassName("A")[0];
+        var a2 = document.getElementsByClassName("B")[0];
+        debugger
+        if (a1.checked) {
+            debugger
+            $("#rest").attr('disabled', true);
+            document.getElementById('co').style.color = 'gray';
+        }
+        else if (a2.checked) {
+            debugger
+            document.getElementById('co').style.color = 'red';
+            $("#rest").removeAttr('disabled');
+          
+
+        }
+    }
+    function GetDataById2(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+    }
+    function getemp() {
+        var a1 = document.getElementsByClassName("A")[0];
+        var a2 = document.getElementsByClassName("B")[0];
+        debugger
+        if (a1.checked) ///default
+        {
+            var finalresult = "";
+            var center_id = parseInt($("#country").val());
+            var Da = $("#Requset_date_D2").val()
+            var employee_id_ = parseInt($("#emp_").val());
+            var center_text = $("#country").find("option:selected").text();
+            if (parseInt(center_id) > 0 && employee_id_ > 0) {
+                $.ajax({
+                    type: "post",
+                    url: "/Punishment_Transaction/get_freq",
+                    data: { "employee_id": employee_id_, "puni_id": center_id, "date": Da, "rest__": 0 },
+                    success: function (result) {
+                        debugger
+                        var D = new Date(parseInt(result.Date.replace('/Date(', '')))
+                        F_ = convert_string_To_date(D)
+                        finalresult += "<tr>" +
+                                    "<td hidden><input hidden  class = 'form-control' required type='number'  name='center_id'   value='" + center_id + "' /></td>" +
+                                                   "<td hidden><input hidden  class = 'form-control' required type='number'  name='extra'   value='" + result.extra_frecuany + "' /></td>" +
+                                       "<td hidden><input hidden  class = 'form-control' required   name='G'   value='" + result.guide + "' /></td>" +
+                                   "<td ><input   class = 'form-control' required type='text'   value='" + center_text + "' /></td>" +
+                                    "<td><input class = 'form-control' name='frequency_' readonly   value='" + result.item.PenaltyItem_Level + "'  readonly='readonly'/></td>" +
+                                    "<td hidden><input hidden class = 'form-control' name='Penality_' readonly   value='" + result.item.PenaltyItem_Code + "'  readonly='readonly'/></td>" +
+                                    "<td><input class = 'form-control'  readonly   value='" + result.item.penal_Des + "'  readonly='readonly'/></td>" +
+                                    "<td><input class = 'form-control' required name='rest_D'  value='" + F_ + "'  readonly='readonly'/></td>" +
+                                    "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        $("#emp2").append(finalresult);
+                    }
+                });
+
+
+            }
+        }
+        else if (a2.checked) ///custom
+        {
+            var finalresult = "";
+            var center_id = parseInt($("#country").val());
+            var Da = $("#Requset_date_D2").val()
+            var employee_id_ = parseInt($("#emp_").val());
+            var rest_ = parseInt($("#rest").val());
+            var center_text = $("#country").find("option:selected").text();
+            debugger
+            if (parseInt(center_id) > 0 && employee_id_ > 0 && rest_ > 0) {
+                $.ajax({
+                    type: "post",
+                    url: "/Punishment_Transaction/get_freq",
+                    data: { "employee_id": employee_id_, "puni_id": center_id, "date": Da, "rest__": rest_ },
+                    success: function (result) {
+                        var D = new Date(parseInt(result.Date.replace('/Date(', '')))
+                        F_ = convert_string_To_date(D)
+                        finalresult += "<tr>" +
+                                    "<td hidden><input hidden  class = 'form-control' required type='number'  name='center_id'   value='" + center_id + "' /></td>" +
+                                         "<td hidden><input hidden  class = 'form-control' required   name='G'   value='" + result.guide + "' /></td>" +
+                                                   "<td hidden><input hidden  class = 'form-control' required type='number'  name='extra'   value='" + result.extra_frecuany + "' /></td>" +
+                               "<td ><input   class = 'form-control' required type='text'   value='" + center_text + "' /></td>" +
+                                    "<td><input class = 'form-control' name='frequency_' readonly   value='" + result.item.PenaltyItem_Level + "'  readonly='readonly'/></td>" +
+                                    "<td hidden><input hidden class = 'form-control' name='Penality_' readonly   value='" + result.item.PenaltyItem_Code + "'  readonly='readonly'/></td>" +
+                                    "<td><input class = 'form-control'  readonly   value='" + result.item.penal_Des + "'  readonly='readonly'/></td>" +
+                                    "<td><input class = 'form-control' required name='rest_D'  value='" + F_ + "'  readonly='readonly'/></td>" +
+                                    "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        $("#emp2").append(finalresult);
+                    }
+                });
+
+
+            }
+
+        }
+
+
+
+
+
+    }
+   
+    function convert_string_To_date(D) {
+        var month;
+        if ((D.getMonth() + 1) < 10) {
+            month = "0" + (D.getMonth() + 1).toString();
+        }
+        else {
+            month = D.getMonth() + 1;
+        }
+        var day = parseInt(D.getDate());
+        if (day < 10) {
+            day = "0" + (D.getDate()).toString();
+        }
+        else {
+            day = D.getDate();
+        }
+        var F_ = D.getFullYear() + '-' + month + '-' + day;
+        return F_
+    }
+</script>
+ 
+@Scripts.Render("~/bundles/jqueryval")
+<div class="content-wrapper">
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                @using (Html.BeginForm("Create", "Punishment_Transaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Punishment_Transaction")" class="create-btn"> @pers_2.Back</a></div>
+                    </div>
+                    <input name="center_id" value="" />
+                    <input name="frequency_" value="" />
+                    <input name="Penality_" value="" />
+                    <input name="rest_D" value="" />
+                    <input name="RestOption_Code" value="" />
+                    <input name="G" value="" />
+                    <input name="extra" value=""  />
+
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        <hr />
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.punishment_transaction
+                            </h1>
+                        </section>
+                        <div class="form-group">
+
+
+                            <div class="col-md-4">
+
+                                <label style="color:red">@organ.code</label>
+                                @Html.EditorFor(model => model.Transaction_Number, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Transaction_Number, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.requestdate </span>
+                                </label>
+                                @Html.EditorFor(model => model.Transaction_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
+                                @Html.ValidationMessageFor(model => model.Transaction_Date, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.event_date </span>
+                                </label>
+                                @Html.EditorFor(model => model.Event_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D2" } })
+                                @Html.ValidationMessageFor(model => model.Event_Date, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+
+                                <label style="color:red">@pers_2.employee</label>
+                                @Html.DropDownListFor(m => m.Employee_Code, new SelectList(ViewBag.employee, "ID", "Code"), pers_2.employee, new {id="emp_", @class = "select2" })
+                                @Html.ValidationMessageFor(model => model.Employee_Code, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.notes
+                                </label>
+                                @Html.TextAreaFor(model => model.Transaction_Statement, 4, 67, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Transaction_Statement, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                          
+                            
+                                <div class="col-md-4">
+                                    <label>
+                                        @pers_2.defaultrestoption
+                                    </label>
+                                    <input type="radio"  onclick="check2()" class="icheck A" value="last" name="check_A" id="ch2"  />@*Default*@
+                                </div>
+                            
+                                <div class="col-md-4">
+                                    <label >
+                                        @pers_2.customrestoption
+                                    </label>
+                                    <input type="radio" onclick="check2()" class="icheck B" value="last" name="check_A" id="ch2"  />@*custom*@
+                                </div>
+                            
+                            <div class="col-md-4">
+
+                                <label id="co">@pers_2.restdays</label>
+                                @Html.DropDownListFor(m => m.RestOption_Code, new SelectList(ViewBag.restoption, "ID", "Code"), pers_2.punishment_rest_options, new {id="rest", @displaed= "displaed", @class = "select2",@name="rest" })
+                                @Html.ValidationMessageFor(model => model.RestOption_Code, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <ul class="nav nav-tabs bordered">
+                            <li class="active">
+                                <a href="#homee" data-toggle="tab">
+                                    <span class="visible-xs"><i class="entypo-home"></i></span>
+                                    <span class="hidden-xs">@pers_2.punishment</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="homee" style="overflow: hidden;width: auto;height: auto;">
+
+
+                                <div class="form-group">
+
+
+                                    <div class="col-md-4">
+                                        <label>@pers_2.punishment</label>
+                                        @Html.DropDownList("Q", new SelectList(ViewBag.punishment, "ID", "Code"), pers_2.punishment, new { @class = "select2", id = "country" })
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <label> - </label>
+                                        <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.addelement onclick="getemp()" />
+
+                                    </div>
+
+                                </div>
+
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>@pers_2.punishment</td>
+                                            <td>@pers_2.frequency</td>
+                                            <td>@pers_2.penalityitems</td>
+                                            <td>@pers_2.restdays</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="emp2"></tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>
+
+
+
+
