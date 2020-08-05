@@ -856,5 +856,22 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [HttpPost]
+        public JsonResult GetHiringDateandDepartmentFromEmployeeProfile(int id)
+        {
+            var record = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id);
+            var s = record.Personnel_Information.Hire_Date;
+            var EmployeeProfile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList();
+            var PositionInformation = dbcontext.Position_Information.Where(a => a.Primary_Position == true && a.Employee_ProfileId == id.ToString()).ToList();
+            var Position = dbcontext.Position_Information.Where(a => a.Primary_Position == true && a.Employee_ProfileId == id.ToString()).FirstOrDefault().Organization_ChartId;
+            var org = int.Parse(Position);
+            var OrganizationChart = dbcontext.Organization_Chart.FirstOrDefault(a=>a.ID == org);
+
+            var PersonnelInformation = dbcontext.Personnel_Information.ToList();
+            var model = (from a in EmployeeProfile
+                         join b in PositionInformation on a.ID equals int.Parse(b.Employee_ProfileId)
+                         select new { HiringDate = a.Personnel_Information.Hire_Date, Departmentss = b.Organization_ChartId , Department = OrganizationChart.unit_Description });
+            return Json(model);
+        }
     }
 }

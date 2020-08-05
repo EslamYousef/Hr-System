@@ -16,8 +16,8 @@ namespace HR.Models.Vacations
         [StringLength(50)]
         [Index(IsUnique = true)]
         public string SerialNo { get; set; }
-        public string EmployeeID { get; set; }
-        public string VacCode { get; set; }
+        public int EmployeeID { get; set; }
+        public int VacCode { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> DateFrom { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
@@ -26,14 +26,14 @@ namespace HR.Models.Vacations
         public Nullable<System.DateTime> CurrentDate { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> ActualToDate { get; set; }
-        public string EmpAlternative { get; set; }
+        public int EmpAlternative { get; set; }
         public string Reason { get; set; }
-        public Nullable<byte> Approved { get; set; }
-        public string EmpApproved { get; set; }
+        public int Approved { get; set; }
+        public int EmpApproved { get; set; }
         public string RequestTypeCode { get; set; }
         public Nullable<bool> ReturnVac { get; set; }
         public Nullable<bool> Settled { get; set; }
-        public Nullable<bool> CasualLeave { get; set; }
+        public bool CasualLeave { get; set; }
         public Nullable<long> PointID { get; set; }
         public Nullable<bool> WithTicket { get; set; }
         public Nullable<bool> WithExitReEntry { get; set; }
@@ -73,5 +73,13 @@ namespace HR.Models.Vacations
         public string ManagerNotes { get; set; }
         public string HRNotes { get; set; }
         public string GMNotes { get; set; }
+        public virtual status status { get; set; }
+        public check_status check_status { get; set; }
+
+        public int statID { get; set; }
+        public string name_state { get; set; }
+
+        public int year { get; set; }
+        public bool LastOrder { get; set; }
     }
 }

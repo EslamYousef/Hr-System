@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity.Infrastructure;
+using System.IO;
+using System.Web.Helpers;
 
 namespace HR.Controllers
 {
@@ -19,11 +22,11 @@ namespace HR.Controllers
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
         }
-      
+
 
         // GET: Helper
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        
+
         public ActionResult Index()
         {
             return View();
@@ -1482,7 +1485,7 @@ namespace HR.Controllers
         public JsonResult GetManualPaymentTypes_HeaderinEdit(int id)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
-            var item = dbcontext.ManualPaymentTransactionEntry.Where(a=>a.ID == id).ToList();
+            var item = dbcontext.ManualPaymentTransactionEntry.Where(a => a.ID == id).ToList();
             return Json(item);
         }
         public JsonResult AllManualMass(string id, string did)
@@ -1508,11 +1511,11 @@ namespace HR.Controllers
 
         }
 
-        public JsonResult AllManual(string id,string did)
+        public JsonResult AllManual(string id, string did)
         {
             int ID = int.Parse(id);
             //var ManualPaymentTransactionEntry = dbcontext.ManualPaymentTransactionEntry.Where(a => a.ID == ID).ToList();
-            var ManualPaymentTypes_Detail = dbcontext.ManualPaymentTypes_Detail.Where(a=>a.PaymentTypeCode == did).ToList();
+            var ManualPaymentTypes_Detail = dbcontext.ManualPaymentTypes_Detail.Where(a => a.PaymentTypeCode == did).ToList();
             var ManualPaymentTransactionEntry_Detail = dbcontext.ManualPaymentTransactionEntry_Detail.Where(a => a.TransactionNumber == id).ToList();
             if (ManualPaymentTransactionEntry_Detail.Count() == 0)
             {
@@ -1538,7 +1541,7 @@ namespace HR.Controllers
         public JsonResult Getsalary_code(int id)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
-            var item = dbcontext.salary_code.Where(a => a.SourceEntry == 2).FirstOrDefault(a=>a.ID == id);
+            var item = dbcontext.salary_code.Where(a => a.SourceEntry == 2).FirstOrDefault(a => a.ID == id);
             return Json(item);
         }
         public JsonResult GetExtendedFieldsBySalaryCode(int id)
@@ -1562,7 +1565,7 @@ namespace HR.Controllers
         }
         public JsonResult GetSalaryCodeGroupHeader(int id)
         {
-            var Checktype = dbcontext.SalaryCodeGroup_Header.Where(a => a.GroupPurpose == 2).FirstOrDefault(a=>a.ID == id);
+            var Checktype = dbcontext.SalaryCodeGroup_Header.Where(a => a.GroupPurpose == 2).FirstOrDefault(a => a.ID == id);
             return Json(Checktype);
         }
         public JsonResult GetSalaryCodeGroup_Detail(string id)
@@ -1628,7 +1631,7 @@ namespace HR.Controllers
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
             //var ID = int.Parse(id);
-            var Shiftscheduletemplate = dbcontext.Shiftscheduletemplate.Where(a=>a.TemplateCode_Shifts == id).ToList();
+            var Shiftscheduletemplate = dbcontext.Shiftscheduletemplate.Where(a => a.TemplateCode_Shifts == id).ToList();
             return Json(Shiftscheduletemplate);
         }
         public JsonResult GetShift_setup(int id)
@@ -1641,20 +1644,20 @@ namespace HR.Controllers
             var PositionInformation = dbcontext.Position_Information.Where(a => a.Primary_Position == true && a.Employee_ProfileId == id).ToList();
             var worklocation = dbcontext.work_location.ToList();
             var Shiftsetup = dbcontext.Shift_setup.ToList();
-                var model = (from a in PositionInformation
-                             join b in worklocation on a.Default_location_descId equals b.ID.ToString()
-                             join c  in Shiftsetup on a.Shift_setupId equals c.ID.ToString()
-                             select new {  work_location = b.Name, Shiftsetup = c.Name, working_system = a.working_system });
-                return Json(model);
+            var model = (from a in PositionInformation
+                         join b in worklocation on a.Default_location_descId equals b.ID.ToString()
+                         join c in Shiftsetup on a.Shift_setupId equals c.ID.ToString()
+                         select new { work_location = b.Name, Shiftsetup = c.Name, working_system = a.working_system });
+            return Json(model);
         }
         public JsonResult GetShiftdaystatus(int id)
         {
             var item = dbcontext.Shiftdaystatus.FirstOrDefault(a => a.ID == id);
             return Json(item);
         }
-        public JsonResult GetfullmonthforTimeManagement(int year , int month , string shift , string location , int emp)
+        public JsonResult GetfullmonthforTimeManagement(int year, int month, string shift, string location, int emp)
         {
-            var Shift_setup = dbcontext.Shift_setup.FirstOrDefault(a=>a.Name == shift);
+            var Shift_setup = dbcontext.Shift_setup.FirstOrDefault(a => a.Name == shift);
             var work_location = dbcontext.work_location.FirstOrDefault(a => a.Name == location);
             var Shiftdaystatus = dbcontext.Shiftdaystatus.FirstOrDefault(a => a.ID == work_location.Defaultdaystatuscode);
             var EmployeeProfile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp);
@@ -1669,8 +1672,8 @@ namespace HR.Controllers
             {
                 ret.Add(new DateTime(year, month, i));
             }
-                    foreach (var o in ret)
-                    {
+            foreach (var o in ret)
+            {
                 var weeks = o.DayOfWeek.ToString();
                 var Name = "";
                 var Code = "";
@@ -1681,10 +1684,10 @@ namespace HR.Controllers
                 var Wednesday = "Wednesday";
                 var Thursday = "Thursday";
                 var Friday = "Friday";
-                int EmployeeSta  ;
+                int EmployeeSta;
                 if (Weekendsetup.Saturday == true && Saturday == weeks)
                 {
-                     Name = Shiftdaystatuss.Name;
+                    Name = Shiftdaystatuss.Name;
                     Code = Shiftdaystatuss.Code;
                     EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
                 }
@@ -1726,16 +1729,28 @@ namespace HR.Controllers
                 }
                 else
                 {
-                     Name = Shiftdaystatus.Name;
+                    Name = Shiftdaystatus.Name;
                     Code = Shiftdaystatus.Code;
                     EmployeeSta = Convert.ToInt32(EmployeeStatus.WeekEnd);
                 }
-               
-                timemanagement.Add(new Vm_TimeManagement_EmployeeTimeAttendanceTransaction { week = o.DayOfWeek.ToString(), AttendDate = o.ToShortDateString(), Start_time = Shift_setup.Start_time , End_time = Shift_setup.End_time ,
-                    worklocationcode = Code, worklocationDes = Name , LocationCode = work_location.Code , LocationDescription = work_location.Name ,ShiftCode = Shift_setup.Code , ShiftDescription = Shift_setup.Name ,
-                    working_system = working_system.Day , EmployeeStat = EmployeeSta, ID = o.Day
+
+                timemanagement.Add(new Vm_TimeManagement_EmployeeTimeAttendanceTransaction
+                {
+                    week = o.DayOfWeek.ToString(),
+                    AttendDate = o.ToShortDateString(),
+                    Start_time = Shift_setup.Start_time,
+                    End_time = Shift_setup.End_time,
+                    worklocationcode = Code,
+                    worklocationDes = Name,
+                    LocationCode = work_location.Code,
+                    LocationDescription = work_location.Name,
+                    ShiftCode = Shift_setup.Code,
+                    ShiftDescription = Shift_setup.Name,
+                    working_system = working_system.Day,
+                    EmployeeStat = EmployeeSta,
+                    ID = o.Day
                 });
-                    }
+            }
 
             return Json(timemanagement);
         }
@@ -1744,10 +1759,10 @@ namespace HR.Controllers
 
         public JsonResult GetApplyDefaultforTimeManagement(int year, int month, string shift, string location, int emp)
         {
-             
-        var Employee_Shift_schedule = dbcontext.Employee_Shift_schedule.Where(a=>a.Use_As_Default == true ).FirstOrDefault(a => a.Employee_ProfileID == emp);
-            var Schedule_Details = dbcontext.Schedule_Details.Where(a => a.Employee_Shift_scheduleID == Employee_Shift_schedule.ID ).ToList();
-                var sch = new List<uoi>();
+
+            var Employee_Shift_schedule = dbcontext.Employee_Shift_schedule.Where(a => a.Use_As_Default == true).FirstOrDefault(a => a.Employee_ProfileID == emp);
+            var Schedule_Details = dbcontext.Schedule_Details.Where(a => a.Employee_Shift_scheduleID == Employee_Shift_schedule.ID).ToList();
+            var sch = new List<uoi>();
 
             for (int c = 0; c < Schedule_Details.Count(); c++)
             {
@@ -1776,7 +1791,7 @@ namespace HR.Controllers
                 var Code = "";
                 var Saturday = "Saturday";
                 var Sunday = "Sunday";
-                var Monday =  "Monday";
+                var Monday = "Monday";
                 var Tuesday = "Tuesday";
                 var Wednesday = "Wednesday";
                 var Thursday = "Thursday";
@@ -1868,15 +1883,248 @@ namespace HR.Controllers
                 {
                     if (o.ToShortDateString() == sch[d].date.ToShortDateString())
                     {
-                       var ShID = Schedule_Details[d].ShiftdaystatusID.ToString();
-                        var s = dbcontext.Shiftdaystatus.FirstOrDefault(a=>a.ID.ToString() == ShID);
+                        var ShID = Schedule_Details[d].ShiftdaystatusID.ToString();
+                        var s = dbcontext.Shiftdaystatus.FirstOrDefault(a => a.ID.ToString() == ShID);
                         Code = s.Code;
                         Name = s.Name;
                         var shif = Schedule_Details[d].Shift_setupID.ToString();
                         var sh = dbcontext.Shift_setup.FirstOrDefault(a => a.ID.ToString() == shif);
                         ShiftCode = sh.Code;
                         ShiftName = sh.Name;
-                          FROM_TIME = Schedule_Details[d].From;
+                        FROM_TIME = Schedule_Details[d].From;
+                        END_TIME = Schedule_Details[d].To;
+                        //AttendDate = sch[d].date.ToShortDateString();
+                    }
+                }
+                timemanagement.Add(new Vm_TimeManagement_EmployeeTimeAttendanceTransaction
+                {
+                    week = o.DayOfWeek.ToString(),
+                    AttendDate = o.ToShortDateString(),
+                    Start_time = FROM_TIME,
+                    End_time = END_TIME,
+                    worklocationcode = Code,
+                    worklocationDes = Name,
+                    LocationCode = work_location.Code,
+                    LocationDescription = work_location.Name,
+                    ShiftCode = ShiftCode,
+                    ShiftDescription = ShiftName,
+                    working_system = working_system.Day,
+                    EmployeeStat = EmployeeSta,
+                    ID = o.Day
+                });
+            }
+
+            return Json(timemanagement);
+        }
+        public JsonResult GetVacationsSetup(int id)
+        {
+            var Vacations = dbcontext.Vacations_Setup.FirstOrDefault(a => a.ID == id);
+            return Json(Vacations);
+        }
+        public JsonResult GetLeavesBalance(int id)
+        {
+            var record = dbcontext.LeavesBalance.Where(a => a.VacCode == id).ToList();
+            return Json(record);
+        }
+        public JsonResult Balance(DateTime id, int Vac , DateTime Start)
+        {
+
+            var record = dbcontext.LeavesBalance.Where(a => a.BalanceStartDate == id && a.VacCode == Vac).FirstOrDefault();
+            var BalanceStart = record.BalanceStartDate;
+            int BalanceStartDate = Convert.ToDateTime(BalanceStart).Year;
+
+            var LeavesRequestMaster = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.LastOrder == true).FirstOrDefault();
+            var LeavesRequestMasters = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.Approved == 1 && a.year == BalanceStartDate && a.LastOrder == true).ToList();
+            var VacationsSetup = dbcontext.Vacations_Setup.FirstOrDefault(a => a.ID == Vac);
+
+            if (VacationsSetup.TrackMonthlyAccrualBalance == true)
+            {
+                var Bal = record.Balance / 12;
+                int Sta = Convert.ToDateTime(Start).Month;
+                int year = Convert.ToDateTime(Start).Year;
+
+                var RemainDays = Bal * Sta;
+                var LeavesRequestMas = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.Approved == 1 && a.year == year).ToList();
+              
+                var AllDays = new List<double?>();
+                if (LeavesRequestMas != null)
+                {
+                    for (int i = 0; i < LeavesRequestMas.Count; i++)
+                    {
+                        var Rem= LeavesRequestMas[i].TotalDays;
+                        var Day =  AllDays.LastOrDefault();
+                        if (Day == null)
+                        {
+                            Day = Rem ;
+                            AllDays.Add(Day);
+                        }
+                        else
+                        {
+                            var All = Day + Rem;
+                            AllDays.Add(All);
+                        }
+                    }
+                    var RemainDaysss = RemainDays - AllDays.LastOrDefault();
+                    if (AllDays.LastOrDefault() != 0)
+                    {
+                        return Json(RemainDaysss);
+                    }
+                }
+                return Json(RemainDays);
+
+            }
+            if (LeavesRequestMasters != null)
+            {
+                for (int i = 0; i < LeavesRequestMasters.Count; i++)
+                {
+                    int year = LeavesRequestMasters[i].year;
+                    if (year == BalanceStartDate)
+                    {
+                        var RemainDays = LeavesRequestMasters[i].RemainDays;
+                        return Json(RemainDays);
+                    }
+                }
+            }
+                var RemainDay = record.Balance;
+                return Json(RemainDay);
+        }
+
+
+        public JsonResult GetLeaveRequestFormVacationSetup(int year, int month, string shift, string location, int emp, string from, string to)
+        {
+
+            var Employee_Shift_schedule = dbcontext.Employee_Shift_schedule.Where(a => a.Use_As_Default == true).FirstOrDefault(a => a.Employee_ProfileID == emp);
+            var Schedule_Details = dbcontext.Schedule_Details.Where(a => a.Employee_Shift_scheduleID == Employee_Shift_schedule.ID).ToList();
+            var sch = new List<uoi>();
+
+            for (int c = 0; c < Schedule_Details.Count(); c++)
+            {
+                sch.Add(new uoi { date = Schedule_Details[c].From_date });
+            }
+
+            var Shift_setup = dbcontext.Shift_setup.FirstOrDefault(a => a.Name == shift);
+            var work_location = dbcontext.work_location.FirstOrDefault(a => a.Name == location);
+            var Shiftdaystatus = dbcontext.Shiftdaystatus.FirstOrDefault(a => a.ID == work_location.Defaultdaystatuscode);
+            var EmployeeProfile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp);
+            var Weekendsetup = dbcontext.Weekend_setup.FirstOrDefault(a => a.ID == EmployeeProfile.Weekendcode);
+            var Shiftdaystatuss = dbcontext.Shiftdaystatus.FirstOrDefault(a => a.ID == Weekendsetup.ShiftdaystatussetupId);
+
+            var ret = new List<DateTime>();
+
+            var timemanagement = new List<Vm_TimeManagement_EmployeeTimeAttendanceTransaction>();
+
+            for (int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
+            {
+                ret.Add(new DateTime(year, month, i));
+            }
+            foreach (var o in ret)
+            {
+                var weeks = o.DayOfWeek.ToString();
+                var Name = "";
+                var Code = "";
+                var Saturday = "Saturday";
+                var Sunday = "Sunday";
+                var Monday = "Monday";
+                var Tuesday = "Tuesday";
+                var Wednesday = "Wednesday";
+                var Thursday = "Thursday";
+                var Friday = "Friday";
+                int EmployeeSta;
+                var ShiftName = "";
+                var ShiftCode = "";
+                if (Weekendsetup.Saturday == true && Saturday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatuss.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else if (Weekendsetup.Sunday == true && Sunday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatuss.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else if (Weekendsetup.Monday == true && Monday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatuss.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else if (Weekendsetup.Tuesday == true && Tuesday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatuss.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else if (Weekendsetup.Wednesday == true && Wednesday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatuss.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else if (Weekendsetup.Thursday == true && Thursday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatuss.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else if (Weekendsetup.Friday == true && Friday == weeks)
+                {
+                    Name = Shiftdaystatuss.Name;
+                    Code = Shiftdaystatus.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.OnDuty);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                else
+                {
+                    Name = Shiftdaystatus.Name;
+                    Code = Shiftdaystatus.Code;
+                    EmployeeSta = Convert.ToInt32(EmployeeStatus.WeekEnd);
+                    FROM_TIME = Shift_setup.Start_time;
+                    END_TIME = Shift_setup.End_time;
+                    ShiftCode = Shift_setup.Code;
+                    ShiftName = Shift_setup.Name;
+                }
+                for (int d = 0; d < sch.Count(); d++)
+                {
+                    if (o.ToShortDateString() == sch[d].date.ToShortDateString())
+                    {
+                        var ShID = Schedule_Details[d].ShiftdaystatusID.ToString();
+                        var s = dbcontext.Shiftdaystatus.FirstOrDefault(a => a.ID.ToString() == ShID);
+                        Code = s.Code;
+                        Name = s.Name;
+                        var shif = Schedule_Details[d].Shift_setupID.ToString();
+                        var sh = dbcontext.Shift_setup.FirstOrDefault(a => a.ID.ToString() == shif);
+                        ShiftCode = sh.Code;
+                        ShiftName = sh.Name;
+                        FROM_TIME = Schedule_Details[d].From;
                         END_TIME = Schedule_Details[d].To;
                         //AttendDate = sch[d].date.ToShortDateString();
                     }

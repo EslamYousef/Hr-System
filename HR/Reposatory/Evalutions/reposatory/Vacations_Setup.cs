@@ -136,8 +136,23 @@ namespace HR.Reposatory.Evalutions.reposatory
                 recode.MaximumDaysContinous = model.MaximumDaysContinous;
                 recode.TakenAfterEmploymentDate = model.TakenAfterEmploymentDate;
                 recode.LeavesType = model.LeavesType;
-          
-                recode.ShiftdaystatussetupId = model.ShiftdaystatussetupId;
+                recode.TestFormula = model.TestFormula;
+                recode.LeavesType = model.LeavesType;
+                if (model.LeavesPayItemsCashDays == null)
+                {
+                    model.LeavesPayItemsCashDays = 0;
+                }
+                if (model.PRWorkDayPayCode == null)
+                {
+                    model.PRWorkDayPayCode = 0;
+                }
+                if (model.EOSCashmandayAmount == null)
+                {
+                    model.EOSCashmandayAmount = 0;
+                }
+                recode.LeavesPayItemsCashDays = model.LeavesPayItemsCashDays;
+                recode.PRWorkDayPayCode = model.PRWorkDayPayCode;
+                recode.EOSCashmandayAmount = model.EOSCashmandayAmount;
                 context.SaveChanges();
                 return true;
             }
