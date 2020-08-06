@@ -391,7 +391,7 @@ namespace HR.Controllers
             }
             try
             {
-                var slots = dbcontext.Slots.Where(m => m.joblevelsetupID == id).ToList();
+                var slots = dbcontext.Slots.Where(m => m.joblevelsetupID.ToString() == id).ToList();
                 //foreach(var item in slots)
                 //{
                 //    if(item.job_title_cards==null)

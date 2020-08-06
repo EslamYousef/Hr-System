@@ -585,7 +585,8 @@ namespace HR.Controllers.penalites.Trnsaction
                                     var emp = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp_id);
                                     new_Record.Employee_Code = emp.Code;
                                    
-                                 //   var Sal_code = dbcontext.salary_code.FirstOrDefault(a => a.SalaryCodeID == item2.SalaryCodeID);
+                                    var salary_item = dbcontext.salary_code.FirstOrDefault(a => a.SalaryCodeID == item2.SalaryCodeID);
+                                    
                                     new_Record.SalaryCodeID = item2.SalaryCodeID;
                                     //==============================================================================================
                                     new_Record.TransactionDate = punishment.Transaction_Date;
@@ -611,7 +612,15 @@ namespace HR.Controllers.penalites.Trnsaction
                                     /////new_Record.TransactionNotes = model.Employee_Payroll_Transactions.TransactionNotes;
                                     // new_Record.CostCenterCode = emp.CostCenterCode;
                                     new_Record.CostCenterCode = "88";
-                                    //  new_Record.ExtendedFields_Code = model.Employee_Payroll_Transactions.ExtendedFields_Code;
+                                      if((bool)salary_item.EnableExtendedFields)
+                                    {
+                                        new_Record.ExtendedFields_Code = salary_item.ExtendedFields_Code;
+                                    }
+                                    else
+                                    {
+
+                                        new_Record.ExtendedFields_Code = null;
+                                    }
                                     //    new_Record.Contract_Number = model.Employee_Payroll_Transactions.Contract_Number;
 
                                     new_Record.TransactionStatus = check_status.created.GetHashCode();
@@ -690,7 +699,8 @@ namespace HR.Controllers.penalites.Trnsaction
                                         var emp = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp_id);
                                         new_Record.Employee_Code = emp.Code;
 
-                                        //   var Sal_code = dbcontext.salary_code.FirstOrDefault(a => a.SalaryCodeID == item2.SalaryCodeID);
+
+                                        var salary_item = dbcontext.salary_code.FirstOrDefault(a => a.SalaryCodeID == item2.SalaryCodeID);
                                         new_Record.SalaryCodeID = item2.SalaryCodeID;
                                         //==============================================================================================
                                         new_Record.TransactionDate = item1.Transaction_Date;
@@ -716,7 +726,15 @@ namespace HR.Controllers.penalites.Trnsaction
                                         /////new_Record.TransactionNotes = model.Employee_Payroll_Transactions.TransactionNotes;
                                         // new_Record.CostCenterCode = emp.CostCenterCode;
                                         new_Record.CostCenterCode = "88";
-                                        //  new_Record.ExtendedFields_Code = model.Employee_Payroll_Transactions.ExtendedFields_Code;
+                                        if ((bool)salary_item.EnableExtendedFields)
+                                        {
+                                            new_Record.ExtendedFields_Code = salary_item.ExtendedFields_Code;
+                                        }
+                                        else
+                                        {
+
+                                            new_Record.ExtendedFields_Code = null;
+                                        }
                                         //    new_Record.Contract_Number = model.Employee_Payroll_Transactions.Contract_Number;
 
                                         new_Record.TransactionStatus = check_status.created.GetHashCode();

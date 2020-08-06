@@ -192,9 +192,8 @@ namespace HR.Controllers
                                 EmployeeName = "em",
                                 slot_code = slotcode__[iii],
                                 slot_description = des[iii],
-                                job_level_setup = le,
-                                joblevelsetupID = le.ID.ToString(),
-                                Organization_Chart__ = organization2,
+                                joblevelsetupID = le.ID,
+                                Organization_Chart__ID = organization2.ID,
                                 check_status = (check_status)int.Parse(status[iii]),
                                 slot_type = (slot_type)(int.Parse(type[iii])),
                                 Employee_Profile = null,
@@ -241,7 +240,7 @@ namespace HR.Controllers
                     return View(model);
                 }
                 }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
                 
                 TempData["Message"] =HR.Resource.organ.thiscodeIsalreadyexists;
@@ -457,7 +456,7 @@ namespace HR.Controllers
                                 var IDlevel = int.Parse(job_level[index]);
                                 var le = dbcontext.job_level_setup.FirstOrDefault(m => m.ID == IDlevel);
                                 slot.job_level_setup = le;
-                                slot.joblevelsetupID = le.ID.ToString();
+                                slot.joblevelsetupID = le.ID;
                                 var IDorganization = int.Parse(organization[index]);
                                 var organization2 = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == IDorganization);
                                 slot.Organization_Chart__ = organization2;
@@ -493,8 +492,8 @@ namespace HR.Controllers
                             slot_code = slotcode__[iii],
                             slot_description = record.Description,
                             job_level_setup = le,
-                            joblevelsetupID = le.ID.ToString(),
-                            Organization_Chart__=organization2,
+                            joblevelsetupID = le.ID,
+                            Organization_Chart__ID=organization2.ID,
                             check_status = (check_status)int.Parse(status[iii]),
                             slot_type = (slot_type)(int.Parse(type[iii])),
                             Employee_Profile = null,
@@ -979,7 +978,7 @@ namespace HR.Controllers
                 {
                     var i = lll[item];
                     var s=dbcontext.Slots.FirstOrDefault(m=>m.ID== i);
-                    if (s.joblevelsetupID == model.joblevelsetupID)
+                    if (s.joblevelsetupID == int.Parse(model.joblevelsetupID))
                     {
                         dbcontext.Slots.Remove(s);
                        // dbcontext.SaveChanges();

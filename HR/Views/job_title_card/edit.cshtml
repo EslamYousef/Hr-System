@@ -663,37 +663,37 @@
                                                     {
                                                         <script>
 
-                                                                  call(@Model.Slots[item].job_level_setup.ID);
+                                                            call(@Model.Slots[item].joblevelsetupID);
 
-                                                                  function call(ID) {
-                                                                      $.ajax
-                                                                             ({
-                                                                                 type: "post",
-                                                                                 url: "/Helper/ALL_job_level_setup",
-                                                                                 data: {},
-                                                                                 success: function (result) {
-                                                                                     seconddrop = "";
-                                                                                     var v=0;
+                                                            function call(ID) {
+                                                                $.ajax
+                                                                       ({
+                                                                           type: "post",
+                                                                           url: "/Helper/ALL_job_level_setup",
+                                                                           data: {},
+                                                                           success: function (result) {
+                                                                               seconddrop = "";
+                                                                               var v=0;
 
-                                                                                     $.each(result, function (key, value) {
-                                                                                         if (value.ID == ID) {
-                                                                                             v=ID;
-                                                                                             seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Code + " ]</option>";
-                                                                                         }
-                                                                                         else {
-                                                                                             seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
-                                                                                         }
+                                                                               $.each(result, function (key, value) {
+                                                                                   if (value.ID == ID) {
+                                                                                       v=ID;
+                                                                                       seconddrop += "<option  value='" + value.ID + "' selected >" + "[  " + value.Code + " ]</option>";
+                                                                                   }
+                                                                                   else {
+                                                                                       seconddrop += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+                                                                                   }
 
-                                                                                     })
-                                                                                     var o=@Model.Slots[item].ID;
-                                                                                     $("#@Model.Slots[item].ID" ).append(seconddrop);
-                                                                                     $("#@Model.Slots[item].ID" ).select2("val",v);
+                                                                               })
+                                                                               var o=@Model.Slots[item].ID;
+                                                                               $("#@Model.Slots[item].ID" ).append(seconddrop);
+                                                                               $("#@Model.Slots[item].ID" ).select2("val",v);
 
 
-                                                                                 }
-                                                                             });
+                                                                           }
+                                                                       });
 
-                                                                  }
+                                                            }
                                                         </script>
 
                                                         <td><select id=@Model.Slots[item].ID  name="job_level" class="form-control select2">

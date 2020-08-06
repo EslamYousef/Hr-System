@@ -2536,6 +2536,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to penalites.
+        /// </summary>
+        public static string penalites {
+            get {
+                return ResourceManager.GetString("penalites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Penality items.
         /// </summary>
         public static string penalityitems {
