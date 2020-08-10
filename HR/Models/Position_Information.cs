@@ -44,6 +44,10 @@ namespace HR.Models
 
         [Display(Name = "Unit desc")]
         public string Organization_ChartId { get; set; }
+        [Display(Name = "Default Cost Center")]
+        public string DefaultCostCenterId { get; set; }
+        [Display(Name = "Cost Center")]
+        public string CostCenterId { get; set; }
         public virtual Organization_Chart Organization_Chart { get; set; }
         
         [Display(Name = "From date")]
