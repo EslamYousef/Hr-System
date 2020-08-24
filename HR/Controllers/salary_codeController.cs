@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,payroll,payrollCards,salary item")]
     public class salary_codeController : BaseController
     {
         // GET: salary_code
@@ -42,6 +43,8 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.formula = dbcontext.Formula_Header.ToList().Select(m => new { Code = m.FormulaCode + "-[" + m.FormulaDesc + ']', ID = m.FormulaCode });
+
                 var vm = new salary_codeVM { salary_code = new_record, unit = new unit(), code_type = new code_type(), code_value_type = new code_value_type(), cost_center_type = new cost_center_type(), Document_entry = new Document_entry() };
                 return View(vm);
             }
@@ -60,6 +63,7 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.formula = dbcontext.Formula_Header.ToList().Select(m => new { Code = m.FormulaCode + "-[" + m.FormulaDesc + ']', ID = m.FormulaCode });
 
                 var new_model = new salary_code();
                 new_model = model.salary_code;
@@ -252,6 +256,7 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.formula = dbcontext.Formula_Header.ToList().Select(m => new { Code = m.FormulaCode + "-[" + m.FormulaDesc + ']', ID = m.FormulaCode });
 
                 var model = dbcontext.salary_code.FirstOrDefault(m => m.ID == id);
                 var new_model = new salary_codeVM { salary_code = model, code_type = (code_type)model.CodeGroupType, code_value_type = (code_value_type)model.CodeValueType, cost_center_type = (cost_center_type)model.Costcenter_Type, Document_entry = (Document_entry)model.SourceEntry };
@@ -272,6 +277,7 @@ namespace HR.Controllers
                 ViewBag.Subscription_Syndicate = dbcontext.Subscription_Syndicate.ToList().Select(m => new { Code = m.Subscription_Code + "-[" + m.Subscription_Description + ']', ID = m.ID });
                 ViewBag.debit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
                 ViewBag.credit = dbcontext.GL_AccountSetup.ToList().Select(m => new { Code = m.Account + "-[" + m.AccountName + ']', ID = m.ID });
+                ViewBag.formula = dbcontext.Formula_Header.ToList().Select(m => new { Code = m.FormulaCode + "-[" + m.FormulaDesc + ']', ID = m.FormulaCode });
 
                 var new_record = dbcontext.salary_code.FirstOrDefault(m => m.ID == model.salary_code.ID);
 
@@ -288,7 +294,7 @@ namespace HR.Controllers
                 new_record.SortingIndex = model.salary_code.SortingIndex;
                 new_record.FrequencyPerPeriod = model.salary_code.FrequencyPerPeriod;
                 new_record.Description = model.salary_code.Description;
-
+                new_record.FormulaCode = model.salary_code.FormulaCode;
 
                 var a1 = form["check_A"].Split(',');
                 var a2 = form["check_c5"].Split(',');

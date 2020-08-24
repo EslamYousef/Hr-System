@@ -10,15 +10,18 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.training.Transaction
 {
+   
     public class TrainingOpportunityController : BaseController
     {
         // GET: TrainingOpportunity
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,talent,Training opportunity_trans,talentTransaction")]
         public ActionResult Index()
         {
             var list = dbcontext.TrainingOpportunity_Header.ToList();
             return View(list);
         }
+        [Authorize(Roles = "Admin,talent,Training opportunity_trans,talentTransaction")]
         public ActionResult create()
         {
             try
@@ -171,6 +174,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training opportunity_trans,talentTransaction")]
         public ActionResult edit(int id)
         {
             try
@@ -331,6 +335,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training opportunity_trans,talentTransaction")]
         public ActionResult Delete(int id)
         {
             try
@@ -389,6 +394,7 @@ namespace HR.Controllers.training.Transaction
                 return View(header);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training opportunity_process,talentProcess")]
         public ActionResult status(int id)
         {
             ViewBag.header_id = id;

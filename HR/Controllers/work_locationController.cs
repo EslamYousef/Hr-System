@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Organization,OrganizationSetup,Work location")]
     public class work_locationController : BaseController
     {
         // GET: work_location

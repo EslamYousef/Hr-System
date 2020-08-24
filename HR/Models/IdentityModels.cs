@@ -19,6 +19,8 @@ using HR.Models.Training.trans;
 using HR.Models.Training.transaction;
 using HR.Models.Vacations;
 using HR.Models.penalities.setup;
+using HR.Models.user;
+using System.ComponentModel.DataAnnotations;
 
 namespace HR.Models
 {
@@ -27,7 +29,10 @@ namespace HR.Models
     {
         public string ImagePath { get; internal set; }
         public string company_name { get; set; }
-
+        public int? employee_o { get; set; }
+        [Required(ErrorMessageResourceType = typeof(HR.Resource.Basic), ErrorMessageResourceName = "error_message")]
+        public string employee_name { get; set; }
+        public bool active { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -350,6 +355,15 @@ namespace HR.Models
         public DbSet<Discipline_Punishment_Detail> Discipline_Punishment_Detail { get; set; }
         public DbSet<Discipline_PunishmentTransaction> Discipline_PunishmentTransaction { get; set; }
         public DbSet<Discipline_PunishmentTransaction_Detail> Discipline_PunishmentTransaction_Detail { get; set; }
+        public DbSet<Formula_Header> Formula_Header { get; set; }
+        public DbSet<Formula_Detail> Formula_Detail { get; set; }
+        public DbSet<Payroll_Calculation_Result> Payroll_Calculation_Result { get; set; }
+        public DbSet<Payroll_Calculation_Result_Header> Payroll_Calculation_Result_Header { get; set; }
+        public DbSet<User_LinkTo_UserGroup> User_LinkTo_UserGroup { get;set;}
+        public DbSet<User_Permissions> User_Permissions { get; set; }
+        public DbSet<User_Group_Info> User_Group_Info { get; set; }
+        public DbSet<permissions> permissions { get; set; }
+        public DbSet<group_with_permission> group_with_permission { get; set; }
     }
 
 }

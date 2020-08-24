@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.training.trans
 {
+    [Authorize(Roles = "Admin,talent,talentCards,courses_card")]
     public class Course_training_typeController : BaseController
     {
         // GET: Course_training_type

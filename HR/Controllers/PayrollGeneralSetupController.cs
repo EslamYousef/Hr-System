@@ -9,6 +9,8 @@ using static HR.Controllers.infra;
 
 namespace HR.Controllers
 {
+
+    [Authorize(Roles = "Admin,payroll,payrollSetup,payroll general setup")]
     public class PayrollGeneralSetupController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

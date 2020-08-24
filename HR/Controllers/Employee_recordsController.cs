@@ -18,8 +18,8 @@ namespace HR.Controllers
     {
         // GET: Employee_records
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-       
-      
+
+        [Authorize(Roles = "Admin,personnel,Employee record transaction,personnelTransaction")]
         public ActionResult index()
         {
             try
@@ -33,6 +33,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,personnel,Employee record transaction,personnelTransaction")]
         public ActionResult Create ()
         {
             ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Full_Name + ']', ID = m.ID }).ToList(); 
@@ -112,6 +113,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,Employee record transaction,personnelTransaction")]
         public ActionResult edit(string id)
         {
             ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Full_Name + ']', ID = m.ID }).ToList();
@@ -199,6 +201,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,Employee record transaction,personnelTransaction")]
         public ActionResult delete(string id)
         {
             try
@@ -237,6 +240,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,Employee record process,personnelProcess")]
         public ActionResult status(string id)
         {
            try

@@ -1,0 +1,461 @@
+﻿@model HR.Models.user.User_Permissions
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<script>
+    $(function () {
+
+        get_all_data();
+    });
+
+
+    function get_sub_module()
+    {
+        var C1 = document.getElementById("C1");
+        $("#country3").empty();
+        var module = parseInt($("#Country1").val());
+        if (module > 0 && C1.checked == true)
+        {
+            remove_disabled_from_sub_module();
+            get_forms();
+        }
+        else
+        {
+            $("#Country2").attr("disabled", "true")
+            $("#Country3").attr("disabled", "true")
+        }
+    }
+    function opensub()
+    {
+    debugger
+        var C1 = document.getElementById("C1");
+        var module =parseInt($("#Country1").val());
+        if (module>0 &&C1.checked == true)
+        {
+            remove_disabled_from_sub_module();
+            get_sub();
+            $("#country3").attr("disabled", "true")
+            
+        }
+        else
+        {
+            $("#Country2").attr("disabled", "true")
+            $("#country3").attr("disabled", "true")
+            $("#country3").empty();
+            $("#Country2").select2("val", "0");
+        }
+    }
+    function openform()
+    {
+        var C1 =parseInt($("#Country2").val());
+        var C2 = document.getElementById("C2");
+        if (C1 > 0 && C2.checked == true)
+        {
+            get_forms();
+        }
+        else
+        {
+            $("#country3").attr("disabled", "true")
+            $("#country3").empty();
+        }
+    }
+    function remove_disabled_from_sub_module()
+    {
+        $("#Country2").removeAttr("disabled")
+    }
+    function get_sub() {
+        debugger
+        $("#country3").empty();
+
+        $("#Country2").empty();
+        $("#country3").select2("val", "0");
+
+        $("#Country2").select2("val", "0");
+        var module = parseInt($("#Country1").val());
+        var C1 = document.getElementById("C1");
+        var finalresult = "";
+        if (module > 0 && C1.checked == true) {
+            remove_disabled_from_sub_module();
+            $.ajax({
+                type: "post",
+                url: "/permission/getsub",
+                data: { "id_module": module},
+                success: function (result) {
+                    debugger
+                    var finalresult = "<option value='0' > Choose from </option>";
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Permission_Name + " ]</option>";
+                    });
+                    $("#Country2").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname1").val(" ");
+                }
+            });
+        }
+    }
+    function get_forms()
+    {
+        $("#country3").select2("val", "0");
+        $("#country3").removeAttr("disabled");
+        $("#country3").empty();
+        var module = parseInt($("#Country1").val());
+        var sub_module = parseInt($("#Country2").val());
+        var C2 = document.getElementById("C2");
+        var finalresult = "";
+        if(module>0&&sub_module>0&&C2.checked==true)
+        {
+            $.ajax({
+                type: "post",
+                url: "/permission/getforms",
+                data: { "module": module, "sub_module": sub_module },
+                success: function (result) {
+                    var finalresult = "<option value='0' > Choose from </option>";
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Permission_Name + " ]</option>";
+                    });
+                    $("#country3").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname1").val(" ");
+                }
+            });
+        }
+    }
+    function get_all_data()
+    {
+        var group_code = $("#G_").val();
+        var input = "";
+        $.ajax({
+            type: "post",
+            url: "/permission/getalldata",
+            data: { "group_code": group_code },
+            success: function (result) {
+                var finalresult = "<option value='0' > Choose from </option>";
+                $.each(result, function (key, value) {
+                    if(value.Type==1)
+                    {
+                        input = "<tr><td hidden><input name='Module_' hidden value='" + value.id + "' class='form-control' /></td>" +
+         "<td><input name='Module' value='" + value.text + "' class='form-control' /></td>" +
+         "<td hidden><input name='subModule_' value='0' hidden class='form-control' /></td>" +
+         "<td><input  value='empty' class='form-control' /></td>" +
+         "<td hidden><input name='form_' hidden value='0' class='form-control' /></td>" +
+         "<td><input  value='empty' class='form-control' /></td>" +
+           "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        $("#itemsdiv").append(input);
+                    }
+                 else if(value.Type==2)
+                 {
+                     input = "<tr><td hidden><input name='Module_' hidden value='0' class='form-control' /></td>" +
+         "<td><input name='Module' value='empty' class='form-control' /></td>" +
+         "<td hidden><input name='subModule_'  value='" + value.id + "' hidden class='form-control' /></td>" +
+         "<td><input  value='" + value.text + "' class='form-control' /></td>" +
+         "<td hidden><input name='form_' hidden value='0' class='form-control' /></td>" +
+         "<td><input  value='empty' class='form-control' /></td>" +
+           "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                     $("#itemsdiv").append(input);
+                 }
+                 else if (value.Type == 3) {
+                     input = "<tr><td hidden><input name='Module_' hidden value='0' class='form-control' /></td>" +
+         "<td><input name='Module' value='empty' class='form-control' /></td>" +
+         "<td hidden><input name='subModule_'  value='0' hidden class='form-control' /></td>" +
+         "<td><input  value='empty' class='form-control' /></td>" +
+         "<td hidden><input name='form_' hidden value='" + value.id + "' class='form-control' /></td>" +
+         "<td><input  value='" + value.text + "' class='form-control' /></td>" +
+           "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                     $("#itemsdiv").append(input);
+                 }
+                });
+               
+            },
+            error: function () {
+
+                $("#countryname1").val(" ");
+            }
+        });
+    }
+    function addper()
+    {
+        debugger
+        var module = parseInt($("#Country1").val());
+        var module_text = $("#Country1").find("option:selected").text();
+        var sub_module = parseInt($("#Country2").val());
+        var sub_module_text = $("#Country2").find("option:selected").text();
+        var form = parseInt($("#country3").val());
+        var form_text = $("#country3").find("option:selected").text();
+        if (module > 0 && !(sub_module > 0) && !(form > 0))
+        {
+            var input = "<tr><td hidden><input name='Module_' hidden value='" + module + "' class='form-control' /></td>" +
+            "<td><input name='Module' value='" + module_text + "' class='form-control' /></td>" +
+            "<td hidden><input name='subModule_' value='0' hidden class='form-control' /></td>" +
+            "<td><input  value='empty' class='form-control' /></td>" +
+            "<td hidden><input name='form_' hidden value='0' class='form-control' /></td>" +
+            "<td><input  value='empty' class='form-control' /></td>" +
+              "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+          $("#itemsdiv").append(input);
+        }
+        else if (module > 0 && sub_module > 0 && !(form > 0))
+        {
+            var input = "<tr ><td hidden><input hidden name='Module_' value='0' class='form-control' /></td>" +
+           "<td><input  value='" + module_text + "' class='form-control' /></td>" +
+          "<td hidden><input name='subModule_' hidden value='" + sub_module + "' class='form-control' /></td>" +
+          "<td><input  value='" + sub_module_text + "' class='form-control' /></td>" +
+          "<td hidden><input name='form_' value='0'hidden class='form-control' /></td>" +
+            "<td><input  value='empty' class='form-control' /></td>" +
+            "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+            $("#itemsdiv").append(input);
+        }
+        else if (module > 0 && sub_module > 0 && form > 0)
+        {
+            var input = "<tr><td hidden><input name='Module_' hidden value='0' class='form-control' /></td>" +
+         "<td><input value='" + module_text + "' class='form-control' /></td>" +
+         "<td><input  value='" + sub_module_text + "' class='form-control' /></td>" +
+         "<td hidden><input hidden name='subModule_' value='0' class='form-control' /></td>" +
+          "<td><input  value='" + form_text + "'  class='form-control' /></td>" +
+         "<td hidden><input hidden name='form_' value='" + form + "' class='form-control' /></td>" +
+         "<td><input type='button' value=@organ.remove class='remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+            $("#itemsdiv").append(input);
+        }
+    }
+    function remove(thi) {
+
+        thi.parent().parent().remove();
+
+    }
+</script>
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.CreateEOSRequest
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("Create", "permission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "EOS_request")" class="create-btn"> @pers_2.Back</a></div>
+                       
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.permission
+                            </h1>
+                        </section>
+                        <div class="form-group">
+
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @pers_2.Usergroup
+                                </label>
+                                <input  readonly value="@Model.User_Group_Code - @Model.Modified_By" class="form-control"/>
+                                <input hidden value=@Model.User_Group_Code name="UserGroupCode_" id="G_"/>
+                            </div>
+                            @Html.HiddenFor(m => m.User_Group_Code)
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.Module </span>
+                                </label>
+                                @Html.DropDownList("Mod", new SelectList(ViewBag.module, "ID", "Permission_Name"), pers_2.Module, new {@OnChange= "get_sub()", @class = "select2", @id = "Country1" })
+                            </div>
+
+                           
+                             
+                               
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.Submodule_ </span>
+                                </label>
+                                <select class="select2" id="Country2" disabled  OnChange = "get_forms()">
+
+                                </select>
+                             </div>
+
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.lock_
+                                </label>
+                                <input onclick="opensub()" type="checkbox" class="checkbox" name="C1" id="C1" />
+                              
+                            </div>
+                        </div>
+                        <div class="form-group">
+                           
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    @pers_2.Form
+                                </label>
+                                <select class="select2" id="country3" disabled>
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.lock_
+                                </label>
+                                <input onclick="openform()" type="checkbox" class="checkbox" name="C2" id="C2" />
+                               
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <input value=@HR.Resource.organ.additems class="btn btn-success" onclick="addper()" />
+                        </div>
+                      <table style="margin-top:20px" class="table table-bordered table-striped text-center">
+                          <thead>
+                              <tr>
+                                  <td>@pers_2.Module</td>
+                                  <td>@pers_2.Submodule_</td>
+                                  <td>@pers_2.Form</td>
+                                  <td></td>
+                              </tr>
+                          </thead>
+                         
+                          <tbody id="itemsdiv">
+
+                          </tbody>
+                      </table>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

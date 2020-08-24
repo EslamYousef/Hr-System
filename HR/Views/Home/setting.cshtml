@@ -1,0 +1,225 @@
+﻿@using HR.Resource;
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "الصفحة الرئيسية";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+    var userId = User.Identity.GetUserId();
+    var context = new HR.Models.ApplicationDbContext();
+    var user = context.Users.Find(userId);
+}
+<link href="~/Content/layout_style/css/all.css" rel="stylesheet" />
+<link href="~/Content/layout_style/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/layout_style/css/javascript-calendar.css" rel="stylesheet" />
+<link href="~/Content/layout_style/css/jquery-ui.css" rel="stylesheet" />
+@section image
+{
+    <div class="row" style="padding: 83px;background-image: url(/1.jpg);background-size: cover;">
+        <div col-lg-12>
+            <h3 style="color: #fff">
+                @user.company_name
+            </h3>
+        </div>
+    </div>
+}
+<div class="row m-0">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @TempData["Message"]
+        </div>
+    }
+  
+    <div class="col-lg-9  col-md-12">
+        <div class="tabs">
+            <div class="row">
+               
+                <div class="col-md-4">
+                   
+                        <a href="@Url.Action("edit_profile", "Account")">
+                            <div class="tab main-tab" data-value="organization">
+                                <p><i class="fab fa-500px"></i>>@mainlayout.EditProfile</p>
+                            </div>
+                        </a>
+                  
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col-md-4">
+
+                        <a href="@Url.Action("all", "Account")">
+                            <div class="tab main-tab" data-value="organization">
+                                <p><i class="fab fa-500px"></i>>@pers_2.manageuser</p>
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <a href="@Url.Action("Index", "groupinfo")">
+                            <div class="tab main-tab" data-value="organization">
+                                <p><i class="fab fa-500px"></i>>@pers_2.Usergroup</p>
+                            </div>
+                        </a>
+
+                    </div>
+                }
+              
+             
+
+            </div>
+       
+        </div>
+    </div>
+</div>
+<style>
+        body {
+            background: #fff;
+        }
+
+        /*Calendar*/
+        .icalendar {
+            margin-top: 0;
+        }
+
+        .icalendar__month {
+            background-color: #fff;
+        }
+
+            .icalendar__month h2 {
+                font-weight: 400 !important;
+            }
+
+        #icalendarDateStr {
+            display: none;
+        }
+
+        .icalendar__current-date #icalendarMonth {
+            color: #000;
+        }
+
+        .icalendar__next, .icalendar__prev {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .icalendar__week-days,
+        .icalendar__week-days div,
+        .icalendar__days {
+            background-color: #fff;
+            color: #000;
+        }
+
+            .icalendar__days div {
+                font-size: 12px;
+                line-height: 25px;
+            }
+
+        .icalendar__today {
+            background-color: #2266e3;
+            color: #fff;
+        }
+
+        .icalendar__next-date, .icalendar__prev-date {
+            color: #fff;
+        }
+        /*Calendar*/
+
+        .tabs .tab {
+            background: #fff;
+            height: 90px;
+            padding: 0 15px;
+            box-shadow: 0 0.3px 0.9px rgba(0,0,0,.108), 0 1.6px 3.6px rgba(0,0,0,.132);
+            line-height: 90px;
+            margin-bottom: 30px;
+        }
+
+        .main-tab {
+            margin-bottom: 60px !important;
+        }
+
+        .tabs .tab p {
+            font: normal normal 600 14px/18px 'Segoe UI',tahoma,sans-serif;
+            color: #11100f;
+            line-height: 90px;
+        }
+
+        .tabs .tab svg {
+            color: #2266e3;
+            font-size: 21px;
+        }
+
+        /*
+    .child-tabs > .row{
+        display: none
+    }*/
+
+        .child-tabs .basic,
+        .child-tabs .organization,
+        .child-tabs .Recuirtment,
+        .child-tabs .personnel,
+        .child-tabs .Payroll,
+        {
+            margin-bottom: 50px;
+        }
+
+            .child-tabs .basic .tab,
+            .child-tabs .organization .tab,
+            .child-tabs .Recuirtment .tab,
+            .child-tabs .personnel .tab,
+            .child-tabs .Payroll .tab {
+                background-color: #f7fafd;
+                background-color: #eee;
+            }
+
+        .col-md-4 {
+            width: 33.33333333%;
+        }
+
+        /*Arabic*/
+        /*
+    body{
+        direction: rtl
+    }*/
+
+        .tab p {
+            direction: ltr;
+        }
+
+        .tab a {
+            color: #000 !important;
+        }
+</style>
+
+@section scripts{}
+<script type="text/javascript">
+            // Code used to add Todo Tasks
+    jQuery(document).ready(function ($) {
+
+    });
+
+
+                var $todo_tasks = $("#todo_tasks");
+
+                $todo_tasks.find('input[type="text"]').on('keydown', function (ev) {
+                    if (ev.keyCode == 13) {
+                        ev.preventDefault();
+
+                        if ($.trim($(this).val()).length) {
+                            var $todo_entry = $('<li><div class="checkbox checkbox-replace color-white"><input type="checkbox" /><label>' + $(this).val() + '</label></div></li>');
+                            $(this).val('');
+
+                            $todo_entry.appendTo($todo_tasks.find('.todo-list'));
+                            $todo_entry.hide().slideDown('fast');
+                            replaceCheckboxes();
+                        }
+                    }
+                });
+
+</script>
+<script src="~/Content/layout_style/js/all.js"></script>
+<script src="~/Content/layout_style/js/javascript-calendar.js"></script>
+<script src="~/Content/layout_style/js/jquery-3.2.1.min.js"></script>
+<script src="~/Content/layout_style/js/main.js"></script>
+<script src="~/Content/layout_style/js/popper.min.js"></script>
+

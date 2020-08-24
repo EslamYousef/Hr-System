@@ -16,6 +16,7 @@ namespace HR.Controllers
     {
         // GET: request_new_contract
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult Index(string mess)
         {
             if(mess!=null)
@@ -25,6 +26,7 @@ namespace HR.Controllers
             var model = dbcontext.new_contrct.ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult create()
         {
            
@@ -89,6 +91,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
 
         public ActionResult edit(string id)
         {
@@ -163,6 +166,7 @@ namespace HR.Controllers
             catch (Exception e)
             { return View(model); }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult Delete(int id)
         {
             try
@@ -205,6 +209,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction process,personnelprocess")]
 
         public ActionResult status(string id)
         {

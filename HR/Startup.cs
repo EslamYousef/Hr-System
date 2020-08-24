@@ -17,59 +17,32 @@ namespace HR
         }
         private static void CreateRolesandUsers()
         {
-            var context = new ApplicationDbContext();
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var context = new ApplicationDbContext();
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+               var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
             // In Startup iam creating first Admin Role and creating a default Admin User
-            if (!roleManager.RoleExists("SuperAdmin"))
-            {
+            
                 // first we create Admin rool
-                var role = new IdentityRole
-                {
-                    Name = "SuperAdmin"
-                };
-                roleManager.Create(role);
-
                 //Here we create a Admin super user who will maintain the website
                 var user = new ApplicationUser
                 {
-                    UserName = "admin",
-                    Email = "admin@admin.com",
+                    UserName = "S_admin",
+                    Email = "S_admin@admin.com",
+                    employee_name="no empoyee",
+                    active=true
                 };
-
                 var userPWD = "Admin@123";
-
                 var chkUser = userManager.Create(user, userPWD);
-
                 var admin = userManager.FindByEmail(user.Email);
-
                 //Add default User to Role Admin   
                 if (chkUser.Succeeded)
                 {
-                    var result1 = userManager.AddToRole(admin.Id, "SuperAdmin");
+                    var result1 = userManager.AddToRole(admin.Id, "Admin");
                 }
-
-                //Here we create a Admin super user who will maintain the website
-                var secUser = new ApplicationUser
-                {
-                    UserName = "superadmin",
-                    Email = "superadmin@superadmin.com",
-                };
-
-                var secUserPWD = "SuperAdmin@123";
-
-                var chkSecUser = userManager.Create(secUser, secUserPWD);
-
-                var secAdmin = userManager.FindByEmail(secUser.Email);
-
-                //Add default User to Role Admin   
-                if (chkSecUser.Succeeded)
-                {
-                    var result2 = userManager.AddToRole(secAdmin.Id, "SuperAdmin");
-                }
-            }
+                
+                
+            
         }
     }
 }

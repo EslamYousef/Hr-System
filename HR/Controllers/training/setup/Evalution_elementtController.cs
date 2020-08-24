@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.training.setup
 {
+    [Authorize(Roles = "Admin,talent,talentSetup,Training centers evalution elements")]
     public class Evalution_elementtController : BaseController
     {
         // GET: Evalution_elementt

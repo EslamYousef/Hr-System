@@ -10,11 +10,12 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    
     public class EvaluationTransactionController : BaseController
     {
         ApplicationDbContext Context = new ApplicationDbContext();
         // GET: EvaluationTransaction
+        [Authorize(Roles = "Admin,Evalution,EvalutionTransaction")]
         public ActionResult Index()
         {
             try
@@ -27,6 +28,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,Evalution,EvalutionTransaction")]
 
         public ActionResult Create()
         {
@@ -221,6 +223,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,Evalution,EvalutionTransaction")]
 
         public ActionResult Edit(int id)
         {
@@ -431,6 +434,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,Evalution,EvalutionTransaction")]
 
         public ActionResult delete(string id)
         {
@@ -487,6 +491,7 @@ namespace HR.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Evalution,EvalutionProcess")]
         public ActionResult status(int id)
         {
             try
@@ -501,6 +506,7 @@ namespace HR.Controllers
                 return RedirectToAction("index");
             }
         }
+
         [HttpPost]
         public ActionResult status(status model,int id)
         {

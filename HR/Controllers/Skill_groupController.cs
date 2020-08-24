@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Organization,OrganizationSetup,Skills")]
     public class Skill_groupController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

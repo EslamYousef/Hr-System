@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,payroll,payrollCards,salary items collection groups")]
     public class SalaryItemGroup_HeaderController : BaseController
     {
         // GET: SalaryItemCollectionGroup_Header

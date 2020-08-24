@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,TM,TMSetup")]
     public class ExitPermissionReasonController : BaseController
     {
         // GET: ExitPermissionReason

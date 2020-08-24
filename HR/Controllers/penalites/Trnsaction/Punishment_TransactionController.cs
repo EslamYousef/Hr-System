@@ -11,10 +11,12 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.penalites.Trnsaction
 {
+    
     public class Punishment_TransactionController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
 
+        [Authorize(Roles = "Admin,Penalties,PenaltiesTransaction")]
         public ActionResult index()
         {
             var model = dbcontext.Discipline_PunishmentTransaction.ToList();
@@ -26,6 +28,7 @@ namespace HR.Controllers.penalites.Trnsaction
             //}
             return View(model);
         }
+        [Authorize(Roles = "Admin,Penalties,PenaltiesTransaction")]
         public ActionResult Create()
         {
             try
@@ -140,8 +143,8 @@ namespace HR.Controllers.penalites.Trnsaction
                 return View(model);
             }
         }
-        
 
+        [Authorize(Roles = "Admin,Penalties,PenaltiesTransaction")]
         public ActionResult edit(int id)
         {
             try
@@ -256,7 +259,7 @@ namespace HR.Controllers.penalites.Trnsaction
                 return RedirectToAction("index");
             }
         }
-
+        [Authorize(Roles = "Admin,Penalties,PenaltiesTransaction")]
         public ActionResult delete(int id)
         {
             try
@@ -299,6 +302,7 @@ namespace HR.Controllers.penalites.Trnsaction
                 return View(model_header);
             }
         }
+        [Authorize(Roles = "Admin,Penalties,PenaltiesProcess")]
         public ActionResult status(int id)
         {
             ViewBag.header_id = id;

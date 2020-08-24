@@ -11,11 +11,12 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+   
     public class personnel_transactionController : BaseController
     {
         // GET: personnel_transaction
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult index(string mess)
         {
             try
@@ -32,7 +33,8 @@ namespace HR.Controllers
                 return View();
             }
         }
-         public ActionResult create()
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
+        public ActionResult create()
         {
             try
             {
@@ -289,6 +291,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
 
         public ActionResult edit(string id)
         {
@@ -469,6 +472,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult delete(string id)
         {
             try
@@ -514,7 +518,7 @@ namespace HR.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin,personnel,personnel transaction process,personnelprocess")]
         public ActionResult status(string id)
         {
             try

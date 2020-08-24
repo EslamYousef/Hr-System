@@ -11,15 +11,18 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.training.Transaction
 {
+   
     public class trainingplanController : BaseController
     {
         // GET: trainingplan
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult Index()
         {
             var courses = dbcontext.TrainingPlan_Header.ToList();
             return View(courses);
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult Create()
         {
             try
@@ -171,6 +174,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult edit(int id)
         {
             try
@@ -333,6 +337,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult Edit_Details(int id)
         {
             ViewBag.type = dbcontext.TrainingType_Header.ToList().Select(m => new { Code = m.TrainingType_Code + "-[" + m.TrainingType_Desc + ']', ID = m.ID });
@@ -464,6 +469,7 @@ namespace HR.Controllers.training.Transaction
             }
 
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult coast(int details_id)
         {
             ViewBag.costs = dbcontext.CostElement.ToList().Select(m => new { Code = m.CostElement_Code + "-[" + m.CostElement_Desc + ']', ID = m.ID });
@@ -542,6 +548,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult trainee(int details_id)
         {
             ViewBag.employee = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
@@ -630,6 +637,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
 
         public ActionResult evalution(int details_id)
         {
@@ -722,6 +730,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult result(int details_id)
         {
             ViewBag.type = dbcontext.TrainingType_Header.ToList().Select(m => new { Code = m.TrainingType_Code + "-[" + m.TrainingType_Desc + ']', ID = m.ID });
@@ -808,6 +817,7 @@ namespace HR.Controllers.training.Transaction
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult delete(int id)
         {
             try
@@ -878,6 +888,7 @@ namespace HR.Controllers.training.Transaction
                 return View(plan_header);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_trans,talentTransaction")]
         public ActionResult delete_details(int id)
         {
             try
@@ -948,6 +959,7 @@ namespace HR.Controllers.training.Transaction
                 return View(Details);
             }
         }
+        [Authorize(Roles = "Admin,talent,Training plan_card_process,talentProcess")]
 
         public ActionResult status(int id)
         {

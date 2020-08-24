@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Tickets prices")]
     public class Ticket_PricesController : BaseController
     {
         // GET: Ticket_Prices

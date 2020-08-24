@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Documents")]
     public class Document_GroupController : BaseController
     {
         // GET: Document_Group

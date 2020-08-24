@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Currency")]
     public class CurrencyController : BaseController
     {
         // GET: Currency

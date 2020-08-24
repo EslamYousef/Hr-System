@@ -10,15 +10,16 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.payroll_tran1
 {
-    public class LoanAdjustmentController : Controller
+    public class LoanAdjustmentController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        // GET: LoanAdjustment
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult Index()
         {
             var model = dbcontext.LoanAdjustment.ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult create(int id)
         {
             try
@@ -72,9 +73,16 @@ namespace HR.Controllers.payroll_tran1
                 ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 ViewBag.loan_type = dbcontext.LoanInAdvanceSetup.ToList().Select(m => new { Code = m.LoanTypeCode + "--[" + m.LoanTypeDesc + ']', ID = m.ID });
                 var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.loan.ID);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == loan.statusID);
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 var installment = dbcontext.LoanInstallment.Where(m => m.IsPaid==false&&m.IsActive==true&&m.IsFreeze==false&&m.LoanRequestNumber == loan.LoanRequestNumber).ToList();
+                var installment2 = dbcontext.LoanInstallment.Where(m => m.LoanRequestNumber == loan.LoanRequestNumber).ToList();
                 model.installment = new List<loan_installmentVM>();
-                foreach (var item in installment)
+                foreach (var item in installment2)
                 {
                     model.installment.Add(new loan_installmentVM { freez = false, LoanInstallment = item });
                 }
@@ -92,25 +100,20 @@ namespace HR.Controllers.payroll_tran1
                         }
                         if (model.adjustment.PaidAmount<item.UnpaidAmount)////القيمه المدفوعة اقل من قيمة القسط الحالى
                         {
-                            
                             item.PaidAmount = item.UnpaidAmount-model.adjustment.PaidAmount;
                             item.UnpaidAmount = item.UnpaidAmount-item.PaidAmount;
                             model.adjustment.PaidAmount = model.adjustment.PaidAmount-item.PaidAmount;
                             loan_request_number2 = item.LoanRequestNumber;
                             paid += (int)item.PaidAmount;
-                        }
-                        else if(model.adjustment.PaidAmount>item.UnpaidAmount)///القيمة المدفوعة اكبر من قيمة القسط الحالى
-                        {
-                            item.InstallmenNotes = "this installment payed by adjustment with number";
-                            item.IsPaid = true;
-                            model.adjustment.PaidAmount = model.adjustment.PaidAmount - item.UnpaidAmount;
-                            item.PaidAmount = item.UnpaidAmount;
-                            item.UnpaidAmount = 0;
-                            loan_request_number2 = item.LoanRequestNumber;
-                            paid += (int)item.PaidAmount;
+                            //====
+                            var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+                            var transaction = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.SourceDocumentDescription == item.ID.ToString() && m.SourceDocumentType == Payment_Type_Source_Document_);
+                            transaction.TransactionValue = item.UnpaidAmount;
+                            dbcontext.SaveChanges();
+                            //====
 
                         }
-                        else//القيمة المدفوعة بتساوى قيمة القسط الحالى
+                        else if(model.adjustment.PaidAmount>item.UnpaidAmount&& model.adjustment.PaidAmount<=loan.TotalRemainingAmount)///القيمة المدفوعة اكبر من قيمة القسط الحالى
                         {
                             item.InstallmenNotes = "this installment payed by adjustment with number";
                             item.IsPaid = true;
@@ -119,8 +122,36 @@ namespace HR.Controllers.payroll_tran1
                             item.UnpaidAmount = 0;
                             loan_request_number2 = item.LoanRequestNumber;
                             paid += (int)item.PaidAmount;
+                            //====
+                            var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+                            var transaction = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.SourceDocumentDescription == item.ID.ToString() && m.SourceDocumentType == Payment_Type_Source_Document_);
+                            transaction.TransactionValue = item.UnpaidAmount;
+                            dbcontext.SaveChanges();
+                            //====
+
                         }
-                        
+                        else if (model.adjustment.PaidAmount == item.UnpaidAmount)//القيمة المدفوعة بتساوى قيمة القسط الحالى
+                        {
+                            item.InstallmenNotes = "this installment payed by adjustment with number";
+                            item.IsPaid = true;
+                            model.adjustment.PaidAmount = model.adjustment.PaidAmount - item.UnpaidAmount;
+                            item.PaidAmount = item.UnpaidAmount;
+                            item.UnpaidAmount = 0;
+                            loan_request_number2 = item.LoanRequestNumber;
+                            paid += (int)item.PaidAmount;
+                            //====
+                            var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+                            var transaction = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.SourceDocumentDescription == item.ID.ToString() && m.SourceDocumentType == Payment_Type_Source_Document_);
+                            transaction.TransactionValue = item.UnpaidAmount;
+                            dbcontext.SaveChanges();
+                            //====
+                        }
+                        else
+                        {
+                            TempData["Message"] = "you paid more than Remaining amount";
+                            return View(model);
+                        }
+
                         dbcontext.SaveChanges();
                         //===
                         var loan_request = dbcontext.LoanRequest.FirstOrDefault(m => m.LoanRequestNumber == loan_request_number2);
@@ -164,6 +195,13 @@ namespace HR.Controllers.payroll_tran1
                                 dbcontext.SaveChanges();
                                 flag = true;
                                 loan_request_number = spacial_installment.LoanRequestNumber;
+                                //====
+                                var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+
+                                var transaction = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.SourceDocumentDescription == spacial_installment.ID.ToString() && m.SourceDocumentType == Payment_Type_Source_Document_);
+                                transaction.TransactionValue = 0;
+                                dbcontext.SaveChanges();
+                                //====
                             }
 
                         }

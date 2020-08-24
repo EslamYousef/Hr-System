@@ -9,7 +9,8 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Religion")]
     public class ReligionController : BaseController
     {
         // GET: Religion

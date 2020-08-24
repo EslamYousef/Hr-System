@@ -11,7 +11,7 @@ using HR.Models.CardPayroll;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,payroll,payrollCards,salary items collection groups")]
     public class SalaryItemCollectionGroupController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

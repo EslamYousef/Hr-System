@@ -187,6 +187,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New User .
+        /// </summary>
+        public static string addnewuser {
+            get {
+                return ResourceManager.GetString("addnewuser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Payroll General Setup.
         /// </summary>
         public static string Addpayrollgeneralsetup1 {
@@ -291,6 +300,15 @@ namespace HR.Resource {
         public static string addupdatecase {
             get {
                 return ResourceManager.GetString("addupdatecase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new user group.
+        /// </summary>
+        public static string Addusergroup {
+            get {
+                return ResourceManager.GetString("Addusergroup", resourceCulture);
             }
         }
         
@@ -642,6 +660,15 @@ namespace HR.Resource {
         public static string Commnets {
             get {
                 return ResourceManager.GetString("Commnets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company name.
+        /// </summary>
+        public static string companyname {
+            get {
+                return ResourceManager.GetString("companyname", resourceCulture);
             }
         }
         
@@ -1276,6 +1303,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit user.
+        /// </summary>
+        public static string edituser {
+            get {
+                return ResourceManager.GetString("edituser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Effective Date.
         /// </summary>
         public static string EffectiveDate {
@@ -1299,6 +1335,15 @@ namespace HR.Resource {
         public static string Eligibilitytype {
             get {
                 return ResourceManager.GetString("Eligibilitytype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to email.
+        /// </summary>
+        public static string email {
+            get {
+                return ResourceManager.GetString("email", resourceCulture);
             }
         }
         
@@ -1677,6 +1722,24 @@ namespace HR.Resource {
         public static string Fixed_basic_salary_by {
             get {
                 return ResourceManager.GetString("Fixed_basic_salary_by", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Form.
+        /// </summary>
+        public static string Form {
+            get {
+                return ResourceManager.GetString("Form", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formula code.
+        /// </summary>
+        public static string formulacode {
+            get {
+                return ResourceManager.GetString("formulacode", resourceCulture);
             }
         }
         
@@ -2068,6 +2131,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link Group with permissions.
+        /// </summary>
+        public static string linkgroupwithpermission {
+            get {
+                return ResourceManager.GetString("linkgroupwithpermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to penlaity items linked to salary items .
         /// </summary>
         public static string linkpenality {
@@ -2082,6 +2154,15 @@ namespace HR.Resource {
         public static string linktopayroll {
             get {
                 return ResourceManager.GetString("linktopayroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link user to group.
+        /// </summary>
+        public static string linkuser {
+            get {
+                return ResourceManager.GetString("linkuser", resourceCulture);
             }
         }
         
@@ -2158,6 +2239,15 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Un Lock.
+        /// </summary>
+        public static string lock_ {
+            get {
+                return ResourceManager.GetString("lock_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logic operators.
         /// </summary>
         public static string logicoper {
@@ -2199,6 +2289,15 @@ namespace HR.Resource {
         public static string makenewcontract {
             get {
                 return ResourceManager.GetString("makenewcontract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage user.
+        /// </summary>
+        public static string manageuser {
+            get {
+                return ResourceManager.GetString("manageuser", resourceCulture);
             }
         }
         
@@ -2334,6 +2433,15 @@ namespace HR.Resource {
         public static string modelanswer {
             get {
                 return ResourceManager.GetString("modelanswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module.
+        /// </summary>
+        public static string Module {
+            get {
+                return ResourceManager.GetString("Module", resourceCulture);
             }
         }
         
@@ -2613,6 +2721,15 @@ namespace HR.Resource {
         public static string periodstart {
             get {
                 return ResourceManager.GetString("periodstart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission.
+        /// </summary>
+        public static string permission {
+            get {
+                return ResourceManager.GetString("permission", resourceCulture);
             }
         }
         
@@ -3292,6 +3409,24 @@ namespace HR.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String2 {
+            get {
+                return ResourceManager.GetString("String2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub module.
+        /// </summary>
+        public static string Submodule_ {
+            get {
+                return ResourceManager.GetString("Submodule_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There Is Error In Interview.
         /// </summary>
         public static string thereiserrorininterview {
@@ -3513,6 +3648,24 @@ namespace HR.Resource {
         public static string unpaidmount {
             get {
                 return ResourceManager.GetString("unpaidmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Group.
+        /// </summary>
+        public static string Usergroup {
+            get {
+                return ResourceManager.GetString("Usergroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User name.
+        /// </summary>
+        public static string username {
+            get {
+                return ResourceManager.GetString("username", resourceCulture);
             }
         }
         

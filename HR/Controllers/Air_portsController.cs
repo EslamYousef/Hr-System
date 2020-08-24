@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Air ports")]
     public class Air_portsController : BaseController
     {
         // GET: Air_ports

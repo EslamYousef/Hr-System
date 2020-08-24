@@ -10,15 +10,28 @@
 {
     <div class="sec-nav">
         <div><i class="far fa-save"></i><button type="submit" class="create-btn">@HR.Resource.organ.Save </button></div>
-      
-        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Home")" class="create-btn"> @HR.Resource.pers_2.Back</a></div>
+        @if (ViewBag.flag == true)
+        {
+            <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("all", "account")" class="create-btn"> @HR.Resource.pers_2.Back</a></div>
+            <div><i class="far fa-save"></i><button name="Command" value="link" class="create-btn" /> @HR.Resource.pers_2.linkuser</div>
 
+        }
+        else
+        {
+            <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "home")" class="create-btn"> @HR.Resource.pers_2.Back</a></div>
+
+        }
+      
+       
     </div>
     @Html.AntiForgeryToken()
-    <div style="margin-top:70px">
-     profile
-    </div>
+    
     <hr />
+    <section style="margin-top:40px" class="content-header">
+        <h1>
+            @HR.Resource.pers_2.edituser
+        </h1>
+    </section>
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     if (TempData["Message"] != null)
@@ -32,7 +45,7 @@
     {
         Html.Hidden(Model.image_profile);
     }
-
+    @Html.HiddenFor(M=>M.id)
     <div class="form-horizontal">
         <div class="form-group">
            
@@ -51,7 +64,7 @@
                 @Html.TextBoxFor(m => m.mail, new { @class = "form-control" })
             </div>
      
-           
+          
             <div class="col-md-4">
                 <label>
                     @HR.Resource.Basic.old_password
@@ -81,6 +94,7 @@
             </div>
 
         </div>
+       
         <div class="form-group">
         
             <div class="col-md-4">
@@ -108,11 +122,33 @@
                 <input type="file" name="file" id="file" style="width: 100%;" class="form-control" />
             </div>
           
-                @Html.LabelFor(m => m.company_name, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
+                <div class="col-md-4">
+                    <label>
+                        @HR.Resource.pers_2.companyname
+                    </label>
                     @Html.EditorFor(m => m.company_name, new { @class = "form-control" })
                 </div>
-            
+         
+          
+            @if (ViewBag.flag == true)
+            {
+                <div class="col-md-4">
+                    <label>
+                        @HR.Resource.pers_2.active
+
+                    </label>
+                    @Html.CheckBoxFor(m => m.active, new { @class = "form-control" })
+                </div>
+                <label style="color:red" class="col-md-2 control-label">
+                    <span> @HR.Resource.pers_2.employee </span>
+                </label>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(m => m.employee_o, new SelectList(ViewBag.employee, "ID", "Code"), new { @class = "select2 form-control" })
+                    @Html.ValidationMessageFor(model => model.employee_o, "", new { @class = "text-danger" })
+
+                </div>
+            }
+           
         </div>
      
 

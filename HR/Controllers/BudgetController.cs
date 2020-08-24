@@ -9,7 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace HR.Controllers
-{   [Authorize]
+{
+    [Authorize(Roles = "Admin,Organization,OrganizationCards,Budget_card")]
     public class BudgetController : BaseController
     {
         // GET: Budget

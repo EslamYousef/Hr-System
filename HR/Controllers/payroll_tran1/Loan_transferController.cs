@@ -12,12 +12,14 @@ namespace HR.Controllers.payroll_tran1
     public class Loan_transferController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         // GET: Loan_transfer
         public ActionResult Index()
         {
             var model = dbcontext.LoanTransfer.ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult Loan_transfer_entry(int id)
         {
             try
@@ -75,6 +77,12 @@ namespace HR.Controllers.payroll_tran1
             try
             {
                 var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.LoanRequest.ID);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == loan.statusID);
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 ViewBag.loan_type = dbcontext.LoanInAdvanceSetup.ToList().Select(m => new { Code = m.LoanTypeCode + "--[" + m.LoanTypeDesc + ']', ID = m.ID });
                 var emp_id = int.Parse(model.LoanTransfer.ToEmplpyee_Code);
@@ -83,6 +91,18 @@ namespace HR.Controllers.payroll_tran1
                 loan.EmployeeID = model.LoanTransfer.ToEmplpyee_Code;
                 loan.emp_name = new_emp.Full_Name;
                 dbcontext.SaveChanges();
+
+                //====
+                var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+              
+                var transaction = dbcontext.Employee_Payroll_Transactions.Where(m => m.SourceDocumentRefrence == loan.LoanRequestNumber && m.SourceDocumentType == Payment_Type_Source_Document_).ToList();
+                foreach(var item in transaction)
+                {
+                    item.Employee_Code = new_emp.Code;
+                    dbcontext.SaveChanges();
+                }
+                dbcontext.SaveChanges();
+                //====
                 //////////////
                 model.LoanTransfer.CreatedBy = User.Identity.Name;
                 model.LoanTransfer.CreatedDate = DateTime.Now.Date;

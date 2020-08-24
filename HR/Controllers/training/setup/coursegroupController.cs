@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.training.setup
 {
+    [Authorize(Roles = "Admin,talent,talentSetup,Courses_setup")]
     public class coursegroupController : BaseController
     {
         // GET: coursegroup

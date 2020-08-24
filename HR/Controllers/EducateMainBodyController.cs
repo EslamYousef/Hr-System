@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Qulifications")]
     public class EducateMainBodyController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

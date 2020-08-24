@@ -17,6 +17,7 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: EOS_request
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult Index()
         {
             //var an = dbcontext.Answer_EOS.ToList();
@@ -24,6 +25,7 @@ namespace HR.Controllers
             var model = dbcontext.EOS_Request.ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult Create()
 
         {
@@ -186,6 +188,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult edit(string id,string error_message)
         {
             try
@@ -371,6 +374,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult delete(string id)
         {
             try
@@ -414,6 +418,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
 
         public ActionResult chick(string id)
         {
@@ -460,6 +465,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
         public ActionResult interview(string id)
         {
             try
@@ -505,6 +511,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,personnel,personnel transaction process,personnelprocess")]
         public ActionResult status(string id)
         {
             try

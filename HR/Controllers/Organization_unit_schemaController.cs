@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Organization,OrganizationSetup,Organization chart")]
     public class Organization_unit_schemaController : BaseController
     {
         // GET: Organization_unit_schema

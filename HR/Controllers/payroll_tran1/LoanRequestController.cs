@@ -1,6 +1,7 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
 using HR.Models.payroll_trans;
+using HR.Models.TransactionsPayroll;
 using HR.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace HR.Controllers.payroll_tran1
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: LoanRequest
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult Index()
         {
             var model = dbcontext.LoanRequest.ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult Create()
         {
             try
@@ -122,9 +125,10 @@ namespace HR.Controllers.payroll_tran1
                     
                 }
                 var i = 1;
+                var loan_type_id = int.Parse(Model.LoanTypeCode);
+                var loan_type = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == loan_type_id);
                 for (var item=0;item<Mon;item++ )
                 {
-                   
                     for (var ii = 0; ii < Model.NumberOfDeductedInstallments; ii++)
                     {
                         var loan_installment = new LoanInstallment
@@ -146,8 +150,72 @@ namespace HR.Controllers.payroll_tran1
 
                         };
                         
-                        dbcontext.LoanInstallment.Add(loan_installment);
+                    var installment=    dbcontext.LoanInstallment.Add(loan_installment);
                         dbcontext.SaveChanges();
+                        //======================adding to tranasaction==================================
+                        if(loan_type.EnableAutomaticPayrollDeduction==true)
+                        {
+                            var salary_code_id = int.Parse(loan_type.SalaryCodeID);
+                            var salary_code = dbcontext.salary_code.FirstOrDefault(m => m.ID == salary_code_id);
+                            //====
+                            var new_Record = new Employee_Payroll_Transactions();
+                            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Payroll).Structure_Code;
+                            var model_ = dbcontext.Employee_Payroll_Transactions.ToList();
+                            if (model_.Count() == 0)
+                            {
+                                new_Record.TransactionNumber = stru + "1";
+                            }
+                            else
+                            {
+                                new_Record.TransactionNumber = stru + (model_.LastOrDefault().ID + 1).ToString();
+                            }
+                            //============================================================================================
+                            var emp_id = int.Parse(Model.EmployeeID);
+                            var emp = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp_id);
+                            new_Record.Employee_Code = emp.Code;
+                            new_Record.SalaryCodeID = salary_code.SalaryCodeID;
+                            //==============================================================================================
+                            new_Record.TransactionDate = new DateTime(start2.Value.Year, start2.Value.Month, 1);
+                            string Transaction = Model.CreatedDate.ToString();
+                            new_Record.TransactionMonth = start2.Value.Month;
+                            new_Record.TransactionYear = start2.Value.Year;
+                            new_Record.EffectiveDate = new DateTime(start2.Value.Year, start2.Value.Month,1);
+                            new_Record.EffectiveMonth = start2.Value.Month;
+                            new_Record.EffectiveYear = start2.Value.Year;
+                            new_Record.TransactionValue = (double?)Model.LoanInstallmentAmount;
+                            new_Record.CreatedDate = DateTime.Now.Date;
+                            new_Record.CreatedBy = User.Identity.Name;
+                            new_Record.SourceDocumentType = Payment_Type_Source_Document.Loan.GetHashCode();
+                            new_Record.SourceDocumentRefrence = Model.LoanRequestNumber;  /////transaction number of loan
+                            new_Record.SourceDocumentDescription = installment.ID.ToString();   ///id of loan installmetn 
+                            new_Record.SourceDocumentNotes = Model.LoanRequestNumber;
+                            // new_Record.CostCenterCode = emp.CostCenterCode;
+                            new_Record.CostCenterCode = "88";
+                            if ((bool)salary_code.EnableExtendedFields)
+                            {
+                                new_Record.ExtendedFields_Code = salary_code.ExtendedFields_Code;
+                            }
+                            else
+                            {
+
+                                new_Record.ExtendedFields_Code = null;
+                            }
+                            new_Record.TransactionStatus = check_status.created.GetHashCode();
+                            new_Record.check_status = HR.Models.Infra.check_status.created;
+                            new_Record.name_state = nameof(check_status.created);
+                            var username = User.Identity.Name;
+                            var new_Date = Convert.ToDateTime("1/1/1900");
+                            var s_ = new status { statu = HR.Models.Infra.check_status.created, created_by = username, Type = Models.Infra.Type.Employee_Payroll_Transactions, approved_bydate = new_Date, cancaled_bydate = new_Date, created_bydate = DateTime.Now.Date, Rejected_bydate = new_Date, return_to_reviewdate = new_Date };
+                            var st_ = dbcontext.status.Add(s_);
+                            dbcontext.SaveChanges();
+                            new_Record.statID = s_.ID;
+                            var Header = dbcontext.Employee_Payroll_Transactions.Add(new_Record);
+                            dbcontext.SaveChanges();
+                            //====
+
+
+                        }
+                        //=============================================================================
                         i++;
                         if(i>loan.NumberOfInstallment)
                         {
@@ -170,6 +238,7 @@ namespace HR.Controllers.payroll_tran1
                 return View(Model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult edit(int id)
         {
             try
@@ -193,7 +262,7 @@ namespace HR.Controllers.payroll_tran1
                 ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
                 ViewBag.loan_type = dbcontext.LoanInAdvanceSetup.ToList().Select(m => new { Code = m.LoanTypeCode + "--[" + m.LoanTypeDesc + ']', ID = m.ID });
                 var sta = dbcontext.status.FirstOrDefault(m => m.ID == edit_model.statusID);
-                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Recervied || sta.statu == check_status.Canceled)
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed  || sta.statu == check_status.Canceled)
                 {
                     TempData["message"] = HR.Resource.training.status_message;
                     return RedirectToAction("index");
@@ -307,7 +376,8 @@ namespace HR.Controllers.payroll_tran1
                 return View(Model);
             }
         }
-       
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
+
         public ActionResult delete(int id)
         {
             try
@@ -325,6 +395,7 @@ namespace HR.Controllers.payroll_tran1
         public ActionResult delete_method(int id)
         {
             var model = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == id);
+            var transaction = dbcontext.Employee_Payroll_Transactions.Where(m => m.SourceDocumentRefrence == model.LoanRequestNumber && m.SourceDocumentType == Payment_Type_Source_Document.Loan.GetHashCode());
             var sta = dbcontext.status.FirstOrDefault(m => m.ID == model.statusID);
             if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Recervied || sta.statu == check_status.Canceled)
             {
@@ -335,7 +406,9 @@ namespace HR.Controllers.payroll_tran1
             {
 
                var inst= dbcontext.LoanInstallment.Where(m => m.LoanRequestNumber == model.LoanRequestNumber).ToList();
+               
                 dbcontext.LoanInstallment.RemoveRange(inst);
+                dbcontext.Employee_Payroll_Transactions.RemoveRange(transaction);
                 dbcontext.SaveChanges();
                 dbcontext.LoanRequest.Remove(model);
                 dbcontext.SaveChanges();
@@ -371,11 +444,18 @@ namespace HR.Controllers.payroll_tran1
             try
             {
                 ViewBag.id = id;
+                var edit_model = dbcontext.LoanRequest.FirstOrDefault(m => m.ID ==id);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == edit_model.statusID);
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 var ID_LIST = form["frezz"].Split(',');
                 DateTime new_date;
-                foreach(var item in ID_LIST)
+                foreach (var item in ID_LIST)
                 {
-                    if(item!=" ")
+                    if (item != " ")
                     {
                         var Id = int.Parse(item);
                         var inst = dbcontext.LoanInstallment.FirstOrDefault(m => m.ID == Id);
@@ -387,7 +467,12 @@ namespace HR.Controllers.payroll_tran1
                         var UN = inst.UnpaidAmount;
                         inst.UnpaidAmount = 0;
                         dbcontext.SaveChanges();
-
+                        //====
+                        var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+                        var transaction = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.SourceDocumentDescription == inst.ID.ToString() && m.SourceDocumentType == Payment_Type_Source_Document_);
+                        transaction.TransactionValue = 0;
+                        dbcontext.SaveChanges();
+                        //====
                         i++;
 
                         var loan_installment = new LoanInstallment
@@ -409,24 +494,88 @@ namespace HR.Controllers.payroll_tran1
 
                         };
 
-                        dbcontext.LoanInstallment.Add(loan_installment);
+                  var insta= dbcontext.LoanInstallment.Add(loan_installment);
                         dbcontext.SaveChanges();
+
+                        //======================adding to tranasaction==================================
+                        var loan_request = dbcontext.LoanRequest.FirstOrDefault(m => m.LoanRequestNumber == inst.LoanRequestNumber);
+                        var loan_type_id = int.Parse(loan_request.LoanTypeCode);
+                        var loan_type = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == loan_type_id);
+
+                        if (loan_type.EnableAutomaticPayrollDeduction == true)
+                        {
+                            var salary_code_id = int.Parse(loan_type.SalaryCodeID);
+                            var salary_code = dbcontext.salary_code.FirstOrDefault(m => m.ID == salary_code_id);
+                            //====
+                            var new_Record = new Employee_Payroll_Transactions();
+                            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Payroll).Structure_Code;
+                            var model_ = dbcontext.Employee_Payroll_Transactions.ToList();
+                            if (model_.Count() == 0)
+                            {
+                                new_Record.TransactionNumber = stru + "1";
+                            }
+                            else
+                            {
+                                new_Record.TransactionNumber = stru + (model_.LastOrDefault().ID + 1).ToString();
+                            }
+                            //============================================================================================
+                            var emp_id = int.Parse(loan_request.EmployeeID);
+                            var emp = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp_id);
+                            new_Record.Employee_Code = emp.Code;
+                            new_Record.SalaryCodeID = salary_code.SalaryCodeID;
+                            //==============================================================================================
+                            new_Record.TransactionDate = new DateTime(new_date.Year, new_date.Month, 1);
+
+                            new_Record.TransactionMonth = (short)new_date.Month;
+                            new_Record.TransactionYear = (short)new_date.Year;
+                            new_Record.EffectiveDate = new DateTime(new_date.Year, new_date.Month, 1);
+                            new_Record.EffectiveMonth = (short)new_date.Month;
+                            new_Record.EffectiveYear = new_date.Year;
+                            new_Record.TransactionValue = (double?)loan_request.LoanInstallmentAmount;
+                            new_Record.CreatedDate = DateTime.Now.Date;
+                            new_Record.CreatedBy = User.Identity.Name;
+                            new_Record.SourceDocumentType = Payment_Type_Source_Document.Loan.GetHashCode();
+                            new_Record.SourceDocumentRefrence = loan_request.LoanRequestNumber;  /////transaction number of loan
+                            new_Record.SourceDocumentDescription = insta.ID.ToString();   ///id of loan installmetn 
+                            new_Record.SourceDocumentNotes = loan_request.LoanRequestNumber;
+                            // new_Record.CostCenterCode = emp.CostCenterCode;
+                            new_Record.CostCenterCode = "88";
+                            if ((bool)salary_code.EnableExtendedFields)
+                            {
+                                new_Record.ExtendedFields_Code = salary_code.ExtendedFields_Code;
+                            }
+                            else
+                            {
+
+                                new_Record.ExtendedFields_Code = null;
+                            }
+                            new_Record.TransactionStatus = check_status.created.GetHashCode();
+                            new_Record.check_status = HR.Models.Infra.check_status.created;
+                            new_Record.name_state = nameof(check_status.created);
+                            var username = User.Identity.Name;
+                            var new_Date = Convert.ToDateTime("1/1/1900");
+                            var s_ = new status { statu = HR.Models.Infra.check_status.created, created_by = username, Type = Models.Infra.Type.Employee_Payroll_Transactions, approved_bydate = new_Date, cancaled_bydate = new_Date, created_bydate = DateTime.Now.Date, Rejected_bydate = new_Date, return_to_reviewdate = new_Date };
+                            var st_ = dbcontext.status.Add(s_);
+                            dbcontext.SaveChanges();
+                            new_Record.statID = s_.ID;
+                            var Header = dbcontext.Employee_Payroll_Transactions.Add(new_Record);
+                            dbcontext.SaveChanges();
+                            //====
+
+                        }
+
+
+
                     }
-                   
-
-
                 }
-                return RedirectToAction("edit",new { id= id });
+                return RedirectToAction("edit", new { id = id });
+
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return RedirectToAction("index");
             }
         }
-
-
-
-
         public ActionResult details(int id)
         {
             ViewBag.emp = dbcontext.Employee_Profile.Where(m => m.Active == true).ToList().Select(m => new { Code = m.Code + "--[" + m.Name + ']', ID = m.ID });
@@ -473,6 +622,13 @@ namespace HR.Controllers.payroll_tran1
             try
             {
                 ViewBag.id = id;
+                var edit_model = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == id);
+                var sta = dbcontext.status.FirstOrDefault(m => m.ID == edit_model.statusID);
+                if (sta.statu == check_status.Approved || sta.statu == check_status.Rejected || sta.statu == check_status.Closed || sta.statu == check_status.Canceled)
+                {
+                    TempData["message"] = HR.Resource.training.status_message;
+                    return RedirectToAction("index");
+                }
                 var ID_LIST = form["frezz"].Split(',');
                 DateTime new_date;
                 foreach (var item in ID_LIST)
@@ -486,6 +642,12 @@ namespace HR.Controllers.payroll_tran1
                         new_date = new DateTime((int)(loan.Last().InstallmentYear), (int)(loan.Last().InstallmentMonth), 1);
                         new_date = new_date.AddMonths(1);
                         inst.IsActive = false;
+                        //====
+                        var Payment_Type_Source_Document_ = Payment_Type_Source_Document.Loan.GetHashCode();
+                        var transaction = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.SourceDocumentDescription == inst.ID.ToString() && m.SourceDocumentType == Payment_Type_Source_Document_);
+                        transaction.TransactionValue = 0;
+                        dbcontext.SaveChanges();
+                        //====
                         var UN = inst.UnpaidAmount;
                         inst.UnpaidAmount = 0;
                         dbcontext.SaveChanges();
@@ -511,16 +673,81 @@ namespace HR.Controllers.payroll_tran1
 
                         };
 
-                        dbcontext.LoanInstallment.Add(loan_installment);
+                        var insta = dbcontext.LoanInstallment.Add(loan_installment);
                         dbcontext.SaveChanges();
+
+
+                        //======================adding to tranasaction==================================
+                        var loan_request = dbcontext.LoanRequest.FirstOrDefault(m => m.LoanRequestNumber == inst.LoanRequestNumber);
+                        var loan_type_id = int.Parse(loan_request.LoanTypeCode);
+                        var loan_type = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == loan_type_id);
+
+                        if (loan_type.EnableAutomaticPayrollDeduction == true)
+                        {
+                            var salary_code_id = int.Parse(loan_type.SalaryCodeID);
+                            var salary_code = dbcontext.salary_code.FirstOrDefault(m => m.ID == salary_code_id);
+                            //====
+                            var new_Record = new Employee_Payroll_Transactions();
+                            var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Payroll).Structure_Code;
+                            var model_ = dbcontext.Employee_Payroll_Transactions.ToList();
+                            if (model_.Count() == 0)
+                            {
+                                new_Record.TransactionNumber = stru + "1";
+                            }
+                            else
+                            {
+                                new_Record.TransactionNumber = stru + (model_.LastOrDefault().ID + 1).ToString();
+                            }
+                            //============================================================================================
+                            var emp_id = int.Parse(loan_request.EmployeeID);
+                            var emp = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp_id);
+                            new_Record.Employee_Code = emp.Code;
+                            new_Record.SalaryCodeID = salary_code.SalaryCodeID;
+                            //==============================================================================================
+                            new_Record.TransactionDate = new DateTime(new_date.Year, new_date.Month, 1);
+
+                            new_Record.TransactionMonth = (short)new_date.Month;
+                            new_Record.TransactionYear = (short)new_date.Year;
+                            new_Record.EffectiveDate = new DateTime(new_date.Year, new_date.Month, 1);
+                            new_Record.EffectiveMonth = (short)new_date.Month;
+                            new_Record.EffectiveYear = new_date.Year;
+                            new_Record.TransactionValue = (double?)loan_request.LoanInstallmentAmount;
+                            new_Record.CreatedDate = DateTime.Now.Date;
+                            new_Record.CreatedBy = User.Identity.Name;
+                            new_Record.SourceDocumentType = Payment_Type_Source_Document.Loan.GetHashCode();
+                            new_Record.SourceDocumentRefrence = loan_request.LoanRequestNumber;  /////transaction number of loan
+                            new_Record.SourceDocumentDescription = insta.ID.ToString();   ///id of loan installmetn 
+                            new_Record.SourceDocumentNotes = loan_request.LoanRequestNumber;
+                            // new_Record.CostCenterCode = emp.CostCenterCode;
+                            new_Record.CostCenterCode = "88";
+                            if ((bool)salary_code.EnableExtendedFields)
+                            {
+                                new_Record.ExtendedFields_Code = salary_code.ExtendedFields_Code;
+                            }
+                            else
+                            {
+
+                                new_Record.ExtendedFields_Code = null;
+                            }
+                            new_Record.TransactionStatus = check_status.created.GetHashCode();
+                            new_Record.check_status = HR.Models.Infra.check_status.created;
+                            new_Record.name_state = nameof(check_status.created);
+                            var username = User.Identity.Name;
+                            var new_Date = Convert.ToDateTime("1/1/1900");
+                            var s_ = new status { statu = HR.Models.Infra.check_status.created, created_by = username, Type = Models.Infra.Type.Employee_Payroll_Transactions, approved_bydate = new_Date, cancaled_bydate = new_Date, created_bydate = DateTime.Now.Date, Rejected_bydate = new_Date, return_to_reviewdate = new_Date };
+                            var st_ = dbcontext.status.Add(s_);
+                            dbcontext.SaveChanges();
+                            new_Record.statID = s_.ID;
+                            var Header = dbcontext.Employee_Payroll_Transactions.Add(new_Record);
+                            dbcontext.SaveChanges();
+                            //====
+
+                        }
                     }
-
-
-
                 }
                 return RedirectToAction("index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return RedirectToAction("index");
             }
@@ -575,6 +802,7 @@ namespace HR.Controllers.payroll_tran1
             }
         }
         ////////////
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
         public ActionResult Mass_Loan_Request()
         {
             try
@@ -725,9 +953,6 @@ namespace HR.Controllers.payroll_tran1
                 if (list_emp.Count == 0)
                 {
                     return View(Model);
-                    //int ID_emp = int.Parse(Model.EmployeeID);
-                    //var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == ID_emp);
-                    //Model.emp_name = emp.Full_Name;
                 }
 
                 if (Model.NumberOfInstallment == 0)
@@ -784,7 +1009,10 @@ namespace HR.Controllers.payroll_tran1
                 var start1 = loan.StartDate;
                 var start2 = loan.StartDate;
                 var Mon = 1;
-                while (start1.Value.CompareTo(Model.EndDate.Value) != 0)
+                    var loan_type_id =int.Parse(Model.LoanTypeCode);
+                    var loan_type = dbcontext.LoanInAdvanceSetup.FirstOrDefault(m => m.ID == loan_type_id);
+
+                    while (start1.Value.CompareTo(Model.EndDate.Value) != 0)
                 {
                     Mon++;
                     start1 = start1.Value.AddMonths(1);
@@ -816,8 +1044,71 @@ namespace HR.Controllers.payroll_tran1
 
                             };
 
-                            dbcontext.LoanInstallment.Add(loan_installment);
+                        var insta=    dbcontext.LoanInstallment.Add(loan_installment);
                             dbcontext.SaveChanges();
+                            //==================
+                            if (loan_type.EnableAutomaticPayrollDeduction == true)
+                            {
+                                var salary_code_id = int.Parse(loan_type.SalaryCodeID);
+                                var salary_code = dbcontext.salary_code.FirstOrDefault(m => m.ID == salary_code_id);
+                                //====
+                                var new_Record = new Employee_Payroll_Transactions();
+                                var new_stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Payroll).Structure_Code;
+                                var model_ = dbcontext.Employee_Payroll_Transactions.ToList();
+                                if (model_.Count() == 0)
+                                {
+                                    new_Record.TransactionNumber = new_stru + "1";
+                                }
+                                else
+                                {
+                                    new_Record.TransactionNumber = new_stru + (model_.LastOrDefault().ID + 1).ToString();
+                                }
+                                //============================================================================================
+                              
+                                new_Record.Employee_Code = item1.Code;
+                                new_Record.SalaryCodeID = salary_code.SalaryCodeID;
+                                //==============================================================================================
+                                new_Record.TransactionDate = new DateTime(start2.Value.Year, start2.Value.Month, 1);
+                                string Transaction = Model.CreatedDate.ToString();
+                                new_Record.TransactionMonth = start2.Value.Month;
+                                new_Record.TransactionYear = start2.Value.Year;
+                                new_Record.EffectiveDate = new DateTime(start2.Value.Year, start2.Value.Month, 1);
+                                new_Record.EffectiveMonth = start2.Value.Month;
+                                new_Record.EffectiveYear = start2.Value.Year;
+                                new_Record.TransactionValue = (double?)Model.LoanInstallmentAmount;
+                                new_Record.CreatedDate = DateTime.Now.Date;
+                                new_Record.CreatedBy = User.Identity.Name;
+                                new_Record.SourceDocumentType = Payment_Type_Source_Document.Loan.GetHashCode();
+                                new_Record.SourceDocumentRefrence = Model.LoanRequestNumber;  /////transaction number of loan
+                                new_Record.SourceDocumentDescription = insta.ID.ToString();   ///id of loan installmetn 
+                                new_Record.SourceDocumentNotes = Model.LoanRequestNumber;
+                                // new_Record.CostCenterCode = emp.CostCenterCode;
+                                new_Record.CostCenterCode = "88";
+                                if ((bool)salary_code.EnableExtendedFields)
+                                {
+                                    new_Record.ExtendedFields_Code = salary_code.ExtendedFields_Code;
+                                }
+                                else
+                                {
+
+                                    new_Record.ExtendedFields_Code = null;
+                                }
+                                new_Record.TransactionStatus = check_status.created.GetHashCode();
+                                new_Record.check_status = HR.Models.Infra.check_status.created;
+                                new_Record.name_state = nameof(check_status.created);
+                                var username = User.Identity.Name;
+                                var new_Date = Convert.ToDateTime("1/1/1900");
+                                var s_ = new status { statu = HR.Models.Infra.check_status.created, created_by = username, Type = Models.Infra.Type.Employee_Payroll_Transactions, approved_bydate = new_Date, cancaled_bydate = new_Date, created_bydate = DateTime.Now.Date, Rejected_bydate = new_Date, return_to_reviewdate = new_Date };
+                                var st_ = dbcontext.status.Add(s_);
+                                dbcontext.SaveChanges();
+                                new_Record.statID = s_.ID;
+                                var Header = dbcontext.Employee_Payroll_Transactions.Add(new_Record);
+                                dbcontext.SaveChanges();
+                                //====
+
+
+                            }
+                            //==================
                             i++;
                             if (i > loan.NumberOfInstallment)
                             {
@@ -876,6 +1167,7 @@ namespace HR.Controllers.payroll_tran1
                 return Json(null);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollProcess,loan process")]
         public ActionResult status(string id)
         {
             try
@@ -917,7 +1209,6 @@ namespace HR.Controllers.payroll_tran1
                 sta.statu = check_status.Approved;
                 record.check_status = "Approved";
                 record.RequestStatus = check_status.Approved.GetHashCode();
-
                 dbcontext.SaveChanges();
                 var loan = dbcontext.LoanRequest.FirstOrDefault(m => m.ID == model.opertion_id);
                

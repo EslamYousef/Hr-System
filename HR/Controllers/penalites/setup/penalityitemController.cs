@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.penalites.setup
 {
+    [Authorize(Roles = "Admin,Penalties,PenaltiesSetup")]
     public class penalityitemController : BaseController
     {
         // GET: penalityitem

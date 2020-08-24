@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Evalution,EvalutionCards")]
     public class PerformanceEvaluationGroupController : BaseController
     {
         // GET: PerformanceEvaluationGroup

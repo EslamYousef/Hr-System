@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.training.setup
 {
+    [Authorize(Roles = "Admin,talent,talentSetup,Training ploicy")]
     public class TrainingPolicyController : BaseController
     {
         // GET: TrainingPolicy

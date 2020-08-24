@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Organization,OrganizationCards,job level_card")]
     public class job_level_setupController : BaseController
     {
         // GET: job_level_setup

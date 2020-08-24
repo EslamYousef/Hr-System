@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Evalution,EvalutionSetup")]
     public class EvaluationObjectiveController : BaseController
     {
         // GET: EvaluationObjective

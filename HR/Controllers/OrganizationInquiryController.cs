@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    
     public class OrganizationInquiryController : BaseController
     {
         // GET: OrganizationInquiry
@@ -39,6 +39,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,Organization,OrganizationInquiry,organization reloated to jobs")]
         public ActionResult organization_view_related_to_jobs() 
         {
             try
@@ -138,6 +139,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,Organization,OrganizationInquiry,view jobs")]
         public ActionResult organization_view_related_to_jobs2()
         {
             var master_node = new List<Organization_Chart>();

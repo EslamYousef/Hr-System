@@ -48,6 +48,7 @@ namespace HR.Models
     }
     public class edit
     {
+        public string id { get; set; }
         public string name { get; set; }
         public string mail { get; set; }
         public string company_name { get; set; }
@@ -55,6 +56,9 @@ namespace HR.Models
         public string password { get; set; }
         public string new_password { get; set; }
         public string confirmpassword { get; set; }
+        public int employee_o { get; set; }
+        public string employee_name { get; set; }
+        public bool active { get; set; }
 
     }
     public class LoginViewModel
@@ -94,6 +98,9 @@ namespace HR.Models
        
         [Display(Name = "company_name")]
         public string company_name { get; set; }
+       public string employee { get; set; }
+        public string employee_name { get; set; }
+        public bool active { get; set; }
 
     }
 

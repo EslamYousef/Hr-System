@@ -20,6 +20,7 @@ namespace HR.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext dbcontext = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -32,23 +33,41 @@ namespace HR.Controllers
             _userManager= userManager;
         }
       
-        public async Task<ActionResult> edit_profile()
+        public async Task<ActionResult> edit_profile(string id)
         {
-            
-         
             try
             {
-              
+                var cuurent_ID = User.Identity.GetUserId();
+                ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "--[" + m.Full_Name + ']', ID = m.ID }).ToList();
 
-                var userId = User.Identity.GetUserId();
-                var Login_User = await UserManager.FindByIdAsync(userId);
-
-                edit user_edit = new edit();
-                user_edit.name = Login_User.UserName;
-                user_edit.mail = Login_User.Email;
-                user_edit.image_profile = Login_User.ImagePath;
-                user_edit.company_name = Login_User.company_name;
-                return View(user_edit);
+                if (id != null) ///يفتح
+                {
+                    var Login_User1 = await UserManager.FindByIdAsync(id.ToString());
+                    edit user_edit1 = new edit();
+                    user_edit1.name = Login_User1.UserName;
+                    user_edit1.mail = Login_User1.Email;
+                    user_edit1.image_profile = Login_User1.ImagePath;
+                    user_edit1.company_name = Login_User1.company_name;
+                    user_edit1.employee_o = (int)Login_User1.employee_o;
+                    user_edit1.active = Login_User1.active;
+                    user_edit1.id = Login_User1.Id;
+                    ViewBag.flag = true;
+                    return View(user_edit1);
+                }
+                else
+                {
+                    var userId = User.Identity.GetUserId();
+                    var Login_User = await UserManager.FindByIdAsync(userId);
+                    edit user_edit = new edit();
+                    user_edit.id = Login_User.Id;
+                    user_edit.name = Login_User.UserName;
+                    user_edit.mail = Login_User.Email;
+                    user_edit.image_profile = Login_User.ImagePath;
+                    user_edit.company_name = Login_User.company_name;
+                    user_edit.active = Login_User.active;
+                   
+                    return View(user_edit);
+                }
 
             }
             catch (Exception e)
@@ -58,16 +77,26 @@ namespace HR.Controllers
             }
         }
         [HttpPost]
-        public async  Task<ActionResult> edit_profile(edit model, HttpPostedFileBase file)
+        public async  Task<ActionResult> edit_profile(edit model, HttpPostedFileBase file,string Command)
         {
-            var userId = User.Identity.GetUserId();
+            var cuurent_ID = User.Identity.GetUserId();
+            ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "--[" + m.Full_Name + ']', ID = m.ID }).ToList();
+            var userId =model.id;
             var Login_User = await UserManager.FindByIdAsync(userId);
             model.image_profile = Login_User.ImagePath;
           //  model.company_name = Login_User.company_name;
             if (!ModelState.IsValid)
             {
                 TempData["Message"] = "ERROR.";
-                return View(model);
+                if(cuurent_ID!=model.id)
+                {
+                    return RedirectToAction("edit_profile",new { id=model.id});
+                }
+                else
+                {
+                    return View(model);
+                }
+               
             }
             try
             {
@@ -76,7 +105,21 @@ namespace HR.Controllers
                 Login_User.UserName = model.name;
                 Login_User.Email = model.mail;
                 Login_User.company_name = model.company_name;
-                if(model.image_profile!=null)
+                Login_User.active = model.active;
+                if (model.employee_o != 0)
+                {
+                    var id_em = model.employee_o;
+                    Login_User.employee_name = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id_em).Full_Name;
+                    Login_User.employee_o =model.employee_o;
+                }
+                else
+                {
+                    if (cuurent_ID != model.id)
+                    {
+                        return RedirectToAction("edit_profile","account", new { id = model.id });
+                    }
+                }
+                if (model.image_profile!=null)
                 Login_User.ImagePath = model.image_profile;
 
                 if (file != null && file.ContentLength > 0)
@@ -89,7 +132,14 @@ namespace HR.Controllers
                         if (!supportedTypes.Contains(fileExt))
                         {
                             TempData["Message"] = "Invalid image type. Only the following types (jpg, jpeg, png) are supported.";
-                            return View(model);
+                            if (cuurent_ID != model.id)
+                            {
+                                return RedirectToAction("edit_profile", new { id = model.id });
+                            }
+                            else
+                            {
+                                return View(model);
+                            }
                         }
                         var photoName = Guid.NewGuid().ToString("N") + "." + fileExt;
                         var photo = Server.MapPath("~/Images/Users/") + photoName;
@@ -103,14 +153,28 @@ namespace HR.Controllers
                     if (!result.Succeeded)
                     {
                         AddErrors(result);
-                        return View(model);
+                        if (cuurent_ID != model.id)
+                        {
+                            return RedirectToAction("edit_profile", new { id = model.id });
+                        }
+                        else
+                        {
+                            return View(model);
+                        }
                     }
                     await SignInManager.SignInAsync(Login_User, isPersistent: false, rememberBrowser: false);
                 }
                 else if(!string.IsNullOrEmpty(model.new_password) && model.new_password != model.confirmpassword)
                 {
                     TempData["Message"] = "new password not matching";
-                    return View(model);
+                    if (cuurent_ID != model.id)
+                    {
+                        return RedirectToAction("edit_profile", new { id = model.id });
+                    }
+                    else
+                    {
+                        return View(model);
+                    }
                 }
                 else
                 {
@@ -120,22 +184,37 @@ namespace HR.Controllers
                 if (!result1.Succeeded)
                 {
                     AddErrors(result1);
-                    return View(model);
+                    if (cuurent_ID != model.id)
+                    {
+                        return RedirectToAction("edit_profile", new { id = model.id });
+                    }
+                    else
+                    {
+                        return View(model);
+                    }
                 }
                 TempData["msg"] = "Profile Changes Saved !";
-                return RedirectToAction("index", "Home");
+                if (Command == "link")
+                {
+                    return RedirectToAction("link", "groupinfo", new { userid = Login_User.Id });
+                }
+                else if (cuurent_ID != model.id)
+                {
+                    return RedirectToAction("all", "Account");
+                }
+                else
+                {
+                    return RedirectToAction("index","Home");
+                }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 TempData["Message"] = "ERROR.";
                 return View(model);
 
             }
         }
-
-
-
 
         public ApplicationSignInManager SignInManager
         {
@@ -190,7 +269,19 @@ namespace HR.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                      var user=  await UserManager.FindByNameAsync(model.UserName);
+                        if(user.active==false)
+                        {
+                            return View("Lockout");
+                        }
+                        else
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                        
+                     
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -201,6 +292,8 @@ namespace HR.Controllers
                     return View(model);
             }
         }
+
+
 
         //
         // GET: /Account/VerifyCode
@@ -247,33 +340,55 @@ namespace HR.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public ActionResult Register()
         {
+            ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "--[" + m.Full_Name + ']', ID = m.ID }).ToList();
+
             return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult all()
+        {
+            var C_ID = User.Identity.GetUserId();
+            var users = dbcontext.Users.Where(m=>m.Id!= C_ID).ToList();
+            return View(users);
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,string Command)
         {
+            ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "--[" + m.Full_Name + ']', ID = m.ID }).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { company_name=model.company_name,UserName = model.Email, Email = model.Email };
+                var name_em = "";
+                if(model.employee!=null)
+                {
+                    var id_em = int.Parse(model.employee);
+                    name_em = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == id_em).Full_Name;
+                }
+                else
+                {
+                    return View(model);
+                }
+                var user = new ApplicationUser {active=model.active,employee_name= name_em, employee_o=int.Parse(model.employee),company_name=model.company_name,UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    if(Command=="link")
+                    {
+                        return RedirectToAction("link", "groupinfo",new { userid = user.Id});
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -282,6 +397,7 @@ namespace HR.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        
 
         //
         // GET: /Account/ConfirmEmail

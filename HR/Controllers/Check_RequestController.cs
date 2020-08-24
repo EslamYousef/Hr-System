@@ -9,11 +9,12 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    
     public class Check_RequestController : BaseController
     {
         // GET: Check_Request
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,Basic,BasicTransaction,check requestion_transa")]
         public ActionResult index()
         {
             var all_requests = dbcontext.check_Request.ToList();
@@ -26,7 +27,8 @@ namespace HR.Controllers
                         };
             return View(model);
         }
-        
+        [Authorize(Roles = "Admin,Basic,BasicTransaction,check requestion_transa")]
+
         public ActionResult history(string id)
         {
             try
@@ -56,6 +58,7 @@ namespace HR.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "Admin,Basic,BasicTransaction,check requestion_transa")]
         public ActionResult Create()
         {
             ViewBag.employee = dbcontext.Employee_Profile.ToList().Select(m => new { Code = "" + m.Code + "-----[" + m.Full_Name + ']', ID = m.ID }).ToList();
@@ -155,6 +158,7 @@ namespace HR.Controllers
             }
            
         }
+        [Authorize(Roles = "Admin,Basic,BasicTransaction,check requestion_transa")]
         public ActionResult Edit(string id)
         {
             try
@@ -247,6 +251,7 @@ namespace HR.Controllers
             }
 
         }
+        [Authorize(Roles = "Admin,Basic,BasicTransaction,check requestion_transa")]
         public ActionResult Delete(string id)
         {
             try

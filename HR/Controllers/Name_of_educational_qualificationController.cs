@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Qulifications")]
     public class Name_of_educational_qualificationController : BaseController
     {
         // GET: Name_of_educational_qualification

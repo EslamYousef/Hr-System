@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Military")]
     public class Military_Service_RankController : BaseController
     {
         // GET: Military_Service_Rank

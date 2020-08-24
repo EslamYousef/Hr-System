@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Organization,OrganizationCards,Organization chart_card")]
     public class OrganizationChartController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

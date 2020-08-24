@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,contact method")]
     public class Contact_methodsController : BaseController
     {
         // GET: Contact_methods

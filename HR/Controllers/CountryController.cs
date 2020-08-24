@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Address")]
     public class CountryController : BaseController
     {
 

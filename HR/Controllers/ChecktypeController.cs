@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,check requestion")]
     public class ChecktypeController : BaseController
     {
         // GET: Checktype

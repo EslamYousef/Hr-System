@@ -11,10 +11,12 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
+  
     public class ExitPermissionRequestController : Controller
     {
         // GET: ExitPermissionRequest
         ApplicationDbContext dbcontext = new ApplicationDbContext();
+        [Authorize(Roles = "Admin,TM,TMTransaction")]
         public ActionResult index()
         {
             try
@@ -28,6 +30,7 @@ namespace HR.Controllers
             }
 
         }
+        [Authorize(Roles = "Admin,TM,TMTransaction")]
         public ActionResult Create()
         {
             try
@@ -89,6 +92,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,TM,TMTransaction")]
         public ActionResult edit(int id)
         {
             try
@@ -132,6 +136,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,TM,TMTransaction")]
         public ActionResult delete(int id)
         {
             try
@@ -162,6 +167,7 @@ namespace HR.Controllers
             }
 
         }
+        [Authorize(Roles = "Admin,TM,TMProcess")]
         public ActionResult status(string id)
         {
             try

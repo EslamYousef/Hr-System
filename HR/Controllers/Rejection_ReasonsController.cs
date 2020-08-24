@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Basic,BasicSetup,Rejection reasons")]
     public class Rejection_ReasonsController : BaseController
     {
         // GET: Rejection_Reasons

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers 
 {
+   
     public class Reports_organizationController : BaseController
     {
         // GET: Reports_organization
@@ -16,6 +17,7 @@ namespace HR.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin,Organization,OrganizationReport,jobs title_report")]
         public ActionResult job_title()
         {
             try
@@ -240,7 +242,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        //////////////
+        [Authorize(Roles = "Admin,Organization,OrganizationReport,organization chart_report")]
         public ActionResult Chart()
         {
             try
