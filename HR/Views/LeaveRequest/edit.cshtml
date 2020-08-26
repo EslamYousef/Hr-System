@@ -29,7 +29,7 @@
         if (to >= from) {
             GetDiffDates(from, to);
         }
-       
+
         else {
             $("#Yearr").val("0");
             $("#months").val("0");
@@ -66,19 +66,19 @@
 
         var from = $(".StartDate").val();
         var to = $(".EndDate").val();
-        var emp = $("#Country").val(); 
-        var Day = $("#Days").val(); 
-        var Vacation = $("#Vacationid").val(); 
+        var emp = $("#Country").val();
+        var Day = $("#Days").val();
+        var Vacation = $("#Vacationid").val();
         $.ajax({
             type: "post",
             url: "/CreateVacationBalance/GetLeaveRequestFormVacationSetup",
             data: { "from": from, "to": to, "emp": emp, "Day": Day, "Vacation": Vacation} ,
-           
+
             success: function (result) {
                 debugger
-                var Day = $("#Days").val(result); 
+                var Day = $("#Days").val(result);
                 var Balance = $("#CurrentBalance").val();
-                var rem = $("#RemainDays").val(Balance - result); 
+                var rem = $("#RemainDays").val(Balance - result);
             },
             error: function () {
 
@@ -96,6 +96,7 @@
         GetDataById5('@Model.LeavesRequestMaster.CurrentDate', "Current");
         $("#Actual").attr('readonly', true);
         Save2();
+        CountryName();
         });
     function GetDataById5(date, id) {
 
@@ -251,30 +252,27 @@
     }
     CountryNamess();
 
-  
+
 </script>
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/MainLayOut.cshtml";
 }
 @using HR.Resource;
 <div class="panel panel-primary" data-collapsed="0">
     <div class="panel-body">
-        @using (Html.BeginForm("Create", "LeaveRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Edit", "LeaveRequest", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="sec-nav">
-                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.Save</div>
                 <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "LeaveRequest")" class="create-btn">@pers_2.new_</a></div>
-                <div>
-                    <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","LeaveRequest")" class="create-btn" value=@organ.delete style="
-    background-color: transparent" ; />
-                </div>
+                <div><i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","LeaveRequest")" class="create-btn" value=@organ.delete /></div>
                 <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "LeaveRequest")" class="create-btn"> @pers_2.Back</a></div>
             </div>
             <hr /><hr /><hr />
             <section class="content-header">
                 <h1>
-                    @Personnel.CreateLeaveRequest
+                    @Personnel.EditLeaveRequest
                 </h1>
             </section>
             @Html.AntiForgeryToken()
@@ -289,6 +287,7 @@
                     </div>
                 }
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(a=>a.LeavesRequestMaster.ID)
                 <div class="form-group">
 
                     <div class="col-md-4">
@@ -324,9 +323,9 @@
                         <input type="text" readonly id="Department" />
                     </div>
                     @*<div class="col-md-4">
-                            <label>CostCenter</label>
-                            <input type="text" readonly id="CostCenter" />
-                        </div>*@
+                        <label>CostCenter</label>
+                        <input type="text" readonly id="CostCenter" />
+                    </div>*@
                     <div class="col-md-4">
                         <label style="color:red">@Personnel.LeavesType</label>
                         @Html.DropDownListFor(m => m.LeavesRequestMaster.VacCode, new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), "", new { @class = "select2", @onchange = "Vacation()", @id = "Vacationid" })

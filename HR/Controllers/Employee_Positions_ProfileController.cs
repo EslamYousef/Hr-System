@@ -43,6 +43,8 @@ namespace HR.Controllers
             ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+            ViewBag.DefaultCostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+            ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
             ViewBag.Shift_setup = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
             ViewBag.idemp = id;
@@ -79,6 +81,8 @@ namespace HR.Controllers
                 if (model.Position_Information.Job_level_gradeId == null) { model.Position_Information.Job_level_gradeId = "0"; }
                 if (model.Position_Information.SlotdescId == null) { model.Position_Information.SlotdescId = "0"; }
                 if (model.Position_Information.Organization_ChartId == null) { model.Position_Information.Organization_ChartId = "0"; }
+                if (model.Position_Information.DefaultCostCenterId == null) { model.Position_Information.DefaultCostCenterId = "0"; }
+                if (model.Position_Information.CostCenterId == null) { model.Position_Information.CostCenterId = "0"; }
                 if (model.Position_Information.Shift_setupId == null) { model.Position_Information.Shift_setupId = "0"; }
 
                 ViewBag.job_desc = dbcontext.job_title_cards.ToList().Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
@@ -87,6 +91,8 @@ namespace HR.Controllers
                 ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.DefaultCostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CategoryCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CategoryCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
                 ViewBag.Shift_setup = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.idemp = model.Position_Information.Employee_ProfileId;
@@ -192,6 +198,10 @@ namespace HR.Controllers
                     record.Organization_ChartId = model.Position_Information.Organization_ChartId;
                     var Organization_ChartId = int.Parse(model.Position_Information.Organization_ChartId);
                     record.Organization_Chart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == Organization_ChartId);
+                    record.DefaultCostCenterId = model.Position_Information.DefaultCostCenterId;
+                    var DefaultCostCenterId = int.Parse(model.Position_Information.DefaultCostCenterId);
+                    record.CostCenterId = model.Position_Information.CostCenterId;
+                    var CostCenter = int.Parse(model.Position_Information.CostCenterId);
                     record.Shift_setupId = model.Position_Information.Shift_setupId;
                     var Shift_setupId = int.Parse(model.Position_Information.Shift_setupId);
                     record.Shift_setup = dbcontext.Shift_setup.FirstOrDefault(m => m.ID == Shift_setupId);
@@ -234,6 +244,8 @@ namespace HR.Controllers
                 ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.DefaultCostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
                 ViewBag.Shift_setup = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 //     var position = dbcontext.Position_Information.FirstOrDefault(a => a.ID == id);
@@ -275,6 +287,8 @@ namespace HR.Controllers
                 ViewBag.location_desc = dbcontext.work_location.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Job_level_grade = dbcontext.job_level_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Organization_Chart = dbcontext.Organization_Chart.ToList().Select(m => new { Code = m.Code + "------[" + m.unit_Description + ']', ID = m.ID });
+                ViewBag.DefaultCostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CostCenterCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
                 ViewBag.Shift_setup = dbcontext.Shift_setup.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.idemp = model.Position_Information.Employee_ProfileId;

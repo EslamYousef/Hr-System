@@ -149,6 +149,16 @@
                                             @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="col-md-4">
+                                            <label>DefaultCostCenterId</label>
+                                            @Html.DropDownListFor(m => m.Position_Information.DefaultCostCenterId, new SelectList(ViewBag.DefaultCostCenter, "ID", "Code"), "Select Default Cost Center", new { @class = "select2", @onchange = "DefaultCostCenter()", id = "DefaultCostids", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.DefaultCostCenterId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>CostCenterId</label>
+                                            @Html.DropDownListFor(m => m.Position_Information.CostCenterId, new SelectList(ViewBag.CostCenter, "ID", "Code"), "Select Cost Center", new { @class = "select2", @onchange = "CostCenters()", id = "Costid", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.CostCenterId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-4">
                                             <label>@Personnel.Shiftdaystatussetup</label>
                                             @Html.DropDownListFor(m => m.Position_Information.Shift_setupId, new SelectList(ViewBag.Shift_setup, "ID", "Code"), @Personnel.SelectUnitdesc, new { @class = "select2", @onchange = "Shiftsetup()", id = "ShiftsetupId" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Shift_setupId, "", new { @class = "text-danger" })
@@ -413,7 +423,10 @@
 
                 getter(result.ID)
                 getstate(result.Organization_unit_codeID)
+                CostCenter(result.Organization_unit_codeID)
+                DefaulCostCenter(result.Organization_unit_codeID)
                 $("#s2id_getstate").removeAttr("disabled");
+                $("#Costid").removeAttr("disabled");
                 $("#s2id_citeid2").removeAttr("disabled");
                 $("#citeid2").removeAttr("disabled");
 
@@ -525,6 +538,64 @@
             error: function () {
          
                 $("#statename").val(" ");
+            }
+        });
+    }
+
+    function DefaulCostCenter(did) {
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenter",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+                $("#DefaultCostids").select2("val", result.ID);
+                $("#s2id_DefaultCostid").val(result.CostCenterDesc);
+                $("#DefaultCostids").val(result.CostCenterDesc);
+                //$("#DefaultCostids").attr("readonly", true);
+                //$("#DefaultCostids").prop("readonly", true);
+            },
+            error: function () {
+                $("#DefaultCostids").select2("val", " ");
+            }
+        });
+    }
+    function CostCenter(did) {
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenter",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+                $("#Costid").select2("val", result.ID);
+                $("#s2id_Costid").val(result.CostCenterDesc);
+                $("#Costid").val(result.CostCenterDesc);
+
+
+            },
+            error: function () {
+                $("#Costid").select2("val", " ");
+            }
+        });
+    }
+    function CostCenters() {
+        debugger
+        var id = $("#Costid").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenterfromPayroll",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                $("#Costid").select2("val", result.ID);
+                $("#s2id_Costid").val(result.CostCenterDesc);
+                $("#Costid").val(result.CostCenterDesc);
+
+
+            },
+            error: function () {
+                $("#Costid").select2("val", " ");
             }
         });
     }

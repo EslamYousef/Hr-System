@@ -364,6 +364,9 @@ namespace HR.Models
         public DbSet<User_Group_Info> User_Group_Info { get; set; }
         public DbSet<permissions> permissions { get; set; }
         public DbSet<group_with_permission> group_with_permission { get; set; }
+        public DbSet<LeavesTransactionBalance> LeavesTransactionBalance { get; set; }
+        public DbSet<LeavesMass_Transaction> LeavesMass_Transaction { get; set; }
+
     }
 
 }

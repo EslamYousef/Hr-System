@@ -1,0 +1,162 @@
+﻿@model IEnumerable<HR.Controllers.Vacations.LeaveRequestController.VM_LeaveRequest>
+
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script>
+    $(function () {
+        filt();
+    })
+    function filt() {
+        debugger
+        var ht = "";
+        $.ajax
+            ({
+                type: "post",
+                url: "/Employee_Payroll_Transactions/getallstatues",
+                data: {},
+                success: function (result) {
+                    debugger
+                    $.each(result, function (key, value) {
+                        ht += "<option  value='" + value + "'>" + value + "</option>";
+
+                    });
+                    $("#filter").html(ht);
+                }
+            });
+    }
+</script>
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
+        });
+    });
+
+   
+</script>
+
+@using HR.Resource;
+<div class="content-wrapper">
+    <!-- Main content -->
+    <div class="form-group">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-6">
+            <h1>@Personnel.LeaveRequest</h1>
+        </div>
+    </div>
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Create", "LeaveRequest" )" style="width:180px;margin-left:10px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>'@Personnel.AddNewLeaveRequest</a>
+                    </div>
+                    <div class="col-md-8">
+                        </div>
+                        <div class="col-md-2" style="margin-bottom:10px">
+                            <a href="@Url.Action("Create", "LeavesMass_Transaction" )" style="width:180px;margin-left:10px" class="btn btn-success btn-sm"><i class="fa fa-edit"></i>'@Personnel.AddNewLeavesMassRequest</a>
+                        </div>
+                    </div>
+                    @if (TempData["Message"] != null)
+                    {
+                        <br />
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+
+
+                    <div class="form-group" style="margin-top:70px;margin-left:30px">
+                        <table id="categories" style="margin-top:20px" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>@Personnel.SheetSerial </th>
+                                    <th>@Personnel.EmployeeName</th>
+                                    <th>@Personnel.LeaveTypeNameEnglish</th>
+                                    <th>@Personnel.Fromdate</th>
+                                    <th>@Personnel.Todate</th>
+                                    <th>@Personnel.DaysBalance</th>
+                                    <th>@Personnel.NoDays</th>
+                                    <th>@Personnel.RemainBalance</th>
+                                    <th>@Personnel.Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody11">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.LeavesRequestMaster.SerialNo</td>
+                                        <td>@item.EmployeeName</td>
+                                        <td>@item.Vacations_Setup</td>
+                                        <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.LeavesRequestMaster.DateFrom))</td>
+                                        <td>@Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.LeavesRequestMaster.DateTo))</td>
+                                        <td>@item.LeavesRequestMaster.BalanceDays</td>
+                                        <td>@item.LeavesRequestMaster.TotalDays</td>
+                                        <td>@item.LeavesRequestMaster.RemainDays</td>
+                                        <td>@item.LeavesRequestMaster.check_status</td>
+                                        <td>
+
+                                            @*@if (item.Employee_Payroll_Transactions.check_status != HR.Models.Infra.check_status.Approved && item.Employee_Payroll_Transactions.check_status != HR.Models.Infra.check_status.Rejected)
+                                    {<a href="@Url.Action("Edit", "Employee_Payroll_Transactions", new { id = item.Employee_Payroll_Transactions.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                }*@
+                                            <a href="@Url.Action("Edit", "LeaveRequest", new { id = item.LeavesRequestMaster.ID })" class="create-btn" style="width:70px"><i class="fa fa-edit"></i>@organ.change</a>
+                                            @*<a href="@Url.Action("Delete", "LeaveRequest" , new {id=item.LeavesRequestMaster.ID})" class="create-btn"><i class="far fa-trash-alt"></i> @pers_2.delete</a>*@
+                                            @*<a href="@Url.Action("status", "LeaveRequest" , new {id=item.LeavesRequestMaster.ID})" class="create-btn"><i class="fas fa-shield-alt"></i>@pers_2.status</a>*@
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+
+@section scripts{}
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

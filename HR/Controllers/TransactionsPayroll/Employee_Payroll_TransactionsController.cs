@@ -179,6 +179,8 @@ namespace HR.Controllers.TransactionsPayroll
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CategoryCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+
                 DateTime Statis = Convert.ToDateTime("1/1/1900");
                 var new_record = new Employee_Payroll_Transactions { TransactionValue = 0, EffectiveDate = DateTime.Now, TransactionDate = DateTime.Now, Created_Date = DateTime.Now, Created_By = User.Identity.Name, CreatedDate = Statis, ReportAsReadyDate = Statis, ApprovedDate = Statis, RejectedDate = Statis, CanceledDate = Statis, CompletedDate = Statis, Modified_Date = Statis };
                 var stru = dbcontext.StructureModels.FirstOrDefault(m => m.All_Models == ChModels.Payroll).Structure_Code;
@@ -210,6 +212,7 @@ namespace HR.Controllers.TransactionsPayroll
                 ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.ID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CategoryCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
 
                 Employee_Payroll_Transactions new_Record = new Employee_Payroll_Transactions();
 
@@ -305,9 +308,11 @@ namespace HR.Controllers.TransactionsPayroll
             try
             {
                 var ID = int.Parse(id);
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.Code });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.SalaryCodeID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CategoryCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+
                 var x = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(a => a.ID == ID).SalaryCodeID;
                 var y = dbcontext.salary_code.FirstOrDefault(a => a.SalaryCodeID == x).ID;
                 ViewBag.id = y;
@@ -328,9 +333,11 @@ namespace HR.Controllers.TransactionsPayroll
         {
             try
             {
-                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.ID });
+                ViewBag.Employee_Profile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList().Select(m => new { Code = m.Code + "-[" + m.Full_Name + ']', ID = m.Code });
                 ViewBag.salary_code = dbcontext.salary_code.Where(a => a.SourceEntry == 2).ToList().Select(m => new { Code = m.SalaryCodeID + "-[" + m.SalaryCodeDesc + ']', ID = m.SalaryCodeID });
                 ViewBag.PayrollTransactionJournalSetup = dbcontext.PayrollTransactionJournalSetup.ToList().Select(m => new { Code = m.JournalName_BatchCode + "-[" + m.JournalDesc + ']', ID = m.ID });
+                ViewBag.CostCenter = dbcontext.CostCenter.ToList().Select(m => new { Code = m.CategoryCode + "------[" + m.CostCenterDesc + ']', ID = m.ID });
+
                 var H_ = dbcontext.Employee_Payroll_Transactions.FirstOrDefault(m => m.ID == model.Header.Employee_Payroll_Transactions.ID);
                 var sta = dbcontext.status.FirstOrDefault(m => m.ID == H_.statID);
                 if (sta.statu == Models.Infra.check_status.Approved || sta.statu == Models.Infra.check_status.Rejected || sta.statu == Models.Infra.check_status.Closed || sta.statu == Models.Infra.check_status.Recervied || sta.statu == Models.Infra.check_status.Canceled)

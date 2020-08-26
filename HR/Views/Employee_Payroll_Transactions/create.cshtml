@@ -37,6 +37,22 @@
 </script>
 
 <script>
+    function CostCenter() {
+        var id = $("#Costid").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenterfromPayroll",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+                //$("#Costid").val(" ");
+            }
+        });
+    }
+    CostCenter();
+
     function CountryName() {
         var id = $("#Country").val();
         $.ajax({
@@ -283,7 +299,11 @@
                         <label> @Payroll.ValueType</label>
                         @Html.EditorFor(m => m.code_value_type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @display = "display", @id = "codevaluetype" } })
                     </div>
-
+                    <div class="col-md-4">
+                        <label>CostCenterId</label>
+                        @Html.DropDownListFor(m => m.Employee_Payroll_Transactions.Contract_Number, new SelectList(ViewBag.CostCenter, "ID", "Code"), "Select Cost Center", new { @class = "select2", @onchange = "CostCenter()", id = "Costid"})
+                        @Html.ValidationMessageFor(model => model.Employee_Payroll_Transactions.Contract_Number, "", new { @class = "text-danger" })
+                    </div>
                     <div class="col-md-4">
                         <label>@Payroll.Extendedfieldscode </label>
                         @Html.EditorFor(model => model.Employee_Payroll_Transactions.ExtendedFields_Code, new { htmlAttributes = new { @class = "form-control", id = "Extended", @readonly = "readonly" } })

@@ -1,0 +1,655 @@
+﻿@model HR.Models.Vacations.LeavesMass_Transaction
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+    //  Layout = "~/Views/Shared/View.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("Create", "LeavesMass_Transaction", FormMethod.Post, new { id = "dd", enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("Create", "LeavesMass_Transaction")" class="create-btn">@pers_2.new_</a></div>
+                <div>
+                    <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","LeaveRequest")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                </div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "LeaveRequest")" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Personnel.LeavesMassRequest
+                </h1>
+            </section>
+            @Html.AntiForgeryToken()
+            @*<input name="ID_item" value="" hidden />*@
+            <input name="CodeEmp" value="" hidden />
+            <input name="NameEmp" value="" hidden />
+            <input name="CodeVac" value="" hidden />
+            <input name="NameVac" value="" hidden />
+            <input name="BalDay" value="" hidden />
+            <input name="TotalDay" value="" hidden />
+            <input name="Reason" value="" hidden />
+            <input name="FromDate" value="" hidden />
+            <input name="ToDate" value="" hidden />
+            <input name="FromBalance" value="" hidden />
+
+
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div id="div5"></div>
+                <div class="col-md-4">
+                    <label style="color:red">
+                        @Personnel.TransactionSerial
+                    </label>
+                    @Html.EditorFor(model => model.SerialNo, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SerialNo, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Personnel.LeavesType</label>
+                    @Html.DropDownList("dd", new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), "", new { @class = "select2", @onchange = "Vacation()", @id = "Vacationid" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Payroll.Fromdate</label>
+                    @Html.EditorFor(model => model.TransactionDate, new { name = "FromDate", htmlAttributes = new { @class = "form-control  StartDate", @id = "Start", @type = "date", @onchange = "Save2()" } })
+                    @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Payroll.Todate</label>
+                    @Html.EditorFor(model => model.Created_Date, new { @name = "ToDate", htmlAttributes = new { @class = "form-control  EndDate", @id = "End", @type = "date", @onchange = "Save()" } })
+                    @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.Duration</label>  <input type="number" id="Days" readonly/>
+                </div>
+
+            </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.FromBalance</label>
+                        <select id="FromBalance" name="FromBalance" onchange="select()"><option></option></select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Payroll.Transactionnote </label>
+                        <input type="text" id="Note" value="" />
+                    </div>
+
+                </div>
+
+
+                <ul class="nav nav-tabs bordered">
+                    <!-- available classes "bordered", "right-aligned" -->
+                    <li class="active">
+                        <a href="#homepagep" data-toggle="tab">
+                            <span class="visible-xs"><i class="entypo-home"></i></span>
+                            <span class="hidden-xs">@pers_2.employee</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="homepagep" style="overflow: hidden;width: auto;height: auto;">
+                        <input name="ID_emp" value="" hidden />
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>@Basic.category</label>
+                                @Html.DropDownList("category", new SelectList(ViewBag.Object, "Value", "Text"), @Basic.category, new { @class = "select2", @onchange = "CountryName()", id = "country" })
+
+                            </div>
+                            <div class="col-md-4">
+                                <label>@pers_2.items</label>
+                                <select multiple id="ter" class="select2" disabled></select>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label> - </label>
+                                <input style="width:100%" class="btn btn-success" type="button" value=@pers_2.getemp onclick="getemp()" />
+
+                            </div>
+
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+
+                                    <td>@Personnel.EmpCode</td>
+                                    <td>@Personnel.EmpName</td>
+                                    <td>@Personnel.LeaveCode</td>
+                                    <td>@Personnel.LeaveName</td>
+                                    <td>@Personnel.YearlyBalance</td>
+                                    <td>@Personnel.ActualBalance</td>
+                                    <td>@Personnel.HireDate</td>
+                                    <td>@Personnel.TotalDays</td>
+                                    <td>@Personnel.ReasonForRequset</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="emp2"></tbody>
+                        </table>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+@section scripts{}
+<script>
+    $(document).ready(function () {
+        debugger
+        GetDataById5('@Model.TransactionDate', "Start");
+        GetDataById5('@Model.Created_Date', "End");
+        Save2();
+    });
+    function GetDataById5(date, id) {
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+</script>
+
+<script>
+    function Vacation() {
+
+        var id = $("#Vacationid").val();
+        $("#FromBalance").empty();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetVacationsSetup",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                CurrentBalance(id)
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function CurrentBalance(id) {
+        debugger
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetLeavesBalances",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    debugger
+                    var dt = new Date(parseInt(r.BalanceStartDate.replace('/Date(', '')))
+                    var dtfinal = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+
+                    function AddLeadingZeros(number, size) {
+
+                        var s = "0000" + number;
+                        return s.substr(s.length - size);
+                    }
+                    var tt = ' <option>' + dtfinal + '</option>'
+
+                    $("#FromBalance").append(tt)
+                })
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function GetDiffDates(StartDate, EndDate) {
+        if (StartDate && EndDate) {
+            $.get("/CreateVacationBalance/DifferenceTwoDates?StartDate=" + StartDate + '&EndDate=' + EndDate, function (data, status) {
+                debugger
+                if (data) {
+                    debugger
+                    $("#Days").val(data.DateDiff.Days + 1);
+
+                }
+            });
+        }
+    }
+    function Save() {
+        debugger
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+
+        if (to >= from) {
+            GetDiffDates(from, to);
+        }
+
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+            $("#Days").val("0");
+            var Balance = $("#CurrentBalance").val();
+            $("#RemainDays").val(Balance);
+        }
+    };
+
+    function Save2() {
+        debugger
+        var StartDate = new Date($(".StartDate").val());
+        var EndDate = new Date($(".EndDate").val());
+
+        var from = $(".StartDate").val();
+        var to = $(".EndDate").val();
+        if (to >= from) {
+            GetDiffDates(from, to);
+        }
+        else {
+            $("#Yearr").val("0");
+            $("#months").val("0");
+            $("#Days").val("0");
+            var Balance = $("#CurrentBalance").val();
+            $("#RemainDays").val(Balance);
+        }
+    };
+</script>
+<script>
+    function CountryName() {
+        var ID = $("#country").val();
+        var Vacation = $("#Vacationid").val();
+        var Start = $("#Start").val();
+        var End = $(".EndDate").val();
+        var FromBalance = $("#FromBalance").val();
+        var Note = $("#Note").val();
+
+        $("#ter").select2("val", "0");
+        var finalresult = "";
+        debugger
+     
+        
+
+        if (ID == '1')
+        {
+            debugger
+            $.ajax({
+                type: "post",
+                url: "/LeavesMass_Transaction/GetAllEmployeesWithVications",
+                data: { "FromBalance": FromBalance, "Vac": Vacation, "Start": Start, "End": End },
+                async: false,
+                success: function (result) {
+                    debugger
+                    $.each(result, function (key, value) {
+
+                        var pp = $("#emp2").find("tr");
+                        var flag = 0;
+                        for (var o = 0; o < pp.length; o++) {
+
+                            var inputs = pp[o].children;
+                            ID_ = parseInt(inputs[0].children[0].value);
+                            if (ID_ == parseInt(value.ID)) {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if (flag == 0) {
+
+                            debugger
+                            var dt = new Date(parseInt(value.HiringDate.replace('/Date(', '')))
+                            var dtfinal = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                                AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                                AddLeadingZeros(dt.getFullYear(), 4)
+
+                            function AddLeadingZeros(number, size) {
+
+                                var s = "0000" + number;
+                                return s.substr(s.length - size);
+                            }
+                            finalresult +=
+                                "<tr>" +
+                                "<td hidden><input hidden  class = 'form-control' required type='number'  name='ID_emp'   value='" + value.ID + "' /></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.CodeEmp + "'  readonly='readonly' name='CodeEmp'/></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.NameEmp + "'  readonly='readonly' name='NameEmp'/></td>" + "<td><input class = 'form-control' required   value='" + value.CodeLeave + "'  readonly='readonly' name='CodeVac'/></td>" + "<td><input class = 'form-control' required   value='" + value.NameLeave + "'  readonly='readonly' name='NameVac'/></td>" + "<td><input class = 'form-control'  value='" + value.YearlyBalance + "'  readonly='readonly'/></td>" + "<td><input class = 'form-control'  value='" + value.ActualBalance + "'  readonly='readonly' name='BalDay'/></td>" + "<td><input class = 'form-control'  value='" + dtfinal + "'  readonly='readonly' /></td>" + "<td><input class = 'form-control'  value='" + value.TotalDays + "'  readonly='readonly' name='TotalDay'/></td>" + "<td><input class = 'form-control'  value='" + Note + "'  readonly='readonly' name='Reason'/></td>" +
+                                "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                        }
+
+                    });
+
+
+                    $("#emp2").removeAttr("disabled");
+                    $("#emp2").append(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname").val(" ");
+                }
+
+            });
+
+        }
+       // else if (ID == '2')
+       // {
+       //     debugger
+       //     $.ajax({
+       //         type: "post",
+       //         url: "/Helper/getempbyunit",
+       //         data: { "id": ID },
+       //         async: false,
+       //         success: function (result) {
+       //             debugger
+       //             $("#ter").empty();
+       //             $.each(result, function (key, value) {
+       //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+       //             });
+       //             $("#ter").removeAttr("disabled");
+       //             $("#ter").html(finalresult);
+       //         },
+       //         error: function () {
+
+       //             $("#countryname").val(" ");
+       //         }
+       //     });
+       //}
+       // else if (ID == '3')
+       // {
+       //     debugger
+       //     $.ajax({
+       //         type: "post",
+       //         url: "/Helper/getempbynationality",
+       //         data: { "id": ID },
+       //         async: false,
+       //         success: function (result) {
+       //             debugger
+       //             $("#ter").empty();
+       //             $.each(result, function (key, value) {
+       //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+       //             });
+       //             $("#ter").removeAttr("disabled");
+       //             $("#ter").html(finalresult);
+       //         },
+       //         error: function () {
+
+       //             $("#countryname").val(" ");
+       //         }
+       //     });
+       // }
+       // else if (ID == '4') {
+       //     debugger
+       //     $.ajax({
+       //         type: "post",
+       //         url: "/LoanRequest/worklocation",
+       //         data: { "id": ID },
+       //         async: false,
+       //         success: function (result) {
+       //             debugger
+       //             $("#ter").empty();
+       //             $.each(result, function (key, value) {
+       //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+       //             });
+       //             $("#ter").removeAttr("disabled");
+       //             $("#ter").html(finalresult);
+       //         },
+       //         error: function () {
+
+       //             $("#countryname").val(" ");
+       //         }
+       //     });
+       // }
+       // else if (ID == '6') {
+       //     debugger
+       //     $.ajax({
+       //         type: "post",
+       //         url: "/LoanRequest/cadrelevel",
+       //         data: { "id": ID },
+       //         async: false,
+       //         success: function (result) {
+       //             debugger
+       //             $("#ter").empty();
+       //             $.each(result, function (key, value) {
+       //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+       //             });
+       //             $("#ter").removeAttr("disabled");
+       //             $("#ter").html(finalresult);
+       //         },
+       //         error: function () {
+
+       //             $("#countryname").val(" ");
+       //         }
+       //     });
+       // }
+       // else if (ID == '5') {
+       //     debugger
+       //     $.ajax({
+       //         type: "post",
+       //         url: "/LoanRequest/costcenter",
+       //         data: { "id": ID },
+       //         async: false,
+       //         success: function (result) {
+       //             debugger
+       //             $("#ter").empty();
+       //             $.each(result, function (key, value) {
+       //                 finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Code + " ]</option>";
+       //             });
+       //             $("#ter").removeAttr("disabled");
+       //             $("#ter").html(finalresult);
+       //         },
+       //         error: function () {
+
+       //             $("#countryname").val(" ");
+       //         }
+       //     });
+       // }
+
+    }
+    function remove(thi) {
+        thi.parent().parent().remove();
+
+    }
+    function getemp()
+    {
+        var finalresult = "";
+        var type = $("#country").val();
+        var value = $("#ter").val();
+        debugger
+        $.ajax({
+            type: "post",
+            url: "/Helper/getemp",
+            data: { "type": type, "id": value },
+            async: false,
+            success: function (result) {
+
+
+                $.each(result, function (key, value) {
+                    var pp = $("#emp2").find("tr");
+                    var flag = 0;
+                    for (var o = 0; o < pp.length; o++) {
+
+                        var inputs = pp[o].children;
+                        ID_ = parseInt(inputs[0].children[0].value);
+                        if (ID_ == parseInt(value.ID)) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 0) {
+                        debugger
+                        finalresult +=
+                            "<tr>" +
+                            "<td hidden><input hidden  class = 'form-control' required type='number'  name='ID_emp'   value='" + value.ID + "' /></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.code + "'  readonly='readonly'/></td>" +
+                            "<td><input class = 'form-control' required   value='" + value.Name + "'  readonly='readonly'/></td>" +
+                            "<td><input type='button' style='margin-left:3px' value=@organ.remove class='form-control remove btn btn-danger' onclick='remove($(this))' /></td></tr>"
+                    }
+                });
+                $("#emp2").removeAttr("disabled");
+                $("#emp2").append(finalresult);
+            },
+            error: function () {
+
+                $("#countryname").val(" ");
+            }
+        });
+    }
+    function getallarea(id)
+    {
+       var countryname=
+       $.ajax({
+          type: "post",
+          url: "/PerformanceEvaluationGroup/getareabycountry",
+           data: { "id": id, "flag": "0" },
+           async: false,
+          success: function (result) {
+
+              $("#area").removeAttr("disabled");
+              var finalresult = "<option value='0' > Choose area </option>";
+              $.each(result, function (key, value) {
+
+                  finalresult +="<tr><td>" + value.ID + "</td><td>" + value.Code + "</td></tr>"
+              });
+              $("#area").html(emp2);
+              $("#area").select2("val", "0");
+          },
+          error: function () {
+
+              $("#area").val(" ");
+          }
+      });
+    }
+    function addanother() {
+        debugger
+
+        $("#ter").select2("val", "0");
+    }
+
+</script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

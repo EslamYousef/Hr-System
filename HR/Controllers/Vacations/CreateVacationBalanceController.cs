@@ -50,6 +50,7 @@ namespace HR.Controllers.Vacations
                     ModelState.AddModelError("", "Vacations Setup Code must enter");
                     return View(model);
                 }
+                var Leave = dbcontext.LeavesBalance.ToList();
 
                 var emp = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList();
                 LeavesBalance record = new LeavesBalance();
@@ -58,144 +59,928 @@ namespace HR.Controllers.Vacations
                 var Balance = tranyear[0];
                 DateTime start = Convert.ToDateTime("1/1/" + Balance);
                 DateTime end = Convert.ToDateTime("12/31/" + Balance);
+
                 var Bal = dbcontext.Vacations_Setup.FirstOrDefault(a => a.ID == model.VacCode);
                 var empID = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == model.EmployeeID);
                 var CheckFemale = dbcontext.Employee_Profile.Where(a => a.Active == true && a.Gender == Gender.female).ToList();
-                if (model.EmployeeID == null && Bal.FemaleOnly == true )
+                var TimesPerLife = Bal.TimesPerLife;
+                var RenewBalanceevery = Bal.RenewBalanceevery;
+
+                if (model.EmployeeID == null && Bal.FemaleOnly == true)
                 {
-                    foreach (var item in CheckFemale)
+
+                    if (Bal.RenewBalance == true && Bal.RenewBalanceevery == 0)
                     {
-                        var model_ = dbcontext.LeavesBalance.ToList();
-                        var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
-                        if (model_.Count() == 0)
+                        foreach (var item in CheckFemale)
                         {
-                            record.Serial_LB = stru + "1";
-                        }
-                        else
-                        {
-                            record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
-                        }
-                        record.EmployeeID = item.ID;
-                        record.VacCode = model.VacCode;
-                        record.BalanceStartDate = start;
-                        record.BalanceEndDate = end;
-                        record.Balance = Bal.TestFormula;
-                        record.Used = 0;
-                        record.UsedBySys = 0;
-                        record.Created_By = User.Identity.Name;
-                        record.Created_Date = DateTime.Now.Date;
-                        if (Bal.Proportional == true)
-                        {
-                            DateTime DateNow = DateTime.Now;
-                            DateTime Hire = empID.Personnel_Information.Hire_Date;
-                            var month = 12 - Hire.Month;
-                            var year = DateNow.Year - Hire.Year;
-                            if (year < 1)
+                            var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                            if (Leaves == null)
                             {
-                                var testformula = (Bal.TestFormula / 12) * month;
-                                record.Balance = testformula;
+                                if (item.Gender == Gender.female)
+                                {
+                                    var model_ = dbcontext.LeavesBalance.ToList();
+                                    var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                    if (model_.Count() == 0)
+                                    {
+                                        record.Serial_LB = stru + "1";
+                                    }
+                                    else
+                                    {
+                                        record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                    }
+                                    record.EmployeeID = item.ID;
+                                    record.VacCode = model.VacCode;
+                                    record.BalanceStartDate = start;
+                                    record.BalanceEndDate = end;
+                                    record.Balance = Bal.TestFormula;
+                                    record.Used = 0;
+                                    record.UsedBySys = 0;
+                                    record.Created_By = User.Identity.Name;
+                                    record.Created_Date = DateTime.Now.Date;
+                                    if (Bal.Proportional == true)
+                                    {
+                                        DateTime DateNow = DateTime.Now;
+                                        var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                        DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date    
+                                        var month = 12 - Hire.Month;
+                                        var year = DateNow.Year - Hire.Year;
+                                        if (year < 1)
+                                        {
+                                            var testformula = (Bal.TestFormula / 12) * month;
+                                            record.Balance = testformula;
+                                        }
+                                    }
+                                    dbcontext.LeavesBalance.Add(record);
+                                    dbcontext.SaveChanges();
+                                }
                             }
                         }
-                        dbcontext.LeavesBalance.Add(record);
-                        dbcontext.SaveChanges();
                     }
-                }
-              else if (model.EmployeeID == null)
-                {
-                    foreach (var item in emp)
+                    else if (Bal.RenewBalance == true && Bal.RenewBalanceevery != 0)
                     {
-                        var model_ = dbcontext.LeavesBalance.ToList();
-                        var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
-                        if (model_.Count() == 0)
+                        var LeavesBalance = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode).ToList();
+                        foreach (var item in emp)
                         {
-                            record.Serial_LB = stru + "1";
-                        }
-                        else
-                        {
-                            record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
-                        }
-                        //record.Serial_LB = model.Serial_LB;
-                        record.EmployeeID = item.ID;
-                        record.VacCode = model.VacCode;
-                        record.BalanceStartDate = start;
-                        record.BalanceEndDate = end;
-                        record.Balance = Bal.TestFormula;
-                        record.Used = 0;
-                        record.UsedBySys = 0;
-                        record.Created_By = User.Identity.Name;
-                        record.Created_Date = DateTime.Now.Date;
-                        if (Bal.Proportional == true)
-                        {
-                            DateTime DateNow = DateTime.Now;
-                            DateTime Hire = empID.Personnel_Information.Hire_Date;
-                            var month = 12 - Hire.Month;
-                            var year = DateNow.Year - Hire.Year;
-                            if (year < 1)
+                            if (item.Gender == Gender.female)
                             {
-                                var testformula = (Bal.TestFormula / 12) * month;
-                                record.Balance = testformula;
+                                var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                                if (Leaves == null)
+                                {
+                                    var model_ = dbcontext.LeavesBalance.ToList();
+                                    var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                    if (model_.Count() == 0)
+                                    {
+                                        record.Serial_LB = stru + "1";
+                                    }
+                                    else
+                                    {
+                                        record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                    }
+                                    //record.Serial_LB = model.Serial_LB;
+                                    record.EmployeeID = item.ID;
+                                    record.VacCode = model.VacCode;
+                                    var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == item.ID).ToList();
+                                    var LeavesBal = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == item.ID).ToList();
+                                    var LeavesBalss = LeavesBal.LastOrDefault();
+                                    var RenewBalance = 0;
+                                    if (LeavesBalss != null)
+                                    {
+                                        DateTime? StartDate = LeavesBalss.BalanceStartDate;
+                                        var Year = StartDate.Value.Year;
+                                        RenewBalance = Year + RenewBalanceevery;
+                                    }
+                                    if (LeavesBalances.Count() == 0)
+                                    {
+                                        record.BalanceStartDate = start;
+                                        record.BalanceEndDate = end;
+                                        record.Balance = Bal.TestFormula;
+                                        record.Used = 0;
+                                        record.UsedBySys = 0;
+                                        record.Created_By = User.Identity.Name;
+                                        record.Created_Date = DateTime.Now.Date;
+                                        if (Bal.Proportional == true)
+                                        {
+                                            DateTime DateNow = DateTime.Now;
+                                            var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                            DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                            var month = 12 - Hire.Month;
+                                            var year = DateNow.Year - Hire.Year;
+                                            if (year < 1)
+                                            {
+                                                var testformula = (Bal.TestFormula / 12) * month;
+                                                record.Balance = testformula;
+                                            }
+                                        }
+                                        dbcontext.LeavesBalance.Add(record);
+                                        dbcontext.SaveChanges();
+                                    }
+
+                                    else if (DateTime.Now.Year >= RenewBalance)
+                                    {
+                                        record.BalanceStartDate = start;
+                                        record.BalanceEndDate = end;
+                                        record.Balance = Bal.TestFormula;
+                                        record.Used = 0;
+                                        record.UsedBySys = 0;
+                                        record.Created_By = User.Identity.Name;
+                                        record.Created_Date = DateTime.Now.Date;
+                                        if (Bal.Proportional == true)
+                                        {
+                                            DateTime DateNow = DateTime.Now;
+                                            var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                            DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                            var month = 12 - Hire.Month;
+                                            var year = DateNow.Year - Hire.Year;
+                                            if (year < 1)
+                                            {
+                                                var testformula = (Bal.TestFormula / 12) * month;
+                                                record.Balance = testformula;
+                                            }
+                                        }
+
+                                        dbcontext.LeavesBalance.Add(record);
+                                        dbcontext.SaveChanges();
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    else if (Bal.TimesPerLife == 0)
+                    {
+                        foreach (var item in emp)
+                        {
+                            if (item.Gender == Gender.female)
+                            {
+                                var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                                if (Leaves == null)
+                                {
+                                    var model_ = dbcontext.LeavesBalance.ToList();
+                                    var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                    if (model_.Count() == 0)
+                                    {
+                                        record.Serial_LB = stru + "1";
+                                    }
+                                    else
+                                    {
+                                        record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                    }
+                                    //record.Serial_LB = model.Serial_LB;
+                                    record.EmployeeID = item.ID;
+                                    record.VacCode = model.VacCode;
+                                    record.BalanceStartDate = start;
+                                    record.BalanceEndDate = end;
+                                    record.Balance = Bal.TestFormula;
+                                    record.Used = 0;
+                                    record.UsedBySys = 0;
+                                    record.Created_By = User.Identity.Name;
+                                    record.Created_Date = DateTime.Now.Date;
+                                    if (Bal.Proportional == true)
+                                    {
+                                        DateTime DateNow = DateTime.Now;
+                                        var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                        DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date                                
+                                        var month = 12 - Hire.Month;
+                                        var year = DateNow.Year - Hire.Year;
+                                        if (year < 1)
+                                        {
+                                            var testformula = (Bal.TestFormula / 12) * month;
+                                            record.Balance = testformula;
+                                        }
+                                    }
+                                    dbcontext.LeavesBalance.Add(record);
+                                    dbcontext.SaveChanges();
+                                }
                             }
                         }
-                        dbcontext.LeavesBalance.Add(record);
-                        dbcontext.SaveChanges();
+                    }
+                    else if (Bal.TimesPerLife != 0)
+                    {
+                        var LeavesBalance = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode).ToList();
+                        foreach (var item in emp)
+                        {
+                            if (item.Gender == Gender.female)
+                            {
+                                var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                                if (Leaves == null)
+                                {
+                                    var model_ = dbcontext.LeavesBalance.ToList();
+                                    var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                    if (model_.Count() == 0)
+                                    {
+                                        record.Serial_LB = stru + "1";
+                                    }
+                                    else
+                                    {
+                                        record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                    }
+                                    //record.Serial_LB = model.Serial_LB;
+                                    record.EmployeeID = item.ID;
+                                    record.VacCode = model.VacCode;
+
+                                    var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == item.ID).ToList();
+                                    if (LeavesBalances.Count() == 0)
+                                    {
+                                        record.BalanceStartDate = start;
+                                        record.BalanceEndDate = end;
+                                        record.Balance = Bal.TestFormula;
+                                        record.Used = 0;
+                                        record.UsedBySys = 0;
+                                        record.Created_By = User.Identity.Name;
+                                        record.Created_Date = DateTime.Now.Date;
+                                        if (Bal.Proportional == true)
+                                        {
+                                            DateTime DateNow = DateTime.Now;
+                                            var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                            DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                            var month = 12 - Hire.Month;
+                                            var year = DateNow.Year - Hire.Year;
+                                            if (year < 1)
+                                            {
+                                                var testformula = (Bal.TestFormula / 12) * month;
+                                                record.Balance = testformula;
+                                            }
+                                        }
+                                        dbcontext.LeavesBalance.Add(record);
+                                        dbcontext.SaveChanges();
+                                    }
+                                    else if (LeavesBalances.Count() < TimesPerLife)
+                                    {
+                                        record.BalanceStartDate = start;
+                                        record.BalanceEndDate = end;
+                                        record.Balance = Bal.TestFormula;
+                                        record.Used = 0;
+                                        record.UsedBySys = 0;
+                                        record.Created_By = User.Identity.Name;
+                                        record.Created_Date = DateTime.Now.Date;
+                                        if (Bal.Proportional == true)
+                                        {
+                                            DateTime DateNow = DateTime.Now;
+                                            var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                            DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                            var month = 12 - Hire.Month;
+                                            var year = DateNow.Year - Hire.Year;
+                                            if (year < 1)
+                                            {
+                                                var testformula = (Bal.TestFormula / 12) * month;
+                                                record.Balance = testformula;
+                                            }
+                                        }
+                                        dbcontext.LeavesBalance.Add(record);
+                                        dbcontext.SaveChanges();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+
+                else if (model.EmployeeID == null)
+                {
+                    if (Bal.RenewBalance == true && Bal.RenewBalanceevery == 0)
+                    {
+                        foreach (var item in emp)
+                        {
+                            var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                            if (Leaves == null)
+                            {
+                                var model_ = dbcontext.LeavesBalance.ToList();
+                                var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                if (model_.Count() == 0)
+                                {
+                                    record.Serial_LB = stru + "1";
+                                }
+                                else
+                                {
+                                    record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                }
+                                //record.Serial_LB = model.Serial_LB;
+                                record.EmployeeID = item.ID;
+                                record.VacCode = model.VacCode;
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                    DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date                              
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                        }
+                    }
+                    else if (Bal.RenewBalance == true && Bal.RenewBalanceevery != 0)
+                    {
+                        var LeavesBalance = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode).ToList();
+                        foreach (var item in emp)
+                        {
+                            var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                            if (Leaves == null)
+                            {
+                                var model_ = dbcontext.LeavesBalance.ToList();
+                                var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                if (model_.Count() == 0)
+                                {
+                                    record.Serial_LB = stru + "1";
+                                }
+                                else
+                                {
+                                    record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                }
+                                //record.Serial_LB = model.Serial_LB;
+                                record.EmployeeID = item.ID;
+                                record.VacCode = model.VacCode;
+                                var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == item.ID).ToList();
+                                var LeavesBal = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == item.ID).ToList();
+                                var LeavesBalss = LeavesBal.LastOrDefault();
+                                var RenewBalance = 0;
+                                if (LeavesBalss != null)
+                                {
+                                    DateTime? StartDate = LeavesBalss.BalanceStartDate;
+                                    var Year = StartDate.Value.Year;
+                                    RenewBalance = Year + RenewBalanceevery;
+                                }
+                                if (LeavesBalances.Count() == 0)
+                                {
+                                    record.BalanceStartDate = start;
+                                    record.BalanceEndDate = end;
+                                    record.Balance = Bal.TestFormula;
+                                    record.Used = 0;
+                                    record.UsedBySys = 0;
+                                    record.Created_By = User.Identity.Name;
+                                    record.Created_Date = DateTime.Now.Date;
+                                    if (Bal.Proportional == true)
+                                    {
+                                        DateTime DateNow = DateTime.Now;
+                                        var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                        DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                        var month = 12 - Hire.Month;
+                                        var year = DateNow.Year - Hire.Year;
+                                        if (year < 1)
+                                        {
+                                            var testformula = (Bal.TestFormula / 12) * month;
+                                            record.Balance = testformula;
+                                        }
+                                    }
+                                    dbcontext.LeavesBalance.Add(record);
+                                    dbcontext.SaveChanges();
+                                }
+
+                                else
+                                {
+                                    record.BalanceStartDate = start;
+                                    record.BalanceEndDate = end;
+                                    record.Balance = Bal.TestFormula;
+                                    record.Used = 0;
+                                    record.UsedBySys = 0;
+                                    record.Created_By = User.Identity.Name;
+                                    record.Created_Date = DateTime.Now.Date;
+                                    if (Bal.Proportional == true)
+                                    {
+                                        DateTime DateNow = DateTime.Now;
+                                        var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                        DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                        var month = 12 - Hire.Month;
+                                        var year = DateNow.Year - Hire.Year;
+                                        if (year < 1)
+                                        {
+                                            var testformula = (Bal.TestFormula / 12) * month;
+                                            record.Balance = testformula;
+                                        }
+                                    }
+                                    dbcontext.LeavesBalance.Add(record);
+                                    dbcontext.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+                    else if (Bal.TimesPerLife == 0)
+                    {
+                        foreach (var item in emp)
+                        {
+                            var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                            if (Leaves == null)
+                            {
+                                var model_ = dbcontext.LeavesBalance.ToList();
+                                var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                if (model_.Count() == 0)
+                                {
+                                    record.Serial_LB = stru + "1";
+                                }
+                                else
+                                {
+                                    record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                }
+                                //record.Serial_LB = model.Serial_LB;
+                                record.EmployeeID = item.ID;
+                                record.VacCode = model.VacCode;
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                    DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date                                
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                        }
+                    }
+                    else if (Bal.TimesPerLife != 0)
+                    {
+                        var LeavesBalance = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode).ToList();
+                        foreach (var item in emp)
+                        {
+                            var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == item.ID && a.VacCode == model.VacCode);
+                            if (Leaves == null)
+                            {
+                                var model_ = dbcontext.LeavesBalance.ToList();
+                                var stru = dbcontext.StructureModels.FirstOrDefault(a => a.All_Models == ChModels.Personnel).Structure_Code;
+                                if (model_.Count() == 0)
+                                {
+                                    record.Serial_LB = stru + "1";
+                                }
+                                else
+                                {
+                                    record.Serial_LB = stru + (model_.LastOrDefault().ID + 1).ToString();
+                                }
+                                //record.Serial_LB = model.Serial_LB;
+                                record.EmployeeID = item.ID;
+                                record.VacCode = model.VacCode;
+
+                                var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == item.ID).ToList();
+                                if (LeavesBalances.Count() == 0)
+                                {
+                                    record.BalanceStartDate = start;
+                                    record.BalanceEndDate = end;
+                                    record.Balance = Bal.TestFormula;
+                                    record.Used = 0;
+                                    record.UsedBySys = 0;
+                                    record.Created_By = User.Identity.Name;
+                                    record.Created_Date = DateTime.Now.Date;
+                                    if (Bal.Proportional == true)
+                                    {
+                                        DateTime DateNow = DateTime.Now;
+                                        var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                        DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                        var month = 12 - Hire.Month;
+                                        var year = DateNow.Year - Hire.Year;
+                                        if (year < 1)
+                                        {
+                                            var testformula = (Bal.TestFormula / 12) * month;
+                                            record.Balance = testformula;
+                                        }
+                                    }
+                                    dbcontext.LeavesBalance.Add(record);
+                                    dbcontext.SaveChanges();
+                                }
+
+                                else if (LeavesBalances.Count() < TimesPerLife)
+                                {
+                                    record.BalanceStartDate = start;
+                                    record.BalanceEndDate = end;
+                                    record.Balance = Bal.TestFormula;
+                                    record.Used = 0;
+                                    record.UsedBySys = 0;
+                                    record.Created_By = User.Identity.Name;
+                                    record.Created_Date = DateTime.Now.Date;
+                                    if (Bal.Proportional == true)
+                                    {
+                                        DateTime DateNow = DateTime.Now;
+                                        var Employee_Profile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == item.ID).Personnel_Information;
+                                        DateTime Hire = Employee_Profile.Hire_Date; //empID.Personnel_Information.Hire_Date
+                                        var month = 12 - Hire.Month;
+                                        var year = DateNow.Year - Hire.Year;
+                                        if (year < 1)
+                                        {
+                                            var testformula = (Bal.TestFormula / 12) * month;
+                                            record.Balance = testformula;
+                                        }
+                                    }
+                                    dbcontext.LeavesBalance.Add(record);
+                                    dbcontext.SaveChanges();
+                                }
+
+                            }
+                        }
+                    }
+                }
+
                 else if (Bal.FemaleOnly == true && empID.Gender == Gender.female)
                 {
-                    record.Serial_LB = model.Serial_LB;
-                    record.EmployeeID = model.EmployeeID;
-                    record.VacCode = model.VacCode;
-                    record.BalanceStartDate = start;
-                    record.BalanceEndDate = end;
-                    record.Balance = Bal.TestFormula;
-                    record.Used = 0;
-                    record.UsedBySys = 0;
-                    record.Created_By = User.Identity.Name;
-                    record.Created_Date = DateTime.Now.Date;
-                    if (Bal.Proportional == true)
+                    if (Bal.RenewBalance == true && Bal.RenewBalanceevery == 0)
                     {
-                        DateTime DateNow = DateTime.Now;
-                        DateTime Hire = empID.Personnel_Information.Hire_Date;
-                        var month = 12 -  Hire.Month;
-                        var year = DateNow.Year - Hire.Year;
-                        if (year < 1)
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
                         {
-                            var testformula = (Bal.TestFormula / 12) * month;
-                            record.Balance = testformula;
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            record.BalanceStartDate = start;
+                            record.BalanceEndDate = end;
+                            record.Balance = Bal.TestFormula;
+                            record.Used = 0;
+                            record.UsedBySys = 0;
+                            record.Created_By = User.Identity.Name;
+                            record.Created_Date = DateTime.Now.Date;
+                            if (Bal.Proportional == true)
+                            {
+                                DateTime DateNow = DateTime.Now;
+                                DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                var month = 12 - Hire.Month;
+                                var year = DateNow.Year - Hire.Year;
+                                if (year < 1)
+                                {
+                                    var testformula = (Bal.TestFormula / 12) * month;
+                                    record.Balance = testformula;
+                                }
+                            }
+                            dbcontext.LeavesBalance.Add(record);
+                            dbcontext.SaveChanges();
                         }
                     }
-                    dbcontext.LeavesBalance.Add(record);
-                    dbcontext.SaveChanges();
+                    else if (Bal.RenewBalance == true && Bal.RenewBalanceevery != 0)
+                    {
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
+                        {
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == empID.ID).ToList();
+                            var LeavesBal = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == empID.ID).ToList();
+                            var LeavesBalss = LeavesBal.LastOrDefault();
+                            var RenewBalance = 0;
+                            if (LeavesBalss != null)
+                            {
+                                DateTime? StartDate = LeavesBalss.BalanceStartDate;
+                                var Year = StartDate.Value.Year;
+                                RenewBalance = Year + RenewBalanceevery;
+                            }
+                            if (LeavesBalances.Count() == 0)
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+
+                            else
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                        }
+                    }
+                    else if (Bal.TimesPerLife == 0)
+                    {
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
+                        {
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            record.BalanceStartDate = start;
+                            record.BalanceEndDate = end;
+                            record.Balance = Bal.TestFormula;
+                            record.Used = 0;
+                            record.UsedBySys = 0;
+                            record.Created_By = User.Identity.Name;
+                            record.Created_Date = DateTime.Now.Date;
+                            if (Bal.Proportional == true)
+                            {
+                                DateTime DateNow = DateTime.Now;
+                                DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                var month = 12 - Hire.Month;
+                                var year = DateNow.Year - Hire.Year;
+                                if (year < 1)
+                                {
+                                    var testformula = (Bal.TestFormula / 12) * month;
+                                    record.Balance = testformula;
+                                }
+                            }
+                            dbcontext.LeavesBalance.Add(record);
+                            dbcontext.SaveChanges();
+                        }
+                    }
+                    else if (Bal.TimesPerLife != 0)
+                    {
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
+                        {
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == empID.ID).ToList();
+                            if (LeavesBalances.Count() == 0)
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                            else if (LeavesBalances.Count() < TimesPerLife)
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                        }
+                    }
                 }
+
                 else if (Bal.FemaleOnly == false)
                 {
-                    record.Serial_LB = model.Serial_LB;
-                    record.EmployeeID = model.EmployeeID;
-                    record.VacCode = model.VacCode;
-                    record.BalanceStartDate = start;
-                    record.BalanceEndDate = end;
-                    record.Balance = Bal.TestFormula;
-                    record.Used = 0;
-                    record.UsedBySys = 0;
-                    record.Created_By = User.Identity.Name;
-                    record.Created_Date = DateTime.Now.Date;
-                    if (Bal.Proportional == true)
+                    if (Bal.RenewBalance == true && Bal.RenewBalanceevery == 0)
                     {
-                        DateTime DateNow = DateTime.Now;
-                        DateTime Hire = empID.Personnel_Information.Hire_Date;
-                        var month = 12 - Hire.Month;
-                        var year = DateNow.Year - Hire.Year;
-                        if (year < 1)
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
                         {
-                            var testformula = (Bal.TestFormula / 12) * month;
-                            record.Balance = testformula;
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            record.BalanceStartDate = start;
+                            record.BalanceEndDate = end;
+                            record.Balance = Bal.TestFormula;
+                            record.Used = 0;
+                            record.UsedBySys = 0;
+                            record.Created_By = User.Identity.Name;
+                            record.Created_Date = DateTime.Now.Date;
+                            if (Bal.Proportional == true)
+                            {
+                                DateTime DateNow = DateTime.Now;
+                                DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                var month = 12 - Hire.Month;
+                                var year = DateNow.Year - Hire.Year;
+                                if (year < 1)
+                                {
+                                    var testformula = (Bal.TestFormula / 12) * month;
+                                    record.Balance = testformula;
+                                }
+                            }
+                            dbcontext.LeavesBalance.Add(record);
+                            dbcontext.SaveChanges();
                         }
                     }
-                    dbcontext.LeavesBalance.Add(record);
-                    dbcontext.SaveChanges();
-                }
-                return RedirectToAction("Index");
+                    else if (Bal.RenewBalance == true && Bal.RenewBalanceevery != 0)
+                    {
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
+                        {
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == empID.ID).ToList();
+                            var LeavesBal = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == empID.ID).ToList();
+                            var LeavesBalss = LeavesBal.LastOrDefault();
+                            var RenewBalance = 0;
+                            if (LeavesBalss != null)
+                            {
+                                DateTime? StartDate = LeavesBalss.BalanceStartDate;
+                                var Year = StartDate.Value.Year;
+                                RenewBalance = Year + RenewBalanceevery;
+                            }
 
+                            if (LeavesBalances.Count() == 0)
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                            else 
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                        }
+                    }
+                    else if (Bal.TimesPerLife == 0)
+                    {
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
+                        {
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            record.BalanceStartDate = start;
+                            record.BalanceEndDate = end;
+                            record.Balance = Bal.TestFormula;
+                            record.Used = 0;
+                            record.UsedBySys = 0;
+                            record.Created_By = User.Identity.Name;
+                            record.Created_Date = DateTime.Now.Date;
+                            if (Bal.Proportional == true)
+                            {
+                                DateTime DateNow = DateTime.Now;
+                                DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                var month = 12 - Hire.Month;
+                                var year = DateNow.Year - Hire.Year;
+                                if (year < 1)
+                                {
+                                    var testformula = (Bal.TestFormula / 12) * month;
+                                    record.Balance = testformula;
+                                }
+                            }
+                            dbcontext.LeavesBalance.Add(record);
+                            dbcontext.SaveChanges();
+                        }
+                    }
+                    else if (Bal.TimesPerLife != 0)
+                    {
+                        var Leaves = dbcontext.LeavesBalance.FirstOrDefault(a => a.BalanceStartDate == start && a.EmployeeID == empID.ID && a.VacCode == model.VacCode);
+                        if (Leaves == null)
+                        {
+                            record.Serial_LB = model.Serial_LB;
+                            record.EmployeeID = model.EmployeeID;
+                            record.VacCode = model.VacCode;
+                            var LeavesBalances = dbcontext.LeavesBalance.Where(a => a.VacCode == model.VacCode && a.EmployeeID == empID.ID).ToList();
+                            if (LeavesBalances.Count() == 0)
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                            else if (LeavesBalances.Count() < TimesPerLife)
+                            {
+                                record.BalanceStartDate = start;
+                                record.BalanceEndDate = end;
+                                record.Balance = Bal.TestFormula;
+                                record.Used = 0;
+                                record.UsedBySys = 0;
+                                record.Created_By = User.Identity.Name;
+                                record.Created_Date = DateTime.Now.Date;
+                                if (Bal.Proportional == true)
+                                {
+                                    DateTime DateNow = DateTime.Now;
+                                    DateTime Hire = empID.Personnel_Information.Hire_Date;
+                                    var month = 12 - Hire.Month;
+                                    var year = DateNow.Year - Hire.Year;
+                                    if (year < 1)
+                                    {
+                                        var testformula = (Bal.TestFormula / 12) * month;
+                                        record.Balance = testformula;
+                                    }
+                                }
+                                dbcontext.LeavesBalance.Add(record);
+                                dbcontext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+
+                return RedirectToAction("Create");
             }
             catch (DbUpdateException e)
             {
@@ -219,9 +1004,9 @@ namespace HR.Controllers.Vacations
                 return Json(new { success = false, errorMessage = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-       
+
         [HttpPost]
-        public JsonResult GetLeaveRequestFormVacationSetup(DateTime from, DateTime to, int emp ,int Day , int Vacation)
+        public JsonResult GetLeaveRequestFormVacationSetup(DateTime from, DateTime to, int emp, int Day, int Vacation)
         {
             dbcontext.Configuration.ProxyCreationEnabled = false;
             var EmployeeProfile = dbcontext.Employee_Profile.FirstOrDefault(a => a.ID == emp);
@@ -240,54 +1025,54 @@ namespace HR.Controllers.Vacations
             }
             if (VacationsSetup.IncludeWeekEnd == true)
             {
-               foreach (DateTime o in ret)
-            {
-                var weeks = o.DayOfWeek.ToString();
-               
-                var Saturday = "Saturday";
-                var Sunday = "Sunday";
-                var Monday = "Monday";
-                var Tuesday = "Tuesday";
-                var Wednesday = "Wednesday";
-                var Thursday = "Thursday";
-                var Friday = "Friday";
-                //int EmployeeSta = 1;
-                DateTime Total = Convert.ToDateTime(o);
-                if (Weekendsetup.Saturday == true && Saturday == weeks)
+                foreach (DateTime o in ret)
                 {
-                     Remain.Add(Total);
+                    var weeks = o.DayOfWeek.ToString();
+
+                    var Saturday = "Saturday";
+                    var Sunday = "Sunday";
+                    var Monday = "Monday";
+                    var Tuesday = "Tuesday";
+                    var Wednesday = "Wednesday";
+                    var Thursday = "Thursday";
+                    var Friday = "Friday";
+                    //int EmployeeSta = 1;
+                    DateTime Total = Convert.ToDateTime(o);
+                    if (Weekendsetup.Saturday == true && Saturday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
+                    else if (Weekendsetup.Sunday == true && Sunday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
+                    else if (Weekendsetup.Monday == true && Monday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
+                    else if (Weekendsetup.Tuesday == true && Tuesday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
+                    else if (Weekendsetup.Wednesday == true && Wednesday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
+                    else if (Weekendsetup.Thursday == true && Thursday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
+                    else if (Weekendsetup.Friday == true && Friday == weeks)
+                    {
+                        Remain.Add(Total);
+                    }
                 }
-                else if (Weekendsetup.Sunday == true && Sunday == weeks)
-                {
-                    Remain.Add(Total);
-                }
-                else if (Weekendsetup.Monday == true && Monday == weeks)
-                {
-                    Remain.Add(Total);
-                }
-                else if (Weekendsetup.Tuesday == true && Tuesday == weeks)
-                {
-                    Remain.Add(Total);
-                }
-                else if (Weekendsetup.Wednesday == true && Wednesday == weeks)
-                {
-                    Remain.Add(Total);
-                }
-                else if (Weekendsetup.Thursday == true && Thursday == weeks)
-                {
-                    Remain.Add(Total);
-                }
-                else if (Weekendsetup.Friday == true && Friday == weeks)
-                {
-                    Remain.Add(Total);
-                }
-            }
             }
             foreach (var item in Remain)
             {
                 ret.Remove(item);
             }
-             var MyHoliday = new List<DateTime>();
+            var MyHoliday = new List<DateTime>();
 
             if (VacationsSetup.IncludeHoliday == true)
             {
@@ -301,13 +1086,13 @@ namespace HR.Controllers.Vacations
                         {
                             for (DateTime date = AppendPublicHolidaysDates[i].Fromdate; date <= AppendPublicHolidaysDates[i].Todate; date = date.AddDays(1))
                             {
-                              MyHoliday.Add(date);
+                                MyHoliday.Add(date);
                             }
                         }
                     }
                     foreach (var item in MyHoliday)
                     {
-                    var holiday = ret.Contains(item);
+                        var holiday = ret.Contains(item);
                         if (holiday != false)
                         {
                             ret.Remove(item);
@@ -316,7 +1101,7 @@ namespace HR.Controllers.Vacations
                 }
             }
             var reted = ret.Count();
-           
+
             return Json(reted);
         }
 

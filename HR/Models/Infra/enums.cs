@@ -28,6 +28,7 @@ namespace HR.Models.Infra
     }
     public enum check_status
     {
+        Pending = 0,
         created = 1,
         Return_To_Review = 2,
         Approved = 3,
@@ -162,7 +163,9 @@ namespace HR.Models.Infra
         [Display(Name = "Employee Payroll Transactions")]
         Employee_Payroll_Transactions =6,
         [Display(Name = "Manual Payment Transaction Entry")]
-        ManualPaymentTransactionEntry = 7
+        ManualPaymentTransactionEntry = 7,
+        [Display(Name = "Leaves Request Master")]
+        LeavesRequestMaster =8
     }
     public enum Gender
     {

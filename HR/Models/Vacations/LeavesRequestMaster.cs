@@ -19,9 +19,9 @@ namespace HR.Models.Vacations
         public int EmployeeID { get; set; }
         public int VacCode { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
-        public Nullable<System.DateTime> DateFrom { get; set; }
+        public DateTime DateFrom { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
-        public Nullable<System.DateTime> DateTo { get; set; }
+        public DateTime DateTo { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> CurrentDate { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]

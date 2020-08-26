@@ -1,0 +1,321 @@
+﻿@model HR.Controllers.Vacations.LeavesApproveController.LeavesApprove
+
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@using HR.Resource;
+@using (Html.BeginForm("index", "VacationsBalance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="sec-nav">
+        <div><i class="fas fa-plus"></i><a href="@Url.Action("index", "VacationsBalance")" class="create-btn">@pers_2.new_</a></div>
+        <div>
+            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index", "VacationsBalance")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+        </div>
+        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "VacationsBalance")" class="create-btn"> @pers_2.Back</a></div>
+    </div>
+    <hr />
+    <hr />
+    <hr />
+
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <div class="form-group">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-6">
+                <h1>@Personnel.VacationsBalance</h1>
+            </div>
+        </div>
+        <section class="content">
+
+            <div class="box">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <br />
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+                </div>
+               
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label style="color:red">@Personnel.EmployeeID</label>
+                        @Html.DropDownListFor(m => m.EmployeeName, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @class = "select2", @onchange = "getrequest()", id = "Country" })
+                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        <label style="color:red">@Personnel.LeavesType</label>
+                        @Html.DropDownListFor(m => m.Vacations_Setup, new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), "", new { @class = "select2", @onchange = "getrequest()", @id = "Vacationid", @style = "margin-bottom:15px;" })
+                        @Html.ValidationMessageFor(model => model.Vacations_Setup, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Personnel.LeaveCode</th>
+                                <th>@Personnel.LeaveTypeNameEnglish</th>
+                                <th>@Personnel.Startdate</th>
+                                <th>@Personnel.Enddate</th>
+                                <th>@Personnel.Balance</th>
+                                <th>@Personnel.Used</th>
+                                <th>@Personnel.BalanceTransaction</th>
+                                <th>@Personnel.Remain</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+}
+<!-- page script -->
+
+@section scripts{}
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
+        });
+    });
+
+    function getrequest() {
+        debugger
+
+        var Emp = $("#Country").val();
+        var Vac = $("#Vacationid").val();
+
+        if (Vac == "") {
+            Vac = 0;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/VacationsBalance/Getone",
+            data: { "Emp": Emp, "Vac": Vac },
+            async: false,
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+                    var dt = new Date(parseInt(value.From.replace('/Date(', '')))
+                    var FromDate = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+                    var EffectiveDate = new Date(parseInt(value.To.replace('/Date(', '')))
+                    var ToDate = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+                    var sc = GetData(Emp, Vac, FromDate, ToDate, value.VacCode, value.LeaveTypeNameEnglish, value.Balance )
+                    debugger
+                   
+                });
+                function GetData(Emp, Vac, FromDate, ToDate, VacCode, LeaveTypeNameEnglish, Balance) {
+                    debugger
+                    $.ajax({
+                        type: "post",
+                        url: "/VacationsBalance/GetAll",
+                        data: { "Emp": Emp, "Vac": Vac, "FromDate": FromDate },
+                        async: false,
+                        success: function (result) {
+                            debugger
+                            var FullName = result.split("=");
+                            if (FullName.length > 0) {
+                                var Tot = FullName[1];
+                                var used = FullName[2];
+                            }
+                            var use = Balance - used;
+                            var rems = Balance - use;
+                            var rem = parseInt(rems) + parseInt(Tot);
+
+                            var tr =
+                                "<tr id='tr'><td class='col-md-0'><input type='text'  readonly ' value='" + VacCode + "'/></td>" +
+                                "<td class='col-md-0'><input type='text'  readonly  value='" + LeaveTypeNameEnglish + "'/></td>" + "<td class='col-md-0'><input type='text' readonly  value='" + FromDate + "'/></td>" +
+                                "<td class='col-md-0'><input type='text'  readonly  value='" + ToDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly  value='" + Balance + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly  value='" + use + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly  value='" + Tot + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly  value='" + rem + "'/></td>"
+
+
+                            $("#tbody11").append(tr);
+                            //return (result, result, result);
+
+                        }
+                        
+                    })
+                }
+
+                function AddLeadingZeros(number, size) {
+
+                    var s = "0000" + number;
+                    return s.substr(s.length - size);
+
+                }
+            },
+
+            error: function () {
+            }
+        });
+    }
+
+</script>
+@*<script>
+    function CountryName() {
+
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function Vacation() {
+        debugger
+        var id = $("#Vacationid").val();
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetVacationsSetup",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                debugger
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+</script>*@
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

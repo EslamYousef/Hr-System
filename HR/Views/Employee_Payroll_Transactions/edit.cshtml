@@ -33,9 +33,25 @@
 
 </script>
 <script>
+    function CountryName() {
+        debugger
+        var id = $("#employee").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployees",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                //$("#countryname").val(result.Code);
+            },
+            error: function () {
+                //$("#countryname").val(" ");
+            }
+        });
+    }
+    CountryName();
 
     function Type_Code() {
-        debugger
         $("#cars").empty();
         var id =  @ViewBag.id;
         $.ajax({
@@ -43,7 +59,7 @@
             url: "/Helper/Getsalarycode",
             data: { "id": id },
             success: function (result) {
-                debugger
+               
                 //var CodeGroupType = $("#code_type").val(result.CodeGroupType);
                 if (result.CodeGroupType == "1") {
                     $("#codetype").empty();
@@ -88,7 +104,7 @@
                     $("#codevaluetype").val("Calculated Value");
                 }
                 var x = result.ID;
-                debugger
+               
                 $("#Extended").empty();
                 $("#Extended").val(" ");
                 ExtendedFields(x);
@@ -103,13 +119,13 @@
 
 
     function ExtendedFields(x) {
-        debugger
+        
         $.ajax({
             type: "post",
             url: "/Helper/GetExtendedFieldsBySalaryCode",
             data: { "id": x },
             success: function (result) {
-                debugger
+               
                 $("#Extended").val(result.ExtendedFields_Code + " ----- " + result.ExtendedFields_Desc);
                 //AllExtendedFields(result.ID)
             },
@@ -119,14 +135,14 @@
         });
     }
     function AllExtendedFields() {
-        debugger
+        
         id =  @ViewBag.code;
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee_Payroll_Transactions_ExtendedFieldsDetail",
             data: { "id": id },
             success: function (result) {
-                debugger
+              
                 $.each(result, function (i, r) {
                     if (r.ValueType == "Amount") {
                         var ValueType = "Amount";
@@ -157,40 +173,39 @@
         });
     }
     AllExtendedFields()
-    function CountryName() {
-        debugger
-        var id = $("#Country").val();
-        $.ajax({
-            type: "post",
-            url: "/Helper/GetEmployees",
-            data: { "id": id },
-            success: function (result) {
-                debugger
-                //$("#countryname").val(result.Code);
-            },
-            error: function () {
-                $("#countryname").val(" ");
-            }
-        });
-    }
-    CountryName();
+   
 
     function CountryNamess() {
-        debugger
+      
         var id = $("#Countryss").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetPayrollTransactionJournalSetup",
             data: { "id": id },
             success: function (result) {
-                debugger
+             
             },
             error: function () {
-                $("#countrynamess").val(" ");
+                //$("#countrynamess").val(" ");
             }
         });
     }
     CountryNamess();
+
+    function CostCenter() {
+        var id = $("#Costid").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenterfromPayroll",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+            }
+        });
+    }
+    CostCenter();
 </script>
 
 @{
@@ -246,7 +261,7 @@
                     <div class="col-md-4">
                         <label style="color:red">@Payroll.Employeeid</label>
                         @Html.DropDownListFor(m => m.Header.Employee_Payroll_Transactions.Employee_Code, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee,
-                       new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                       new { @class = "select2", @onchange = "CountryName()", id = "employee" })
                         @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.Employee_Code, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
@@ -287,6 +302,11 @@
                     <div class="col-md-4">
                         <label> @Payroll.ValueType</label>
                         @Html.EditorFor(m => m.Header.code_value_type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @display = "display", @id = "codevaluetype" } })
+                    </div>
+                    <div class="col-md-4">
+                        <label>CostCenterId</label>
+                        @Html.DropDownListFor(m => m.Header.Employee_Payroll_Transactions.Contract_Number, new SelectList(ViewBag.CostCenter, "ID", "Code"), "Select Cost Center", new { @class = "select2", @onchange = "CostCenter()", id = "Costid" })
+                        @Html.ValidationMessageFor(model => model.Header.Employee_Payroll_Transactions.Contract_Number, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <label>@Payroll.Extendedfieldscode </label>

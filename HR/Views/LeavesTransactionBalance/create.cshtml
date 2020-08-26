@@ -1,0 +1,390 @@
+﻿@model HR.Controllers.Vacations.LeavesTransactionBalanceController.Headers
+<script>
+    function Valuetype() {
+        debugger
+        var Value = $("#Value").val();
+        var CurrentBalance = $("#CurrentBalance").val();
+        var Type = $("#Type").val();
+
+        if (Type == 1) {
+            a = Number(document.getElementById("Value").value);
+            b = Number(document.getElementById("CurrentBalance").value);
+            c = a + b;
+            document.getElementById("RemainDays").value = c;
+        }
+        else if (Type == 2) {
+            var total = (CurrentBalance - Value);
+            $("#RemainDays").val(total);
+        }
+    }
+    $(function () {
+        $("#Value").keyup(function (w) {
+            debugger
+            var Value = $("#Value").val();
+            var CurrentBalance = $("#CurrentBalance").val();
+            var Type = $("#Type").val();
+            if (Type == 1) {
+                a = Number(document.getElementById("Value").value);
+                b = Number(document.getElementById("CurrentBalance").value);
+                c = a + b;
+                document.getElementById("RemainDays").value = c;
+            }
+            else if (Type == 2) {
+                var total = (CurrentBalance - Value);
+                $("#RemainDays").val(total);
+            }
+        });
+
+    })
+</script>
+
+<script>
+    $(document).ready(function () {
+        debugger
+        GetDataById5('@Model.LeavesTransactionBalance.TransactionDate', "Start");
+        Valuetype()
+        });
+    function GetDataById5(date, id) {
+
+        debugger
+        var valx = new Date(date);
+        var month;
+        if ((valx.getMonth() + 1) < 10) {
+            month = "0" + (valx.getMonth() + 1).toString();
+        }
+        else {
+            month = date.getMonth() + 1;
+        }
+        var day = parseInt(valx.getDate());
+        if (day < 10) {
+            day = "0" + (valx.getDate()).toString();
+        }
+        else {
+            day = valx.getDate();
+        }
+        var d = valx.getFullYear() + '-' + month + '-' + day;
+        $('#' + id).val(d);
+    }
+
+</script>
+
+<script>
+    function CountryName() {
+        debugger
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Employee_Profile/GetHiringDateandDepartmentFromEmployeeProfile",
+            data: { "id": id },
+            success: function (result) {
+                $("#CurrentBalance").val("0");
+                $("#RemainDays").val("0");
+
+                Vacation();
+            },
+            error: function () {
+
+            }
+        });
+    }
+    CountryName();
+
+    function Vacation() {
+        debugger
+        var id = $("#Vacationid").val();
+        $("#FromBalance").empty();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetVacationsSetup",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                debugger
+                $("#CurrentBalance").val("0");
+                $("#RemainDays").val("0");
+                CurrentBalance(id)
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function CurrentBalance(id) {
+        debugger
+        var emp = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetLeavesBalance",
+            data: { "id": id, "emp": emp},
+            async: false,
+            success: function (result) {
+                debugger
+                $.each(result, function (i, r) {
+                    var dt = new Date(parseInt(r.BalanceStartDate.replace('/Date(', '')))
+                    var dtfinal = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+
+                    function AddLeadingZeros(number, size) {
+                        debugger
+                        var s = "0000" + number;
+                        return s.substr(s.length - size);
+                    }
+                    var tt = ' <option>' + dtfinal + '</option>'
+                    $("#FromBalance").append(tt)
+                })
+                select()
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function select() {
+        debugger
+        $("#CurrentBalance").val("0");
+        $("#RemainDays").val("0");
+        var emp = $("#Country").val();
+        var id = $("#FromBalance").val();
+        var Vac = $("#Vacationid").val();
+        var Start = $("#Start").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/Balance",
+            data: { "id": id, "Vac": Vac, "Start": Start, "emp": emp },
+            async: false,
+            success: function (result) {
+                debugger
+                $("#CurrentBalance").val(result);
+                $("#RemainDays").val(result);
+                //var day = $("#Days").val();
+                //$("#RemainDays").val(result - day);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+
+
+
+</script>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@using HR.Resource;
+<div class="panel panel-primary" data-collapsed="0">
+    <div class="panel-body">
+        @using (Html.BeginForm("Create", "LeavesTransactionBalance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="sec-nav">
+                <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+                <div><i class="fas fa-plus"></i><a href="@Url.Action("create", "LeavesTransactionBalance")" class="create-btn">@pers_2.new_</a></div>
+                <div>
+                    <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("index","LeavesTransactionBalance")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+                </div>
+                <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "LeavesTransactionBalance")" class="create-btn"> @pers_2.Back</a></div>
+            </div>
+            <hr /><hr /><hr />
+            <section class="content-header">
+                <h1>
+                    @Personnel.LeavesBalanceTransaction
+                </h1>
+            </section>
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+
+                <div class="col-md-4">
+                    <label style="color:red">
+                        @Personnel.SerialSheet
+                    </label>
+                    @Html.EditorFor(model => model.LeavesTransactionBalance.Serial_LB, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.Serial_LB, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.TransactionDate</label>
+                    @Html.EditorFor(model => model.LeavesTransactionBalance.TransactionDate, new { htmlAttributes = new { @class = "form-control  StartDate", @id = "Start", @type = "date", @onchange = "Save2()" } })
+                    @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.TransactionDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Personnel.EmployeeID</label>
+                    @Html.DropDownListFor(m => m.LeavesTransactionBalance.EmployeeID, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                    @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.EmployeeID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label style="color:red">@Personnel.LeavesType</label>
+                    @Html.DropDownListFor(m => m.LeavesTransactionBalance.VacCode, new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), "", new { @class = "select2", @onchange = "Vacation()", @id = "Vacationid" })
+                    @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.VacCode, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label>@Personnel.FromBalance</label>
+                    <select id="FromBalance" name="FromBalance" onchange="select()"><option></option></select>
+                </div>
+
+            </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.ActualBalance</label>
+                        <input type="number" readonly id="CurrentBalance"  name="CurrentBalance" />
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Remain</label>
+                        @Html.EditorFor(model => model.LeavesTransactionBalance.Remain, new { htmlAttributes = new { @class = "form-control", @type = "number", @id = "RemainDays", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.Remain, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.Value</label>
+                        @Html.EditorFor(model => model.LeavesTransactionBalance.Value, new { htmlAttributes = new { @class = "form-control", @type = "number", @id = "Value", @onclick = "Valuetype()" } })
+                        @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.Value, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label> @Personnel.TransactionType</label>
+                        @Html.EnumDropDownListFor(model => model.TransactionType, new { @onclick = "ChangeType()", @class = "select2", id = "Type" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Payroll.Notes </label>
+                        @Html.TextAreaFor(model => model.LeavesTransactionBalance.Notes, 4, 40, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LeavesTransactionBalance.Notes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+@section scripts{}
+<script>
+    function ChangeType() {
+        debugger
+        var Value = $("#Value").val();
+        var CurrentBalance = $("#CurrentBalance").val();
+        var Type = $("#Type").val();
+
+        if (Type == 1) {
+            a = Number(document.getElementById("Value").value);
+            b = Number(document.getElementById("CurrentBalance").value);
+            c = a + b;
+            document.getElementById("RemainDays").value = c;
+        }
+        else if (Type == 2) {
+            var total = (CurrentBalance - Value);
+            $("#RemainDays").val(total);
+        }
+    }
+
+</script>
+
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

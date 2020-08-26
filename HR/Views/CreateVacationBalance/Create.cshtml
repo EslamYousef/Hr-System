@@ -33,7 +33,7 @@
                     <hr /><hr /><hr />
                     <section class="content-header">
                         <h1>
-                            @Personnel.Create_Subscription_Syndicate
+                            @Personnel.LeavesCreateNewYearBalance
                         </h1>
                     </section>
                     @Html.AntiForgeryToken()
@@ -48,39 +48,48 @@
                         @TempData["Message"]
                     </div>
                 }
-
+                @if (TempData["Message2"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                <div class="col-md-4">
-                    <label>@Personnel.EmployeeID</label>
-                    @Html.DropDownListFor(m => m.EmployeeID, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "", new { @class = "select2", @onchange = "employee()", @id = "employeeid" })
-                    @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>@Personnel.EmployeeID</label>
+                        @Html.DropDownListFor(m => m.EmployeeID, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), "", new { @class = "select2", @onchange = "employee()", @id = "employeeid" })
+                        @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.LeavesType</label>
+                        @Html.DropDownListFor(m => m.VacCode, new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), new { @class = "select2", @onchange = "Vacation()", @id = "Vacationid" })
+                        @Html.ValidationMessageFor(model => model.VacCode, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>@Personnel.TransactionYear</label>
+                        @Html.EditorFor(model => model.RowIndx, new { @name = "tranyear", htmlAttributes = new { @class = "form-control", @type = "number", @min = "2016", @max = "2050", @id = "tranyear" } })
+                        @Html.ValidationMessageFor(model => model.RowIndx, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" value="@Personnel.CloseBalances" id="CloseBal" onclick="CloseBalances()" style="margin-top: 30px;" />
+                    </div>
+                    <div class="col-md-4" hidden>
+                        <label>@Personnel.transactionnumber</label>
+                        @Html.EditorFor(model => model.Serial_LB, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Serial_LB, "", new { @class = "text-danger" })
+                    </div>
+
                 </div>
-                <div class="col-md-4">
-                    <label>@Personnel.LeavesType</label>
-                    @Html.DropDownListFor(m => m.VacCode, new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), new { @class = "select2", @onchange = "Vacation()", @id = "Vacationid" })
-                    @Html.ValidationMessageFor(model => model.VacCode, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    <label>@Personnel.transactionnumber</label>
-                    @Html.EditorFor(model => model.RowIndx, new { @name = "tranyear", htmlAttributes = new { @class = "form-control", @type = "number", @min = "2016", @max = "2050", @id = "tranyear" } })
-                    @Html.ValidationMessageFor(model => model.RowIndx, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4" hidden>
-                    <label>@Personnel.transactionnumber</label>
-                    @Html.EditorFor(model => model.Serial_LB, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Serial_LB, "", new { @class = "text-danger" })
-                </div>
-              
-            </div>
 
             </div>
                 }
 
 
+            </div>
         </div>
-
     </section>
 </div>
 @section scripts{}
@@ -88,6 +97,38 @@
 
 
 <script>
+    function CloseBalances() {
+        var employee = $("#employeeid").val();
+        var Vacation = $("#Vacationid").val(); 
+        var tranyear = $("#tranyear").val();
+        debugger
+        if (employee == "") {
+            $.ajax({
+                type: "post",
+                url: "/Helper/CloseBalances",
+                data: { "Vacation": Vacation, "tranyear": tranyear},
+                success: function (result) {
+                    alert("Balance Closed Successfuly")
+                },
+                error: function () {
+
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "/Helper/CloseBalance",
+                data: { "employee": employee, "Vacation": Vacation , "tranyear": tranyear },
+                success: function (result) {
+                    alert("Balance Closed Successfuly")
+                },
+                error: function () {
+
+                }
+            });
+        }
+    }
     function employee()
     {
         var id = $("#employeeid").val();

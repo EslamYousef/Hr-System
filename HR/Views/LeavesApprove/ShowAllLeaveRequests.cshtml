@@ -1,0 +1,452 @@
+﻿@*@model IEnumerable<HR.Models.Vacations.LeavesRequestMaster>*@
+@model HR.Controllers.Vacations.LeavesApproveController.LeavesApprove
+
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+
+@using HR.Resource;
+@using (Html.BeginForm("ShowAllLeaveRequests", "LeavesApprove", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="sec-nav">
+        <div><i class="far fa-save"></i><button type="submit" class="create-btn" />@organ.create</div>
+        <div><i class="fas fa-plus"></i><a href="@Url.Action("ShowAllLeaveRequests", "LeavesApprove")" class="create-btn">@pers_2.new_</a></div>
+        <div>
+            <i class="far fa-trash-alt"></i><input type="button" href="@Url.Action("ShowAllLeaveRequests", "LeavesApprove")" class="create-btn" value=@organ.delete style="
+    background-color: transparent" ; />
+        </div>
+        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("ShowAllLeaveRequests", "LeavesApprove")" class="create-btn"> @pers_2.Back</a></div>
+    </div>
+    <hr />
+    <hr />
+    <hr />
+
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <div class="form-group">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-6">
+                <h1>@Personnel.VacationsApprove</h1>
+            </div>
+        </div>
+        <section class="content">
+
+            <div class="box">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    @if (TempData["Message"] != null)
+                    {
+                        <br />
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            @TempData["Message"]
+                        </div>
+                    }
+                </div>
+                <input name="CodeEmp" value="" hidden />
+                <input name="CodeVac" value="" hidden />
+                <input name="FromDate" value="" hidden />
+                <input name="ToDate" value="" hidden />
+                <input name="Dur" value="" hidden />
+                <input name="Is_Head" value="" hidden />
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label style="color:red">@Personnel.EmployeeID</label>
+                        @Html.DropDownListFor(m => m.EmployeeName, new SelectList(ViewBag.Employee_Profile, "ID", "Code"), Personnel.SelectEmployee, new { @class = "select2", @onchange = "CountryName()", id = "Country" })
+                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-3">
+                        <label style="color:red">@Personnel.LeavesType</label>
+                        @Html.DropDownListFor(m => m.Vacations_Setup, new SelectList(ViewBag.Vacations_Setup, "ID", "Code"), "", new { @class = "select2", @onchange = "Vacation()", @id = "Vacationid", @style = "margin-bottom:15px;" })
+                        @Html.ValidationMessageFor(model => model.Vacations_Setup, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        <input autocomplete="off" placeholder=@pers_2.fromdate onfocus="(this.type='date')" value="" class="form-control" id="datefrom" style="margin:15px,15px,15px,0px !important" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <input autocomplete="off" placeholder=@pers_2.todate onfocus="(this.type='date')" class="form-control" id="dateto" style="margin:0px,15px,15px,0px !important" />
+                    </div>
+                    <div class="col-md-2">
+                        <select name="test" class="select2" id="filter" placeholder="Choose your status" multiple>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="buttons">
+                    <input type="button" style="width:130px;margin-top: 15px;" onclick="getrequest()" value=@pers_2.specifidrecord class="btn btn-success" />
+                    <input type="button" style="width:130px;margin-top: 15px;" onclick="getallrequest()" value=@pers_2.allrecord class="btn btn-success" />
+                </div>
+
+
+                <div class="form-group" style="margin-top:70px;margin-left:30px">
+                    <table id="categories" style="margin-top:20px" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Personnel.SheetSerial </th>
+                                <th>@Personnel.EmpCode</th>
+                                <th>@Personnel.EmployeeName</th>
+                                <th>@Personnel.LeaveTypeNameEnglish</th>
+                                <th>@Personnel.Fromdate</th>
+                                <th>@Personnel.Todate</th>
+                                <th>@Personnel.ActualDate</th>
+                                <th>@Personnel.Duration</th>
+                                <th>@Personnel.Status</th>
+                                @*<th>User Approved</th>*@
+                                <th>@Personnel.ReasonForRequset</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody11">
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+          
+        </section>
+
+    </div>
+}
+<!-- page script -->
+
+@section scripts{}
+<script>
+    $(function () {
+        filt();
+    })
+    function filt() {
+        debugger
+        var ht = "";
+        $.ajax
+            ({
+                type: "post",
+                url: "/LeavesApprove/getallstatues",
+                data: {},
+                success: function (result) {
+                    debugger
+                    $.each(result, function (key, value) {
+                        ht += "<option  value='" + value + "'>" + value + "</option>";
+
+                    });
+                    $("#filter").html(ht);
+                }
+            });
+    }
+</script>
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order": 1
+        });
+    });
+
+    function getrequest() {
+        debugger
+        var c = $("#filter").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        var status = $("#filter").val();
+        var type = $("#filter_eos_type").val();
+        var from = $("#datefrom").val();
+        var to = $("#dateto").val();
+        var Emp = $("#Country").val();
+        var Vac = $("#Vacationid").val();
+
+        
+        if (from == "") {
+            from = "1/1/1900";
+        }
+        if (to == "") {
+            to = "1/1/3000"
+        }
+        if (c == null) {
+            c = "all";
+        }
+        if (Emp == "") {
+            Emp = 0;
+        }
+        if (Vac == "") {
+            Vac = 0;
+        }
+        var Pending = "Pending";
+        var Approved = "Approved";
+        var Rejected = "Rejected";
+        $.ajax({
+            type: "post",
+            url: "/LeavesApprove/Getone",
+            data: { "from": from, "to": to, "status": c, "Emp": Emp, "Vac": Vac },
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+                    var dt = new Date(parseInt(value.LeavesRequestMaster.DateFrom.replace('/Date(', '')))
+                    var FromDate = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+                    var EffectiveDate = new Date(parseInt(value.LeavesRequestMaster.DateTo.replace('/Date(', '')))
+                    var ToDate = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+                    var Actual = new Date(parseInt(value.LeavesRequestMaster.DateTo.replace('/Date(', '')))
+                    var ActualDate = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+                    if (value.LeavesRequestMaster.name_state == "Pending") {
+                        var tr =
+                            "<tr id='tr'><td class='col-md-0'><input type='text'  readonly name='CodeEmp' value='" + value.EmployeeCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.EmployeeName + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='CodeVac' value='" + value.VacationsCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.Vacations_Setup + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='FromDate' value='" + FromDate + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly name='ToDate' value='" + ToDate + "'/></td>" + "<td class='col-md-0'><input type='text'  readonly value='" + ActualDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly name='Dur' value='" + value.LeavesRequestMaster.TotalDays + "'/></td>"
+                            + "<td class='col-md-0'><select name='Is_Head'><option selected value='0'>" + Pending + "</option><option value='3'>" + Approved + "</option><option value='4'>" + Rejected + "</option></select></td>" + "<td class='col-md-0'>" + value.LeavesRequestMaster.Reason + "</td>"
+                    }
+                    else if (value.LeavesRequestMaster.name_state == "Approved") {
+                        var tr =
+                            "<tr id='tr'><td class='col-md-0'><input type='text'  readonly name='CodeEmp' value='" + value.EmployeeCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.EmployeeName + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='CodeVac' value='" + value.VacationsCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.Vacations_Setup + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='FromDate' value='" + FromDate + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly name='ToDate' value='" + ToDate + "'/></td>" + "<td class='col-md-0'><input type='text'  readonly value='" + ActualDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly name='Dur' value='" + value.LeavesRequestMaster.TotalDays + "'/></td>" + "<td class='col-md-0'> <select name='Is_Head'><option value='0'>" + Pending + "</option><option selected value='3'>" + Approved + "</option><option value='4'>" + Rejected + "</option></select></td>" + value.LeavesRequestMaster.Reason + "</td>"
+                    }
+                    else {
+                        var tr =
+                            "<tr id='tr'><td class='col-md-0'><input type='text'  readonly name='CodeEmp' value='" + value.EmployeeCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.EmployeeName + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='CodeVac' value='" + value.VacationsCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.Vacations_Setup + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='FromDate' value='" + FromDate + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly name='ToDate' value='" + ToDate + "'/></td>" + "<td class='col-md-0'><input type='text'  readonly value='" + ActualDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly name='Dur' value='" + value.LeavesRequestMaster.TotalDays + "'/></td>" + "<td class='col-md-0'><select name='Is_Head'><option value='0'>" + Pending + "</option><option  value='3'>" + Approved + "</option><option selected value='4'>" + Rejected + "</option></select></td>" + "<td class='col-md-0'>" + value.LeavesRequestMaster.Reason + "</td>"
+                    }
+                    $("#tbody11").append(tr);
+                });
+                function AddLeadingZeros(number, size) {
+
+                    var s = "0000" + number;
+                    return s.substr(s.length - size);
+
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function getallrequest() {
+        debugger
+        var c = $("#filter").val();
+
+        var Pending = "Pending";
+        var Approved = "Approved";
+        var Rejected = "Rejected";
+
+        $.ajax({
+            type: "post",
+            url: "/LeavesApprove/Getalll",
+            data: { "c": c },
+            success: function (result) {
+                debugger
+                $("#tbody11 tr").remove();
+                $.each(result, function (key, value) {
+                    var dt = new Date(parseInt(value.LeavesRequestMaster.DateFrom.replace('/Date(', '')))
+                    var FromDate = AddLeadingZeros(dt.getDate(), 2) + '/' +
+                        AddLeadingZeros(dt.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(dt.getFullYear(), 4)
+                    var EffectiveDate = new Date(parseInt(value.LeavesRequestMaster.DateTo.replace('/Date(', '')))
+                    var ToDate = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+                    var Actual = new Date(parseInt(value.LeavesRequestMaster.DateTo.replace('/Date(', '')))
+                    var ActualDate = AddLeadingZeros(EffectiveDate.getDate(), 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getMonth() + 1, 2) + '/' +
+                        AddLeadingZeros(EffectiveDate.getFullYear(), 4)
+                    if (value.LeavesRequestMaster.name_state == "Pending") {
+                    var tr =
+                        "<tr id='tr'><td class='col-md-0'><input type='text'  readonly name='CodeEmp' value='" + value.EmployeeCode + "'/></td>" +
+                        "<td class='col-md-0'><input type='text'  readonly  value='" + value.EmployeeName + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='CodeVac' value='" + value.VacationsCode + "'/></td>" +
+                        "<td class='col-md-0'><input type='text'  readonly  value='" + value.Vacations_Setup + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='FromDate' value='" + FromDate + "'/></td>" +
+                        "<td class='col-md-0'><input type='text'  readonly name='ToDate' value='" + ToDate + "'/></td>" + "<td class='col-md-0'><input type='text'  readonly value='" + ActualDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly name='Dur' value='" + value.LeavesRequestMaster.TotalDays + "'/></td>"
+                        + "<td class='col-md-0'><select name='Is_Head'><option selected value='0'>" + Pending + "</option><option value='3'>" + Approved + "</option><option value='4'>" + Rejected + "</option></select></td>" + "<td class='col-md-0'>" + value.LeavesRequestMaster.Reason + "</td>"
+                    }
+                    else if (value.LeavesRequestMaster.name_state == "Approved") {
+                        var tr =
+                            "<tr id='tr'><td class='col-md-0'><input type='text'  readonly name='CodeEmp' value='" + value.EmployeeCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.EmployeeName + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='CodeVac' value='" + value.VacationsCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.Vacations_Setup + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='FromDate' value='" + FromDate + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly name='ToDate' value='" + ToDate + "'/></td>" + "<td class='col-md-0'><input type='text'  readonly value='" + ActualDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly name='Dur' value='" + value.LeavesRequestMaster.TotalDays + "'/></td>" + "<td class='col-md-0'> <select name='Is_Head'><option value='0'>" + Pending + "</option><option selected value='3'>" + Approved + "</option><option value='4'>" + Rejected + "</option></select></td>" + value.LeavesRequestMaster.Reason + "</td>"
+                    }
+                    else {
+                        var tr =
+                            "<tr id='tr'><td class='col-md-0'><input type='text'  readonly name='CodeEmp' value='" + value.EmployeeCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.EmployeeName + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='CodeVac' value='" + value.VacationsCode + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly  value='" + value.Vacations_Setup + "'/></td>" + "<td class='col-md-0'><input type='text' readonly name='FromDate' value='" + FromDate + "'/></td>" +
+                            "<td class='col-md-0'><input type='text'  readonly name='ToDate' value='" + ToDate + "'/></td>" + "<td class='col-md-0'><input type='text'  readonly value='" + ActualDate + "'/></td>" + "<td class='col-md-0' ><input type='text'  readonly name='Dur' value='" + value.LeavesRequestMaster.TotalDays + "'/></td>"+"<td class='col-md-0'><select name='Is_Head'><option value='0'>" + Pending + "</option><option  value='3'>" + Approved + "</option><option selected value='4'>" + Rejected + "</option></select></td>" + "<td class='col-md-0'>" + value.LeavesRequestMaster.Reason + "</td>"
+                    }
+                    $("#tbody11").append(tr);
+                });
+                function AddLeadingZeros(number, size) {
+
+                    var s = "0000" + number;
+                    return s.substr(s.length - size);
+
+                }
+            },
+            error: function () {
+
+
+            }
+        });
+    }
+
+</script>
+<script>
+    function CountryName() {
+
+        var id = $("#Country").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetEmployee",
+            data: { "id": id },
+            success: function (result) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+    function Vacation() {
+        debugger
+        var id = $("#Vacationid").val();
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetVacationsSetup",
+            data: { "id": id },
+            async: false,
+            success: function (result) {
+                debugger
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+</script>
+<style>
+
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+
+    .col-md-3 {
+        width: 20% !important;
+        margin-bottom: 15px;
+    }
+</style>

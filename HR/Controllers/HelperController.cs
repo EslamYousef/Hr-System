@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Web.Helpers;
+using HR.Migrations;
 
 namespace HR.Controllers
 {
@@ -906,6 +907,20 @@ namespace HR.Controllers
             var ID = int.Parse(id);
             var OrganizationChart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
             return Json(OrganizationChart);
+        }
+        public JsonResult GetCostCenter(string id)
+        {
+
+            var ID = int.Parse(id);
+            var OrganizationChart = dbcontext.Organization_Chart.FirstOrDefault(m => m.ID == ID);
+            var CostCenter = dbcontext.CostCenter.FirstOrDefault(m => m.ID == OrganizationChart.cost_center_id);
+            return Json(CostCenter);
+        }
+        public JsonResult GetCostCenterfromPayroll(string id)
+        {
+            var ID = int.Parse(id);
+            var CostCenter = dbcontext.CostCenter.FirstOrDefault(m => m.ID == ID);
+            return Json(CostCenter);
         }
         public JsonResult GetExternalcompaines(string id)
         {
@@ -1921,12 +1936,18 @@ namespace HR.Controllers
             var Vacations = dbcontext.Vacations_Setup.FirstOrDefault(a => a.ID == id);
             return Json(Vacations);
         }
-        public JsonResult GetLeavesBalance(int id)
+        public JsonResult GetLeavesBalance(int id, int emp)
         {
-            var record = dbcontext.LeavesBalance.Where(a => a.VacCode == id).ToList();
+            var record = dbcontext.LeavesBalance.Where(a => a.VacCode == id && a.EmployeeID == emp && a.Stopped == false).ToList();
             return Json(record);
         }
-        public JsonResult Balance(DateTime id, int Vac , DateTime Start)
+        public JsonResult GetLeavesBalances(int id)
+        {
+            var record = dbcontext.LeavesBalance.Where(a => a.VacCode == id).ToList();
+            var records = record.GroupBy(x => x.BalanceStartDate, (key, group) => group.First());
+            return Json(records);
+        }
+        public JsonResult Balance(DateTime id, int Vac, DateTime Start, int emp)
         {
 
             var record = dbcontext.LeavesBalance.Where(a => a.BalanceStartDate == id && a.VacCode == Vac).FirstOrDefault();
@@ -1934,28 +1955,40 @@ namespace HR.Controllers
             int BalanceStartDate = Convert.ToDateTime(BalanceStart).Year;
 
             var LeavesRequestMaster = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.LastOrder == true).FirstOrDefault();
-            var LeavesRequestMasters = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.Approved == 1 && a.year == BalanceStartDate && a.LastOrder == true).ToList();
+            //var LeavesRequestMasters = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.Approved == 1 && a.year == BalanceStartDate && a.LastOrder == true).ToList();
             var VacationsSetup = dbcontext.Vacations_Setup.FirstOrDefault(a => a.ID == Vac);
+            int year = Convert.ToDateTime(Start).Year;
+            var LeavesRequestMasters = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.EmployeeID == emp && a.year == id.Year).ToList();
+            var LeavesRequest = LeavesRequestMasters.LastOrDefault();
 
-            if (VacationsSetup.TrackMonthlyAccrualBalance == true)
+            var LeavesTransactionBalance = dbcontext.LeavesTransactionBalance.Where(a => a.VacCode == record.VacCode && a.EmployeeID == emp && a.Year == id.Year && a.Check == true).ToList();
+            var LeavesTransaction = LeavesTransactionBalance.LastOrDefault();
+
+            if (LeavesTransaction != null && LeavesTransaction.Check == true)
+            {
+                var RemainDays = LeavesTransaction.Remain;
+                return Json(RemainDays);
+            }
+
+            else if (VacationsSetup.TrackMonthlyAccrualBalance == true)
             {
                 var Bal = record.Balance / 12;
                 int Sta = Convert.ToDateTime(Start).Month;
-                int year = Convert.ToDateTime(Start).Year;
+                //int year = Convert.ToDateTime(Start).Year;
 
                 var RemainDays = Bal * Sta;
-                var LeavesRequestMas = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.Approved == 1 && a.year == year).ToList();
-              
+                var LeavesRequestMas = dbcontext.LeavesRequestMaster.Where(a => a.VacCode == record.VacCode && a.EmployeeID == emp && a.year == year).ToList();
+
                 var AllDays = new List<double?>();
                 if (LeavesRequestMas != null)
                 {
                     for (int i = 0; i < LeavesRequestMas.Count; i++)
                     {
-                        var Rem= LeavesRequestMas[i].TotalDays;
-                        var Day =  AllDays.LastOrDefault();
+                        var Rem = LeavesRequestMas[i].TotalDays;
+                        var Day = AllDays.LastOrDefault();
                         if (Day == null)
                         {
-                            Day = Rem ;
+                            Day = Rem;
                             AllDays.Add(Day);
                         }
                         else
@@ -1965,7 +1998,7 @@ namespace HR.Controllers
                         }
                     }
                     var RemainDaysss = RemainDays - AllDays.LastOrDefault();
-                    if (AllDays.LastOrDefault() != 0)
+                    if (RemainDaysss != null)
                     {
                         return Json(RemainDaysss);
                     }
@@ -1973,20 +2006,20 @@ namespace HR.Controllers
                 return Json(RemainDays);
 
             }
-            if (LeavesRequestMasters != null)
+            if (LeavesRequest != null)
             {
-                for (int i = 0; i < LeavesRequestMasters.Count; i++)
+                //for (int i = 0; i < LeavesRequestMasters.Count(); i++)
+                //{
+                int years = LeavesRequest.year;
+                if (years == id.Year)
                 {
-                    int year = LeavesRequestMasters[i].year;
-                    if (year == BalanceStartDate)
-                    {
-                        var RemainDays = LeavesRequestMasters[i].RemainDays;
-                        return Json(RemainDays);
-                    }
+                    var RemainDays = LeavesRequest.RemainDays;
+                    return Json(RemainDays);
                 }
+                //}
             }
-                var RemainDay = record.Balance;
-                return Json(RemainDay);
+            var RemainDay = record.Balance;
+            return Json(RemainDay);
         }
 
 
@@ -2149,6 +2182,57 @@ namespace HR.Controllers
 
             return Json(timemanagement);
         }
+        public JsonResult CloseBalances(int Vacation, int tranyear)
+        {
 
+            DateTime start = Convert.ToDateTime("1/1/" + tranyear);
+            var EmployeeProfile = dbcontext.Employee_Profile.Where(a => a.Active == true).ToList();
+
+            foreach (var item in EmployeeProfile)
+            {
+                var LeavesBalance = dbcontext.LeavesBalance.FirstOrDefault(m => m.EmployeeID == item.ID && m.VacCode == Vacation && m.BalanceStartDate == start);
+                var LeavesRequestMaster = dbcontext.LeavesRequestMaster.Where(m => m.EmployeeID == item.ID && m.VacCode == Vacation && m.year == tranyear).ToList();
+                var LeavesRequest = LeavesRequestMaster.LastOrDefault();
+                if (LeavesRequest != null)
+                {
+                    LeavesBalance.UsedBySys = LeavesRequest.RemainDays;
+                    LeavesBalance.Used = LeavesBalance.Balance - LeavesBalance.UsedBySys;
+                    LeavesBalance.Stopped = true;
+                    dbcontext.SaveChanges();
+                }
+                else
+                {
+                    var Used = LeavesBalance.Used;
+                    LeavesBalance.UsedBySys = LeavesBalance.Balance;
+                    LeavesBalance.Stopped = true;
+                    dbcontext.SaveChanges();
+                }
+            }
+            return Json(Vacation);
+
+        }
+        public JsonResult CloseBalance(int employee, int Vacation, int tranyear)
+        {
+            DateTime start = Convert.ToDateTime("1/1/" + tranyear);
+            var LeavesBalance = dbcontext.LeavesBalance.FirstOrDefault(m => m.EmployeeID == employee && m.VacCode == Vacation && m.BalanceStartDate == start);
+            var LeavesRequestMaster = dbcontext.LeavesRequestMaster.Where(m => m.EmployeeID == employee && m.VacCode == Vacation && m.year == tranyear).ToList();
+            var LeavesRequest = LeavesRequestMaster.LastOrDefault();
+            if (LeavesRequest != null)
+            {
+                LeavesBalance.UsedBySys = LeavesRequest.RemainDays;
+                LeavesBalance.Used = LeavesBalance.Balance - LeavesBalance.UsedBySys;
+                LeavesBalance.Stopped = true;
+                dbcontext.SaveChanges();
+            }
+            else
+            {
+                var Used = LeavesBalance.Used;
+                LeavesBalance.UsedBySys = LeavesBalance.Balance;
+                LeavesBalance.Stopped = true;
+                dbcontext.SaveChanges();
+            }
+
+            return Json(employee);
+        }
     }
 }

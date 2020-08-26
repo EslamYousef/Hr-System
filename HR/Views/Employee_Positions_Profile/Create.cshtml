@@ -136,8 +136,18 @@
                                             @Html.ValidationMessageFor(model => model.Position_Information.Organization_ChartId, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="col-md-4">
+                                            <label>DefaultCostCenterId</label>
+                                            @Html.DropDownListFor(m => m.Position_Information.DefaultCostCenterId, new SelectList(ViewBag.DefaultCostCenter, "ID", "Code"), "Select Default Cost Center", new { @class = "select2", @onchange = "DefaultCostCenter()", id = "DefaultCostids", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.DefaultCostCenterId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>CostCenterId</label>
+                                            @Html.DropDownListFor(m => m.Position_Information.CostCenterId, new SelectList(ViewBag.CostCenter, "ID", "Code"), "Select Cost Center", new { @class = "select2", @onchange = "CostCenters()", id = "Costid", @disabled = true })
+                                            @Html.ValidationMessageFor(model => model.Position_Information.CostCenterId, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-4">
                                             <label>@Personnel.Shiftdaystatussetup</label>
-                                            @Html.DropDownListFor(m => m.Position_Information.Shift_setupId, new SelectList(ViewBag.Shift_setup, "ID", "Code"), @Personnel.SelectUnitdesc, new { @class = "select2", @onchange = "Shiftsetup()", id = "ShiftsetupId"})
+                                            @Html.DropDownListFor(m => m.Position_Information.Shift_setupId, new SelectList(ViewBag.Shift_setup, "ID", "Code"), @Personnel.SelectUnitdesc, new { @class = "select2", @onchange = "Shiftsetup()", id = "ShiftsetupId" })
                                             @Html.ValidationMessageFor(model => model.Position_Information.Shift_setupId, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="col-md-4">
@@ -365,36 +375,36 @@
             data: { "id": id },
             success: function (result) {
 
-              
+
             },
             error: function () {
-              
+
             }
         });
     }
     function employee() {
-         
+
         var id = $("#employeeId").val();
         $.ajax({
             type: "post",
             url: "/Helper/GetEmployee",
             data: { "id": id },
             success: function (result) {
-                 
+
                 $("#employeename").val(result.Name);
                 $("#codeid").val(result.Employee_Positions_Profile.Code);
                 $("#employeeId").attr("readonly", true);
                 $("#employeeId").prop("readonly", true);
             },
             error: function () {
-                 
+
                 $("#employeename").val(" ");
                 $("#codeid").val("");
             }
         });
     }
         function CountryName() {
-             
+
             var id = $("#country").val();
 
             $.ajax({
@@ -409,28 +419,30 @@
                     areaname(result.joblevelsetupID)
                     $("#area").removeAttr("disabled");
                     $("#s2id_area").removeAttr("disabled");
-                    
+
                     getter(result.ID)
                     getstate(result.Organization_unit_codeID)
+                    DefaulCostCenter(result.Organization_unit_codeID)
+                    CostCenter(result.Organization_unit_codeID)
                     $("#s2id_getstate").removeAttr("disabled");
 
                 },
                 error: function () {
-                     
+
                     $("#countryname1").val(" ");
                 }
             });
         }
         CountryName()
         function areaname(did) {
-             
+
 
             $.ajax({
                 type: "post",
                 url: "/helper/getjoblevel",
                 data: { "id": did },
                 success: function (result) {
-                     
+
                     $("#ter").removeAttr("disabled");
                     $("#area").select2("val", result.ID);
                     $("#areaname1").val(result.Name);
@@ -438,22 +450,22 @@
                     //$("#area").prop("readonly", true);
                 },
                 error: function () {
-                     
+
                     $("#areaname1").val(" ");
                 }
             });
         }
         function getter(did) {
-             
+
             var oo = $("#employeeId").val();
             var id = $("#ter").val();
-   
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetJobSolts",
                 data: { "id": did,"did":oo },
                 success: function (result) {
-                     
+
                     var finalresult="";
                     finalresult = "<option value='0' > Choose Slot desc </option>";
                     $.each(result, function (key, value) {
@@ -471,41 +483,41 @@
                     slot();
                 //    getallcite(result.ID);
                     $("#state").removeAttr("disabled");
-
+                    
                 },
                 error: function () {
-                     
+
                     $("#tername").val(" ");
                 }
             });
         }
         function slot()
         {
-             
+
             var id = $("#ter").val();
             $.ajax({
                 type: "post",
                 url: "/Helper/GetSolt",
                 data: { "id": id },
                 success: function (result) {
-                     
+
                     $("#tername").val(result.slot_code);
                 },
                 error: function () {
-                     
+
                     $("#tername").val(" ");
                 }
             });
         }
         function getstate(did)
         {
-             
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetOrganizationChart",
                 data: { "id": did },
                 success: function (result) {
-                     
+
                     $("#state").select2("val", result.ID);
 
                     $("#citeid").removeAttr("disabled");
@@ -516,20 +528,88 @@
                     //$("#state").prop("readonly", true);
                 },
                 error: function () {
-                     
                     $("#statename").val(" ");
                 }
             });
-        }
+    }
+
+    function DefaulCostCenter(did) {
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenter",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+                $("#DefaultCostids").select2("val", result.ID);
+                $("#s2id_DefaultCostid").val(result.CostCenterDesc);
+                $("#DefaultCostids").val(result.CostCenterDesc);
+                //$("#DefaultCostids").attr("readonly", true);
+                //$("#DefaultCostids").prop("readonly", true);
+                $("#Costid").removeAttr("disabled");
+
+            },
+            error: function () {
+                $("#DefaultCostids").select2("val", " ");
+            }
+        });
+    }
+    function CostCenter(did) {
+        debugger
+
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenter",
+            data: { "id": did },
+            success: function (result) {
+                debugger
+                $("#Costid").attr("readonly", false);
+                $("#Costid").prop("readonly", false);
+                $("#Costid").select2("val", result.ID);
+                $("#s2id_Costid").val(result.CostCenterDesc);
+                $("#Costid").val(result.CostCenterDesc);
+                $("#Costid").removeAttr("disabled");
+
+
+            },
+            error: function () {
+                debugger
+                $("#Costid").attr("readonly", true);
+                $("#Costid").prop("readonly", true);
+                $("#Costid").select2("val", " ");
+            }
+        });
+    }
+    function CostCenters() {
+        debugger
+        var id = $("#Costid").val();
+        $.ajax({
+            type: "post",
+            url: "/Helper/GetCostCenterfromPayroll",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+
+                $("#Costid").select2("val", result.ID);
+                $("#s2id_Costid").val(result.CostCenterDesc);
+                $("#Costid").val(result.CostCenterDesc);
+
+
+            },
+            error: function () {
+                $("#Costid").select2("val", " ");
+            }
+        });
+    }
+
 
         function getcite(did) {
-             
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetWorklocation",
                 data: { "id": did },
                 success: function (result) {
-                     
+
 
                     $("#citeid").select2("val", result.ID);
                     $("#cityname").val(result.Name);
@@ -538,28 +618,28 @@
                     $("#citeid2").removeAttr("disabled");
                 },
                 error: function () {
-                     
+
                     $("#cityname").val(" ");
                 }
             });
         }
-     
+
         function getcite2(did) {
-             
-      
+
+
             $.ajax({
                 type: "post",
                 url: "/Helper/GetWorklocation",
                 data: { "id": did },
                 success: function (result) {
-                     
+
 
                     $("#citeid2").select2("val", result.ID);
                     $("#cityname2").val(result.Name);
 
                 },
                 error: function () {
-                     
+
                     $("#cityname2").val(" ");
                 }
             });
