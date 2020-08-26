@@ -17,7 +17,7 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: EOS_request
-        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction,personnel transaction process,personnelprocess")]
         public ActionResult Index()
         {
             //var an = dbcontext.Answer_EOS.ToList();

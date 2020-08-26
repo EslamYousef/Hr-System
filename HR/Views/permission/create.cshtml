@@ -251,9 +251,12 @@
 
                 @using (Html.BeginForm("Create", "permission", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
+                    <input hidden name="Module_" value="" />
+                    <input hidden name="subModule_" value="" />
+                    <input hidden name="form_" value="" />
                     <div class="sec-nav">
                         <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
-                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "EOS_request")" class="create-btn"> @pers_2.Back</a></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "permission")" class="create-btn"> @pers_2.Back</a></div>
                        
                     </div>
                     @Html.AntiForgeryToken()
@@ -302,6 +305,9 @@
                                 <select class="select2" id="Country2" disabled  OnChange = "get_forms()">
 
                                 </select>
+                                
+
+                              
                              </div>
 
                             <div class="col-md-4">

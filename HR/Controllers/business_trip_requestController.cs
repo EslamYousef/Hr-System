@@ -15,7 +15,7 @@ namespace HR.Controllers
     {
         // GET: business_trip_request
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess")]
         public ActionResult Index()
         {
             var model = dbcontext.business_trip_request.ToList();

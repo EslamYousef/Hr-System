@@ -16,7 +16,7 @@ namespace HR.Controllers
     {
         // GET: personnel_transaction
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
+        [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction,personnel transaction process,personnelprocess")]
         public ActionResult index(string mess)
         {
             try

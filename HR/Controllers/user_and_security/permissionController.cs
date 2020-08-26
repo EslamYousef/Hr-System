@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.user_and_security
 {
+    [Authorize(Roles = "Admin")]
     public class permissionController : BaseController
     {
         // GET: permission

@@ -26,7 +26,7 @@ namespace HR.Controllers
             new Langmanger().SetLanguage(lang);
             return RedirectToAction("Index", "Home");
         }
-        [Authorize(Roles ="Admin")]
+       
         public ActionResult setting()
         {
             return View();

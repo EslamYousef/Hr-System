@@ -15,7 +15,7 @@ namespace HR.Controllers.payroll_tran1
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: LoanRequest
-        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction")]
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,loan transaction,payrollProcess,loan process")]
         public ActionResult Index()
         {
             var model = dbcontext.LoanRequest.ToList();

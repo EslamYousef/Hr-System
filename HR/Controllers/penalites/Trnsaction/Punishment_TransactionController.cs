@@ -16,7 +16,7 @@ namespace HR.Controllers.penalites.Trnsaction
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
 
-        [Authorize(Roles = "Admin,Penalties,PenaltiesTransaction")]
+        [Authorize(Roles = "Admin,Penalties,PenaltiesTransaction,PenaltiesProcess")]
         public ActionResult index()
         {
             var model = dbcontext.Discipline_PunishmentTransaction.ToList();

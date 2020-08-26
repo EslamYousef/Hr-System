@@ -16,7 +16,7 @@ namespace HR.Controllers
     {
         // GET: ExitPermissionRequest
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess")]
         public ActionResult index()
         {
             try

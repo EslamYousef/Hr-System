@@ -15,7 +15,7 @@ namespace HR.Controllers
     {
         ApplicationDbContext Context = new ApplicationDbContext();
         // GET: EvaluationTransaction
-        [Authorize(Roles = "Admin,Evalution,EvalutionTransaction")]
+        [Authorize(Roles = "Admin,Evalution,EvalutionTransaction,EvalutionProcess")]
         public ActionResult Index()
         {
             try

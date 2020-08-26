@@ -16,7 +16,7 @@ namespace HR.Controllers
     {
         // GET: workpermissionrequest
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess")]
         public ActionResult Index()
         {
             var model = dbcontext.workpermissionrequest.ToList();
