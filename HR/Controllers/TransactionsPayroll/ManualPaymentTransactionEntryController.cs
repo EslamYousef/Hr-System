@@ -14,11 +14,12 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.TransactionsPayroll
 {
-    [Authorize]
+   
     public class ManualPaymentTransactionEntryController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: ManualPaymentTransactionEntry
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Payment Settlement Transaction Entry,payrollProcess,Manual Payment Settlement Action Process")]
         public ActionResult Index()
         {
             var Employee_Profile = dbcontext.Employee_Profile.ToList();
@@ -38,6 +39,7 @@ namespace HR.Controllers.TransactionsPayroll
             //var model = dbcontext.ManualPaymentTransactionEntry.ToList();
             return View(model);
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Payment Settlement Transaction Entry")]
         public ActionResult create()
         {
             try
@@ -153,6 +155,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Payment Settlement Transaction Entry")]
         public ActionResult edit(int id)
         {
             try
@@ -241,6 +244,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Payment Settlement Transaction Entry")]
         public ActionResult delete(int id)
         {
             try
@@ -299,6 +303,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(header);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Payment Settlement Transaction Entry")]
         public ActionResult Details(int id, string Trans, string Emp, string Man, string Source)
         {
             try
@@ -361,7 +366,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
-
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Payment Settlement Mass Transaction")]
         public ActionResult PaymentSettlementMassTransaction()
         {
             try
@@ -530,6 +535,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollProcess,Manual Payment Settlement Action Process")]
         public ActionResult status(string id)
         {
             try

@@ -19,11 +19,11 @@ using Microsoft.AspNet.Identity;
 
 namespace HR.Controllers.TransactionsPayroll
 {
-    [Authorize]
     public class Employee_Payroll_TransactionsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Employee_Payroll_Transactions
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Transactions Approval,Transaction Entry,payrollProcess")]
         public ActionResult Index()
         {
             var Employee_Payroll_Transactions = dbcontext.Employee_Payroll_Transactions.ToList();
@@ -172,6 +172,8 @@ namespace HR.Controllers.TransactionsPayroll
 
         }
 
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Transaction Entry")]
+
         public ActionResult create()
         {
             try
@@ -303,6 +305,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Transaction Entry")]
         public ActionResult edit(string id)
         {
             try
@@ -422,6 +425,7 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Transaction Entry")]
         public ActionResult delete(int id)
         {
             try
@@ -465,6 +469,8 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(header);
             }
         }
+        [Authorize(Roles = "Admin,payroll,Transactions Approval,payrollProcess")]
+
         public ActionResult status(string id)
         {
             try
@@ -659,7 +665,7 @@ namespace HR.Controllers.TransactionsPayroll
             list.Add("Return_To_Review");
             return Json(list);
         }
-
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Import Transaction Entry From Execl")]
         public ActionResult ImportTransactionEntryFromExcel()
         {
             return View();
@@ -738,6 +744,7 @@ namespace HR.Controllers.TransactionsPayroll
             }
             return empList;
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Batch Transactions Vertical")]
 
         public ActionResult PayrollTransactionsVerticalBatch()
         {
@@ -867,6 +874,8 @@ namespace HR.Controllers.TransactionsPayroll
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,payroll,payrollTransaction,Batch Transactions Horizntal")]
+
         public ActionResult PayrollTransactionHorizontalBatch()
         {
             try

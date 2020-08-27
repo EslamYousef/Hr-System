@@ -12,7 +12,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsSetup,Public Holidays Dates")]
     public class Public_Holidays_DatesController : BaseController
     {
         ApplicationDbContext db = new ApplicationDbContext();

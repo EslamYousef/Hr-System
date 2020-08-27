@@ -18,7 +18,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,TM,TMProcess,Assign schedule template to multi employee")]
     public class AssignscheduletemplatetomultiemployeeController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

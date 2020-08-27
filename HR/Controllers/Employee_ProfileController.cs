@@ -11,7 +11,7 @@ using System.IO;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelCards,Employee Profile")]
     public class Employee_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

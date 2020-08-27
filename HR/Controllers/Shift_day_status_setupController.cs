@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize(Roles = "Admin,TM,TMSetup")]
+    [Authorize(Roles = "Admin,TM,TMSetup,Shift day status setup")]
     public class Shift_day_status_setupController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

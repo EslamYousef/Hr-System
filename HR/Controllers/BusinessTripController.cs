@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize(Roles = "Admin,TM,TMSetup")]
+    [Authorize(Roles = "Admin,TM,TMSetup,Business trip mission type setup")]
     public class BusinessTripController : BaseController
     {
         // GET: BusinessTrip

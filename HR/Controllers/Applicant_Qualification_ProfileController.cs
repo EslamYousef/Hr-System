@@ -10,6 +10,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
     public class Applicant_Qualification_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
@@ -56,11 +57,11 @@ namespace HR.Controllers
 
         }
         [HttpPost]
-        public ActionResult Create(Applicant_Qualification_Profile model, string command,int ID2)
+        public ActionResult Create(Applicant_Qualification_Profile model, string command, int ID2)
         {
             try
             {
-                ViewBag.iod =ID2;
+                ViewBag.iod = ID2;
                 ViewBag.Employee_Profile = dbcontext.Applicant_Profile.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_category = dbcontext.Educate_category.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
                 ViewBag.Educate_Title = dbcontext.Educate_Title.ToList().Select(m => new { Code = m.Code + "------[" + m.Name + ']', ID = m.ID });
@@ -88,78 +89,78 @@ namespace HR.Controllers
                 if (model.GradeEducateId == 0) { model.GradeEducateId = null; }
                 //if (ModelState.IsValid)
                 //{
-                    //if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.EducatecategoryCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.Educate_TitleId == "0" || model.Educate_TitleId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.EducateTitleCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.Main_Educate_bodyId == "0" || model.Main_Educate_bodyId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.MainEducatebodyCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.Sub_educational_bodyId == "0" || model.Sub_educational_bodyId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.SubeducationalbodyCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.Name_of_educational_qualificationId == "0" || model.Name_of_educational_qualificationId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.NameofeducationalqualificationCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.Qualification_MajorId == "0" || model.Qualification_MajorId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.QualificationMajorCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.GradeEducateId == "0" || model.GradeEducateId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.GradeEducateCodemustenter);
-                    //    return View(model);
-                    //}
-                    //if (model.Employee_ProfileId == 0 || model.Employee_ProfileId == null)
-                    //{
-                    //    ModelState.AddModelError("", HR.Resource.Personnel.EmployeeProfileCodemustenter);
-                    //    return View(model);
-                    //}
-                    //   var prof = int.Parse(model.Employee_ProfileId);
-                    //     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
-                    //             var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == emp.Employee_Qualification_Profile.ID);
+                //if (model.Educate_categoryId == "0" || model.Educate_categoryId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.EducatecategoryCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.Educate_TitleId == "0" || model.Educate_TitleId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.EducateTitleCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.Main_Educate_bodyId == "0" || model.Main_Educate_bodyId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.MainEducatebodyCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.Sub_educational_bodyId == "0" || model.Sub_educational_bodyId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.SubeducationalbodyCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.Name_of_educational_qualificationId == "0" || model.Name_of_educational_qualificationId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.NameofeducationalqualificationCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.Qualification_MajorId == "0" || model.Qualification_MajorId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.QualificationMajorCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.GradeEducateId == "0" || model.GradeEducateId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.GradeEducateCodemustenter);
+                //    return View(model);
+                //}
+                //if (model.Employee_ProfileId == 0 || model.Employee_ProfileId == null)
+                //{
+                //    ModelState.AddModelError("", HR.Resource.Personnel.EmployeeProfileCodemustenter);
+                //    return View(model);
+                //}
+                //   var prof = int.Parse(model.Employee_ProfileId);
+                //     var emp = dbcontext.Employee_Profile.FirstOrDefault(m => m.ID == prof);
+                //             var record = dbcontext.Employee_Qualification_Profile.FirstOrDefault(m => m.ID == emp.Employee_Qualification_Profile.ID);
 
-                    record.Related_to_job = model.Related_to_job;
-                    record.Qualification_start_date = model.Qualification_start_date;
-                    record.Qualification_end_date = model.Qualification_end_date;
-                    if (model.Qualification_start_date > model.Qualification_end_date)
-                    {
-                        TempData["Message"] = HR.Resource.Personnel.QualificationstartdatebiggerQualificationenddate;
-                        return View(model);
-                    }
-                    record.Years = model.Years;
-                    record.Months = model.Months;
-                    record.Extra_education_years = model.Extra_education_years;
-                    record.Allowance_value = model.Allowance_value;
-                    //record.Employee_ProfileId = model.Employee_ProfileId;
-                    //var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
-                    record.Educate_categoryId = model.Educate_categoryId;
-                    record.Educate_TitleId = model.Educate_TitleId;
-                    record.Main_Educate_bodyId = model.Main_Educate_bodyId;
-                    record.Sub_educational_bodyId = model.Sub_educational_bodyId;
-                    record.Name_of_educational_qualificationId = model.Name_of_educational_qualificationId;
-                    record.Qualification_MajorId = model.Qualification_MajorId;
-                    record.GradeEducateId = model.GradeEducateId;
-                    dbcontext.Applicant_Qualification_Profile.Add(record);
-                    dbcontext.SaveChanges();
-                    if (command == "Submit")
-                    {
-                        return RedirectToAction("edit", "Applicant_Profile", new { id = EmpObj.ID });
-                    }
-                    return RedirectToAction("Index", new { id = EmpObj.ID });
+                record.Related_to_job = model.Related_to_job;
+                record.Qualification_start_date = model.Qualification_start_date;
+                record.Qualification_end_date = model.Qualification_end_date;
+                if (model.Qualification_start_date > model.Qualification_end_date)
+                {
+                    TempData["Message"] = HR.Resource.Personnel.QualificationstartdatebiggerQualificationenddate;
+                    return View(model);
+                }
+                record.Years = model.Years;
+                record.Months = model.Months;
+                record.Extra_education_years = model.Extra_education_years;
+                record.Allowance_value = model.Allowance_value;
+                //record.Employee_ProfileId = model.Employee_ProfileId;
+                //var Employee_ProfileId = int.Parse(model.Employee_ProfileId);
+                record.Educate_categoryId = model.Educate_categoryId;
+                record.Educate_TitleId = model.Educate_TitleId;
+                record.Main_Educate_bodyId = model.Main_Educate_bodyId;
+                record.Sub_educational_bodyId = model.Sub_educational_bodyId;
+                record.Name_of_educational_qualificationId = model.Name_of_educational_qualificationId;
+                record.Qualification_MajorId = model.Qualification_MajorId;
+                record.GradeEducateId = model.GradeEducateId;
+                dbcontext.Applicant_Qualification_Profile.Add(record);
+                dbcontext.SaveChanges();
+                if (command == "Submit")
+                {
+                    return RedirectToAction("edit", "Applicant_Profile", new { id = EmpObj.ID });
+                }
+                return RedirectToAction("Index", new { id = EmpObj.ID });
                 //}
 
                 //else
@@ -210,7 +211,7 @@ namespace HR.Controllers
             { return View(); }
         }
         [HttpPost]
-        public ActionResult Edit(Applicant_Qualification_Profile model, string command,int ID2)
+        public ActionResult Edit(Applicant_Qualification_Profile model, string command, int ID2)
         {
             try
             {

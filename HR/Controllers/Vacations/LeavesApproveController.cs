@@ -14,7 +14,7 @@ using System.Globalization;
 
 namespace HR.Controllers.Vacations
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsProcess,Vacation Approve")]
     public class LeavesApproveController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

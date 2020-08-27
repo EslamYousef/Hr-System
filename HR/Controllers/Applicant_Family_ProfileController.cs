@@ -10,6 +10,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
     public class Applicant_Family_ProfileController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
@@ -94,7 +95,7 @@ namespace HR.Controllers
                     record.Applicant_Profile = dbcontext.Applicant_Profile.FirstOrDefault(m => m.ID == Employee_ProfileId);
                     record.NationalityId = model.NationalityId;
                     record.Birth_date = model.Birth_date;
-                    record.Death_date = model.Death_date;         
+                    record.Death_date = model.Death_date;
                     record.Marital_Status = model.Marital_Status;
                     record.Id_type = model.Id_type;
                     record.Id_number = model.Id_number;

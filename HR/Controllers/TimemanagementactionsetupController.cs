@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize(Roles = "Admin,TM,TMSetup")] 
+    [Authorize(Roles = "Admin,TM,TMSetup,Time managment action setup")] 
     public class TimemanagementactionsetupController : BaseController
     {
         // GET: Timemanagementactionsetup

@@ -11,7 +11,7 @@ using HR.Models.Application;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applications Rec")]
     public class Business_Test_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

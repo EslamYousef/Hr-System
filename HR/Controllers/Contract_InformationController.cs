@@ -12,7 +12,7 @@ using HR.Models.Application;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applications Rec")]
     public class Contract_InformationController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

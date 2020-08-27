@@ -18,7 +18,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.TransactionsPayroll
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,payroll,payrollProcess,Employee Annual and Special Allowance")]
     public class EmployeeAnnualandSpecialAllowanceController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -209,16 +209,100 @@ namespace HR.Migrations
             roleManager.Create(new IdentityRole { Name = "view jobs" }); roleManager.Create(new IdentityRole { Name = "jobs title_report" }); roleManager.Create(new IdentityRole { Name = "organization chart_report" });
             roleManager.Create(new IdentityRole { Name = "organization reloated to jobs" });
 
+            //=====Recuirtment
+            permissions.Add(new Models.user.permissions { Permission_Name = "Check list item Rec", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Committle Subjects", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Tests", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Allowance years", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Total Applicants", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 6 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Applicant Profile", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 2 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Committe Resolution Rec", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 2 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Applications Rec", type_permission = Models.user.type_permission.forms, module = 3, sub_module = 2 });
+
+            roleManager.Create(new IdentityRole { Name = "Check list item Rec" }); roleManager.Create(new IdentityRole { Name = "Check list item Rec" }); 
+            roleManager.Create(new IdentityRole { Name = "Tests" }); roleManager.Create(new IdentityRole { Name = "Allowance years" });
+            roleManager.Create(new IdentityRole { Name = "Total Applicants" });
+            roleManager.Create(new IdentityRole { Name = "Applicant Profile" }); roleManager.Create(new IdentityRole { Name = "Applications Rec" });
+            roleManager.Create(new IdentityRole { Name = "Committe Resolution Rec" });
 
             //==personnel
+            permissions.Add(new Models.user.permissions { Permission_Name = "Contract Types", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Subscription", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee Record Type", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Retirement Levels Setup", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee Profile Groups", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Public Holidays Events", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Public Holidays Dates", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Weekends", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Vacations Setup", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Transportation method", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Time managment action setup", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Business trip mission type setup", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Time managemt conditionl formulas setup", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Shift day status setup", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Shift setup", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee shift schedule", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Exit Permission Types", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Exit Permission Reasons", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Check List Item Groups", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Check List Items", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Eos Questions groups", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Eos Questions", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 1 });
+
             permissions.Add(new Models.user.permissions { Permission_Name = "Employee record transaction", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 3 });
             permissions.Add(new Models.user.permissions { Permission_Name = "Employee record process", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 4 });
             permissions.Add(new Models.user.permissions { Permission_Name = "personnel transaction transaction", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 3 });
             permissions.Add(new Models.user.permissions { Permission_Name = "personnel  transaction process", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 4 });
             roleManager.Create(new IdentityRole { Name = "Employee record transaction" }); roleManager.Create(new IdentityRole { Name = "personnel transaction transaction" });
             roleManager.Create(new IdentityRole { Name = "Employee record process" }); roleManager.Create(new IdentityRole { Name = "personnel  transaction process" });
+           
+            roleManager.Create(new IdentityRole { Name = "Weekends" }); roleManager.Create(new IdentityRole { Name = "Public Holidays Dates" });
+            roleManager.Create(new IdentityRole { Name = "Public Holidays Events" }); roleManager.Create(new IdentityRole { Name = "Vacations Setup" });
+            roleManager.Create(new IdentityRole { Name = "Employee Profile Groups" }); roleManager.Create(new IdentityRole { Name = "Employee Record Type" });
+            roleManager.Create(new IdentityRole { Name = "Subscription" }); roleManager.Create(new IdentityRole { Name = "Retirement Levels Setup" });
+            roleManager.Create(new IdentityRole { Name = "Contract Types" }); roleManager.Create(new IdentityRole { Name = "Transportation method" });
+            roleManager.Create(new IdentityRole { Name = "Time managment action setup" }); roleManager.Create(new IdentityRole { Name = "Time managment action setup" });
+            roleManager.Create(new IdentityRole { Name = "Business trip mission type setup" }); roleManager.Create(new IdentityRole { Name = "Time managemt conditionl formulas setup" });
+            roleManager.Create(new IdentityRole { Name = "Shift day status setup" }); roleManager.Create(new IdentityRole { Name = "Shift setup" });
+            roleManager.Create(new IdentityRole { Name = "Employee shift schedule" }); roleManager.Create(new IdentityRole { Name = "Exit Permission Types" });
+            roleManager.Create(new IdentityRole { Name = "Exit Permission Reasons" }); roleManager.Create(new IdentityRole { Name = "Check List Item Groups" });
+            roleManager.Create(new IdentityRole { Name = "Check List Items" }); roleManager.Create(new IdentityRole { Name = "Eos Questions groups" });
+            roleManager.Create(new IdentityRole { Name = "Eos Questions" });
 
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee Profile", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 2 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Create Vacation Balance", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 2 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Vacation Balance", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 2 });
+            roleManager.Create(new IdentityRole { Name = "Employee Profile" }); roleManager.Create(new IdentityRole { Name = "Create Vacation Balance" });
+            roleManager.Create(new IdentityRole { Name = "Vacation Balance" });
 
+            permissions.Add(new Models.user.permissions { Permission_Name = "Vacations Request", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Vacation Mass", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Vacation Balance Adjustement", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 3 });
+            roleManager.Create(new IdentityRole { Name = "Vacations Request" }); roleManager.Create(new IdentityRole { Name = "Vacation Mass" });
+            roleManager.Create(new IdentityRole { Name = "Vacation Balance Adjustement" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Vacation Approve", type_permission = Models.user.type_permission.forms, module = 7, sub_module = 4 });
+            roleManager.Create(new IdentityRole { Name = "Vacations Approve" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Work permission request", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 3});
+            permissions.Add(new Models.user.permissions { Permission_Name = "Business trip Mission type request", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Exit Permission Request", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee Time Attendances", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Import From Exel Time Attendance", type_permission = Models.user.type_permission.forms, module = 4, sub_module = 3 });
+
+            roleManager.Create(new IdentityRole { Name = "Work permission request" }); roleManager.Create(new IdentityRole { Name = "Business trip Mission type request" }); 
+            roleManager.Create(new IdentityRole { Name = "Exit Permission Request" }); roleManager.Create(new IdentityRole { Name = "Employee Time Attendances" });
+            roleManager.Create(new IdentityRole { Name = "Import From Exel Time Attendance" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Work permission Approve", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Business trip Mission type Approve", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Exit Permission Approve", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee Time Approve", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Assign schedule template to multi employee", type_permission = Models.user.type_permission.forms, module = 8, sub_module = 4 });
+
+            roleManager.Create(new IdentityRole { Name = "Business trip Mission type Approve" }); roleManager.Create(new IdentityRole { Name = "Work permission Approve" });
+            roleManager.Create(new IdentityRole { Name = "Exit Permission Approve" }); roleManager.Create(new IdentityRole { Name = "Employee Time Approve" });
+            roleManager.Create(new IdentityRole { Name = "Assign schedule template to multi employee" });
 
             //======talent
             permissions.Add(new Models.user.permissions { Permission_Name = "Training centers evalution elements", type_permission = Models.user.type_permission.forms, module = 5, sub_module = 1 });
@@ -248,8 +332,50 @@ namespace HR.Migrations
             roleManager.Create(new IdentityRole { Name = "payroll general setup" }); roleManager.Create(new IdentityRole { Name = "salary items collection groups" });
             roleManager.Create(new IdentityRole { Name = "salary item" }); roleManager.Create(new IdentityRole { Name = "loan transaction" }); roleManager.Create(new IdentityRole { Name = "loan process" });
 
+            permissions.Add(new Models.user.permissions { Permission_Name = "payroll Periodic", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Transaction journal", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Cost Center Cetegory", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Cost Center", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Gl Account", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Bank", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Branches", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Locker ", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1});
+            permissions.Add(new Models.user.permissions { Permission_Name = "Extended Fields", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Extended Fields Details", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 1 });
 
-           
+            roleManager.Create(new IdentityRole { Name = "payroll Periodic" }); roleManager.Create(new IdentityRole { Name = "Cost Center Cetegory" });
+            roleManager.Create(new IdentityRole { Name = "Transaction journal" }); roleManager.Create(new IdentityRole { Name = "Cost Center" });
+            roleManager.Create(new IdentityRole { Name = "Gl Account" }); roleManager.Create(new IdentityRole { Name = "Branches" });
+            roleManager.Create(new IdentityRole { Name = "Bank" }); roleManager.Create(new IdentityRole { Name = "Cost Center" });
+            roleManager.Create(new IdentityRole { Name = "Locker" }); roleManager.Create(new IdentityRole { Name = "Extended Fields" });
+            roleManager.Create(new IdentityRole { Name = "Extended Fields Details" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Manual Payment Settlement", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 2 });
+            roleManager.Create(new IdentityRole { Name = "Manual Payment Settlement" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Transaction Entry", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Import Transaction Entry From Execl", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Batch Transactions Vertical", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Batch Transactions Horizntal", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Payment Settlement Transaction Entry", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 3 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Payment Settlement Mass Transaction", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 3 });
+
+            roleManager.Create(new IdentityRole { Name = "Transaction Entry" }); roleManager.Create(new IdentityRole { Name = "Batch Transactions Vertical" });
+            roleManager.Create(new IdentityRole { Name = "Import Transaction Entry From Execl" }); roleManager.Create(new IdentityRole { Name = "Batch Transactions Horizntal" });
+            roleManager.Create(new IdentityRole { Name = "Payment Settlement Transaction Entry" }); roleManager.Create(new IdentityRole { Name = "Payment Settlement Mass Transaction" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Transactions Approval", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Manual Payment Settlement Action Process", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 4 });
+
+            roleManager.Create(new IdentityRole { Name = "Transactions Approval" }); roleManager.Create(new IdentityRole { Name = "Manual Payment Settlement Action Process" });
+
+            permissions.Add(new Models.user.permissions { Permission_Name = "Ledger Transactions", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Employee Annual and Special Allowance", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 4 });
+            permissions.Add(new Models.user.permissions { Permission_Name = "Specail allwances increase for job cadres", type_permission = Models.user.type_permission.forms, module = 6, sub_module = 4 });
+
+            roleManager.Create(new IdentityRole { Name = "Ledger Transactions" }); roleManager.Create(new IdentityRole { Name = "Specail allwances increase for job cadres" });
+            roleManager.Create(new IdentityRole { Name = "Employee Annual and Special Allowance" }); 
+
             //====================================================================================================================================
             dbcontext.permissions.AddRange(permissions);
             dbcontext.SaveChanges();

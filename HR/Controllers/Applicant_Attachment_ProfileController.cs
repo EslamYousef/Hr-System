@@ -11,6 +11,7 @@ using System.IO;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
     public class Applicant_Attachment_ProfileController : BaseController
     {
         // GET: Applicant_Attachment_Profile

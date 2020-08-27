@@ -12,7 +12,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace HR.Controllers.Vacations
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsTransaction,Vacation Balance Adjustement")]
     public class LeavesTransactionBalanceController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

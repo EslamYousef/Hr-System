@@ -10,7 +10,7 @@ using HR.Models.ViewModel;
 using System.IO;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelCards,Employee Profile")]
     public class Employee_attachment_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

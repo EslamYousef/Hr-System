@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Eos Questions groups")]
     public class EOS_Interview_Questions_GroupsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

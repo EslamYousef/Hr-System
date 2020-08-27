@@ -12,7 +12,7 @@ using System.Web.WebPages;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applications Rec")]
     public class Hiring_Check_ListController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

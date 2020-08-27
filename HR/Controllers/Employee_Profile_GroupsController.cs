@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Employee Profile Groups")]
     public class Employee_Profile_GroupsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

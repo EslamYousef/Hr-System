@@ -9,7 +9,7 @@ using HR.Models;
 using System.Data.Entity.Infrastructure;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelCards,Employee Profile")]
     public class Employee_sponsor_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

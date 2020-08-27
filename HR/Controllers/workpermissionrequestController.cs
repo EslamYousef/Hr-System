@@ -16,13 +16,13 @@ namespace HR.Controllers
     {
         // GET: workpermissionrequest
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess,Work permission request,Work permission Approve")]
         public ActionResult Index()
         {
             var model = dbcontext.workpermissionrequest.ToList();
             return View(model);
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Work permission request")]
         public ActionResult create()
         {
             try
@@ -81,7 +81,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Work permission request")]
         public ActionResult edit(int id)
         {
             try
@@ -132,7 +132,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Work permission request")]
         public ActionResult delete(int id)
         {
             try
@@ -161,7 +161,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMProcess")]
+        [Authorize(Roles = "Admin,TM,TMProcess,Work permission Approve")]
         public ActionResult status(string id)
         {
             try

@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.TransactionsPayroll
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,payroll,payrollProcess,Ledger Transactions")]
     public class LedgerTransactionController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

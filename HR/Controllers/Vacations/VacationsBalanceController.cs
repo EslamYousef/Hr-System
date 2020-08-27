@@ -15,7 +15,7 @@ using static HR.Controllers.Vacations.LeavesApproveController;
 
 namespace HR.Controllers.Vacations
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsCards,Vacation Balance")]
     public class VacationsBalanceController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

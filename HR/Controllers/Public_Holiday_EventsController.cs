@@ -9,7 +9,7 @@ using HR.Models.Infra;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsSetup,Public Holidays Events")]
     public class Public_Holiday_EventsController : BaseController
     {
         // GET: Public_Holiday_Events

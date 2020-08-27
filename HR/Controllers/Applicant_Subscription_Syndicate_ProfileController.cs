@@ -10,6 +10,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
     public class Applicant_Subscription_Syndicate_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
@@ -50,7 +51,7 @@ namespace HR.Controllers
             DateTime statis = Convert.ToDateTime("1/1/1900");
             var ID = int.Parse(id);
             var emp = dbcontext.Applicant_Profile.FirstOrDefault(m => m.ID == ID);
-            var EmployeeSubscription = new Applicant_Subscription_Syndicate_Profile {Applicant_Profile=emp, Employee_ProfileId = emp.ID, Code = stru.Structure_Code + count.ToString(), Subscription_date = statis, Boarder_election_date = statis, Head_election_date = statis, Last_date_paid = statis, Employee_pay = 0.00, Company_pay = 0.00, Start_year_of_deduction = 1900, End_month_of_deduction = 0, Beneficiary_period = 0.000, Start_month_of_deduction = 0, End_year_of_deduction = 1900, Balance = 0.000, Subscription_fees = 0.00, Family_subscription_fees = 0.00 };
+            var EmployeeSubscription = new Applicant_Subscription_Syndicate_Profile { Applicant_Profile = emp, Employee_ProfileId = emp.ID, Code = stru.Structure_Code + count.ToString(), Subscription_date = statis, Boarder_election_date = statis, Head_election_date = statis, Last_date_paid = statis, Employee_pay = 0.00, Company_pay = 0.00, Start_year_of_deduction = 1900, End_month_of_deduction = 0, Beneficiary_period = 0.000, Start_month_of_deduction = 0, End_year_of_deduction = 1900, Balance = 0.000, Subscription_fees = 0.00, Family_subscription_fees = 0.00 };
             return View(EmployeeSubscription);
 
         }

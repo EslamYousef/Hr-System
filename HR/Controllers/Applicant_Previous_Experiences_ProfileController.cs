@@ -10,6 +10,7 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
     public class Applicant_Previous_Experiences_ProfileController : Controller
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
@@ -79,7 +80,7 @@ namespace HR.Controllers
                 //}
                 if (model.External_compainesId == 0) { model.External_compainesId = null; }
                 if (model.Rejection_ReasonsId == 0) { model.Rejection_ReasonsId = null; }
-               
+
                 record.Code = model.Code;
                 record.External_compainesId = model.External_compainesId;
                 record.Rejection_ReasonsId = model.Rejection_ReasonsId;
@@ -178,9 +179,9 @@ namespace HR.Controllers
 
                 record.Code = model.Code;
                 record.Rejection_ReasonsId = model.Rejection_ReasonsId;
-                
+
                 record.External_compainesId = model.External_compainesId;
-               
+
 
                 record.Code = model.Code;
                 record.Company_type = model.Company_type;

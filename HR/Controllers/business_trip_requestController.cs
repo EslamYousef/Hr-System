@@ -15,13 +15,13 @@ namespace HR.Controllers
     {
         // GET: business_trip_request
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Business trip Mission type request,Business trip Mission type Approve,TMProcess")]
         public ActionResult Index()
         {
             var model = dbcontext.business_trip_request.ToList();
             return View(model);
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Business trip Mission type request")]
         public ActionResult create()
         {
             try
@@ -94,7 +94,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Business trip Mission type request")]
         public ActionResult edit(int id)
         {
             try
@@ -160,7 +160,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Business trip Mission type request")]
         public ActionResult delete(int id)
         {
             try
@@ -189,7 +189,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMProcess")]
+        [Authorize(Roles = "Admin,TM,TMProcess,Business trip Mission type Approve")]
         public ActionResult status(string id)
         {
             try

@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentSetup,Check list item Rec")]
     public class Check_List_ItemsController : BaseController
     {
         // GET: Check_List_Items

@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelCards,Employee Profile")]
     public class Employee_vehicle_profileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -11,7 +11,7 @@ using HR.Models.All_Table_Commitee_Resolution;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Committe Resolution Rec")]
     public class Committe_ActivitiesController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentSetup,Committle Subjects")]
     public class Committe_subjectsController : BaseController
     {
         // GET: Committe_subjects

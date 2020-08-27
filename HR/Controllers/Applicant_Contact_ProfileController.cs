@@ -10,7 +10,8 @@ using HR.Models.ViewModel;
 
 namespace HR.Controllers
 {
-    public class Applicant_Contact_ProfileController : BaseController
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
+        public class Applicant_Contact_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Applicant_Contact_Profile

@@ -20,7 +20,7 @@ using HR.Models.Time_management;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,TM,TMTransaction,Import From Exel Time Attendance")]
     public class ImportFromExcel_TimeManagementController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Contract Types")]
     public class Contract_TypeController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -16,7 +16,7 @@ namespace HR.Controllers
     {
         // GET: ExitPermissionRequest
         ApplicationDbContext dbcontext = new ApplicationDbContext();
-        [Authorize(Roles = "Admin,TM,TMTransaction,TMProcess")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Exit Permission Request,Exit Permission Approve,TMProcess")]
         public ActionResult index()
         {
             try
@@ -30,7 +30,7 @@ namespace HR.Controllers
             }
 
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Exit Permission Request")]
         public ActionResult Create()
         {
             try
@@ -92,7 +92,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Exit Permission Request")]
         public ActionResult edit(int id)
         {
             try
@@ -136,7 +136,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
-        [Authorize(Roles = "Admin,TM,TMTransaction")]
+        [Authorize(Roles = "Admin,TM,TMTransaction,Exit Permission Request")]
         public ActionResult delete(int id)
         {
             try
@@ -167,7 +167,7 @@ namespace HR.Controllers
             }
 
         }
-        [Authorize(Roles = "Admin,TM,TMProcess")]
+        [Authorize(Roles = "Admin,TM,TMProcess,Exit Permission Approve")]
         public ActionResult status(string id)
         {
             try

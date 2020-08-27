@@ -14,7 +14,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace HR.Controllers.Vacations
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsTransaction,Vacation Mass")]
     public class LeavesMass_TransactionController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

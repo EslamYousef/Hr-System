@@ -12,7 +12,7 @@ using System.Web.WebPages;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Committe Resolution Rec")]
     public class Commitee_AgendaController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

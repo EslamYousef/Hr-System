@@ -10,6 +10,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentCards,Applicant Profile")]
     public class Applicant_Military_Service_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

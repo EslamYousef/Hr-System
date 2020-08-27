@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Subscription")]
     public class Subscription_SyndicateController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

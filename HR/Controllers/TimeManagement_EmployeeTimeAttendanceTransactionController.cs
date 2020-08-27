@@ -20,6 +20,7 @@ namespace HR.Controllers
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: TimeManagement_EmployeeTimeAttendanceTransaction
+        [Authorize(Roles = "Admin,TM,TMTransaction,Employee Time Attendances,Employee Time Approve,TMProcess")]
         public ActionResult Index()
         {
             var time = dbcontext.TimeManagement_EmployeeTimeAttendanceTransaction_Header.ToList();
@@ -34,6 +35,7 @@ namespace HR.Controllers
                         };
             return View(model);
         }
+        [Authorize(Roles = "Admin,TM,TMTransaction,Employee Time Attendances")]
         public ActionResult create()
         {
             try
@@ -209,6 +211,7 @@ namespace HR.Controllers
                 return View(model);
             }
         }
+        [Authorize(Roles = "Admin,TM,Employee Time Approve,TMProcess")]
         public ActionResult status(string id)
         {
             try

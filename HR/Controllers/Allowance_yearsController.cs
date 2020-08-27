@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentSetup,Allowance years")]
     public class Allowance_yearsController : BaseController
     {
         // GET: Allowance_years

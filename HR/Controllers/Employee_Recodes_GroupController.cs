@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Employee Record Type")]
     public class Employee_Recodes_GroupController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

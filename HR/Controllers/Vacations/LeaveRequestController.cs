@@ -13,7 +13,7 @@ using HR.Migrations;
 
 namespace HR.Controllers.Vacations
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsTransaction,Vacations Request")]
     public class LeaveRequestController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

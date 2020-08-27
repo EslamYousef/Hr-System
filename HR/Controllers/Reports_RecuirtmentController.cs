@@ -8,7 +8,8 @@ using System.Web.Mvc;
 
 namespace HR.Controllers
 {
-    public class Reports_RecuirtmentController : BaseController
+    [Authorize(Roles = "Admin,Recuirtment,payrollReport,Total Applicants")]
+        public class Reports_RecuirtmentController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
         // GET: Reports_Recuirtment

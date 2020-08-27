@@ -11,7 +11,7 @@ using System.Data.Entity;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Vacations,VacationsSetup,Vacations Setup")]
     public class Vacations_SetupController : BaseController
     {
         ApplicationDbContext db = new ApplicationDbContext();

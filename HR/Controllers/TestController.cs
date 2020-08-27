@@ -11,7 +11,7 @@ using System.IO;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Recuirtment,RecuirtmentSetup,Tests")]
     public class TestController : BaseController
     {
         // GET: Test

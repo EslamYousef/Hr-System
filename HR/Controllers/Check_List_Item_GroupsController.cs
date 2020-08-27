@@ -9,7 +9,7 @@ using HR.Models.Infra;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Check List Item Groups")]
     public class Check_List_Item_GroupsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

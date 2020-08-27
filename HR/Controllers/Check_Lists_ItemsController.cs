@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using HR.Models.Infra;
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelSetup,Check List Items")]
     public class Check_Lists_ItemsController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

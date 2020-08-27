@@ -10,7 +10,8 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.SetupPayroll
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,payroll,payrollSetup,Locker")]
+
     public class LockerController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

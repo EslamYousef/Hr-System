@@ -14,7 +14,7 @@ using HR.Models.SetupPayroll;
 
 namespace HR.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,personnel,personnelCards,Employee Profile")]
     public class Employee_Financial_ContractController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

@@ -10,7 +10,8 @@ using System.Web.Mvc;
 
 namespace HR.Controllers.SetupPayroll
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,payroll,payrollSetup,Bank")]
+
     public class BankController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();

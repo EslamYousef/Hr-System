@@ -9,6 +9,7 @@ using HR.Models.Infra;
 using HR.Models.ViewModel;
 namespace HR.Controllers
 {
+    [Authorize(Roles = "Admin,personnel,personnelCards,Employee Profile")]
     public class Employee_Address_ProfileController : BaseController
     {
         ApplicationDbContext dbcontext = new ApplicationDbContext();
