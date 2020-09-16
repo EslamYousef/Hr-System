@@ -1,0 +1,258 @@
+﻿@model HR.Controllers.REPORT_2
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "show_report";
+
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<script type="text/javascript">
+		jQuery( document ).ready( function( $ ) {
+			var $table4 = jQuery( "#table-4" );
+			$table4.DataTable( {
+				dom: 'Bfrtip',
+				buttons: [
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5',
+				]
+			} );
+		});
+		//function hiddeenn(th) {
+		//    var v = ["1", "2", "3"]
+		//    $.each(v, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").show();
+		//    })
+		//    debugger
+		//    var valu = th.val();
+		//    $.each(valu, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").remove();
+		//        var t = 0;
+		//    })
+
+		//    var i = 0;
+		//}
+</script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="sec-nav">
+                    <div>
+                        <i class="fas fa-undo"></i><a style="" href="@Url.Action("man_power_report_co", "man_power_report")" class="create-btn"> @pers_2.Back</a>
+                    </div>
+                </div>
+                <div style="margin-top:60px">
+
+                </div>
+                <table class="table table-bordered datatable" id="table-4">
+                    <thead style="margin-right:15px">
+                        <tr>
+                            @if (Model.flag[0])
+                            {
+                                <th style="width:40px">@pers_2.years</th>
+                            }
+                            @if (Model.flag[1])
+                            {
+                                <th style="width:40px">@organ.organizationchart</th>
+                            }
+
+                            @if (Model.flag[2])
+                            {
+                                <th style="width:40px">@organ.jobs</th>
+                            }
+                            @if (Model.flag[3])
+                            {
+                                <th style="width:40px">@organ.JobLevelSetup</th>
+                            }
+
+                            @if (Model.flag[4])
+                            {
+                                <th style="width:40px">@organ.jobtitleSubclass</th>
+                            }
+                            @if (Model.flag[5])
+                            {
+                                <th style="width:40px">@organ.Currentjobs</th>
+                            }
+                            @if (Model.flag[6])
+                            {
+                                <th style="width:40px">@organ.newjobs</th>
+                            }
+                           
+                                <th style="width:30px">@organ.quarter1</th>
+                            <th style="width:30px">@organ.quarter2</th>
+                            <th style="width:30px">@organ.quarter3</th>
+                            <th style="width:30px">@organ.quarter4</th>
+                           
+                               
+                           
+
+                        </tr>
+                    </thead>
+                    <tbody style="margin-right:15px">
+                        @foreach (var item in Model.man_power_items)
+                        {
+                            <tr>
+                                @if (Model.flag[0])
+                                {
+                                    <td style="width:40px">@item.year</td>
+                                }
+                                @if (Model.flag[1])
+                                {
+                                    <td style="width:40px">@item.organization</td>
+                                }
+
+                                @if (Model.flag[2])
+                                {
+
+                                    <td style="width:40px">@item.item.job_title_cards.name</td>
+
+
+                                }
+
+                                @if (Model.flag[3])
+                                {
+
+                                    <td style="width:40px">@item.item.job_level_setup.Name</td>
+
+                                }
+                                @if (Model.flag[4])
+                                {
+
+                                    <td style="width:40px">@item.item.Job_title_sub_class.Name</td>
+
+                                }
+                                @if (Model.flag[5])
+                                {
+
+                                    <td style="width:40px">@item.item.current_jobs</td>
+
+                                }
+                                @if (Model.flag[6])
+                                {
+
+                                    <td style="width:40px">@item.item.new_jobs</td>
+
+                                }
+                               
+
+                                    <td style="width:40px">@item.item.quarter1</td>
+                                    <td style="width:40px">@item.item.quarter2</td>
+                                    <td style="width:40px">@item.item.quarter3</td>
+                                    <td style="width:40px">@item.item.quarter4</td>
+
+
+                              
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

@@ -2,6 +2,7 @@
 using HR.Models.Infra;
 using HR.Models.penalities.setup;
 using HR.Models.TransactionsPayroll;
+using HR.Models.user;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -135,6 +136,22 @@ namespace HR.Controllers.penalites.Trnsaction
                         dbcontext.SaveChanges();
                     }
                 }
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("punishment transaction", HR.Models.user.Action.Create, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 //===================================================
                 return RedirectToAction("index");
             }
@@ -251,6 +268,22 @@ namespace HR.Controllers.penalites.Trnsaction
                         dbcontext.SaveChanges();
                     }
                 }
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("punishment transaction", HR.Models.user.Action.edit, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 //==========================================================================================================
                 return RedirectToAction("index");
             }
@@ -289,6 +322,22 @@ namespace HR.Controllers.penalites.Trnsaction
                 dbcontext.Discipline_PunishmentTransaction.Remove(model_header);
                 dbcontext.status.Remove(status);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check =HR.Controllers.check.check_alert("punishment transaction", HR.Models.user.Action.delete, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -445,7 +494,23 @@ namespace HR.Controllers.penalites.Trnsaction
                 dbcontext.SaveChanges();
 
             }
-
+            //=================================check for alert==================================
+            var get_result_check = HR.Controllers.check.check_alert("punishment process", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+            if (get_result_check != null)
+            {
+                var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject + model.statu, Subject = get_result_check.Message };
+                if (get_result_check.until != null)
+                {
+                    if (get_result_check.until.Value.Year != 0001)
+                    {
+                        inbox.until = get_result_check.until;
+                    }
+                }
+                ApplicationDbContext dbcontext = new ApplicationDbContext();
+                dbcontext.Alert_inbox.Add(inbox);
+                dbcontext.SaveChanges();
+            }
+            //===================================================================================
             return RedirectToAction("index");
         }
         //==========================ajax==============================

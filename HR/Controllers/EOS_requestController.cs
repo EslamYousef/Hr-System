@@ -1,5 +1,6 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
+using HR.Models.user;
 using HR.Models.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
@@ -166,8 +167,24 @@ namespace HR.Controllers
                 record.note = model.EOS.note;
                 dbcontext.EOS_Request.Add(record);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("EOS transaction", HR.Models.user.Action.Create,type_field.form);
+                if (get_result_check != null)
+                {
+                   var inbox= new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if(get_result_check.until!=null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 ///////////////click EOS interview/////////
-                if(command=="Submit2")
+                if (command=="Submit2")
                 {
                     return RedirectToAction("interview", new { id = record.ID});
                 }
@@ -175,6 +192,9 @@ namespace HR.Controllers
                 {
                     return RedirectToAction("chick", new { id = record.ID });
                 }
+                //var currentTime = DateTime.Now;
+                //HR.Models.NOtification.NotificationComponent NC = new HR.Models.NOtification.NotificationComponent();
+                //NC.RegisterNotification(currentTime);
                 ////////////back to index /////////////////
                 return RedirectToAction("index");
             }
@@ -185,7 +205,7 @@ namespace HR.Controllers
             }
             catch (Exception e)
             {
-                return View();
+                return View(model);
             }
         }
         [Authorize(Roles = "Admin,personnel,personnel transaction transaction,personnelTransaction")]
@@ -354,6 +374,22 @@ namespace HR.Controllers
                 var t = (EOS_type)(int)record.EOS_type;
                 record.name_type = t.ToString();
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("EOS transaction", HR.Models.user.Action.edit, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 if (command == "Submit2")
                 {
                     return RedirectToAction("interview", new { id = record.ID });
@@ -405,6 +441,22 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
                 dbcontext.EOS_Request.Remove(model);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("EOS transaction", HR.Models.user.Action.delete, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -763,6 +815,7 @@ namespace HR.Controllers
                 return Json(false);
             }
         }
+       
     }
     
 }

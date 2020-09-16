@@ -71,6 +71,25 @@ namespace HR.Controllers.training.trans
                     model.Created_Date = DateTime.Now.Date;
                     var instr = dbcontext.Cours.Add(model);
                     dbcontext.SaveChanges();
+                    //=================================check for alert==================================
+
+                    var get_result_check = HR.Controllers.check.check_alert("course carde", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+
+                    }
+                    //===================================================================================
                     if (command == "Submit")
                     {
                         return RedirectToAction("Create", "CourceQualification", new { ID_course = instr.ID });
@@ -159,6 +178,25 @@ namespace HR.Controllers.training.trans
                     course.Modified_Date = DateTime.Now.Date;
                     course.IsActive = model.IsActive;
                     dbcontext.SaveChanges();
+                    //=================================check for alert==================================
+
+                    var get_result_check = HR.Controllers.check.check_alert("course carde", HR.Models.user.Action.edit, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+
+                    }
+                    //===================================================================================
                     //=============================
                     if (command == "Submit")
                     {
@@ -237,6 +275,25 @@ namespace HR.Controllers.training.trans
                 if (type.Count > 0)
                     dbcontext.Course_TrainingType.RemoveRange(type);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("course carde", HR.Models.user.Action.delete, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)

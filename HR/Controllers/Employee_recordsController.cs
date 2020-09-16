@@ -1,5 +1,6 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
+using HR.Models.user;
 using HR.Models.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
@@ -101,6 +102,22 @@ namespace HR.Controllers
                 record.name_state = nameof(check_status.created);
                 dbcontext.Employee_records.Add(record);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("employee record transaction", HR.Models.user.Action.Create, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException e)
@@ -189,6 +206,22 @@ namespace HR.Controllers
                 reco.sss = reco.Record_date.ToShortDateString();
                
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("employee record transaction", HR.Models.user.Action.edit, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -228,6 +261,22 @@ namespace HR.Controllers
                 dbcontext.SaveChanges();
                 dbcontext.Employee_records.Remove(model);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("employee record transaction", HR.Models.user.Action.delete, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -316,7 +365,23 @@ namespace HR.Controllers
                 record.name_state = nameof(check_status.Return_To_Review);
                 dbcontext.SaveChanges();
             }
-
+            //=================================check for alert==================================
+            var get_result_check = HR.Controllers.check.check_alert("employee record process", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+            if (get_result_check != null)
+            {
+                var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject + model.check_status, Subject = get_result_check.Message };
+                if (get_result_check.until != null)
+                {
+                    if (get_result_check.until.Value.Year != 0001)
+                    {
+                        inbox.until = get_result_check.until;
+                    }
+                }
+                ApplicationDbContext dbcontext = new ApplicationDbContext();
+                dbcontext.Alert_inbox.Add(inbox);
+                dbcontext.SaveChanges();
+            }
+            //===================================================================================
             return RedirectToAction("index");
         }
         public JsonResult Getalll(List<string> c)

@@ -1,0 +1,276 @@
+﻿    @using HR.Resource;
+    @{
+        ViewBag.Title = "EOS_report";
+        Layout = "~/Views/Shared/MainLayOut.cshtml";
+    }
+
+    <script language="javascript">
+    function changeSelection(value)
+    {
+
+      var length = document.getElementById("ch").options.length;
+      debugger
+      if (value == 0) {
+          for (var i = 1; i < length; i++) {
+              debugger
+              document.getElementById("ch").options[i].selected = "selected";
+          }
+      document.getElementById("ch").options[0].selected = "";
+      }
+
+
+
+    }
+    function full_job() {
+        debugger
+        var id = $("#employeeId").val();
+        if (id == "") {
+            $("#employee181").html("");
+            $("#employee181").select2("val", " ")
+            finalresult = "<option selected value='0' > Choose organiztion at first </option>";
+            $("#employee181").html(finalresult);
+            $("#employee181").select2("val", "0")
+        }
+        $.ajax({
+            type: "post",
+            url: "/Helper/getjob",
+            data: { "id": id },
+            success: function (result) {
+                debugger
+                var finalresult = "";
+                finalresult = "<option selected value='0' > Choose job </option>";
+                $.each(result, function (key, value) {
+
+                    finalresult += "<option value='" + value.ID + "' >" + value.Code + "</option>";
+
+                });
+                debugger
+                $("#employee181").html(finalresult);
+                $("#employee181").select2("val", "0")
+            },
+            error: function () {
+
+                $("#employee181").html(" ");
+                //$("#codeid").val("");
+            }
+        });
+    }
+
+    </script>
+    <div class="content-wrapper">
+
+
+
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="box">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    @using (Html.BeginForm("man_power_report_co", "man_power_report", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <section class="content-header">
+                            <h1 style=" margin-top 60px">
+                                ------
+                            </h1>
+                        </section>
+                        <input name="year_1" hidden value="" />
+                            <input name="organization_" hidden value="" />
+                            <input name="job_" hidden value="" />
+                            <input name="joblevel_" hidden value="" />
+                            <input name="jobtitle_" hidden value="" />
+                            <input name="List_Display" hidden value="" />
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+
+                                <div class="sec-nav">
+                                    <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+
+                                    <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Home")" class="create-btn"> @pers_2.Back</a></div>
+
+                                </div>
+                                <hr />
+
+                                @if (TempData["Message"] != null)
+                                {
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        @TempData["Message"]
+                                    </div>
+                                }
+
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @pers_2.years</span>
+                                        </label>
+                                        @Html.DropDownList("year_1", new SelectList(ViewBag.years, "ID", "Code"), new { @name = "year_1", @onchange = "changeSelection(this.value)", @data_placeholder = pers_2.years, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.organizationchart</span>
+                                        </label>
+                                        @Html.DropDownList("organization_", new SelectList(ViewBag.organ, "ID", "Code"), new { @name = "organization_",  @id = "employeeId", @data_placeholder = organ.organizationchart, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.JobLevelSetup</span>
+                                        </label>
+                                        @Html.DropDownList("job_", new SelectList(ViewBag.job_t, "ID", "Code"), new { @name = "joblevel_", @onchange = "changeSelection(this.value)", @data_placeholder = organ.JobLevelSetup, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.JobLevelSetup</span>
+                                        </label>
+                                        @Html.DropDownList("joblevel_", new SelectList(ViewBag.setup, "ID", "Code"), new { @name = "joblevel_", @onchange = "changeSelection(this.value)", @data_placeholder = organ.JobLevelSetup, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                   
+                                </div>
+
+                          
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.JobLevelSetup</span>
+                                        </label>
+                                        @Html.DropDownList("jobtitle_", new SelectList(ViewBag.sub, "ID", "Code"), new { @name = "jobtitle_", @onchange = "changeSelection(this.value)", @data_placeholder = organ.jobtitleSubclass, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @organ.selectcolumnstoDisplay
+                                        </label>
+                                        <select data_placeholder=@organ.selectcolumnstoDisplay name="List_Display" class="select2" multiple="multiple">
+                                            <option value="0">@pers_2.years </option>
+                                            <option value="1">@organ.organizationchart </option>
+                                            <option value="2">@organ.jobs </option>
+                                            <option value="3">@organ.JobLevelSetup</option>
+                                            <option value="4">@organ.jobtitleSubclass </option>
+                                            <option value="5">@organ.Currentjobs </option>
+                                            <option value="6">@organ.newjobs </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+
+
+
+
+    <script>
+
+$('select').select2({
+    minimumResultsForSearch: -1,
+    placeholder: function(){
+        $(this).data('placeholder');
+    }
+})
+    </script>
+
+    @section scripts{}
+
+
+    <style>
+        /*Create Page*/
+
+
+        .sec-nav {
+            z-index: 9999;
+            position: fixed;
+            top: 47px;
+            background: #faf9f8;
+            border-bottom: 1px solid #bebbb8;
+            display: block;
+            width: 100%;
+            left: 50px;
+            padding-left: 10px;
+            height: 60px;
+            line-height: 60px;
+        }
+
+            .sec-nav div {
+                display: inline-block;
+                padding: 5px 8px;
+                width: unset;
+                border: 0;
+                color: #000;
+                font-size: 16px;
+                height: 60px;
+            }
+
+                .sec-nav div:hover {
+                    background: #eee;
+                    color: #000;
+                }
+
+                    .sec-nav div:hover input {
+                        color: #000;
+                    }
+
+        .create-btn {
+            border: 0;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        .sec-nav div svg {
+            color: #2266e3;
+            font-size: 17px;
+        }
+
+        .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+            /*float: unset*/
+        }
+
+        label {
+            text-align: left;
+            font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+            color: #605e5c;
+            display: block;
+            margin-bottom: 0;
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .form-horizontal .form-group {
+            margin: 0 !important;
+        }
+
+        input {
+            height: 35px;
+            color: #000;
+        }
+
+            input:active {
+                border: 1px solid #2266e3;
+            }
+
+        .form-group .row > div {
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            margin-left: 15px;
+        }
+
+        .col-md-4 {
+            width: 20% !important;
+        }
+    </style>

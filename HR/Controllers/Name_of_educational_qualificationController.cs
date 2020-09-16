@@ -68,6 +68,25 @@ namespace HR.Controllers
                     record.Educate_Title = dbcontext.Educate_Title.FirstOrDefault(m => m.ID == model.Educate_Titleid);
                    var Name= dbcontext.Name_of_educational_qualification.Add(record);
                     dbcontext.SaveChanges();
+                    //=================================check for alert==================================
+
+                    var get_result_check = HR.Controllers.check.check_alert("qulification name", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+
+                    }
+                    //===================================================================================
                     if (command == "Submit")
                     {
                         return RedirectToAction("Create", "QualificationMajor", new { id = Name.ID });
@@ -222,6 +241,25 @@ namespace HR.Controllers
                 record.Code = model.Code;
                 record.Educate_Title = dbcontext.Educate_Title.FirstOrDefault(m => m.ID == model.Educate_Titleid);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("qulification name", HR.Models.user.Action.edit, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 if (command == "sub")
                 {
                     return RedirectToAction("link", "Name_of_educational_qualification", new { id = record.ID,tag="0" });
@@ -271,6 +309,25 @@ namespace HR.Controllers
             {
                  dbcontext.Name_of_educational_qualification.Remove(record);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("qulification name", HR.Models.user.Action.delete, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)

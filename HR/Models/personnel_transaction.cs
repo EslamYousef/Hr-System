@@ -111,10 +111,10 @@ namespace HR.Models
         public Position_status Position_status { get; set; } = Position_status.Active;
         public EOS_type EOS_reasons { get; set; } = EOS_type.On_poinsor;
 
-        public int default_cost_center_id { get; set; }
-        public int cost_center_id { get; set; }
-        public int default_shift_id { get; set; }
-        public int shift_id { get; set; }
+        public int? default_cost_center_id { get; set; }
+        public int? cost_center_id { get; set; }
+        public int? default_shift_id { get; set; }
+        public int? shift_id { get; set; }
 
     }
 }

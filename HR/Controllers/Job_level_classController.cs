@@ -72,6 +72,23 @@ namespace HR.Controllers
                     //var spe = dbcontext.Special_Allwonce_History.Add(special);
                     //dbcontext.SaveChanges();
                     /////
+                    //=================================check for alert==================================
+                    var get_result_check = HR.Controllers.check.check_alert("job level class", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+                    }
+                    //===================================================================================
                     if (command == "Submit")
                     {
                         return RedirectToAction("allowance", new { id = Job_level_class.ID ,type=type_allowance.job_level_class});
@@ -131,7 +148,26 @@ namespace HR.Controllers
                 record.representation_allowance_value = model.representation_allowance_value;
                 record.dedicated_allowence = model.dedicated_allowence;
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("job level class", HR.Models.user.Action.edit, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //===================================================================================
                 var spe = dbcontext.Special_Allwonce_History.FirstOrDefault(m => m.selectedID == record.ID&&m.type_allowance==type_allowance.job_level_class);
+
                 if (command == "Submit")
                 {
                     return RedirectToAction("allowance", new { id = record.ID,type=1 });
@@ -176,6 +212,24 @@ namespace HR.Controllers
              
                 dbcontext.Job_level_class.Remove(record);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("job level class", HR.Models.user.Action.delete, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)

@@ -21,6 +21,10 @@ using HR.Models.Vacations;
 using HR.Models.penalities.setup;
 using HR.Models.user;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
+using System.Configuration;
+using HR.Controllers;
+using System;
 
 namespace HR.Models
 {
@@ -41,16 +45,52 @@ namespace HR.Models
             return userIdentity;
         }
     }
+   static public class db_
+    {
+        public static string server_name { get; set; }
+        public static string data_base { get; set; }
+        public static string user_id { get; set; }
+        public static string pass_ { get; set; }
+        public  static string con { get; set; }
+         public static void fun()
+        {
+            var text = System.IO.File.ReadAllText(@"C:\conc.txt").Split('/');
+            db_.server_name = text[0];
+            db_.data_base = text[1];
+            db_.user_id = text[2];
+            db_.pass_ = text[3];
+            object[] array1 = new object[4] { db_.server_name, db_.data_base, db_.user_id, db_.pass_ };
+            var con2 = new SqlConnection(string.Format(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, array1)).ConnectionString;
+            db_.con = con2;
+            using (SqlConnection conn = new SqlConnection(db_.con))
+            {
+                try
+                {
+                    conn.Open();
+                }
+                catch(Exception)
+                {
+
+                }
+                // throws if invalid
+            }
+        }
+    }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
+           if(db_.con==null)
+            {
+                db_.fun();
+            }
+            this.Database.Connection.ConnectionString = db_.con;
         }
 
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+                return new ApplicationDbContext();
         }
         public DbSet<Country> Country { get; set; }
         public DbSet<Area> Area { get; set; }
@@ -366,6 +406,10 @@ namespace HR.Models
         public DbSet<group_with_permission> group_with_permission { get; set; }
         public DbSet<LeavesTransactionBalance> LeavesTransactionBalance { get; set; }
         public DbSet<LeavesMass_Transaction> LeavesMass_Transaction { get; set; }
+        public DbSet<Screen> Screen { get; set; }
+        public DbSet<notifications> notifications { get; set; }
+        public DbSet<Alert_inbox> Alert_inbox { get; set; }
+        public DbSet<date_alert_daily> date_alert_daily { get; set; }
 
     }
 

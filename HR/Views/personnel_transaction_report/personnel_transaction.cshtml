@@ -1,0 +1,353 @@
+﻿@model HR.Controllers.data_report
+@using HR.Resource;
+@{
+    ViewBag.Title = "EOS_report";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<script language="javascript">
+    function changeSelection(value)
+    {
+
+      var length = document.getElementById("ch").options.length;
+      debugger
+      if (value == 0) {
+          for (var i = 1; i < length; i++) {
+              debugger
+              document.getElementById("ch").options[i].selected = "selected";
+          }
+      document.getElementById("ch").options[0].selected = "";
+      }
+
+  }
+</script>
+<div class="content-wrapper">
+
+
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("personnel_transaction", "personnel_transaction_report", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <section class="content-header">
+                        <h1 style=" margin-top 60px">
+                            ------
+                        </h1>
+                    </section>
+                 
+                    
+                    
+                            <input name="em" hidden value="" />
+                            <input name="job_" hidden value="" />
+                            <input name="loaction_" hidden value="" />
+                            <input name="cadre_" hidden value="" />
+                            <input name="status" hidden value="" />
+                            <input name="unit_" hidden value="" />
+                            <input name="cost_" hidden value="" />
+                            <input name="shift_" hidden value="" />
+                            <input name="eos_resons_" hidden value="" />
+                            <input name="transaction_type_" hidden value="" />
+                            <input name="List_Display" hidden value="" />
+
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+
+                                <div class="sec-nav">
+                                    <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.create </button></div>
+
+                                    <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "Home")" class="create-btn"> @pers_2.Back</a></div>
+
+                                </div>
+                                <hr />
+
+                                @if (TempData["Message"] != null)
+                                {
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        @TempData["Message"]
+                                    </div>
+                                }
+
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @pers_2.employee</span>
+                                        </label>
+                                        @Html.DropDownList("em", new SelectList(ViewBag.empll, "ID", "Code"), new { @name = "em", @onchange = "changeSelection(this.value)", @data_placeholder = pers_2.employee, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.jobtitledetails</span>
+                                        </label>
+                                        @Html.DropDownList("job_", new SelectList(ViewBag.job_desc, "ID", "Code"), new { @name = "interV", @onchange = "changeSelection(this.value)", @data_placeholder = organ.jobtitledetails, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.Locationname</span>
+                                        </label>
+                                        @Html.DropDownList("loaction_", new SelectList(ViewBag.location_desc, "ID", "Code"), new { @name = "checkL", @onchange = "changeSelection(this.value)", @data_placeholder = organ.Locationname, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.cadrecode</span>
+                                        </label>
+                                        @Html.DropDownList("cadre_", new SelectList(ViewBag.cadre, "ID", "Code"), new { @name = "interV", @onchange = "changeSelection(this.value)", @data_placeholder = organ.cadrecode, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            <span> @organ.unitDescription</span>
+                                        </label>
+                                        @Html.DropDownList("unit_", new SelectList(ViewBag.Organization_Chart, "ID", "Code"), new { @name = "checkL", @onchange = "changeSelection(this.value)", @data_placeholder = organ.unitDescription, @class = "form-control select2", @multiple = "multiple" })
+                                    </div>
+                                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-4">
+                            <label>
+                                <span> @Payroll.CostCenters</span>
+                            </label>
+                            @Html.DropDownList("cost_", new SelectList(ViewBag.cost, "ID", "Code"), new { @name = "interV", @onchange = "changeSelection(this.value)", @data_placeholder = Payroll.CostCenters, @class = "form-control select2", @multiple = "multiple" })
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                <span> @pers_2.shiftsetup</span>
+                            </label>
+                            @Html.DropDownList("shift_", new SelectList(ViewBag.shift, "ID", "Code"), new { @name = "checkL", @onchange = "changeSelection(this.value)", @data_placeholder = pers_2.shiftsetup, @class = "form-control select2", @multiple = "multiple" })
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                @pers_2.Transactiontype
+                            </label>
+                            @Html.EnumDropDownListFor(m => m.trans_type, new { @data_placeholder = pers_2.Transactiontype, @class = "select2", @multiple = "multiple", @name = "transaction_type_" })
+
+
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                @pers_2.EOStype
+                            </label>
+                            @Html.EnumDropDownListFor(m => m.EOS_reson, new { @data_placeholder = pers_2.EOStype, @class = "select2", @multiple = "multiple", @name = "eos_resons_" })
+
+
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                @organ.status
+                            </label>
+                            <select data_placeholder=@organ.status name="status" class="select2" multiple="multiple">
+                                <option value="1">created </option>
+                                <option value="4">rejected </option>
+                                <option value="3">accepted</option>
+                                <option value="7">closed </option>
+                                <option value="2">return to review</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.requestdate @Basic.from
+                                        </label>
+                                        @Html.EditorFor(m => m.trans_date_from, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.requestdate @Basic.to
+                                        </label>
+                                        @Html.EditorFor(m => m.trans_date_to, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.EffectiveDate @Basic.from
+                                        </label>
+                                        @Html.EditorFor(m => m.effective_date_from, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.EffectiveDate @Basic.to
+                                        </label>
+                                        @Html.EditorFor(m => m.effective_date_to, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.Endofservicedate @Basic.from
+                                        </label>
+                                        @Html.EditorFor(m => m.end_of_Service_date_from, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.Endofservicedate @Basic.to
+                                        </label>
+                                        @Html.EditorFor(m => m.end_of_Service_date_to, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.Lasworkingdate @Basic.from
+                                        </label>
+                                        @Html.EditorFor(m => m.effective_date_from, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>
+                                            @pers_2.Lasworkingdate @Basic.to
+                                        </label>
+                                        @Html.EditorFor(m => m.effective_date_to, new { htmlAttributes = new { @type = "date", @class = "form-control" } })
+                                    </div>
+
+                                </div>
+                              
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <label>
+                                            @organ.selectcolumnstoDisplay
+                                        </label>
+                                        <select data_placeholder=@organ.selectcolumnstoDisplay name="List_Display" class="select2" multiple="multiple">
+                                            <option value="0">@pers_2.TransactionDate</option>
+                                            <option value="1">@pers_2.EffectiveDate</option>
+                                            <option value="2">@pers_2.Endofservicedate</option>
+                                            <option value="3">@pers_2.Lasworkingdate </option>
+                                            <option value="4">@pers_2.employee </option>
+                                            <option value="5">@pers_2.EOS_reasons </option>
+                                            <option value="6">@pers_2.Transactiontype </option>
+                                            <option value="7">@pers_2.status</option>
+                                            <option value="8">@organ.jobtitledetails </option>
+                                            <option value="9">@organ.Locationname </option>
+                                            <option value="10">@organ.cadrecode </option>
+                                            <option value="11">@organ.unitDescription</option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+
+
+<script>
+
+$('select').select2({
+    minimumResultsForSearch: -1,
+    placeholder: function(){
+        $(this).data('placeholder');
+    }
+})
+</script>
+
+@section scripts{}
+
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

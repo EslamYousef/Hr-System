@@ -65,6 +65,25 @@ namespace HR.Controllers
                     record.Main_Educate_body = dbcontext.Main_Educate_body.FirstOrDefault(m => m.ID == model.Main_Educate_bodyid);
                     dbcontext.Sub_educational_body.Add(record);
                     dbcontext.SaveChanges();
+                    //=================================check for alert==================================
+
+                    var get_result_check = HR.Controllers.check.check_alert("qulification sub provider", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+
+                    }
+                    //===================================================================================
                     return RedirectToAction("Index");
 
                 }
@@ -114,6 +133,25 @@ namespace HR.Controllers
                 record.Code = model.Code;
                 record.Main_Educate_body = dbcontext.Main_Educate_body.FirstOrDefault(m => m.ID == model.Main_Educate_bodyid);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("qulification sub provider", HR.Models.user.Action.edit, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -153,6 +191,25 @@ namespace HR.Controllers
             {
                dbcontext.Sub_educational_body.Remove(record);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("qulification sub provider", HR.Models.user.Action.delete, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)

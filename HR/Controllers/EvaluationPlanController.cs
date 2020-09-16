@@ -62,7 +62,25 @@ namespace HR.Controllers
             try
             {
                 var obj = reposatoryEvaluationplan.Remove(id);
-                if (obj) { TempData["Message"] = HR.Resource.organ.delete; return RedirectToAction("index"); }
+                if (obj) { TempData["Message"] = HR.Resource.organ.delete;
+                    //=================================check for alert==================================
+                    var get_result_check = HR.Controllers.check.check_alert("evalution plan card", HR.Models.user.Action.delete, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+                    }
+                    //==================================================================================
+                    return RedirectToAction("index"); }
                 else { TempData["Message"] = HR.Resource.pers_2.Faild; return View(); }
             }
             catch (Exception) { TempData["Message"] = HR.Resource.pers_2.Faild; return RedirectToAction("index"); }
@@ -107,8 +125,23 @@ namespace HR.Controllers
                     var obj= reposatoryEvaluationplan.AddOne(model);
 
                     if (obj!=null)
-
                     {
+                        //=================================check for alert==================================
+                        var get_result_check = HR.Controllers.check.check_alert("evalution plan card", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+                        if (get_result_check != null)
+                        {
+                            var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                            if (get_result_check.until != null)
+                            {
+                                if (get_result_check.until.Value.Year != 0001)
+                                {
+                                    inbox.until = get_result_check.until;
+                                }
+                            }
+                            ApplicationDbContext dbcontext = new ApplicationDbContext();
+                            dbcontext.Alert_inbox.Add(inbox);
+                            dbcontext.SaveChanges();
+                        }
                         var ID_sch = form["ID_sch"].Split(',');
                         var period_start = form["period_start"].Split(',');
                         var period_End = form["period_End"].Split(',');
@@ -130,6 +163,7 @@ namespace HR.Controllers
                                 var eva_comp = reposatoryEvaluationplan.AddOneschedule(elementAndComp);
                             }
                         }
+
                         if (Command == "tide")
                         {
                             return RedirectToAction("Tide_Emp_With_performance", "EvaluationPlan", new { performance_ID = obj.ID });
@@ -216,6 +250,23 @@ namespace HR.Controllers
                                     var eva_comp = reposatoryEvaluationplan.AddOneschedule(elementAndComp);
                                 }
                             }
+                            //=================================check for alert==================================
+                            var get_result_check = HR.Controllers.check.check_alert("evalution plan card", HR.Models.user.Action.edit, HR.Models.user.type_field.form);
+                            if (get_result_check != null)
+                            {
+                                var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                                if (get_result_check.until != null)
+                                {
+                                    if (get_result_check.until.Value.Year != 0001)
+                                    {
+                                        inbox.until = get_result_check.until;
+                                    }
+                                }
+                                ApplicationDbContext dbcontext = new ApplicationDbContext();
+                                dbcontext.Alert_inbox.Add(inbox);
+                                dbcontext.SaveChanges();
+                            }
+                            //==================================================================================
                             if (Command == "tide")
                             {
                                 return RedirectToAction("editTide_Emp_With_performance", "EvaluationPlan", new { ID = obj.ID });

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<HR.Models.user.Alert_inbox>
+
+@using HR.Resource;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+<script>
+    function markread(ID) {
+        $.ajax({
+            type: "post",
+            url: "/Home/MARK_RED",
+            data: { "id": ID },
+            success: function (result) {
+                debugger
+                if (result == true)
+                {
+                    debugger
+                    var tr = $("#" + ID);
+                    var td = tr.children()[3].children;
+                    td[0].remove();
+                }
+                else
+                {
+                    alert("error");
+                }
+                
+            },
+            error: function () {
+
+                $("#empname2").val(" ");
+            }
+        });
+    }
+    function markallread(ID) {
+        $.ajax({
+            type: "post",
+            url: "/Home/MARK_all_as_RED",
+            data: { "userid": ID },
+            success: function (result) {
+                debugger
+                if (result == true) {
+                    debugger
+                    var button = $("#read_all").remove();
+                    var trs = $("#BO tr");
+                    $.each(trs, function (key, value) {
+                        debugger
+                        var td = value.children[3];
+                        var inp = td.children;
+                        $.each(inp, function (key2, value2) {
+                            value2.remove();
+                        });
+                    });
+                   
+                }
+                else
+                {
+                    alert("error");
+                }
+
+            }
+        });
+    }
+</script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <p class="lead">
+               @if (Model.Where(m=>m.Read==false).Count()> 0)
+               {
+                <input id="read_all" class="btn btn-blue" onclick="markallread('@Model.First().send_to_user_id')" type="button" value='@pers_2.markallAsRead' />
+
+               }
+                   
+                 </p>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["Message"]
+                    </div>
+                }
+                <section style="margin-top:40px;margin-left:50%" class="content-header">
+                    <h1>
+                        @pers_2.alertinbox
+                    </h1>
+                </section>
+                <table id="categories" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>@pers_2.sendfrom</th>
+                            <th>@pers_2.title</th>
+                            <th>@pers_2.meessage</th>
+                         
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="BO">
+                        @foreach (var item in Model)
+                        {
+
+                            <tr id="@item.ID">
+                                <td>@item.send_from_user_id</td>
+                                <td>@item.title</td>
+                                <td>@item.Subject</td>
+                            @if (item.Read == false)
+                            {
+                                <td>
+                                    <input class="btn btn-blue" onclick="markread(@item.ID)" type="button" value='@pers_2.markAsRead' />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    
+                                </td>
+                            }
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- page script -->
+<script>
+    var $ = jQuery;
+
+    $(document).ready(function () {
+        $('#categories').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "order" : 1
+        });
+    });
+</script>
+
+@section scripts{}
+
+<style>
+    table {
+        margin-top: 70px;
+        border: 1px solid #ddd;
+        overflow-y: auto;
+        white-space: nowrap;
+    }
+
+        table thead {
+            border-bottom: 3px solid #bbb;
+        }
+
+    .create-btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #000;
+    }
+
+        .create-btn svg {
+            color: #0d62aa;
+        }
+</style>

@@ -1,5 +1,6 @@
 ﻿using HR.Models;
 using HR.Models.Infra;
+using HR.Models.user;
 using HR.Models.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
@@ -90,7 +91,8 @@ namespace HR.Controllers
                     Position_transaction = statis,Approved_date = statis,Memo_date = statis,Resolution_date = statis,
                     job_descId="0",Job_level_gradeId="0",Location_descId="0",Default_location_descId="0",Organization_ChartId="0",SlotdescId="0",
                     Transaction_type=transaction_type.assignment,transaction_date=DateTime.Now.Date,Effective_date=DateTime.Now.Date
-                };
+                    ,cost_center_id=0,shift_id=0
+               };
                 var mymodel = new TRANS_VM {personnel_transaction=vm,selected_employee=0 };
                 //    var PositionInformation = new Position_Information();
                 return View(mymodel);
@@ -269,6 +271,22 @@ namespace HR.Controllers
                     //information.Memo_date = model.Memo_date;
                     //information.Resolution_date = model.Resolution_date;
                     dbcontext.SaveChanges();
+                    //=================================check for alert==================================
+                    var get_result_check = HR.Controllers.check.check_alert("personnel transaction", HR.Models.user.Action.Create, type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+                    }
+                    //==================================================================================
 
                     //if (command == "Submit")
                     //{
@@ -465,6 +483,22 @@ namespace HR.Controllers
                 ////////////////////////////////////////////////////////////////////////
                 ////////////////////////////////////////////////////////////////////////
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("personnel transaction", HR.Models.user.Action.edit, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 return RedirectToAction("index");
             }
             catch (Exception e)
@@ -499,7 +533,22 @@ namespace HR.Controllers
                 var status = request.status;
                 dbcontext.personnel_transaction.Remove(request);
                 dbcontext.SaveChanges();
-
+                //=================================check for alert==================================
+                var get_result_check = HR.Controllers.check.check_alert("personnel transaction", HR.Models.user.Action.delete, type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.GetUserId(), send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+                }
+                //==================================================================================
                 //dbcontext.status.Remove(status);
                 //dbcontext.SaveChanges();
 
@@ -614,7 +663,23 @@ namespace HR.Controllers
                 record.name_state = nameof(check_status.Return_To_Review);
                 dbcontext.SaveChanges();
             }
-
+            //=================================check for alert==================================
+            var get_result_check = HR.Controllers.check.check_alert("personnel transaction process", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+            if (get_result_check != null)
+            {
+                var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject + model.check_status, Subject = get_result_check.Message };
+                if (get_result_check.until != null)
+                {
+                    if (get_result_check.until.Value.Year != 0001)
+                    {
+                        inbox.until = get_result_check.until;
+                    }
+                }
+                ApplicationDbContext dbcontext = new ApplicationDbContext();
+                dbcontext.Alert_inbox.Add(inbox);
+                dbcontext.SaveChanges();
+            }
+            //===================================================================================
             return RedirectToAction("index");
         }
         public JsonResult Getalll()

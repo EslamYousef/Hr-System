@@ -273,6 +273,7 @@ namespace HR.Controllers
                       var user=  await UserManager.FindByNameAsync(model.UserName);
                         if(user.active==false)
                         {
+                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                             return View("Lockout");
                         }
                         else
@@ -350,7 +351,7 @@ namespace HR.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult all()
         {
-            var C_ID = User.Identity.GetUserId();
+            var C_ID = User.Identity.GetUserId();         
             var users = dbcontext.Users.Where(m=>m.Id!= C_ID).ToList();
             return View(users);
         }

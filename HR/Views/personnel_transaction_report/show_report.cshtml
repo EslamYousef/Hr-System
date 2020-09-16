@@ -1,0 +1,302 @@
+﻿@model HR.Controllers.report_tran
+@using HR.Resource;
+@{
+    ViewBag.Title = "show_report";
+
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+
+<script type="text/javascript">
+		jQuery( document ).ready( function( $ ) {
+			var $table4 = jQuery( "#table-4" );
+			$table4.DataTable( {
+				dom: 'Bfrtip',
+				buttons: [
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5',
+				]
+			} );
+		});
+		//function hiddeenn(th) {
+		//    var v = ["1", "2", "3"]
+		//    $.each(v, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").show();
+		//    })
+		//    debugger
+		//    var valu = th.val();
+		//    $.each(valu, function (key, val) {
+		//        debugger
+		//        var y = $("#table-4 td:nth-child(" + val + "),th:nth-child(" + val + ")").remove();
+		//        var t = 0;
+		//    })
+
+		//    var i = 0;
+		//}
+</script>
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="sec-nav">
+                    <div>
+                        <i class="fas fa-undo"></i><a style="" href="@Url.Action("personnel_transaction", "personnel_transaction_report")" class="create-btn"> @pers_2.Back</a>
+                    </div>
+                </div>
+                <div style="margin-top:60px">
+
+                </div>
+                <table class="table table-bordered datatable" id="table-4">
+                    <thead style="margin-right:15px">
+                        <tr>
+                            <th style="width:40px">
+                                @pers_2.numberreq
+                            </th>
+                            @if (Model.flag[0])
+                            {
+                                <th style="width:40px">@pers_2.TransactionDate</th>
+                            }
+                            @if (Model.flag[1])
+                            {
+                                <th style="width:40px">@pers_2.EffectiveDate</th>
+                            }
+
+                            @if (Model.flag[2])
+                            {
+                                <th style="width:40px">@pers_2.Endofservicedate</th>
+                            }
+                            @if (Model.flag[3])
+                            {
+                                <th style="width:40px">@pers_2.Lasworkingdate</th>
+                            }
+
+                            @if (Model.flag[4])
+                            {
+                                <th style="width:40px">@pers_2.employee</th>
+                            }
+                            @if (Model.flag[5])
+                            {
+                                <th style="width:40px">@pers_2.EOS_reasons</th>
+                            }
+                            @if (Model.flag[6])
+                            {
+                                <th style="width:40px">@pers_2.Transactiontype</th>
+                            }
+                            @if (Model.flag[7])
+                            {
+                                <th style="width:30px">@pers_2.status</th>
+                            }
+                            @if (Model.flag[8])
+                            {
+                                <th style="width:40px">@organ.jobtitledetails</th>
+                            }
+
+                            @*@if (Model.flag[9])
+                            {
+                                <th style="width:40px">@organ.Locationname</th>
+                            }*@
+                            @if (Model.flag[10])
+                            {
+                                <th style="width:40px">@organ.cadrecode</th>
+                            }
+                            @if (Model.flag[11])
+                            {
+                                <th style="width:40px">@organ.unitDescription</th>
+                            }
+                           
+
+                        </tr>
+                    </thead>
+                    <tbody style="margin-right:15px">
+                        @foreach (var item in Model.my_list )
+                        {
+                            <tr>
+                                <td style="width:40px">
+                                    @item.Number
+                                </td>
+                                @if (Model.flag[0])
+                                {
+                                    <td style="width:40px">@item.transaction_date.ToString("dd/MM/yyyy")</td>
+                                }
+                                @if (Model.flag[1])
+                                {
+                                    <td style="width:40px">@item.Effective_date.ToString("dd/MM/yyyy")</td>
+                                }
+
+                                @if (Model.flag[2])
+                                {
+
+                                    <td style="width:40px">@item.End_of_service_date.ToString("dd/MM/yyyy")</td>
+
+
+                                }
+                                @if (Model.flag[3])
+                                {
+
+                                    <td style="width:40px">@item.Last_working_date.ToString("dd/MM/yyyy")</td>
+
+
+                                }
+
+                                @if (Model.flag[4])
+                                {
+
+                                    <td style="width:40px">@item.Employee.Full_Name</td>
+
+                                }
+                                @if (Model.flag[5])
+                                {
+
+                                    <td style="width:40px"> @item.EOS_reasons</td>
+
+                                }
+                                @if (Model.flag[6])
+                                {
+
+                                    <td style="width:40px">@item.Transaction_type</td>
+
+                                }
+                                @if (Model.flag[7])
+                                {
+
+                                    <td style="width:40px">@item.status.statu</td>
+
+                                }
+                                @if (Model.flag[8])
+                                {
+
+                                    <td style="width:40px">@item.job_title_cards.name</td>
+
+                                }
+
+                                @*@if (Model.flag[9])
+                                {
+
+                                    <td style="width:40px">@item.work_location.Name</td>
+
+                                }*@
+                                @if (Model.flag[10])
+                                {
+
+                                    <td style="width:40px">@item.job_level_setup.Name</td>
+
+                                }
+                                @if (Model.flag[11])
+                                {
+
+                                    <td style="width:40px">@item.Organization_Chart.unit_Description</td>
+
+                                }
+                               
+                                
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

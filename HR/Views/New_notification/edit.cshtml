@@ -1,0 +1,318 @@
+﻿@model HR.Models.user.notifications
+@using HR.Resource;
+@{
+    ViewBag.Title = "edit";
+    Layout = "~/Views/Shared/MainLayOut.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<script>
+    $(function () {
+
+        get_fields();
+    });
+
+    function get_fields() {
+        debugger
+        $("#country3").empty();
+        $("#country3").select2("val", "0");
+
+
+        var type = parseInt($("#country1").val());
+
+        var parent =$("#country2").val();
+
+        if (type == 2 || type == 3) {
+
+            $.ajax({
+                type: "post",
+                url: "/New_notification/get_fields",
+                data: { "parent": parent },
+                success: function (result) {
+                    debugger
+                    var finalresult = "<option value='0' > Choose field name </option>";
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult += "<option value='" + value.name + "' >" + value.name + "</option>";
+                    });
+                    $("#country3").html(finalresult);
+                    $("#country3").select2("val",'@Model.Field');
+                 
+                },
+                error: function () {
+
+
+                }
+            });
+        }
+    }
+
+    function get_sub_module()
+    {
+        var C1 = document.getElementById("C1");
+        $("#country3").empty();
+        var module = parseInt($("#Country1").val());
+        if (module > 0 && C1.checked == true)
+        {
+            remove_disabled_from_sub_module();
+            get_forms();
+        }
+        else
+        {
+            $("#Country2").attr("disabled", "true")
+            $("#Country3").attr("disabled", "true")
+        }
+    }
+    function get_forms()
+    {
+        $("#country3").select2("val", "0");
+        $("#country3").removeAttr("disabled");
+        $("#country3").empty();
+        var module = parseInt($("#Country1").val());
+        var sub_module = parseInt($("#Country2").val());
+        var C2 = document.getElementById("C2");
+        var finalresult = "";
+        if(module>0&&sub_module>0&&C2.checked==true)
+        {
+            $.ajax({
+                type: "post",
+                url: "/permission/getforms",
+                data: { "module": module, "sub_module": sub_module },
+                success: function (result) {
+                    var finalresult = "<option value='0' > Choose from </option>";
+                    $.each(result, function (key, value) {
+                        debugger
+                        finalresult += "<option value='" + value.ID + "' >" + "[  " + value.Permission_Name + " ]</option>";
+                    });
+                    $("#country3").html(finalresult);
+                },
+                error: function () {
+
+                    $("#countryname1").val(" ");
+                }
+            });
+        }
+    }
+
+
+</script>
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            @pers_2.addnotification
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @using (Html.BeginForm("edit", "New_notification", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div class="sec-nav">
+                        <div><i class="far fa-save"></i><button type="submit" class="create-btn">@organ.Save </button></div>
+                        <div><i class="fas fa-undo"></i><a style="" href="@Url.Action("index", "New_notification")" class="create-btn"> @pers_2.Back</a></div>
+
+                    </div>
+                    @Html.HiddenFor(m=>Model.ID)
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        <hr />
+
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @TempData["Message"]
+                            </div>
+                        }
+                        <section style="margin-top:40px" class="content-header">
+                            <h1>
+                                @pers_2.notificationsetup
+                            </h1>
+                        </section>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.type </span>
+                                </label>
+                                @Html.EnumDropDownListFor(Model => Model.type_field, pers_2.type, new { @OnChange = "get_fields()", @class = "select2", @id = "country1" })
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.screenname </span>
+                                </label>
+                                @Html.DropDownListFor(m => m.Form, new SelectList(ViewBag.screen, "code", "code"), pers_2.screenname, new { @OnChange = "get_fields()", @class = "select2", @id = "country2" })
+
+                            </div>
+                          
+                            <div class="col-md-4">
+                                <label>
+                                    <span> @pers_2.fieldname </span>
+                                </label>
+                                <select class="select2" id="country3" name="feild">
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.number of day
+                                </label>
+                                @Html.EditorFor(model => model.number, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.event_ </span>
+                                </label>
+                                @Html.EnumDropDownListFor(m => m.Action, pers_2.event_, new { @class = "select2" })
+                            </div>
+                    
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label style="color:red">
+                                    <span> @pers_2.sendto </span>
+                                </label>
+                                @Html.DropDownListFor(m => m.send_to_ID_user, new SelectList(ViewBag.users, "ID", "code"), pers_2.sendto, new { @class = "select2" })
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <label >
+                                    @pers_2.until
+                                </label>
+                                @Html.EditorFor(model => model.until, new { htmlAttributes = new { @class = "form-control", @type = "date", id = "Requset_date_D" } })
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.title
+                                </label>
+                                @Html.EditorFor(Model => Model.Subject, new { @class = "form-control", @type = "text" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    @pers_2.subject
+                                </label>
+                                @Html.TextAreaFor(Model => Model.Message, new { @class = "form-control", @type = "text" })
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+
+
+@section scripts{}
+
+<style>
+    /*Create Page*/
+
+
+    .sec-nav {
+        z-index: 9999;
+        position: fixed;
+        top: 47px;
+        background: #faf9f8;
+        border-bottom: 1px solid #bebbb8;
+        display: block;
+        width: 100%;
+        left: 50px;
+        padding-left: 10px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+        .sec-nav div {
+            display: inline-block;
+            padding: 5px 8px;
+            width: unset;
+            border: 0;
+            color: #000;
+            font-size: 16px;
+            height: 60px;
+        }
+
+            .sec-nav div:hover {
+                background: #eee;
+                color: #000;
+            }
+
+                .sec-nav div:hover input {
+                    color: #000;
+                }
+
+    .create-btn {
+        border: 0;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .sec-nav div svg {
+        color: #2266e3;
+        font-size: 17px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        /*float: unset*/
+    }
+
+    label {
+        text-align: left;
+        font: normal normal 400 12px/18px 'Segoe UI',tahoma,sans-serif;
+        color: #605e5c;
+        display: block;
+        margin-bottom: 0;
+        max-width: 220px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    input {
+        height: 35px;
+        color: #000;
+    }
+
+        input:active {
+            border: 1px solid #2266e3;
+        }
+
+    .form-group .row > div {
+        margin-bottom: 10px;
+    }
+
+    .content-wrapper {
+        margin-left: 15px;
+    }
+
+    .col-md-4 {
+        width: 20% !important;
+    }
+</style>

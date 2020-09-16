@@ -24,7 +24,6 @@ namespace HR.Controllers
             {
                 var model = new Report_JobVM();
                 var Alljobs = dbcontext.job_title_cards.ToList();
-
                 ViewBag.jobs = Alljobs.Select(m => new { Code = m.Code + "------[" + m.name + ']', ID = m.ID });
                 ViewBag.codes = Alljobs.Select(m => new { m.Code });
                 ViewBag.names = Alljobs.Select(m => new { m.name });

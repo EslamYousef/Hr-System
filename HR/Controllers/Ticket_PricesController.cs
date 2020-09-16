@@ -79,8 +79,27 @@ namespace HR.Controllers
                         record.To_Air_port = dbcontext.Air_ports.FirstOrDefault(m => m.ID == record.To_air_port_Idd);
                         dbcontext.TicketPrice.Add(record);
                         dbcontext.SaveChanges();
+
                     }
-                    
+                    //=================================check for alert==================================
+
+                    var get_result_check = HR.Controllers.check.check_alert("tickets prices", HR.Models.user.Action.Create, HR.Models.user.type_field.form);
+                    if (get_result_check != null)
+                    {
+                        var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                        if (get_result_check.until != null)
+                        {
+                            if (get_result_check.until.Value.Year != 0001)
+                            {
+                                inbox.until = get_result_check.until;
+                            }
+                        }
+                        ApplicationDbContext dbcontext = new ApplicationDbContext();
+                        dbcontext.Alert_inbox.Add(inbox);
+                        dbcontext.SaveChanges();
+
+                    }
+                    //===================================================================================
                     return RedirectToAction("Index");
                 }
                 else
@@ -149,6 +168,25 @@ namespace HR.Controllers
                 record.From_Air_port = dbcontext.Air_ports.FirstOrDefault(m => m.ID == record.From_air_port_Idd);
                 record.To_Air_port = dbcontext.Air_ports.FirstOrDefault(m => m.ID == record.To_air_port_Idd);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("tickets prices", HR.Models.user.Action.edit, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
@@ -188,6 +226,25 @@ namespace HR.Controllers
             {
                 dbcontext.TicketPrice.Remove(record);
                 dbcontext.SaveChanges();
+                //=================================check for alert==================================
+
+                var get_result_check = HR.Controllers.check.check_alert("tickets prices", HR.Models.user.Action.delete, HR.Models.user.type_field.form);
+                if (get_result_check != null)
+                {
+                    var inbox = new Models.user.Alert_inbox { send_from_user_id = User.Identity.Name, send_to_user_id = get_result_check.send_to_ID_user, title = get_result_check.Subject, Subject = get_result_check.Message };
+                    if (get_result_check.until != null)
+                    {
+                        if (get_result_check.until.Value.Year != 0001)
+                        {
+                            inbox.until = get_result_check.until;
+                        }
+                    }
+                    ApplicationDbContext dbcontext = new ApplicationDbContext();
+                    dbcontext.Alert_inbox.Add(inbox);
+                    dbcontext.SaveChanges();
+
+                }
+                //===================================================================================
                 return RedirectToAction("index");
             }
             catch (DbUpdateException)
